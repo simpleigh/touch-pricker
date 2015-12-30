@@ -8,8 +8,9 @@
   "bugs": "https://github.com/simpleigh/stedman-pricker/issues",
   "devDependencies": {
     "gulp": "^3.9.0",
-    "gulp-shell": "^0.5.1",
     "gulp-tslint": "^4.2.2",
+    "gulp-typescript": "^2.10.0",
+    "tslint": "^3.2.1",
     "typescript": "^1.7.5"
   }
 }

@@ -1,17 +1,16 @@
 var gulp = require('gulp'),
-    path = require('path'),
-    shell = require('gulp-shell'),
-    tslint = require('gulp-tslint');
+    tslint = require('gulp-tslint'),
+    ts = require('gulp-typescript'),
+    tsProject = ts.createProject('tsconfig.json');
 
-gulp.task('default', shell.task(path.join('bin', 'tsc')));
-
-gulp.task('tslint', function () {
-    gulp.src('src/**/*.ts')
+gulp.task('default', function () {
+    var tsResult = tsProject.src()
         .pipe(tslint())
         .pipe(tslint.report('verbose', {
             emitError: false,
             summarizeFailureOutput: true
-        }));
-});
+        }))
+        .pipe(ts(tsProject));
 
-gulp.task('watch', shell.task(path.join('bin', 'tsc') + ' --watch'));
+    return tsResult.js.pipe(gulp.dest('src'));
+});
