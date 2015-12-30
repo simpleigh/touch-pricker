@@ -1,6 +1,7 @@
 /*global: require*/
 
-var gulp = require('gulp'),
+var del = require('del'),
+    gulp = require('gulp'),
     plugins = require('gulp-load-plugins')(),
     tsProject = plugins.typescript.createProject('tsconfig.json', {
         sortOutput: true
@@ -28,4 +29,9 @@ gulp.task('scripts', function () {
 gulp.task('watch', ['default'], function () {
     'use strict';
     gulp.watch('src/**/*.ts', ['default']);
+});
+
+gulp.task('clean', function () {
+    'use strict';
+    del('build');
 });
