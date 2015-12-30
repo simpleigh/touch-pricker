@@ -36,6 +36,15 @@ gulp.task('tests', ['scripts'], function (done) {
     }, done).start();
 });
 
+gulp.task('tests-ie', ['scripts'], function (done) {
+    new karma.Server({
+        configFile: path.join(__dirname, 'karma.conf.js'),
+        browsers: ['IE'],
+        autoWatch: false,
+        singleRun: true
+    }, done).start();
+});
+
 gulp.task('watch', ['scripts'], function () {
     'use strict';
     gulp.watch('src/**/*.ts', ['default']);
