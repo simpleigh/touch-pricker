@@ -1,0 +1,9 @@
+#!/usr/bin/env /bin/bash
+
+cd `dirname "$0"`
+
+if [[ ! -x ../node_modules/.bin/tsc ]]; then
+    echo "Please run 'npm install' first"
+else
+    ../node_modules/.bin/tsc ${*}
+fi
