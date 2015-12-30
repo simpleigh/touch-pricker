@@ -6,7 +6,7 @@ enum Bells {
     Septuples = 15,
 }
 
-var symbols: string = '1234567890ETABC';
+const symbols: string = '1234567890ETABC';
 
 type Bell = number;
 type Row = Bell[];
@@ -35,7 +35,7 @@ abstract class Six {
     protected abstract transposeFrontThree(previous: Row): Six;
 
     private transposeMiddleBells(previous: Row): Six {
-        var position: number;
+        let position: number;
 
         // Odd places
         for (position = 4; position < this.row.length; position += 2) {
@@ -44,19 +44,19 @@ abstract class Six {
 
         // Even places
         for (position = 5; position < this.row.length; position += 2) {
-            this.row[position - 2] = previous[position]
+            this.row[position - 2] = previous[position];
         }
 
         return this;
     }
 
     private transposeCall(previous: Row, call: Call): Six {
-        var n: number = this.row.length - 1;
-        if (call == Call.Plain) {
+        let n: number = this.row.length - 1;
+        if (call === Call.Plain) {
             this.row[n - 1] = previous[n];
         } else {
             this.row[n - 3] = previous[n - 2];
-            if (call == Call.Bob) {
+            if (call === Call.Bob) {
                 this.row[n - 1] = previous[n - 1];
                 this.row[n] = previous[n];
             } else {
@@ -92,9 +92,9 @@ interface RowRenderer {
 
 class MbdPrickerRowRenderer implements RowRenderer {
     print(row: number[], call?: Call, sixNumber?: number): string {
-        var rowIndex: number,
-            bellRenderer = new TextBellRenderer(),
-            callRenderer = new MbdPrickerCallRenderer(),
+        let rowIndex: number,
+            bellRenderer: BellRenderer = new TextBellRenderer(),
+            callRenderer: CallRenderer = new MbdPrickerCallRenderer(),
             output: string = '';
 
         for (rowIndex = 0; rowIndex < row.length; rowIndex += 1) {
@@ -133,9 +133,9 @@ class MbdPrickerCallRenderer implements CallRenderer {
             + '" onclick="c('
             + sixNumber
             + ')">'
-            + (call == Call.Bob ? ' - ' : '')
-            + (call == Call.Single ? ' s ' : '')
-            + '</span>'
+            + (call === Call.Bob ? ' - ' : '')
+            + (call === Call.Single ? ' s ' : '')
+            + '</span>';
     }
 }
 
@@ -145,10 +145,8 @@ class Pricker {
     calls: Call[];
     sixes: Six[];
 
-    private symbols = '1234567890ETABC';
-
     private readRow(row: string, bells: Bells): Row {
-        var bellNumber: number,
+        let bellNumber: number,
             bellChar: string,
             charToNumberTable: number[],
             numberUsedTable: boolean[],
@@ -156,7 +154,7 @@ class Pricker {
             output: number[] = [];
 
         for (bellNumber = 0; bellNumber < bells; bellNumber += 1) {
-            bellChar = this.symbols[bellNumber].toLowerCase();
+            bellChar = symbols[bellNumber].toLowerCase();
             charToNumberTable[bellChar] = bellNumber;
             numberUsedTable[bellNumber] = false;
         }
@@ -190,14 +188,14 @@ class Pricker {
     }
 }
 
-var row: Row = [1, 2, 0, 3, 4, 5, 6, 7, 8, 9, 10];
-var renderer: RowRenderer = new MbdPrickerRowRenderer();
-var i: number;
+let row: Row = [1, 2, 0, 3, 4, 5, 6, 7, 8, 9, 10];
+let renderer: RowRenderer = new MbdPrickerRowRenderer();
+let i: number;
 
 document.write(renderer.print(row));
 for (i = 0; i < 22; i += 1) {
-    var six: Six;
-    var call: Call = i % 2 ? Call.Plain : Call.Bob
+    let six: Six,
+        call: Call = i % 2 ? Call.Plain : Call.Bob;
     six = i % 2 ? new Quick(row, call) : new Slow(row, call);
     document.write(renderer.print(six.row, call, i + 1));
     row = six.row;
