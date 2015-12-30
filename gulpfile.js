@@ -45,9 +45,10 @@ gulp.task('tests-ie', ['scripts'], function (done) {
     }, done).start();
 });
 
-gulp.task('watch', ['scripts'], function () {
+gulp.task('watch', ['default'], function () {
     'use strict';
     gulp.watch('src/**/*.ts', ['default']);
+    gulp.watch('tests/**/*.spec.js', ['tests']);
 });
 
 gulp.task('clean', function () {
