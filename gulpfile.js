@@ -2,12 +2,14 @@
 
 var del = require('del'),
     gulp = require('gulp'),
+    karma = require('karma'),
+    path = require('path'),
     plugins = require('gulp-load-plugins')(),
     tsProject = plugins.typescript.createProject('tsconfig.json', {
         sortOutput: true
     });
 
-gulp.task('default', ['scripts']);
+gulp.task('default', ['scripts', 'tests']);
 
 gulp.task('scripts', function () {
     'use strict';
@@ -26,7 +28,15 @@ gulp.task('scripts', function () {
         .pipe(gulp.dest('build'));
 });
 
-gulp.task('watch', ['default'], function () {
+gulp.task('tests', ['scripts'], function (done) {
+    new karma.Server({
+        configFile: path.join(__dirname, 'karma.conf.js'),
+        autoWatch: false,
+        singleRun: true
+    }, done).start();
+});
+
+gulp.task('watch', ['scripts'], function () {
     'use strict';
     gulp.watch('src/**/*.ts', ['default']);
 });
