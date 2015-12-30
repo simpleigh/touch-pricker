@@ -29,6 +29,23 @@ function createSixTests(Six, testCaseFn) {
             }
         ));
 
+        it('defaults the call to "Plain"', runTestCases(
+            function (previous, expected, stage, call) {
+                if (call === Pricker.Call.Plain) {
+                    var six = new Six(previous);
+                    expect(six.getCall()).toBe(Pricker.Call.Plain);
+                    expect(six.getSixEnd()).toEqual(expected);
+                }
+            }
+        ));
+
+        it('allows access to the previous six end', runTestCases(
+            function (previous, expected, stage, call) {
+                var six = new Six(previous, call);
+                expect(six.getPreviousSixEnd()).toEqual(previous);
+            }
+        ));
+
         it('allows access to the call', runTestCases(
             function (previous, expected, stage, call) {
                 var six = new Six(previous, call);
@@ -42,6 +59,7 @@ function createSixTests(Six, testCaseFn) {
                     six = new Six(incorrectRow, call);
                 expect(six.getSixEnd()).not.toEqual(expected);
                 six.setPreviousSixEnd(previous);
+                expect(six.getPreviousSixEnd()).toEqual(previous);
                 expect(six.getSixEnd()).toEqual(expected);
             }
         ));
@@ -58,5 +76,31 @@ function createSixTests(Six, testCaseFn) {
                 expect(six.getSixEnd()).toEqual(expected);
             }
         ));
+
+        it('ignores mutations of the returned previous six end', function () {
+            var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
+                six = new Six(row),
+                previousSixEndFixed = six.getPreviousSixEnd().slice(),
+                previousSixEndChanged = six.getPreviousSixEnd();
+
+            expect(six.getPreviousSixEnd()).toEqual(previousSixEndFixed);
+            expect(six.getPreviousSixEnd()).toEqual(previousSixEndChanged);
+            previousSixEndChanged[3] = 'X';  // N.B. invalid row
+            expect(six.getPreviousSixEnd()).toEqual(previousSixEndFixed);
+            expect(six.getPreviousSixEnd()).not.toEqual(previousSixEndChanged);
+        });
+
+        it('ignores mutations of the returned six end', function () {
+            var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
+                six = new Six(row),
+                sixEndFixed = six.getSixEnd().slice(),
+                sixEndChanged = six.getSixEnd();
+
+            expect(six.getSixEnd()).toEqual(sixEndFixed);
+            expect(six.getSixEnd()).toEqual(sixEndChanged);
+            sixEndChanged[3] = 'X';  // N.B. invalid row
+            expect(six.getSixEnd()).toEqual(sixEndFixed);
+            expect(six.getSixEnd()).not.toEqual(sixEndChanged);
+        });
     };
 }

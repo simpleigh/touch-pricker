@@ -197,10 +197,10 @@ namespace Pricker {
             }
 
             /**
-             * Read access to the six end
+             * Read access to the previous six end
              */
-            public getSixEnd(): Row {
-                return this._sixEnd;
+            public getPreviousSixEnd(): Row {
+                return this._previousSixEnd.slice();
             }
 
             /**
@@ -210,6 +210,13 @@ namespace Pricker {
                 this._previousSixEnd = row;
                 this.calculateSixEnd();
                 return this;
+            }
+
+            /**
+             * Read access to the six end
+             */
+            public getSixEnd(): Row {
+                return this._sixEnd.slice();
             }
 
             /**
