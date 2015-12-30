@@ -1,0 +1,12 @@
+{
+  "name": "stedman-pricker",
+  "version": "0.1.0",
+  "description": "Free Stedman pricker",
+  "author": "Leigh Simpson <code@simpleigh.com> (http://simpleigh.com/)",
+  "license": "GPL-3.0",
+  "repository": "simpleigh/stedman-pricker",
+  "bugs": "https://github.com/simpleigh/stedman-pricker/issues",
+  "devDependencies": {
+    "typescript": "^1.7.5"
+  }
+}
