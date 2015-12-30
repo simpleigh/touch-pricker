@@ -4,6 +4,7 @@
         "target": "es3",
         "newLine": "LF",
         "noImplicitAny": false,
+        "outDir": "build",
         "rootDir": "src",
         "sourceMap": false
     },

@@ -1,16 +1,31 @@
-var gulp = require('gulp'),
-    tslint = require('gulp-tslint'),
-    ts = require('gulp-typescript'),
-    tsProject = ts.createProject('tsconfig.json');
+/*global: require*/
 
-gulp.task('default', function () {
+var gulp = require('gulp'),
+    plugins = require('gulp-load-plugins')(),
+    tsProject = plugins.typescript.createProject('tsconfig.json', {
+        sortOutput: true
+    });
+
+gulp.task('default', ['scripts']);
+
+gulp.task('scripts', function () {
+    'use strict';
     var tsResult = tsProject.src()
-        .pipe(tslint())
-        .pipe(tslint.report('verbose', {
+        .pipe(plugins.tslint())
+        .pipe(plugins.tslint.report('verbose', {
             emitError: false,
             summarizeFailureOutput: true
         }))
-        .pipe(ts(tsProject));
+        .pipe(plugins.sourcemaps.init())
+        .pipe(plugins.typescript(tsProject));
 
-    return tsResult.js.pipe(gulp.dest('src'));
+    return tsResult.js
+        .pipe(plugins.sourcemaps.write())
+        .pipe(plugins.minify())
+        .pipe(gulp.dest('build'));
+});
+
+gulp.task('watch', ['default'], function () {
+    'use strict';
+    gulp.watch('src/**/*.ts', ['default']);
 });
