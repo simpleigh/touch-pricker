@@ -24,5 +24,8 @@
     "phantomjs": "^1.9.19",
     "tslint": "^3.2.1",
     "typescript": "^1.7.5"
+  },
+  "scripts": {
+      "test": "karma start --single-run --browsers PhantomJS"
   }
 }
