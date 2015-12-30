@@ -1,4 +1,5 @@
 describe('Stage enum', function () {
+
     it('maps stage names to numbers of bells', function () {
         expect(Pricker.Stage.Triples).toBe(7);
         expect(Pricker.Stage.Caters).toBe(9);
@@ -14,4 +15,5 @@ describe('Stage enum', function () {
         expect(Pricker.Stage[13]).toBe('Sextuples');
         expect(Pricker.Stage[15]).toBe('Septuples');
     });
+
 });
