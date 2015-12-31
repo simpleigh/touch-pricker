@@ -103,7 +103,7 @@ namespace Pricker {
 
 
     /**
-     * Converts a row array to a string (for debugging)
+     * Converts a row array to a string
      */
     export function stringFromRow(row: Row): string {
         let bellCharacters: string[] = [],
@@ -118,10 +118,82 @@ namespace Pricker {
 
 
     /**
+     * Interface describing objects that convert six ends to strings
+     */
+    export interface ISixEndRenderer {
+        /**
+         * Creates a string representation of a six end
+         */
+        print(row: Row): string;
+
+        /**
+         * Creates a string representation of a six end with call and number
+         */
+        print(row: Row, call: Call, sixNumber: number): string;
+    }
+
+
+    /**
+     * Six end renderer in the style of MBD's stedman pricker
+     */
+    export class MbdSixEndRenderer implements ISixEndRenderer {
+        /**
+         * Creates a string representation of a six end with call and number
+         */
+        print(row: Row, call?: Call, sixNumber?: number): string {
+            let callRenderer: ICallRenderer = new MbdCallRenderer();
+
+            if (call && sixNumber) {
+                return stringFromRow(row)
+                    + callRenderer.print(call, sixNumber)
+                    + sixNumber.toString()
+                    + '<br />';
+            } else {
+                return stringFromRow(row) + '<br />';
+            }
+        }
+    }
+
+
+    /**
      * Types of call
      * @enum {number}
      */
     export enum Call {Plain = 1, Bob, Single};
+
+
+    /**
+     * Interface describing objects that convert calls to strings
+     */
+    export interface ICallRenderer {
+        /**
+         * Creates a string representation of a call
+         */
+        print(call: Call, sixNumber: number): string;
+    }
+
+
+    /**
+     * Call renderer in the style of MBD's stedman pricker
+     */
+    export class MbdCallRenderer implements ICallRenderer {
+        /**
+         * Creates a string representation of a call
+         */
+        print(call: Call, sixNumber: number): string {
+            return '&nbsp;&nbsp;'
+                + '<span class="'
+                + (sixNumber % 2 ? 'oddCall' : 'evenCall')
+                + '" onclick="c('
+                + sixNumber
+                + ')">&nbsp;'
+                + (call === Call.Plain ? '&nbsp;' : '')
+                + (call === Call.Bob ? '-' : '')
+                + (call === Call.Single ? 's' : '')
+                + '&nbsp;</span>'
+                + '&nbsp;&nbsp;';
+        }
+    }
 
 
     /**
@@ -455,62 +527,38 @@ namespace Pricker {
     }
 
 
-    export interface RowRenderer {
-        print(row: number[]): string;
-        print(row: number[], call: Call, sixNumber: number): string;
+    /**
+     * Interface describing classes that convert courses to strings
+     */
+    export interface ICourseRenderer {
+        /**
+         * Creates a string representation of a course
+         */
+        print(course: Course): string;
     }
 
 
-    export class MbdPrickerRowRenderer implements RowRenderer {
-        print(row: number[], call?: Call, sixNumber?: number): string {
-            let rowIndex: number,
-                bellRenderer: BellRenderer = new TextBellRenderer(),
-                callRenderer: CallRenderer = new MbdPrickerCallRenderer(),
-                output: string = '';
+    /**
+     * Course renderer in the style of MBD's stedman pricker
+     */
+    export class MbdCourseRenderer implements ICourseRenderer {
+        /**
+         * Creates a string representation of a course
+         */
+        public print(course: Course): string {
+            let i: number,
+                sixEnds: string[] = [],
+                sixEndRenderer: ISixEndRenderer = new MbdSixEndRenderer();
 
-            for (rowIndex = 0; rowIndex < row.length; rowIndex += 1) {
-                output = output.concat(bellRenderer.print(row[rowIndex]));
+            for (i = 1; i <= course.getLength(); i += 1) {
+                sixEnds.push(sixEndRenderer.print(
+                    course.getSixEnd(i),
+                    course.getCall(i),
+                    i
+                ));
             }
 
-            if (call && sixNumber) {
-                output = output.concat(callRenderer.print(call, sixNumber));
-                output = output.concat(sixNumber.toString());
-            }
-
-            output = output.concat('<br />');
-
-            return output;
-        }
-    }
-
-
-    export interface BellRenderer {
-        print(bell: number): string;
-    }
-
-
-    export class TextBellRenderer implements BellRenderer {
-        print(bell: number): string {
-            return BELL_SYMBOLS[bell];
-        }
-    }
-
-
-    export interface CallRenderer {
-        print(call: Call, sixNumber: number): string;
-    }
-
-
-    export class MbdPrickerCallRenderer implements CallRenderer {
-        print(call: Call, sixNumber: number): string {
-            return '<span class="'
-                + (sixNumber % 2 ? 'oddCall' : 'evenCall')
-                + '" onclick="c('
-                + sixNumber
-                + ')">'
-                + (call === Call.Bob ? ' - ' : '')
-                + (call === Call.Single ? ' s ' : '')
-                + '</span>';
+            return sixEnds.join('');
         }
     }
 
@@ -521,18 +569,4 @@ namespace Pricker {
         calls: Call[];
         sixes: Six.AbstractSix[];
     }
-}
-
-
-let row: Pricker.Row = Pricker.rowFromString('231', Pricker.Stage.Cinques);
-let renderer: Pricker.RowRenderer = new Pricker.MbdPrickerRowRenderer();
-let course: Pricker.Course = new Pricker.Course(row);
-let i: number;
-
-document.write(renderer.print(row));
-for (i = 1; i <= course.getLength(); i += 2) {
-    course.setCall(i, Pricker.Call.Bob);
-}
-for (i = 1; i <= course.getLength(); i += 1) {
-    document.write(renderer.print(course.getSixEnd(i), course.getCall(i), i));
 }

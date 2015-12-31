@@ -1,8 +1,61 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
   <head>
     <title>Stedman Pricker Test Page</title>
+    <style type="text/css">
+      #stedman {
+        font-family: "Courier New", "Courier", "monospace";
+        font-size: 12pt;
+      }
+
+      .oddCall {
+        cursor: hand;
+        background-color: #F0F0F8;
+      }
+
+      .evenCall {
+        cursor: hand;
+        background-color: #E2E2F0;
+      }
+    </style>
     <script type="text/javascript" src="build/stedman-pricker.js"></script>
   </head>
-  <body></body>
+  <body>
+    <div id="stedman"></div>
+    <script type="text/javascript">
+        var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
+            course = new Pricker.Course(row),
+            renderer = new Pricker.MbdCourseRenderer();
+
+        course.setLength(20);
+        course.setCall(1, Pricker.Call.Bob);
+        course.setCall(5, Pricker.Call.Bob);
+        course.setCall(7, Pricker.Call.Bob);
+        course.setCall(8, Pricker.Call.Bob);
+        course.setCall(10, Pricker.Call.Bob);
+        course.setCall(11, Pricker.Call.Bob);
+        course.setCall(13, Pricker.Call.Single);
+        course.setCall(15, Pricker.Call.Bob);
+        course.setCall(16, Pricker.Call.Bob);
+
+        function draw() {
+            'use strict';
+
+            document.getElementById('stedman').innerHTML =
+                '<u>'
+                + Pricker.stringFromRow(row)
+                + '</u>'
+                + '<br />'
+                + renderer.print(course);
+        }
+
+        function c(six) {
+            'use strict';
+            course.toggleCall(six);
+            draw();
+        }
+
+        draw();
+    </script>
+  </body>
 </html>
