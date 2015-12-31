@@ -586,7 +586,7 @@ namespace Pricker {
                 }
             }
 
-            if (course.getLength() !== course.getCourseEnd().length) {
+            if (course.getLength() !== (course.getCourseEnd().length * 2)) {
                 sixes = ' ('
                     + course.getLength().toString()
                     + ' sixes)';

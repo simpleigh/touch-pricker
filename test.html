@@ -3,9 +3,10 @@
   <head>
     <title>Stedman Pricker Test Page</title>
     <style type="text/css">
-      #sixes {
+      #sixends {
         font-family: "Courier New", "Courier", "monospace";
         font-size: 12pt;
+        float: left;
       }
 
       .oddCall {
@@ -21,29 +22,29 @@
     <script type="text/javascript" src="build/stedman-pricker.js"></script>
   </head>
   <body>
-    <div id="sixes"></div>
-    <div id="touch"></div>
+    <div id="sixends"></div>
+    <div id="calling"></div>
+    <div>
+      <label for="courseLength">Course length:</label>
+      <input type="text" id="courseLength" size="2" maxLength="2" />
+      <button onclick="setLength()">Set</button>
+    </div>
+    <div>
+      <label for="callReset">Current calling:</label>
+      <button id="callReset" onclick="resetCalls()">Reset</button>
+    </div>
     <script type="text/javascript">
         var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
-            course = new Pricker.Course(row),
-            sixesRenderer = new Pricker.MbdCourseRenderer(),
-            touchRenderer = new Pricker.CompositionCourseRenderer();
+            sixes = 22,
+            course = new Pricker.Course(row);
 
-        course.setLength(20);
-        course.setCall(1, Pricker.Call.Bob);
-        course.setCall(5, Pricker.Call.Bob);
-        course.setCall(7, Pricker.Call.Bob);
-        course.setCall(8, Pricker.Call.Bob);
-        course.setCall(10, Pricker.Call.Bob);
-        course.setCall(11, Pricker.Call.Bob);
-        course.setCall(13, Pricker.Call.Single);
-        course.setCall(15, Pricker.Call.Bob);
-        course.setCall(16, Pricker.Call.Bob);
-
-        function draw() {
+        function reDraw() {
             'use strict';
 
-            document.getElementById('sixes').innerHTML =
+            var sixesRenderer = new Pricker.MbdCourseRenderer(),
+                touchRenderer = new Pricker.CompositionCourseRenderer();
+
+            document.getElementById('sixends').innerHTML =
                 '<u>'
                 + Pricker.stringFromRow(row)
                 + '</u>'
@@ -51,17 +52,45 @@
                 + sixesRenderer.print(course)
                 + '<br />';
 
-            document.getElementById('touch').innerHTML =
-                touchRenderer.print(course);
+            document.getElementById('calling').innerHTML =
+                '<u>'
+                + Pricker.stringFromRow(course.getPreviousCourseEnd())
+                + '</u>'
+                + '<br />'
+                + touchRenderer.print(course);
+
+            document.getElementById('courseLength').value = sixes;
         }
 
         function c(six) {
             'use strict';
             course.toggleCall(six);
-            draw();
+            reDraw();
         }
 
-        draw();
+        function setLength() {
+            'use strict';
+
+            sixes = parseInt(document.getElementById('courseLength').value);
+
+            if (sixes < 2) {
+                sixes = row.length * 2;
+            }
+            if (sixes > 60) {
+                sixes = 60;
+            }
+
+            course.setLength(sixes);
+            reDraw();
+        }
+
+        function resetCalls() {
+            course = new Pricker.Course(row);
+            course.setLength(sixes);
+            reDraw();
+        }
+
+        reDraw();
     </script>
   </body>
 </html>
