@@ -454,7 +454,7 @@ namespace Pricker {
          * Read access to the sixes
          */
         public getSixes(): Six.AbstractSix[] {
-            return this._sixes.slice();
+            return this._sixes;
         }
 
         /**

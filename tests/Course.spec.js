@@ -53,19 +53,6 @@ describe('Course class', function () {
         expect(sixes[stage * 2].getSixEnd()).toEqual(course.getCourseEnd());
     }));
 
-    it('ignores mutations of the returned sixes', testStages(function (stage) {
-        var row = Pricker.rowFromString('231', stage),
-            course = new Pricker.Course(row),
-            sixesFixed = course.getSixes().slice(),
-            sixesChanged = course.getSixes();
-
-        expect(course.getSixes()).toEqual(sixesFixed);
-        expect(course.getSixes()).toEqual(sixesChanged);
-        sixesChanged[5] = 'X';
-        expect(course.getSixes()).toEqual(sixesFixed);
-        expect(course.getSixes()).not.toEqual(sixesChanged);
-    }));
-
     it('allows the number of sixes to be increased', testStages(
         function (stage) {
             var row = Pricker.rowFromString('231', stage),
