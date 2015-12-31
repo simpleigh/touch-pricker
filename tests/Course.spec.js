@@ -97,6 +97,17 @@ describe('Course class', function () {
         expect(course.getSixEnd(4)).toEqual(course.getSixes()[4].getSixEnd());
     });
 
+    it('allows direct access to toggle calls', function () {
+        var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
+            course = new Pricker.Course(row);
+
+        expect(course.getCall(1)).toBe(Pricker.Call.Plain);
+        expect(course.toggleCall(1)).toBe(Pricker.Call.Bob);
+        expect(course.getCall(1)).toBe(Pricker.Call.Bob);
+        expect(Pricker.stringFromRow(course.getCourseEnd()))
+            .toBe('23145678E90');
+    });
+
     it('allows direct access to calls', function () {
         var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
             course = new Pricker.Course(row);

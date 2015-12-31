@@ -22,6 +22,26 @@ function createSixTests(Six, testCaseFn) {
     }
 
     return function () {
+
+        it('rotates between calls when toggled', runTestCases(
+            function (previous, expected, stage, call) {
+                var six = new Six(previous, call),
+                    newCall = six.toggleCall(),
+                    expectedCall;
+
+                if (call === Pricker.Call.Plain) {
+                    expectedCall = Pricker.Call.Bob;
+                } else if (call === Pricker.Call.Bob) {
+                    expectedCall = Pricker.Call.Single;
+                } else {
+                    expectedCall = Pricker.Call.Plain;
+                }
+
+                expect(newCall).toBe(expectedCall);
+                expect(six.getCall()).toBe(expectedCall);
+            }
+        ));
+
         it('transposes the six end correctly', runTestCases(
             function (previous, expected, stage, call) {
                 var six = new Six(previous, call);
@@ -102,5 +122,6 @@ function createSixTests(Six, testCaseFn) {
             expect(six.getSixEnd()).toEqual(sixEndFixed);
             expect(six.getSixEnd()).not.toEqual(sixEndChanged);
         });
+
     };
 }
