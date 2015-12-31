@@ -9,9 +9,9 @@ var del = require('del'),
         sortOutput: true
     });
 
-gulp.task('default', ['scripts', 'tests']);
+gulp.task('default', ['build', 'test']);
 
-gulp.task('scripts', function () {
+gulp.task('build', function () {
     'use strict';
     var tsResult = tsProject.src()
         .pipe(plugins.tslint())
@@ -28,27 +28,23 @@ gulp.task('scripts', function () {
         .pipe(gulp.dest('build'));
 });
 
-gulp.task('tests', ['scripts'], function (done) {
+gulp.task('test', ['build'], function (done) {
     new karma.Server({
         configFile: path.join(__dirname, 'karma.conf.js'),
-        autoWatch: false,
-        singleRun: true
+        browsers: ['PhantomJS']
     }, done).start();
 });
 
-gulp.task('tests-ie', ['scripts'], function (done) {
+gulp.task('test-browsers', ['build'], function (done) {
     new karma.Server({
-        configFile: path.join(__dirname, 'karma.conf.js'),
-        browsers: ['IE'],
-        autoWatch: false,
-        singleRun: true
+        configFile: path.join(__dirname, 'karma.conf.js')
     }, done).start();
 });
 
 gulp.task('watch', ['default'], function () {
     'use strict';
     gulp.watch('src/**/*.ts', ['default']);
-    gulp.watch('tests/**/*.spec.js', ['tests']);
+    gulp.watch('tests/**/*.spec.js', ['test']);
 });
 
 gulp.task('clean', function () {
