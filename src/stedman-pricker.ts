@@ -274,6 +274,169 @@ namespace Pricker {
     }
 
 
+    /**
+     * A course, being a set of sixes
+     */
+    export class Course {
+        /**
+         * Course end of the previous course
+         */
+        protected _previousCourseEnd: Row;
+
+        /**
+         * Course end of this course
+         */
+        protected _courseEnd: Row;
+
+        /**
+         * Sixes within the course
+         */
+        protected _sixes: Six.AbstractSix[];
+
+        /**
+         * Constructs a plain course
+         * @param {Row} previousCourseEnd - Course end of the previous course
+         */
+        constructor(previousCourseEnd: Row) {
+            let stage: Stage = previousCourseEnd.length;
+
+            // Set up an empty course
+            this._previousCourseEnd = previousCourseEnd;
+            this._courseEnd = previousCourseEnd;
+            this._sixes = [undefined];  // Include zeroth entry for getLength()
+
+            // ... and extend it to the right length
+            this.addSixes(stage * 2);
+        }
+
+        /**
+         * Creates sixes
+         * @param {number} sixes - number of sixes to create
+         */
+        private addSixes(sixes: number): Course {
+            let six: number,
+                oldLength: number = this.getLength(),
+                previousSixEnd: Row = this._courseEnd;
+
+            for (six = oldLength + 1; six <= oldLength + sixes; six += 1) {
+                this._sixes[six] = six % 2
+                    ? new Six.Slow(previousSixEnd)
+                    : new Six.Quick(previousSixEnd);
+                previousSixEnd = this._sixes[six].getSixEnd();
+            }
+
+            this._courseEnd = previousSixEnd;
+
+            return this;
+        }
+
+        /**
+         * Recalculates all the sixes within the course
+         */
+        private calculateSixes(): Course {
+            let six: number,
+                previousSixEnd: Row = this._previousCourseEnd;
+
+            for (six = 1; six <= this.getLength(); six += 1) {
+                this._sixes[six].setPreviousSixEnd(previousSixEnd);
+                previousSixEnd = this._sixes[six].getSixEnd();
+            }
+
+            this._courseEnd = previousSixEnd;
+
+            return this;
+        }
+
+        /**
+         * Read access to the previous course end
+         */
+        public getPreviousCourseEnd(): Row {
+            return this._previousCourseEnd;
+        }
+
+        /**
+         * Write access to the previous course end
+         */
+        public setPreviousCourseEnd(previousCourseEnd: Row): Course {
+            this._previousCourseEnd = previousCourseEnd;
+            this.calculateSixes();
+            return this;
+        }
+
+        /**
+         * Read access to the course end
+         */
+        public getCourseEnd(): Row {
+            return this._courseEnd;
+        }
+
+        /**
+         * Read access to the sixes
+         */
+        public getSixes(): Six.AbstractSix[] {
+            return this._sixes.slice();
+        }
+
+        /**
+         * Read access to the length
+         */
+        public getLength(): number {
+            return this._sixes.length - 1;
+        }
+
+        /**
+         * Write access to the length
+         */
+        public setLength(sixes: number): Course {
+            if (sixes > this.getLength()) {
+                this.addSixes(sixes - this.getLength());
+            } else {
+                this._sixes = this._sixes.slice(0, sixes + 1);
+                this._courseEnd = this._sixes[sixes].getSixEnd();
+            }
+
+            return this;
+        }
+
+        /**
+         * Through read access to six ends
+         */
+        public getSixEnd(six: number): Row {
+            this.checkSixNumber(six);
+            return this._sixes[six].getSixEnd();
+        }
+
+        /**
+         * Through read access to calls
+         */
+        public getCall(six: number): Call {
+            this.checkSixNumber(six);
+            return this._sixes[six].getCall();
+        }
+
+        /**
+         * Through write access to calls
+         */
+        public setCall(six: number, call: Call): Course {
+            this.checkSixNumber(six);
+            this._sixes[six].setCall(call);
+            this.calculateSixes();
+            return this;
+        }
+
+        /**
+         * Check a six number is in range
+         * @throws Error if it isn't
+         */
+        private checkSixNumber(six: number): Course {
+            if (six < 1 || six > this.getLength()) {
+                throw new Error('Six number out of range');
+            }
+            return this;
+        }
+    }
+
+
     export interface RowRenderer {
         print(row: number[]): string;
         print(row: number[], call: Call, sixNumber: number): string;
@@ -345,15 +508,13 @@ namespace Pricker {
 
 let row: Pricker.Row = Pricker.rowFromString('231', Pricker.Stage.Cinques);
 let renderer: Pricker.RowRenderer = new Pricker.MbdPrickerRowRenderer();
+let course: Pricker.Course = new Pricker.Course(row);
 let i: number;
 
 document.write(renderer.print(row));
-for (i = 0; i < 22; i += 1) {
-    let six: Pricker.Six.AbstractSix,
-        call: Pricker.Call = i % 2 ? Pricker.Call.Plain : Pricker.Call.Bob;
-    six = i % 2
-        ? new Pricker.Six.Quick(row, call)
-        : new Pricker.Six.Slow(row, call);
-    document.write(renderer.print(six.getSixEnd(), call, i + 1));
-    row = six.getSixEnd();
+for (i = 1; i <= course.getLength(); i += 2) {
+    course.setCall(i, Pricker.Call.Bob);
+}
+for (i = 1; i <= course.getLength(); i += 1) {
+    document.write(renderer.print(course.getSixEnd(i), course.getCall(i), i));
 }
