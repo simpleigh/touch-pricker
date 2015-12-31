@@ -563,6 +563,43 @@ namespace Pricker {
     }
 
 
+    /**
+     * Course renderer that prints a course as it might be written in a touch
+     * e.g. "2314567890E  1 12 14 15 16 17 18 19 (20 sixes)"
+     */
+    export class CompositionCourseRenderer implements ICourseRenderer {
+        /**
+         * Creates a string representation of a course
+         */
+        public print(course: Course): string {
+            let i: number,
+                calls: string[] = [],
+                sixes: string = '';
+
+            for (i = 1; i <= course.getLength(); i += 1) {
+                if (course.getCall(i) !== Call.Plain) {
+                    if (course.getCall(i) === Call.Bob) {
+                        calls.push(i.toString());
+                    } else {
+                        calls.push('s' + i.toString());
+                    }
+                }
+            }
+
+            if (course.getLength() !== course.getCourseEnd().length) {
+                sixes = ' ('
+                    + course.getLength().toString()
+                    + ' sixes)';
+            }
+
+            return stringFromRow(course.getCourseEnd())
+                + '  '
+                + calls.join(' ')
+                + sixes;
+        }
+    }
+
+
     export class Pricker {
         stage: Stage;
         startingRow: string;

@@ -3,7 +3,7 @@
   <head>
     <title>Stedman Pricker Test Page</title>
     <style type="text/css">
-      #stedman {
+      #sixes {
         font-family: "Courier New", "Courier", "monospace";
         font-size: 12pt;
       }
@@ -21,11 +21,13 @@
     <script type="text/javascript" src="build/stedman-pricker.js"></script>
   </head>
   <body>
-    <div id="stedman"></div>
+    <div id="sixes"></div>
+    <div id="touch"></div>
     <script type="text/javascript">
         var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
             course = new Pricker.Course(row),
-            renderer = new Pricker.MbdCourseRenderer();
+            sixesRenderer = new Pricker.MbdCourseRenderer(),
+            touchRenderer = new Pricker.CompositionCourseRenderer();
 
         course.setLength(20);
         course.setCall(1, Pricker.Call.Bob);
@@ -41,12 +43,16 @@
         function draw() {
             'use strict';
 
-            document.getElementById('stedman').innerHTML =
+            document.getElementById('sixes').innerHTML =
                 '<u>'
                 + Pricker.stringFromRow(row)
                 + '</u>'
                 + '<br />'
-                + renderer.print(course);
+                + sixesRenderer.print(course)
+                + '<br />';
+
+            document.getElementById('touch').innerHTML =
+                touchRenderer.print(course);
         }
 
         function c(six) {
