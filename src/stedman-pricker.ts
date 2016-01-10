@@ -15,7 +15,7 @@ namespace Pricker {
     /**
      * Bell number
      */
-    type Bell = number;
+    export type Bell = number;
 
 
     /**

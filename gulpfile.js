@@ -3,10 +3,12 @@
 var del = require('del'),
     gulp = require('gulp'),
     karma = require('karma'),
+    merge = require('merge2'),
     path = require('path'),
     plugins = require('gulp-load-plugins')(),
     tsProject = plugins.typescript.createProject('tsconfig.json', {
-        sortOutput: true
+        sortOutput: true,
+        declaration: true
     });
 
 gulp.task('default', ['build', 'test']);
@@ -22,10 +24,13 @@ gulp.task('build', function () {
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.typescript(tsProject));
 
-    return tsResult.js
-        .pipe(plugins.sourcemaps.write())
-        .pipe(plugins.minify())
-        .pipe(gulp.dest('build'));
+    return merge([
+        tsResult.js
+            .pipe(plugins.sourcemaps.write())
+            .pipe(plugins.minify())
+            .pipe(gulp.dest('build')),
+        tsResult.dts.pipe(gulp.dest('build'))
+    ]);
 });
 
 gulp.task('test', ['build'], function (done) {
