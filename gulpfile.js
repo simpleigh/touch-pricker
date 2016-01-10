@@ -5,24 +5,24 @@ var del = require('del'),
     karma = require('karma'),
     merge = require('merge2'),
     path = require('path'),
-    plugins = require('gulp-load-plugins')(),
-    tsProject = plugins.typescript.createProject('tsconfig.json', {
-        sortOutput: true,
-        declaration: true
-    });
+    plugins = require('gulp-load-plugins')();
 
 gulp.task('default', ['build', 'test']);
 
 gulp.task('build', function () {
     'use strict';
-    var tsResult = tsProject.src()
+    var tsResult = gulp.src('src/**/*.ts')
         .pipe(plugins.tslint())
         .pipe(plugins.tslint.report('verbose', {
             emitError: false,
             summarizeFailureOutput: true
         }))
         .pipe(plugins.sourcemaps.init())
-        .pipe(plugins.typescript(tsProject));
+        .pipe(plugins.typescript({
+            declaration: true,
+            newLine: 'LF',
+            sortOutput: true
+        }));
 
     return merge([
         tsResult.js
