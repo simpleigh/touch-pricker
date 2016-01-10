@@ -4,7 +4,7 @@ module.exports = function(config) {
         browsers: ['Chrome', 'Firefox', 'IE', 'PhantomJS'],
         files: [
             'build/*.js',
-            'tests/**/*.spec.js'
+            'build/tests/**/*.spec.js'
         ],
         frameworks: ['jasmine'],
         singleRun: true

@@ -33,14 +33,21 @@ gulp.task('build', function () {
     ]);
 });
 
-gulp.task('test', ['build'], function (done) {
+gulp.task('build-tests', ['build'], function () {
+    'use strict';
+    return gulp.src('tests/**/*.ts')
+        .pipe(plugins.typescript())
+        .pipe(gulp.dest('build/tests'));
+});
+
+gulp.task('test', ['build', 'build-tests'], function (done) {
     new karma.Server({
         configFile: path.join(__dirname, 'karma.conf.js'),
         browsers: ['PhantomJS']
     }, done).start();
 });
 
-gulp.task('test-browsers', ['build'], function (done) {
+gulp.task('test-browsers', ['build', 'build-tests'], function (done) {
     new karma.Server({
         configFile: path.join(__dirname, 'karma.conf.js')
     }, done).start();
