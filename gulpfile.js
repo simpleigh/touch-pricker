@@ -41,6 +41,7 @@ gulp.task('build-tests', ['build'], function () {
 });
 
 gulp.task('test', ['build', 'build-tests'], function (done) {
+    'use strict';
     new karma.Server({
         configFile: path.join(__dirname, 'karma.conf.js'),
         browsers: ['PhantomJS']
@@ -48,6 +49,7 @@ gulp.task('test', ['build', 'build-tests'], function (done) {
 });
 
 gulp.task('test-browsers', ['build', 'build-tests'], function (done) {
+    'use strict';
     new karma.Server({
         configFile: path.join(__dirname, 'karma.conf.js')
     }, done).start();
