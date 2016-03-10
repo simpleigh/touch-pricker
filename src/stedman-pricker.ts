@@ -392,36 +392,37 @@ namespace Pricker {
          * @param {number} sixes - number of sixes to create
          */
         private addSixes(sixes: number): Course {
-            let six: number,
+            let index: number,
                 oldLength: number = this.getLength(),
+                newLength: number = oldLength + sixes,
                 previousSixEnd: Row = this.getCourseEnd();
 
-            for (six = oldLength; six < oldLength + sixes; six += 1) {
-                this._sixes[six] = six % 2
+            for (index = oldLength; index < newLength; index += 1) {
+                this._sixes[index] = index % 2
                     ? new Six.Quick(previousSixEnd)
                     : new Six.Slow(previousSixEnd);
-                previousSixEnd = this._sixes[six].getSixEnd();
+                previousSixEnd = this._sixes[index].getSixEnd();
             }
 
             return this;
         }
 
         /**
-         * Recalculates all the sixes within the course
+         * Recalculates sixes within the course
+         * @param {number} index - where to start when recalculating
          */
-        private calculateSixes(start: number = 0): Course {
-            let six: number,
-                previousSixEnd: Row;
+        private calculateSixes(index: number = 0): Course {
+            let previousSixEnd: Row;
 
-            if (start === 0) {
+            if (index === 0) {
                 previousSixEnd = this._previousCourseEnd;
             } else {
-                previousSixEnd = this._sixes[start - 1].getSixEnd();
+                previousSixEnd = this._sixes[index - 1].getSixEnd();
             }
 
-            for (six = start; six < this.getLength(); six += 1) {
-                this._sixes[six].setPreviousSixEnd(previousSixEnd);
-                previousSixEnd = this._sixes[six].getSixEnd();
+            for (; index < this.getLength(); index += 1) {
+                this._sixes[index].setPreviousSixEnd(previousSixEnd);
+                previousSixEnd = this._sixes[index].getSixEnd();
             }
 
             return this;
@@ -447,8 +448,8 @@ namespace Pricker {
          * Read access to the course end
          */
         public getCourseEnd(): Row {
-            if (this.getLength()) {
-                return this._sixes[this.getLength() - 1].getSixEnd();
+            if (this._sixes.length) {
+                return this._sixes[this._sixes.length - 1].getSixEnd();
             }
 
             // Handle course with zero sixes
@@ -486,47 +487,47 @@ namespace Pricker {
          * Through access to toggle calls
          */
         public toggleCall(six: number): Call {
-            this.checkSixNumber(six);
-            this._sixes[six - 1].toggleCall();
-            this.calculateSixes(six - 1);
-            return this._sixes[six - 1].getCall();
+            let index: number = this.indexFromSixNumber(six);
+            this._sixes[index].toggleCall();
+            this.calculateSixes(index);
+            return this._sixes[index].getCall();
         }
 
         /**
          * Through read access to six ends
          */
         public getSixEnd(six: number): Row {
-            this.checkSixNumber(six);
-            return this._sixes[six - 1].getSixEnd();
+            let index: number = this.indexFromSixNumber(six);
+            return this._sixes[index].getSixEnd();
         }
 
         /**
          * Through read access to calls
          */
         public getCall(six: number): Call {
-            this.checkSixNumber(six);
-            return this._sixes[six - 1].getCall();
+            let index: number = this.indexFromSixNumber(six);
+            return this._sixes[index].getCall();
         }
 
         /**
          * Through write access to calls
          */
         public setCall(six: number, call: Call): Course {
-            this.checkSixNumber(six);
-            this._sixes[six - 1].setCall(call);
-            this.calculateSixes(six - 1);
+            let index: number = this.indexFromSixNumber(six);
+            this._sixes[index].setCall(call);
+            this.calculateSixes(index);
             return this;
         }
 
         /**
-         * Check a six number is in range
-         * @throws Error if it isn't
+         * Converts a six number into an index and checks it's in range
+         * @throws Error if it isn't in range
          */
-        private checkSixNumber(six: number): Course {
+        private indexFromSixNumber(six: number): number {
             if (six < 1 || six > this.getLength()) {
                 throw new Error('Six number out of range');
             }
-            return this;
+            return six - 1;
         }
     }
 

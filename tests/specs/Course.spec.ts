@@ -49,9 +49,16 @@ describe('Course class', function () {
         expect(sixes.length).toBe(stage * 2);
         expect(sixes[0].getPreviousSixEnd())
             .toEqual(course.getPreviousCourseEnd());
-        expect(sixes[stage * 2 - 1].getSixEnd())
+        expect(sixes[sixes.length - 1].getSixEnd())
             .toEqual(course.getCourseEnd());
     }));
+
+    it('allows direct read access to six ends', function () {
+        var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
+            course = new Pricker.Course(row);
+
+        expect(course.getSixEnd(4)).toEqual(course.getSixes()[3].getSixEnd());
+    });
 
     it('allows the number of sixes to be increased', testStages(
         function (stage) {
@@ -60,8 +67,7 @@ describe('Course class', function () {
 
             course.setLength(stage * 2 + 4);
             expect(course.getLength()).toBe(stage * 2 + 4);
-            expect(course.getCourseEnd())
-                .toEqual(course.getSixes()[3].getSixEnd());
+            expect(course.getCourseEnd()).toEqual(course.getSixEnd(4));
         }
     ));
 
@@ -69,20 +75,13 @@ describe('Course class', function () {
         function (stage) {
             var row  = Pricker.rowFromString('231', stage),
                 course = new Pricker.Course(row),
-                fourthSixEnd = course.getSixes()[3].getSixEnd();
+                fourthSixEnd = course.getSixEnd(4);
 
             course.setLength(4);
             expect(course.getLength()).toBe(4);
             expect(course.getCourseEnd()).toEqual(fourthSixEnd);
         }
     ));
-
-    it('allows direct read access to six ends', function () {
-        var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
-            course = new Pricker.Course(row);
-
-        expect(course.getSixEnd(4)).toEqual(course.getSixes()[3].getSixEnd());
-    });
 
     it('allows direct access to toggle calls', function () {
         var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
