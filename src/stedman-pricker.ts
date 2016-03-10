@@ -381,7 +381,7 @@ namespace Pricker {
 
             // Set up an empty course
             this._previousCourseEnd = previousCourseEnd;
-            this._sixes = [undefined];  // Include zeroth entry for getLength()
+            this._sixes = [];
 
             // ... and extend it to the right length
             this.addSixes(stage * 2);
@@ -396,10 +396,10 @@ namespace Pricker {
                 oldLength: number = this.getLength(),
                 previousSixEnd: Row = this.getCourseEnd();
 
-            for (six = oldLength + 1; six <= oldLength + sixes; six += 1) {
+            for (six = oldLength; six < oldLength + sixes; six += 1) {
                 this._sixes[six] = six % 2
-                    ? new Six.Slow(previousSixEnd)
-                    : new Six.Quick(previousSixEnd);
+                    ? new Six.Quick(previousSixEnd)
+                    : new Six.Slow(previousSixEnd);
                 previousSixEnd = this._sixes[six].getSixEnd();
             }
 
@@ -409,17 +409,17 @@ namespace Pricker {
         /**
          * Recalculates all the sixes within the course
          */
-        private calculateSixes(start: number = 1): Course {
+        private calculateSixes(start: number = 0): Course {
             let six: number,
                 previousSixEnd: Row;
 
-            if (start === 1) {
+            if (start === 0) {
                 previousSixEnd = this._previousCourseEnd;
             } else {
                 previousSixEnd = this._sixes[start - 1].getSixEnd();
             }
 
-            for (six = start; six <= this.getLength(); six += 1) {
+            for (six = start; six < this.getLength(); six += 1) {
                 this._sixes[six].setPreviousSixEnd(previousSixEnd);
                 previousSixEnd = this._sixes[six].getSixEnd();
             }
@@ -448,7 +448,7 @@ namespace Pricker {
          */
         public getCourseEnd(): Row {
             if (this.getLength()) {
-                return this._sixes[this.getLength()].getSixEnd();
+                return this._sixes[this.getLength() - 1].getSixEnd();
             }
 
             // Handle course with zero sixes
@@ -466,7 +466,7 @@ namespace Pricker {
          * Read access to the length
          */
         public getLength(): number {
-            return this._sixes.length - 1;
+            return this._sixes.length;
         }
 
         /**
@@ -476,7 +476,7 @@ namespace Pricker {
             if (sixes > this.getLength()) {
                 this.addSixes(sixes - this.getLength());
             } else {
-                this._sixes = this._sixes.slice(0, sixes + 1);
+                this._sixes = this._sixes.slice(0, sixes);
             }
 
             return this;
@@ -487,9 +487,9 @@ namespace Pricker {
          */
         public toggleCall(six: number): Call {
             this.checkSixNumber(six);
-            this._sixes[six].toggleCall();
-            this.calculateSixes(six);
-            return this._sixes[six].getCall();
+            this._sixes[six - 1].toggleCall();
+            this.calculateSixes(six - 1);
+            return this._sixes[six - 1].getCall();
         }
 
         /**
@@ -497,7 +497,7 @@ namespace Pricker {
          */
         public getSixEnd(six: number): Row {
             this.checkSixNumber(six);
-            return this._sixes[six].getSixEnd();
+            return this._sixes[six - 1].getSixEnd();
         }
 
         /**
@@ -505,7 +505,7 @@ namespace Pricker {
          */
         public getCall(six: number): Call {
             this.checkSixNumber(six);
-            return this._sixes[six].getCall();
+            return this._sixes[six - 1].getCall();
         }
 
         /**
@@ -513,8 +513,8 @@ namespace Pricker {
          */
         public setCall(six: number, call: Call): Course {
             this.checkSixNumber(six);
-            this._sixes[six].setCall(call);
-            this.calculateSixes(six);
+            this._sixes[six - 1].setCall(call);
+            this.calculateSixes(six - 1);
             return this;
         }
 

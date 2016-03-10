@@ -46,11 +46,11 @@ describe('Course class', function () {
             course = new Pricker.Course(row),
             sixes = course.getSixes();
 
-        expect(sixes.length).toBe(stage * 2 + 1);
-        expect(sixes[0]).toBeUndefined();
-        expect(sixes[1].getPreviousSixEnd())
+        expect(sixes.length).toBe(stage * 2);
+        expect(sixes[0].getPreviousSixEnd())
             .toEqual(course.getPreviousCourseEnd());
-        expect(sixes[stage * 2].getSixEnd()).toEqual(course.getCourseEnd());
+        expect(sixes[stage * 2 - 1].getSixEnd())
+            .toEqual(course.getCourseEnd());
     }));
 
     it('allows the number of sixes to be increased', testStages(
@@ -61,7 +61,7 @@ describe('Course class', function () {
             course.setLength(stage * 2 + 4);
             expect(course.getLength()).toBe(stage * 2 + 4);
             expect(course.getCourseEnd())
-                .toEqual(course.getSixes()[4].getSixEnd());
+                .toEqual(course.getSixes()[3].getSixEnd());
         }
     ));
 
@@ -69,7 +69,7 @@ describe('Course class', function () {
         function (stage) {
             var row  = Pricker.rowFromString('231', stage),
                 course = new Pricker.Course(row),
-                fourthSixEnd = course.getSixes()[4].getSixEnd();
+                fourthSixEnd = course.getSixes()[3].getSixEnd();
 
             course.setLength(4);
             expect(course.getLength()).toBe(4);
@@ -81,7 +81,7 @@ describe('Course class', function () {
         var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
             course = new Pricker.Course(row);
 
-        expect(course.getSixEnd(4)).toEqual(course.getSixes()[4].getSixEnd());
+        expect(course.getSixEnd(4)).toEqual(course.getSixes()[3].getSixEnd());
     });
 
     it('allows direct access to toggle calls', function () {
@@ -101,7 +101,7 @@ describe('Course class', function () {
 
         course.setCall(4, Pricker.Call.Bob);
         expect(course.getCall(4)).toBe(Pricker.Call.Bob);
-        expect(course.getSixes()[4].getCall()).toBe(Pricker.Call.Bob);
+        expect(course.getSixes()[3].getCall()).toBe(Pricker.Call.Bob);
     });
 
     it('recalculates when calls are set', function () {
@@ -125,9 +125,9 @@ describe('Course class', function () {
         var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
             course = new Pricker.Course(row);
 
-        spyOn(course.getSixes()[5], 'setPreviousSixEnd');
+        spyOn(course.getSixes()[4], 'setPreviousSixEnd');
         course.setCall(6, Pricker.Call.Bob);
-        expect(course.getSixes()[5].setPreviousSixEnd).not.toHaveBeenCalled();
+        expect(course.getSixes()[4].setPreviousSixEnd).not.toHaveBeenCalled();
     });
 
     it('throws an exception when we try and manipulate invalid sixes',
