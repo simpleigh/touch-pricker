@@ -368,11 +368,6 @@ namespace Pricker {
         protected _previousCourseEnd: Row;
 
         /**
-         * Course end of this course
-         */
-        protected _courseEnd: Row;
-
-        /**
          * Sixes within the course
          */
         protected _sixes: Six.AbstractSix[];
@@ -386,7 +381,6 @@ namespace Pricker {
 
             // Set up an empty course
             this._previousCourseEnd = previousCourseEnd;
-            this._courseEnd = previousCourseEnd;
             this._sixes = [undefined];  // Include zeroth entry for getLength()
 
             // ... and extend it to the right length
@@ -400,7 +394,7 @@ namespace Pricker {
         private addSixes(sixes: number): Course {
             let six: number,
                 oldLength: number = this.getLength(),
-                previousSixEnd: Row = this._courseEnd;
+                previousSixEnd: Row = this.getCourseEnd();
 
             for (six = oldLength + 1; six <= oldLength + sixes; six += 1) {
                 this._sixes[six] = six % 2
@@ -408,8 +402,6 @@ namespace Pricker {
                     : new Six.Quick(previousSixEnd);
                 previousSixEnd = this._sixes[six].getSixEnd();
             }
-
-            this._courseEnd = previousSixEnd;
 
             return this;
         }
@@ -425,8 +417,6 @@ namespace Pricker {
                 this._sixes[six].setPreviousSixEnd(previousSixEnd);
                 previousSixEnd = this._sixes[six].getSixEnd();
             }
-
-            this._courseEnd = previousSixEnd;
 
             return this;
         }
@@ -451,7 +441,12 @@ namespace Pricker {
          * Read access to the course end
          */
         public getCourseEnd(): Row {
-            return this._courseEnd;
+            if (this.getLength()) {
+                return this._sixes[this.getLength()].getSixEnd();
+            }
+
+            // Handle course with zero sixes
+            return this._previousCourseEnd;
         }
 
         /**
@@ -476,7 +471,6 @@ namespace Pricker {
                 this.addSixes(sixes - this.getLength());
             } else {
                 this._sixes = this._sixes.slice(0, sixes + 1);
-                this._courseEnd = this._sixes[sixes].getSixEnd();
             }
 
             return this;
