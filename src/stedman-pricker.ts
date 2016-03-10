@@ -409,11 +409,17 @@ namespace Pricker {
         /**
          * Recalculates all the sixes within the course
          */
-        private calculateSixes(): Course {
+        private calculateSixes(start: number = 1): Course {
             let six: number,
-                previousSixEnd: Row = this._previousCourseEnd;
+                previousSixEnd: Row;
 
-            for (six = 1; six <= this.getLength(); six += 1) {
+            if (start === 1) {
+                previousSixEnd = this._previousCourseEnd;
+            } else {
+                previousSixEnd = this._sixes[start - 1].getSixEnd();
+            }
+
+            for (six = start; six <= this.getLength(); six += 1) {
                 this._sixes[six].setPreviousSixEnd(previousSixEnd);
                 previousSixEnd = this._sixes[six].getSixEnd();
             }
@@ -482,7 +488,7 @@ namespace Pricker {
         public toggleCall(six: number): Call {
             this.checkSixNumber(six);
             this._sixes[six].toggleCall();
-            this.calculateSixes();
+            this.calculateSixes(six);
             return this._sixes[six].getCall();
         }
 
@@ -508,7 +514,7 @@ namespace Pricker {
         public setCall(six: number, call: Call): Course {
             this.checkSixNumber(six);
             this._sixes[six].setCall(call);
-            this.calculateSixes();
+            this.calculateSixes(six);
             return this;
         }
 

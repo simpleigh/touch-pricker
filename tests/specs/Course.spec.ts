@@ -113,6 +113,21 @@ describe('Course class', function () {
         expect(Pricker.stringFromRow(course.getSixEnd(2))).toBe('346829105E7');
         expect(Pricker.stringFromRow(course.getCourseEnd()))
             .toBe('23145678E90');
+
+        course.setCall(10, Pricker.Call.Single);
+        course.setCall(13, Pricker.Call.Single);
+        course.setCall(22, Pricker.Call.Bob);
+        expect(Pricker.stringFromRow(course.getCourseEnd()))
+            .toBe('2314567890E');
+    });
+
+    it('avoids recalculating sixes before a call is made', function () {
+        var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
+            course = new Pricker.Course(row);
+
+        spyOn(course.getSixes()[5], 'setPreviousSixEnd');
+        course.setCall(6, Pricker.Call.Bob);
+        expect(course.getSixes()[5].setPreviousSixEnd).not.toHaveBeenCalled();
     });
 
     it('throws an exception when we try and manipulate invalid sixes',
