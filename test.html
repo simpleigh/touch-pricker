@@ -70,17 +70,9 @@
 
         function setLength() {
             'use strict';
-
             sixes = parseInt(document.getElementById('courseLength').value);
-
-            if (sixes < 2) {
-                sixes = row.length * 2;
-            }
-            if (sixes > 60) {
-                sixes = 60;
-            }
-
-            course.setLength(sixes);
+            course.safeSetLength(sixes);
+            sixes = course.getLength();
             reDraw();
         }
 

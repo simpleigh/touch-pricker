@@ -474,6 +474,10 @@ namespace Pricker {
          * Write access to the length
          */
         public setLength(sixes: number): Course {
+            if ((sixes < 2) || (sixes > 60)) {
+                throw new Error('Number of sixes out of range');
+            }
+
             if (sixes > this.getLength()) {
                 this.addSixes(sixes - this.getLength());
             } else {
@@ -481,6 +485,15 @@ namespace Pricker {
             }
 
             return this;
+        }
+
+        /**
+         * Write access to the length: ignores out-of-range values
+         */
+        public safeSetLength(sixes: number): Course {
+            sixes = Math.max(sixes, 2);
+            sixes = Math.min(sixes, 60);
+            return this.setLength(sixes);
         }
 
         /**

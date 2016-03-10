@@ -129,6 +129,26 @@ describe('Course class', function () {
         expect(course.getSixes()[4].setPreviousSixEnd).not.toHaveBeenCalled();
     });
 
+    it('throws an exception if we try to set an invalid length', function () {
+        var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
+            course = new Pricker.Course(row);
+
+        expect(function () { course.setLength(1); })
+            .toThrowError('Number of sixes out of range');
+        expect(function () { course.setLength(61); })
+            .toThrowError('Number of sixes out of range');
+    });
+
+    it('provides a safe way to set lengths without exceptions', function () {
+        var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
+            course = new Pricker.Course(row);
+
+        course.safeSetLength(1);
+        expect(course.getLength()).toBe(2);
+        course.safeSetLength(61);
+        expect(course.getLength()).toBe(60);
+    });
+
     it('throws an exception when we try and manipulate invalid sixes',
         function () {
             var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
