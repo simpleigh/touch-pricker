@@ -1,13 +1,14 @@
 /*global: require*/
 
 var del = require('del'),
+    glob = require('glob'),
     gulp = require('gulp'),
     karma = require('karma'),
     merge = require('merge2'),
     path = require('path'),
     plugins = require('gulp-load-plugins')();
 
-gulp.task('default', ['build', 'test']);
+gulp.task('default', ['build', 'test', 'build-test-file']);
 
 gulp.task('build', function () {
     'use strict';
@@ -37,6 +38,16 @@ gulp.task('build-tests', ['build'], function () {
     'use strict';
     return gulp.src('tests/**/*.ts')
         .pipe(plugins.typescript())
+        .pipe(gulp.dest('build/tests'));
+});
+
+gulp.task('build-test-file', ['build-tests'], function () {
+    'use strict';
+    return gulp.src('tests/jasmine-tpl.html')
+        .pipe(plugins.template({scripts: ['build/stedman-pricker.js']
+            .concat(glob.sync('build/tests/**/*.spec.js'))
+        }))
+        .pipe(plugins.rename('jasmine.html'))
         .pipe(gulp.dest('build/tests'));
 });
 
