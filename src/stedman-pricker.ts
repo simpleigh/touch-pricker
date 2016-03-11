@@ -493,25 +493,21 @@ namespace Pricker {
 
         export class TextRenderer implements IRenderer {
             protected _config: Config = {
+                callSymbols: function (): string[] {
+                    let result: string[] = [];
+                    result[Call.Plain] = ' ';
+                    result[Call.Bob] = '-';
+                    result[Call.Single] = 's';
+                    return result;
+                }(),
                 sixTemplate: '{call} {sixEnd}',
                 sixSeparator: '\n',
+                sixCallbacks: {},
                 courseTemplate: '{sixes}',
             };
 
             constructor(config: Config = {}) {
-                this.setupConfig();
                 // TODO: override config
-            }
-
-            protected setupConfig(): IRenderer {
-                this._config.callSymbols = [];
-                this._config.callSymbols[Call.Plain] = ' ';
-                this._config.callSymbols[Call.Bob] = '-';
-                this._config.callSymbols[Call.Single] = 's';
-                if (!this._config.sixCallbacks) {
-                    this._config.sixCallbacks = {};
-                }
-                return this;
             }
 
             public render(course: Course): string {
@@ -519,10 +515,6 @@ namespace Pricker {
                     data: { [id: string]: string },
                     key: string,
                     sixes: string[] = [];
-
-                // This shouldn't be necessary
-                // TODO: figure out WTF is going on
-                this.setupConfig();
 
                 for (six = 1; six <= course.getLength(); six++) {
                     // Assemble an array to build the six
@@ -578,6 +570,13 @@ namespace Pricker {
 
         export class HtmlRenderer extends TextRenderer {
             protected _config: Config = {
+                callSymbols: function (): string[] {
+                    let result: string[] = [];
+                    result[Call.Plain] = '&nbsp;';
+                    result[Call.Bob] = '-';
+                    result[Call.Single] = 's';
+                    return result;
+                }(),
                 sixTemplate: ''
                     + '{sixEnd}'
                     + '&nbsp;&nbsp;'
@@ -598,16 +597,17 @@ namespace Pricker {
                 },
                 courseTemplate: '{sixes}',
             };
-
-            protected setupConfig(): IRenderer {
-                super.setupConfig();
-                this._config.callSymbols[Call.Plain] = '&nbsp;';
-                return this;
-            }
         }
 
         export class CompositionRenderer extends TextRenderer {
             protected _config: Config = {
+                callSymbols: function (): string[] {
+                    let result: string[] = [];
+                    result[Call.Plain] = '';
+                    result[Call.Bob] = '';
+                    result[Call.Single] = 's';
+                    return result;
+                }(),
                 sixTemplate: '{call}{sixNumber}',
                 sixSeparator: ' ',
                 sixCallbacks: {
@@ -623,13 +623,6 @@ namespace Pricker {
                 },
                 courseTemplate: '{courseEnd}  {sixes}',
             };
-
-            protected setupConfig(): IRenderer {
-                super.setupConfig();
-                this._config.callSymbols[Call.Plain] = '';
-                this._config.callSymbols[Call.Bob] = '';
-                return this;
-            }
 
             public render(course: Course): string {
                 let result: string = super.render(course);
