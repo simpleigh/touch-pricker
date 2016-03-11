@@ -122,82 +122,10 @@ namespace Pricker {
 
 
     /**
-     * Interface describing objects that convert six ends to strings
-     */
-    export interface ISixEndRenderer {
-        /**
-         * Creates a string representation of a six end
-         */
-        print(row: Row): string;
-
-        /**
-         * Creates a string representation of a six end with call and number
-         */
-        print(row: Row, call: Call, sixNumber: number): string;
-    }
-
-
-    /**
-     * Six end renderer in the style of MBD's stedman pricker
-     */
-    export class MbdSixEndRenderer implements ISixEndRenderer {
-        /**
-         * Creates a string representation of a six end with call and number
-         */
-        print(row: Row, call?: Call, sixNumber?: number): string {
-            let callRenderer: ICallRenderer = new MbdCallRenderer();
-
-            if (call && sixNumber) {
-                return stringFromRow(row)
-                    + callRenderer.print(call, sixNumber)
-                    + sixNumber.toString()
-                    + '<br />';
-            } else {
-                return stringFromRow(row) + '<br />';
-            }
-        }
-    }
-
-
-    /**
      * Types of call
      * @enum {number}
      */
     export enum Call {Plain = 1, Bob, Single};
-
-
-    /**
-     * Interface describing objects that convert calls to strings
-     */
-    export interface ICallRenderer {
-        /**
-         * Creates a string representation of a call
-         */
-        print(call: Call, sixNumber: number): string;
-    }
-
-
-    /**
-     * Call renderer in the style of MBD's stedman pricker
-     */
-    export class MbdCallRenderer implements ICallRenderer {
-        /**
-         * Creates a string representation of a call
-         */
-        print(call: Call, sixNumber: number): string {
-            return '&nbsp;&nbsp;'
-                + '<span class="'
-                + (sixNumber % 2 ? 'oddCall' : 'evenCall')
-                + '" onclick="c('
-                + sixNumber
-                + ')">&nbsp;'
-                + (call === Call.Plain ? '&nbsp;' : '')
-                + (call === Call.Bob ? '-' : '')
-                + (call === Call.Single ? 's' : '')
-                + '&nbsp;</span>'
-                + '&nbsp;&nbsp;';
-        }
-    }
 
 
     /**
@@ -546,74 +474,173 @@ namespace Pricker {
 
 
     /**
-     * Interface describing classes that convert courses to strings
+     * Objects used to render other objects
      */
-    export interface ICourseRenderer {
-        /**
-         * Creates a string representation of a course
-         */
-        print(course: Course): string;
-    }
+    export namespace Renderer {
+        export interface StringCallback {
+            (sixNumber: number, sixEnd: Row, call: Call): string;
+        }
 
+        export interface Config {
+            callSymbols?: string[];
+            sixTemplate?: string;
+            sixSeparator?: string;
+            sixCallbacks?: { [id: string]: StringCallback };
+            courseTemplate?: string;
+        }
 
-    /**
-     * Course renderer in the style of MBD's stedman pricker
-     */
-    export class MbdCourseRenderer implements ICourseRenderer {
-        /**
-         * Creates a string representation of a course
-         */
-        public print(course: Course): string {
-            let i: number,
-                sixEnds: string[] = [],
-                sixEndRenderer: ISixEndRenderer = new MbdSixEndRenderer();
+        export interface IRenderer {};
 
-            for (i = 1; i <= course.getLength(); i += 1) {
-                sixEnds.push(sixEndRenderer.print(
-                    course.getSixEnd(i),
-                    course.getCall(i),
-                    i
-                ));
+        export class TextRenderer implements IRenderer {
+            protected _config: Config = {
+                sixTemplate: '{call} {sixEnd}',
+                sixSeparator: '\n',
+                courseTemplate: '{sixes}',
+            };
+
+            constructor(config: Config = {}) {
+                this.setupConfig();
+                // TODO: override config
             }
 
-            return sixEnds.join('');
-        }
-    }
+            protected setupConfig(): IRenderer {
+                this._config.callSymbols = [];
+                this._config.callSymbols[Call.Plain] = ' ';
+                this._config.callSymbols[Call.Bob] = '-';
+                this._config.callSymbols[Call.Single] = 's';
+                if (!this._config.sixCallbacks) {
+                    this._config.sixCallbacks = {};
+                }
+                return this;
+            }
 
+            public render(course: Course): string {
+                let six: number,
+                    data: { [id: string]: string },
+                    key: string,
+                    sixes: string[] = [];
 
-    /**
-     * Course renderer that prints a course as it might be written in a touch
-     * e.g. "2314567890E  1 12 14 15 16 17 18 19 (20 sixes)"
-     */
-    export class CompositionCourseRenderer implements ICourseRenderer {
-        /**
-         * Creates a string representation of a course
-         */
-        public print(course: Course): string {
-            let i: number,
-                calls: string[] = [],
-                sixes: string = '';
+                // This shouldn't be necessary
+                // TODO: figure out WTF is going on
+                this.setupConfig();
 
-            for (i = 1; i <= course.getLength(); i += 1) {
-                if (course.getCall(i) !== Call.Plain) {
-                    if (course.getCall(i) === Call.Bob) {
-                        calls.push(i.toString());
-                    } else {
-                        calls.push('s' + i.toString());
+                for (six = 1; six <= course.getLength(); six++) {
+                    // Assemble an array to build the six
+                    data = {
+                        sixNumber: six.toString(),
+                        sixEnd: stringFromRow(course.getSixEnd(six)),
+                        call: this._config.callSymbols[course.getCall(six)],
+                    };
+
+                    for (key in this._config.sixCallbacks) {
+                        if (this._config.sixCallbacks.hasOwnProperty(key)) {
+                            data[key] = this._config.sixCallbacks[key](
+                                six,
+                                course.getSixEnd(six),
+                                course.getCall(six)
+                            );
+                        }
+                    }
+
+                    sixes.push(this.interpolate(
+                        this._config.sixTemplate,
+                        data
+                    ));
+                }
+
+                // Assemble an array to build the course
+                data = {
+                    sixes: sixes.join(this._config.sixSeparator),
+                    courseEnd: stringFromRow(course.getCourseEnd()),
+                };
+
+                return this.interpolate(this._config.courseTemplate, data);
+            }
+
+            private interpolate(
+                template: string,
+                data: { [id: string]: string }
+            ): string {
+                let key: string,
+                    pattern: RegExp,
+                    result: string = template;
+
+                for (key in data) {
+                    if (data.hasOwnProperty(key)) {
+                        pattern = new RegExp('{' + key + '}', 'g');
+                        result = result.replace(pattern, data[key]);
                     }
                 }
+
+                return result;
+            }
+        }
+
+        export class HtmlRenderer extends TextRenderer {
+            protected _config: Config = {
+                sixTemplate: ''
+                    + '{sixEnd}'
+                    + '&nbsp;&nbsp;'
+                    + '<span class="{cls}" onclick="c({sixNumber})">'
+                    + '&nbsp;{call}&nbsp;'
+                    + '</span>'
+                    + '&nbsp;&nbsp;'
+                    + '{sixNumber}',
+                sixSeparator: '<br/>',
+                sixCallbacks: {
+                    cls: function (
+                        sixNumber: number,
+                        sixEnd: Row,
+                        call: Call
+                    ): string {
+                        return (sixNumber) % 2 ? 'oddCall' : 'evenCall';
+                    },
+                },
+                courseTemplate: '{sixes}',
+            };
+
+            protected setupConfig(): IRenderer {
+                super.setupConfig();
+                this._config.callSymbols[Call.Plain] = '&nbsp;';
+                return this;
+            }
+        }
+
+        export class CompositionRenderer extends TextRenderer {
+            protected _config: Config = {
+                sixTemplate: '{call}{sixNumber}',
+                sixSeparator: ' ',
+                sixCallbacks: {
+                    sixNumber: function (
+                        sixNumber: number,
+                        sixEnd: Row,
+                        call: Call
+                    ): string {
+                        return (call === Call.Plain)
+                            ? ''
+                            : sixNumber.toString();
+                    },
+                },
+                courseTemplate: '{courseEnd}  {sixes}',
+            };
+
+            protected setupConfig(): IRenderer {
+                super.setupConfig();
+                this._config.callSymbols[Call.Plain] = '';
+                this._config.callSymbols[Call.Bob] = '';
+                return this;
             }
 
-            if (course.getLength() !== (course.getCourseEnd().length * 2)) {
-                sixes = ' ('
-                    + course.getLength().toString()
-                    + ' sixes)';
+            public render(course: Course): string {
+                let result: string = super.render(course);
+                if (course.getLength() !== (course.getCourseEnd().length * 2)) {
+                    result = result
+                        + ' ('
+                        + course.getLength().toString()
+                        + ' sixes)';
+                }
+                return result;
             }
-
-            return stringFromRow(course.getCourseEnd())
-                + '  '
-                + calls.join(' ')
-                + sixes;
         }
     }
 

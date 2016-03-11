@@ -41,15 +41,15 @@
         function reDraw() {
             'use strict';
 
-            var sixesRenderer = new Pricker.MbdCourseRenderer(),
-                touchRenderer = new Pricker.CompositionCourseRenderer();
+            var html = new Pricker.Renderer.HtmlRenderer(),
+                composition = new Pricker.Renderer.CompositionRenderer();
 
             document.getElementById('sixends').innerHTML =
                 '<u>'
                 + Pricker.stringFromRow(row)
                 + '</u>'
                 + '<br />'
-                + sixesRenderer.print(course)
+                + html.render(course)
                 + '<br />';
 
             document.getElementById('calling').innerHTML =
@@ -57,7 +57,7 @@
                 + Pricker.stringFromRow(course.getPreviousCourseEnd())
                 + '</u>'
                 + '<br />'
-                + touchRenderer.print(course);
+                + composition.render(course);
 
             document.getElementById('courseLength').value = sixes;
         }
