@@ -1,4 +1,4 @@
-function createLayoutTests(Layout, expected: string) {
+function createLayoutTests(Layout, expected: string, testFn) {
 
     return function () {
 
@@ -27,6 +27,8 @@ function createLayoutTests(Layout, expected: string) {
 
             expect(layout.print(course, format)).toEqual(expected);
         });
+
+        testFn();
 
     };
 
