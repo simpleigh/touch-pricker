@@ -1,7 +1,7 @@
 describe('Course class', function () {
 
     function testStages(testFunction) {
-        var stages = [
+        let stages: Pricker.Stage[] = [
             Pricker.Stage.Triples,
             Pricker.Stage.Caters,
             Pricker.Stage.Cinques,
@@ -10,7 +10,7 @@ describe('Course class', function () {
         ];
 
         return function () {
-            var i;
+            let i: number;
             for (i = 0; i < stages.length; i += 1) {
                 testFunction(stages[i]);
             }
@@ -19,7 +19,7 @@ describe('Course class', function () {
 
     it('starts out as a plain course of the right length', testStages(
         function (stage) {
-            var row = Pricker.rowFromString('231', stage),
+            let row: Pricker.Row = Pricker.rowFromString('231', stage),
                 course = new Pricker.Course(row);
 
             expect(course.getLength()).toBe(stage * 2);
@@ -29,8 +29,8 @@ describe('Course class', function () {
 
     it('updates when the previous course end changes', testStages(
         function (stage) {
-            var row = Pricker.rowFromString('231', stage),
-                newRow = Pricker.rowFromString('', stage),
+            let row: Pricker.Row = Pricker.rowFromString('231', stage),
+                newRow: Pricker.Row = Pricker.rowFromString('', stage),
                 course = new Pricker.Course(row);
 
             expect(course.getPreviousCourseEnd()).toEqual(row);
@@ -42,9 +42,9 @@ describe('Course class', function () {
     ));
 
     it('provides read access to the sixes', testStages(function(stage) {
-        var row = Pricker.rowFromString('231', stage),
+        let row: Pricker.Row = Pricker.rowFromString('231', stage),
             course = new Pricker.Course(row),
-            sixes = course.getSixes();
+            sixes: Pricker.Six.AbstractSix[] = course.getSixes();
 
         expect(sixes.length).toBe(stage * 2);
         expect(sixes[0].getPreviousSixEnd())
@@ -54,7 +54,10 @@ describe('Course class', function () {
     }));
 
     it('allows direct read access to six ends', function () {
-        var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
+        let row: Pricker.Row = Pricker.rowFromString(
+                '231',
+                Pricker.Stage.Cinques
+            ),
             course = new Pricker.Course(row);
 
         expect(course.getSixEnd(4)).toEqual(course.getSixes()[3].getSixEnd());
@@ -62,7 +65,7 @@ describe('Course class', function () {
 
     it('allows the number of sixes to be increased', testStages(
         function (stage) {
-            var row = Pricker.rowFromString('231', stage),
+            let row: Pricker.Row = Pricker.rowFromString('231', stage),
                 course = new Pricker.Course(row);
 
             course.setLength(stage * 2 + 4);
@@ -73,9 +76,9 @@ describe('Course class', function () {
 
     it('allows the number of sixes to be decreased', testStages(
         function (stage) {
-            var row  = Pricker.rowFromString('231', stage),
+            let row: Pricker.Row = Pricker.rowFromString('231', stage),
                 course = new Pricker.Course(row),
-                fourthSixEnd = course.getSixEnd(4);
+                fourthSixEnd: Pricker.Row = course.getSixEnd(4);
 
             course.setLength(4);
             expect(course.getLength()).toBe(4);
@@ -84,7 +87,10 @@ describe('Course class', function () {
     ));
 
     it('allows direct access to toggle calls', function () {
-        var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
+        let row: Pricker.Row = Pricker.rowFromString(
+                '231',
+                Pricker.Stage.Cinques
+            ),
             course = new Pricker.Course(row);
 
         expect(course.getCall(1)).toBe(Pricker.Call.Plain);
@@ -95,7 +101,10 @@ describe('Course class', function () {
     });
 
     it('allows direct access to calls', function () {
-        var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
+        let row: Pricker.Row = Pricker.rowFromString(
+                '231',
+                Pricker.Stage.Cinques
+            ),
             course = new Pricker.Course(row);
 
         course.setCall(4, Pricker.Call.Bob);
@@ -104,7 +113,10 @@ describe('Course class', function () {
     });
 
     it('recalculates when calls are set', function () {
-        var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
+        let row: Pricker.Row = Pricker.rowFromString(
+                '231',
+                Pricker.Stage.Cinques
+            ),
             course = new Pricker.Course(row);
 
         course.setCall(1, Pricker.Call.Bob);
@@ -121,7 +133,10 @@ describe('Course class', function () {
     });
 
     it('avoids recalculating sixes before a call is made', function () {
-        var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
+        let row: Pricker.Row = Pricker.rowFromString(
+                '231',
+                Pricker.Stage.Cinques
+            ),
             course = new Pricker.Course(row);
 
         spyOn(course.getSixes()[4], 'setPreviousSixEnd');
@@ -130,7 +145,10 @@ describe('Course class', function () {
     });
 
     it('throws an exception if we try to set an invalid length', function () {
-        var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
+        let row: Pricker.Row = Pricker.rowFromString(
+                '231',
+                Pricker.Stage.Cinques
+            ),
             course = new Pricker.Course(row);
 
         expect(function () { course.setLength(1); })
@@ -140,7 +158,10 @@ describe('Course class', function () {
     });
 
     it('provides a safe way to set lengths without exceptions', function () {
-        var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
+        let row: Pricker.Row = Pricker.rowFromString(
+                '231',
+                Pricker.Stage.Cinques
+            ),
             course = new Pricker.Course(row);
 
         course.safeSetLength(1);
@@ -151,7 +172,10 @@ describe('Course class', function () {
 
     it('throws an exception when we try and manipulate invalid sixes',
         function () {
-            var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
+            let row: Pricker.Row = Pricker.rowFromString(
+                    '231',
+                    Pricker.Stage.Cinques
+                ),
                 course = new Pricker.Course(row);
 
             expect(function () { course.getSixEnd(0); })

@@ -1,5 +1,5 @@
 describe('Quick six class', createSixTests(Pricker.Six.Quick, function () {
-    var S = Pricker.Stage,
+    let S = Pricker.Stage,
         C = Pricker.Call;
 
     return [

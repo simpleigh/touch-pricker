@@ -7,7 +7,7 @@ describe('Call enum', function () {
     });
 
     it('maps forwards and backwards correctly', function () {
-        var C = Pricker.Call;
+        let C = Pricker.Call;
         expect(C[C[C.Plain]]).toBe(C.Plain);
         expect(C[C[C.Bob]]).toBe(C.Bob);
         expect(C[C[C.Single]]).toBe(C.Single);
