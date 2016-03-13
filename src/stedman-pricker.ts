@@ -502,7 +502,7 @@ namespace Pricker {
                  */
                 print(course: Course, format: Format.AbstractFormat): string {
                     let index: number;
-                    format.resetBuffer();
+                    format.clearBuffer();
 
                     for (index = 1; index <= course.getLength(); index++) {
                         format
@@ -531,7 +531,7 @@ namespace Pricker {
                         bells: number = course.getCourseEnd().length;
 
                     format
-                        .resetBuffer()
+                        .clearBuffer()
                         .startLine()
                         .printRow(course.getCourseEnd())
                         .newColumn();
@@ -579,7 +579,7 @@ namespace Pricker {
                 /**
                  * Empties the internal buffer
                  */
-                public resetBuffer(): AbstractFormat {
+                public clearBuffer(): AbstractFormat {
                     this._buffer = '';
                     return this;
                 }
@@ -673,7 +673,7 @@ namespace Pricker {
                  * Ends a line of output
                  */
                 public endLine(): AbstractFormat {
-                    return this.print('<br/>\n');
+                    return this.print('<br />\n');
                 }
 
                 /**
