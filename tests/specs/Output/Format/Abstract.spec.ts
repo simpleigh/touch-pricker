@@ -19,6 +19,11 @@ function createFormatTests(
             expect(format.getBuffer()).toEqual(testString);
         });
 
+        it('returns `this` when text is printed', function () {
+            let format: Pricker.Output.Format.AbstractFormat = new Format();
+            expect(format.print('')).toBe(format);
+        });
+
         it('stores more text to the buffer', function () {
             let format: Pricker.Output.Format.AbstractFormat = new Format();
 
@@ -33,6 +38,11 @@ function createFormatTests(
             expect(format.getBuffer()).toEqual('');
         });
 
+        it('returns `this` when clearing the buffer', function () {
+            let format: Pricker.Output.Format.AbstractFormat = new Format();
+            expect(format.clearBuffer()).toBe(format);
+        });
+
         it('outputs text in response to method calls', function () {
             let format: Pricker.Output.Format.AbstractFormat = new Format(),
                 i: number;
@@ -44,11 +54,24 @@ function createFormatTests(
             }
         });
 
-        it('outputs rows', function () {
-            let format: Pricker.Output.Format.AbstractFormat = new Format();
+        it('returns `this` from each method call', function () {
+            let format: Pricker.Output.Format.AbstractFormat = new Format(),
+                i: number;
 
-            format.printRow(Pricker.rowFromString('231', Pricker.Stage.Caters));
-            expect(format.getBuffer()).toEqual('231456789');
+            for (i = 0; i < methodTests.length; i++) {
+                expect(format[methodTests[i][0]]()).toBe(format);
+            }
+        });
+
+        it('outputs rows', function () {
+            let format: Pricker.Output.Format.AbstractFormat = new Format(),
+                row: Pricker.Row = Pricker.rowFromString(
+                    '231',
+                    Pricker.Stage.Cinques
+                );
+
+            expect(format.printRow(row)).toBe(format);
+            expect(format.getBuffer()).toEqual('2314567890E');
         });
 
         it('outputs calls', function () {
@@ -56,9 +79,10 @@ function createFormatTests(
                 i: number;
 
             for (i = 0; i < callTests.length; i++) {
-                format
-                    .clearBuffer()
-                    .printCall(callTests[i][0], callTests[i][1]);
+                format.clearBuffer();
+                expect(
+                    format.printCall(callTests[i][0], callTests[i][1])
+                ).toBe(format);
                 expect(format.getBuffer()).toEqual(callTests[i][2]);
             }
         });
