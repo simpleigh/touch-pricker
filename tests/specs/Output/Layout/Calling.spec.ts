@@ -14,5 +14,15 @@ describe('Calling layout', createLayoutTests(
             expect(layout.print(course, format)).toEqual('23145678E90  1\n');
         });
 
+        it('displays "p" when a course has no calls', function () {
+            let layout = new Pricker.Output.Layout.Calling(),
+                format = new Pricker.Output.Format.Text(),
+                course = new Pricker.Course(
+                    Pricker.rowFromString('231', Pricker.Stage.Cinques)
+                );
+
+            expect(layout.print(course, format)).toEqual('2314567890E  p\n');
+        });
+
     }
 ));

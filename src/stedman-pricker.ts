@@ -546,7 +546,11 @@ namespace Pricker {
                             }
                         }
                     }
-                    format.print(calls.join(' '));
+                    if (calls.length) {
+                        format.print(calls.join(' '));
+                    } else {
+                        format.print('p');
+                    }
 
                     // e.g. '(20 sixes)'
                     if (course.getLength() !== (bells * 2)) {
