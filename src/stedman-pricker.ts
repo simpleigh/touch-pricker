@@ -122,82 +122,10 @@ namespace Pricker {
 
 
     /**
-     * Interface describing objects that convert six ends to strings
-     */
-    export interface ISixEndRenderer {
-        /**
-         * Creates a string representation of a six end
-         */
-        print(row: Row): string;
-
-        /**
-         * Creates a string representation of a six end with call and number
-         */
-        print(row: Row, call: Call, sixNumber: number): string;
-    }
-
-
-    /**
-     * Six end renderer in the style of MBD's stedman pricker
-     */
-    export class MbdSixEndRenderer implements ISixEndRenderer {
-        /**
-         * Creates a string representation of a six end with call and number
-         */
-        print(row: Row, call?: Call, sixNumber?: number): string {
-            let callRenderer: ICallRenderer = new MbdCallRenderer();
-
-            if (call && sixNumber) {
-                return stringFromRow(row)
-                    + callRenderer.print(call, sixNumber)
-                    + sixNumber.toString()
-                    + '<br />';
-            } else {
-                return stringFromRow(row) + '<br />';
-            }
-        }
-    }
-
-
-    /**
      * Types of call
      * @enum {number}
      */
     export enum Call {Plain = 1, Bob, Single};
-
-
-    /**
-     * Interface describing objects that convert calls to strings
-     */
-    export interface ICallRenderer {
-        /**
-         * Creates a string representation of a call
-         */
-        print(call: Call, sixNumber: number): string;
-    }
-
-
-    /**
-     * Call renderer in the style of MBD's stedman pricker
-     */
-    export class MbdCallRenderer implements ICallRenderer {
-        /**
-         * Creates a string representation of a call
-         */
-        print(call: Call, sixNumber: number): string {
-            return '&nbsp;&nbsp;'
-                + '<span class="'
-                + (sixNumber % 2 ? 'oddCall' : 'evenCall')
-                + '" onclick="c('
-                + sixNumber
-                + ')">&nbsp;'
-                + (call === Call.Plain ? '&nbsp;' : '')
-                + (call === Call.Bob ? '-' : '')
-                + (call === Call.Single ? 's' : '')
-                + '&nbsp;</span>'
-                + '&nbsp;&nbsp;';
-        }
-    }
 
 
     /**
@@ -546,75 +474,235 @@ namespace Pricker {
 
 
     /**
-     * Interface describing classes that convert courses to strings
+     * Classes for output
      */
-    export interface ICourseRenderer {
+    export namespace Output {
+
         /**
-         * Creates a string representation of a course
+         * Layouts, e.g. by six-end, calling for each course
          */
-        print(course: Course): string;
-    }
+        export namespace Layout {
 
-
-    /**
-     * Course renderer in the style of MBD's stedman pricker
-     */
-    export class MbdCourseRenderer implements ICourseRenderer {
-        /**
-         * Creates a string representation of a course
-         */
-        public print(course: Course): string {
-            let i: number,
-                sixEnds: string[] = [],
-                sixEndRenderer: ISixEndRenderer = new MbdSixEndRenderer();
-
-            for (i = 1; i <= course.getLength(); i += 1) {
-                sixEnds.push(sixEndRenderer.print(
-                    course.getSixEnd(i),
-                    course.getCall(i),
-                    i
-                ));
+            /**
+             * Interface for layouts
+             */
+            export interface ILayout {
+                /**
+                 * Manipulates a format to print out a course
+                 */
+                print(course: Course, format: Format.AbstractFormat): string;
             }
 
-            return sixEnds.join('');
+            /**
+             * Displays each six-end on a separate line
+             */
+            export class Pricker implements ILayout {
+                /**
+                 * Manipulates a format to print out a course
+                 */
+                print(course: Course, format: Format.AbstractFormat): string {
+                    let index: number;
+                    format.clearBuffer();
+
+                    for (index = 1; index <= course.getLength(); index++) {
+                        format
+                            .startLine()
+                            .printRow(course.getSixEnd(index))
+                            .newColumn()
+                            .printCall(course.getCall(index), index)
+                            .newColumn()
+                            .print(index.toString())
+                            .endLine();
+                    }
+                    return format.getBuffer();
+                }
+            }
+
+            /**
+             * Lists the calling for a course on a single line
+             */
+            export class Calling implements ILayout {
+                /**
+                 * Manipulates a format to print out a course
+                 */
+                print(course: Course, format: Format.AbstractFormat): string {
+                    let index: number,
+                        calls: string[] = [],
+                        bells: number = course.getCourseEnd().length;
+
+                    format
+                        .clearBuffer()
+                        .startLine()
+                        .printRow(course.getCourseEnd())
+                        .newColumn();
+
+                    // e.g. '1 5 7 8 10 11 s13 15 16'
+                    for (index = 1; index <= course.getLength(); index++) {
+                        if (course.getCall(index) !== Call.Plain) {
+                            if (course.getCall(index) === Call.Bob) {
+                                calls.push(index.toString());
+                            } else {
+                                calls.push('s' + index.toString());
+                            }
+                        }
+                    }
+                    format.print(calls.join(' '));
+
+                    // e.g. '(20 sixes)'
+                    if (course.getLength() !== (bells * 2)) {
+                        format
+                            .newColumn()
+                            .print('(')
+                            .print(course.getLength().toString())
+                            .print(' sixes)');
+                    }
+
+                    return format
+                        .endLine()
+                        .getBuffer();
+                }
+            }
+
         }
-    }
 
-
-    /**
-     * Course renderer that prints a course as it might be written in a touch
-     * e.g. "2314567890E  1 12 14 15 16 17 18 19 (20 sixes)"
-     */
-    export class CompositionCourseRenderer implements ICourseRenderer {
         /**
-         * Creates a string representation of a course
+         * Formats, e.g. HTML, plain text
          */
-        public print(course: Course): string {
-            let i: number,
-                calls: string[] = [],
-                sixes: string = '';
+        export namespace Format {
 
-            for (i = 1; i <= course.getLength(); i += 1) {
-                if (course.getCall(i) !== Call.Plain) {
-                    if (course.getCall(i) === Call.Bob) {
-                        calls.push(i.toString());
+            export abstract class AbstractFormat {
+                /**
+                 * Internal buffer of data for printing
+                 */
+                protected _buffer: string = '';
+
+                /**
+                 * Empties the internal buffer
+                 */
+                public clearBuffer(): AbstractFormat {
+                    this._buffer = '';
+                    return this;
+                }
+
+                /**
+                 * Returns the contents of the internal buffer
+                 */
+                public getBuffer(): string {
+                    return this._buffer;
+                }
+
+                /**
+                 * Starts a line of output
+                 */
+                public startLine(): AbstractFormat {
+                    return this;
+                }
+
+                /**
+                 * Ends a line of output
+                 */
+                public abstract endLine(): AbstractFormat;
+
+                /**
+                 * Introduces a space between columns of output
+                 */
+                public abstract newColumn(): AbstractFormat;
+
+                /**
+                 * Stores text to the internal buffer
+                 */
+                public print(text: string): AbstractFormat {
+                    this._buffer = this._buffer + text;
+                    return this;
+                }
+
+                /**
+                 * Renders a row, storing to the internal buffer
+                 */
+                public printRow(row: Row): AbstractFormat {
+                    this._buffer = this._buffer + stringFromRow(row);
+                    return this;
+                }
+
+                /**
+                 * Renders a call, storing to the internal buffer
+                 */
+                public abstract printCall(
+                    call: Call,
+                    index: number
+                ): AbstractFormat;
+            }
+
+            /**
+             * Plain text
+             */
+            export class Text extends AbstractFormat {
+                /**
+                 * Ends a line of output
+                 */
+                public endLine(): AbstractFormat {
+                    return this.print('\n');
+                }
+
+                /**
+                 * Introduces a space between columns of output
+                 */
+                public newColumn(): AbstractFormat {
+                    return this.print('  ');
+                }
+
+                /**
+                 * Renders a call, storing to the internal buffer
+                 */
+                public printCall(call: Call, index: number): AbstractFormat {
+                    if (call === Call.Plain) {
+                        return this.print(' ');
+                    } else if (call === Call.Bob) {
+                        return this.print('-');
                     } else {
-                        calls.push('s' + i.toString());
+                        return this.print('s');
                     }
                 }
             }
 
-            if (course.getLength() !== (course.getCourseEnd().length * 2)) {
-                sixes = ' ('
-                    + course.getLength().toString()
-                    + ' sixes)';
+            /**
+             * Format matching MBD's course pricker
+             */
+            export class Mbd extends AbstractFormat {
+                /**
+                 * Ends a line of output
+                 */
+                public endLine(): AbstractFormat {
+                    return this.print('<br />\n');
+                }
+
+                /**
+                 * Introduces a space between columns of output
+                 */
+                public newColumn(): AbstractFormat {
+                    return this.print('&nbsp;&nbsp;');
+                }
+
+                /**
+                 * Renders a call, storing to the internal buffer
+                 */
+                public printCall(call: Call, index: number): AbstractFormat {
+                    return this.print(''
+                        + '<span class="'
+                        + (index % 2 ? 'oddCall' : 'evenCall')
+                        + '" onclick="c('
+                        + index
+                        + ')">&nbsp;'
+                        + (call === Call.Plain ? '&nbsp;' : '')
+                        + (call === Call.Bob ? '-' : '')
+                        + (call === Call.Single ? 's' : '')
+                        + '&nbsp;</span>'
+                    );
+                }
             }
 
-            return stringFromRow(course.getCourseEnd())
-                + '  '
-                + calls.join(' ')
-                + sixes;
         }
+
     }
 
 
