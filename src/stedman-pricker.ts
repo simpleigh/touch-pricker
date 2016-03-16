@@ -217,15 +217,6 @@ namespace Pricker {
             }
 
             /**
-             * Toggles the call type between Plain -> Bob -> Single -> Plain
-             */
-            public toggleCall(): Call {
-                let call: Pricker.Call = (this._call % 3) + 1;
-                this.setCall(call);
-                return call;
-            }
-
-            /**
              * Read access to the previous six end
              */
             public getPreviousSixEnd(): Row {
@@ -265,6 +256,15 @@ namespace Pricker {
                     this._parent.calculateSixes(this._index);
                 }
                 return this;
+            }
+
+            /**
+             * Toggles the call type between Plain -> Bob -> Single -> Plain
+             */
+            public toggleCall(): Call {
+                let call: Pricker.Call = (this._call % 3) + 1;
+                this.setCall(call);
+                return call;
             }
 
             /**

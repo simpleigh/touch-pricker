@@ -45,12 +45,19 @@ describe('Course class', function () {
         let row: Pricker.Row = Pricker.rowFromString('231', stage),
             course = new Pricker.Course(row);
 
+        // Last invalid six before course
         expect(function () { course.getSix(0); })
             .toThrowError('Six number out of range');
+
+        // First valid six (start of course)
         expect(course.getSix(1).getPreviousSixEnd())
             .toEqual(course.getPreviousCourseEnd());
+
+        // Last valid six (end of course)
         expect(course.getSix(stage * 2).getSixEnd())
             .toEqual(course.getCourseEnd());
+
+        // First invalid six after course
         expect(function () { course.getSix(stage * 2 + 1); })
             .toThrowError('Six number out of range');
     }));
