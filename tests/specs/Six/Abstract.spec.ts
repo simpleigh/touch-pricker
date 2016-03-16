@@ -86,6 +86,26 @@ function createSixTests(Six, testCaseFn) {
             }
         ));
 
+        it('updates when the call is toggled', runTestCases(
+            function (previous, expected, stage, call) {
+                let six: Pricker.Six.AbstractSix = new Six(previous);
+
+                // Set the call to the one before the right one
+                if (call === Pricker.Call.Plain) {
+                    six.setCall(Pricker.Call.Single);
+                } else if (call === Pricker.Call.Bob) {
+                    six.setCall(Pricker.Call.Plain);
+                } else {
+                    six.setCall(Pricker.Call.Bob);
+                }
+
+                expect(six.getSixEnd()).not.toEqual(expected);
+
+                six.toggleCall();
+                expect(six.getSixEnd()).toEqual(expected);
+            }
+        ));
+
         it('ignores mutations of the returned previous six end', function () {
             let row: Pricker.Row = Pricker.rowFromString(
                     '231',
