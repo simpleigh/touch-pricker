@@ -150,16 +150,32 @@ namespace Pricker {
             /**
              * Call used to start the six
              */
-            protected _call: Call;
+            protected _call: Call = Call.Plain;
+
+            /**
+             * Course that contains the six
+             */
+            protected _parent: Course;
+
+            /**
+             * Number of six within the course
+             */
+            protected _index: number;
 
             /**
              * Constructs the six
              * @param {Row}  previousSixEnd    - Six end of the previous six
-             * @param {Call} [call=Call.Plain] - Call used to start the six
+             * @param {Course} parent          - Course that contains the six
+             * @param {number} index           - Number of six within course
              */
-            constructor(previousSixEnd: Row, call: Call = Call.Plain) {
+            constructor(
+                previousSixEnd: Row,
+                parent: Course = undefined,
+                index: number = undefined
+            ) {
                 this._previousSixEnd = previousSixEnd;
-                this._call = call;
+                this._parent = parent;
+                this._index = index;
                 this.calculateSixEnd();
             }
 
@@ -201,14 +217,6 @@ namespace Pricker {
             }
 
             /**
-             * Toggles the call type between Plain -> Bob -> Single -> Plain
-             */
-            public toggleCall(): Call {
-                this._call = (this._call % 3) + 1;
-                return this._call;
-            }
-
-            /**
              * Read access to the previous six end
              */
             public getPreviousSixEnd(): Row {
@@ -244,7 +252,19 @@ namespace Pricker {
             public setCall(call: Call): AbstractSix {
                 this._call = call;
                 this.calculateSixEnd();
+                if (this._parent) {
+                    this._parent.calculateSixes(this._index);
+                }
                 return this;
+            }
+
+            /**
+             * Toggles the call type between Plain -> Bob -> Single -> Plain
+             */
+            public toggleCall(): Call {
+                let call: Pricker.Call = (this._call % 3) + 1;
+                this.setCall(call);
+                return call;
             }
 
             /**
@@ -327,8 +347,8 @@ namespace Pricker {
 
             for (index = oldLength; index < newLength; index += 1) {
                 this._sixes[index] = index % 2
-                    ? new Six.Quick(previousSixEnd)
-                    : new Six.Slow(previousSixEnd);
+                    ? new Six.Quick(previousSixEnd, this, index + 1)
+                    : new Six.Slow(previousSixEnd, this, index + 1);
                 previousSixEnd = this._sixes[index].getSixEnd();
             }
 
@@ -339,7 +359,7 @@ namespace Pricker {
          * Recalculates sixes within the course
          * @param {number} index - where to start when recalculating
          */
-        private calculateSixes(index: number = 0): Course {
+        public calculateSixes(index: number = 0): Course {
             let previousSixEnd: Row;
 
             if (index === 0) {
@@ -385,10 +405,13 @@ namespace Pricker {
         }
 
         /**
-         * Read access to the sixes
+         * Read access to sixes
          */
-        public getSixes(): Six.AbstractSix[] {
-            return this._sixes;
+        public getSix(six: number): Six.AbstractSix {
+            if (six < 1 || six > this.getLength()) {
+                throw new Error('Six number out of range');
+            }
+            return this._sixes[six - 1];
         }
 
         /**
@@ -422,53 +445,6 @@ namespace Pricker {
             sixes = Math.max(sixes, 2);
             sixes = Math.min(sixes, 60);
             return this.setLength(sixes);
-        }
-
-        /**
-         * Through access to toggle calls
-         */
-        public toggleCall(six: number): Call {
-            let index: number = this.indexFromSixNumber(six);
-            this._sixes[index].toggleCall();
-            this.calculateSixes(index);
-            return this._sixes[index].getCall();
-        }
-
-        /**
-         * Through read access to six ends
-         */
-        public getSixEnd(six: number): Row {
-            let index: number = this.indexFromSixNumber(six);
-            return this._sixes[index].getSixEnd();
-        }
-
-        /**
-         * Through read access to calls
-         */
-        public getCall(six: number): Call {
-            let index: number = this.indexFromSixNumber(six);
-            return this._sixes[index].getCall();
-        }
-
-        /**
-         * Through write access to calls
-         */
-        public setCall(six: number, call: Call): Course {
-            let index: number = this.indexFromSixNumber(six);
-            this._sixes[index].setCall(call);
-            this.calculateSixes(index);
-            return this;
-        }
-
-        /**
-         * Converts a six number into an index and checks it's in range
-         * @throws Error if it isn't in range
-         */
-        private indexFromSixNumber(six: number): number {
-            if (six < 1 || six > this.getLength()) {
-                throw new Error('Six number out of range');
-            }
-            return six - 1;
         }
     }
 
@@ -507,9 +483,9 @@ namespace Pricker {
                     for (index = 1; index <= course.getLength(); index++) {
                         format
                             .startLine()
-                            .printRow(course.getSixEnd(index))
+                            .printRow(course.getSix(index).getSixEnd())
                             .newColumn()
-                            .printCall(course.getCall(index), index)
+                            .printCall(course.getSix(index).getCall(), index)
                             .newColumn()
                             .print(index.toString())
                             .endLine();
@@ -538,8 +514,8 @@ namespace Pricker {
 
                     // e.g. '1 5 7 8 10 11 s13 15 16'
                     for (index = 1; index <= course.getLength(); index++) {
-                        if (course.getCall(index) !== Call.Plain) {
-                            if (course.getCall(index) === Call.Bob) {
+                        if (course.getSix(index).getCall() !== Call.Plain) {
+                            if (course.getSix(index).getCall() === Call.Bob) {
                                 calls.push(index.toString());
                             } else {
                                 calls.push('s' + index.toString());

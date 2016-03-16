@@ -22,8 +22,8 @@ function createLayoutTests(Layout, expected: string, testFn) {
                 );
 
             course.setLength(4);
-            course.setCall(2, Pricker.Call.Single);
-            course.setCall(3, Pricker.Call.Bob);
+            course.getSix(2).setCall(Pricker.Call.Single);
+            course.getSix(3).setCall(Pricker.Call.Bob);
 
             expect(layout.print(course, format)).toEqual(expected);
         });
