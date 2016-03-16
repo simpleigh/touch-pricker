@@ -436,22 +436,6 @@ namespace Pricker {
         }
 
         /**
-         * Through read access to six ends
-         */
-        public getSixEnd(six: number): Row {
-            let index: number = this.indexFromSixNumber(six);
-            return this._sixes[index].getSixEnd();
-        }
-
-        /**
-         * Through read access to calls
-         */
-        public getCall(six: number): Call {
-            let index: number = this.indexFromSixNumber(six);
-            return this._sixes[index].getCall();
-        }
-
-        /**
          * Through write access to calls
          */
         public setCall(six: number, call: Call): Course {
@@ -508,9 +492,9 @@ namespace Pricker {
                     for (index = 1; index <= course.getLength(); index++) {
                         format
                             .startLine()
-                            .printRow(course.getSixEnd(index))
+                            .printRow(course.getSix(index).getSixEnd())
                             .newColumn()
-                            .printCall(course.getCall(index), index)
+                            .printCall(course.getSix(index).getCall(), index)
                             .newColumn()
                             .print(index.toString())
                             .endLine();
@@ -539,8 +523,8 @@ namespace Pricker {
 
                     // e.g. '1 5 7 8 10 11 s13 15 16'
                     for (index = 1; index <= course.getLength(); index++) {
-                        if (course.getCall(index) !== Call.Plain) {
-                            if (course.getCall(index) === Call.Bob) {
+                        if (course.getSix(index).getCall() !== Call.Plain) {
+                            if (course.getSix(index).getCall() === Call.Bob) {
                                 calls.push(index.toString());
                             } else {
                                 calls.push('s' + index.toString());

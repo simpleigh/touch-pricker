@@ -51,16 +51,6 @@ describe('Course class', function () {
             .toEqual(course.getCourseEnd());
     }));
 
-    it('allows direct read access to six ends', function () {
-        let row: Pricker.Row = Pricker.rowFromString(
-                '231',
-                Pricker.Stage.Cinques
-            ),
-            course = new Pricker.Course(row);
-
-        expect(course.getSixEnd(4)).toEqual(course.getSix(4).getSixEnd());
-    });
-
     it('allows the number of sixes to be increased', testStages(
         function (stage) {
             let row: Pricker.Row = Pricker.rowFromString('231', stage),
@@ -68,7 +58,7 @@ describe('Course class', function () {
 
             course.setLength(stage * 2 + 4);
             expect(course.getLength()).toBe(stage * 2 + 4);
-            expect(course.getCourseEnd()).toEqual(course.getSixEnd(4));
+            expect(course.getCourseEnd()).toEqual(course.getSix(4).getSixEnd());
         }
     ));
 
@@ -76,7 +66,7 @@ describe('Course class', function () {
         function (stage) {
             let row: Pricker.Row = Pricker.rowFromString('231', stage),
                 course = new Pricker.Course(row),
-                fourthSixEnd: Pricker.Row = course.getSixEnd(4);
+                fourthSixEnd: Pricker.Row = course.getSix(4).getSixEnd();
 
             course.setLength(4);
             expect(course.getLength()).toBe(4);
@@ -91,14 +81,14 @@ describe('Course class', function () {
             ),
             course = new Pricker.Course(row);
 
-        expect(course.getCall(1)).toBe(Pricker.Call.Plain);
+        expect(course.getSix(1).getCall()).toBe(Pricker.Call.Plain);
         expect(course.toggleCall(1)).toBe(Pricker.Call.Bob);
-        expect(course.getCall(1)).toBe(Pricker.Call.Bob);
+        expect(course.getSix(1).getCall()).toBe(Pricker.Call.Bob);
         expect(Pricker.stringFromRow(course.getCourseEnd()))
             .toBe('23145678E90');
     });
 
-    it('allows direct access to calls', function () {
+    it('allows direct access to set calls', function () {
         let row: Pricker.Row = Pricker.rowFromString(
                 '231',
                 Pricker.Stage.Cinques
@@ -107,7 +97,6 @@ describe('Course class', function () {
 
         course.setCall(4, Pricker.Call.Bob);
         expect(course.getSix(4).getCall()).toBe(Pricker.Call.Bob);
-        expect(course.getCall(4)).toBe(Pricker.Call.Bob);
     });
 
     it('recalculates when calls are set', function () {
@@ -118,8 +107,10 @@ describe('Course class', function () {
             course = new Pricker.Course(row);
 
         course.setCall(1, Pricker.Call.Bob);
-        expect(Pricker.stringFromRow(course.getSixEnd(1))).toBe('3426185970E');
-        expect(Pricker.stringFromRow(course.getSixEnd(2))).toBe('346829105E7');
+        expect(Pricker.stringFromRow(course.getSix(1).getSixEnd()))
+            .toBe('3426185970E');
+        expect(Pricker.stringFromRow(course.getSix(2).getSixEnd()))
+            .toBe('346829105E7');
         expect(Pricker.stringFromRow(course.getCourseEnd()))
             .toBe('23145678E90');
 
@@ -179,14 +170,6 @@ describe('Course class', function () {
             expect(function () { course.getSix(0); })
                 .toThrowError('Six number out of range');
             expect(function () { course.getSix(23); })
-                .toThrowError('Six number out of range');
-            expect(function () { course.getSixEnd(0); })
-                .toThrowError('Six number out of range');
-            expect(function () { course.getSixEnd(23); })
-                .toThrowError('Six number out of range');
-            expect(function () { course.getCall(0); })
-                .toThrowError('Six number out of range');
-            expect(function () { course.getCall(23); })
                 .toThrowError('Six number out of range');
             expect(function () { course.setCall(0, Pricker.Call.Bob); })
                 .toThrowError('Six number out of range');
