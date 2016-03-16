@@ -153,11 +153,29 @@ namespace Pricker {
             protected _call: Call = Call.Plain;
 
             /**
+             * Course that contains the six
+             */
+            protected _parent: Course;
+
+            /**
+             * Number of six within the course
+             */
+            protected _index: number;
+
+            /**
              * Constructs the six
              * @param {Row}  previousSixEnd    - Six end of the previous six
+             * @param {Course} parent          - Course that contains the six
+             * @param {number} index           - Number of six within course
              */
-            constructor(previousSixEnd: Row) {
+            constructor(
+                previousSixEnd: Row,
+                parent: Course = undefined,
+                index: number = undefined
+            ) {
                 this._previousSixEnd = previousSixEnd;
+                this._parent = parent;
+                this._index = index;
                 this.calculateSixEnd();
             }
 
@@ -243,6 +261,9 @@ namespace Pricker {
             public setCall(call: Call): AbstractSix {
                 this._call = call;
                 this.calculateSixEnd();
+                if (this._parent) {
+                    this._parent.calculateSixes(this._index);
+                }
                 return this;
             }
 
@@ -326,8 +347,8 @@ namespace Pricker {
 
             for (index = oldLength; index < newLength; index += 1) {
                 this._sixes[index] = index % 2
-                    ? new Six.Quick(previousSixEnd)
-                    : new Six.Slow(previousSixEnd);
+                    ? new Six.Quick(previousSixEnd, this, index + 1)
+                    : new Six.Slow(previousSixEnd, this, index + 1);
                 previousSixEnd = this._sixes[index].getSixEnd();
             }
 
@@ -338,7 +359,7 @@ namespace Pricker {
          * Recalculates sixes within the course
          * @param {number} index - where to start when recalculating
          */
-        private calculateSixes(index: number = 0): Course {
+        public calculateSixes(index: number = 0): Course {
             let previousSixEnd: Row;
 
             if (index === 0) {
@@ -430,7 +451,6 @@ namespace Pricker {
         public toggleCall(six: number): Call {
             let index: number = this.indexFromSixNumber(six);
             this._sixes[index].toggleCall();
-            this.calculateSixes(index);
             return this._sixes[index].getCall();
         }
 
@@ -440,7 +460,6 @@ namespace Pricker {
         public setCall(six: number, call: Call): Course {
             let index: number = this.indexFromSixNumber(six);
             this._sixes[index].setCall(call);
-            this.calculateSixes(index);
             return this;
         }
 

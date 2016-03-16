@@ -106,11 +106,29 @@ function createSixTests(Six, testCaseFn) {
             }
         ));
 
+        it('notifies the parent course when a call is set', function () {
+            let row: Pricker.Row =
+                    Pricker.rowFromString('231', Pricker.Stage.Cinques),
+                parent = jasmine.createSpyObj('Course', ['calculateSixes']),
+                six: Pricker.Six.AbstractSix = new Six(row, parent, 8);
+
+            six.setCall(Pricker.Call.Plain);
+            expect(parent.calculateSixes).toHaveBeenCalledWith(8);
+        });
+
+        it('notifies the parent course when toggled', function () {
+            let row: Pricker.Row =
+                    Pricker.rowFromString('231', Pricker.Stage.Cinques),
+                parent = jasmine.createSpyObj('Course', ['calculateSixes']),
+                six: Pricker.Six.AbstractSix = new Six(row, parent, 8);
+
+            six.toggleCall();
+            expect(parent.calculateSixes).toHaveBeenCalledWith(8);
+        });
+
         it('ignores mutations of the returned previous six end', function () {
-            let row: Pricker.Row = Pricker.rowFromString(
-                    '231',
-                    Pricker.Stage.Cinques
-                ),
+            let row: Pricker.Row =
+                    Pricker.rowFromString('231', Pricker.Stage.Cinques),
                 six: Pricker.Six.AbstractSix = new Six(row),
                 previousSixEndFixed = six.getPreviousSixEnd().slice(),
                 previousSixEndChanged = six.getPreviousSixEnd();
@@ -123,10 +141,8 @@ function createSixTests(Six, testCaseFn) {
         });
 
         it('ignores mutations of the returned six end', function () {
-            let row: Pricker.Row = Pricker.rowFromString(
-                    '231',
-                    Pricker.Stage.Cinques
-                ),
+            let row: Pricker.Row =
+                    Pricker.rowFromString('231', Pricker.Stage.Cinques),
                 six: Pricker.Six.AbstractSix = new Six(row),
                 sixEndFixed = six.getSixEnd().slice(),
                 sixEndChanged = six.getSixEnd();
