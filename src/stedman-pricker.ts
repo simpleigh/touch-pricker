@@ -150,16 +150,14 @@ namespace Pricker {
             /**
              * Call used to start the six
              */
-            protected _call: Call;
+            protected _call: Call = Call.Plain;
 
             /**
              * Constructs the six
              * @param {Row}  previousSixEnd    - Six end of the previous six
-             * @param {Call} [call=Call.Plain] - Call used to start the six
              */
-            constructor(previousSixEnd: Row, call: Call = Call.Plain) {
+            constructor(previousSixEnd: Row) {
                 this._previousSixEnd = previousSixEnd;
-                this._call = call;
                 this.calculateSixEnd();
             }
 
