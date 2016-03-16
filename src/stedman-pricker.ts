@@ -392,6 +392,14 @@ namespace Pricker {
         }
 
         /**
+         * Read access to sixes
+         */
+        public getSix(six: number): Six.AbstractSix {
+            let index: number = this.indexFromSixNumber(six);
+            return this._sixes[index];
+        }
+
+        /**
          * Read access to the length
          */
         public getLength(): number {

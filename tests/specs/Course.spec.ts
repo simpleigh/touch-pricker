@@ -53,6 +53,16 @@ describe('Course class', function () {
             .toEqual(course.getCourseEnd());
     }));
 
+    it('provides read access to sixes', testStages(function(stage) {
+        let row: Pricker.Row = Pricker.rowFromString('231', stage),
+            course = new Pricker.Course(row);
+
+        expect(course.getSix(1).getPreviousSixEnd())
+            .toEqual(course.getPreviousCourseEnd());
+        expect(course.getSix(stage * 2).getSixEnd())
+            .toEqual(course.getCourseEnd());
+    }));
+
     it('allows direct read access to six ends', function () {
         let row: Pricker.Row = Pricker.rowFromString(
                 '231',
@@ -178,6 +188,10 @@ describe('Course class', function () {
                 ),
                 course = new Pricker.Course(row);
 
+            expect(function () { course.getSix(0); })
+                .toThrowError('Six number out of range');
+            expect(function () { course.getSix(23); })
+                .toThrowError('Six number out of range');
             expect(function () { course.getSixEnd(0); })
                 .toThrowError('Six number out of range');
             expect(function () { course.getSixEnd(23); })
