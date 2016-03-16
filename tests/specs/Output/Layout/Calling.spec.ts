@@ -10,7 +10,7 @@ describe('Calling layout', createLayoutTests(
                     Pricker.rowFromString('231', Pricker.Stage.Cinques)
                 );
 
-            course.setCall(1, Pricker.Call.Bob);
+            course.getSix(1).setCall(Pricker.Call.Bob);
             expect(layout.print(course, format)).toEqual('23145678E90  1\n');
         });
 

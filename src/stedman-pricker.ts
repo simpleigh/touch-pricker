@@ -408,8 +408,10 @@ namespace Pricker {
          * Read access to sixes
          */
         public getSix(six: number): Six.AbstractSix {
-            let index: number = this.indexFromSixNumber(six);
-            return this._sixes[index];
+            if (six < 1 || six > this.getLength()) {
+                throw new Error('Six number out of range');
+            }
+            return this._sixes[six - 1];
         }
 
         /**
@@ -443,35 +445,6 @@ namespace Pricker {
             sixes = Math.max(sixes, 2);
             sixes = Math.min(sixes, 60);
             return this.setLength(sixes);
-        }
-
-        /**
-         * Through access to toggle calls
-         */
-        public toggleCall(six: number): Call {
-            let index: number = this.indexFromSixNumber(six);
-            this._sixes[index].toggleCall();
-            return this._sixes[index].getCall();
-        }
-
-        /**
-         * Through write access to calls
-         */
-        public setCall(six: number, call: Call): Course {
-            let index: number = this.indexFromSixNumber(six);
-            this._sixes[index].setCall(call);
-            return this;
-        }
-
-        /**
-         * Converts a six number into an index and checks it's in range
-         * @throws Error if it isn't in range
-         */
-        private indexFromSixNumber(six: number): number {
-            if (six < 1 || six > this.getLength()) {
-                throw new Error('Six number out of range');
-            }
-            return six - 1;
         }
     }
 
