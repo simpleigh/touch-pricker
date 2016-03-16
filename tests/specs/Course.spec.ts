@@ -120,9 +120,9 @@ describe('Course class', function () {
                 Pricker.rowFromString('231', Pricker.Stage.Cinques),
             course = new Pricker.Course(row);
 
-        spyOn(course.getSix(5), 'setPreviousSixEnd');
+        spyOn(course.getSix(6), 'setPreviousSixEnd');
         course.getSix(6).setCall(Pricker.Call.Bob);
-        expect(course.getSix(5).setPreviousSixEnd).not.toHaveBeenCalled();
+        expect(course.getSix(6).setPreviousSixEnd).not.toHaveBeenCalled();
     });
 
     it('throws an exception if we try to set an invalid length', function () {
