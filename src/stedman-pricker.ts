@@ -474,6 +474,75 @@ namespace Pricker {
 
 
     /**
+     * A touch, being a set of courses
+     */
+    export class Touch {
+        /**
+         * Starting row (zeroth course end)
+         */
+        protected _start: Row;
+
+        /**
+         * Courses within the touch
+         */
+        protected _courses: Course[];
+
+        /**
+         * Constructs a blank touch
+         */
+        constructor(stage: Stage) {
+            this._start = rowFromString('231', stage);
+            this._courses = [new Course(this._start)];
+        }
+
+        /**
+         * Recalculates courses within the touch
+         */
+        private calculateCourses(): Touch {
+            let previousCourseEnd: Row = this._start,
+                index: number;
+
+            for (index = 0; index < this.getLength(); index++) {
+                this._courses[index].setPreviousCourseEnd(previousCourseEnd);
+                previousCourseEnd = this._courses[index].getCourseEnd();
+            }
+
+            return this;
+        }
+
+        /**
+         * Read access to the start
+         */
+        public getStart(): Row {
+            return this._start;
+        }
+
+        /**
+         * Write access to the start
+         */
+        public setStart(start: Row): Touch {
+            this._start = start;
+            this.calculateCourses();
+            return this;
+        }
+
+        /**
+         * Read access to the courses
+         */
+        public getCourses(): Course[] {
+            return this._courses;
+        }
+
+        /**
+         * Read access to the length
+         */
+        public getLength(): number {
+            return this._courses.length;
+        }
+    }
+
+
+    /**
      * Classes for output
      */
     export namespace Output {
