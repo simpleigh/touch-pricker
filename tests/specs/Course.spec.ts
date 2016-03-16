@@ -41,18 +41,6 @@ describe('Course class', function () {
         }
     ));
 
-    it('provides read access to the sixes', testStages(function(stage) {
-        let row: Pricker.Row = Pricker.rowFromString('231', stage),
-            course = new Pricker.Course(row),
-            sixes: Pricker.Six.AbstractSix[] = course.getSixes();
-
-        expect(sixes.length).toBe(stage * 2);
-        expect(sixes[0].getPreviousSixEnd())
-            .toEqual(course.getPreviousCourseEnd());
-        expect(sixes[sixes.length - 1].getSixEnd())
-            .toEqual(course.getCourseEnd());
-    }));
-
     it('provides read access to sixes', testStages(function(stage) {
         let row: Pricker.Row = Pricker.rowFromString('231', stage),
             course = new Pricker.Course(row);
@@ -70,7 +58,7 @@ describe('Course class', function () {
             ),
             course = new Pricker.Course(row);
 
-        expect(course.getSixEnd(4)).toEqual(course.getSixes()[3].getSixEnd());
+        expect(course.getSixEnd(4)).toEqual(course.getSix(4).getSixEnd());
     });
 
     it('allows the number of sixes to be increased', testStages(
@@ -118,8 +106,8 @@ describe('Course class', function () {
             course = new Pricker.Course(row);
 
         course.setCall(4, Pricker.Call.Bob);
+        expect(course.getSix(4).getCall()).toBe(Pricker.Call.Bob);
         expect(course.getCall(4)).toBe(Pricker.Call.Bob);
-        expect(course.getSixes()[3].getCall()).toBe(Pricker.Call.Bob);
     });
 
     it('recalculates when calls are set', function () {
@@ -149,9 +137,9 @@ describe('Course class', function () {
             ),
             course = new Pricker.Course(row);
 
-        spyOn(course.getSixes()[4], 'setPreviousSixEnd');
+        spyOn(course.getSix(5), 'setPreviousSixEnd');
         course.setCall(6, Pricker.Call.Bob);
-        expect(course.getSixes()[4].setPreviousSixEnd).not.toHaveBeenCalled();
+        expect(course.getSix(5).setPreviousSixEnd).not.toHaveBeenCalled();
     });
 
     it('throws an exception if we try to set an invalid length', function () {

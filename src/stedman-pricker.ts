@@ -385,13 +385,6 @@ namespace Pricker {
         }
 
         /**
-         * Read access to the sixes
-         */
-        public getSixes(): Six.AbstractSix[] {
-            return this._sixes;
-        }
-
-        /**
          * Read access to sixes
          */
         public getSix(six: number): Six.AbstractSix {
