@@ -25,21 +25,21 @@ function createSixTests(Six, testCaseFn) {
 
         it('stores the previous six end', runTestCases(
             function (previous, expected, stage, call) {
-                let six: Pricker.Six.AbstractSix = new Six(previous);
+                let six: Pricker.AbstractSix = new Six(previous);
                 expect(six.getInitialRow()).toEqual(previous);
             }
         ));
 
         it('starts life as a plain six', runTestCases(
             function (previous, expected, stage, call) {
-                let six: Pricker.Six.AbstractSix = new Six(previous);
+                let six: Pricker.AbstractSix = new Six(previous);
                 expect(six.getCall()).toEqual(Pricker.Call.Plain);
             }
         ));
 
         it('lets the call be set', runTestCases(
             function (previous, expected, stage, call) {
-                let six: Pricker.Six.AbstractSix = new Six(previous);
+                let six: Pricker.AbstractSix = new Six(previous);
                 six.setCall(call);
                 expect(six.getCall()).toBe(call);
             }
@@ -47,7 +47,7 @@ function createSixTests(Six, testCaseFn) {
 
         it('transposes the six end correctly', runTestCases(
             function (previous, expected, stage, call) {
-                let six: Pricker.Six.AbstractSix = new Six(previous);
+                let six: Pricker.AbstractSix = new Six(previous);
                 six.setCall(call);
                 expect(six.getEnd()).toEqual(expected);
             }
@@ -55,7 +55,7 @@ function createSixTests(Six, testCaseFn) {
 
         it('rotates between calls when toggled', runTestCases(
             function (previous, expected, stage, call) {
-                let six: Pricker.Six.AbstractSix = new Six(previous),
+                let six: Pricker.AbstractSix = new Six(previous),
                     newCall: Pricker.Call;
 
                 six.setCall(call);
@@ -76,7 +76,7 @@ function createSixTests(Six, testCaseFn) {
             function (previous, expected, stage, call) {
                 let incorrectPrevious: Pricker.Row =
                         Pricker.rowFromString('', stage),
-                    six: Pricker.Six.AbstractSix = new Six(incorrectPrevious);
+                    six: Pricker.AbstractSix = new Six(incorrectPrevious);
 
                 six.setCall(call);
                 expect(six.getEnd()).not.toEqual(expected);
@@ -88,7 +88,7 @@ function createSixTests(Six, testCaseFn) {
 
         it('updates when the call is toggled', runTestCases(
             function (previous, expected, stage, call) {
-                let six: Pricker.Six.AbstractSix = new Six(previous);
+                let six: Pricker.AbstractSix = new Six(previous);
 
                 // Set the call to the one before the right one
                 if (call === Pricker.Call.Plain) {
@@ -110,7 +110,7 @@ function createSixTests(Six, testCaseFn) {
             let row: Pricker.Row =
                     Pricker.rowFromString('231', Pricker.Stage.Cinques),
                 parent = jasmine.createSpyObj('Course', ['notify']),
-                six: Pricker.Six.AbstractSix = new Six(row, parent, 8);
+                six: Pricker.AbstractSix = new Six(row, parent, 8);
 
             six.setCall(Pricker.Call.Plain);
             expect(parent.notify).toHaveBeenCalledWith(8);
@@ -120,7 +120,7 @@ function createSixTests(Six, testCaseFn) {
             let row: Pricker.Row =
                     Pricker.rowFromString('231', Pricker.Stage.Cinques),
                 parent = jasmine.createSpyObj('Course', ['notify']),
-                six: Pricker.Six.AbstractSix = new Six(row, parent, 8);
+                six: Pricker.AbstractSix = new Six(row, parent, 8);
 
             six.toggleCall();
             expect(parent.notify).toHaveBeenCalledWith(8);
@@ -129,7 +129,7 @@ function createSixTests(Six, testCaseFn) {
         it('ignores mutations of the returned previous six end', function () {
             let row: Pricker.Row =
                     Pricker.rowFromString('231', Pricker.Stage.Cinques),
-                six: Pricker.Six.AbstractSix = new Six(row),
+                six: Pricker.AbstractSix = new Six(row),
                 previousSixEndFixed = six.getInitialRow().slice(),
                 previousSixEndChanged = six.getInitialRow();
 
@@ -143,7 +143,7 @@ function createSixTests(Six, testCaseFn) {
         it('ignores mutations of the returned six end', function () {
             let row: Pricker.Row =
                     Pricker.rowFromString('231', Pricker.Stage.Cinques),
-                six: Pricker.Six.AbstractSix = new Six(row),
+                six: Pricker.AbstractSix = new Six(row),
                 sixEndFixed = six.getEnd().slice(),
                 sixEndChanged = six.getEnd();
 

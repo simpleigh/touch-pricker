@@ -202,141 +202,134 @@ namespace Pricker {
 
 
     /**
-     * Sixes, slow and quick
+     * Base class for sixes
      */
-    export namespace Six {
+    export abstract class AbstractSix extends AbstractBlock {
+        /**
+         * Six end of this six
+         */
+        protected _end: Row;
 
         /**
-         * Base class for sixes
+         * Call used to start the six
          */
-        export abstract class AbstractSix extends AbstractBlock {
-            /**
-             * Six end of this six
-             */
-            protected _end: Row;
+        protected _call: Call;
 
-            /**
-             * Call used to start the six
-             */
-            protected _call: Call;
+        /**
+         * Constructor
+         */
+        constructor(
+            protected _initialRow: Row,
+            protected _container?: IContainer,
+            protected _index?: number
+        ) {
+            super(_initialRow, _container, _index);
+            this._call = Call.Plain;
+            this.calculate();
+        }
 
-            /**
-             * Constructor
-             */
-            constructor(
-                protected _initialRow: Row,
-                protected _container?: IContainer,
-                protected _index?: number
-            ) {
-                super(_initialRow, _container, _index);
-                this._call = Call.Plain;
-                this.calculate();
+        /**
+         * Does any calculation needed by the block
+         */
+        protected calculate(): void {
+            let n: number;
+            this._end = this._initialRow.slice(); // Create new array
+
+            this.transposeFrontThree();
+
+            // Odd places go up
+            for (n = 4; n < this._end.length; n += 2) {
+                this._end[n] = this._initialRow[n - 2];
             }
 
-            /**
-             * Does any calculation needed by the block
-             */
-            protected calculate(): void {
-                let n: number;
-                this._end = this._initialRow.slice(); // Create new array
+            // Even places go in
+            for (n = 5; n < this._end.length; n += 2) {
+                this._end[n - 2] = this._initialRow[n];
+            }
 
-                this.transposeFrontThree();
-
-                // Odd places go up
-                for (n = 4; n < this._end.length; n += 2) {
-                    this._end[n] = this._initialRow[n - 2];
-                }
-
-                // Even places go in
-                for (n = 5; n < this._end.length; n += 2) {
-                    this._end[n - 2] = this._initialRow[n];
-                }
-
-                // Random stuff happens at the back
-                n = this._end.length - 1;
-                if (this._call === Call.Plain) {
-                    this._end[n - 1] = this._initialRow[n];
+            // Random stuff happens at the back
+            n = this._end.length - 1;
+            if (this._call === Call.Plain) {
+                this._end[n - 1] = this._initialRow[n];
+            } else {
+                this._end[n - 3] = this._initialRow[n - 2];
+                if (this._call === Call.Bob) {
+                    this._end[n - 1] = this._initialRow[n - 1];
+                    this._end[n] = this._initialRow[n];
                 } else {
-                    this._end[n - 3] = this._initialRow[n - 2];
-                    if (this._call === Call.Bob) {
-                        this._end[n - 1] = this._initialRow[n - 1];
-                        this._end[n] = this._initialRow[n];
-                    } else {
-                        this._end[n - 1] = this._initialRow[n];
-                        this._end[n] = this._initialRow[n - 1];
-                    }
+                    this._end[n - 1] = this._initialRow[n];
+                    this._end[n] = this._initialRow[n - 1];
                 }
             }
-
-            /**
-             * Returns the end row
-             */
-            public getEnd(): Row {
-                return this._end.slice();
-            }
-
-            /**
-             * Read access to the call
-             */
-            public getCall(): Call {
-                return this._call;
-            }
-
-            /**
-             * Write access to the call
-             */
-            public setCall(call: Call): AbstractSix {
-                this._call = call;
-                this.calculate();
-                this.notifyContainer();
-                return this;
-            }
-
-            /**
-             * Toggles the call type between Plain -> Bob -> Single -> Plain
-             */
-            public toggleCall(): Call {
-                let call: Pricker.Call = (this._call % 3) + 1;
-                this.setCall(call);
-                return call;
-            }
-
-            /**
-             * Transposes the front three bells depending upon the type of six
-             */
-            protected abstract transposeFrontThree(): AbstractSix;
         }
 
         /**
-         * A slow six
+         * Returns the end row
          */
-        export class Slow extends AbstractSix {
-            /**
-             * Transposes the front three bells depending upon the type of six
-             */
-            protected transposeFrontThree(): AbstractSix {
-                this._end[0] = this._initialRow[1];
-                this._end[1] = this._initialRow[3];
-                this._end[2] = this._initialRow[0];
-                return this;
-            }
+        public getEnd(): Row {
+            return this._end.slice();
         }
 
         /**
-         * A quick six
+         * Read access to the call
          */
-        export class Quick extends AbstractSix {
-            /**
-             * Transposes the front three bells depending upon the type of six
-             */
-            protected transposeFrontThree(): AbstractSix {
-                this._end[0] = this._initialRow[0];
-                this._end[1] = this._initialRow[1];
-                this._end[2] = this._initialRow[3];
-                return this;
-            }
+        public getCall(): Call {
+            return this._call;
         }
 
+        /**
+         * Write access to the call
+         */
+        public setCall(call: Call): AbstractSix {
+            this._call = call;
+            this.calculate();
+            this.notifyContainer();
+            return this;
+        }
+
+        /**
+         * Toggles the call type between Plain -> Bob -> Single -> Plain
+         */
+        public toggleCall(): Call {
+            let call: Pricker.Call = (this._call % 3) + 1;
+            this.setCall(call);
+            return call;
+        }
+
+        /**
+         * Transposes the front three bells depending upon the type of six
+         */
+        protected abstract transposeFrontThree(): AbstractSix;
+    }
+
+    /**
+     * A slow six
+     */
+    export class Slow extends AbstractSix {
+        /**
+         * Transposes the front three bells depending upon the type of six
+         */
+        protected transposeFrontThree(): AbstractSix {
+            this._end[0] = this._initialRow[1];
+            this._end[1] = this._initialRow[3];
+            this._end[2] = this._initialRow[0];
+            return this;
+        }
+    }
+
+    /**
+     * A quick six
+     */
+    export class Quick extends AbstractSix {
+        /**
+         * Transposes the front three bells depending upon the type of six
+         */
+        protected transposeFrontThree(): AbstractSix {
+            this._end[0] = this._initialRow[0];
+            this._end[1] = this._initialRow[1];
+            this._end[2] = this._initialRow[3];
+            return this;
+        }
     }
 
 
@@ -347,7 +340,7 @@ namespace Pricker {
         /**
          * Sixes within the course
          */
-        protected _sixes: Six.AbstractSix[];
+        protected _sixes: AbstractSix[];
 
         /**
          * Constructor
@@ -386,8 +379,8 @@ namespace Pricker {
 
             for (index = oldLength; index < newLength; index += 1) {
                 this._sixes[index] = index % 2
-                    ? new Six.Quick(previousSixEnd, this, index + 1)
-                    : new Six.Slow(previousSixEnd, this, index + 1);
+                    ? new Quick(previousSixEnd, this, index + 1)
+                    : new Slow(previousSixEnd, this, index + 1);
                 previousSixEnd = this._sixes[index].getEnd();
             }
 
@@ -439,7 +432,7 @@ namespace Pricker {
         /**
          * Read access to sixes
          */
-        public getSix(six: number): Six.AbstractSix {
+        public getSix(six: number): AbstractSix {
             if (six < 1 || six > this.getLength()) {
                 throw new Error('Six number out of range');
             }
@@ -724,6 +717,6 @@ namespace Pricker {
         stage: Stage;
         startingRow: string;
         calls: Call[];
-        sixes: Six.AbstractSix[];
+        sixes: AbstractSix[];
     }
 }
