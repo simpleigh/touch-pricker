@@ -343,30 +343,35 @@ namespace Pricker {
     /**
      * A course, being a set of sixes
      */
-    export class Course implements IContainer {
-        /**
-         * Course end of the previous course
-         */
-        protected _previousCourseEnd: Row;
-
+    export class Course extends AbstractBlock implements IContainer {
         /**
          * Sixes within the course
          */
         protected _sixes: Six.AbstractSix[];
 
         /**
-         * Constructs a plain course
-         * @param {Row} previousCourseEnd - Course end of the previous course
+         * Constructor
          */
-        constructor(previousCourseEnd: Row) {
-            let stage: Stage = previousCourseEnd.length;
+        constructor(
+            protected _initialRow: Row,
+            protected _container?: IContainer,
+            protected _index?: number
+        ) {
+            super(_initialRow, _container, _index);
+            let stage: Stage = _initialRow.length;
 
             // Set up an empty course
-            this._previousCourseEnd = previousCourseEnd;
             this._sixes = [];
 
             // ... and extend it to the right length
             this.addSixes(stage * 2);
+        }
+
+        /**
+         * Does any calculation needed by the block
+         */
+        protected calculate(): void {
+            this.calculateSixes();
         }
 
         /**
@@ -377,7 +382,7 @@ namespace Pricker {
             let index: number,
                 oldLength: number = this.getLength(),
                 newLength: number = oldLength + sixes,
-                previousSixEnd: Row = this.getCourseEnd();
+                previousSixEnd: Row = this.getEnd();
 
             for (index = oldLength; index < newLength; index += 1) {
                 this._sixes[index] = index % 2
@@ -397,7 +402,7 @@ namespace Pricker {
             let previousSixEnd: Row;
 
             if (index === 0) {
-                previousSixEnd = this._previousCourseEnd;
+                previousSixEnd = this._initialRow;
             } else {
                 previousSixEnd = this._sixes[index - 1].getEnd();
             }
@@ -407,42 +412,28 @@ namespace Pricker {
                 previousSixEnd = this._sixes[index].getEnd();
             }
 
-            return this;
-        }
+            this.notifyContainer();
 
-        /**
-         * Hook for sixes to notify us of changes
-         */
-        public notify(index: number = 0): Course {
-            return this.calculateSixes(index);
-        }
-
-        /**
-         * Read access to the previous course end
-         */
-        public getPreviousCourseEnd(): Row {
-            return this._previousCourseEnd;
-        }
-
-        /**
-         * Write access to the previous course end
-         */
-        public setPreviousCourseEnd(previousCourseEnd: Row): Course {
-            this._previousCourseEnd = previousCourseEnd;
-            this.calculateSixes();
             return this;
         }
 
         /**
          * Read access to the course end
          */
-        public getCourseEnd(): Row {
+        public getEnd(): Row {
             if (this._sixes.length) {
                 return this._sixes[this._sixes.length - 1].getEnd();
             }
 
             // Handle course with zero sixes
-            return this._previousCourseEnd;
+            return this._initialRow;
+        }
+
+        /**
+         * Hook for sixes to notify us of changes
+         */
+        public notify(index: number = 0): void {
+            this.calculateSixes(index);
         }
 
         /**
@@ -475,6 +466,8 @@ namespace Pricker {
             } else {
                 this._sixes = this._sixes.slice(0, sixes);
             }
+
+            this.notifyContainer();
 
             return this;
         }
@@ -545,12 +538,12 @@ namespace Pricker {
                 print(course: Course, format: Format.AbstractFormat): string {
                     let index: number,
                         calls: string[] = [],
-                        bells: number = course.getCourseEnd().length;
+                        bells: number = course.getEnd().length;
 
                     format
                         .clearBuffer()
                         .startLine()
-                        .printRow(course.getCourseEnd())
+                        .printRow(course.getEnd())
                         .newColumn();
 
                     // e.g. '1 5 7 8 10 11 s13 15 16'

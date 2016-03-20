@@ -23,7 +23,7 @@ describe('Course class', function () {
                 course = new Pricker.Course(row);
 
             expect(course.getLength()).toBe(stage * 2);
-            expect(course.getCourseEnd()).toEqual(row);
+            expect(course.getEnd()).toEqual(row);
         }
     ));
 
@@ -33,11 +33,11 @@ describe('Course class', function () {
                 newRow: Pricker.Row = Pricker.rowFromString('', stage),
                 course = new Pricker.Course(row);
 
-            expect(course.getPreviousCourseEnd()).toEqual(row);
-            expect(course.getCourseEnd()).toEqual(row);
-            course.setPreviousCourseEnd(newRow);
-            expect(course.getPreviousCourseEnd()).toEqual(newRow);
-            expect(course.getCourseEnd()).toEqual(newRow);
+            expect(course.getInitialRow()).toEqual(row);
+            expect(course.getEnd()).toEqual(row);
+            course.setInitialRow(newRow);
+            expect(course.getInitialRow()).toEqual(newRow);
+            expect(course.getEnd()).toEqual(newRow);
         }
     ));
 
@@ -51,11 +51,11 @@ describe('Course class', function () {
 
         // First valid six (start of course)
         expect(course.getSix(1).getInitialRow())
-            .toEqual(course.getPreviousCourseEnd());
+            .toEqual(course.getInitialRow());
 
         // Last valid six (end of course)
         expect(course.getSix(stage * 2).getEnd())
-            .toEqual(course.getCourseEnd());
+            .toEqual(course.getEnd());
 
         // First invalid six after course
         expect(function () { course.getSix(stage * 2 + 1); })
@@ -69,7 +69,7 @@ describe('Course class', function () {
 
             course.setLength(stage * 2 + 4);
             expect(course.getLength()).toBe(stage * 2 + 4);
-            expect(course.getCourseEnd()).toEqual(course.getSix(4).getEnd());
+            expect(course.getEnd()).toEqual(course.getSix(4).getEnd());
         }
     ));
 
@@ -81,7 +81,7 @@ describe('Course class', function () {
 
             course.setLength(4);
             expect(course.getLength()).toBe(4);
-            expect(course.getCourseEnd()).toEqual(fourthSixEnd);
+            expect(course.getEnd()).toEqual(fourthSixEnd);
         }
     ));
 
@@ -95,13 +95,13 @@ describe('Course class', function () {
             .toBe('3426185970E');
         expect(Pricker.stringFromRow(course.getSix(2).getEnd()))
             .toBe('346829105E7');
-        expect(Pricker.stringFromRow(course.getCourseEnd()))
+        expect(Pricker.stringFromRow(course.getEnd()))
             .toBe('23145678E90');
 
         course.getSix(10).setCall(Pricker.Call.Single);
         course.getSix(13).setCall(Pricker.Call.Single);
         course.getSix(22).setCall(Pricker.Call.Bob);
-        expect(Pricker.stringFromRow(course.getCourseEnd()))
+        expect(Pricker.stringFromRow(course.getEnd()))
             .toBe('2314567890E');
     });
 
@@ -111,7 +111,7 @@ describe('Course class', function () {
             course = new Pricker.Course(row);
 
         course.getSix(1).toggleCall();
-        expect(Pricker.stringFromRow(course.getCourseEnd()))
+        expect(Pricker.stringFromRow(course.getEnd()))
             .toBe('23145678E90');
     });
 
