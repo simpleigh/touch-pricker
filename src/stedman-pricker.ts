@@ -144,17 +144,22 @@ namespace Pricker {
      */
     export abstract class AbstractBlock {
         /**
+         * Initial row for the block
+         */
+        protected _initialRow: Row;
+
+        /**
          * Constructor
          * @param {Row}                initialRow - initial row for the block
          * @param {IContainer}         container  - container of this block
          * @param {number}             index      - index of block in container
          */
         constructor(
-            protected _initialRow: Row,
+            initialRow: Row,
             protected _container?: IContainer,
             protected _index?: number
         ) {
-            // Empty
+            this._initialRow = initialRow.slice();
         }
 
         /**
@@ -173,7 +178,7 @@ namespace Pricker {
          * Write access to the initial row
          */
         public setInitialRow(initialRow: Row): AbstractBlock {
-            this._initialRow = initialRow;
+            this._initialRow = initialRow.slice();
             this.calculate();
             return this;
         }
@@ -219,11 +224,11 @@ namespace Pricker {
          * Constructor
          */
         constructor(
-            protected _initialRow: Row,
+            initialRow: Row,
             protected _container?: IContainer,
             protected _index?: number
         ) {
-            super(_initialRow, _container, _index);
+            super(initialRow, _container, _index);
             this._call = Call.Plain;
             this.calculate();
         }
@@ -346,12 +351,12 @@ namespace Pricker {
          * Constructor
          */
         constructor(
-            protected _initialRow: Row,
+            initialRow: Row,
             protected _container?: IContainer,
             protected _index?: number
         ) {
-            super(_initialRow, _container, _index);
-            let stage: Stage = _initialRow.length;
+            super(initialRow, _container, _index);
+            let stage: Stage = initialRow.length;
 
             // Set up an empty course
             this._sixes = [];

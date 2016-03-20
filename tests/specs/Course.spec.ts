@@ -27,20 +27,6 @@ describe('Course class', function () {
         }
     ));
 
-    it('updates when the previous course end changes', testStages(
-        function (stage) {
-            let row: Pricker.Row = Pricker.rowFromString('231', stage),
-                newRow: Pricker.Row = Pricker.rowFromString('', stage),
-                course = new Pricker.Course(row);
-
-            expect(course.getInitialRow()).toEqual(row);
-            expect(course.getEnd()).toEqual(row);
-            course.setInitialRow(newRow);
-            expect(course.getInitialRow()).toEqual(newRow);
-            expect(course.getEnd()).toEqual(newRow);
-        }
-    ));
-
     it('provides read access to sixes', testStages(function(stage) {
         let row: Pricker.Row = Pricker.rowFromString('231', stage),
             course = new Pricker.Course(row);
@@ -146,4 +132,6 @@ describe('Course class', function () {
         course.safeSetLength(61);
         expect(course.getLength()).toBe(60);
     });
+
+    testAbstractBlockImplementation(Pricker.Course);
 });

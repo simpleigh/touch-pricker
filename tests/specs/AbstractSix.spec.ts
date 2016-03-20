@@ -23,13 +23,6 @@ function createSixTests(Six, testCaseFn) {
 
     return function () {
 
-        it('stores the previous six end', runTestCases(
-            function (previous, expected, stage, call) {
-                let six: Pricker.AbstractSix = new Six(previous);
-                expect(six.getInitialRow()).toEqual(previous);
-            }
-        ));
-
         it('starts life as a plain six', runTestCases(
             function (previous, expected, stage, call) {
                 let six: Pricker.AbstractSix = new Six(previous);
@@ -126,33 +119,6 @@ function createSixTests(Six, testCaseFn) {
             expect(parent.notify).toHaveBeenCalledWith(8);
         });
 
-        it('ignores mutations of the returned previous six end', function () {
-            let row: Pricker.Row =
-                    Pricker.rowFromString('231', Pricker.Stage.Cinques),
-                six: Pricker.AbstractSix = new Six(row),
-                previousSixEndFixed = six.getInitialRow().slice(),
-                previousSixEndChanged = six.getInitialRow();
-
-            expect(six.getInitialRow()).toEqual(previousSixEndFixed);
-            expect(six.getInitialRow()).toEqual(previousSixEndChanged);
-            previousSixEndChanged[3] = 999;  // N.B. invalid row
-            expect(six.getInitialRow()).toEqual(previousSixEndFixed);
-            expect(six.getInitialRow()).not.toEqual(previousSixEndChanged);
-        });
-
-        it('ignores mutations of the returned six end', function () {
-            let row: Pricker.Row =
-                    Pricker.rowFromString('231', Pricker.Stage.Cinques),
-                six: Pricker.AbstractSix = new Six(row),
-                sixEndFixed = six.getEnd().slice(),
-                sixEndChanged = six.getEnd();
-
-            expect(six.getEnd()).toEqual(sixEndFixed);
-            expect(six.getEnd()).toEqual(sixEndChanged);
-            sixEndChanged[3] = 999;  // N.B. invalid row
-            expect(six.getEnd()).toEqual(sixEndFixed);
-            expect(six.getEnd()).not.toEqual(sixEndChanged);
-        });
-
+        testAbstractBlockImplementation(Six);
     };
 }
