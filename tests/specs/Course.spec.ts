@@ -50,11 +50,11 @@ describe('Course class', function () {
             .toThrowError('Six number out of range');
 
         // First valid six (start of course)
-        expect(course.getSix(1).getPreviousSixEnd())
+        expect(course.getSix(1).getInitialRow())
             .toEqual(course.getPreviousCourseEnd());
 
         // Last valid six (end of course)
-        expect(course.getSix(stage * 2).getSixEnd())
+        expect(course.getSix(stage * 2).getEnd())
             .toEqual(course.getCourseEnd());
 
         // First invalid six after course
@@ -69,7 +69,7 @@ describe('Course class', function () {
 
             course.setLength(stage * 2 + 4);
             expect(course.getLength()).toBe(stage * 2 + 4);
-            expect(course.getCourseEnd()).toEqual(course.getSix(4).getSixEnd());
+            expect(course.getCourseEnd()).toEqual(course.getSix(4).getEnd());
         }
     ));
 
@@ -77,7 +77,7 @@ describe('Course class', function () {
         function (stage) {
             let row: Pricker.Row = Pricker.rowFromString('231', stage),
                 course = new Pricker.Course(row),
-                fourthSixEnd: Pricker.Row = course.getSix(4).getSixEnd();
+                fourthSixEnd: Pricker.Row = course.getSix(4).getEnd();
 
             course.setLength(4);
             expect(course.getLength()).toBe(4);
@@ -91,9 +91,9 @@ describe('Course class', function () {
             course = new Pricker.Course(row);
 
         course.getSix(1).setCall(Pricker.Call.Bob);
-        expect(Pricker.stringFromRow(course.getSix(1).getSixEnd()))
+        expect(Pricker.stringFromRow(course.getSix(1).getEnd()))
             .toBe('3426185970E');
-        expect(Pricker.stringFromRow(course.getSix(2).getSixEnd()))
+        expect(Pricker.stringFromRow(course.getSix(2).getEnd()))
             .toBe('346829105E7');
         expect(Pricker.stringFromRow(course.getCourseEnd()))
             .toBe('23145678E90');
@@ -120,9 +120,9 @@ describe('Course class', function () {
                 Pricker.rowFromString('231', Pricker.Stage.Cinques),
             course = new Pricker.Course(row);
 
-        spyOn(course.getSix(6), 'setPreviousSixEnd');
+        spyOn(course.getSix(6), 'setInitialRow');
         course.getSix(6).setCall(Pricker.Call.Bob);
-        expect(course.getSix(6).setPreviousSixEnd).not.toHaveBeenCalled();
+        expect(course.getSix(6).setInitialRow).not.toHaveBeenCalled();
     });
 
     it('throws an exception if we try to set an invalid length', function () {
