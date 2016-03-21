@@ -151,12 +151,12 @@ namespace Pricker {
         /**
          * Constructor
          * @param {Row}                initialRow - initial row for the block
-         * @param {IContainer}         container  - container of this block
+         * @param {AbstractContainer}  container  - container of this block
          * @param {number}             index      - index of block in container
          */
         constructor(
             initialRow: Row,
-            protected _container?: IContainer,
+            protected _container?: AbstractContainer,
             protected _index?: number
         ) {
             this._initialRow = initialRow.slice();
@@ -201,11 +201,6 @@ namespace Pricker {
     }
 
 
-    export interface IContainer {
-        notify(index: number): void;
-    }
-
-
     /**
      * Base class for sixes
      */
@@ -225,7 +220,7 @@ namespace Pricker {
          */
         constructor(
             initialRow: Row,
-            protected _container?: IContainer,
+            protected _container?: AbstractContainer,
             protected _index?: number
         ) {
             super(initialRow, _container, _index);
@@ -339,31 +334,107 @@ namespace Pricker {
 
 
     /**
-     * A course, being a set of sixes
+     * Abstract class representing containers for blocks of rows
+     * 
+     * Note that containers are also blocks themselves.
      */
-    export class Course extends AbstractBlock implements IContainer {
+    export abstract class AbstractContainer extends AbstractBlock {
         /**
-         * Sixes within the course
+         * Blocks within the container
          */
-        protected _sixes: AbstractSix[];
+        protected _blocks: AbstractBlock[];
 
         /**
          * Constructor
+         * 
+         * Extends the AbstractBlock container to create contained blocks.
          */
         constructor(
             initialRow: Row,
-            protected _container?: IContainer,
+            protected _container?: AbstractContainer,
             protected _index?: number
         ) {
             super(initialRow, _container, _index);
-            let stage: Stage = initialRow.length;
 
-            // Set up an empty course
-            this._sixes = [];
-
-            // ... and extend it to the right length
-            this.addSixes(stage * 2);
+            this._blocks = [];
+            this.extend(this.getDefaultLength(initialRow));
         }
+
+        /**
+         * Extends the container by adding the specified number of blocks
+         * @param {number}  blocks - blocks to add
+         */
+        protected extend(blocks: number): this {
+            let index: number,
+                oldLength: number = this.getLength(),
+                newLength: number = oldLength + blocks,
+                initialRow: Row = this.getEnd();
+
+            for (index = oldLength + 1; index <= newLength; index += 1) {
+                this._blocks[index - 1] = this.createBlock(initialRow, index);
+                initialRow = this._blocks[index - 1].getEnd();
+            }
+
+            return this;
+        }
+
+        /**
+         * Returns the default length of new containers of this type
+         * 
+         * Derived classes should override this method if required.
+         */
+        protected getDefaultLength(initialRow: Row): number {
+            return 1;
+        }
+
+        /**
+         * Creates a new block for the container
+         * 
+         * Used by extend() when creating the container or increasing its
+         * length.
+         * @param {Row}     initialRow - initial row for the block
+         * @param {number}  index      - index of block in container
+         */
+        protected abstract createBlock(
+            initialRow: Row,
+            index: number
+        ): AbstractBlock;
+
+        /**
+         * Returns the end row
+         */
+        public getEnd(): Row {
+            if (this._blocks.length) {
+                return this._blocks[this._blocks.length - 1].getEnd();
+            }
+
+            // Handle case with zero blocks
+            return this._initialRow;
+        }
+
+        /**
+         * Read access to the length
+         */
+        public getLength(): number {
+            return this._blocks.length;
+        }
+
+        /**
+         * Receives a notification from a block that has changed
+         * @param {number}  index - index of changed block in container
+         */
+        public abstract notify(index: number): void;
+    }
+
+
+    /**
+     * A course, being a set of sixes
+     */
+    export class Course extends AbstractContainer {
+        /**
+         * Blocks within the container
+         */
+        protected _blocks: AbstractSix[];
 
         /**
          * Does any calculation needed by the block
@@ -373,23 +444,34 @@ namespace Pricker {
         }
 
         /**
-         * Creates sixes
-         * @param {number} sixes - number of sixes to create
+         * Returns the default length of new containers of this type
+         * 
+         * Derived classes should override this method if required.
          */
-        private addSixes(sixes: number): Course {
-            let index: number,
-                oldLength: number = this.getLength(),
-                newLength: number = oldLength + sixes,
-                previousSixEnd: Row = this.getEnd();
+        protected getDefaultLength(initialRow: Row): number {
+            let stage: Stage = initialRow.length;
+            return stage * 2;
+        }
 
-            for (index = oldLength; index < newLength; index += 1) {
-                this._sixes[index] = index % 2
-                    ? new Quick(previousSixEnd, this, index + 1)
-                    : new Slow(previousSixEnd, this, index + 1);
-                previousSixEnd = this._sixes[index].getEnd();
-            }
+        /**
+         * Creates a new block for the container
+         * 
+         * Used by extend() when creating the container or increasing its
+         * length.
+         * @param {Row}     initialRow - initial row for the block
+         * @param {number}  index      - index of block in container
+         */
+        protected createBlock(initialRow: Row, index: number): AbstractSix {
+            return index % 2
+                ? new Slow(initialRow, this, index)
+                : new Quick(initialRow, this, index);
+        }
 
-            return this;
+        /**
+         * Hook for sixes to notify us of changes
+         */
+        public notify(index: number = 0): void {
+            this.calculateSixes(index);
         }
 
         /**
@@ -402,36 +484,17 @@ namespace Pricker {
             if (index === 0) {
                 previousSixEnd = this._initialRow;
             } else {
-                previousSixEnd = this._sixes[index - 1].getEnd();
+                previousSixEnd = this._blocks[index - 1].getEnd();
             }
 
             for (; index < this.getLength(); index += 1) {
-                this._sixes[index].setInitialRow(previousSixEnd);
-                previousSixEnd = this._sixes[index].getEnd();
+                this._blocks[index].setInitialRow(previousSixEnd);
+                previousSixEnd = this._blocks[index].getEnd();
             }
 
             this.notifyContainer();
 
             return this;
-        }
-
-        /**
-         * Read access to the course end
-         */
-        public getEnd(): Row {
-            if (this._sixes.length) {
-                return this._sixes[this._sixes.length - 1].getEnd();
-            }
-
-            // Handle course with zero sixes
-            return this._initialRow;
-        }
-
-        /**
-         * Hook for sixes to notify us of changes
-         */
-        public notify(index: number = 0): void {
-            this.calculateSixes(index);
         }
 
         /**
@@ -441,14 +504,7 @@ namespace Pricker {
             if (six < 1 || six > this.getLength()) {
                 throw new Error('Six number out of range');
             }
-            return this._sixes[six - 1];
-        }
-
-        /**
-         * Read access to the length
-         */
-        public getLength(): number {
-            return this._sixes.length;
+            return this._blocks[six - 1];
         }
 
         /**
@@ -460,9 +516,9 @@ namespace Pricker {
             }
 
             if (sixes > this.getLength()) {
-                this.addSixes(sixes - this.getLength());
+                this.extend(sixes - this.getLength());
             } else {
-                this._sixes = this._sixes.slice(0, sixes);
+                this._blocks = this._blocks.slice(0, sixes);
             }
 
             this.notifyContainer();
