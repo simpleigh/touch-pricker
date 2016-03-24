@@ -134,4 +134,6 @@ describe('Course class', function () {
     });
 
     testAbstractBlockImplementation(Pricker.Course);
+
+    testAbstractContainerImplementation(Pricker.Course);
 });
