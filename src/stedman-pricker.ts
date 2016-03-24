@@ -156,7 +156,7 @@ namespace Pricker {
          */
         constructor(
             initialRow: Row,
-            protected _container?: AbstractContainer,
+            protected _container?: AbstractContainer<AbstractBlock>,
             protected _index?: number
         ) {
             this._initialRow = initialRow.slice();
@@ -220,7 +220,7 @@ namespace Pricker {
          */
         constructor(
             initialRow: Row,
-            protected _container?: AbstractContainer,
+            protected _container?: AbstractContainer<AbstractSix>,
             protected _index?: number
         ) {
             super(initialRow, _container, _index);
@@ -338,11 +338,12 @@ namespace Pricker {
      * 
      * Note that containers are also blocks themselves.
      */
-    export abstract class AbstractContainer extends AbstractBlock {
+    export abstract class AbstractContainer<Block extends AbstractBlock>
+        extends AbstractBlock {
         /**
          * Blocks within the container
          */
-        protected _blocks: AbstractBlock[];
+        protected _blocks: Block[];
 
         /**
          * Constructor
@@ -351,7 +352,7 @@ namespace Pricker {
          */
         constructor(
             initialRow: Row,
-            protected _container?: AbstractContainer,
+            protected _container?: AbstractContainer<AbstractBlock>,
             protected _index?: number
         ) {
             super(initialRow, _container, _index);
@@ -395,10 +396,7 @@ namespace Pricker {
          * @param {Row}     initialRow - initial row for the block
          * @param {number}  index      - index of block in container
          */
-        protected abstract createBlock(
-            initialRow: Row,
-            index: number
-        ): AbstractBlock;
+        protected abstract createBlock(initialRow: Row, index: number): Block;
 
         /**
          * Returns the end row
@@ -430,12 +428,7 @@ namespace Pricker {
     /**
      * A course, being a set of sixes
      */
-    export class Course extends AbstractContainer {
-        /**
-         * Blocks within the container
-         */
-        protected _blocks: AbstractSix[];
-
+    export class Course extends AbstractContainer<AbstractSix> {
         /**
          * Does any calculation needed by the block
          */
