@@ -462,7 +462,7 @@ namespace Pricker {
             /**
              * Interface for layouts
              */
-            export interface ILayout {
+            export interface AbstractLayout {
                 /**
                  * Manipulates a format to print out a course
                  */
@@ -472,7 +472,7 @@ namespace Pricker {
             /**
              * Displays each six-end on a separate line
              */
-            export class Pricker implements ILayout {
+            export class Pricker implements AbstractLayout {
                 /**
                  * Manipulates a format to print out a course
                  */
@@ -497,7 +497,7 @@ namespace Pricker {
             /**
              * Lists the calling for a course on a single line
              */
-            export class Calling implements ILayout {
+            export class Calling implements AbstractLayout {
                 /**
                  * Manipulates a format to print out a course
                  */

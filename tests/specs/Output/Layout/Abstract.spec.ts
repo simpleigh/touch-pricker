@@ -3,7 +3,7 @@ function createLayoutTests(Layout, expected: string, testFn) {
     return function () {
 
         it('calls clearBuffer when printing', function () {
-            let layout: Pricker.Output.Layout.ILayout = new Layout(),
+            let layout: Pricker.Output.Layout.AbstractLayout = new Layout(),
                 format = new Pricker.Output.Format.Text(),
                 course = new Pricker.Course(
                     Pricker.rowFromString('231', Pricker.Stage.Cinques)
@@ -15,7 +15,7 @@ function createLayoutTests(Layout, expected: string, testFn) {
         });
 
         it('renders a course correctly', function () {
-            let layout: Pricker.Output.Layout.ILayout = new Layout(),
+            let layout: Pricker.Output.Layout.AbstractLayout = new Layout(),
                 format = new Pricker.Output.Format.Text(),
                 course = new Pricker.Course(
                     Pricker.rowFromString('231', Pricker.Stage.Cinques)
