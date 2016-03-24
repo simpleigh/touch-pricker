@@ -36,8 +36,12 @@ gulp.task('build', function () {
 
 gulp.task('build-tests', ['build'], function () {
     'use strict';
-    return gulp.src('tests/**/*.ts')
-        .pipe(plugins.typescript())
+    var tsResult = gulp.src('tests/**/*.ts')
+        .pipe(plugins.sourcemaps.init())
+        .pipe(plugins.typescript());
+
+    return tsResult.js
+        .pipe(plugins.sourcemaps.write())
         .pipe(gulp.dest('build/tests'));
 });
 
