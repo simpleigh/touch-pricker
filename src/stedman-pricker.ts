@@ -182,7 +182,7 @@ namespace Pricker {
             /**
              * Recalculates the six end
              */
-            protected calculateSixEnd(): AbstractSix {
+            protected calculateSixEnd(): this {
                 let n: number;
                 this._sixEnd = this._previousSixEnd.slice(); // Create new array
 
@@ -226,7 +226,7 @@ namespace Pricker {
             /**
              * Write access to the previous six end
              */
-            public setPreviousSixEnd(row: Row): AbstractSix {
+            public setPreviousSixEnd(row: Row): this {
                 this._previousSixEnd = row;
                 this.calculateSixEnd();
                 return this;
@@ -249,7 +249,7 @@ namespace Pricker {
             /**
              * Write access to the call
              */
-            public setCall(call: Call): AbstractSix {
+            public setCall(call: Call): this {
                 this._call = call;
                 this.calculateSixEnd();
                 if (this._parent) {
@@ -280,7 +280,7 @@ namespace Pricker {
             /**
              * Transposes the front three bells depending upon the type of six
              */
-            protected transposeFrontThree(): AbstractSix {
+            protected transposeFrontThree(): this {
                 this._sixEnd[0] = this._previousSixEnd[1];
                 this._sixEnd[1] = this._previousSixEnd[3];
                 this._sixEnd[2] = this._previousSixEnd[0];
@@ -295,7 +295,7 @@ namespace Pricker {
             /**
              * Transposes the front three bells depending upon the type of six
              */
-            protected transposeFrontThree(): AbstractSix {
+            protected transposeFrontThree(): this {
                 this._sixEnd[0] = this._previousSixEnd[0];
                 this._sixEnd[1] = this._previousSixEnd[1];
                 this._sixEnd[2] = this._previousSixEnd[3];
@@ -339,7 +339,7 @@ namespace Pricker {
          * Creates sixes
          * @param {number} sixes - number of sixes to create
          */
-        private addSixes(sixes: number): Course {
+        private addSixes(sixes: number): this {
             let index: number,
                 oldLength: number = this.getLength(),
                 newLength: number = oldLength + sixes,
@@ -359,7 +359,7 @@ namespace Pricker {
          * Recalculates sixes within the course
          * @param {number} index - where to start when recalculating
          */
-        public calculateSixes(index: number = 0): Course {
+        public calculateSixes(index: number = 0): this {
             let previousSixEnd: Row;
 
             if (index === 0) {
@@ -386,7 +386,7 @@ namespace Pricker {
         /**
          * Write access to the previous course end
          */
-        public setPreviousCourseEnd(previousCourseEnd: Row): Course {
+        public setPreviousCourseEnd(previousCourseEnd: Row): this {
             this._previousCourseEnd = previousCourseEnd;
             this.calculateSixes();
             return this;
@@ -424,7 +424,7 @@ namespace Pricker {
         /**
          * Write access to the length
          */
-        public setLength(sixes: number): Course {
+        public setLength(sixes: number): this {
             if ((sixes < 2) || (sixes > 60)) {
                 throw new Error('Number of sixes out of range');
             }
@@ -559,7 +559,7 @@ namespace Pricker {
                 /**
                  * Empties the internal buffer
                  */
-                public clearBuffer(): AbstractFormat {
+                public clearBuffer(): this {
                     this._buffer = '';
                     return this;
                 }
@@ -574,24 +574,24 @@ namespace Pricker {
                 /**
                  * Starts a line of output
                  */
-                public startLine(): AbstractFormat {
+                public startLine(): this {
                     return this;
                 }
 
                 /**
                  * Ends a line of output
                  */
-                public abstract endLine(): AbstractFormat;
+                public abstract endLine(): this;
 
                 /**
                  * Introduces a space between columns of output
                  */
-                public abstract newColumn(): AbstractFormat;
+                public abstract newColumn(): this;
 
                 /**
                  * Stores text to the internal buffer
                  */
-                public print(text: string): AbstractFormat {
+                public print(text: string): this {
                     this._buffer = this._buffer + text;
                     return this;
                 }
@@ -599,7 +599,7 @@ namespace Pricker {
                 /**
                  * Renders a row, storing to the internal buffer
                  */
-                public printRow(row: Row): AbstractFormat {
+                public printRow(row: Row): this {
                     this._buffer = this._buffer + stringFromRow(row);
                     return this;
                 }
@@ -610,7 +610,7 @@ namespace Pricker {
                 public abstract printCall(
                     call: Call,
                     index: number
-                ): AbstractFormat;
+                ): this;
             }
 
             /**
@@ -620,21 +620,21 @@ namespace Pricker {
                 /**
                  * Ends a line of output
                  */
-                public endLine(): AbstractFormat {
+                public endLine(): this {
                     return this.print('\n');
                 }
 
                 /**
                  * Introduces a space between columns of output
                  */
-                public newColumn(): AbstractFormat {
+                public newColumn(): this {
                     return this.print('  ');
                 }
 
                 /**
                  * Renders a call, storing to the internal buffer
                  */
-                public printCall(call: Call, index: number): AbstractFormat {
+                public printCall(call: Call, index: number): this {
                     if (call === Call.Plain) {
                         return this.print(' ');
                     } else if (call === Call.Bob) {
@@ -652,21 +652,21 @@ namespace Pricker {
                 /**
                  * Ends a line of output
                  */
-                public endLine(): AbstractFormat {
+                public endLine(): this {
                     return this.print('<br />\n');
                 }
 
                 /**
                  * Introduces a space between columns of output
                  */
-                public newColumn(): AbstractFormat {
+                public newColumn(): this {
                     return this.print('&nbsp;&nbsp;');
                 }
 
                 /**
                  * Renders a call, storing to the internal buffer
                  */
-                public printCall(call: Call, index: number): AbstractFormat {
+                public printCall(call: Call, index: number): this {
                     return this.print(''
                         + '<span class="'
                         + (index % 2 ? 'oddCall' : 'evenCall')
