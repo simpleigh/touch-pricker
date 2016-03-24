@@ -451,6 +451,44 @@ namespace Pricker {
             return this._blocks.length;
         }
 
+
+        /**
+         * Write access to the length
+         */
+        public setLength(length: number): this {
+            let [minimum, maximum]: [number, number] = this.getLengthLimits();
+            if ((length < minimum) || (length > maximum)) {
+                throw new Error('Length out of range');
+            }
+
+            if (length > this.getLength()) {
+                this.extend(length - this.getLength());
+            } else {
+                this._blocks = this._blocks.slice(0, length);
+            }
+
+            this.notifyContainer();
+
+            return this;
+        }
+
+        /**
+         * Write access to the length: ignores out-of-range values
+         */
+        public safeSetLength(length: number): this {
+            let [minimum, maximum]: [number, number] = this.getLengthLimits();
+            length = Math.max(length, minimum);
+            length = Math.min(length, maximum);
+            return this.setLength(length);
+        }
+
+        /**
+         * Returns the limits on length for the particular concrete class
+         * 
+         * minimum, maximum
+         */
+        protected abstract getLengthLimits(): [number, number];
+
         /**
          * Read access to a block
          * 
@@ -508,38 +546,19 @@ namespace Pricker {
         /* Course methods *****************************************************/
 
         /**
+         * Returns the limits on length for the particular concrete class
+         * 
+         * minimum, maximum
+         */
+        protected getLengthLimits(): [number, number] {
+            return [2, 60];
+        }
+
+        /**
          * Read access to sixes
          */
         public getSix(six: number): AbstractSix {
             return this.getBlock(six);
-        }
-
-        /**
-         * Write access to the length
-         */
-        public setLength(sixes: number): Course {
-            if ((sixes < 2) || (sixes > 60)) {
-                throw new Error('Number of sixes out of range');
-            }
-
-            if (sixes > this.getLength()) {
-                this.extend(sixes - this.getLength());
-            } else {
-                this._blocks = this._blocks.slice(0, sixes);
-            }
-
-            this.notifyContainer();
-
-            return this;
-        }
-
-        /**
-         * Write access to the length: ignores out-of-range values
-         */
-        public safeSetLength(sixes: number): Course {
-            sixes = Math.max(sixes, 2);
-            sixes = Math.min(sixes, 60);
-            return this.setLength(sixes);
         }
     }
 

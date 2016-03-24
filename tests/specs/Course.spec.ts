@@ -117,9 +117,9 @@ describe('Course class', function () {
             course = new Pricker.Course(row);
 
         expect(function () { course.setLength(1); })
-            .toThrowError('Number of sixes out of range');
+            .toThrowError('Length out of range');
         expect(function () { course.setLength(61); })
-            .toThrowError('Number of sixes out of range');
+            .toThrowError('Length out of range');
     });
 
     it('provides a safe way to set lengths without exceptions', function () {
