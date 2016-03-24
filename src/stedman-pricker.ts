@@ -228,6 +228,8 @@ namespace Pricker {
             this.calculate();
         }
 
+        /* AbstractBlock methods **********************************************/
+
         /**
          * Does any calculation needed by the block
          */
@@ -269,6 +271,8 @@ namespace Pricker {
         public getEnd(): Row {
             return this._end.slice();
         }
+
+        /* AbstractSix methods ************************************************/
 
         /**
          * Read access to the call
@@ -361,6 +365,29 @@ namespace Pricker {
             this.extend(this.getDefaultLength(initialRow));
         }
 
+        /* AbstractBlock methods **********************************************/
+
+        /**
+         * Does any calculation needed by the block
+         */
+        protected calculate(): void {
+            this.calculateBlocks();
+        }
+
+        /**
+         * Returns the end row
+         */
+        public getEnd(): Row {
+            if (this._blocks.length) {
+                return this._blocks[this._blocks.length - 1].getEnd();
+            }
+
+            // Handle case with zero blocks
+            return this._initialRow;
+        }
+
+        /* AbstractContainer methods ******************************************/
+
         /**
          * Extends the container by adding the specified number of blocks
          * @param {number}  blocks - blocks to add
@@ -399,15 +426,22 @@ namespace Pricker {
         protected abstract createBlock(initialRow: Row, index: number): Block;
 
         /**
-         * Returns the end row
+         * Calculates blocks within the course
+         * @param {number} index - where to start when recalculating
          */
-        public getEnd(): Row {
-            if (this._blocks.length) {
-                return this._blocks[this._blocks.length - 1].getEnd();
+        protected calculateBlocks(index: number = 0): void {
+            let initialRow: Row = this._initialRow;
+
+            if (index) {
+                initialRow = this._blocks[index - 1].getEnd();
             }
 
-            // Handle case with zero blocks
-            return this._initialRow;
+            for (; index < this.getLength(); index += 1) {
+                this._blocks[index].setInitialRow(initialRow);
+                initialRow = this._blocks[index].getEnd();
+            }
+
+            this.notifyContainer();
         }
 
         /**
@@ -418,10 +452,25 @@ namespace Pricker {
         }
 
         /**
+         * Read access to a block
+         * 
+         * Derived classes should provide public access via a more
+         * suitably-named method
+         */
+        protected getBlock(index: number): Block {
+            if (index < 1 || index > this.getLength()) {
+                throw new Error('Block index out of range');
+            }
+            return this._blocks[index - 1];
+        }
+
+        /**
          * Receives a notification from a block that has changed
          * @param {number}  index - index of changed block in container
          */
-        public abstract notify(index: number): void;
+        public notify(index: number): void {
+            this.calculateBlocks(index);
+        }
     }
 
 
@@ -429,12 +478,8 @@ namespace Pricker {
      * A course, being a set of sixes
      */
     export class Course extends AbstractContainer<AbstractSix> {
-        /**
-         * Does any calculation needed by the block
-         */
-        protected calculate(): void {
-            this.calculateSixes();
-        }
+
+        /* AbstractContainer methods ******************************************/
 
         /**
          * Returns the default length of new containers of this type
@@ -460,44 +505,13 @@ namespace Pricker {
                 : new Quick(initialRow, this, index);
         }
 
-        /**
-         * Hook for sixes to notify us of changes
-         */
-        public notify(index: number = 0): void {
-            this.calculateSixes(index);
-        }
-
-        /**
-         * Recalculates sixes within the course
-         * @param {number} index - where to start when recalculating
-         */
-        public calculateSixes(index: number = 0): Course {
-            let previousSixEnd: Row;
-
-            if (index === 0) {
-                previousSixEnd = this._initialRow;
-            } else {
-                previousSixEnd = this._blocks[index - 1].getEnd();
-            }
-
-            for (; index < this.getLength(); index += 1) {
-                this._blocks[index].setInitialRow(previousSixEnd);
-                previousSixEnd = this._blocks[index].getEnd();
-            }
-
-            this.notifyContainer();
-
-            return this;
-        }
+        /* Course methods *****************************************************/
 
         /**
          * Read access to sixes
          */
         public getSix(six: number): AbstractSix {
-            if (six < 1 || six > this.getLength()) {
-                throw new Error('Six number out of range');
-            }
-            return this._blocks[six - 1];
+            return this.getBlock(six);
         }
 
         /**

@@ -33,7 +33,7 @@ describe('Course class', function () {
 
         // Last invalid six before course
         expect(function () { course.getSix(0); })
-            .toThrowError('Six number out of range');
+            .toThrowError('Block index out of range');
 
         // First valid six (start of course)
         expect(course.getSix(1).getInitialRow())
@@ -45,7 +45,7 @@ describe('Course class', function () {
 
         // First invalid six after course
         expect(function () { course.getSix(stage * 2 + 1); })
-            .toThrowError('Six number out of range');
+            .toThrowError('Block index out of range');
     }));
 
     it('allows the number of sixes to be increased', testStages(
