@@ -383,7 +383,7 @@ namespace Pricker {
             }
 
             // Handle case with zero blocks
-            return this._initialRow;
+            return this._initialRow.slice();
         }
 
         /* AbstractContainer methods ******************************************/
@@ -392,7 +392,7 @@ namespace Pricker {
          * Extends the container by adding the specified number of blocks
          * @param {number}  blocks - blocks to add
          */
-        protected extend(blocks: number): this {
+        private extend(blocks: number): this {
             let index: number,
                 oldLength: number = this.getLength(),
                 newLength: number = oldLength + blocks,
@@ -429,7 +429,7 @@ namespace Pricker {
          * Calculates blocks within the course
          * @param {number} index - where to start when recalculating
          */
-        protected calculateBlocks(index: number = 0): void {
+        private calculateBlocks(index: number = 0): void {
             let initialRow: Row = this._initialRow;
 
             if (index) {
@@ -543,8 +543,6 @@ namespace Pricker {
                 : new Quick(initialRow, this, index);
         }
 
-        /* Course methods *****************************************************/
-
         /**
          * Returns the limits on length for the particular concrete class
          * 
@@ -553,6 +551,8 @@ namespace Pricker {
         protected getLengthLimits(): [number, number] {
             return [2, 60];
         }
+
+        /* Course methods *****************************************************/
 
         /**
          * Read access to sixes

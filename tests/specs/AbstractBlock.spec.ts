@@ -72,6 +72,13 @@ function testAbstractBlockImplementation(Block) {
             expect(block.getEnd()).not.toEqual(endRow);
         });
 
+        it('ends with a row on the same stage as it starts', function () {
+            let row: Pricker.Row = createTestRow(),
+                block: Pricker.AbstractBlock = new Block(row);
+
+            expect(block.getEnd().length).toEqual(row.length);
+        });
+
         it('ignores changes to the getEnd result', function () {
             let block: Pricker.AbstractBlock = new Block(createTestRow()),
                 getEnd: Pricker.Row = block.getEnd(),
