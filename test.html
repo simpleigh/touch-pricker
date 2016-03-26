@@ -25,17 +25,21 @@
     <div id="sixends"></div>
     <div id="calling"></div>
     <div>
-      <label for="courseLength">Course length:</label>
-      <input type="text" id="courseLength" size="2" maxLength="2" />
-      <button onclick="setLength()">Set</button>
+      <form onsubmit="return false;">
+        <label for="courseLength">Course length:</label>
+        <input type="text" id="courseLength" size="2" maxLength="2" />
+        <button onclick="setLength()">Set</button>
+        <button onclick="resetLength()">Reset</button>
+      </form>
     </div>
     <div>
       <label for="callReset">Current calling:</label>
       <button id="callReset" onclick="resetCalls()">Reset</button>
     </div>
     <script type="text/javascript">
-        var row = Pricker.rowFromString('231', Pricker.Stage.Cinques),
-            sixes = 22,
+        var stage = Pricker.Stage.Cinques,
+            row = Pricker.rowFromString('231', stage),
+            sixes = stage * 2,
             course = new Pricker.Course(row);
 
         function reDraw() {
@@ -78,7 +82,15 @@
             reDraw();
         }
 
+        function resetLength() {
+            'use strict';
+            sixes = stage * 2;
+            course.setLength(sixes);
+            reDraw();
+        }
+
         function resetCalls() {
+            'use strict';
             course = new Pricker.Course(row);
             course.setLength(sixes);
             reDraw();
