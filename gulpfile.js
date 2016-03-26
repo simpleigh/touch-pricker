@@ -73,7 +73,7 @@ gulp.task('test-browsers', ['build', 'build-tests'], function (done) {
 gulp.task('watch', ['default'], function () {
     'use strict';
     gulp.watch('src/**/*.ts', ['default']);
-    gulp.watch('tests/**/*.spec.js', ['test']);
+    gulp.watch('tests/**/*.spec.js', ['test', 'build-test-file']);
 });
 
 gulp.task('clean', function () {
