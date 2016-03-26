@@ -1,4 +1,4 @@
-describe('Slow six class', createSixTests(Pricker.Six.Slow, function () {
+describe('Slow six class', createSixTests(Pricker.Slow, function () {
     let S = Pricker.Stage,
         C = Pricker.Call;
 

@@ -129,311 +129,344 @@ namespace Pricker {
 
 
     /**
-     * Sixes, slow and quick
+     * Abstract class representing blocks of rows
+     * 
+     * A block:
+     *  - is initialised from a row
+     *  - provides access to the end row at the end of the block
+     *  - recalculates that end row if the initial row is changed
+     *  - provides mechanisms for controlling how the end row is created
+     *  - notifies any parent block whenever the end row changes
+     * 
+     * Blocks are designed to be aggregated into containers.
+     * Containers notify blocks of changes by setting a new initial row.
+     * Blocks notify containers of changes via a callback (receiveNotification).
      */
-    export namespace Six {
+    export abstract class AbstractBlock {
+        /**
+         * Initial row for the block
+         */
+        protected _initialRow: Row;
 
         /**
-         * Base class for sixes
+         * Constructor
+         * @param {Row}                initialRow - initial row for the block
+         * @param {AbstractContainer}  container  - container of this block
+         * @param {number}             index      - index of block in container
          */
-        export abstract class AbstractSix {
-            /**
-             * Six end of the previous six
-             */
-            protected _previousSixEnd: Row;
+        constructor(
+            initialRow: Row,
+            protected _container?: AbstractContainer<AbstractBlock>,
+            protected _index?: number
+        ) {
+            this._initialRow = initialRow.slice();
+        }
 
-            /**
-             * Six end of this six
-             */
-            protected _sixEnd: Row;
+        /**
+         * Does any calculation needed by the block
+         */
+        protected abstract calculate(): void;
 
-            /**
-             * Call used to start the six
-             */
-            protected _call: Call = Call.Plain;
+        /**
+         * Read access to the initial row
+         */
+        public getInitialRow(): Row {
+            return this._initialRow.slice();
+        }
 
-            /**
-             * Course that contains the six
-             */
-            protected _parent: Course;
+        /**
+         * Write access to the initial row
+         */
+        public setInitialRow(initialRow: Row): AbstractBlock {
+            this._initialRow = initialRow.slice();
+            this.calculate();
+            return this;
+        }
 
-            /**
-             * Number of six within the course
-             */
-            protected _index: number;
+        /**
+         * Returns the end row
+         */
+        public abstract getEnd(): Row;
 
-            /**
-             * Constructs the six
-             * @param {Row}  previousSixEnd    - Six end of the previous six
-             * @param {Course} parent          - Course that contains the six
-             * @param {number} index           - Number of six within course
-             */
-            constructor(
-                previousSixEnd: Row,
-                parent: Course = undefined,
-                index: number = undefined
-            ) {
-                this._previousSixEnd = previousSixEnd;
-                this._parent = parent;
-                this._index = index;
-                this.calculateSixEnd();
+        /**
+         * Notifies the parent container
+         * 
+         * Derived classes should call this whenever the end row changes.
+         */
+        protected notifyContainer(): void {
+            if (this._container) {
+                this._container.notify(this._index);
+            }
+        }
+    }
+
+    /**
+     * Base class for sixes
+     */
+    export abstract class AbstractSix extends AbstractBlock {
+        /**
+         * Six end of this six
+         */
+        protected _end: Row;
+
+        /**
+         * Call used to start the six
+         */
+        protected _call: Call;
+
+        /**
+         * Constructor
+         */
+        constructor(
+            initialRow: Row,
+            protected _container?: AbstractContainer<AbstractSix>,
+            protected _index?: number
+        ) {
+            super(initialRow, _container, _index);
+            this._call = Call.Plain;
+            this.calculate();
+        }
+
+        /* AbstractBlock methods **********************************************/
+
+        /**
+         * Does any calculation needed by the block
+         */
+        protected calculate(): void {
+            let n: number;
+            this._end = this._initialRow.slice(); // Create new array
+
+            this.transposeFrontThree();
+
+            // Odd places go up
+            for (n = 4; n < this._end.length; n += 2) {
+                this._end[n] = this._initialRow[n - 2];
             }
 
-            /**
-             * Recalculates the six end
-             */
-            protected calculateSixEnd(): this {
-                let n: number;
-                this._sixEnd = this._previousSixEnd.slice(); // Create new array
+            // Even places go in
+            for (n = 5; n < this._end.length; n += 2) {
+                this._end[n - 2] = this._initialRow[n];
+            }
 
-                this.transposeFrontThree();
-
-                // Odd places go up
-                for (n = 4; n < this._sixEnd.length; n += 2) {
-                    this._sixEnd[n] = this._previousSixEnd[n - 2];
-                }
-
-                // Even places go in
-                for (n = 5; n < this._sixEnd.length; n += 2) {
-                    this._sixEnd[n - 2] = this._previousSixEnd[n];
-                }
-
-                // Random stuff happens at the back
-                n = this._sixEnd.length - 1;
-                if (this._call === Call.Plain) {
-                    this._sixEnd[n - 1] = this._previousSixEnd[n];
+            // Random stuff happens at the back
+            n = this._end.length - 1;
+            if (this._call === Call.Plain) {
+                this._end[n - 1] = this._initialRow[n];
+            } else {
+                this._end[n - 3] = this._initialRow[n - 2];
+                if (this._call === Call.Bob) {
+                    this._end[n - 1] = this._initialRow[n - 1];
+                    this._end[n] = this._initialRow[n];
                 } else {
-                    this._sixEnd[n - 3] = this._previousSixEnd[n - 2];
-                    if (this._call === Call.Bob) {
-                        this._sixEnd[n - 1] = this._previousSixEnd[n - 1];
-                        this._sixEnd[n] = this._previousSixEnd[n];
-                    } else {
-                        this._sixEnd[n - 1] = this._previousSixEnd[n];
-                        this._sixEnd[n] = this._previousSixEnd[n - 1];
-                    }
+                    this._end[n - 1] = this._initialRow[n];
+                    this._end[n] = this._initialRow[n - 1];
                 }
-
-                return this;
-            }
-
-            /**
-             * Read access to the previous six end
-             */
-            public getPreviousSixEnd(): Row {
-                return this._previousSixEnd.slice();
-            }
-
-            /**
-             * Write access to the previous six end
-             */
-            public setPreviousSixEnd(row: Row): this {
-                this._previousSixEnd = row;
-                this.calculateSixEnd();
-                return this;
-            }
-
-            /**
-             * Read access to the six end
-             */
-            public getSixEnd(): Row {
-                return this._sixEnd.slice();
-            }
-
-            /**
-             * Read access to the call
-             */
-            public getCall(): Call {
-                return this._call;
-            }
-
-            /**
-             * Write access to the call
-             */
-            public setCall(call: Call): this {
-                this._call = call;
-                this.calculateSixEnd();
-                if (this._parent) {
-                    this._parent.calculateSixes(this._index);
-                }
-                return this;
-            }
-
-            /**
-             * Toggles the call type between Plain -> Bob -> Single -> Plain
-             */
-            public toggleCall(): Call {
-                let call: Pricker.Call = (this._call % 3) + 1;
-                this.setCall(call);
-                return call;
-            }
-
-            /**
-             * Transposes the front three bells depending upon the type of six
-             */
-            protected abstract transposeFrontThree(): AbstractSix;
-        }
-
-        /**
-         * A slow six
-         */
-        export class Slow extends AbstractSix {
-            /**
-             * Transposes the front three bells depending upon the type of six
-             */
-            protected transposeFrontThree(): this {
-                this._sixEnd[0] = this._previousSixEnd[1];
-                this._sixEnd[1] = this._previousSixEnd[3];
-                this._sixEnd[2] = this._previousSixEnd[0];
-                return this;
             }
         }
 
         /**
-         * A quick six
+         * Returns the end row
          */
-        export class Quick extends AbstractSix {
-            /**
-             * Transposes the front three bells depending upon the type of six
-             */
-            protected transposeFrontThree(): this {
-                this._sixEnd[0] = this._previousSixEnd[0];
-                this._sixEnd[1] = this._previousSixEnd[1];
-                this._sixEnd[2] = this._previousSixEnd[3];
-                return this;
-            }
+        public getEnd(): Row {
+            return this._end.slice();
         }
 
+        /* AbstractSix methods ************************************************/
+
+        /**
+         * Read access to the call
+         */
+        public getCall(): Call {
+            return this._call;
+        }
+
+        /**
+         * Write access to the call
+         */
+        public setCall(call: Call): AbstractSix {
+            this._call = call;
+            this.calculate();
+            this.notifyContainer();
+            return this;
+        }
+
+        /**
+         * Toggles the call type between Plain -> Bob -> Single -> Plain
+         */
+        public toggleCall(): Call {
+            let call: Pricker.Call = (this._call % 3) + 1;
+            this.setCall(call);
+            return call;
+        }
+
+        /**
+         * Transposes the front three bells depending upon the type of six
+         */
+        protected abstract transposeFrontThree(): AbstractSix;
+    }
+
+    /**
+     * A slow six
+     */
+    export class Slow extends AbstractSix {
+        /**
+         * Transposes the front three bells depending upon the type of six
+         */
+        protected transposeFrontThree(): AbstractSix {
+            this._end[0] = this._initialRow[1];
+            this._end[1] = this._initialRow[3];
+            this._end[2] = this._initialRow[0];
+            return this;
+        }
+    }
+
+    /**
+     * A quick six
+     */
+    export class Quick extends AbstractSix {
+        /**
+         * Transposes the front three bells depending upon the type of six
+         */
+        protected transposeFrontThree(): AbstractSix {
+            this._end[0] = this._initialRow[0];
+            this._end[1] = this._initialRow[1];
+            this._end[2] = this._initialRow[3];
+            return this;
+        }
     }
 
 
     /**
-     * A course, being a set of sixes
+     * Abstract class representing containers for blocks of rows
+     * 
+     * Note that containers are also blocks themselves.
      */
-    export class Course {
+    export abstract class AbstractContainer<Block extends AbstractBlock>
+        extends AbstractBlock {
         /**
-         * Course end of the previous course
+         * Blocks within the container
          */
-        protected _previousCourseEnd: Row;
-
-        /**
-         * Sixes within the course
-         */
-        protected _sixes: Six.AbstractSix[];
+        protected _blocks: Block[];
 
         /**
-         * Constructs a plain course
-         * @param {Row} previousCourseEnd - Course end of the previous course
+         * Constructor
+         * 
+         * Extends the AbstractBlock container to create contained blocks.
          */
-        constructor(previousCourseEnd: Row) {
-            let stage: Stage = previousCourseEnd.length;
+        constructor(
+            initialRow: Row,
+            protected _container?: AbstractContainer<AbstractBlock>,
+            protected _index?: number
+        ) {
+            super(initialRow, _container, _index);
 
-            // Set up an empty course
-            this._previousCourseEnd = previousCourseEnd;
-            this._sixes = [];
+            this._blocks = [];
+            this.extend(this.getDefaultLength(initialRow));
+        }
 
-            // ... and extend it to the right length
-            this.addSixes(stage * 2);
+        /* AbstractBlock methods **********************************************/
+
+        /**
+         * Does any calculation needed by the block
+         */
+        protected calculate(): void {
+            this.calculateBlocks();
         }
 
         /**
-         * Creates sixes
-         * @param {number} sixes - number of sixes to create
+         * Returns the end row
          */
-        private addSixes(sixes: number): this {
+        public getEnd(): Row {
+            if (this._blocks.length) {
+                return this._blocks[this._blocks.length - 1].getEnd();
+            }
+
+            // Handle case with zero blocks
+            return this._initialRow.slice();
+        }
+
+        /* AbstractContainer methods ******************************************/
+
+        /**
+         * Extends the container by adding the specified number of blocks
+         * @param {number}  blocks - blocks to add
+         */
+        private extend(blocks: number): this {
             let index: number,
                 oldLength: number = this.getLength(),
-                newLength: number = oldLength + sixes,
-                previousSixEnd: Row = this.getCourseEnd();
+                newLength: number = oldLength + blocks,
+                initialRow: Row = this.getEnd();
 
-            for (index = oldLength; index < newLength; index += 1) {
-                this._sixes[index] = index % 2
-                    ? new Six.Quick(previousSixEnd, this, index + 1)
-                    : new Six.Slow(previousSixEnd, this, index + 1);
-                previousSixEnd = this._sixes[index].getSixEnd();
+            for (index = oldLength + 1; index <= newLength; index += 1) {
+                this._blocks[index - 1] = this.createBlock(initialRow, index);
+                initialRow = this._blocks[index - 1].getEnd();
             }
 
             return this;
         }
 
         /**
-         * Recalculates sixes within the course
+         * Returns the default length of new containers of this type
+         * 
+         * Derived classes should override this method if required.
+         */
+        protected getDefaultLength(initialRow: Row): number {
+            return 1;
+        }
+
+        /**
+         * Creates a new block for the container
+         * 
+         * Used by extend() when creating the container or increasing its
+         * length.
+         * @param {Row}     initialRow - initial row for the block
+         * @param {number}  index      - index of block in container
+         */
+        protected abstract createBlock(initialRow: Row, index: number): Block;
+
+        /**
+         * Calculates blocks within the course
          * @param {number} index - where to start when recalculating
          */
-        public calculateSixes(index: number = 0): this {
-            let previousSixEnd: Row;
+        private calculateBlocks(index: number = 0): void {
+            let initialRow: Row = this._initialRow;
 
-            if (index === 0) {
-                previousSixEnd = this._previousCourseEnd;
-            } else {
-                previousSixEnd = this._sixes[index - 1].getSixEnd();
+            if (index) {
+                initialRow = this._blocks[index - 1].getEnd();
             }
 
             for (; index < this.getLength(); index += 1) {
-                this._sixes[index].setPreviousSixEnd(previousSixEnd);
-                previousSixEnd = this._sixes[index].getSixEnd();
+                this._blocks[index].setInitialRow(initialRow);
+                initialRow = this._blocks[index].getEnd();
             }
 
-            return this;
-        }
-
-        /**
-         * Read access to the previous course end
-         */
-        public getPreviousCourseEnd(): Row {
-            return this._previousCourseEnd;
-        }
-
-        /**
-         * Write access to the previous course end
-         */
-        public setPreviousCourseEnd(previousCourseEnd: Row): this {
-            this._previousCourseEnd = previousCourseEnd;
-            this.calculateSixes();
-            return this;
-        }
-
-        /**
-         * Read access to the course end
-         */
-        public getCourseEnd(): Row {
-            if (this._sixes.length) {
-                return this._sixes[this._sixes.length - 1].getSixEnd();
-            }
-
-            // Handle course with zero sixes
-            return this._previousCourseEnd;
-        }
-
-        /**
-         * Read access to sixes
-         */
-        public getSix(six: number): Six.AbstractSix {
-            if (six < 1 || six > this.getLength()) {
-                throw new Error('Six number out of range');
-            }
-            return this._sixes[six - 1];
+            this.notifyContainer();
         }
 
         /**
          * Read access to the length
          */
         public getLength(): number {
-            return this._sixes.length;
+            return this._blocks.length;
         }
+
 
         /**
          * Write access to the length
          */
-        public setLength(sixes: number): this {
-            if ((sixes < 2) || (sixes > 60)) {
-                throw new Error('Number of sixes out of range');
+        public setLength(length: number): this {
+            let [minimum, maximum]: [number, number] = this.getLengthLimits();
+            if ((length < minimum) || (length > maximum)) {
+                throw new Error('Length out of range');
             }
 
-            if (sixes > this.getLength()) {
-                this.addSixes(sixes - this.getLength());
+            if (length > this.getLength()) {
+                this.extend(length - this.getLength());
             } else {
-                this._sixes = this._sixes.slice(0, sixes);
+                this._blocks = this._blocks.slice(0, length);
             }
+
+            this.notifyContainer();
 
             return this;
         }
@@ -441,10 +474,90 @@ namespace Pricker {
         /**
          * Write access to the length: ignores out-of-range values
          */
-        public safeSetLength(sixes: number): Course {
-            sixes = Math.max(sixes, 2);
-            sixes = Math.min(sixes, 60);
-            return this.setLength(sixes);
+        public safeSetLength(length: number): this {
+            let [minimum, maximum]: [number, number] = this.getLengthLimits();
+            length = Math.max(length, minimum);
+            length = Math.min(length, maximum);
+            return this.setLength(length);
+        }
+
+        /**
+         * Returns the limits on length for the particular concrete class
+         * 
+         * minimum, maximum
+         */
+        protected abstract getLengthLimits(): [number, number];
+
+        /**
+         * Read access to a block
+         * 
+         * Derived classes should provide public access via a more
+         * suitably-named method
+         */
+        protected getBlock(index: number): Block {
+            if (index < 1 || index > this.getLength()) {
+                throw new Error('Block index out of range');
+            }
+            return this._blocks[index - 1];
+        }
+
+        /**
+         * Receives a notification from a block that has changed
+         * @param {number}  index - index of changed block in container
+         */
+        public notify(index: number): void {
+            this.calculateBlocks(index);
+        }
+    }
+
+
+    /**
+     * A course, being a set of sixes
+     */
+    export class Course extends AbstractContainer<AbstractSix> {
+
+        /* AbstractContainer methods ******************************************/
+
+        /**
+         * Returns the default length of new containers of this type
+         * 
+         * Derived classes should override this method if required.
+         */
+        protected getDefaultLength(initialRow: Row): number {
+            let stage: Stage = initialRow.length;
+            return stage * 2;
+        }
+
+        /**
+         * Creates a new block for the container
+         * 
+         * Used by extend() when creating the container or increasing its
+         * length.
+         * @param {Row}     initialRow - initial row for the block
+         * @param {number}  index      - index of block in container
+         */
+        protected createBlock(initialRow: Row, index: number): AbstractSix {
+            return index % 2
+                ? new Slow(initialRow, this, index)
+                : new Quick(initialRow, this, index);
+        }
+
+        /**
+         * Returns the limits on length for the particular concrete class
+         * 
+         * minimum, maximum
+         */
+        protected getLengthLimits(): [number, number] {
+            return [2, 60];
+        }
+
+        /* Course methods *****************************************************/
+
+        /**
+         * Read access to sixes
+         */
+        public getSix(six: number): AbstractSix {
+            return this.getBlock(six);
         }
     }
 
@@ -483,7 +596,7 @@ namespace Pricker {
                     for (index = 1; index <= course.getLength(); index++) {
                         format
                             .startLine()
-                            .printRow(course.getSix(index).getSixEnd())
+                            .printRow(course.getSix(index).getEnd())
                             .newColumn()
                             .printCall(course.getSix(index).getCall(), index)
                             .newColumn()
@@ -504,12 +617,12 @@ namespace Pricker {
                 print(course: Course, format: Format.AbstractFormat): string {
                     let index: number,
                         calls: string[] = [],
-                        bells: number = course.getCourseEnd().length;
+                        bells: number = course.getEnd().length;
 
                     format
                         .clearBuffer()
                         .startLine()
-                        .printRow(course.getCourseEnd())
+                        .printRow(course.getEnd())
                         .newColumn();
 
                     // e.g. '1 5 7 8 10 11 s13 15 16'
@@ -690,6 +803,6 @@ namespace Pricker {
         stage: Stage;
         startingRow: string;
         calls: Call[];
-        sixes: Six.AbstractSix[];
+        sixes: AbstractSix[];
     }
 }

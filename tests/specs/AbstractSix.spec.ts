@@ -23,23 +23,16 @@ function createSixTests(Six, testCaseFn) {
 
     return function () {
 
-        it('stores the previous six end', runTestCases(
-            function (previous, expected, stage, call) {
-                let six: Pricker.Six.AbstractSix = new Six(previous);
-                expect(six.getPreviousSixEnd()).toEqual(previous);
-            }
-        ));
-
         it('starts life as a plain six', runTestCases(
             function (previous, expected, stage, call) {
-                let six: Pricker.Six.AbstractSix = new Six(previous);
+                let six: Pricker.AbstractSix = new Six(previous);
                 expect(six.getCall()).toEqual(Pricker.Call.Plain);
             }
         ));
 
         it('lets the call be set', runTestCases(
             function (previous, expected, stage, call) {
-                let six: Pricker.Six.AbstractSix = new Six(previous);
+                let six: Pricker.AbstractSix = new Six(previous);
                 six.setCall(call);
                 expect(six.getCall()).toBe(call);
             }
@@ -47,15 +40,15 @@ function createSixTests(Six, testCaseFn) {
 
         it('transposes the six end correctly', runTestCases(
             function (previous, expected, stage, call) {
-                let six: Pricker.Six.AbstractSix = new Six(previous);
+                let six: Pricker.AbstractSix = new Six(previous);
                 six.setCall(call);
-                expect(six.getSixEnd()).toEqual(expected);
+                expect(six.getEnd()).toEqual(expected);
             }
         ));
 
         it('rotates between calls when toggled', runTestCases(
             function (previous, expected, stage, call) {
-                let six: Pricker.Six.AbstractSix = new Six(previous),
+                let six: Pricker.AbstractSix = new Six(previous),
                     newCall: Pricker.Call;
 
                 six.setCall(call);
@@ -76,19 +69,19 @@ function createSixTests(Six, testCaseFn) {
             function (previous, expected, stage, call) {
                 let incorrectPrevious: Pricker.Row =
                         Pricker.rowFromString('', stage),
-                    six: Pricker.Six.AbstractSix = new Six(incorrectPrevious);
+                    six: Pricker.AbstractSix = new Six(incorrectPrevious);
 
                 six.setCall(call);
-                expect(six.getSixEnd()).not.toEqual(expected);
+                expect(six.getEnd()).not.toEqual(expected);
 
-                six.setPreviousSixEnd(previous);
-                expect(six.getSixEnd()).toEqual(expected);
+                six.setInitialRow(previous);
+                expect(six.getEnd()).toEqual(expected);
             }
         ));
 
         it('updates when the call is toggled', runTestCases(
             function (previous, expected, stage, call) {
-                let six: Pricker.Six.AbstractSix = new Six(previous);
+                let six: Pricker.AbstractSix = new Six(previous);
 
                 // Set the call to the one before the right one
                 if (call === Pricker.Call.Plain) {
@@ -99,60 +92,33 @@ function createSixTests(Six, testCaseFn) {
                     six.setCall(Pricker.Call.Bob);
                 }
 
-                expect(six.getSixEnd()).not.toEqual(expected);
+                expect(six.getEnd()).not.toEqual(expected);
 
                 six.toggleCall();
-                expect(six.getSixEnd()).toEqual(expected);
+                expect(six.getEnd()).toEqual(expected);
             }
         ));
 
         it('notifies the parent course when a call is set', function () {
             let row: Pricker.Row =
                     Pricker.rowFromString('231', Pricker.Stage.Cinques),
-                parent = jasmine.createSpyObj('Course', ['calculateSixes']),
-                six: Pricker.Six.AbstractSix = new Six(row, parent, 8);
+                parent = jasmine.createSpyObj('Course', ['notify']),
+                six: Pricker.AbstractSix = new Six(row, parent, 8);
 
             six.setCall(Pricker.Call.Plain);
-            expect(parent.calculateSixes).toHaveBeenCalledWith(8);
+            expect(parent.notify).toHaveBeenCalledWith(8);
         });
 
         it('notifies the parent course when toggled', function () {
             let row: Pricker.Row =
                     Pricker.rowFromString('231', Pricker.Stage.Cinques),
-                parent = jasmine.createSpyObj('Course', ['calculateSixes']),
-                six: Pricker.Six.AbstractSix = new Six(row, parent, 8);
+                parent = jasmine.createSpyObj('Course', ['notify']),
+                six: Pricker.AbstractSix = new Six(row, parent, 8);
 
             six.toggleCall();
-            expect(parent.calculateSixes).toHaveBeenCalledWith(8);
+            expect(parent.notify).toHaveBeenCalledWith(8);
         });
 
-        it('ignores mutations of the returned previous six end', function () {
-            let row: Pricker.Row =
-                    Pricker.rowFromString('231', Pricker.Stage.Cinques),
-                six: Pricker.Six.AbstractSix = new Six(row),
-                previousSixEndFixed = six.getPreviousSixEnd().slice(),
-                previousSixEndChanged = six.getPreviousSixEnd();
-
-            expect(six.getPreviousSixEnd()).toEqual(previousSixEndFixed);
-            expect(six.getPreviousSixEnd()).toEqual(previousSixEndChanged);
-            previousSixEndChanged[3] = 999;  // N.B. invalid row
-            expect(six.getPreviousSixEnd()).toEqual(previousSixEndFixed);
-            expect(six.getPreviousSixEnd()).not.toEqual(previousSixEndChanged);
-        });
-
-        it('ignores mutations of the returned six end', function () {
-            let row: Pricker.Row =
-                    Pricker.rowFromString('231', Pricker.Stage.Cinques),
-                six: Pricker.Six.AbstractSix = new Six(row),
-                sixEndFixed = six.getSixEnd().slice(),
-                sixEndChanged = six.getSixEnd();
-
-            expect(six.getSixEnd()).toEqual(sixEndFixed);
-            expect(six.getSixEnd()).toEqual(sixEndChanged);
-            sixEndChanged[3] = 999;  // N.B. invalid row
-            expect(six.getSixEnd()).toEqual(sixEndFixed);
-            expect(six.getSixEnd()).not.toEqual(sixEndChanged);
-        });
-
+        testAbstractBlockImplementation(Six);
     };
 }
