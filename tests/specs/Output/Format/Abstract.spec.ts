@@ -8,7 +8,7 @@ function createFormatTests(
 
         it('starts with an empty buffer', function () {
             let format: Pricker.Output.Format.AbstractFormat = new Format();
-            expect(format.getBuffer()).toEqual('');
+            expect(format.getBuffer()).toBe('');
         });
 
         it('allows arbitrary text to be written to the buffer', function () {
@@ -16,7 +16,7 @@ function createFormatTests(
                 testString: string = 'arbitrary test string';
 
             format.print(testString);
-            expect(format.getBuffer()).toEqual(testString);
+            expect(format.getBuffer()).toBe(testString);
         });
 
         it('returns `this` when text is printed', function () {
@@ -28,14 +28,14 @@ function createFormatTests(
             let format: Pricker.Output.Format.AbstractFormat = new Format();
 
             format.print('string1').print('string2');
-            expect(format.getBuffer()).toEqual('string1string2');
+            expect(format.getBuffer()).toBe('string1string2');
         });
 
         it('allows the buffer to be cleared', function () {
             let format: Pricker.Output.Format.AbstractFormat = new Format();
 
             format.print('arbitrary test string').clearBuffer();
-            expect(format.getBuffer()).toEqual('');
+            expect(format.getBuffer()).toBe('');
         });
 
         it('returns `this` when clearing the buffer', function () {
@@ -50,7 +50,7 @@ function createFormatTests(
             for (i = 0; i < methodTests.length; i++) {
                 format.clearBuffer();
                 format[methodTests[i][0]]();
-                expect(format.getBuffer()).toEqual(methodTests[i][1]);
+                expect(format.getBuffer()).toBe(methodTests[i][1]);
             }
         });
 
@@ -71,7 +71,7 @@ function createFormatTests(
                 );
 
             expect(format.printRow(row)).toBe(format);
-            expect(format.getBuffer()).toEqual('2314567890E');
+            expect(format.getBuffer()).toBe('2314567890E');
         });
 
         it('outputs calls', function () {
@@ -83,7 +83,7 @@ function createFormatTests(
                 expect(
                     format.printCall(callTests[i][0], callTests[i][1])
                 ).toBe(format);
-                expect(format.getBuffer()).toEqual(callTests[i][2]);
+                expect(format.getBuffer()).toBe(callTests[i][2]);
             }
         });
 

@@ -25,7 +25,7 @@ function createLayoutTests(Layout, expected: string, testFn) {
             course.getSix(2).setCall(Pricker.Call.Single);
             course.getSix(3).setCall(Pricker.Call.Bob);
 
-            expect(layout.print(course, format)).toEqual(expected);
+            expect(layout.print(course, format)).toBe(expected);
         });
 
         testFn();

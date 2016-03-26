@@ -47,7 +47,7 @@ function testAbstractContainerImplementation(
             function (initialRow: Pricker.Row, length: number) {
                 let container: Pricker.AbstractContainer<Pricker.AbstractBlock>
                         = new Container(initialRow);
-                expect(container.getLength()).toEqual(length);
+                expect(container.getLength()).toBe(length);
             }
         ));
 

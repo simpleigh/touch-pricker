@@ -11,7 +11,7 @@ describe('Calling layout', createLayoutTests(
                 );
 
             course.getSix(1).setCall(Pricker.Call.Bob);
-            expect(layout.print(course, format)).toEqual('23145678E90  1\n');
+            expect(layout.print(course, format)).toBe('23145678E90  1\n');
         });
 
         it('displays "p" when a course has no calls', function () {
@@ -21,7 +21,7 @@ describe('Calling layout', createLayoutTests(
                     Pricker.rowFromString('231', Pricker.Stage.Cinques)
                 );
 
-            expect(layout.print(course, format)).toEqual('2314567890E  p\n');
+            expect(layout.print(course, format)).toBe('2314567890E  p\n');
         });
 
     }

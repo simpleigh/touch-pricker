@@ -26,7 +26,7 @@ function createSixTests(Six, testCaseFn) {
         it('starts life as a plain six', runTestCases(
             function (previous, expected, stage, call) {
                 let six: Pricker.AbstractSix = new Six(previous);
-                expect(six.getCall()).toEqual(Pricker.Call.Plain);
+                expect(six.getCall()).toBe(Pricker.Call.Plain);
             }
         ));
 
