@@ -198,6 +198,26 @@ function testAbstractContainerImplementation(
             expect(getBlock(4).setInitialRow).toHaveBeenCalled();
             expect(getBlock(5).setInitialRow).toHaveBeenCalled();
         });
+
+        it('notifies the parent container on setLength', function () {
+            let parent = jasmine.createSpyObj('AbstractContainer', ['notify']),
+                container: Pricker.AbstractContainer<Pricker.AbstractBlock>
+                    = new Container(createTestRow(), parent, 999);
+
+            container.setLength(5);
+            expect(parent.notify).toHaveBeenCalledWith(999);
+        });
+
+        it('notifies the parent container on notify', function () {
+            let parent = jasmine.createSpyObj('AbstractContainer', ['notify']),
+                container: Pricker.AbstractContainer<Pricker.AbstractBlock>
+                    = new Container(createTestRow(), parent, 999);
+
+            container.setLength(5);
+            container.notify(5);
+            expect(parent.notify).toHaveBeenCalledWith(999);
+        });
+
     });
 
 }

@@ -90,5 +90,7 @@ function testAbstractBlockImplementation(Block) {
             expect(block.getEnd()).not.toEqual(getEnd);
             expect(block.getEnd()).toEqual(getEndBackup);
         });
+
     });
+
 }

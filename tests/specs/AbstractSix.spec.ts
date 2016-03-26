@@ -113,10 +113,10 @@ function createSixTests(Six, testCaseFn) {
             let row: Pricker.Row =
                     Pricker.rowFromString('231', Pricker.Stage.Cinques),
                 parent = jasmine.createSpyObj('Course', ['notify']),
-                six: Pricker.AbstractSix = new Six(row, parent, 8);
+                six: Pricker.AbstractSix = new Six(row, parent, 999);
 
             six.toggleCall();
-            expect(parent.notify).toHaveBeenCalledWith(8);
+            expect(parent.notify).toHaveBeenCalledWith(999);
         });
 
         testAbstractBlockImplementation(Six);
