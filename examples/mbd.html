@@ -25,7 +25,15 @@
     <div id="sixends"></div>
     <div id="calling"></div>
     <div>
-      <form onsubmit="return false;">
+      <form onsubmit="return false">
+        <label for="initialRow">Starting row:</label>
+        <input type="text" id="initialRow" size="15" maxLength="15" />
+        <button onclick="setInitialRow()">Set</button>
+        <button onclick="resetInitialRow()">Reset</button>
+      </form>
+    </div>
+    <div>
+      <form onsubmit="return false">
         <label for="courseLength">Course length:</label>
         <input type="text" id="courseLength" size="2" maxLength="2" />
         <button onclick="setLength()">Set</button>
@@ -38,9 +46,9 @@
     </div>
     <script type="text/javascript">
         var stage = Pricker.Stage.Cinques,
-            row = Pricker.rowFromString('231', stage),
+            initialRow = Pricker.rowFromString('231', stage),
             sixes = stage * 2,
-            course = new Pricker.Course(row);
+            course = new Pricker.Course(initialRow);
 
         function reDraw() {
             'use strict';
@@ -52,7 +60,7 @@
 
             document.getElementById('sixends').innerHTML =
                 '<u>'
-                + Pricker.stringFromRow(row)
+                + Pricker.stringFromRow(initialRow)
                 + '</u>'
                 + '<br />'
                 + pricker.print(course, mbd)
@@ -65,12 +73,37 @@
                 + '<br />'
                 + calling.print(course, text);
 
+            document.getElementById('initialRow').value =
+                Pricker.stringFromRow(initialRow);
+
             document.getElementById('courseLength').value = sixes;
         }
 
         function c(six) {
             'use strict';
             course.getSix(six).toggleCall();
+            reDraw();
+        }
+
+        function setInitialRow() {
+            'use strict';
+            try {
+                initialRow = Pricker.rowFromString(
+                    document.getElementById('initialRow').value,
+                    stage
+                );
+                course.setInitialRow(initialRow);
+            } catch (e) {
+                // Ignore attempted change
+            }
+
+            reDraw();
+        }
+
+        function resetInitialRow() {
+            'use strict';
+            initialRow = Pricker.rowFromString('231', stage);
+            course.setInitialRow(initialRow);
             reDraw();
         }
 
@@ -91,7 +124,7 @@
 
         function resetCalls() {
             'use strict';
-            course = new Pricker.Course(row);
+            course = new Pricker.Course(initialRow);
             course.setLength(sixes);
             reDraw();
         }
