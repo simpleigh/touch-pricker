@@ -24,6 +24,7 @@
   <body>
     <div id="sixends"></div>
     <div id="calling"></div>
+    <div id="callingFromRounds"></div>
     <div>
       <form onsubmit="return false">
         <label for="initialRow">Starting row:</label>
@@ -46,7 +47,8 @@
     </div>
     <script type="text/javascript">
         var stage = Pricker.Stage.Cinques,
-            initialRow = Pricker.rowFromString('231', stage),
+            defaultInitialRow = Pricker.rowFromString('231', stage),
+            initialRow = defaultInitialRow,
             sixes = stage * 2,
             course = new Pricker.Course(initialRow);
 
@@ -72,6 +74,15 @@
                 + '</u>'
                 + '<br />'
                 + calling.print(course, text);
+
+            course.setInitialRow(defaultInitialRow);
+            document.getElementById('callingFromRounds').innerHTML =
+                '<u>'
+                + Pricker.stringFromRow(course.getInitialRow())
+                + '</u>'
+                + '<br />'
+                + calling.print(course, text);
+            course.setInitialRow(initialRow);
 
             document.getElementById('initialRow').value =
                 Pricker.stringFromRow(initialRow);
@@ -102,7 +113,7 @@
 
         function resetInitialRow() {
             'use strict';
-            initialRow = Pricker.rowFromString('231', stage);
+            initialRow = defaultInitialRow;
             course.setInitialRow(initialRow);
             reDraw();
         }
