@@ -12,18 +12,17 @@ gulp.task('default', ['build', 'test', 'build-test-file']);
 
 gulp.task('build', function () {
     'use strict';
-    var tsResult = gulp.src('src/**/*.ts')
-        .pipe(plugins.tslint())
-        .pipe(plugins.tslint.report('verbose', {
-            emitError: false,
-            summarizeFailureOutput: true
-        }))
-        .pipe(plugins.sourcemaps.init())
-        .pipe(plugins.typescript({
-            declaration: true,
-            newLine: 'LF',
+    var tsProject = plugins.typescript.createProject('tsconfig.json', {
             sortOutput: true
-        }));
+        }),
+        tsResult = tsProject.src()
+            .pipe(plugins.tslint())
+            .pipe(plugins.tslint.report('verbose', {
+                emitError: false,
+                summarizeFailureOutput: true
+            }))
+            .pipe(plugins.sourcemaps.init())
+            .pipe(plugins.typescript(tsProject));
 
     return merge([
         tsResult.js
@@ -37,8 +36,8 @@ gulp.task('build', function () {
 gulp.task('build-tests', ['build'], function () {
     'use strict';
     var tsResult = gulp.src('tests/**/*.ts')
-        .pipe(plugins.sourcemaps.init())
-        .pipe(plugins.typescript());
+            .pipe(plugins.sourcemaps.init())
+            .pipe(plugins.typescript());
 
     return tsResult.js
         .pipe(plugins.sourcemaps.write())

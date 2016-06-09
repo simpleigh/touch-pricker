@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "newLine": "LF",
+        "outDir": "build"
+    },
+    "files": [
+        "src/stedman-pricker.ts"
+    ]
+}
