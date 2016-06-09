@@ -13,7 +13,8 @@ gulp.task('default', ['build', 'test', 'build-test-file']);
 gulp.task('build', function () {
     'use strict';
     var tsProject = plugins.typescript.createProject('tsconfig.json', {
-            sortOutput: true
+            sortOutput: true,
+            typescript: require('typescript')
         }),
         tsResult = tsProject.src()
             .pipe(plugins.tslint())
