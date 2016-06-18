@@ -3,8 +3,8 @@ module.exports = function(config) {
         autoWatch: false,
         browsers: ['Chrome', 'Firefox', 'IE', 'PhantomJS'],
         files: [
-            'build/*.js',
-            'build/tests/**/*.spec.js'
+            'build/stedman-pricker.js',
+            'build/tests.js'
         ],
         frameworks: ['jasmine'],
         singleRun: true

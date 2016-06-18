@@ -8,7 +8,7 @@ var del = require('del'),
     path = require('path'),
     plugins = require('gulp-load-plugins')();
 
-gulp.task('default', ['build', 'test', 'build-test-file']);
+gulp.task('default', ['test']);
 
 gulp.task('build', function () {
     'use strict';
@@ -35,25 +35,16 @@ gulp.task('build', function () {
     ]);
 });
 
-gulp.task('build-tests', ['build'], function () {
+gulp.task('build-tests', function () {
     'use strict';
     var tsResult = gulp.src('tests/**/*.ts')
             .pipe(plugins.sourcemaps.init())
             .pipe(plugins.typescript());
 
     return tsResult.js
+        .pipe(plugins.concat('tests.js'))
         .pipe(plugins.sourcemaps.write())
-        .pipe(gulp.dest('build/tests'));
-});
-
-gulp.task('build-test-file', ['build-tests'], function () {
-    'use strict';
-    return gulp.src('tests/jasmine-tpl.html')
-        .pipe(plugins.template({scripts: ['build/stedman-pricker.js']
-            .concat(glob.sync('build/tests/**/*.spec.js'))
-        }))
-        .pipe(plugins.rename('jasmine.html'))
-        .pipe(gulp.dest('build/tests'));
+        .pipe(gulp.dest('build'));
 });
 
 gulp.task('test', ['build', 'build-tests'], function (done) {
@@ -74,7 +65,7 @@ gulp.task('test-browsers', ['build', 'build-tests'], function (done) {
 gulp.task('watch', ['default'], function () {
     'use strict';
     gulp.watch('src/**/*.ts', ['default']);
-    gulp.watch('tests/**/*.spec.js', ['test', 'build-test-file']);
+    gulp.watch('tests/**/*.ts', ['test']);
 });
 
 gulp.task('clean', function () {
