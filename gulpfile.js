@@ -30,7 +30,8 @@ gulp.task('build', function () {
             .pipe(plugins.sourcemaps.write())
             .pipe(plugins.minify())
             .pipe(gulp.dest('build')),
-        tsResult.dts.pipe(gulp.dest('build'))
+        tsResult.dts
+            .pipe(gulp.dest('build'))
     ]);
 });
 
