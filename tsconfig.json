@@ -5,6 +5,25 @@
         "outDir": "build"
     },
     "files": [
-        "src/stedman-pricker.ts"
+        "src/stedman-pricker.ts",
+        "src/Bell.ts",
+        "src/Stage.ts",
+        "src/Row.ts",
+        "src/rowFromString.ts",
+        "src/stringFromRow.ts",
+        "src/Call.ts",
+        "src/AbstractBlock.ts",
+        "src/AbstractSix.ts",
+        "src/Slow.ts",
+        "src/Quick.ts",
+        "src/AbstractContainer.ts",
+        "src/Course.ts",
+        "src/Touch.ts",
+        "src/Output/Format/Abstract.ts",
+        "src/Output/Format/Mbd.ts",
+        "src/Output/Format/Text.ts",
+        "src/Output/Layout/Abstract.ts",
+        "src/Output/Layout/Calling.ts",
+        "src/Output/Layout/Pricker.ts"
     ]
 }
