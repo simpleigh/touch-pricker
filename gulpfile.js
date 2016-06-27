@@ -15,7 +15,7 @@ var browserify = require('browserify'),
 
 gulp.task('default', ['build', 'test', 'build-test-file']);
 
-gulp.task('build', function () {
+gulp.task('build', ['tslint'], function () {
     'use strict';
 
     return browserify({
@@ -34,19 +34,6 @@ gulp.task('build', function () {
         .pipe(plugins.sourcemaps.write('./'))
         .pipe(gulp.dest('build'));
 
-//    var tsProject = plugins.typescript.createProject('tsconfig.json', {
-//            sortOutput: true,
-//            typescript: require('typescript')
-//        }),
-//        tsResult = tsProject.src()
-//            .pipe(plugins.tslint())
-//            .pipe(plugins.tslint.report('verbose', {
-//                emitError: false,
-//                summarizeFailureOutput: true
-//            }))
-//            .pipe(plugins.sourcemaps.init())
-//            .pipe(plugins.typescript(tsProject));
-
 //    return merge([
 //        tsResult.js
 //            .pipe(plugins.concat('stedman-pricker.js'))
@@ -57,6 +44,22 @@ gulp.task('build', function () {
 //            .pipe(plugins.concat('stedman-pricker.d.ts'))
 //            .pipe(gulp.dest('build'))
 //    ]);
+});
+
+gulp.task('tslint', function () {
+    'use strict';
+
+    var tsProject = plugins.typescript.createProject('tsconfig.json', {
+            typescript: require('typescript')
+        }),
+        tsResult =  tsProject.src()
+            .pipe(plugins.tslint())
+            .pipe(plugins.tslint.report('verbose', {
+                emitError: false,
+                summarizeFailureOutput: true
+            }));
+
+    return tsResult;
 });
 
 gulp.task('build-tests', ['build'], function () {

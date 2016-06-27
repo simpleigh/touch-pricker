@@ -6,7 +6,6 @@
  */
 
 
-import { Call } from '../../stedman';
 import { Course } from '../../containers';
 import { AbstractFormat } from '../Format/Abstract';
 import { AbstractLayout } from './Abstract';

@@ -48,6 +48,8 @@ const BELL_SYMBOLS_REVERSE: any = {
  * Converts a string into a row array
  */
 export function rowFromString(input: string, stage: Stage): Row {
+    'use strict';
+
     let bellNumber: Bell,
         bellsSeen: boolean[] = [],
         inputIndex: number,
@@ -104,6 +106,8 @@ const BELL_SYMBOLS: string = ' 1234567890ETABC';
  * Converts a row array to a string
  */
 export function stringFromRow(row: Row): string {
+    'use strict';
+
     let bellCharacters: string[] = [],
         bellIndex: number;
 
