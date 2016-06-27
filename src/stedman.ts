@@ -1,0 +1,155 @@
+/**
+ * Free Stedman Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright © 2015 Leigh Simpson. All rights reserved.
+ */
+
+
+import { Row } from './rows';
+import { AbstractBlock, AbstractContainer } from './blocks';
+
+
+/**
+ * Types of call
+ * @enum {number}
+ */
+export enum Call {Plain = 1, Bob, Single};
+
+
+/**
+ * Base class for sixes
+ */
+export abstract class AbstractSix extends AbstractBlock {
+    /**
+     * Six end of this six
+     */
+    protected _end: Row;
+
+    /**
+     * Call used to start the six
+     */
+    protected _call: Call;
+
+    /**
+     * Constructor
+     */
+    constructor(
+        initialRow: Row,
+        protected _container?: AbstractContainer<AbstractSix>,
+        protected _index?: number
+    ) {
+        super(initialRow, _container, _index);
+        this._call = Call.Plain;
+        this.calculate();
+    }
+
+    /* AbstractBlock methods **************************************************/
+
+    /**
+     * Does any calculation needed by the block
+     */
+    protected calculate(): void {
+        let n: number;
+        this._end = this._initialRow.slice(); // Create new array
+
+        this.transposeFrontThree();
+
+        // Odd places go up
+        for (n = 4; n < this._end.length; n += 2) {
+            this._end[n] = this._initialRow[n - 2];
+        }
+
+        // Even places go in
+        for (n = 5; n < this._end.length; n += 2) {
+            this._end[n - 2] = this._initialRow[n];
+        }
+
+        // Random stuff happens at the back
+        n = this._end.length - 1;
+        if (this._call === Call.Plain) {
+            this._end[n - 1] = this._initialRow[n];
+        } else {
+            this._end[n - 3] = this._initialRow[n - 2];
+            if (this._call === Call.Bob) {
+                this._end[n - 1] = this._initialRow[n - 1];
+                this._end[n] = this._initialRow[n];
+            } else {
+                this._end[n - 1] = this._initialRow[n];
+                this._end[n] = this._initialRow[n - 1];
+            }
+        }
+    }
+
+    /**
+     * Returns the end row
+     */
+    public getEnd(): Row {
+        return this._end.slice();
+    }
+
+    /* AbstractSix methods ****************************************************/
+
+    /**
+     * Read access to the call
+     */
+    public getCall(): Call {
+        return this._call;
+    }
+
+    /**
+     * Write access to the call
+     */
+    public setCall(call: Call): AbstractSix {
+        this._call = call;
+        this.calculate();
+        this.notifyContainer();
+        return this;
+    }
+
+    /**
+     * Toggles the call type between Plain -> Bob -> Single -> Plain
+     */
+    public toggleCall(): Call {
+        let call: Call = (this._call % 3) + 1;
+        this.setCall(call);
+        return call;
+    }
+
+    /**
+     * Transposes the front three bells depending upon the type of six
+     */
+    protected abstract transposeFrontThree(): AbstractSix;
+}
+
+
+/**
+ * A quick six
+ */
+export class Quick extends AbstractSix {
+    /**
+     * Transposes the front three bells depending upon the type of six
+     */
+    protected transposeFrontThree(): AbstractSix {
+        this._end[0] = this._initialRow[0];
+        this._end[1] = this._initialRow[1];
+        this._end[2] = this._initialRow[3];
+        return this;
+    }
+}
+
+
+/**
+ * A slow six
+ */
+export class Slow extends AbstractSix {
+    /**
+     * Transposes the front three bells depending upon the type of six
+     */
+    protected transposeFrontThree(): AbstractSix {
+        this._end[0] = this._initialRow[1];
+        this._end[1] = this._initialRow[3];
+        this._end[2] = this._initialRow[0];
+        return this;
+    }
+}

@@ -1,40 +1,62 @@
 /*global: require*/
 
-var del = require('del'),
+var browserify = require('browserify'),
+    buffer = require('vinyl-buffer'),
+    del = require('del'),
     glob = require('glob'),
     gulp = require('gulp'),
     karma = require('karma'),
     merge = require('merge2'),
     path = require('path'),
-    plugins = require('gulp-load-plugins')();
+    plugins = require('gulp-load-plugins')(),
+    source = require('vinyl-source-stream'),
+    tsify = require('tsify'),
+    typescript = require('typescript');
 
 gulp.task('default', ['build', 'test', 'build-test-file']);
 
 gulp.task('build', function () {
     'use strict';
-    var tsProject = plugins.typescript.createProject('tsconfig.json', {
-            sortOutput: true,
-            typescript: require('typescript')
-        }),
-        tsResult = tsProject.src()
-            .pipe(plugins.tslint())
-            .pipe(plugins.tslint.report('verbose', {
-                emitError: false,
-                summarizeFailureOutput: true
-            }))
-            .pipe(plugins.sourcemaps.init())
-            .pipe(plugins.typescript(tsProject));
 
-    return merge([
-        tsResult.js
-            .pipe(plugins.concat('stedman-pricker.js'))
-            .pipe(plugins.sourcemaps.write())
-            .pipe(plugins.minify())
-            .pipe(gulp.dest('build')),
-        tsResult.dts
-            .pipe(plugins.concat('stedman-pricker.d.ts'))
-            .pipe(gulp.dest('build'))
-    ]);
+    return browserify({
+        basedir: '.',
+        debug: true,
+        entries: 'src/stedman-pricker.ts',
+        cache: {},
+        packageCache: {}
+    })
+        .plugin(tsify, {typescript: typescript})
+        .bundle()
+        .pipe(source('stedman-pricker.js'))
+        .pipe(buffer())
+        .pipe(plugins.sourcemaps.init({loadMaps: true}))
+        .pipe(plugins.uglify())
+        .pipe(plugins.sourcemaps.write('./'))
+        .pipe(gulp.dest('build'));
+
+//    var tsProject = plugins.typescript.createProject('tsconfig.json', {
+//            sortOutput: true,
+//            typescript: require('typescript')
+//        }),
+//        tsResult = tsProject.src()
+//            .pipe(plugins.tslint())
+//            .pipe(plugins.tslint.report('verbose', {
+//                emitError: false,
+//                summarizeFailureOutput: true
+//            }))
+//            .pipe(plugins.sourcemaps.init())
+//            .pipe(plugins.typescript(tsProject));
+
+//    return merge([
+//        tsResult.js
+//            .pipe(plugins.concat('stedman-pricker.js'))
+//            .pipe(plugins.sourcemaps.write())
+//            .pipe(plugins.minify())
+//            .pipe(gulp.dest('build')),
+//        tsResult.dts
+//            .pipe(plugins.concat('stedman-pricker.d.ts'))
+//            .pipe(gulp.dest('build'))
+//    ]);
 });
 
 gulp.task('build-tests', ['build'], function () {

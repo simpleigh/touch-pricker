@@ -5,12 +5,7 @@
  * @copyright © 2015 Leigh Simpson. All rights reserved.
  */
 
-namespace Pricker {
-    'use strict';
 
-    /**
-     * Types of call
-     * @enum {number}
-     */
-    export enum Call {Plain = 1, Bob, Single};
-}
+export * from './Layout/Abstract';
+export * from './Layout/Calling';
+export * from './Layout/Pricker';
