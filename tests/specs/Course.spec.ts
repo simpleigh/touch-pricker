@@ -1,3 +1,5 @@
+import * as Pricker from '../stedman-pricker'
+
 describe('Course class', function () {
 
     it('calculates sixes correctly', function () {

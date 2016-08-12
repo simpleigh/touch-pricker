@@ -1,3 +1,5 @@
+import * as Pricker from '../stedman-pricker'
+
 function createSixTests(Six, testCaseFn) {
 
     let testCases = testCaseFn();

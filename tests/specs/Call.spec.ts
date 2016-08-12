@@ -1,3 +1,5 @@
+import * as Pricker from '../stedman-pricker'
+
 describe('Call enum', function () {
 
     it('maps calls to a truthy code', function () {

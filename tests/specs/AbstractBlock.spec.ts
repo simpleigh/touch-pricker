@@ -1,3 +1,5 @@
+import * as Pricker from '../stedman-pricker'
+
 function testAbstractBlockImplementation(Block) {
 
     function createTestRow(input: string = '231'): Pricker.Row {

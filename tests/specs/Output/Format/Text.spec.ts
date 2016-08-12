@@ -1,3 +1,5 @@
+import * as Pricker from '../../../stedman-pricker'
+
 describe('Text format', createFormatTests(
     Pricker.Output.Format.Text,
     [

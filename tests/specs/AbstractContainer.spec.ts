@@ -1,3 +1,5 @@
+import * as Pricker from '../stedman-pricker'
+
 function testAbstractContainerImplementation(
     Container,
     getBlockFnName: string,

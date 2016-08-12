@@ -1,3 +1,5 @@
+import * as Pricker from '../../../stedman-pricker'
+
 describe('MBD-style format', createFormatTests(
     Pricker.Output.Format.Mbd,
     [

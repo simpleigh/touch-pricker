@@ -1,3 +1,5 @@
+import * as Pricker from '../stedman-pricker'
+
 describe('Stage enum', function () {
 
     it('maps stage names to numbers of bells', function () {

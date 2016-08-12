@@ -1,3 +1,5 @@
+import * as Pricker from '../../../stedman-pricker'
+
 function createLayoutTests(Layout, expected: string, testFn) {
 
     return function () {

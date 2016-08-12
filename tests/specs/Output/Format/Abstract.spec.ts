@@ -1,3 +1,5 @@
+import * as Pricker from '../../../stedman-pricker'
+
 function createFormatTests(
     Format,
     methodTests: [string, string][],

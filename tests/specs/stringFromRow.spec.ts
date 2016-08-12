@@ -1,3 +1,5 @@
+import * as Pricker from '../stedman-pricker'
+
 describe('stringFromRow function', function () {
 
     it('converts rows to strings', function () {

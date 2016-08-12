@@ -62,7 +62,7 @@ gulp.task('tslint', function () {
     return tsResult;
 });
 
-gulp.task('build-tests', ['build'], function () {
+gulp.task('build-tests', function () {
     'use strict';
     var tsResult = gulp.src('tests/**/*.ts')
             .pipe(plugins.sourcemaps.init())

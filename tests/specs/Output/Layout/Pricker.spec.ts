@@ -1,3 +1,5 @@
+import * as Pricker from '../../../stedman-pricker'
+
 describe('Pricker layout', createLayoutTests(
     Pricker.Output.Layout.Pricker,
     ''

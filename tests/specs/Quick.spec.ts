@@ -1,3 +1,5 @@
+import * as Pricker from '../stedman-pricker'
+
 describe('Quick six class', createSixTests(Pricker.Quick, function () {
     let S = Pricker.Stage,
         C = Pricker.Call;

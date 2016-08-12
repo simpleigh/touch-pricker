@@ -1,3 +1,5 @@
+import * as Pricker from '../stedman-pricker'
+
 describe('Touch class', function () {
 
     testAbstractBlockImplementation(Pricker.Touch);
