@@ -38,7 +38,7 @@ gulp.task('build', function () {
         tsResult.js
             .pipe(plugins.concat('stedman-pricker.js'))
             .pipe(plugins.sourcemaps.write())
-            .pipe(plugins.minify())
+            .pipe(plugins.minify({ext: {min: '.min.js'}}))
             .pipe(gulp.dest('build')),
         tsResult.dts
             .pipe(plugins.concat('stedman-pricker.d.ts'))
