@@ -106,6 +106,20 @@ function createSixTests(Six, testCaseFn) {
             }
         ));
 
+        it('can suppress updates when a call is set', runTestCases(
+            function (previous, expected, stage, call) {
+                let six: Pricker.AbstractSix = new Six(previous);
+                six.setCall(call);
+                expect(six.getEnd()).toEqual(expected);
+
+                six.toggleCall();
+                expect(six.getEnd()).not.toEqual(expected);
+
+                six.setCall(call, false);
+                expect(six.getEnd()).not.toEqual(expected);
+            }
+        ));
+
         it('notifies the parent course when a call is set', function () {
             let row: Pricker.Row =
                     Pricker.rowFromString('231', Pricker.Stage.Cinques),
@@ -124,6 +138,16 @@ function createSixTests(Six, testCaseFn) {
 
             six.toggleCall();
             expect(parent.notify).toHaveBeenCalledWith(999);
+        });
+
+        it('can suppress notification when a call is set', function () {
+            let row: Pricker.Row =
+                    Pricker.rowFromString('231', Pricker.Stage.Cinques),
+                parent = jasmine.createSpyObj('Course', ['notify']),
+                six: Pricker.AbstractSix = new Six(row, parent, 999);
+
+            six.setCall(Pricker.Call.Plain, false);
+            expect(parent.notify).not.toHaveBeenCalledWith(999);
         });
 
         testAbstractBlockImplementation(Six);

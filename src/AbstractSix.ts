@@ -97,10 +97,12 @@ namespace Pricker {
         /**
          * Write access to the call
          */
-        public setCall(call: Call): AbstractSix {
+        public setCall(call: Call, update: boolean = true): AbstractSix {
             this._call = call;
-            this.calculate();
-            this.notifyContainer();
+            if (update) {
+                this.calculate();
+                this.notifyContainer();
+            }
             return this;
         }
 

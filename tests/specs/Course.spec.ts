@@ -51,6 +51,38 @@ describe('Course class', function () {
         }
     });
 
+    it('can be cloned', function () {
+        let stage: Pricker.Stage = Pricker.Stage.Cinques,
+            initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
+            course: Pricker.Course = new Pricker.Course(initialRow),
+            cloned: Pricker.Course;
+
+        course.setLength(20);
+        course.getSix(5).toggleCall();
+        cloned = course.clone();
+
+        expect(cloned.getLength()).toBe(course.getLength());
+        expect(cloned.getEnd()).toEqual(course.getEnd());
+    });
+
+    it('ignores changes to the cloned course', function () {
+        let stage: Pricker.Stage = Pricker.Stage.Cinques,
+            initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
+            course: Pricker.Course = new Pricker.Course(initialRow),
+            getLengthBackup: number = course.getLength(),
+            getEndBackup: Pricker.Row = course.getEnd(),
+            cloned: Pricker.Course = course.clone();
+
+        cloned.setLength(20);
+        cloned.getSix(5).toggleCall();
+
+        expect(cloned.getLength()).not.toBe(course.getLength());
+        expect(cloned.getEnd()).not.toEqual(course.getEnd());
+
+        expect(course.getLength()).toBe(getLengthBackup);
+        expect(course.getEnd()).toEqual(getEndBackup);
+    });
+
     testAbstractBlockImplementation(Pricker.Course);
 
     testAbstractContainerImplementation(

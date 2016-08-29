@@ -60,5 +60,23 @@ namespace Pricker {
         public getSix(six: number): AbstractSix {
             return this.getBlock(six);
         }
+
+        /**
+         * Clones the course
+         */
+        public clone(): Course {
+            let cloned: Course = new Course(this._initialRow),
+                index: number;
+
+            cloned.setLength(this.getLength());
+
+            // Copy across all the calls
+            for (index = 1; index <= this.getLength(); index++) {
+                cloned.getSix(index).setCall(this.getSix(index).getCall());
+            }
+            cloned.notify(1);
+
+            return cloned;
+        }
     }
 }
