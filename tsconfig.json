@@ -4,7 +4,10 @@
         "newLine": "LF",
         "outDir": "build"
     },
-    "files": [
-        "src/stedman-pricker.ts"
+    "exclude": [
+        "build",
+        "examples",
+        "node_modules",
+        "tests"
     ]
 }

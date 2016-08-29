@@ -27,10 +27,12 @@ gulp.task('build', function () {
 
     return merge([
         tsResult.js
+            .pipe(plugins.concat('stedman-pricker.js'))
             .pipe(plugins.sourcemaps.write())
             .pipe(plugins.minify())
             .pipe(gulp.dest('build')),
         tsResult.dts
+            .pipe(plugins.concat('stedman-pricker.d.ts'))
             .pipe(gulp.dest('build'))
     ]);
 });
