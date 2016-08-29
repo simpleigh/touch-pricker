@@ -55,12 +55,19 @@
       <label for="callReset">Current calling:</label>
       <button id="callReset" onclick="resetCalls()">Reset</button>
     </div>
+    <div>
+      Saved calling:
+      <div id="savedCalling"></div>
+      <button id="saveCalling" onclick="saveCalling()">Save</button>
+      <button id="loadCalling" onclick="loadCalling()">Load</button>
+    </div>
     <script type="text/javascript">
         var stage,             // Stage we're pricking on
             defaultInitialRow, // Start from rounds
             initialRow,        // Current start
             sixes,             // Number of sixes
             course,            // The course itself
+            savedCourse,       // Course being saved for later
             i,                 // Generic counter
             element;           // Generic HTML element
 
@@ -81,6 +88,7 @@
             initialRow = defaultInitialRow;
             sixes = stage * 2;
             course = new Pricker.Course(initialRow);
+            savedCourse = null;
             reDraw();
         }
 
@@ -120,6 +128,17 @@
                 Pricker.stringFromRow(initialRow);
 
             document.getElementById('courseLength').value = sixes;
+
+            if (savedCourse) {
+                document.getElementById('savedCalling').innerHTML =
+                    '<u>'
+                    + Pricker.stringFromRow(savedCourse.getInitialRow())
+                    + '</u>'
+                    + '<br />'
+                    + calling.print(savedCourse, text);
+            } else {
+                document.getElementById('savedCalling').innerText = 'None';
+            }
         }
 
         function c(six) {
@@ -169,6 +188,20 @@
             'use strict';
             course = new Pricker.Course(initialRow);
             course.setLength(sixes);
+            reDraw();
+        }
+
+        function saveCalling() {
+            'use strict';
+            savedCourse = course.clone();
+            savedCourse.setInitialRow(defaultInitialRow);
+            reDraw();
+        }
+
+        function loadCalling() {
+            'use strict';
+            course = savedCourse.clone();
+            course.setInitialRow(initialRow);
             reDraw();
         }
 
