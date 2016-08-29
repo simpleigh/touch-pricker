@@ -10,13 +10,16 @@ var del = require('del'),
 
 gulp.task('default', ['test']);
 
+var tsOptions = {
+    sortOutput: true,
+    typescript: require('typescript')
+};
+
+var tsProject = plugins.typescript.createProject('tsconfig.json', tsOptions);
+
 gulp.task('build', function () {
     'use strict';
-    var tsProject = plugins.typescript.createProject('tsconfig.json', {
-            sortOutput: true,
-            typescript: require('typescript')
-        }),
-        tsResult = tsProject.src()
+    var tsResult = tsProject.src()
             .pipe(plugins.tslint())
             .pipe(plugins.tslint.report('verbose', {
                 emitError: false,
@@ -41,7 +44,7 @@ gulp.task('build-tests', ['build'], function () {
     'use strict';
     var tsResult = gulp.src('tests/**/*.ts')
             .pipe(plugins.sourcemaps.init())
-            .pipe(plugins.typescript());
+            .pipe(plugins.typescript(tsOptions));
 
     return tsResult.js
         .pipe(plugins.concat('tests.js'))
