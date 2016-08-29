@@ -23,6 +23,7 @@
   </head>
   <body>
     <div id="sixends"></div>
+    <select id="stage" onchange="setStage()"></select>
     <div id="calling"></div>
     <div id="callingFromRounds"></div>
     <div>
@@ -46,11 +47,33 @@
       <button id="callReset" onclick="resetCalls()">Reset</button>
     </div>
     <script type="text/javascript">
-        var stage = Pricker.Stage.Cinques,
-            defaultInitialRow = Pricker.rowFromString('231', stage),
-            initialRow = defaultInitialRow,
-            sixes = stage * 2,
+        var stage,             // Stage we're pricking on
+            defaultInitialRow, // Start from rounds
+            initialRow,        // Current start
+            sixes,             // Number of sixes
+            course,            // The course itself
+            i,                 // Generic counter
+            element;           // Generic HTML element
+
+        for (i = 7; i <= 15; i = i + 2) {
+            element = document.createElement('option');
+            element.value = i;
+            element.innerText = Pricker.Stage[i];
+            document.getElementById('stage').appendChild(element);
+            if (i === Pricker.Stage.Cinques) {
+                document.getElementById('stage').value = i;
+            }
+        }
+
+        function setStage() {
+            'use strict';
+            stage = parseInt(document.getElementById('stage').value);
+            defaultInitialRow = Pricker.rowFromString('231', stage);
+            initialRow = defaultInitialRow;
+            sixes = stage * 2;
             course = new Pricker.Course(initialRow);
+            reDraw();
+        }
 
         function reDraw() {
             'use strict';
@@ -140,7 +163,7 @@
             reDraw();
         }
 
-        reDraw();
+        setStage();
     </script>
   </body>
 </html>
