@@ -46,7 +46,7 @@ namespace Pricker {
             inputIndex < input.length && inputIndex < stage;
             inputIndex += 1
         ) {
-            bellNumber = BELL_SYMBOLS_REVERSE[input[inputIndex]];
+            bellNumber = BELL_SYMBOLS_REVERSE[input.charAt(inputIndex)];
 
             if (bellNumber && bellNumber <= stage) {
                 if (bellsSeen[bellNumber]) {

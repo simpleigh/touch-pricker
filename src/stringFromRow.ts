@@ -23,7 +23,7 @@ namespace Pricker {
             bellIndex: number;
 
         for (bellIndex = 0; bellIndex < row.length; bellIndex += 1) {
-            bellCharacters.push(BELL_SYMBOLS[row[bellIndex]]);
+            bellCharacters.push(BELL_SYMBOLS.charAt(row[bellIndex]));
         }
 
         return bellCharacters.join('');
