@@ -5,6 +5,8 @@
  * @copyright © 2015-16 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="Abstract.spec.ts" />
+
 describe('MBD-style format', createFormatTests(
     Pricker.Output.Format.Mbd,
     [

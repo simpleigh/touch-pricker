@@ -5,6 +5,8 @@
  * @copyright © 2015-16 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="Abstract.spec.ts" />
+
 describe('Pricker layout', createLayoutTests(
     Pricker.Output.Layout.Pricker,
     ''

@@ -5,6 +5,9 @@
  * @copyright © 2015-16 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="AbstractBlock.spec.ts" />
+/// <reference path="AbstractContainer.spec.ts" />
+
 describe('Touch class', function () {
 
     testAbstractBlockImplementation(Pricker.Touch);

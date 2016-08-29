@@ -5,6 +5,8 @@
  * @copyright © 2015-16 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="AbstractSix.spec.ts" />
+
 describe('Quick six class', createSixTests(Pricker.Quick, function () {
     let S = Pricker.Stage,
         C = Pricker.Call;
