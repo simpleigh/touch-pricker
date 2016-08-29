@@ -19,7 +19,7 @@ var tsProject = plugins.typescript.createProject('tsconfig.json', tsOptions);
 
 gulp.task('build', function () {
     'use strict';
-    var tsResult = tsProject.src()
+    var tsResult = gulp.src('src/**/*.ts')
             .pipe(plugins.tslint())
             .pipe(plugins.tslint.report('verbose', {
                 emitError: false,
