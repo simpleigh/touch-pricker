@@ -8,7 +8,6 @@
 /*global: require*/
 
 var del = require('del'),
-    glob = require('glob'),
     gulp = require('gulp'),
     karma = require('karma'),
     merge = require('merge2'),
@@ -27,8 +26,8 @@ var tsProject = plugins.typescript.createProject('tsconfig.json', tsOptions);
 gulp.task('build', function () {
     'use strict';
     var tsResult = gulp.src('src/**/*.ts')
-            .pipe(plugins.tslint())
-            .pipe(plugins.tslint.report('verbose', {
+            .pipe(plugins.tslint({formatter: 'verbose'}))
+            .pipe(plugins.tslint.report({
                 emitError: false,
                 summarizeFailureOutput: true
             }))
