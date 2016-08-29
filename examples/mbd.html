@@ -23,9 +23,18 @@
   </head>
   <body>
     <div id="sixends"></div>
-    <select id="stage" onchange="setStage()"></select>
-    <div id="calling"></div>
-    <div id="callingFromRounds"></div>
+    <div>
+      <label for="stage">Number of bells:</label>
+      <select id="stage" onchange="setStage()"></select>
+    </div>
+    <div>
+      Course from rounds:
+      <div id="callingFromRounds"></div>
+    </div>
+    <div>
+      From current start row:
+      <div id="calling"></div>
+    </div>
     <div>
       <form onsubmit="return false">
         <label for="initialRow">Starting row:</label>
