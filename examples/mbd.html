@@ -12,7 +12,7 @@
         font-size: 12pt;
       }
 
-      #sixends, #controls {
+      #sixends, #controls, #touch {
         float: left;
       }
 
@@ -70,6 +70,23 @@
         <button id="loadCalling" onclick="loadCalling()">Load</button>
       </div>
     </div>
+    <div id="touch">
+      <form onsubmit="return false">
+        <button onclick="insertCourse()">Insert</button>
+        <button onclick="pasteCourse()">Paste</button>
+        <button onclick="copyCourse()">Copy</button>
+        <button onclick="cutCourse()">Cut</button>
+        <button onclick="deleteCourse()">Delete</button>
+      </form>
+      <select id="courses" size="2" ondblclick="copyCourse()"></select>
+      <form onsubmit="return false">
+        <button onclick="insertCourse()">Insert</button>
+        <button onclick="pasteCourse()">Paste</button>
+        <button onclick="copyCourse()">Copy</button>
+        <button onclick="cutCourse()">Cut</button>
+        <button onclick="deleteCourse()">Delete</button>
+      </form>
+    </div>
     <script type="text/javascript">
         var stage,             // Stage we're pricking on
             defaultInitialRow, // Start from rounds
@@ -77,6 +94,7 @@
             sixes,             // Number of sixes
             course,            // The course itself
             savedCourse,       // Course being saved for later
+            touch,             // Touch being composed
             i,                 // Generic counter
             element;           // Generic HTML element
 
@@ -98,6 +116,7 @@
             sixes = stage * 2;
             course = new Pricker.Course(initialRow);
             savedCourse = null;
+            touch = new Pricker.Touch(defaultInitialRow);
             reDraw();
         }
 
@@ -147,6 +166,27 @@
                     + calling.print(savedCourse, text);
             } else {
                 document.getElementById('savedCalling').innerText = 'None';
+            }
+
+            // Touch display
+            document.getElementById('courses').innerText = '';
+            document.getElementById('courses').size = Math.max(
+                touch.getLength() + 1,
+                2
+            );
+
+            // Starting row
+            element = document.createElement('option');
+            element.value = 0;
+            element.innerText = Pricker.stringFromRow(defaultInitialRow);
+            document.getElementById('courses').appendChild(element);
+
+            // Courses
+            for (i = 1; i <= touch.getLength(); i++) {
+                element = document.createElement('option');
+                element.value = i;
+                element.innerText = calling.print(touch.getCourse(i), text);
+                document.getElementById('courses').appendChild(element);
             }
         }
 
@@ -212,6 +252,49 @@
             course = savedCourse.clone();
             course.setInitialRow(initialRow);
             reDraw();
+        }
+
+        function insertCourse() {
+            'use strict';
+            var index = parseInt(document.getElementById('courses').value) || 0;
+            touch.insertCourse(index + 1, course.clone());
+            reDraw();
+            document.getElementById('courses').value = index + 1;
+        }
+
+        function pasteCourse() {
+            'use strict';
+            var index = parseInt(document.getElementById('courses').value);
+            deleteCourse();
+            document.getElementById('courses').value = index - 1;
+            insertCourse();
+        }
+
+        function copyCourse() {
+            'use strict';
+            var index = parseInt(document.getElementById('courses').value) || 0;
+            if (index) {
+                course = touch.getCourse(index).clone();
+                initialRow = course.getInitialRow();
+                sixes = course.getLength();
+                reDraw();
+            }
+        }
+
+        function cutCourse() {
+            'use strict';
+            copyCourse();
+            deleteCourse();
+        }
+
+        function deleteCourse() {
+            'use strict';
+            var index = parseInt(document.getElementById('courses').value) || 0;
+            if (index) {
+                touch.deleteCourse(index);
+                reDraw();
+                document.getElementById('courses').value = index;
+            }
         }
 
         setStage();

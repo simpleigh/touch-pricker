@@ -50,8 +50,42 @@ namespace Pricker {
         /**
          * Read access to courses
          */
-        public getCourse(course: number): Course {
-            return this.getBlock(course);
+        public getCourse(index: number): Course {
+            return this.getBlock(index);
+        }
+
+        /**
+         * Inserts a course at the specified index
+         */
+        public insertCourse(index: number, course: Course): this {
+            this._blocks.splice(index - 1, 0, course);
+            this.fixupOwnership(index);
+
+            this.notify(index - 1);
+            return this;
+        }
+
+        /**
+         * Deletes the course at the specified index
+         */
+        public deleteCourse(index: number): Course {
+            let course: Course = this.getBlock(index);
+
+            this._blocks.splice(index - 1, 1);
+            course.setOwnership(null, null);
+            this.fixupOwnership(index);
+
+            this.notify(index - 1);
+            return course;
+        }
+
+        /**
+         * Helper to fixup ownership of blocks
+         */
+        private fixupOwnership(index: number): void {
+            for (let i: number = index; i <= this.getLength(); i++) {
+                this.getCourse(i).setOwnership(this, i);
+            }
         }
     }
 }
