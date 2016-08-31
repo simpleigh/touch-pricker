@@ -78,7 +78,12 @@
         <button onclick="cutCourse()">Cut</button>
         <button onclick="deleteCourse()">Delete</button>
       </form>
-      <select id="courses" size="2" ondblclick="copyCourse()"></select>
+      <select
+        id="courses"
+        size="2"
+        onchange="selectCourse()"
+        ondblclick="copyCourse()">
+      </select>
       <form onsubmit="return false">
         <button onclick="insertCourse()">Insert</button>
         <button onclick="pasteCourse()">Paste</button>
@@ -95,6 +100,7 @@
             course,            // The course itself
             savedCourse,       // Course being saved for later
             touch,             // Touch being composed
+            selectedIndex,     // Course selected in touch view
             i,                 // Generic counter
             element;           // Generic HTML element
 
@@ -117,6 +123,7 @@
             course = new Pricker.Course(initialRow);
             savedCourse = null;
             touch = new Pricker.Touch(defaultInitialRow);
+            selectedIndex = 0;
             reDraw();
         }
 
@@ -188,6 +195,7 @@
                 element.innerText = calling.print(touch.getCourse(i), text);
                 document.getElementById('courses').appendChild(element);
             }
+            document.getElementById('courses').value = selectedIndex;
         }
 
         function c(six) {
@@ -259,27 +267,30 @@
             reDraw();
         }
 
+        function selectCourse() {
+            'use strict';
+            selectedIndex = parseInt(document.getElementById('courses').value);
+            selectedIndex = selectedIndex || 0;
+        }
+
         function insertCourse() {
             'use strict';
-            var index = parseInt(document.getElementById('courses').value) || 0;
-            touch.insertCourse(index + 1, course.clone());
+            touch.insertCourse(selectedIndex + 1, course.clone());
+            selectedIndex += 1;
             reDraw();
-            document.getElementById('courses').value = index + 1;
         }
 
         function pasteCourse() {
             'use strict';
-            var index = parseInt(document.getElementById('courses').value);
             deleteCourse();
-            document.getElementById('courses').value = index - 1;
+            selectedIndex -= 1;
             insertCourse();
         }
 
         function copyCourse() {
             'use strict';
-            var index = parseInt(document.getElementById('courses').value) || 0;
-            if (index) {
-                course = touch.getCourse(index).clone();
+            if (selectedIndex) {
+                course = touch.getCourse(selectedIndex).clone();
                 initialRow = course.getInitialRow();
                 sixes = course.getLength();
                 reDraw();
@@ -294,11 +305,9 @@
 
         function deleteCourse() {
             'use strict';
-            var index = parseInt(document.getElementById('courses').value) || 0;
-            if (index) {
-                touch.deleteCourse(index);
+            if (selectedIndex) {
+                touch.deleteCourse(selectedIndex);
                 reDraw();
-                document.getElementById('courses').value = index;
             }
         }
 
