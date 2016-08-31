@@ -81,6 +81,19 @@ describe('Course class', function () {
         expect(parent.notify).toHaveBeenCalledWith(999);
     });
 
+    it('can be attached to a new parent touch', function () {
+        let row: Pricker.Row =
+                Pricker.rowFromString('231', Pricker.Stage.Cinques),
+            parentOld = jasmine.createSpyObj('Touch', ['notify']),
+            parentNew = jasmine.createSpyObj('Touch', ['notify']),
+            course: Pricker.Course = new Pricker.Course(row, parentOld, 999);
+
+        course.setOwnership(parentNew, 998);
+        course.setLength(course.getLength() + 2);
+        expect(parentNew.notify).toHaveBeenCalledWith(998);
+        expect(parentOld.notify).not.toHaveBeenCalledWith(999);
+    });
+
     it('can be cloned', function () {
         let stage: Pricker.Stage = Pricker.Stage.Cinques,
             initialRow: Pricker.Row = Pricker.rowFromString('231', stage),

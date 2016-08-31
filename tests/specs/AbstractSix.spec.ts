@@ -150,6 +150,19 @@ function createSixTests(Six, testCaseFn) {
             expect(parent.notify).not.toHaveBeenCalledWith(999);
         });
 
+        it('can be attached to a new parent course', function () {
+            let row: Pricker.Row =
+                    Pricker.rowFromString('231', Pricker.Stage.Cinques),
+                parentOld = jasmine.createSpyObj('Course', ['notify']),
+                parentNew = jasmine.createSpyObj('Course', ['notify']),
+                six: Pricker.AbstractSix = new Six(row, parentOld, 999);
+
+            six.setOwnership(parentNew, 998);
+            six.toggleCall();
+            expect(parentNew.notify).toHaveBeenCalledWith(998);
+            expect(parentOld.notify).not.toHaveBeenCalledWith(999);
+        });
+
         testAbstractBlockImplementation(Six);
     };
 }

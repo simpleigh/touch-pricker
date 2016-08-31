@@ -71,6 +71,18 @@ namespace Pricker {
         public abstract getEnd(): Row;
 
         /**
+         * Updates references to the parent container
+         */
+        public setOwnership(
+            container: AbstractContainer<AbstractBlock>,
+            index: number
+        ): AbstractBlock {
+            this._container = container;
+            this._index = index;
+            return this;
+        }
+
+        /**
          * Notifies the parent container
          * 
          * Derived classes should call this whenever the end row changes.
