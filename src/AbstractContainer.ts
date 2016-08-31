@@ -100,7 +100,7 @@ namespace Pricker {
         protected abstract createBlock(initialRow: Row, index: number): Block;
 
         /**
-         * Calculates blocks within the course
+         * Calculates blocks within the container
          * @param {number} index - where to start when recalculating
          */
         private calculateBlocks(index: number = 0): void {
