@@ -249,8 +249,13 @@
 
         function loadCalling() {
             'use strict';
-            course = savedCourse.clone();
-            course.setInitialRow(initialRow);
+            if (savedCourse) {
+                course = savedCourse.clone();
+                course.setInitialRow(initialRow);
+            } else {
+                course = new Pricker.Course(initialRow);
+            }
+            sixes = course.getLength();
             reDraw();
         }
 
