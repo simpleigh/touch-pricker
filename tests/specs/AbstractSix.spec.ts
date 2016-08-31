@@ -124,10 +124,10 @@ function createSixTests(Six, testCaseFn) {
             let row: Pricker.Row =
                     Pricker.rowFromString('231', Pricker.Stage.Cinques),
                 parent = jasmine.createSpyObj('Course', ['notify']),
-                six: Pricker.AbstractSix = new Six(row, parent, 8);
+                six: Pricker.AbstractSix = new Six(row, parent, 999);
 
             six.setCall(Pricker.Call.Plain);
-            expect(parent.notify).toHaveBeenCalledWith(8);
+            expect(parent.notify).toHaveBeenCalledWith(999);
         });
 
         it('notifies the parent course when toggled', function () {

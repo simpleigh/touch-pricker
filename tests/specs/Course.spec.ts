@@ -51,6 +51,36 @@ describe('Course class', function () {
         }
     });
 
+    it('notifies the parent touch when the length increases', function () {
+        let row: Pricker.Row =
+                Pricker.rowFromString('231', Pricker.Stage.Cinques),
+            parent = jasmine.createSpyObj('Touch', ['notify']),
+            course: Pricker.Course = new Pricker.Course(row, parent, 999);
+
+        course.setLength(course.getLength() + 2);
+        expect(parent.notify).toHaveBeenCalledWith(999);
+    });
+
+    it('notifies the parent touch when the length decreases', function () {
+        let row: Pricker.Row =
+                Pricker.rowFromString('231', Pricker.Stage.Cinques),
+            parent = jasmine.createSpyObj('Touch', ['notify']),
+            course: Pricker.Course = new Pricker.Course(row, parent, 999);
+
+        course.setLength(course.getLength() - 2);
+        expect(parent.notify).toHaveBeenCalledWith(999);
+    });
+
+    it('notifies the parent touch when a six changes', function () {
+        let row: Pricker.Row =
+                Pricker.rowFromString('231', Pricker.Stage.Cinques),
+            parent = jasmine.createSpyObj('Touch', ['notify']),
+            course: Pricker.Course = new Pricker.Course(row, parent, 999);
+
+        course.getSix(10).toggleCall();
+        expect(parent.notify).toHaveBeenCalledWith(999);
+    });
+
     it('can be cloned', function () {
         let stage: Pricker.Stage = Pricker.Stage.Cinques,
             initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
