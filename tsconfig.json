@@ -2,12 +2,9 @@
     "compilerOptions": {
         "declaration": true,
         "newLine": "LF",
-        "outDir": "build"
+        "outFile": "build/stedman-pricker.js"
     },
-    "exclude": [
-        "build",
-        "examples",
-        "node_modules",
-        "tests"
+    "include": [
+        "src/**/*.ts"
     ]
 }

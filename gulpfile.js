@@ -16,33 +16,26 @@ var del = require('del'),
 
 gulp.task('default', ['test']);
 
-var tsOptions = {
-    sortOutput: true,
-    typescript: require('typescript')
-};
-
-var tsProject = plugins.typescript.createProject('tsconfig.json', tsOptions);
+var tsProject = plugins.typescript.createProject('tsconfig.json');
 
 gulp.task('build', function () {
     'use strict';
-    var tsResult = gulp.src('src/**/*.ts')
+    var tsResult = tsProject.src()
             .pipe(plugins.tslint({formatter: 'verbose'}))
             .pipe(plugins.tslint.report({
                 emitError: false,
                 summarizeFailureOutput: true
             }))
             .pipe(plugins.sourcemaps.init())
-            .pipe(plugins.typescript(tsProject));
+            .pipe(tsProject());
 
     return merge([
         tsResult.js
-            .pipe(plugins.concat('stedman-pricker.js'))
             .pipe(plugins.sourcemaps.write())
             .pipe(plugins.minify({ext: {min: '.min.js'}}))
-            .pipe(gulp.dest('build')),
+            .pipe(gulp.dest('.')),
         tsResult.dts
-            .pipe(plugins.concat('stedman-pricker.d.ts'))
-            .pipe(gulp.dest('build'))
+            .pipe(gulp.dest('.'))
     ]);
 });
 
@@ -50,12 +43,13 @@ gulp.task('build-tests', ['build'], function () {
     'use strict';
     var tsResult = gulp.src('tests/**/*.ts')
             .pipe(plugins.sourcemaps.init())
-            .pipe(plugins.typescript(tsOptions));
+            .pipe(plugins.typescript({
+                outFile: 'build/tests.js'
+            }));
 
     return tsResult.js
-        .pipe(plugins.concat('tests.js'))
         .pipe(plugins.sourcemaps.write())
-        .pipe(gulp.dest('build'));
+        .pipe(gulp.dest('.'));
 });
 
 gulp.task('test', ['build', 'build-tests'], function (done) {
