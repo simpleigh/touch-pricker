@@ -125,7 +125,6 @@ namespace Pricker {
             return this._blocks.length;
         }
 
-
         /**
          * Write access to the length
          */

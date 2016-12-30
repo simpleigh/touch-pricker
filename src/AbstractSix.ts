@@ -10,7 +10,6 @@
 /// <reference path="AbstractBlock.ts" />
 /// <reference path="AbstractContainer.ts" />
 
-
 namespace Pricker {
     'use strict';
 

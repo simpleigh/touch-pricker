@@ -30,7 +30,7 @@ namespace Pricker {
                 /**
                  * Manipulates a format to print out a course
                  */
-                print(course: Course, format: Format.AbstractFormat): string {
+                public print(course: Course, format: Format.AbstractFormat): string {
                     let index: number,
                         calls: string[] = [],
                         bells: number = course.getEnd().length;
