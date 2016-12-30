@@ -2,7 +2,13 @@
     "compilerOptions": {
         "declaration": true,
         "newLine": "LF",
-        "outFile": "build/stedman-pricker.js"
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "outFile": "build/stedman-pricker.js",
+        "strictNullChecks": true
     },
     "include": [
         "src/**/*.ts"

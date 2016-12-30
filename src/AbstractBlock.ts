@@ -74,8 +74,8 @@ namespace Pricker {
          * Updates references to the parent container
          */
         public setOwnership(
-            container: AbstractContainer<AbstractBlock>,
-            index: number
+            container: AbstractContainer<AbstractBlock> | undefined,
+            index: number | undefined
         ): AbstractBlock {
             this._container = container;
             this._index = index;
@@ -88,7 +88,7 @@ namespace Pricker {
          * Derived classes should call this whenever the end row changes.
          */
         protected notifyContainer(): void {
-            if (this._container) {
+            if (this._container && this._index) {
                 this._container.notify(this._index);
             }
         }

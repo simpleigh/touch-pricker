@@ -72,7 +72,7 @@ namespace Pricker {
             let course: Course = this.getBlock(index);
 
             this._blocks.splice(index - 1, 1);
-            course.setOwnership(null, null);
+            course.setOwnership(undefined, undefined);
             this.fixupOwnership(index);
 
             this.notify(index - 1);
