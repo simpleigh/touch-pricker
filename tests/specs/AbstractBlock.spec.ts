@@ -98,6 +98,22 @@ function testAbstractBlockImplementation(Block) {
             expect(block.getEnd()).toEqual(getEndBackup);
         });
 
+        it('calls a visitor in order to traverse rows', function () {
+            let block: Pricker.AbstractBlock = new Block(createTestRow()),
+                visitor: Pricker.Visitor.Counter =
+                        new Pricker.Visitor.Counter();
+
+            // TODO
+        });
+
+        it('returns this when receiving a visitor', function () {
+            let block: Pricker.AbstractBlock = new Block(createTestRow()),
+                visitor: Pricker.Visitor.Counter =
+                        new Pricker.Visitor.Counter();
+
+            expect(block.accept(visitor)).toBe(block);
+        });
+
     });
 
 }

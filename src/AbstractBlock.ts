@@ -6,6 +6,7 @@
  */
 
 /// <reference path="Row.ts" />
+/// <reference path="Visitor/Abstract.ts" />
 
 namespace Pricker {
     'use strict';
@@ -59,7 +60,7 @@ namespace Pricker {
         /**
          * Write access to the initial row
          */
-        public setInitialRow(initialRow: Row): AbstractBlock {
+        public setInitialRow(initialRow: Row): this {
             this._initialRow = initialRow.slice();
             this.calculate();
             return this;
@@ -92,5 +93,10 @@ namespace Pricker {
                 this._container.notify(this._index);
             }
         }
+
+        /**
+         * Receives a visitor that will be called to process each row
+         */
+        public abstract accept(visitor: Visitor.AbstractVisitor): this;
     }
 }

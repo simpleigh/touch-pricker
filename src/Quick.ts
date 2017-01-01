@@ -6,6 +6,7 @@
  */
 
 /// <reference path="AbstractSix.ts" />
+/// <reference path="Visitor/Abstract.ts" />
 
 namespace Pricker {
     'use strict';
@@ -14,6 +15,19 @@ namespace Pricker {
      * A quick six
      */
     export class Quick extends AbstractSix {
+
+        /* AbstractBlock methods **********************************************/
+
+        /**
+         * Receives a visitor that will be called to process each row
+         */
+        public accept(visitor: Visitor.AbstractVisitor): this {
+            // TODO
+            return this;
+        }
+
+        /* AbstractSix methods ************************************************/
+
         /**
          * Transposes the front three bells depending upon the type of six
          */

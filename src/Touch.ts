@@ -5,6 +5,8 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="Visitor/Abstract.ts" />
+
 namespace Pricker {
     'use strict';
 
@@ -12,6 +14,16 @@ namespace Pricker {
      * A touch, being a set of courses
      */
     export class Touch extends AbstractContainer<Course> {
+
+        /* AbstractBlock methods **********************************************/
+
+        /**
+         * Receives a visitor that will be called to process each row
+         */
+        public accept(visitor: Visitor.AbstractVisitor): this {
+            // TODO
+            return super.accept(visitor);
+        }
 
         /* AbstractContainer methods ******************************************/
 
