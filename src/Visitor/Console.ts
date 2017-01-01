@@ -6,6 +6,7 @@
  */
 
 /// <reference path="../Row.ts" />
+/// <reference path="../stringFromRow.ts" />
 /// <reference path="Abstract.ts" />
 
 namespace Pricker {
@@ -19,24 +20,15 @@ namespace Pricker {
         /**
          * Interface for visitors
          */
-        export class Counter implements AbstractVisitor {
-            /**
-             * Count of rows we've seen
-             */
-            protected _count: number = 0;
-
-            /**
-             * Read access to the count
-             */
-            public getCount(): number {
-                return this._count;
-            }
-
+        export class Console implements AbstractVisitor {
             /**
              * Receives a row for processing
              */
             public visit(row: Row): this {
-                this._count += 1;
+                /* tslint:disable:no-console */
+                console.log(stringFromRow(row));
+                /* tslint:enable:no-console */
+
                 return this;
             }
         }
