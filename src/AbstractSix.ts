@@ -5,10 +5,12 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="Bell.ts" />
 /// <reference path="Row.ts" />
 /// <reference path="Call.ts" />
 /// <reference path="AbstractBlock.ts" />
 /// <reference path="AbstractContainer.ts" />
+/// <reference path="Visitor/Abstract.ts" />
 
 namespace Pricker {
     'use strict';
@@ -118,5 +120,89 @@ namespace Pricker {
          * Transposes the front three bells depending upon the type of six
          */
         protected abstract transposeFrontThree(): AbstractSix;
+
+        /**
+         * Computes the first row of the six by applying notation <n>
+         */
+        protected getFirstRow(): Row {
+            let result: Row = this._initialRow.slice(),
+                index: number,
+                bell: Bell;
+
+            for (index = 0; index < result.length - 1; index += 2) {
+                bell = result[index];
+                result[index] = result[index + 1];
+                result[index + 1] = bell;
+            }
+
+            return result;
+        }
+
+        /**
+         * Swaps the last n - 2 bells of a row by applying notation <123>
+         */
+        protected swapBackBells(row: Row): void {
+            let index: number,
+                bell: Bell;
+
+            for (index = 3; index < row.length - 1; index += 2) {
+                bell = row[index];
+                row[index] = row[index + 1];
+                row[index + 1] = bell;
+            }
+        }
+
+        /**
+         * Rotates the first three bells forwards (abc -> bca)
+         */
+        protected forwardRotator(row: Row): void {
+            let bell: Bell = row[0];
+            row[0] = row[1];
+            row[1] = row[2];
+            row[2] = bell;
+        }
+
+        /**
+         * Rotates the first three bells backwards (abc -> cab)
+         */
+        protected backwardRotator(row: Row): void {
+            let bell: Bell = row[2];
+            row[2] = row[1];
+            row[1] = row[0];
+            row[0] = bell;
+        }
+
+        /**
+         * Visits all rows of the six
+         * @param {Visitor.AbstractVisitor} visitor     - visitor being used
+         * @param {Row}                     oddRow      - row 1
+         * @param {(row: Row) => void}      oddRotator  - rotator row 1 -> row 3
+         * @param {Row}                     evenRow     - row 2
+         * @param {(row: Row) => void}      evenRotator - rotator row 2 -> row 4
+         */
+        protected acceptHelper(
+            visitor: Visitor.AbstractVisitor,
+            oddRow: Row,
+            oddRotator: (row: Row) => void,
+            evenRow: Row,
+            evenRotator: (row: Row) => void,
+        ): this {
+            visitor.visit(oddRow);
+            visitor.visit(evenRow);
+
+            oddRotator(oddRow);
+            evenRotator(evenRow);
+
+            visitor.visit(oddRow);
+            visitor.visit(evenRow);
+
+            oddRotator(oddRow);
+            evenRotator(evenRow);
+
+            visitor.visit(oddRow);
+            visitor.visit(evenRow);
+
+            return this;
+        }
     }
 }

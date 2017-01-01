@@ -22,8 +22,24 @@ namespace Pricker {
          * Receives a visitor that will be called to process each row
          */
         public accept(visitor: Visitor.AbstractVisitor): this {
-            // TODO
-            return this;
+            let oddRow: Row = this.getFirstRow(),
+                evenRow: Row = oddRow.slice(),
+                bell: Bell;
+
+            this.swapBackBells(evenRow);
+
+            // Notation <3>
+            bell = evenRow[1];
+            evenRow[1] = evenRow[0];
+            evenRow[0] = bell;
+
+            return this.acceptHelper(
+                visitor,
+                oddRow,
+                this.forwardRotator,
+                evenRow,
+                this.backwardRotator
+            );
         }
 
         /* AbstractSix methods ************************************************/

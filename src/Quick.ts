@@ -5,6 +5,8 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="Bell.ts" />
+/// <reference path="Row.ts" />
 /// <reference path="AbstractSix.ts" />
 /// <reference path="Visitor/Abstract.ts" />
 
@@ -22,8 +24,24 @@ namespace Pricker {
          * Receives a visitor that will be called to process each row
          */
         public accept(visitor: Visitor.AbstractVisitor): this {
-            // TODO
-            return this;
+            let oddRow: Row = this.getFirstRow(),
+                evenRow: Row = oddRow.slice(),
+                bell: Bell;
+
+            this.swapBackBells(evenRow);
+
+            // Notation <1>
+            bell = evenRow[2];
+            evenRow[2] = evenRow[1];
+            evenRow[1] = bell;
+
+            return this.acceptHelper(
+                visitor,
+                oddRow,
+                this.backwardRotator,
+                evenRow,
+                this.forwardRotator
+            );
         }
 
         /* AbstractSix methods ************************************************/
