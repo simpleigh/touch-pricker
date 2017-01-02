@@ -62,5 +62,24 @@ namespace Pricker {
             }
         }
 
+        /**
+         * Notation <9> for Cinques
+         */
+        export function permuteBob(row: Row): void {
+            permuteSingle(row);
+            swapPair(row, row.length - 2);
+        }
+
+        /**
+         * Notation <90E> for Cinques
+         */
+        export function permuteSingle(row: Row): void {
+            let index: number;
+
+            for (index = 0; index < row.length - 3; index += 2) {
+                swapPair(row, index);
+            }
+        }
+
     }
 }

@@ -112,7 +112,7 @@ namespace Pricker {
          * Toggles the call type between Plain -> Bob -> Single -> Plain
          */
         public toggleCall(): Call {
-            let call: Pricker.Call = (this._call % 3) + 1;
+            let call: Call = (this._call % 3) + 1;
             this.setCall(call);
             return call;
         }
@@ -128,7 +128,13 @@ namespace Pricker {
         protected getFirstRow(): Row {
             let row: Row = this._initialRow.slice();
 
-            Changes.permuteN(row);
+            if (this._call === Call.Plain) {
+                Changes.permuteN(row);
+            } else if (this._call === Call.Bob) {
+                Changes.permuteBob(row);
+            } else if (this._call === Call.Single) {
+                Changes.permuteSingle(row);
+            }
 
             return row;
         }

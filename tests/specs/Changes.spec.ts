@@ -61,4 +61,26 @@ describe('Changes:', function () {
         ]
     ));
 
+    describe('permuteBob function', createChangeTests(
+        Pricker.Changes.permuteBob,
+        [
+            ['2143576', Pricker.Stage.Triples],
+            ['214365798', Pricker.Stage.Caters],
+            ['214365879E0', Pricker.Stage.Cinques],
+            ['2143658709EAT', Pricker.Stage.Sextuples],
+            ['2143658709TEACB', Pricker.Stage.Septuples]
+        ]
+    ));
+
+    describe('permuteSingle function', createChangeTests(
+        Pricker.Changes.permuteSingle,
+        [
+            ['2143567', Pricker.Stage.Triples],
+            ['214365789', Pricker.Stage.Caters],
+            ['2143658790E', Pricker.Stage.Cinques],
+            ['2143658709ETA', Pricker.Stage.Sextuples],
+            ['2143658709TEABC', Pricker.Stage.Septuples]
+        ]
+    ));
+
 });

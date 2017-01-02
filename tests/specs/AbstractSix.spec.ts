@@ -163,6 +163,21 @@ function createSixTests(Six, testCaseFn, rowsFn) {
             expect(parentOld.notify).not.toHaveBeenCalledWith(999);
         });
 
+        it('generates the correct end row when visited', runTestCases(
+            function (previous, expected, stage, call) {
+                let six: Pricker.AbstractSix = new Six(previous),
+                    visitor: Pricker.Visitor.StringArray =
+                        new Pricker.Visitor.StringArray(),
+                    strings: string[];
+
+                six.setCall(call);
+                six.accept(visitor);
+                strings = visitor.getStrings();
+
+                expect(strings[5]).toEqual(Pricker.stringFromRow(expected));
+            }
+        ));
+
         it('generates the correct rows when visited', function () {
             let i: number,
                 rowTests = rowsFn(),
