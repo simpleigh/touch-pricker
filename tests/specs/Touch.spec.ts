@@ -10,6 +10,27 @@
 
 describe('Touch class', function () {
 
+    it('generates the correct rows when visited', function () {
+        let stage: Pricker.Stage = Pricker.Stage.Cinques,
+            initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
+            touch: Pricker.Touch = new Pricker.Touch(initialRow),
+            visitor: Pricker.Visitor.StringArray,
+            strings: string[] = [
+                '213547698E0',
+                '2314567890E'
+            ];
+
+        visitor = new Pricker.Visitor.StringArray();
+        touch.setLength(1);
+        touch.getCourse(1).accept(visitor);
+        strings = strings.concat(visitor.getStrings());
+
+        visitor = new Pricker.Visitor.StringArray();
+        touch.accept(visitor);
+
+        expect(visitor.getStrings()).toEqual(strings);
+    });
+
     testAbstractBlockImplementation(Pricker.Touch);
 
     testAbstractContainerImplementation(

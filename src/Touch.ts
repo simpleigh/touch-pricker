@@ -5,6 +5,10 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="Row.ts" />
+/// <reference path="Changes.ts" />
+/// <reference path="Visitor/Abstract.ts" />
+
 namespace Pricker {
     'use strict';
 
@@ -12,6 +16,21 @@ namespace Pricker {
      * A touch, being a set of courses
      */
     export class Touch extends AbstractContainer<Course> {
+
+        /* AbstractBlock methods **********************************************/
+
+        /**
+         * Receives a visitor that will be called to process each row
+         */
+        public accept(visitor: Visitor.AbstractVisitor): this {
+            let row: Row = this._initialRow.slice();
+
+            Changes.permute1(row);  // Go backwards one change from _initialRow
+            visitor.visit(row);
+            visitor.visit(this._initialRow);
+
+            return super.accept(visitor);
+        }
 
         /* AbstractContainer methods ******************************************/
 

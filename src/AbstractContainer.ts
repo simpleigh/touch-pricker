@@ -7,6 +7,7 @@
 
 /// <reference path="Row.ts" />
 /// <reference path="AbstractBlock.ts" />
+/// <reference path="Visitor/Abstract.ts" />
 
 namespace Pricker {
     'use strict';
@@ -58,6 +59,19 @@ namespace Pricker {
 
             // Handle case with zero blocks
             return this._initialRow.slice();
+        }
+
+        /**
+         * Receives a visitor that will be called to process each row
+         */
+        public accept(visitor: Visitor.AbstractVisitor): this {
+            let index: number;
+
+            for (index = 0; index < this.getLength(); index += 1) {
+                this._blocks[index].accept(visitor);
+            }
+
+            return this;
         }
 
         /* AbstractContainer methods ******************************************/

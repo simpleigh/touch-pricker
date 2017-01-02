@@ -5,7 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
-function createSixTests(Six, testCaseFn) {
+function createSixTests(Six, testCaseFn, rowsFn) {
 
     let testCases = testCaseFn();
 
@@ -161,6 +161,42 @@ function createSixTests(Six, testCaseFn) {
             six.toggleCall();
             expect(parentNew.notify).toHaveBeenCalledWith(998);
             expect(parentOld.notify).not.toHaveBeenCalledWith(999);
+        });
+
+        it('generates the correct end row when visited', runTestCases(
+            function (previous, expected, stage, call) {
+                let six: Pricker.AbstractSix = new Six(previous),
+                    visitor: Pricker.Visitor.StringArray =
+                        new Pricker.Visitor.StringArray(),
+                    strings: string[];
+
+                six.setCall(call);
+                six.accept(visitor);
+                strings = visitor.getStrings();
+
+                expect(strings[5]).toEqual(Pricker.stringFromRow(expected));
+            }
+        ));
+
+        it('generates the correct rows when visited', function () {
+            let i: number,
+                rowTests = rowsFn(),
+                initialRow: Pricker.Row,
+                six: Pricker.AbstractSix,
+                visitor: Pricker.Visitor.StringArray,
+                strings: string[];
+
+            for (i = 0; i < rowTests.length; i++) {
+                initialRow = Pricker.rowFromString('', rowTests[i][6]);
+                rowTests[i].pop();  // Remove stage
+                six = new Six(initialRow);
+                visitor = new Pricker.Visitor.StringArray();
+
+                six.accept(visitor);
+                strings = visitor.getStrings();
+
+                expect(strings).toEqual(rowTests[i]);
+            }
         });
 
         testAbstractBlockImplementation(Six);

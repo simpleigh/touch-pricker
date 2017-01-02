@@ -126,6 +126,26 @@ describe('Course class', function () {
         expect(course.getEnd()).toEqual(getEndBackup);
     });
 
+    it('generates the correct rows when visited', function () {
+        let stage: Pricker.Stage = Pricker.Stage.Cinques,
+            initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
+            course: Pricker.Course = new Pricker.Course(initialRow),
+            visitor: Pricker.Visitor.StringArray,
+            index: number,
+            strings: string[] = [];
+
+        for (index = 1; index <= course.getLength(); index += 1) {
+            visitor = new Pricker.Visitor.StringArray();
+            course.getSix(index).accept(visitor);
+            strings = strings.concat(visitor.getStrings());
+        }
+
+        visitor = new Pricker.Visitor.StringArray();
+        course.accept(visitor);
+
+        expect(visitor.getStrings()).toEqual(strings);
+    });
+
     testAbstractBlockImplementation(Pricker.Course);
 
     testAbstractContainerImplementation(
