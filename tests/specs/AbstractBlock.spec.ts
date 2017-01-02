@@ -103,7 +103,10 @@ function testAbstractBlockImplementation(Block) {
                 visitor: Pricker.Visitor.Counter =
                         new Pricker.Visitor.Counter();
 
-            // TODO
+            spyOn(visitor, 'visit').and.callThrough();
+            block.accept(visitor);
+
+            expect(visitor.visit).toHaveBeenCalledTimes(visitor.getCount());
         });
 
         it('returns this when receiving a visitor', function () {

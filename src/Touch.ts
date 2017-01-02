@@ -5,6 +5,8 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="Row.ts" />
+/// <reference path="Changes.ts" />
 /// <reference path="Visitor/Abstract.ts" />
 
 namespace Pricker {
@@ -21,7 +23,12 @@ namespace Pricker {
          * Receives a visitor that will be called to process each row
          */
         public accept(visitor: Visitor.AbstractVisitor): this {
-            // TODO
+            let row: Row = this._initialRow.slice();
+
+            Changes.permute1(row);  // Go backwards one change from _initialRow
+            visitor.visit(row);
+            visitor.visit(this._initialRow);
+
             return super.accept(visitor);
         }
 
