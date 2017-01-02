@@ -5,6 +5,8 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="Row.ts" />
+/// <reference path="Changes.ts" />
 /// <reference path="AbstractSix.ts" />
 /// <reference path="Visitor/Abstract.ts" />
 
@@ -23,15 +25,9 @@ namespace Pricker {
          */
         public accept(visitor: Visitor.AbstractVisitor): this {
             let oddRow: Row = this.getFirstRow(),
-                evenRow: Row = oddRow.slice(),
-                bell: Bell;
+                evenRow: Row = oddRow.slice();
 
-            this.swapBackBells(evenRow);
-
-            // Notation <3>
-            bell = evenRow[1];
-            evenRow[1] = evenRow[0];
-            evenRow[0] = bell;
+            Changes.permute3(evenRow);
 
             return this.acceptHelper(
                 visitor,

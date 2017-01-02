@@ -8,6 +8,7 @@
 /// <reference path="Bell.ts" />
 /// <reference path="Row.ts" />
 /// <reference path="Call.ts" />
+/// <reference path="Changes.ts" />
 /// <reference path="AbstractBlock.ts" />
 /// <reference path="AbstractContainer.ts" />
 /// <reference path="Visitor/Abstract.ts" />
@@ -125,31 +126,11 @@ namespace Pricker {
          * Computes the first row of the six by applying notation <n>
          */
         protected getFirstRow(): Row {
-            let result: Row = this._initialRow.slice(),
-                index: number,
-                bell: Bell;
+            let row: Row = this._initialRow.slice();
 
-            for (index = 0; index < result.length - 1; index += 2) {
-                bell = result[index];
-                result[index] = result[index + 1];
-                result[index + 1] = bell;
-            }
+            Changes.permuteN(row);
 
-            return result;
-        }
-
-        /**
-         * Swaps the last n - 2 bells of a row by applying notation <123>
-         */
-        protected swapBackBells(row: Row): void {
-            let index: number,
-                bell: Bell;
-
-            for (index = 3; index < row.length - 1; index += 2) {
-                bell = row[index];
-                row[index] = row[index + 1];
-                row[index + 1] = bell;
-            }
+            return row;
         }
 
         /**
