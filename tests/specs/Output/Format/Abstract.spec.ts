@@ -6,9 +6,10 @@
  */
 
 function createFormatTests(
+    // tslint:disable-next-line:variable-name
     Format,
-    methodTests: [string, string][],
-    callTests: [Pricker.Call, number, string][]
+    methodTests: Array<[string, string]>,
+    callTests: Array<[Pricker.Call, number, string]>
 ) {
 
     return function () {
@@ -94,6 +95,6 @@ function createFormatTests(
             }
         });
 
-    }
+    };
 
 }

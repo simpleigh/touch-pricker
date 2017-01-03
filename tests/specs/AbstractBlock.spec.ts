@@ -5,11 +5,12 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+// tslint:disable-next-line:variable-name
 function testAbstractBlockImplementation(Block) {
 
     function createTestRow(input: string = '231'): Pricker.Row {
         return Pricker.rowFromString(input, Pricker.Stage.Cinques);
-    };
+    }
 
     describe('is derived from AbstractBlock and', function () {
 
@@ -48,7 +49,7 @@ function testAbstractBlockImplementation(Block) {
         it('ignores changes to the getInitialRow result', function () {
             let block: Pricker.AbstractBlock = new Block(createTestRow()),
                 getInitialRow: Pricker.Row = block.getInitialRow(),
-                getInitialRowBackup: Pricker.Row = 
+                getInitialRowBackup: Pricker.Row =
                     block.getInitialRow().slice();
 
             getInitialRow[3] = 999;  // Mutate the getInitialRow result

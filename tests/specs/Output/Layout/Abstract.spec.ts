@@ -5,6 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+// tslint:disable-next-line:variable-name
 function createLayoutTests(Layout, expected: string, testFn) {
 
     return function () {

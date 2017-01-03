@@ -41,11 +41,24 @@ gulp.task('build', function () {
 
 gulp.task('build-tests', ['build'], function () {
     'use strict';
-    var tsResult = gulp.src('tests/**/*.ts')
-            .pipe(plugins.sourcemaps.init())
-            .pipe(plugins.typescript({
-                outFile: 'build/tests.js'
-            }));
+    var specs,
+        declarations,
+        tsResult;
+
+    specs = gulp.src(['tests/**/*.ts', '!tests/*.ts'])
+        .pipe(plugins.tslint({formatter: 'verbose'}))
+        .pipe(plugins.tslint.report({
+            emitError: false,
+            summarizeFailureOutput: true
+        }));
+
+    declarations = gulp.src('tests/*.ts');
+
+    tsResult = merge([specs, declarations])
+        .pipe(plugins.sourcemaps.init())
+        .pipe(plugins.typescript({
+            outFile: 'build/tests.js'
+        }));
 
     return tsResult.js
         .pipe(plugins.sourcemaps.write())

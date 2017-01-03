@@ -14,5 +14,6 @@ describe('Pricker layout', createLayoutTests(
         + '3468201759E  s  2\n'
         + '4830672519E  -  3\n'
         + '480735692E1     4\n',
+    // tslint:disable-next-line:no-empty
     function () { }
 ));

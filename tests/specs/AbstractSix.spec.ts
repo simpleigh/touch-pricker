@@ -5,6 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+// tslint:disable-next-line:variable-name
 function createSixTests(Six, testCaseFn, rowsFn) {
 
     let testCases = testCaseFn();

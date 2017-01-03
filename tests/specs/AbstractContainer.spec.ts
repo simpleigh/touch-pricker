@@ -6,27 +6,28 @@
  */
 
 function testAbstractContainerImplementation(
+    // tslint:disable-next-line:variable-name
     Container,
     getBlockFnName: string,
-    lengthTestCases: [Pricker.Stage, number][],
+    lengthTestCases: Array<[Pricker.Stage, number]>,
     lengthBounds: [number, number]
 ) {
 
     function createTestRow(input: string = '231'): Pricker.Row {
         return Pricker.rowFromString(input, Pricker.Stage.Cinques);
-    };
+    }
 
     function runLengthTestCases(testFunction) {
         return function () {
             let i: number;
 
-            for (i = 0; i < lengthTestCases.length; i+= 1) {
+            for (i = 0; i < lengthTestCases.length; i += 1) {
                 testFunction(
                     Pricker.rowFromString('231', lengthTestCases[i][0]),
                     lengthTestCases[i][1]
                 );
             }
-        }
+        };
     }
 
     describe('is derived from AbstractContainer and', function () {
@@ -75,7 +76,7 @@ function testAbstractContainerImplementation(
 
                 // Last block, final row
                 expect(container[getBlockFnName](length).getEnd())
-                    .toEqual(container.getEnd())
+                    .toEqual(container.getEnd());
             }
         ));
 
@@ -84,9 +85,9 @@ function testAbstractContainerImplementation(
                 let container: Pricker.AbstractContainer<Pricker.AbstractBlock>
                         = new Container(initialRow);
 
-                expect(function () { container[getBlockFnName](0) })
+                expect(function () { container[getBlockFnName](0); })
                     .toThrowError('Block index out of range');
-                expect(function () { container[getBlockFnName](length + 1) })
+                expect(function () { container[getBlockFnName](length + 1); })
                     .toThrowError('Block index out of range');
             }
         ));
@@ -165,7 +166,7 @@ function testAbstractContainerImplementation(
             expect(function () { container.setLength(maximum + 1); })
                 .toThrowError('Length out of range');
         });
-    
+
         it('provides a way to set lengths without exceptions', function () {
             let container: Pricker.AbstractContainer<Pricker.AbstractBlock>
                     = new Container(createTestRow()),
