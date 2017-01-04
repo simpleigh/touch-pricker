@@ -71,6 +71,10 @@
       </div>
     </div>
     <div id="touch">
+      <label>
+        <input id="rolling" type="checkbox" />
+        Rolling course entry
+      </label>
       <form onsubmit="return false">
         <button onclick="insertCourse()">Insert</button>
         <button onclick="pasteCourse()">Paste</button>
@@ -277,7 +281,14 @@
             'use strict';
             touch.insertCourse(selectedIndex + 1, course.clone());
             selectedIndex += 1;
-            reDraw();
+
+            if (document.getElementById('rolling').checked) {
+                initialRow = touch.getCourse(selectedIndex).getEnd();
+                sixes = stage * 2;
+                resetCalls();  // Calls reDraw()
+            } else {
+                reDraw();
+            }
         }
 
         function pasteCourse() {
