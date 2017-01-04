@@ -6,9 +6,23 @@
  */
 
 // tslint:disable-next-line:variable-name
-function createLayoutTests(Layout, expected: string, testFn) {
+function testLayoutImplementation(Layout, expected: string) {
 
-    return function () {
+    it('renders a course correctly', function () {
+        let layout: Pricker.Output.Layout.AbstractLayout = new Layout(),
+            format = new Pricker.Output.Format.Text(),
+            course = new Pricker.Course(
+                Pricker.rowFromString('231', Pricker.Stage.Cinques)
+            );
+
+        course.setLength(4);
+        course.getSix(2).setCall(Pricker.Call.Single);
+        course.getSix(3).setCall(Pricker.Call.Bob);
+
+        expect(layout.print(course, format)).toBe(expected);
+    });
+
+    describe('is derived from AbstractLayout and', function () {
 
         it('calls clearBuffer when printing', function () {
             let layout: Pricker.Output.Layout.AbstractLayout = new Layout(),
@@ -22,22 +36,6 @@ function createLayoutTests(Layout, expected: string, testFn) {
             expect(format.clearBuffer).toHaveBeenCalled();
         });
 
-        it('renders a course correctly', function () {
-            let layout: Pricker.Output.Layout.AbstractLayout = new Layout(),
-                format = new Pricker.Output.Format.Text(),
-                course = new Pricker.Course(
-                    Pricker.rowFromString('231', Pricker.Stage.Cinques)
-                );
+    });
 
-            course.setLength(4);
-            course.getSix(2).setCall(Pricker.Call.Single);
-            course.getSix(3).setCall(Pricker.Call.Bob);
-
-            expect(layout.print(course, format)).toBe(expected);
-        });
-
-        testFn();
-
-    };
-
-};
+}

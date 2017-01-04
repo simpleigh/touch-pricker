@@ -5,6 +5,8 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="AbstractBlock.spec.ts" />
+
 function testAbstractContainerImplementation(
     // tslint:disable-next-line:variable-name
     Container,
@@ -225,6 +227,8 @@ function testAbstractContainerImplementation(
             container.notify(5);
             expect(parent.notify).toHaveBeenCalledWith(999);
         });
+
+        testAbstractBlockImplementation(Container);
 
     });
 

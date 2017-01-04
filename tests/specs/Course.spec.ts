@@ -5,7 +5,6 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="AbstractBlock.spec.ts" />
 /// <reference path="AbstractContainer.spec.ts" />
 
 describe('Course class', function () {
@@ -145,8 +144,6 @@ describe('Course class', function () {
 
         expect(visitor.getStrings()).toEqual(strings);
     });
-
-    testAbstractBlockImplementation(Pricker.Course);
 
     testAbstractContainerImplementation(
         Pricker.Course,

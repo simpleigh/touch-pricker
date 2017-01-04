@@ -5,14 +5,38 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
-function createFormatTests(
+function testFormatImplementation(
     // tslint:disable-next-line:variable-name
     Format,
     methodTests: Array<[string, string]>,
     callTests: Array<[Pricker.Call, number, string]>
 ) {
 
-    return function () {
+    it('outputs text in response to method calls', function () {
+        let format: Pricker.Output.Format.AbstractFormat = new Format(),
+            i: number;
+
+        for (i = 0; i < methodTests.length; i++) {
+            format.clearBuffer();
+            format[methodTests[i][0]]();
+            expect(format.getBuffer()).toBe(methodTests[i][1]);
+        }
+    });
+
+    it('outputs calls', function () {
+        let format: Pricker.Output.Format.AbstractFormat = new Format(),
+            i: number;
+
+        for (i = 0; i < callTests.length; i++) {
+            format.clearBuffer();
+            expect(
+                format.printCall(callTests[i][0], callTests[i][1])
+            ).toBe(format);
+            expect(format.getBuffer()).toBe(callTests[i][2]);
+        }
+    });
+
+    describe('is derived from AbstractFormat and', function () {
 
         it('starts with an empty buffer', function () {
             let format: Pricker.Output.Format.AbstractFormat = new Format();
@@ -51,17 +75,6 @@ function createFormatTests(
             expect(format.clearBuffer()).toBe(format);
         });
 
-        it('outputs text in response to method calls', function () {
-            let format: Pricker.Output.Format.AbstractFormat = new Format(),
-                i: number;
-
-            for (i = 0; i < methodTests.length; i++) {
-                format.clearBuffer();
-                format[methodTests[i][0]]();
-                expect(format.getBuffer()).toBe(methodTests[i][1]);
-            }
-        });
-
         it('returns `this` from each method call', function () {
             let format: Pricker.Output.Format.AbstractFormat = new Format(),
                 i: number;
@@ -82,19 +95,6 @@ function createFormatTests(
             expect(format.getBuffer()).toBe('2314567890E');
         });
 
-        it('outputs calls', function () {
-            let format: Pricker.Output.Format.AbstractFormat = new Format(),
-                i: number;
+    });
 
-            for (i = 0; i < callTests.length; i++) {
-                format.clearBuffer();
-                expect(
-                    format.printCall(callTests[i][0], callTests[i][1])
-                ).toBe(format);
-                expect(format.getBuffer()).toBe(callTests[i][2]);
-            }
-        });
-
-    };
-
-}
+};

@@ -5,7 +5,6 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="AbstractBlock.spec.ts" />
 /// <reference path="AbstractContainer.spec.ts" />
 
 describe('Touch class', function () {
@@ -30,8 +29,6 @@ describe('Touch class', function () {
 
         expect(visitor.getStrings()).toEqual(strings);
     });
-
-    testAbstractBlockImplementation(Pricker.Touch);
 
     testAbstractContainerImplementation(
         Pricker.Touch,
