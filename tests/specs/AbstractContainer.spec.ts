@@ -36,8 +36,8 @@ function testAbstractContainerImplementation(
 
         it('starts out with the end row equal to the initial row', function () {
             const row: Pricker.Row = createTestRow(),
-                container: Pricker.AbstractContainer<Pricker.AbstractBlock>
-                    = new Container(row);
+                container: Pricker.AbstractContainer<Pricker.AbstractBlock> =
+                    new Container(row);
 
             expect(container.getEnd()).toEqual(row);
         });
@@ -45,8 +45,8 @@ function testAbstractContainerImplementation(
         it('keeps the end row in sync with the initial row', function () {
             const row: Pricker.Row = createTestRow(),
                 newRow: Pricker.Row = createTestRow('123'),
-                container: Pricker.AbstractContainer<Pricker.AbstractBlock>
-                    = new Container(row);
+                container: Pricker.AbstractContainer<Pricker.AbstractBlock> =
+                    new Container(row);
 
             container.setInitialRow(newRow);
             expect(container.getEnd()).not.toEqual(row);
@@ -56,8 +56,8 @@ function testAbstractContainerImplementation(
         it('starts out the correct length', runLengthTestCases(
             function (initialRow: Pricker.Row, length: number) {
                 const container:
-                    Pricker.AbstractContainer<Pricker.AbstractBlock>
-                        = new Container(initialRow);
+                    Pricker.AbstractContainer<Pricker.AbstractBlock> =
+                        new Container(initialRow);
                 expect(container.getLength()).toBe(length);
             }
         ));
@@ -65,8 +65,8 @@ function testAbstractContainerImplementation(
         it('grants access to contained blocks', runLengthTestCases(
             function (initialRow: Pricker.Row, length: number) {
                 const container:
-                    Pricker.AbstractContainer<Pricker.AbstractBlock>
-                        = new Container(initialRow);
+                    Pricker.AbstractContainer<Pricker.AbstractBlock> =
+                        new Container(initialRow);
 
                 // Handle case with zero blocks
                 if (container.getLength() === 0) {
@@ -87,8 +87,8 @@ function testAbstractContainerImplementation(
         it('throws an exception for out-of-bounds blocks', runLengthTestCases(
             function (initialRow: Pricker.Row, length: number) {
                 const container:
-                    Pricker.AbstractContainer<Pricker.AbstractBlock>
-                        = new Container(initialRow);
+                    Pricker.AbstractContainer<Pricker.AbstractBlock> =
+                        new Container(initialRow);
 
                 expect(function () { container[getBlockFnName](0); })
                     .toThrowError('Block index out of range');
@@ -100,8 +100,8 @@ function testAbstractContainerImplementation(
         it('allows the length to be increased', runLengthTestCases(
             function (initialRow: Pricker.Row, length: number) {
                 const container:
-                    Pricker.AbstractContainer<Pricker.AbstractBlock>
-                        = new Container(initialRow);
+                    Pricker.AbstractContainer<Pricker.AbstractBlock> =
+                        new Container(initialRow);
 
                 container.setLength(length + 1);
                 expect(container.getLength()).toBe(length + 1);
@@ -111,8 +111,8 @@ function testAbstractContainerImplementation(
         it('recalculates end row when increasing length', runLengthTestCases(
             function (initialRow: Pricker.Row, length: number) {
                 const container:
-                    Pricker.AbstractContainer<Pricker.AbstractBlock>
-                        = new Container(initialRow),
+                    Pricker.AbstractContainer<Pricker.AbstractBlock> =
+                        new Container(initialRow),
                     newLength = length ? length * 2 : 1;
 
                 container.setLength(newLength);
@@ -123,8 +123,8 @@ function testAbstractContainerImplementation(
         it('allows the length to be decreased', runLengthTestCases(
             function (initialRow: Pricker.Row, length: number) {
                 const container:
-                    Pricker.AbstractContainer<Pricker.AbstractBlock>
-                        = new Container(initialRow);
+                    Pricker.AbstractContainer<Pricker.AbstractBlock> =
+                        new Container(initialRow);
 
                 // Handle case with zero blocks
                 if (container.getLength() === 0) {
@@ -140,8 +140,8 @@ function testAbstractContainerImplementation(
         it('recalculates end row when decreasing length', runLengthTestCases(
             function (initialRow: Pricker.Row, length: number) {
                 const container:
-                    Pricker.AbstractContainer<Pricker.AbstractBlock>
-                        = new Container(initialRow);
+                    Pricker.AbstractContainer<Pricker.AbstractBlock> =
+                        new Container(initialRow);
 
                 let newLength: number = Math.floor(length / 2);
 
@@ -160,16 +160,16 @@ function testAbstractContainerImplementation(
         it('returns this when setting the length', runLengthTestCases(
             function (initialRow: Pricker.Row, length: number) {
                 const container:
-                    Pricker.AbstractContainer<Pricker.AbstractBlock>
-                        = new Container(initialRow);
+                    Pricker.AbstractContainer<Pricker.AbstractBlock> =
+                        new Container(initialRow);
 
                 expect(container.setLength(length + 1)).toBe(container);
             }
         ));
 
         it('throws an exception when setting invalid lengths', function () {
-            const container: Pricker.AbstractContainer<Pricker.AbstractBlock>
-                    = new Container(createTestRow()),
+            const container: Pricker.AbstractContainer<Pricker.AbstractBlock> =
+                    new Container(createTestRow()),
                 [minimum, maximum]: [number, number] = lengthBounds;
 
             expect(function () { container.setLength(minimum - 1); })
@@ -179,8 +179,8 @@ function testAbstractContainerImplementation(
         });
 
         it('provides a way to set lengths without exceptions', function () {
-            const container: Pricker.AbstractContainer<Pricker.AbstractBlock>
-                    = new Container(createTestRow()),
+            const container: Pricker.AbstractContainer<Pricker.AbstractBlock> =
+                    new Container(createTestRow()),
                 [minimum, maximum]: [number, number] = lengthBounds;
 
             container.safeSetLength(minimum - 1);
@@ -190,8 +190,8 @@ function testAbstractContainerImplementation(
         });
 
         it('recalculates blocks when notified of changes', function () {
-            const container: Pricker.AbstractContainer<Pricker.AbstractBlock>
-                    = new Container(createTestRow());
+            const container: Pricker.AbstractContainer<Pricker.AbstractBlock> =
+                    new Container(createTestRow());
 
             function getBlock(index: number): Pricker.AbstractBlock {
                 return container[getBlockFnName](index);
@@ -219,20 +219,20 @@ function testAbstractContainerImplementation(
         });
 
         it('notifies the parent container on setLength', function () {
-            const parent
-                    = jasmine.createSpyObj('AbstractContainer', ['notify']),
-                container: Pricker.AbstractContainer<Pricker.AbstractBlock>
-                    = new Container(createTestRow(), parent, 999);
+            const parent =
+                    jasmine.createSpyObj('AbstractContainer', ['notify']),
+                container: Pricker.AbstractContainer<Pricker.AbstractBlock> =
+                    new Container(createTestRow(), parent, 999);
 
             container.setLength(5);
             expect(parent.notify).toHaveBeenCalledWith(999);
         });
 
         it('notifies the parent container on notify', function () {
-            const parent
-                    = jasmine.createSpyObj('AbstractContainer', ['notify']),
-                container: Pricker.AbstractContainer<Pricker.AbstractBlock>
-                    = new Container(createTestRow(), parent, 999);
+            const parent =
+                    jasmine.createSpyObj('AbstractContainer', ['notify']),
+                container: Pricker.AbstractContainer<Pricker.AbstractBlock> =
+                    new Container(createTestRow(), parent, 999);
 
             container.setLength(5);
             container.notify(5);
