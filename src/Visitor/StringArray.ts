@@ -30,7 +30,7 @@ namespace Pricker {
              * Read access to the rows
              */
             public getStrings(): string[] {
-                return this._strings;
+                return this._strings.slice();
             }
 
             /**

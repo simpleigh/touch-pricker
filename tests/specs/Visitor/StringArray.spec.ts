@@ -28,6 +28,19 @@ describe('StringArray visitor', function () {
         expect(visitor.getStrings()).toEqual(['2314567890E', '3241658709E']);
     });
 
+    it('ignores changes to the result', function () {
+        const visitor: Pricker.Visitor.StringArray =
+                new Pricker.Visitor.StringArray(),
+            getStrings: string[] = visitor.getStrings(),
+            getStringsBackup: string[] = getStrings.slice();
+
+        getStrings.push('test'); // Mutate the getStrings result
+        expect(getStrings).not.toEqual(getStringsBackup);
+
+        expect(visitor.getStrings()).not.toEqual(getStrings);
+        expect(visitor.getStrings()).toEqual(getStringsBackup);
+    });
+
     testAbstractVisitorImplementation(Pricker.Visitor.StringArray);
 
 });
