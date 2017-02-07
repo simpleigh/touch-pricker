@@ -23,7 +23,7 @@ namespace Pricker {
          * Receives a visitor that will be called to process each row
          */
         public accept(visitor: Visitor.AbstractVisitor): this {
-            let row: Row = this._initialRow.slice();
+            const row: Row = this._initialRow.slice();
 
             Changes.permute1(row);  // Go backwards one change from _initialRow
             visitor.visit(row);
@@ -36,7 +36,7 @@ namespace Pricker {
 
         /**
          * Returns the default length of new containers of this type
-         * 
+         *
          * Derived classes should override this method if required.
          */
         protected getDefaultLength(initialRow: Row): number {
@@ -45,7 +45,7 @@ namespace Pricker {
 
         /**
          * Creates a new block for the container
-         * 
+         *
          * Used by extend() when creating the container or increasing its
          * length.
          * @param {Row}     initialRow - initial row for the block
@@ -57,7 +57,7 @@ namespace Pricker {
 
         /**
          * Returns the limits on length for the particular concrete class
-         * 
+         *
          * minimum, maximum
          */
         protected getLengthLimits(): [number, number] {
@@ -88,7 +88,7 @@ namespace Pricker {
          * Deletes the course at the specified index
          */
         public deleteCourse(index: number): Course {
-            let course: Course = this.getBlock(index);
+            const course: Course = this.getBlock(index);
 
             this._blocks.splice(index - 1, 1);
             course.setOwnership(undefined, undefined);

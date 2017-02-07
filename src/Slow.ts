@@ -24,7 +24,7 @@ namespace Pricker {
          * Receives a visitor that will be called to process each row
          */
         public accept(visitor: Visitor.AbstractVisitor): this {
-            let oddRow: Row = this.getFirstRow(),
+            const oddRow: Row = this.getFirstRow(),
                 evenRow: Row = oddRow.slice();
 
             Changes.permute3(evenRow);

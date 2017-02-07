@@ -19,8 +19,8 @@ namespace Pricker {
      * Converts a row array to a string
      */
     export function stringFromRow(row: Row): string {
-        let bellCharacters: string[] = [],
-            bellIndex: number;
+        const bellCharacters: string[] = [];
+        let bellIndex: number;
 
         for (bellIndex = 0; bellIndex < row.length; bellIndex += 1) {
             bellCharacters.push(BELL_SYMBOLS.charAt(row[bellIndex]));

@@ -14,7 +14,7 @@ namespace Pricker {
 
     /**
      * Abstract class representing containers for blocks of rows
-     * 
+     *
      * Note that containers are also blocks themselves.
      */
     export abstract class AbstractContainer<Block extends AbstractBlock>
@@ -26,7 +26,7 @@ namespace Pricker {
 
         /**
          * Constructor
-         * 
+         *
          * Extends the AbstractBlock container to create contained blocks.
          */
         constructor(
@@ -81,9 +81,10 @@ namespace Pricker {
          * @param {number}  blocks - blocks to add
          */
         private extend(blocks: number): this {
+            const oldLength: number = this.getLength(),
+                newLength: number = oldLength + blocks;
+
             let index: number,
-                oldLength: number = this.getLength(),
-                newLength: number = oldLength + blocks,
                 initialRow: Row = this.getEnd();
 
             for (index = oldLength + 1; index <= newLength; index += 1) {
@@ -96,7 +97,7 @@ namespace Pricker {
 
         /**
          * Returns the default length of new containers of this type
-         * 
+         *
          * Derived classes should override this method if required.
          */
         protected getDefaultLength(initialRow: Row): number {
@@ -105,7 +106,7 @@ namespace Pricker {
 
         /**
          * Creates a new block for the container
-         * 
+         *
          * Used by extend() when creating the container or increasing its
          * length.
          * @param {Row}     initialRow - initial row for the block
@@ -143,7 +144,7 @@ namespace Pricker {
          * Write access to the length
          */
         public setLength(length: number): this {
-            let [minimum, maximum]: [number, number] = this.getLengthLimits();
+            const [minimum, maximum]: [number, number] = this.getLengthLimits();
             if ((length < minimum) || (length > maximum)) {
                 throw new Error('Length out of range');
             }
@@ -163,7 +164,7 @@ namespace Pricker {
          * Write access to the length: ignores out-of-range values
          */
         public safeSetLength(length: number): this {
-            let [minimum, maximum]: [number, number] = this.getLengthLimits();
+            const [minimum, maximum]: [number, number] = this.getLengthLimits();
             length = Math.max(length, minimum);
             length = Math.min(length, maximum);
             return this.setLength(length);
@@ -171,14 +172,14 @@ namespace Pricker {
 
         /**
          * Returns the limits on length for the particular concrete class
-         * 
+         *
          * minimum, maximum
          */
         protected abstract getLengthLimits(): [number, number];
 
         /**
          * Read access to a block
-         * 
+         *
          * Derived classes should provide public access via a more
          * suitably-named method
          */

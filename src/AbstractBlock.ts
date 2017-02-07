@@ -13,14 +13,14 @@ namespace Pricker {
 
     /**
      * Abstract class representing blocks of rows
-     * 
+     *
      * A block:
      *  - is initialised from a row
      *  - provides access to the end row at the end of the block
      *  - recalculates that end row if the initial row is changed
      *  - provides mechanisms for controlling how the end row is created
      *  - notifies any parent block whenever the end row changes
-     * 
+     *
      * Blocks are designed to be aggregated into containers.
      * Containers notify blocks of changes by setting a new initial row.
      * Blocks notify containers of changes via a callback (receiveNotification).
@@ -85,7 +85,7 @@ namespace Pricker {
 
         /**
          * Notifies the parent container
-         * 
+         *
          * Derived classes should call this whenever the end row changes.
          */
         protected notifyContainer(): void {

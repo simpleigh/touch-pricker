@@ -112,7 +112,7 @@ namespace Pricker {
          * Toggles the call type between Plain -> Bob -> Single -> Plain
          */
         public toggleCall(): Call {
-            let call: Call = (this._call % 3) + 1;
+            const call: Call = (this._call % 3) + 1;
             this.setCall(call);
             return call;
         }
@@ -126,7 +126,7 @@ namespace Pricker {
          * Computes the first row of the six by applying notation <n>
          */
         protected getFirstRow(): Row {
-            let row: Row = this._initialRow.slice();
+            const row: Row = this._initialRow.slice();
 
             if (this._call === Call.Plain) {
                 Changes.permuteN(row);
@@ -143,7 +143,7 @@ namespace Pricker {
          * Rotates the first three bells forwards (abc -> bca)
          */
         protected forwardRotator(row: Row): void {
-            let bell: Bell = row[0];
+            const bell: Bell = row[0];
             row[0] = row[1];
             row[1] = row[2];
             row[2] = bell;
@@ -153,7 +153,7 @@ namespace Pricker {
          * Rotates the first three bells backwards (abc -> cab)
          */
         protected backwardRotator(row: Row): void {
-            let bell: Bell = row[2];
+            const bell: Bell = row[2];
             row[2] = row[1];
             row[1] = row[0];
             row[0] = bell;

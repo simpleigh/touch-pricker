@@ -21,17 +21,16 @@ namespace Pricker {
 
         /**
          * Returns the default length of new containers of this type
-         * 
+         *
          * Derived classes should override this method if required.
          */
         protected getDefaultLength(initialRow: Row): number {
-            let stage: Stage = initialRow.length;
-            return stage * 2;
+            return initialRow.length * 2;
         }
 
         /**
          * Creates a new block for the container
-         * 
+         *
          * Used by extend() when creating the container or increasing its
          * length.
          * @param {Row}     initialRow - initial row for the block
@@ -45,7 +44,7 @@ namespace Pricker {
 
         /**
          * Returns the limits on length for the particular concrete class
-         * 
+         *
          * minimum, maximum
          */
         protected getLengthLimits(): [number, number] {
@@ -65,8 +64,8 @@ namespace Pricker {
          * Clones the course
          */
         public clone(): Course {
-            let cloned: Course = new Course(this._initialRow),
-                index: number;
+            const cloned: Course = new Course(this._initialRow);
+            let index: number;
 
             cloned.setLength(this.getLength());
 

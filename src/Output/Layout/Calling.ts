@@ -31,9 +31,9 @@ namespace Pricker {
                  * Manipulates a format to print out a course
                  */
                 public print(course: Course, format: Format.AbstractFormat): string {
-                    let index: number,
-                        calls: string[] = [],
+                    const calls: string[] = [],
                         bells: number = course.getEnd().length;
+                    let index: number;
 
                     format
                         .clearBuffer()
