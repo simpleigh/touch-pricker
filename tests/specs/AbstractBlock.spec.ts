@@ -15,13 +15,13 @@ function testAbstractBlockImplementation(Block) {
     describe('is derived from AbstractBlock and', function () {
 
         it('stores the initial row', function () {
-            let initialRow: Pricker.Row = createTestRow(),
+            const initialRow: Pricker.Row = createTestRow(),
                 block: Pricker.AbstractBlock = new Block(initialRow);
             expect(block.getInitialRow()).toEqual(initialRow);
         });
 
         it('allows the initial row to be changed', function () {
-            let initialRow: Pricker.Row = createTestRow(),
+            const initialRow: Pricker.Row = createTestRow(),
                 block: Pricker.AbstractBlock = new Block(initialRow),
                 newRow: Pricker.Row = createTestRow('2143658709E');
 
@@ -30,12 +30,12 @@ function testAbstractBlockImplementation(Block) {
         });
 
         it('returns this when changing the initial row', function () {
-            let block: Pricker.AbstractBlock = new Block(createTestRow());
+            const block: Pricker.AbstractBlock = new Block(createTestRow());
             expect(block.setInitialRow(createTestRow())).toBe(block);
         });
 
         it('ignores changes to the original initial row', function () {
-            let initialRow: Pricker.Row = createTestRow(),
+            const initialRow: Pricker.Row = createTestRow(),
                 initialRowBackup: Pricker.Row = initialRow.slice(),
                 block: Pricker.AbstractBlock = new Block(initialRow);
 
@@ -47,7 +47,7 @@ function testAbstractBlockImplementation(Block) {
         });
 
         it('ignores changes to the getInitialRow result', function () {
-            let block: Pricker.AbstractBlock = new Block(createTestRow()),
+            const block: Pricker.AbstractBlock = new Block(createTestRow()),
                 getInitialRow: Pricker.Row = block.getInitialRow(),
                 getInitialRowBackup: Pricker.Row =
                     block.getInitialRow().slice();
@@ -60,7 +60,7 @@ function testAbstractBlockImplementation(Block) {
         });
 
         it('ignores changes to the setInitialRow argument', function () {
-            let block: Pricker.AbstractBlock = new Block(createTestRow()),
+            const block: Pricker.AbstractBlock = new Block(createTestRow()),
                 setInitialRow = createTestRow('2143658709E'),
                 setInitialRowBackup = setInitialRow.slice();
 
@@ -73,7 +73,7 @@ function testAbstractBlockImplementation(Block) {
         });
 
         it('updates when the initial row changes', function () {
-            let block: Pricker.AbstractBlock = new Block(createTestRow()),
+            const block: Pricker.AbstractBlock = new Block(createTestRow()),
                 endRow: Pricker.Row = block.getEnd();
 
             block.setInitialRow(createTestRow('2143658709E'));
@@ -81,14 +81,14 @@ function testAbstractBlockImplementation(Block) {
         });
 
         it('ends with a row on the same stage as it starts', function () {
-            let row: Pricker.Row = createTestRow(),
+            const row: Pricker.Row = createTestRow(),
                 block: Pricker.AbstractBlock = new Block(row);
 
             expect(block.getEnd().length).toEqual(row.length);
         });
 
         it('ignores changes to the getEnd result', function () {
-            let block: Pricker.AbstractBlock = new Block(createTestRow()),
+            const block: Pricker.AbstractBlock = new Block(createTestRow()),
                 getEnd: Pricker.Row = block.getEnd(),
                 getEndBackup: Pricker.Row = getEnd.slice();
 
@@ -100,7 +100,7 @@ function testAbstractBlockImplementation(Block) {
         });
 
         it('calls a visitor in order to traverse rows', function () {
-            let block: Pricker.AbstractBlock = new Block(createTestRow()),
+            const block: Pricker.AbstractBlock = new Block(createTestRow()),
                 visitor: Pricker.Visitor.Counter =
                         new Pricker.Visitor.Counter();
 
@@ -111,7 +111,7 @@ function testAbstractBlockImplementation(Block) {
         });
 
         it('returns this when receiving a visitor', function () {
-            let block: Pricker.AbstractBlock = new Block(createTestRow()),
+            const block: Pricker.AbstractBlock = new Block(createTestRow()),
                 visitor: Pricker.Visitor.Counter =
                         new Pricker.Visitor.Counter();
 

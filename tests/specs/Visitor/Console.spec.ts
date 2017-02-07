@@ -8,7 +8,7 @@
 describe('Console visitor', function () {
 
     it('logs to the console when it visits a row', function () {
-        let visitor: Pricker.Visitor.Console =
+        const visitor: Pricker.Visitor.Console =
                 new Pricker.Visitor.Console(),
             row: Pricker.Row =
                 Pricker.rowFromString('231', Pricker.Stage.Cinques);

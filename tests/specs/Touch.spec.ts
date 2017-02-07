@@ -10,10 +10,11 @@
 describe('Touch class', function () {
 
     it('generates the correct rows when visited', function () {
-        let stage: Pricker.Stage = Pricker.Stage.Cinques,
+        const stage: Pricker.Stage = Pricker.Stage.Cinques,
             initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
-            touch: Pricker.Touch = new Pricker.Touch(initialRow),
-            visitor: Pricker.Visitor.StringArray,
+            touch: Pricker.Touch = new Pricker.Touch(initialRow);
+
+        let visitor: Pricker.Visitor.StringArray,
             strings: string[] = [
                 '213547698E0',
                 '2314567890E'

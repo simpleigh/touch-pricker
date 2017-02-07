@@ -8,18 +8,19 @@
 describe('Counter visitor', function () {
 
     it('has a count that starts from zero', function () {
-        let visitor: Pricker.Visitor.Counter =
+        const visitor: Pricker.Visitor.Counter =
                 new Pricker.Visitor.Counter();
 
         expect(visitor.getCount()).toBe(0);
     });
 
     it('increments the count when it visits a row', function () {
-        let visitor: Pricker.Visitor.Counter =
+        const visitor: Pricker.Visitor.Counter =
                 new Pricker.Visitor.Counter(),
             row: Pricker.Row =
-                Pricker.rowFromString('231', Pricker.Stage.Cinques),
-            i: number;
+                Pricker.rowFromString('231', Pricker.Stage.Cinques);
+
+        let i: number;
 
         for (i = 1; i < 5; i++) {
             visitor.visit(row);

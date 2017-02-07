@@ -8,7 +8,7 @@
 /// <reference path="AbstractSix.spec.ts" />
 
 describe('Quick six class', function () {
-    let S = Pricker.Stage,
+    const S = Pricker.Stage,
         C = Pricker.Call;
 
     testSixImplementation(

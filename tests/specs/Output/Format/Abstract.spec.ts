@@ -13,8 +13,8 @@ function testFormatImplementation(
 ) {
 
     it('outputs text in response to method calls', function () {
-        let format: Pricker.Output.Format.AbstractFormat = new Format(),
-            i: number;
+        const format: Pricker.Output.Format.AbstractFormat = new Format();
+        let i: number;
 
         for (i = 0; i < methodTests.length; i++) {
             format.clearBuffer();
@@ -24,8 +24,8 @@ function testFormatImplementation(
     });
 
     it('outputs calls', function () {
-        let format: Pricker.Output.Format.AbstractFormat = new Format(),
-            i: number;
+        const format: Pricker.Output.Format.AbstractFormat = new Format();
+        let i: number;
 
         for (i = 0; i < callTests.length; i++) {
             format.clearBuffer();
@@ -39,12 +39,12 @@ function testFormatImplementation(
     describe('is derived from AbstractFormat and', function () {
 
         it('starts with an empty buffer', function () {
-            let format: Pricker.Output.Format.AbstractFormat = new Format();
+            const format: Pricker.Output.Format.AbstractFormat = new Format();
             expect(format.getBuffer()).toBe('');
         });
 
         it('allows arbitrary text to be written to the buffer', function () {
-            let format: Pricker.Output.Format.AbstractFormat = new Format(),
+            const format: Pricker.Output.Format.AbstractFormat = new Format(),
                 testString: string = 'arbitrary test string';
 
             format.print(testString);
@@ -52,32 +52,32 @@ function testFormatImplementation(
         });
 
         it('returns `this` when text is printed', function () {
-            let format: Pricker.Output.Format.AbstractFormat = new Format();
+            const format: Pricker.Output.Format.AbstractFormat = new Format();
             expect(format.print('')).toBe(format);
         });
 
         it('stores more text to the buffer', function () {
-            let format: Pricker.Output.Format.AbstractFormat = new Format();
+            const format: Pricker.Output.Format.AbstractFormat = new Format();
 
             format.print('string1').print('string2');
             expect(format.getBuffer()).toBe('string1string2');
         });
 
         it('allows the buffer to be cleared', function () {
-            let format: Pricker.Output.Format.AbstractFormat = new Format();
+            const format: Pricker.Output.Format.AbstractFormat = new Format();
 
             format.print('arbitrary test string').clearBuffer();
             expect(format.getBuffer()).toBe('');
         });
 
         it('returns `this` when clearing the buffer', function () {
-            let format: Pricker.Output.Format.AbstractFormat = new Format();
+            const format: Pricker.Output.Format.AbstractFormat = new Format();
             expect(format.clearBuffer()).toBe(format);
         });
 
         it('returns `this` from each method call', function () {
-            let format: Pricker.Output.Format.AbstractFormat = new Format(),
-                i: number;
+            const format: Pricker.Output.Format.AbstractFormat = new Format();
+            let i: number;
 
             for (i = 0; i < methodTests.length; i++) {
                 expect(format[methodTests[i][0]]()).toBe(format);
@@ -85,7 +85,7 @@ function testFormatImplementation(
         });
 
         it('outputs rows', function () {
-            let format: Pricker.Output.Format.AbstractFormat = new Format(),
+            const format: Pricker.Output.Format.AbstractFormat = new Format(),
                 row: Pricker.Row = Pricker.rowFromString(
                     '231',
                     Pricker.Stage.Cinques

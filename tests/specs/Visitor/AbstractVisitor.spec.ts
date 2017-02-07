@@ -11,7 +11,7 @@ function testAbstractVisitorImplementation(Visitor) {
     describe('is derived from AbstractVisitor and', function () {
 
         it('returns this when processing a row', function () {
-            let row: Pricker.Row = Pricker.rowFromString(
+            const row: Pricker.Row = Pricker.rowFromString(
                     '231',
                     Pricker.Stage.Cinques
                 ),

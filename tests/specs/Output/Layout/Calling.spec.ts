@@ -10,7 +10,7 @@
 describe('Calling layout', function () {
 
     it('only displays the number of sixes when needed', function () {
-        let layout = new Pricker.Output.Layout.Calling(),
+        const layout = new Pricker.Output.Layout.Calling(),
             format = new Pricker.Output.Format.Text(),
             course = new Pricker.Course(
                 Pricker.rowFromString('231', Pricker.Stage.Cinques)
@@ -21,7 +21,7 @@ describe('Calling layout', function () {
     });
 
     it('displays "p" when a course has no calls', function () {
-        let layout = new Pricker.Output.Layout.Calling(),
+        const layout = new Pricker.Output.Layout.Calling(),
             format = new Pricker.Output.Format.Text(),
             course = new Pricker.Course(
                 Pricker.rowFromString('231', Pricker.Stage.Cinques)

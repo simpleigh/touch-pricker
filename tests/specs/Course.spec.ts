@@ -10,10 +10,9 @@
 describe('Course class', function () {
 
     it('calculates sixes correctly', function () {
-        let stage: Pricker.Stage = Pricker.Stage.Cinques,
+        const stage: Pricker.Stage = Pricker.Stage.Cinques,
             initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
             course: Pricker.Course = new Pricker.Course(initialRow),
-            index: number,
             expectedSixEnds: string[] = [
                 '3426185970E',
                 '346829105E7',
@@ -39,6 +38,8 @@ describe('Course class', function () {
                 '2314567890E',
             ];
 
+        let index: number;
+
         course.getSix(1).setCall(Pricker.Call.Bob);
         course.getSix(10).setCall(Pricker.Call.Single);
         course.getSix(13).setCall(Pricker.Call.Single);
@@ -51,7 +52,7 @@ describe('Course class', function () {
     });
 
     it('notifies the parent touch when the length increases', function () {
-        let row: Pricker.Row =
+        const row: Pricker.Row =
                 Pricker.rowFromString('231', Pricker.Stage.Cinques),
             parent = jasmine.createSpyObj('Touch', ['notify']),
             course: Pricker.Course = new Pricker.Course(row, parent, 999);
@@ -61,7 +62,7 @@ describe('Course class', function () {
     });
 
     it('notifies the parent touch when the length decreases', function () {
-        let row: Pricker.Row =
+        const row: Pricker.Row =
                 Pricker.rowFromString('231', Pricker.Stage.Cinques),
             parent = jasmine.createSpyObj('Touch', ['notify']),
             course: Pricker.Course = new Pricker.Course(row, parent, 999);
@@ -71,7 +72,7 @@ describe('Course class', function () {
     });
 
     it('notifies the parent touch when a six changes', function () {
-        let row: Pricker.Row =
+        const row: Pricker.Row =
                 Pricker.rowFromString('231', Pricker.Stage.Cinques),
             parent = jasmine.createSpyObj('Touch', ['notify']),
             course: Pricker.Course = new Pricker.Course(row, parent, 999);
@@ -81,7 +82,7 @@ describe('Course class', function () {
     });
 
     it('can be attached to a new parent touch', function () {
-        let row: Pricker.Row =
+        const row: Pricker.Row =
                 Pricker.rowFromString('231', Pricker.Stage.Cinques),
             parentOld = jasmine.createSpyObj('Touch', ['notify']),
             parentNew = jasmine.createSpyObj('Touch', ['notify']),
@@ -94,10 +95,11 @@ describe('Course class', function () {
     });
 
     it('can be cloned', function () {
-        let stage: Pricker.Stage = Pricker.Stage.Cinques,
+        const stage: Pricker.Stage = Pricker.Stage.Cinques,
             initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
-            course: Pricker.Course = new Pricker.Course(initialRow),
-            cloned: Pricker.Course;
+            course: Pricker.Course = new Pricker.Course(initialRow);
+
+        let cloned: Pricker.Course;
 
         course.setLength(20);
         course.getSix(5).toggleCall();
@@ -108,7 +110,7 @@ describe('Course class', function () {
     });
 
     it('ignores changes to the cloned course', function () {
-        let stage: Pricker.Stage = Pricker.Stage.Cinques,
+        const stage: Pricker.Stage = Pricker.Stage.Cinques,
             initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
             course: Pricker.Course = new Pricker.Course(initialRow),
             getLengthBackup: number = course.getLength(),
@@ -126,10 +128,11 @@ describe('Course class', function () {
     });
 
     it('generates the correct rows when visited', function () {
-        let stage: Pricker.Stage = Pricker.Stage.Cinques,
+        const stage: Pricker.Stage = Pricker.Stage.Cinques,
             initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
-            course: Pricker.Course = new Pricker.Course(initialRow),
-            visitor: Pricker.Visitor.StringArray,
+            course: Pricker.Course = new Pricker.Course(initialRow);
+
+        let visitor: Pricker.Visitor.StringArray,
             index: number,
             strings: string[] = [];
 

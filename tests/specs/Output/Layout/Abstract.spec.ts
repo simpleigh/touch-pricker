@@ -9,7 +9,7 @@
 function testLayoutImplementation(Layout, expected: string) {
 
     it('renders a course correctly', function () {
-        let layout: Pricker.Output.Layout.AbstractLayout = new Layout(),
+        const layout: Pricker.Output.Layout.AbstractLayout = new Layout(),
             format = new Pricker.Output.Format.Text(),
             course = new Pricker.Course(
                 Pricker.rowFromString('231', Pricker.Stage.Cinques)
@@ -25,7 +25,7 @@ function testLayoutImplementation(Layout, expected: string) {
     describe('is derived from AbstractLayout and', function () {
 
         it('calls clearBuffer when printing', function () {
-            let layout: Pricker.Output.Layout.AbstractLayout = new Layout(),
+            const layout: Pricker.Output.Layout.AbstractLayout = new Layout(),
                 format = new Pricker.Output.Format.Text(),
                 course = new Pricker.Course(
                     Pricker.rowFromString('231', Pricker.Stage.Cinques)
