@@ -8,7 +8,7 @@
 // tslint:disable-next-line:variable-name
 function testAbstractBlockImplementation(Block) {
 
-    function createTestRow(input: string = '231'): Pricker.Row {
+    function createTestRow(input: string = ''): Pricker.Row {
         return Pricker.rowFromString(input, Pricker.Stage.Cinques);
     }
 

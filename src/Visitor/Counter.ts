@@ -19,7 +19,7 @@ namespace Pricker {
         /**
          * Interface for visitors
          */
-        export class Counter implements AbstractVisitor {
+        export class Counter extends AbstractVisitor {
             /**
              * Count of rows we've seen
              */
@@ -35,9 +35,8 @@ namespace Pricker {
             /**
              * Receives a row for processing
              */
-            public visit(row: Row): this {
+            public visitImplementation(row: Row): void {
                 this._count += 1;
-                return this;
             }
         }
 

@@ -6,6 +6,8 @@
  */
 
 /// <reference path="../Row.ts" />
+/// <reference path="../rowFromString.ts" />
+/// <reference path="../stringFromRow.ts" />
 
 namespace Pricker {
     'use strict';
@@ -18,11 +20,38 @@ namespace Pricker {
         /**
          * Interface for visitors
          */
-        export interface AbstractVisitor {
+        export abstract class AbstractVisitor {
             /**
-             * Receives a row for processing
+             * Whether or not we're still processing rows
              */
-            visit(row: Row): this;
+            private _visiting: boolean = true;
+
+            /**
+             * Remember rounds so we don't have to keep regenerating
+             */
+            private _rounds: string;
+
+            /**
+             * Receives a row for processing, stopping after rounds is reached
+             */
+            public visit(row: Row): this {
+                if (!this._rounds) {
+                    this._rounds = stringFromRow(rowFromString('', row.length));
+                }
+
+                if (this._visiting) {
+                    this.visitImplementation(row);
+                    if (stringFromRow(row) === this._rounds) {
+                        this._visiting = false;
+                    }
+                }
+                return this;
+            }
+
+            /**
+             * Underlying implementation to be overridden by derived classes
+             */
+            protected abstract visitImplementation(row: Row): void;
         }
 
     }

@@ -20,7 +20,7 @@ namespace Pricker {
         /**
          * Interface for visitors
          */
-        export class StringArray implements AbstractVisitor {
+        export class StringArray extends AbstractVisitor {
             /**
              * Rows we've seen
              */
@@ -36,9 +36,8 @@ namespace Pricker {
             /**
              * Receives a row for processing
              */
-            public visit(row: Row): this {
+            public visitImplementation(row: Row): void {
                 this._strings.push(stringFromRow(row));
-                return this;
             }
         }
 

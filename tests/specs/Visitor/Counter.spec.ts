@@ -28,6 +28,11 @@ describe('Counter visitor', function () {
         }
     });
 
-    testAbstractVisitorImplementation(Pricker.Visitor.Counter);
+    testAbstractVisitorImplementation(
+        Pricker.Visitor.Counter,
+        function (visitor: Pricker.Visitor.Counter): number {
+            return visitor.getCount();
+        }
+    );
 
 });

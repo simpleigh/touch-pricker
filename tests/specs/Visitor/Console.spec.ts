@@ -19,6 +19,16 @@ describe('Console visitor', function () {
         expect(console.log).toHaveBeenCalledWith('2314567890E');
     });
 
-    testAbstractVisitorImplementation(Pricker.Visitor.Console);
+    testAbstractVisitorImplementation(
+        Pricker.Visitor.Console,
+        function (visitor: Pricker.Visitor.Console): string[] {
+            // Use string literal as TypeScript doesn't know about the property
+            // tslint:disable-next-line:no-string-literal
+            return console.log['calls'].allArgs();
+        },
+        function (): void {
+            spyOn(console, 'log').and.callThrough();
+        }
+    );
 
 });

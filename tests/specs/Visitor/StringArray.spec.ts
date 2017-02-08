@@ -41,6 +41,11 @@ describe('StringArray visitor', function () {
         expect(visitor.getStrings()).toEqual(getStringsBackup);
     });
 
-    testAbstractVisitorImplementation(Pricker.Visitor.StringArray);
+    testAbstractVisitorImplementation(
+        Pricker.Visitor.StringArray,
+        function (visitor: Pricker.Visitor.StringArray): string[] {
+            return visitor.getStrings();
+        }
+    );
 
 });

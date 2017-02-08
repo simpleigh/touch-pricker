@@ -20,16 +20,13 @@ namespace Pricker {
         /**
          * Interface for visitors
          */
-        export class Console implements AbstractVisitor {
+        export class Console extends AbstractVisitor {
             /**
              * Receives a row for processing
              */
-            public visit(row: Row): this {
-                /* tslint:disable:no-console */
+            public visitImplementation(row: Row): void {
+                /* tslint:disable-next-line:no-console */
                 console.log(stringFromRow(row));
-                /* tslint:enable:no-console */
-
-                return this;
             }
         }
 
