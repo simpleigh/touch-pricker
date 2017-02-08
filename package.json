@@ -28,7 +28,8 @@
     "typescript": "^2.1.4"
   },
   "scripts": {
-    "pretest": "bin/gulp build-tests",
+    "postinstall": "typings install",
+    "pretest": "gulp build-tests",
     "test": "karma start --single-run --browsers PhantomJS"
   }
 }
