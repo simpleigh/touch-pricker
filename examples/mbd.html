@@ -12,7 +12,7 @@
         font-size: 12pt;
       }
 
-      #sixends, #controls, #touch {
+      body > div {
         float: left;
       }
 
@@ -96,6 +96,9 @@
         <button onclick="deleteCourse()">Delete</button>
       </form>
     </div>
+    <div>
+      <textarea id="export" rows="20" cols="60"></textarea>
+    </div>
     <script type="text/javascript">
         var stage,             // Stage we're pricking on
             defaultInitialRow, // Start from rounds
@@ -137,7 +140,8 @@
             var pricker = new Pricker.Output.Layout.Pricker(),
                 calling = new Pricker.Output.Layout.Calling(),
                 mbd = new Pricker.Output.Format.Mbd(),
-                text = new Pricker.Output.Format.Text();
+                text = new Pricker.Output.Format.Text(),
+                touchExport = '';
 
             document.getElementById('sixends').innerHTML =
                 '<u>'
@@ -200,6 +204,14 @@
                 document.getElementById('courses').appendChild(element);
             }
             document.getElementById('courses').value = selectedIndex;
+
+            // Export
+            for (i = 1; i <= touch.getLength(); i++) {
+                touchExport = touchExport
+                    + calling.print(touch.getCourse(i), text);
+            }
+            document.getElementById('export').innerText = touchExport;
+
         }
 
         function c(six) {
