@@ -18,7 +18,7 @@ namespace Pricker {
     export namespace Visitor {
 
         /**
-         * Interface for visitors
+         * Console visitor that logs rows to the console
          */
         export class Console extends AbstractVisitor {
             /**

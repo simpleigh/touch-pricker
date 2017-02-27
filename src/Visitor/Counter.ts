@@ -17,7 +17,7 @@ namespace Pricker {
     export namespace Visitor {
 
         /**
-         * Interface for visitors
+         * Counter visitor that counts rows
          */
         export class Counter extends AbstractVisitor {
             /**

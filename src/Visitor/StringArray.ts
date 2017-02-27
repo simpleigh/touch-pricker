@@ -18,7 +18,7 @@ namespace Pricker {
     export namespace Visitor {
 
         /**
-         * Interface for visitors
+         * StringArray visitor that accumulates rows into an array
          */
         export class StringArray extends AbstractVisitor {
             /**
