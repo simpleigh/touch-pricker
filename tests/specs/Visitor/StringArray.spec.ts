@@ -31,14 +31,12 @@ describe('StringArray visitor', function () {
     it('ignores changes to the result', function () {
         const visitor: Pricker.Visitor.StringArray =
                 new Pricker.Visitor.StringArray(),
-            getStrings: string[] = visitor.getStrings(),
-            getStringsBackup: string[] = getStrings.slice();
+            getStrings: string[] = visitor.getStrings();
 
-        getStrings.push('test'); // Mutate the getStrings result
-        expect(getStrings).not.toEqual(getStringsBackup);
+        getStrings.push('test');  // Mutate the getStrings result
 
         expect(visitor.getStrings()).not.toEqual(getStrings);
-        expect(visitor.getStrings()).toEqual(getStringsBackup);
+        expect(visitor.getStrings()).toEqual([ ]);
     });
 
     testAbstractVisitorImplementation(
