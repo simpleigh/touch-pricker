@@ -1,6 +1,6 @@
 {
   "name": "stedman-pricker",
   "globalDependencies": {
-    "jasmine": "registry:dt/jasmine#2.5.0+20170117213604"
+    "jasmine": "registry:dt/jasmine#2.5.2+20170315065549"
   }
 }
