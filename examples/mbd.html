@@ -4,7 +4,7 @@
     <title>Stedman Pricker Test Page</title>
     <style type="text/css">
       div {
-        margin: 10px 0px 0px 25px;
+        margin: 10px 25px 0px 0px;
       }
 
       #sixends {
@@ -71,6 +71,11 @@
       </div>
     </div>
     <div id="touch">
+      <div>
+        <button onclick="prove()">PROVE</button>
+        <span id="proofResult"></span>
+      </div>
+      <div id="numRows"></div>
       <label>
         <input id="rolling" type="checkbox" />
         Rolling course entry
@@ -281,6 +286,20 @@
             }
             sixes = course.getLength();
             reDraw();
+        }
+
+        function prove() {
+            'use strict';
+            var proof = new Pricker.Visitor.Proof(),
+                counter = new Pricker.Visitor.Counter();
+
+            touch.accept(proof);
+            document.getElementById('proofResult').innerText =
+                'Touch is ' + proof.isTrue();
+
+            touch.accept(counter);
+            document.getElementById('numRows').innerText =
+                counter.getCount() + ' Stedman ' + Pricker.Stage[stage];
         }
 
         function selectCourse() {
