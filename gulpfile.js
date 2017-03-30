@@ -57,7 +57,7 @@ gulp.task('build-tests', ['build'], function () {
     tsResult = merge([specs, declarations])
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.typescript({
-            outFile: 'build/tests.js'
+            outFile: 'dist/tests.js'
         }));
 
     return tsResult.js
@@ -88,5 +88,5 @@ gulp.task('watch', ['default'], function () {
 
 gulp.task('clean', function () {
     'use strict';
-    del('build');
+    del('dist');
 });

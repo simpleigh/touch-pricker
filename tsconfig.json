@@ -7,7 +7,7 @@
         "noImplicitReturns": true,
         "noImplicitThis": true,
         "noUnusedLocals": true,
-        "outFile": "build/stedman-pricker.js",
+        "outFile": "dist/stedman-pricker.js",
         "strictNullChecks": true
     },
     "include": [

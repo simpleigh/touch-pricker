@@ -5,4 +5,4 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../build/stedman-pricker.d.ts" />
+/// <reference path="../dist/stedman-pricker.d.ts" />
