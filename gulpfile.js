@@ -27,13 +27,16 @@ gulp.task('build', function () {
                 summarizeFailureOutput: true
             }))
             .pipe(plugins.sourcemaps.init())
-            .pipe(tsProject());
+            .pipe(tsProject()),
+        templates = gulp.src('templates/*.dot')
+            .pipe(plugins.dotPrecompiler({dictionary: 'Pricker.Templates'}));
 
     return merge([
-        tsResult.js
+        merge(tsResult.js, templates)
+            .pipe(plugins.concat('stedman-pricker.js'))
             .pipe(plugins.sourcemaps.write())
             .pipe(plugins.minify({ext: {min: '.min.js'}}))
-            .pipe(gulp.dest('.')),
+            .pipe(gulp.dest('./dist')),
         tsResult.dts
             .pipe(gulp.dest('.'))
     ]);
