@@ -6,6 +6,7 @@
   "license": "GPL-3.0",
   "repository": "simpleigh/stedman-pricker",
   "bugs": "https://github.com/simpleigh/stedman-pricker/issues",
+  "main": "dist/stedman-pricker.js",
   "devDependencies": {
     "@types/jasmine": "^2.5.47",
     "del": "^2.2.2",
@@ -24,10 +25,13 @@
     "karma-phantomjs-launcher": "^1.0.2",
     "merge2": "^1.0.2",
     "phantomjs-prebuilt": "^2.1.14",
+    "ts-loader": "^2.0.3",
     "tslint": "^4.2.0",
-    "typescript": "^2.1.4"
+    "typescript": "^2.1.4",
+    "webpack": "^2.3.2"
   },
   "scripts": {
+    "build": "webpack",
     "pretest": "gulp build-tests",
     "test": "karma start --single-run --browsers PhantomJS"
   }
