@@ -5,8 +5,16 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
-// tslint:disable-next-line:variable-name
-function testAbstractBlockImplementation(Block) {
+/**
+ * Tests that a block behaves as an AbstractBlock
+ * @param {AbstractBlock}  Block               - block under test
+ * @param {}               triggerNotification - make block notify parent
+ */
+function testAbstractBlockImplementation(
+    // tslint:disable-next-line:variable-name
+    Block,
+    triggerNotification: (block: Pricker.AbstractBlock) => void,
+) {
 
     function createTestRow(input: string = ''): Pricker.Row {
         return Pricker.rowFromString(input, Pricker.Stage.Cinques);
@@ -97,6 +105,37 @@ function testAbstractBlockImplementation(Block) {
 
             expect(block.getEnd()).not.toEqual(getEnd);
             expect(block.getEnd()).toEqual(getEndBackup);
+        });
+
+        it('can be attached to a new parent', function () {
+            const containerOld: Pricker.AbstractContainer<typeof Block> =
+                    jasmine.createSpyObj('AbstractContainer', ['notify']),
+                containerNew: Pricker.AbstractContainer<typeof Block> =
+                    jasmine.createSpyObj('AbstractContainer', ['notify']),
+                block: Pricker.AbstractBlock = new Block(
+                    createTestRow(),
+                    containerOld,
+                    999,
+                );
+
+            block.setOwnership(containerNew, 998);
+            triggerNotification(block);
+            expect(containerNew.notify).toHaveBeenCalledWith(998);
+            expect(containerOld.notify).not.toHaveBeenCalled();
+        });
+
+        it('can be detached from a parent', function () {
+            const container: Pricker.AbstractContainer<typeof Block> =
+                    jasmine.createSpyObj('AbstractContainer', ['notify']),
+                block: Pricker.AbstractBlock = new Block(
+                    createTestRow(),
+                    container,
+                    999,
+                );
+
+            block.clearOwnership();
+            triggerNotification(block);
+            expect(container.notify).not.toHaveBeenCalled();
         });
 
         it('calls a visitor in order to traverse rows', function () {

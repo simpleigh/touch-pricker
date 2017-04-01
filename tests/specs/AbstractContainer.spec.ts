@@ -7,6 +7,13 @@
 
 /// <reference path="AbstractBlock.spec.ts" />
 
+/**
+ * Tests that a container behaves as an AbstractContainer
+ * @param {AbstractContainer}  Container           - container under test
+ * @param {string}             getBlockFnName      - name of fn to get blocks
+ * @param {}                   lengthTestCases     - expected stage lengths
+ * @param {}                   lengthBounds        - limits on container length
+ */
 function testAbstractContainerImplementation(
     // tslint:disable-next-line:variable-name
     Container,
@@ -218,14 +225,28 @@ function testAbstractContainerImplementation(
             expect(getBlock(5).setInitialRow).toHaveBeenCalled();
         });
 
-        it('notifies the parent container on setLength', function () {
+        it('notifies the parent container when the length decreases', function () {
             const parent =
                     jasmine.createSpyObj('AbstractContainer', ['notify']),
                 container: Pricker.AbstractContainer<Pricker.AbstractBlock> =
                     new Container(createTestRow(), parent, 999);
 
-            container.setLength(5);
+            container.setLength(10);
+            container.setLength(9);
             expect(parent.notify).toHaveBeenCalledWith(999);
+            expect(parent.notify).toHaveBeenCalledTimes(2);
+        });
+
+        it('notifies the parent container when the length increases', function () {
+            const parent =
+                    jasmine.createSpyObj('AbstractContainer', ['notify']),
+                container: Pricker.AbstractContainer<Pricker.AbstractBlock> =
+                    new Container(createTestRow(), parent, 999);
+
+            container.setLength(10);
+            container.setLength(11);
+            expect(parent.notify).toHaveBeenCalledWith(999);
+            expect(parent.notify).toHaveBeenCalledTimes(2);
         });
 
         it('notifies the parent container on notify', function () {
@@ -240,7 +261,12 @@ function testAbstractContainerImplementation(
             expect(parent.notify).toHaveBeenCalledTimes(2);
         });
 
-        testAbstractBlockImplementation(Container);
+        testAbstractBlockImplementation(
+            Container,
+            function (container: typeof Container): void {
+                container.setLength(10);
+            },
+        );
 
     });
 

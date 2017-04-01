@@ -175,28 +175,14 @@ function testSixImplementation(Six, testCases, rowTests) {
             const parent = jasmine.createSpyObj('Course', ['notify']),
                 six: Pricker.AbstractSix = createTestSix(parent);
             six.setCall(Pricker.Call.Plain, false);
-            expect(parent.notify).not.toHaveBeenCalledWith(999);
-        });
-
-        it('can be attached to a new parent course', function () {
-            const parentOld = jasmine.createSpyObj('Course', ['notify']),
-                parentNew = jasmine.createSpyObj('Course', ['notify']),
-                six: Pricker.AbstractSix = createTestSix(parentOld);
-
-            six.setOwnership(parentNew, 998);
-            six.toggleCall();
-            expect(parentNew.notify).toHaveBeenCalledWith(998);
-            expect(parentOld.notify).not.toHaveBeenCalled();
-        });
-
-        it('can have its parent course cleared', function () {
-            const parent = jasmine.createSpyObj('Course', ['notify']),
-                six: Pricker.AbstractSix = createTestSix(parent);
-
-            six.clearOwnership();
             expect(parent.notify).not.toHaveBeenCalled();
         });
 
-        testAbstractBlockImplementation(Six);
+        testAbstractBlockImplementation(
+            Six,
+            function (six: Pricker.AbstractSix): void {
+                six.toggleCall();
+            },
+        );
     });
 }
