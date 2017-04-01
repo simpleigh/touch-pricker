@@ -66,8 +66,13 @@ describe('View class', function () {
     });
 
     it('passes the course end', function () {
-        const data: any = testPlain();
-        expect(data.courseEnd).toEqual('2314567890E');
+        const data: any = testNonPlain();
+        expect(data.courseEnd).toEqual('480735692E1');
+    });
+
+    it('passes the initial row', function () {
+        const data: any = testNonPlain();
+        expect(data.initialRow).toEqual('2314567890E')
     });
 
     it('identifies plain courses', function () {

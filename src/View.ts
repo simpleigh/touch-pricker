@@ -51,6 +51,7 @@ namespace Pricker {
             let index: number;
 
             data.courseEnd = stringFromRow(course.getEnd());
+            data.initialRow = stringFromRow(course.getInitialRow());
             data.isPlainCourse = true;
 
             data.sixes = [ ];

@@ -8,6 +8,7 @@
 /**
  * Renders a course as HTML for MBD-style pricker
  */
+<u>{{= data.initialRow }}</u><br />
 {{~ data.sixes :six }}
 	{{= six.end }}
 	&nbsp;&nbsp;

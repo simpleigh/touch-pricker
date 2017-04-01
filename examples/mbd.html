@@ -147,12 +147,7 @@
                 touchExport = '';
 
             document.getElementById('sixends').innerHTML =
-                '<u>'
-                + Pricker.stringFromRow(initialRow)
-                + '</u>'
-                + '<br />'
-                + mbd.print(course, mbd)
-                + '<br />';
+                mbd.print(course);
 
             document.getElementById('calling').innerHTML =
                 '<u>'

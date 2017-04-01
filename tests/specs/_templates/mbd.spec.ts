@@ -18,6 +18,7 @@ describe('mbd template', function () {
         course.getSix(3).setCall(Pricker.Call.Bob);
 
         expect(view.print(course)).toBe(''
+            + '<u>2314567890E</u><br />'
             + '342618507E9&nbsp;&nbsp;<span class="oddCall" onclick="c(1)">'
             + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />'
             + '3468201759E&nbsp;&nbsp;<span class="evenCall" onclick="c(2)">'
