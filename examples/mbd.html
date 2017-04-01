@@ -142,8 +142,7 @@
         function reDraw() {
             'use strict';
 
-            var pricker = new Pricker.Output.Layout.Pricker(),
-                mbd = new Pricker.Output.Format.Mbd(),
+            var mbd = new Pricker.View('mbd'),
                 text = new Pricker.View('text'),
                 touchExport = '';
 
@@ -152,7 +151,7 @@
                 + Pricker.stringFromRow(initialRow)
                 + '</u>'
                 + '<br />'
-                + pricker.print(course, mbd)
+                + mbd.print(course, mbd)
                 + '<br />';
 
             document.getElementById('calling').innerHTML =
