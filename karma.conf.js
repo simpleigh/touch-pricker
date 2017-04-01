@@ -8,7 +8,7 @@
 module.exports = function(config) {
     config.set({
         autoWatch: false,
-        browsers: ['Chrome', 'Firefox', 'IE', 'PhantomJS'],
+        browsers: ['Chrome', 'Edge', 'Firefox', 'IE', 'PhantomJS'],
         files: [
             'dist/stedman-pricker.js',
             'dist/tests.js'
