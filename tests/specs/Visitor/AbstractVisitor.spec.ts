@@ -21,7 +21,7 @@ function testAbstractVisitorImplementation(
 
         it('returns this when processing a row', function () {
             const row: Pricker.Row = createTestRow('231'),
-                visitor: Pricker.Visitor.AbstractVisitor = new Visitor();
+                visitor: typeof Visitor = new Visitor();
 
             expect(visitor.visit(row)).toBe(visitor);
         });
@@ -29,7 +29,7 @@ function testAbstractVisitorImplementation(
         it('stops processing rows after rounds', function () {
             const row: Pricker.Row = createTestRow('231'),
                 rounds: Pricker.Row = createTestRow(''),
-                visitor: Pricker.Visitor.AbstractVisitor = new Visitor();
+                visitor: typeof Visitor = new Visitor();
 
             let result: any;
 
