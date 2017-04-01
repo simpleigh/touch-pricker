@@ -9,8 +9,10 @@ namespace Pricker {
     'use strict';
 
     /**
-     * Placeholder for templates
+     * Container for templates
+     *
+     * Dictionary of template functions that map data to a string
      */
     // tslint:disable-next-line:variable-name
-    export let Templates: Array<(...params: any[]) => string> = [];
+    export let Templates: {[index: string]: (data: any) => string} = { };
 }
