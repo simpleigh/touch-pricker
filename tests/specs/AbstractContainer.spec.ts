@@ -237,6 +237,7 @@ function testAbstractContainerImplementation(
             container.setLength(5);
             container.notify(5);
             expect(parent.notify).toHaveBeenCalledWith(999);
+            expect(parent.notify).toHaveBeenCalledTimes(2);
         });
 
         testAbstractBlockImplementation(Container);
