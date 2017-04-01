@@ -35,8 +35,8 @@ describe('Changes:', function () {
             ['132547698', Pricker.Stage.Caters],
             ['132547698E0', Pricker.Stage.Cinques],
             ['132547698E0AT', Pricker.Stage.Sextuples],
-            ['132547698E0ATCB', Pricker.Stage.Septuples]
-        ]
+            ['132547698E0ATCB', Pricker.Stage.Septuples],
+        ],
     ));
 
     describe('permute3 function', createChangeTests(
@@ -46,8 +46,8 @@ describe('Changes:', function () {
             ['213547698', Pricker.Stage.Caters],
             ['213547698E0', Pricker.Stage.Cinques],
             ['213547698E0AT', Pricker.Stage.Sextuples],
-            ['213547698E0ATCB', Pricker.Stage.Septuples]
-        ]
+            ['213547698E0ATCB', Pricker.Stage.Septuples],
+        ],
     ));
 
     describe('permuteN function', createChangeTests(
@@ -57,8 +57,8 @@ describe('Changes:', function () {
             ['214365879', Pricker.Stage.Caters],
             ['2143658709E', Pricker.Stage.Cinques],
             ['2143658709TEA', Pricker.Stage.Sextuples],
-            ['2143658709TEBAC', Pricker.Stage.Septuples]
-        ]
+            ['2143658709TEBAC', Pricker.Stage.Septuples],
+        ],
     ));
 
     describe('permuteBob function', createChangeTests(
@@ -68,8 +68,8 @@ describe('Changes:', function () {
             ['214365798', Pricker.Stage.Caters],
             ['214365879E0', Pricker.Stage.Cinques],
             ['2143658709EAT', Pricker.Stage.Sextuples],
-            ['2143658709TEACB', Pricker.Stage.Septuples]
-        ]
+            ['2143658709TEACB', Pricker.Stage.Septuples],
+        ],
     ));
 
     describe('permuteSingle function', createChangeTests(
@@ -79,8 +79,8 @@ describe('Changes:', function () {
             ['214365789', Pricker.Stage.Caters],
             ['2143658790E', Pricker.Stage.Cinques],
             ['2143658709ETA', Pricker.Stage.Sextuples],
-            ['2143658709TEABC', Pricker.Stage.Septuples]
-        ]
+            ['2143658709TEABC', Pricker.Stage.Septuples],
+        ],
     ));
 
 });

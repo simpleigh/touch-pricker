@@ -38,7 +38,7 @@ describe('Quick six class', function () {
                 '4126375',
                 '1423657',
                 '1246375',
-                Pricker.Stage.Triples
+                Pricker.Stage.Triples,
             ],
             [
                 '214365879',
@@ -47,7 +47,7 @@ describe('Quick six class', function () {
                 '412638597',
                 '142365879',
                 '124638597',
-                Pricker.Stage.Caters
+                Pricker.Stage.Caters,
             ],
             [
                 '2143658709E',
@@ -56,7 +56,7 @@ describe('Quick six class', function () {
                 '412638507E9',
                 '1423658709E',
                 '124638507E9',
-                Pricker.Stage.Cinques
+                Pricker.Stage.Cinques,
             ],
             [
                 '2143658709TEA',
@@ -65,7 +65,7 @@ describe('Quick six class', function () {
                 '412638507T9AE',
                 '1423658709TEA',
                 '124638507T9AE',
-                Pricker.Stage.Sextuples
+                Pricker.Stage.Sextuples,
             ],
             [
                 '2143658709TEBAC',
@@ -74,9 +74,9 @@ describe('Quick six class', function () {
                 '412638507T9BECA',
                 '1423658709TEBAC',
                 '124638507T9BECA',
-                Pricker.Stage.Septuples
-            ]
-        ]
+                Pricker.Stage.Septuples,
+            ],
+        ],
     );
 
 });

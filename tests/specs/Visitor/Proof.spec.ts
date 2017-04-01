@@ -27,8 +27,8 @@ describe('Proof visitor', function () {
         expect(visitor.getRowCounts()).toEqual(
             {
                 '2314567890E': 1,
-                '3241658709E': 2
-            }
+                '3241658709E': 2,
+            },
         );
     });
 
@@ -69,10 +69,10 @@ describe('Proof visitor', function () {
     testAbstractVisitorImplementation(
         Pricker.Visitor.Proof,
         function (
-            visitor: Pricker.Visitor.Proof
+            visitor: Pricker.Visitor.Proof,
         ): { [index: string]: number } {
             return visitor.getRowCounts();
-        }
+        },
     );
 
 });

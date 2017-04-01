@@ -38,7 +38,7 @@ describe('Slow six class', function () {
                 '4126375',
                 '4213657',
                 '2416375',
-                S.Triples
+                S.Triples,
             ],
             [
                 '214365879',
@@ -47,7 +47,7 @@ describe('Slow six class', function () {
                 '412638597',
                 '421365879',
                 '241638597',
-                S.Caters
+                S.Caters,
             ],
             [
                 '2143658709E',
@@ -56,7 +56,7 @@ describe('Slow six class', function () {
                 '412638507E9',
                 '4213658709E',
                 '241638507E9',
-                S.Cinques
+                S.Cinques,
             ],
             [
                 '2143658709TEA',
@@ -65,7 +65,7 @@ describe('Slow six class', function () {
                 '412638507T9AE',
                 '4213658709TEA',
                 '241638507T9AE',
-                S.Sextuples
+                S.Sextuples,
             ],
             [
                 '2143658709TEBAC',
@@ -74,9 +74,9 @@ describe('Slow six class', function () {
                 '412638507T9BECA',
                 '4213658709TEBAC',
                 '241638507T9BECA',
-                S.Septuples
-            ]
-        ]
+                S.Septuples,
+            ],
+        ],
     );
 
 });

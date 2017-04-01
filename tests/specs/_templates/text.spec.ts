@@ -10,7 +10,7 @@ describe('text template', function () {
     it('renders a course correctly', function () {
         const view: Pricker.View = new Pricker.View('text'),
             course: Pricker.Course = new Pricker.Course(
-                Pricker.rowFromString('231', Pricker.Stage.Cinques)
+                Pricker.rowFromString('231', Pricker.Stage.Cinques),
             );
 
         course.setLength(4);
@@ -23,7 +23,7 @@ describe('text template', function () {
     it('only displays the number of sixes when needed', function () {
         const view = new Pricker.View('text'),
             course = new Pricker.Course(
-                Pricker.rowFromString('231', Pricker.Stage.Cinques)
+                Pricker.rowFromString('231', Pricker.Stage.Cinques),
             );
 
         course.getSix(1).setCall(Pricker.Call.Bob);
@@ -33,7 +33,7 @@ describe('text template', function () {
     it('displays "p" when a course has no calls', function () {
         const view = new Pricker.View('text'),
             course = new Pricker.Course(
-                Pricker.rowFromString('231', Pricker.Stage.Cinques)
+                Pricker.rowFromString('231', Pricker.Stage.Cinques),
             );
 
         expect(view.print(course)).toBe('2314567890E  p\n');

@@ -23,7 +23,7 @@ function testSixImplementation(Six, testCases, rowTests) {
                     // Stage
                     testCases[i][2],
                     // Call
-                    testCases[i][3]
+                    testCases[i][3],
                 );
             }
         };
@@ -34,7 +34,7 @@ function testSixImplementation(Six, testCases, rowTests) {
             const six: Pricker.AbstractSix = new Six(previous);
             six.setCall(call);
             expect(six.getEnd()).toEqual(expected);
-        }
+        },
     ));
 
     it('updates when the previous six end changes', runTestCases(
@@ -48,7 +48,7 @@ function testSixImplementation(Six, testCases, rowTests) {
 
             six.setInitialRow(previous);
             expect(six.getEnd()).toEqual(expected);
-        }
+        },
     ));
 
     it('updates when the call is toggled', runTestCases(
@@ -68,7 +68,7 @@ function testSixImplementation(Six, testCases, rowTests) {
 
             six.toggleCall();
             expect(six.getEnd()).toEqual(expected);
-        }
+        },
     ));
 
     it('generates the correct end row when visited', runTestCases(
@@ -83,7 +83,7 @@ function testSixImplementation(Six, testCases, rowTests) {
             strings = visitor.getStrings();
 
             expect(strings[5]).toEqual(Pricker.stringFromRow(expected));
-        }
+        },
     ));
 
     it('generates the correct rows when visited', function () {
@@ -114,7 +114,7 @@ function testSixImplementation(Six, testCases, rowTests) {
 
         function createTestSix(
             container: Pricker.AbstractBlock = null,
-            index: number = 999
+            index: number = 999,
         ): Pricker.AbstractSix {
             return new Six(createTestRow(), container, index);
         }

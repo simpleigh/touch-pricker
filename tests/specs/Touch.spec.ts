@@ -17,7 +17,7 @@ describe('Touch class', function () {
         let visitor: Pricker.Visitor.StringArray,
             strings: string[] = [
                 '213547698E0',
-                '2314567890E'
+                '2314567890E',
             ];
 
         visitor = new Pricker.Visitor.StringArray();
@@ -41,6 +41,6 @@ describe('Touch class', function () {
             [Pricker.Stage.Sextuples, 0],
             [Pricker.Stage.Septuples, 0],
         ],
-        [0, 100]
+        [0, 100],
     );
 });

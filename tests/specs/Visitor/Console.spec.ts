@@ -28,7 +28,7 @@ describe('Console visitor', function () {
         },
         function (): void {
             spyOn(console, 'log').and.callThrough();
-        }
+        },
     );
 
 });

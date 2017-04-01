@@ -10,7 +10,7 @@ function testAbstractVisitorImplementation(
     Visitor,
     getState: (visitor: Pricker.Visitor.AbstractVisitor) => any,
     // tslint:disable-next-line:no-empty
-    setupTest: () => void = function () { }
+    setupTest: () => void = function () { },
 ) {
 
     function createTestRow(input: string = '231'): Pricker.Row {

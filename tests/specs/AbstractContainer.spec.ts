@@ -12,7 +12,7 @@ function testAbstractContainerImplementation(
     Container,
     getBlockFnName: string,
     lengthTestCases: Array<[Pricker.Stage, number]>,
-    lengthBounds: [number, number]
+    lengthBounds: [number, number],
 ) {
 
     function createTestRow(input: string = '231'): Pricker.Row {
@@ -26,7 +26,7 @@ function testAbstractContainerImplementation(
             for (i = 0; i < lengthTestCases.length; i += 1) {
                 testFunction(
                     Pricker.rowFromString('231', lengthTestCases[i][0]),
-                    lengthTestCases[i][1]
+                    lengthTestCases[i][1],
                 );
             }
         };
@@ -59,7 +59,7 @@ function testAbstractContainerImplementation(
                     Pricker.AbstractContainer<Pricker.AbstractBlock> =
                         new Container(initialRow);
                 expect(container.getLength()).toBe(length);
-            }
+            },
         ));
 
         it('grants access to contained blocks', runLengthTestCases(
@@ -81,7 +81,7 @@ function testAbstractContainerImplementation(
                 // Last block, final row
                 expect(container[getBlockFnName](length).getEnd())
                     .toEqual(container.getEnd());
-            }
+            },
         ));
 
         it('throws an exception for out-of-bounds blocks', runLengthTestCases(
@@ -94,7 +94,7 @@ function testAbstractContainerImplementation(
                     .toThrowError('Block index out of range');
                 expect(function () { container[getBlockFnName](length + 1); })
                     .toThrowError('Block index out of range');
-            }
+            },
         ));
 
         it('allows the length to be increased', runLengthTestCases(
@@ -105,7 +105,7 @@ function testAbstractContainerImplementation(
 
                 container.setLength(length + 1);
                 expect(container.getLength()).toBe(length + 1);
-            }
+            },
         ));
 
         it('recalculates end row when increasing length', runLengthTestCases(
@@ -117,7 +117,7 @@ function testAbstractContainerImplementation(
 
                 container.setLength(newLength);
                 expect(container.getEnd()).toEqual(initialRow);
-            }
+            },
         ));
 
         it('allows the length to be decreased', runLengthTestCases(
@@ -134,7 +134,7 @@ function testAbstractContainerImplementation(
 
                 container.setLength(length - 1);
                 expect(container.getLength()).toBe(length - 1);
-            }
+            },
         ));
 
         it('recalculates end row when decreasing length', runLengthTestCases(
@@ -154,7 +154,7 @@ function testAbstractContainerImplementation(
                 container.setLength(newLength);
                 expect(container.getEnd())
                     .toEqual(container[getBlockFnName](newLength).getEnd());
-            }
+            },
         ));
 
         it('returns this when setting the length', runLengthTestCases(
@@ -164,7 +164,7 @@ function testAbstractContainerImplementation(
                         new Container(initialRow);
 
                 expect(container.setLength(length + 1)).toBe(container);
-            }
+            },
         ));
 
         it('throws an exception when setting invalid lengths', function () {

@@ -36,7 +36,7 @@ namespace Pricker {
         constructor(
             initialRow: Row,
             protected _container?: AbstractContainer<AbstractSix>,
-            protected _index?: number
+            protected _index?: number,
         ) {
             super(initialRow, _container, _index);
             this._call = Call.Plain;

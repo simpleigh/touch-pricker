@@ -36,7 +36,7 @@ describe('View class', function () {
     function testPlain(): any {
         const view: Pricker.View = new Pricker.View('test'),
             course: Pricker.Course = new Pricker.Course(
-                Pricker.rowFromString('231', Pricker.Stage.Cinques)
+                Pricker.rowFromString('231', Pricker.Stage.Cinques),
             );
 
         view.print(course);
@@ -49,7 +49,7 @@ describe('View class', function () {
     function testNonPlain(): any {
         const view: Pricker.View = new Pricker.View('test'),
             course: Pricker.Course = new Pricker.Course(
-                Pricker.rowFromString('231', Pricker.Stage.Cinques)
+                Pricker.rowFromString('231', Pricker.Stage.Cinques),
             );
 
         course.setLength(4);

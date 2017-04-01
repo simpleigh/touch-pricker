@@ -10,7 +10,7 @@ describe('mbd template', function () {
     it('renders a course correctly', function () {
         const view: Pricker.View = new Pricker.View('mbd'),
             course: Pricker.Course = new Pricker.Course(
-                Pricker.rowFromString('231', Pricker.Stage.Cinques)
+                Pricker.rowFromString('231', Pricker.Stage.Cinques),
             );
 
         course.setLength(4);
@@ -25,7 +25,7 @@ describe('mbd template', function () {
             + '4830672519E&nbsp;&nbsp;<span class="oddCall" onclick="c(3)">'
             + '&nbsp;-&nbsp;</span>&nbsp;&nbsp;3<br />'
             + '480735692E1&nbsp;&nbsp;<span class="evenCall" onclick="c(4)">'
-            + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;4<br />'
+            + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;4<br />',
         );
     });
 

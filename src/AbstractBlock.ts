@@ -40,7 +40,7 @@ namespace Pricker {
         constructor(
             initialRow: Row,
             protected _container?: AbstractContainer<AbstractBlock>,
-            protected _index?: number
+            protected _index?: number,
         ) {
             this._initialRow = initialRow.slice();
         }
@@ -76,7 +76,7 @@ namespace Pricker {
          */
         public setOwnership(
             container: AbstractContainer<AbstractBlock> | undefined,
-            index: number | undefined
+            index: number | undefined,
         ): AbstractBlock {
             this._container = container;
             this._index = index;

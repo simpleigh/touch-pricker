@@ -34,7 +34,7 @@ namespace Pricker {
                 oddRow,
                 this.backwardRotator,
                 evenRow,
-                this.forwardRotator
+                this.forwardRotator,
             );
         }
 

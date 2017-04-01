@@ -32,7 +32,7 @@ describe('Counter visitor', function () {
         Pricker.Visitor.Counter,
         function (visitor: Pricker.Visitor.Counter): number {
             return visitor.getCount();
-        }
+        },
     );
 
 });

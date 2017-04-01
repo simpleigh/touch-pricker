@@ -43,7 +43,7 @@ describe('StringArray visitor', function () {
         Pricker.Visitor.StringArray,
         function (visitor: Pricker.Visitor.StringArray): string[] {
             return visitor.getStrings();
-        }
+        },
     );
 
 });
