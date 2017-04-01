@@ -17,6 +17,15 @@ namespace Pricker {
      */
     export class Course extends AbstractContainer<AbstractSix> {
 
+        /* AbstractBlock methods **********************************************/
+
+        /**
+         * Provides the path for this class' templates
+         */
+        protected getTemplatePath(): string {
+            return 'Course';
+        }
+
         /* AbstractContainer methods ******************************************/
 
         /**

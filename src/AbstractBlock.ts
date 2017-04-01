@@ -6,6 +6,7 @@
  */
 
 /// <reference path="Row.ts" />
+/// <reference path="stringFromRow.ts" />
 /// <reference path="Visitor/Abstract.ts" />
 
 namespace Pricker {
@@ -107,5 +108,32 @@ namespace Pricker {
          * Receives a visitor that will be called to process each row
          */
         public abstract accept(visitor: Visitor.AbstractVisitor): this;
+
+        /**
+         * Renders the block with a template
+         */
+        public print(template: string): string {
+            const data: any = this.getTemplateData();
+
+            data.index = this._index;
+            data.initialRow = stringFromRow(this._initialRow);
+            data.endRow = stringFromRow(this.getEnd());
+
+            return Templates[this.getTemplatePath() + '.' + template](data);
+        }
+
+        /**
+         * Provides the path for this class' templates
+         */
+        protected abstract getTemplatePath(): string;
+
+        /**
+         * Provides additional template data
+         *
+         * Derived classes may override this to provide more data to templates
+         */
+        protected getTemplateData(): any {
+            return { };
+        }
     }
 }

@@ -32,6 +32,13 @@ namespace Pricker {
             return super.accept(visitor);
         }
 
+        /**
+         * Provides the path for this class' templates
+         */
+        protected getTemplatePath(): string {
+            return 'Touch';
+        }
+
         /* AbstractContainer methods ******************************************/
 
         /**

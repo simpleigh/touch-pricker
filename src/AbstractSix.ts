@@ -87,6 +87,24 @@ namespace Pricker {
             return this._end.slice();
         }
 
+        /**
+         * Provides the path for this class' templates
+         */
+        protected getTemplatePath(): string {
+            return 'AbstractSix';
+        }
+
+        /**
+         * Provides additional template data
+         *
+         * Derived classes may override this to provide more data to templates
+         */
+        protected getTemplateData(): any {
+            return {
+                'call': this._call,
+            };
+        }
+
         /* AbstractSix methods ************************************************/
 
         /**
