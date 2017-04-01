@@ -8,8 +8,8 @@
 describe('mbd template', function () {
 
     it('renders a course correctly', function () {
-        const view = new Pricker.View('mbd'),
-            course = new Pricker.Course(
+        const view: Pricker.View = new Pricker.View('mbd'),
+            course: Pricker.Course = new Pricker.Course(
                 Pricker.rowFromString('231', Pricker.Stage.Cinques)
             );
 

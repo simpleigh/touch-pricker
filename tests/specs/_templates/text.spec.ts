@@ -8,8 +8,8 @@
 describe('text template', function () {
 
     it('renders a course correctly', function () {
-        const view = new Pricker.View('text'),
-            course = new Pricker.Course(
+        const view: Pricker.View = new Pricker.View('text'),
+            course: Pricker.Course = new Pricker.Course(
                 Pricker.rowFromString('231', Pricker.Stage.Cinques)
             );
 
