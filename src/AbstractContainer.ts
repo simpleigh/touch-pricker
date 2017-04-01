@@ -36,7 +36,7 @@ namespace Pricker {
         ) {
             super(initialRow, _container, _index);
 
-            this._blocks = [];
+            this._blocks = [ ];
             this.extend(this.getDefaultLength(initialRow));
         }
 

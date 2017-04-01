@@ -25,8 +25,8 @@ namespace Pricker {
      * Converts a string into a row array
      */
     export function rowFromString(input: string, stage: Stage): Row {
-        const bellsSeen: boolean[] = [],
-            output: Row = [];
+        const bellsSeen: boolean[] = [ ],
+            output: Row = [ ];
 
         let bellNumber: Bell,
             inputIndex: number;

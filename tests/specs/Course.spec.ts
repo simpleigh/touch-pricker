@@ -134,7 +134,7 @@ describe('Course class', function () {
 
         let visitor: Pricker.Visitor.StringArray,
             index: number,
-            strings: string[] = [];
+            strings: string[] = [ ];
 
         for (index = 1; index <= course.getLength(); index += 1) {
             visitor = new Pricker.Visitor.StringArray();

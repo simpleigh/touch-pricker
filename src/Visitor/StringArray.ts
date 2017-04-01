@@ -24,7 +24,7 @@ namespace Pricker {
             /**
              * Rows we've seen
              */
-            protected _strings: string[] = [];
+            protected _strings: string[] = [ ];
 
             /**
              * Read access to the rows

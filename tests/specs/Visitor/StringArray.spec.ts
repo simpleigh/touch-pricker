@@ -11,7 +11,7 @@ describe('StringArray visitor', function () {
         const visitor: Pricker.Visitor.StringArray =
                 new Pricker.Visitor.StringArray();
 
-        expect(visitor.getStrings()).toEqual([]);
+        expect(visitor.getStrings()).toEqual([ ]);
     });
 
     it('stores a string when it visits a row', function () {
