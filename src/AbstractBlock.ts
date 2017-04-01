@@ -75,11 +75,20 @@ namespace Pricker {
          * Updates references to the parent container
          */
         public setOwnership(
-            container: AbstractContainer<AbstractBlock> | undefined,
-            index: number | undefined,
+            container: AbstractContainer<AbstractBlock>,
+            index: number,
         ): AbstractBlock {
             this._container = container;
             this._index = index;
+            return this;
+        }
+
+        /**
+         * Clears references to the parent container
+         */
+        public clearOwnership(): AbstractBlock {
+            this._container = undefined;
+            this._index = undefined;
             return this;
         }
 

@@ -91,7 +91,17 @@ describe('Course class', function () {
         course.setOwnership(parentNew, 998);
         course.setLength(course.getLength() + 2);
         expect(parentNew.notify).toHaveBeenCalledWith(998);
-        expect(parentOld.notify).not.toHaveBeenCalledWith(999);
+        expect(parentOld.notify).not.toHaveBeenCalled();
+    });
+
+    it('can have its parent touch cleared', function () {
+        const row: Pricker.Row =
+                Pricker.rowFromString('231', Pricker.Stage.Cinques),
+            parent = jasmine.createSpyObj('Touch', ['notify']),
+            course: Pricker.Course = new Pricker.Course(row, parent, 999);
+
+        course.clearOwnership();
+        expect(parent.notify).not.toHaveBeenCalled();
     });
 
     it('can be cloned', function () {

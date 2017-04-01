@@ -186,7 +186,15 @@ function testSixImplementation(Six, testCases, rowTests) {
             six.setOwnership(parentNew, 998);
             six.toggleCall();
             expect(parentNew.notify).toHaveBeenCalledWith(998);
-            expect(parentOld.notify).not.toHaveBeenCalledWith(999);
+            expect(parentOld.notify).not.toHaveBeenCalled();
+        });
+
+        it('can have its parent course cleared', function () {
+            const parent = jasmine.createSpyObj('Course', ['notify']),
+                six: Pricker.AbstractSix = createTestSix(parent);
+
+            six.clearOwnership();
+            expect(parent.notify).not.toHaveBeenCalled();
         });
 
         testAbstractBlockImplementation(Six);

@@ -91,7 +91,7 @@ namespace Pricker {
             const course: Course = this.getBlock(index);
 
             this._blocks.splice(index - 1, 1);
-            course.setOwnership(undefined, undefined);
+            course.clearOwnership();
             this.fixupOwnership(index);
 
             this.notify(index - 1);
