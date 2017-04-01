@@ -10,6 +10,8 @@
     "@types/jasmine": "^2.5.47",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-dot-precompiler": "^0.3.0",
     "gulp-load-plugins": "^1.4.0",
     "gulp-minify": "0.0.15",
     "gulp-sourcemaps": "^2.4.1",
