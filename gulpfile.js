@@ -28,7 +28,7 @@ gulp.task('build', function () {
             }))
             .pipe(plugins.sourcemaps.init())
             .pipe(tsProject()),
-        templates = gulp.src('templates/*.dot')
+        templates = gulp.src('src/_templates/*.dot')
             .pipe(plugins.dotPrecompiler({dictionary: 'Pricker.Templates'}));
 
     return merge([
