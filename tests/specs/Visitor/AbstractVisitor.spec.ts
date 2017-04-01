@@ -5,6 +5,12 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/**
+ * Tests that a visitor behaves as an AbstractVisitor
+ * @param {AbstractVisitor}  Visitor   - visitor under test
+ * @param {}                 getState  - fn that returns the visitor's state
+ * @param {}                 setupTest - add spies before testcase
+ */
 function testAbstractVisitorImplementation(
     // tslint:disable-next-line:variable-name
     Visitor,

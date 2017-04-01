@@ -72,7 +72,7 @@ describe('View class', function () {
 
     it('passes the initial row', function () {
         const data: any = testNonPlain();
-        expect(data.initialRow).toEqual('2314567890E')
+        expect(data.initialRow).toEqual('2314567890E');
     });
 
     it('identifies plain courses', function () {
