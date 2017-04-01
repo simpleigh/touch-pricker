@@ -112,7 +112,7 @@ namespace Pricker {
          * Toggles the call type between Plain -> Bob -> Single -> Plain
          */
         public toggleCall(): Call {
-            const call: Call = (this._call % 3) + 1;
+            const call: Call = (this._call + 1) % 3;
             this.setCall(call);
             return call;
         }

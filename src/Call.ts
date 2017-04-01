@@ -12,5 +12,5 @@ namespace Pricker {
      * Types of call
      * @enum {number}
      */
-    export enum Call {Plain = 1, Bob, Single};
+    export enum Call {Plain = 0, Bob, Single};
 }

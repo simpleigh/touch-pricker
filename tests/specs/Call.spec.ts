@@ -7,8 +7,11 @@
 
 describe('Call enum', function () {
 
-    it('maps calls to a truthy code', function () {
-        expect(Pricker.Call.Plain).toBeTruthy();
+    it('maps plain calls to a falsy code', function () {
+        expect(Pricker.Call.Plain).toBeFalsy();
+    });
+
+    it('maps non-plain calls to a truthy code', function () {
         expect(Pricker.Call.Bob).toBeTruthy();
         expect(Pricker.Call.Single).toBeTruthy();
     });

@@ -15,7 +15,7 @@
  /* single space */
 
 {{~ data.sixes :six }}
-	{{? six.call !== Pricker.Call.Plain }}
+	{{? six.call }}
 		 /* single space */
 		{{? six.call === Pricker.Call.Single }}s{{?}}
 		{{= six.index }}
