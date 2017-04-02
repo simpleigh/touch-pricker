@@ -95,14 +95,14 @@ namespace Pricker {
         }
 
         /**
-         * Provides additional template data
+         * Provides template data
          *
          * Derived classes may override this to provide more data to templates
          */
         protected getTemplateData(): any {
-            return {
-                'call': this._call,
-            };
+            const data: any = super.getTemplateData();
+            data.call = this._call;
+            return data;
         }
 
         /* AbstractSix methods ************************************************/

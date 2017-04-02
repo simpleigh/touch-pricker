@@ -113,13 +113,11 @@ namespace Pricker {
          * Renders the block with a template
          */
         public print(template: string): string {
-            const data: any = this.getTemplateData();
-
-            data.index = this._index;
-            data.initialRow = stringFromRow(this._initialRow);
-            data.endRow = stringFromRow(this.getEnd());
-
-            return Templates[this.getTemplatePath() + '.' + template](data);
+            return Templates[
+                this.getTemplatePath() + '.' + template
+            ](
+                this.getTemplateData(),
+            );
         }
 
         /**
@@ -128,12 +126,17 @@ namespace Pricker {
         protected abstract getTemplatePath(): string;
 
         /**
-         * Provides additional template data
+         * Provides template data
          *
          * Derived classes may override this to provide more data to templates
          */
         protected getTemplateData(): any {
-            return { };
+            return {
+                'block': this,
+                'index': this._index,
+                'initialRow': stringFromRow(this._initialRow),
+                'endRow': stringFromRow(this.getEnd()),
+            };
         }
     }
 }
