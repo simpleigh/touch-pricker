@@ -51,6 +51,24 @@ describe('Course class', function () {
         }
     });
 
+    it('starts out as a plain course', function () {
+        const stage: Pricker.Stage = Pricker.Stage.Cinques,
+            initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
+            course: Pricker.Course = new Pricker.Course(initialRow);
+
+        expect(course.isPlain()).toBe(true);
+    });
+
+    it('can return when it is not a plain course', function () {
+        const stage: Pricker.Stage = Pricker.Stage.Cinques,
+            initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
+            course: Pricker.Course = new Pricker.Course(initialRow);
+
+        course.getSix(10).setCall(Pricker.Call.Bob);
+
+        expect(course.isPlain()).toBe(false);
+    });
+
     it('can be cloned', function () {
         const stage: Pricker.Stage = Pricker.Stage.Cinques,
             initialRow: Pricker.Row = Pricker.rowFromString('231', stage),

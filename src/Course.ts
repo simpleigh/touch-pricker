@@ -26,6 +26,17 @@ namespace Pricker {
             return 'Course';
         }
 
+        /**
+         * Provides template data
+         *
+         * Derived classes may override this to provide more data to templates
+         */
+        protected getTemplateData(): any {
+            const data: any = super.getTemplateData();
+            data.isPlain = this.isPlain();
+            return data;
+        }
+
         /* AbstractContainer methods ******************************************/
 
         /**
@@ -67,6 +78,21 @@ namespace Pricker {
          */
         public getSix(six: number): AbstractSix {
             return this.getBlock(six);
+        }
+
+        /**
+         * Checks whether this is a plain course
+         */
+        public isPlain(): boolean {
+            let index: number;
+
+            for (index = 1; index <= this.getLength(); index++) {
+                if (this.getSix(index).getCall()) {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         /**
