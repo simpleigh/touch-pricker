@@ -85,6 +85,14 @@ namespace Pricker {
         }
 
         /**
+         * Allows public access to parent container references
+         */
+        public getOwnership():
+            [AbstractContainer<AbstractBlock> | undefined, number | undefined] {
+            return [this._container, this._index];
+        }
+
+        /**
          * Clears references to the parent container
          */
         public clearOwnership(): AbstractBlock {

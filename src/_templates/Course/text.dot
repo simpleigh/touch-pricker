@@ -14,11 +14,11 @@
 {{= data.endRow }}
  /* single space */
 
-{{~ data.blocks :six:index }}
+{{~ data.blocks :six }}
 	{{? six.getCall() }}
 		 /* single space */
 		{{? six.getCall() === Pricker.Call.Single }}s{{?}}
-		{{= index + 1 }}
+		{{= six.getOwnership()[1] }}
 	{{?}}
 {{~}}
 

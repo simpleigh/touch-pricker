@@ -107,6 +107,32 @@ function testAbstractBlockImplementation(
             expect(block.getEnd()).toEqual(getEndBackup);
         });
 
+        it('notifies the parent container', function () {
+            const container: Pricker.AbstractContainer<typeof Block> =
+                    jasmine.createSpyObj('AbstractContainer', ['notify']),
+                block: typeof Block = new Block(
+                    createTestRow(),
+                    container,
+                    999,
+                );
+
+            triggerNotification(block);
+            expect(container.notify).toHaveBeenCalledWith(999);
+        });
+
+        it('allows access to parent information', function () {
+            const container: Pricker.AbstractContainer<typeof Block> =
+                    jasmine.createSpyObj('AbstractContainer', ['notify']),
+                block: typeof Block = new Block(
+                    createTestRow(),
+                    container,
+                    999,
+                );
+
+            expect(block.getOwnership()[0]).toBe(container);
+            expect(block.getOwnership()[1]).toBe(999);
+        });
+
         it('can be attached to a new parent', function () {
             const containerOld: Pricker.AbstractContainer<typeof Block> =
                     jasmine.createSpyObj('AbstractContainer', ['notify']),
@@ -119,9 +145,8 @@ function testAbstractBlockImplementation(
                 );
 
             block.setOwnership(containerNew, 998);
-            triggerNotification(block);
-            expect(containerNew.notify).toHaveBeenCalledWith(998);
-            expect(containerOld.notify).not.toHaveBeenCalled();
+            expect(block.getOwnership()[0]).toBe(containerNew);
+            expect(block.getOwnership()[1]).toBe(998);
         });
 
         it('can be detached from a parent', function () {
@@ -134,8 +159,8 @@ function testAbstractBlockImplementation(
                 );
 
             block.clearOwnership();
-            triggerNotification(block);
-            expect(container.notify).not.toHaveBeenCalled();
+            expect(block.getOwnership()[0]).toBeUndefined();
+            expect(block.getOwnership()[1]).toBeUndefined();
         });
 
         it('calls a visitor in order to traverse rows', function () {
