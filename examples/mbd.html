@@ -188,11 +188,7 @@
             document.getElementById('courses').value = selectedIndex;
 
             // Export
-            for (i = 1; i <= touch.getLength(); i++) {
-                touchExport = touchExport
-                    + touch.getCourse(i).print('text');
-            }
-            document.getElementById('export').innerText = touchExport;
+            document.getElementById('export').innerText = touch.print('text');
 
         }
 

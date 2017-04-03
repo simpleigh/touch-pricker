@@ -1,0 +1,15 @@
+/**
+ * Free Stedman Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright © 2015-17 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * Renders a touch as text
+ */
+
+{{= data.initialRow }}{{= '\n' }}
+{{~ data.blocks :course }}
+	{{= course.print('text') }}
+{{~}}
