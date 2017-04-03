@@ -144,23 +144,13 @@
 
             var touchExport = '';
 
-            document.getElementById('sixends').innerHTML =
-                course.print('mbd');
+            document.getElementById('sixends').innerHTML = course.print('mbd');
 
-            document.getElementById('calling').innerHTML =
-                '<u>'
-                + Pricker.stringFromRow(course.getInitialRow())
-                + '</u>'
-                + '<br />'
-                + course.print('text');
+            document.getElementById('calling').innerHTML = course.print('html');
 
             course.setInitialRow(defaultInitialRow);
             document.getElementById('callingFromRounds').innerHTML =
-                '<u>'
-                + Pricker.stringFromRow(course.getInitialRow())
-                + '</u>'
-                + '<br />'
-                + course.print('text');
+                course.print('html');
             course.setInitialRow(initialRow);
 
             document.getElementById('initialRow').value =
@@ -170,11 +160,7 @@
 
             if (savedCourse) {
                 document.getElementById('savedCalling').innerHTML =
-                    '<u>'
-                    + Pricker.stringFromRow(savedCourse.getInitialRow())
-                    + '</u>'
-                    + '<br />'
-                    + course.print('text');
+                    savedCourse.print('html');
             } else {
                 document.getElementById('savedCalling').innerText = 'None';
             }
