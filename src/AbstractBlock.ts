@@ -122,16 +122,16 @@ namespace Pricker {
          */
         public print(template: string): string {
             return Templates[
-                this.getTemplatePath() + '.' + template
+                this.templatePath + '.' + template
             ](
                 this.getTemplateData(),
             );
         }
 
         /**
-         * Provides the path for this class' templates
+         * Path for this class' templates
          */
-        protected abstract getTemplatePath(): string;
+        public abstract readonly templatePath: string;
 
         /**
          * Provides template data

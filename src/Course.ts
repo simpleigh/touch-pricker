@@ -20,11 +20,9 @@ namespace Pricker {
         /* AbstractBlock methods **********************************************/
 
         /**
-         * Provides the path for this class' templates
+         * Path for this class' templates
          */
-        protected getTemplatePath(): string {
-            return 'Course';
-        }
+        public readonly templatePath: string = 'Course';
 
         /**
          * Provides template data

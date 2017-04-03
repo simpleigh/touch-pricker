@@ -88,11 +88,9 @@ namespace Pricker {
         }
 
         /**
-         * Provides the path for this class' templates
+         * Path for this class' templates
          */
-        protected getTemplatePath(): string {
-            return 'AbstractSix';
-        }
+        public readonly templatePath: string = 'AbstractSix';
 
         /**
          * Provides template data

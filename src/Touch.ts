@@ -33,11 +33,9 @@ namespace Pricker {
         }
 
         /**
-         * Provides the path for this class' templates
+         * Path for this class' templates
          */
-        protected getTemplatePath(): string {
-            return 'Touch';
-        }
+        public readonly templatePath: string = 'Touch';
 
         /* AbstractContainer methods ******************************************/
 
