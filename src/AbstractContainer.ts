@@ -74,6 +74,17 @@ namespace Pricker {
             return this;
         }
 
+        /**
+         * Provides template data
+         *
+         * Derived classes may override this to provide more data to templates
+         */
+        protected getTemplateData(): any {
+            const data: any = super.getTemplateData();
+            data.blocks = this._blocks;
+            return data;
+        }
+
         /* AbstractContainer methods ******************************************/
 
         /**

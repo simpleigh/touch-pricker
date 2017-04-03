@@ -238,6 +238,25 @@ function testAbstractContainerImplementation(
             expect(parent.notify).toHaveBeenCalledTimes(2);
         });
 
+        it('passes contained blocks to templates', function () {
+            const container: typeof Container = new Container(createTestRow()),
+                testTemplateSpy = jasmine.createSpy('test');
+            let data: any;
+
+            container.setLength(10);
+
+            Pricker.Templates[container.templatePath + '.test'] =
+                testTemplateSpy;
+            container.print('test');
+
+            data = testTemplateSpy.calls.argsFor(0)[0];
+            expect(data.blocks).toBeDefined();
+            expect(data.blocks.length).toBe(10);
+            expect(data.blocks[0]).toEqual(container[getBlockFnName](1));
+
+            delete Pricker.Templates[container.templatePath + '.test'];
+        });
+
         testAbstractBlockImplementation(
             Container,
             function (container: typeof Container): void {

@@ -142,19 +142,17 @@
         function reDraw() {
             'use strict';
 
-            var mbd = new Pricker.View('mbd'),
-                text = new Pricker.View('text'),
-                touchExport = '';
+            var touchExport = '';
 
             document.getElementById('sixends').innerHTML =
-                mbd.print(course);
+                course.print('mbd');
 
             document.getElementById('calling').innerHTML =
                 '<u>'
                 + Pricker.stringFromRow(course.getInitialRow())
                 + '</u>'
                 + '<br />'
-                + text.print(course);
+                + course.print('text');
 
             course.setInitialRow(defaultInitialRow);
             document.getElementById('callingFromRounds').innerHTML =
@@ -162,7 +160,7 @@
                 + Pricker.stringFromRow(course.getInitialRow())
                 + '</u>'
                 + '<br />'
-                + text.print(course);
+                + course.print('text');
             course.setInitialRow(initialRow);
 
             document.getElementById('initialRow').value =
@@ -176,7 +174,7 @@
                     + Pricker.stringFromRow(savedCourse.getInitialRow())
                     + '</u>'
                     + '<br />'
-                    + text.print(savedCourse);
+                    + course.print('text');
             } else {
                 document.getElementById('savedCalling').innerText = 'None';
             }
@@ -198,7 +196,7 @@
             for (i = 1; i <= touch.getLength(); i++) {
                 element = document.createElement('option');
                 element.value = i;
-                element.innerText = text.print(touch.getCourse(i));
+                element.innerText = touch.getCourse(i).print('text');
                 document.getElementById('courses').appendChild(element);
             }
             document.getElementById('courses').value = selectedIndex;
@@ -206,7 +204,7 @@
             // Export
             for (i = 1; i <= touch.getLength(); i++) {
                 touchExport = touchExport
-                    + text.print(touch.getCourse(i));
+                    + touch.getCourse(i).print('text');
             }
             document.getElementById('export').innerText = touchExport;
 

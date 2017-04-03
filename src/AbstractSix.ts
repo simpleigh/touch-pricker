@@ -87,6 +87,22 @@ namespace Pricker {
             return this._end.slice();
         }
 
+        /**
+         * Path for this class' templates
+         */
+        public readonly templatePath: string = 'AbstractSix';
+
+        /**
+         * Provides template data
+         *
+         * Derived classes may override this to provide more data to templates
+         */
+        protected getTemplateData(): any {
+            const data: any = super.getTemplateData();
+            data.call = this._call;
+            return data;
+        }
+
         /* AbstractSix methods ************************************************/
 
         /**

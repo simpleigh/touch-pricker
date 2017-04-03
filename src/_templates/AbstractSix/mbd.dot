@@ -1,0 +1,29 @@
+/**
+ * Free Stedman Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright © 2015-17 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * Renders a six as HTML for MBD-style pricker
+ */
+{{= data.endRow }}
+&nbsp;&nbsp;
+<span
+ class="{{= data.index % 2 ? 'odd' : 'even' }}Call"
+ onclick="c({{= data.index }})"
+>
+	&nbsp;
+	{{? data.call === Pricker.Call.Plain }}
+		&nbsp;
+	{{?? data.call === Pricker.Call.Bob }}
+		-
+	{{?? data.call === Pricker.Call.Single }}
+		s
+	{{?}}
+	&nbsp;
+</span>
+&nbsp;&nbsp;
+{{= data.index }}
+<br />

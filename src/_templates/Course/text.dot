@@ -11,26 +11,26 @@
  * 2314567890E  p\n
  */
 
-{{= data.courseEnd }}
+{{= data.endRow }}
  /* single space */
 
-{{~ data.sixes :six }}
-	{{? six.call }}
+{{~ data.blocks :six }}
+	{{? six.getCall() }}
 		 /* single space */
-		{{? six.call === Pricker.Call.Single }}s{{?}}
-		{{= six.index }}
+		{{? six.getCall() === Pricker.Call.Single }}s{{?}}
+		{{= six.getOwnership()[1] }}
 	{{?}}
 {{~}}
 
-{{? data.isPlainCourse }}
+{{? data.isPlain }}
 	 /* single space */
 	p
 {{?}}
 
-{{? data.sixes.length !== data.courseEnd.length * 2 }}
+{{? data.blocks.length !== data.endRow.length * 2 }}
 	 /* single space */
 	 /* single space */
-	({{= data.sixes.length }} sixes)
+	({{= data.blocks.length }} sixes)
 {{?}}
 
 {{= '\n' }}

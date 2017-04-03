@@ -6,6 +6,7 @@
  */
 
 /// <reference path="Row.ts" />
+/// <reference path="stringFromRow.ts" />
 /// <reference path="Visitor/Abstract.ts" />
 
 namespace Pricker {
@@ -84,6 +85,14 @@ namespace Pricker {
         }
 
         /**
+         * Allows public access to parent container references
+         */
+        public getOwnership():
+            [AbstractContainer<AbstractBlock> | undefined, number | undefined] {
+            return [this._container, this._index];
+        }
+
+        /**
          * Clears references to the parent container
          */
         public clearOwnership(): AbstractBlock {
@@ -107,5 +116,35 @@ namespace Pricker {
          * Receives a visitor that will be called to process each row
          */
         public abstract accept(visitor: Visitor.AbstractVisitor): this;
+
+        /**
+         * Renders the block with a template
+         */
+        public print(template: string): string {
+            return Templates[
+                this.templatePath + '.' + template
+            ](
+                this.getTemplateData(),
+            );
+        }
+
+        /**
+         * Path for this class' templates
+         */
+        public abstract readonly templatePath: string;
+
+        /**
+         * Provides template data
+         *
+         * Derived classes may override this to provide more data to templates
+         */
+        protected getTemplateData(): any {
+            return {
+                'block': this,
+                'index': this._index,
+                'initialRow': stringFromRow(this._initialRow),
+                'endRow': stringFromRow(this.getEnd()),
+            };
+        }
     }
 }
