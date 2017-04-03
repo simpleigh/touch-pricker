@@ -123,6 +123,24 @@ describe('Course class', function () {
         expect(visitor.getStrings()).toEqual(strings);
     });
 
+    it('passes whether it is a plain course to templates', function () {
+        const stage: Pricker.Stage = Pricker.Stage.Cinques,
+            initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
+            course: Pricker.Course = new Pricker.Course(initialRow),
+            testTemplateSpy = jasmine.createSpy('test');
+        let data: any;
+
+        course.getSix(10).setCall(Pricker.Call.Bob);
+
+        Pricker.Templates['Course.test'] = testTemplateSpy;
+        course.print('test');
+
+        data = testTemplateSpy.calls.argsFor(0)[0];
+        expect(data.isPlain).toBe(false);
+
+        delete Pricker.Templates['Course.test'];
+    });
+
     testAbstractContainerImplementation(
         Pricker.Course,
         'getSix',

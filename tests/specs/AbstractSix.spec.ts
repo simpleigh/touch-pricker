@@ -178,6 +178,22 @@ function testSixImplementation(Six, testCases, rowTests) {
             expect(parent.notify).not.toHaveBeenCalled();
         });
 
+        it('passes the call to templates', function () {
+            const six: typeof Six = createTestSix(),
+                testTemplateSpy = jasmine.createSpy('test');
+            let data: any;
+
+            six.setCall(Pricker.Call.Bob);
+
+            Pricker.Templates['AbstractSix.test'] = testTemplateSpy;
+            six.print('test');
+
+            data = testTemplateSpy.calls.argsFor(0)[0];
+            expect(data.call).toBe(Pricker.Call.Bob);
+
+            delete Pricker.Templates['AbstractSix.test'];
+        });
+
         testAbstractBlockImplementation(
             Six,
             function (six: typeof Six): void {

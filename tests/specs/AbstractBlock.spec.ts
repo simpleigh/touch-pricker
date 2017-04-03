@@ -182,6 +182,29 @@ function testAbstractBlockImplementation(
             expect(block.accept(visitor)).toBe(block);
         });
 
+        it('passes standard data fields to templates', function () {
+            const block: typeof Block = new Block(
+                    createTestRow(),
+                    undefined,
+                    999,
+                ),
+                testTemplateSpy = jasmine.createSpy('test');
+            let data: any;
+
+            Pricker.Templates[block.templatePath + '.test'] = testTemplateSpy;
+            block.print('test');
+
+            data = testTemplateSpy.calls.argsFor(0)[0];
+            expect(data.block).toBe(block);
+            expect(data.index).toBe(999);
+            expect(data.initialRow).toEqual(
+                Pricker.stringFromRow(block.getInitialRow()),
+            );
+            expect(data.endRow).toEqual(Pricker.stringFromRow(block.getEnd()));
+
+            delete Pricker.Templates[block.templatePath + '.test'];
+        });
+
     });
 
 }
