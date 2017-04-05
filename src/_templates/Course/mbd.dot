@@ -10,5 +10,5 @@
  */
 <u>{{= data.initialRow }}</u><br />
 {{~ data.blocks :six }}
-{{= six.print('mbd') }}
+	{{= six.print('mbd') }}
 {{~}}
