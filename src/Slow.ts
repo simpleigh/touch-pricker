@@ -49,5 +49,9 @@ namespace Pricker {
             this._end[2] = this._initialRow[0];
             return this;
         }
+
+        /* Slow six symbols ***************************************************/
+
+        public readonly type = 'slow';
     }
 }
