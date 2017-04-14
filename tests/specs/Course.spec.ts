@@ -26,7 +26,10 @@ describe('Course class', function () {
     it('calculates sixes correctly', function () {
         const stage: Pricker.Stage = Pricker.Stage.Cinques,
             initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
-            course: Pricker.Course = new Pricker.Course(initialRow),
+            course: Pricker.Course = Pricker.Course.fromString(
+                initialRow,
+                '2314567890E  1 s10 s13 22',
+            ),
             expectedSixEnds: string[] = [
                 '3426185970E',
                 '346829105E7',
@@ -53,11 +56,6 @@ describe('Course class', function () {
             ];
 
         let index: number;
-
-        course.getSix(1).setCall(Pricker.Call.Bob);
-        course.getSix(10).setCall(Pricker.Call.Single);
-        course.getSix(13).setCall(Pricker.Call.Single);
-        course.getSix(22).setCall(Pricker.Call.Bob);
 
         for (index = 0; index < 22; index += 1) {
             expect(Pricker.stringFromRow(course.getSix(index + 1).getEnd()))

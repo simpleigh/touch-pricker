@@ -10,14 +10,11 @@ describe('text template for Touch', function () {
     it('renders a touch correctly', function () {
         const stage: Pricker.Stage = Pricker.Stage.Cinques,
             initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
-            course: Pricker.Course = new Pricker.Course(initialRow),
+            course: Pricker.Course = Pricker.Course.fromString(
+                initialRow,
+                '2314568790E  1 s10 s13 s15 22',
+            ),
             touch: Pricker.Touch = new Pricker.Touch(initialRow);
-
-        course.getSix(1).setCall(Pricker.Call.Bob);
-        course.getSix(10).setCall(Pricker.Call.Single);
-        course.getSix(13).setCall(Pricker.Call.Single);
-        course.getSix(15).setCall(Pricker.Call.Single);
-        course.getSix(22).setCall(Pricker.Call.Bob);
 
         touch.insertCourse(1, course);
         touch.insertCourse(2, course);
