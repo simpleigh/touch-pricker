@@ -264,11 +264,20 @@
         function prove() {
             'use strict';
             var proof = new Pricker.Visitor.Proof(),
-                counter = new Pricker.Visitor.Counter();
+                counter = new Pricker.Visitor.Counter(),
+                proofText;
 
             touch.accept(proof);
-            document.getElementById('proofResult').innerText =
-                'Touch is ' + proof.isTrue();
+            if (proof.isTrue()) {
+                if (proof.isVisiting()) {
+                    proofText = "True, but doesn't come round";
+                } else {
+                    proofText = 'Composition is true';
+                }
+            } else {
+                proofText = 'Composition is FALSE';
+            }
+            document.getElementById('proofResult').innerText = proofText;
 
             touch.accept(counter);
             document.getElementById('numRows').innerText =

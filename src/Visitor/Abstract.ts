@@ -49,6 +49,13 @@ namespace Pricker {
             }
 
             /**
+             * Reports whether rows are still being processed
+             */
+            public isVisiting(): boolean {
+                return this._visiting;
+            }
+
+            /**
              * Underlying implementation to be overridden by derived classes
              */
             protected abstract visitImplementation(row: Row): void;

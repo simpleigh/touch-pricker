@@ -32,7 +32,22 @@ function testAbstractVisitorImplementation(
             expect(visitor.visit(row)).toBe(visitor);
         });
 
-        it('stops processing rows after rounds', function () {
+        it('starts out processing rows', function () {
+            const visitor: typeof Visitor = new Visitor();
+            expect(visitor.isVisiting()).toBe(true);
+        });
+
+        it('stops processing rows after rounds is reached', function () {
+            const row: Pricker.Row = createTestRow('231'),
+                rounds: Pricker.Row = createTestRow(''),
+                visitor: typeof Visitor = new Visitor();
+
+            visitor.visit(row);
+            visitor.visit(rounds);
+            expect(visitor.isVisiting()).toBe(false);
+        });
+
+        it('stops changing its state when not processing', function () {
             const row: Pricker.Row = createTestRow('231'),
                 rounds: Pricker.Row = createTestRow(''),
                 visitor: typeof Visitor = new Visitor();
