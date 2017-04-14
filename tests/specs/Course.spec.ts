@@ -9,6 +9,20 @@
 
 describe('Course class', function () {
 
+    function testImport(input, output) {
+        return function () {
+            const stage: Pricker.Stage = Pricker.Stage.Cinques,
+                initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
+                course: Pricker.Course = Pricker.Course.fromString(
+                    initialRow,
+                    input,
+                );
+
+            // Slice off '\n' when comparing
+            expect(course.print('text').slice(0, -1)).toBe(output);
+        };
+    }
+
     it('calculates sixes correctly', function () {
         const stage: Pricker.Stage = Pricker.Stage.Cinques,
             initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
@@ -139,6 +153,63 @@ describe('Course class', function () {
         expect(data.isPlain).toBe(false);
 
         delete Pricker.Templates['Course.test'];
+    });
+
+    describe('can create courses from strings:', function () {
+
+        it('a simple course ending in rounds', testImport(
+            '2314567890E  1 s10 s13 22',
+            '2314567890E  1 s10 s13 22',
+        ));
+
+        it('a course with singles marked after the six number', testImport(
+            '2314567890E  1 10s 13s 22',
+            '2314567890E  1 s10 s13 22',
+        ));
+
+        it('a more complex course', testImport(
+            '23145768E90  1 s6 s17 s19',
+            '23145768E90  1 s6 s17 s19',
+        ));
+
+        it('a short course', testImport(
+            '21436578E90  1 5 7 8 10 11 s13 15 16  (20 sixes)',
+            '21436578E90  1 5 7 8 10 11 s13 15 16  (20 sixes)',
+        ));
+
+        it('a short course with odd length description', testImport(
+            '21436578E90  1 5 7 8 10 11 s13 15 16  (20-em ù sixen)',
+            '21436578E90  1 5 7 8 10 11 s13 15 16  (20 sixes)',
+        ));
+
+        it('a plain course', testImport(
+            'p (8)',
+            'E7518296430  p  (8 sixes)',
+        ));
+
+        it('a string with extra spacing', testImport(
+            ' \t\r\n2314567890E  \t\r\n1 s10  \t\r\ns13 22 \t\r\n',
+            '2314567890E  1 s10 s13 22',
+        ));
+
+        it('a string with a broken course end', testImport(
+            'abcdefgh  1 s10 s13 22',
+            '2314567890E  1 s10 s13 22',
+        ));
+
+        it('a string without a course end', testImport(
+            '1 s10 s13 22',
+            '2314567890E  1 s10 s13 22',
+        ));
+
+        it('a broken course (that raises an error)', function () {
+            const stage: Pricker.Stage = Pricker.Stage.Cinques,
+                initialRow: Pricker.Row = Pricker.rowFromString('231', stage);
+
+            expect(function () {
+                Pricker.Course.fromString(initialRow, 'garbage');
+            }).toThrowError('Cannot import course');
+        });
     });
 
     testAbstractContainerImplementation(

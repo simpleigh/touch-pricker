@@ -8,6 +8,7 @@
 /// <reference path="Stage.ts" />
 /// <reference path="Row.ts" />
 /// <reference path="AbstractContainer.ts" />
+/// <reference path="Call.ts" />
 
 namespace Pricker {
     'use strict';
@@ -109,6 +110,59 @@ namespace Pricker {
             cloned.notify(1);
 
             return cloned;
+        }
+
+        /**
+         * Creates a new course from a string representation
+         */
+        public static fromString(initialRow: Row, input: string): Course {
+            const course: Course = new Course(initialRow),
+                patCourseEnd: string = '[0-9a-z]{7,15}',
+                patCall: string = '(?:\\d{1,2}|\\d{1,2}s|s\\d{1,2})',
+                patCalling: string = patCall + '(?:\\s+' + patCall + ')*',
+                patSixes: string = '\\((\\d{1,2})[^\\d\\)]*\\)',
+                patAll: string = ''
+                    + '^\\s*'
+                    + '(?:' + patCourseEnd + '\\s+)?'
+                    + '(' + patCalling + '|p)'  // group 1
+                    + '(?:\\s+' + patSixes + ')?'  // group 2 in here
+                    + '\\s*$',
+                rxAll: RegExp = new RegExp(patAll, 'i'),
+                matches: null|string[] = rxAll.exec(input);
+
+            let calls: string[],
+                i: number,
+                call: string;
+
+            if (!matches) {
+                throw new Error('Cannot import course');
+            }
+
+            // Second group matches length of course
+            if (matches[2]) {
+                course.setLength(parseInt(matches[2], 10));
+            }
+
+            // If this is a plain course then our job is done
+            if (matches[1] === 'p') {
+                return course;
+            }
+
+            // Otherwise split up the calling and process
+            calls = matches[1].split(/\s+/);
+            for (i = 0; i < calls.length; i++) {
+                call = calls[i];
+                if (call.charAt(0) === 's') {
+                    call = call.slice(1);
+                    course.getSix(parseInt(call, 10)).setCall(Call.Single);
+                } else if (call.slice(-1) === 's') {
+                    call = call.slice(0, -1);
+                    course.getSix(parseInt(call, 10)).setCall(Call.Single);
+                } else {
+                    course.getSix(parseInt(call, 10)).setCall(Call.Bob);
+                }
+            }
+            return course;
         }
     }
 }
