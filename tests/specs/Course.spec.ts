@@ -84,16 +84,40 @@ describe('Course class', function () {
     it('can be cloned', function () {
         const stage: Pricker.Stage = Pricker.Stage.Cinques,
             initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
+            input: string = '217395E4068  5  (20 sixes)\n',
+            course: Pricker.Course = Pricker.Course.fromString(
+                initialRow,
+                input,
+            ),
+            cloned: Pricker.Course = course.clone();
+
+        expect(cloned.print('text')).toBe(input);
+    });
+
+    it('copies course flags across while being cloned', function () {
+        const stage: Pricker.Stage = Pricker.Stage.Cinques,
+            initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
             course: Pricker.Course = new Pricker.Course(initialRow);
 
         let cloned: Pricker.Course;
 
-        course.setLength(20);
-        course.getSix(5).toggleCall();
+        course.setFlag('test', true, false);
         cloned = course.clone();
 
-        expect(cloned.getLength()).toBe(course.getLength());
-        expect(cloned.getEnd()).toEqual(course.getEnd());
+        expect(cloned.getFlag('test')).toBe(true);
+    });
+
+    it('copies six flags across while being cloned', function () {
+        const stage: Pricker.Stage = Pricker.Stage.Cinques,
+            initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
+            course: Pricker.Course = new Pricker.Course(initialRow);
+
+        let cloned: Pricker.Course;
+
+        course.getSix(3).setFlag('test', true, false);
+        cloned = course.clone();
+
+        expect(cloned.getSix(3).getFlag('test')).toBe(true);
     });
 
     it('ignores changes to the cloned course', function () {

@@ -99,15 +99,33 @@ namespace Pricker {
          */
         public clone(): Course {
             const cloned: Course = new Course(this._initialRow);
-            let index: number;
+            let index: number,
+                sixFlags: {[flagName: string]: boolean};
 
             cloned.setLength(this.getLength());
 
-            // Copy across all the calls
+            // Copy across calls and flags
             for (index = 1; index <= this.getLength(); index++) {
                 cloned.getSix(index).setCall(this.getSix(index).getCall());
+                sixFlags = this.getSix(index).dumpFlags();
+                for (const flagName in sixFlags) {
+                    if (sixFlags.hasOwnProperty(flagName)) {
+                        cloned.getSix(index).setFlag(
+                            flagName,
+                            sixFlags[flagName],
+                            false,
+                        );
+                    }
+                }
             }
             cloned.notify(1);
+
+            // Copy across any course flags
+            for (const flagName in this._flags) {
+                if (this._flags.hasOwnProperty(flagName)) {
+                    cloned.setFlag(flagName, this._flags[flagName], false);
+                }
+            }
 
             return cloned;
         }
