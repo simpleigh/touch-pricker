@@ -119,48 +119,44 @@ namespace Pricker {
          * Creates a new touch from a string representation
          */
         public static fromString(input: string): Touch {
-            const inputLines: string[] = input.split('\n'),
-                processedLines: string[] = [ ];
+            const lines: string[] = input.split('\n');
 
             let i: number,
-                inputLine: string,
-                firstLine: string | undefined,
+                line: string,
                 course: Course,
-                touch: Touch;
+                touch: Touch | undefined;
 
             // Process each input line, making text substitutions
-            for (i = 0; i < inputLines.length; i++) {
-                inputLine = inputLines[i];
+            for (i = 0; i < lines.length; i++) {
+                line = lines[i];
 
                 // Drop any content after comment characters "//"
-                inputLine = inputLine.replace(/\/\/.*$/, '');
+                line = line.replace(/\/\/.*$/, '');
 
                 // Ignore a microsiril comment "/" at the start of a line
-                inputLine = inputLine.replace(/^\//, '');
+                line = line.replace(/^\//, '');
 
                 // Skip this line if it's blank
-                if (/^\s*$/.test(inputLine)) {
+                if (/^\s*$/.test(line)) {
                     continue;
                 }
 
-                processedLines.push(inputLine);
+                if (!touch) {
+                    // Create the touch with a stage based on the first line
+                    line.replace(/\s/g, '');
+                    if (!Stage[line.length]) {
+                        throw new Error('Cannot recognise stage');
+                    }
+                    touch = new Touch(rowFromString('231', line.length));
+                } else {
+                    // Create a course for each remaining line
+                    course = Course.fromString(touch.getEnd(), line);
+                    touch.insertCourse(touch.getLength() + 1, course);
+                }
             }
 
-            // Create the touch with a stage based on the first line
-            firstLine = processedLines.shift();
-            if (!firstLine) {
+            if (!touch) {
                 throw new Error('No input lines');
-            }
-            firstLine.replace(/\s/g, '');
-            if (!Stage[firstLine.length]) {
-                throw new Error('Cannot recognise stage');
-            }
-            touch = new Touch(rowFromString('231', firstLine.length));
-
-            // Create a course for each remaining line
-            for (i = 0; i < processedLines.length; i++) {
-                course = Course.fromString(touch.getEnd(), processedLines[i]);
-                touch.insertCourse(touch.getLength() + 1, course);
             }
 
             return touch;
