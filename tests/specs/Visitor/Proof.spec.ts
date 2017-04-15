@@ -72,6 +72,74 @@ describe('Proof visitor', function () {
         expect(visitor.isTrue()).toBe(false);
     });
 
+    it('marks a block as true when visiting it', function () {
+        const visitor: Pricker.Visitor.Proof = new Pricker.Visitor.Proof(),
+            row: Pricker.Row =
+                Pricker.rowFromString('231', Pricker.Stage.Cinques),
+            block: Pricker.AbstractBlock =
+                jasmine.createSpyObj('AbstractBlock', ['setFlag']);
+
+        visitor.visit(row, block);
+
+        expect(block.setFlag).toHaveBeenCalledWith('proof', true, false);
+    });
+
+    it('marks a block as false when a row is repeated', function () {
+        const visitor: Pricker.Visitor.Proof = new Pricker.Visitor.Proof(),
+            row: Pricker.Row =
+                Pricker.rowFromString('231', Pricker.Stage.Cinques),
+            block: Pricker.AbstractBlock =
+                jasmine.createSpyObj('AbstractBlock', ['setFlag']);
+
+        let args: any[];
+
+        visitor.visit(row, block);
+        visitor.visit(row, block);
+
+        // Use string literal as TypeScript doesn't know about the property
+        // tslint:disable-next-line:no-string-literal
+        args = block.setFlag['calls'].mostRecent().args;
+        expect(args[0]).toBe('proof');
+        expect(args[1]).toBe(false);
+    });
+
+    it('marks previous blocks as false when a row is repeated', function () {
+        const visitor: Pricker.Visitor.Proof = new Pricker.Visitor.Proof(),
+            row: Pricker.Row =
+                Pricker.rowFromString('231', Pricker.Stage.Cinques),
+            block1: Pricker.AbstractBlock =
+                jasmine.createSpyObj('AbstractBlock', ['setFlag']),
+            block2: Pricker.AbstractBlock =
+                jasmine.createSpyObj('AbstractBlock', ['setFlag']);
+
+        let args: any[];
+
+        visitor.visit(row, block1);
+        visitor.visit(row, block2);
+
+        // Use string literal as TypeScript doesn't know about the property
+        // tslint:disable-next-line:no-string-literal
+        args = block1.setFlag['calls'].mostRecent().args;
+        expect(args[0]).toBe('proof');
+        expect(args[1]).toBe(false);
+    });
+
+    it('only marks previous blocks as false a single time', function () {
+        const visitor: Pricker.Visitor.Proof = new Pricker.Visitor.Proof(),
+            row: Pricker.Row =
+                Pricker.rowFromString('231', Pricker.Stage.Cinques),
+            block1: Pricker.AbstractBlock =
+                jasmine.createSpyObj('AbstractBlock', ['setFlag']),
+            block2: Pricker.AbstractBlock =
+                jasmine.createSpyObj('AbstractBlock', ['setFlag']);
+
+        visitor.visit(row, block1);  // setFlag called (true)
+        visitor.visit(row, block2);  // setFlag called (false)
+        visitor.visit(row, block2);  // setFlag should NOT be called
+
+        expect(block1.setFlag).toHaveBeenCalledTimes(2);
+    });
+
     testAbstractVisitorImplementation(
         Pricker.Visitor.Proof,
         function (

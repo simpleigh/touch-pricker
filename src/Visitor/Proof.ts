@@ -52,12 +52,25 @@ namespace Pricker {
              */
             public visitImplementation(row: Row, block: AbstractBlock): void {
                 const rowString: string = stringFromRow(row);
+                let blockArray: AbstractBlock[];
+
                 if (rowString in this._rowBlocks) {
                     // Already seen - i.e. false
-                    this._rowBlocks[rowString].push(block);
+                    blockArray = this._rowBlocks[rowString];
+
+                    // If there's only one block so far for this row, then that
+                    // block will think that it's true. Correct this.
+                    if (blockArray.length === 1) {
+                        blockArray[0].setFlag('proof', false);
+                    }
+
+                    block.setFlag('proof', false);
+                    blockArray.push(block);
                     this._isTrue = false;
                 } else {
                     // Not seen - i.e. true
+                    // Don't bubble flag value or we overwrite falseness
+                    block.setFlag('proof', true, false);
                     this._rowBlocks[rowString] = [block];
                 }
             }
