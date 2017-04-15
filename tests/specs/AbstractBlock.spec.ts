@@ -195,6 +195,10 @@ function testAbstractBlockImplementation(
             expect(block.getVisitorFlags()).toEqual({ });
         });
 
+        xit('stores flags returned from visitors', function () {
+
+        });
+
         it('passes standard data fields to templates', function () {
             const block: typeof Block = new Block(
                     createTestRow(),
