@@ -182,6 +182,19 @@ function testAbstractBlockImplementation(
             expect(block.accept(visitor)).toBe(block);
         });
 
+        it('starts out without visitor flags', function () {
+            const block: typeof Block = new Block(createTestRow());
+            expect(block.getVisitorFlags()).toEqual({ });
+        });
+
+        it('ignores changes to the returned visitor flags', function () {
+            const block: typeof Block = new Block(createTestRow()),
+                flags: Pricker.Visitor.Flags = block.getVisitorFlags();
+
+            flags.testFlag = true;
+            expect(block.getVisitorFlags()).toEqual({ });
+        });
+
         it('passes standard data fields to templates', function () {
             const block: typeof Block = new Block(
                     createTestRow(),

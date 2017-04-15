@@ -8,6 +8,7 @@
 /// <reference path="Row.ts" />
 /// <reference path="stringFromRow.ts" />
 /// <reference path="Visitor/Abstract.ts" />
+/// <reference path="Visitor/Flags.ts" />
 
 namespace Pricker {
     'use strict';
@@ -33,6 +34,11 @@ namespace Pricker {
         protected _initialRow: Row;
 
         /**
+         * Flags storing block-level data from visitors
+         */
+        protected _visitorFlags: Visitor.Flags;
+
+        /**
          * Constructor
          * @param {Row}                initialRow - initial row for the block
          * @param {AbstractContainer}  container  - container of this block
@@ -44,6 +50,7 @@ namespace Pricker {
             protected _index?: number,
         ) {
             this._initialRow = initialRow.slice();
+            this._visitorFlags = { };
         }
 
         /**
@@ -116,6 +123,21 @@ namespace Pricker {
          * Receives a visitor that will be called to process each row
          */
         public abstract accept(visitor: Visitor.AbstractVisitor): this;
+
+        /**
+         * Allows public access to the visitor flags
+         */
+        public getVisitorFlags(): Visitor.Flags {
+            const output: Visitor.Flags = { };
+
+            for (const flagName in this._visitorFlags) {
+                if (this._visitorFlags.hasOwnProperty(flagName)) {
+                    output[flagName] = this._visitorFlags[flagName];
+                }
+            }
+
+            return output;
+        }
 
         /**
          * Renders the block with a template
