@@ -143,7 +143,7 @@ namespace Pricker {
 
                 if (!touch) {
                     // Create the touch with a stage based on the first line
-                    line.replace(/\s/g, '');
+                    line = line.replace(/\s/g, '');
                     if (!Stage[line.length]) {
                         throw new Error('Cannot recognise stage');
                     }

@@ -67,6 +67,13 @@ describe('Touch class', function () {
                 + '2143658709E  p\n',
         ));
 
+        it('a touch with extra spacing', testImport(
+            '\t 2314567890E\t \n'
+                + '2314567890E  1 s10 s13 22\n',
+            '2314567890E\n'
+                + '2314567890E  1 s10 s13 22\n',
+        ));
+
         it('a touch with a blank line', testImport(
             '2314567890E\n'
                 + ' \t\n'
