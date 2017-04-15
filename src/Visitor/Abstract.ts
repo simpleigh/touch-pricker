@@ -8,6 +8,7 @@
 /// <reference path="../Row.ts" />
 /// <reference path="../rowFromString.ts" />
 /// <reference path="../stringFromRow.ts" />
+/// <reference path="Flags.ts" />
 
 namespace Pricker {
     'use strict';
@@ -34,18 +35,21 @@ namespace Pricker {
             /**
              * Receives a row for processing, stopping after rounds is reached
              */
-            public visit(row: Row): this {
+            public visit(row: Row): Flags {
+                let flags: Flags = { };
+
                 if (!this._rounds) {
                     this._rounds = stringFromRow(rowFromString('', row.length));
                 }
 
                 if (this._visiting) {
-                    this.visitImplementation(row);
+                    flags = this.visitImplementation(row);
                     if (stringFromRow(row) === this._rounds) {
                         this._visiting = false;
                     }
                 }
-                return this;
+
+                return flags;
             }
 
             /**
@@ -58,7 +62,7 @@ namespace Pricker {
             /**
              * Underlying implementation to be overridden by derived classes
              */
-            protected abstract visitImplementation(row: Row): void;
+            protected abstract visitImplementation(row: Row): Flags;
         }
 
     }

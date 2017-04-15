@@ -8,6 +8,7 @@
 /// <reference path="../Row.ts" />
 /// <reference path="../stringFromRow.ts" />
 /// <reference path="Abstract.ts" />
+/// <reference path="Flags.ts" />
 
 namespace Pricker {
     'use strict';
@@ -44,13 +45,14 @@ namespace Pricker {
             /**
              * Receives a row for processing
              */
-            public visitImplementation(row: Row): void {
+            public visitImplementation(row: Row): Flags {
                 const rowString: string = stringFromRow(row);
                 if (rowString in this._rowCounts) {
                     this._rowCounts[rowString] += 1;
                 } else {
                     this._rowCounts[rowString] = 1;
                 }
+                return { };
             }
 
             /**

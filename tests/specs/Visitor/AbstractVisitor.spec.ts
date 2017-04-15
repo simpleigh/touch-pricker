@@ -25,13 +25,6 @@ function testAbstractVisitorImplementation(
 
     describe('is derived from AbstractVisitor and', function () {
 
-        it('returns this when processing a row', function () {
-            const row: Pricker.Row = createTestRow('231'),
-                visitor: typeof Visitor = new Visitor();
-
-            expect(visitor.visit(row)).toBe(visitor);
-        });
-
         it('starts out processing rows', function () {
             const visitor: typeof Visitor = new Visitor();
             expect(visitor.isVisiting()).toBe(true);
@@ -61,6 +54,13 @@ function testAbstractVisitorImplementation(
 
             visitor.visit(row);
             expect(getState(visitor)).toEqual(result);
+        });
+
+        it("returns no visitor flags as these aren't implemented", function () {
+            const row: Pricker.Row = createTestRow(),
+                visitor: typeof Visitor = new Visitor();
+
+            expect(visitor.visit(row)).toEqual({ });
         });
 
     });
