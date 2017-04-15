@@ -27,9 +27,11 @@ function testAbstractVisitorImplementation(
 
         it('returns this when processing a row', function () {
             const row: Pricker.Row = createTestRow('231'),
-                visitor: typeof Visitor = new Visitor();
+                visitor: typeof Visitor = new Visitor(),
+                block: Pricker.AbstractBlock =
+                    jasmine.createSpyObj('AbstractBlock', ['setFlag']);
 
-            expect(visitor.visit(row)).toBe(visitor);
+            expect(visitor.visit(row, block)).toBe(visitor);
         });
 
         it('starts out processing rows', function () {
@@ -40,26 +42,30 @@ function testAbstractVisitorImplementation(
         it('stops processing rows after rounds is reached', function () {
             const row: Pricker.Row = createTestRow('231'),
                 rounds: Pricker.Row = createTestRow(''),
-                visitor: typeof Visitor = new Visitor();
+                visitor: typeof Visitor = new Visitor(),
+                block: Pricker.AbstractBlock =
+                    jasmine.createSpyObj('AbstractBlock', ['setFlag']);
 
-            visitor.visit(row);
-            visitor.visit(rounds);
+            visitor.visit(row, block);
+            visitor.visit(rounds, block);
             expect(visitor.isVisiting()).toBe(false);
         });
 
         it('stops changing its state when not processing', function () {
             const row: Pricker.Row = createTestRow('231'),
                 rounds: Pricker.Row = createTestRow(''),
-                visitor: typeof Visitor = new Visitor();
+                visitor: typeof Visitor = new Visitor(),
+                block: Pricker.AbstractBlock =
+                    jasmine.createSpyObj('AbstractBlock', ['setFlag']);
 
             let result: any;
 
             setupTest();
-            visitor.visit(row);
-            visitor.visit(rounds);
+            visitor.visit(row, block);
+            visitor.visit(rounds, block);
             result = getState(visitor);
 
-            visitor.visit(row);
+            visitor.visit(row, block);
             expect(getState(visitor)).toEqual(result);
         });
 

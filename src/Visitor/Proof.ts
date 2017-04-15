@@ -25,7 +25,7 @@ namespace Pricker {
             /**
              * Log of rows that we've seen
              */
-            protected _rowCounts: { [index: string]: number } = { };
+            protected _rowBlocks: { [index: string]: AbstractBlock[] } = { };
 
             /**
              * Read access to row counts
@@ -33,9 +33,9 @@ namespace Pricker {
             public getRowCounts(): { [index: string]: number } {
                 const result: { [index: string]: number } = { };
 
-                for (const rowString in this._rowCounts) {
-                    if (this._rowCounts.hasOwnProperty(rowString)) {
-                        result[rowString] = this._rowCounts[rowString];
+                for (const rowString in this._rowBlocks) {
+                    if (this._rowBlocks.hasOwnProperty(rowString)) {
+                        result[rowString] = this._rowBlocks[rowString].length;
                     }
                 }
 
@@ -47,10 +47,10 @@ namespace Pricker {
              */
             public visitImplementation(row: Row, block: AbstractBlock): void {
                 const rowString: string = stringFromRow(row);
-                if (rowString in this._rowCounts) {
-                    this._rowCounts[rowString] += 1;
+                if (rowString in this._rowBlocks) {
+                    this._rowBlocks[rowString].push(block);
                 } else {
-                    this._rowCounts[rowString] = 1;
+                    this._rowBlocks[rowString] = [block];
                 }
             }
 
@@ -58,9 +58,9 @@ namespace Pricker {
              * Checks whether the visited touch was true
              */
             public isTrue(): boolean {
-                for (const rowString in this._rowCounts) {
-                    if (this._rowCounts.hasOwnProperty(rowString)) {
-                        if (this._rowCounts[rowString] > 1) {
+                for (const rowString in this._rowBlocks) {
+                    if (this._rowBlocks.hasOwnProperty(rowString)) {
+                        if (this._rowBlocks[rowString].length > 1) {
                             return false;
                         }
                     }
