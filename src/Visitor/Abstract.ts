@@ -5,6 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="../AbstractBlock.ts" />
 /// <reference path="../Row.ts" />
 /// <reference path="../rowFromString.ts" />
 /// <reference path="../stringFromRow.ts" />
@@ -34,13 +35,13 @@ namespace Pricker {
             /**
              * Receives a row for processing, stopping after rounds is reached
              */
-            public visit(row: Row): this {
+            public visit(row: Row, block: AbstractBlock): this {
                 if (!this._rounds) {
                     this._rounds = stringFromRow(rowFromString('', row.length));
                 }
 
                 if (this._visiting) {
-                    this.visitImplementation(row);
+                    this.visitImplementation(row, block);
                     if (stringFromRow(row) === this._rounds) {
                         this._visiting = false;
                     }
@@ -58,7 +59,10 @@ namespace Pricker {
             /**
              * Underlying implementation to be overridden by derived classes
              */
-            protected abstract visitImplementation(row: Row): void;
+            protected abstract visitImplementation(
+                row: Row,
+                block: AbstractBlock,
+            ): void;
         }
 
     }

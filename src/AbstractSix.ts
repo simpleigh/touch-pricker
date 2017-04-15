@@ -190,20 +190,20 @@ namespace Pricker {
             evenRow: Row,
             evenRotator: (row: Row) => void,
         ): this {
-            visitor.visit(oddRow);
-            visitor.visit(evenRow);
+            visitor.visit(oddRow, this);
+            visitor.visit(evenRow, this);
 
             oddRotator(oddRow);
             evenRotator(evenRow);
 
-            visitor.visit(oddRow);
-            visitor.visit(evenRow);
+            visitor.visit(oddRow, this);
+            visitor.visit(evenRow, this);
 
             oddRotator(oddRow);
             evenRotator(evenRow);
 
-            visitor.visit(oddRow);
-            visitor.visit(evenRow);
+            visitor.visit(oddRow, this);
+            visitor.visit(evenRow, this);
 
             return this;
         }

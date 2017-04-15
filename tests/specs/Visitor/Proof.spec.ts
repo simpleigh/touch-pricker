@@ -18,11 +18,13 @@ describe('Proof visitor', function () {
             row1: Pricker.Row =
                 Pricker.rowFromString('2314567890E', Pricker.Stage.Cinques),
             row2: Pricker.Row =
-                Pricker.rowFromString('3241658709E', Pricker.Stage.Cinques);
+                Pricker.rowFromString('3241658709E', Pricker.Stage.Cinques),
+            block: Pricker.AbstractBlock =
+                jasmine.createSpyObj('AbstractBlock', ['setFlag']);
 
-        visitor.visit(row1);
-        visitor.visit(row2);
-        visitor.visit(row2);
+        visitor.visit(row1, block);
+        visitor.visit(row2, block);
+        visitor.visit(row2, block);
 
         expect(visitor.getRowCounts()).toEqual(
             {
@@ -50,19 +52,23 @@ describe('Proof visitor', function () {
     it('remains true when rows are visited', function () {
         const visitor: Pricker.Visitor.Proof = new Pricker.Visitor.Proof(),
             row: Pricker.Row =
-                Pricker.rowFromString('231', Pricker.Stage.Cinques);
+                Pricker.rowFromString('231', Pricker.Stage.Cinques),
+            block: Pricker.AbstractBlock =
+                jasmine.createSpyObj('AbstractBlock', ['setFlag']);
 
-        visitor.visit(row);
+        visitor.visit(row, block);
         expect(visitor.isTrue()).toBe(true);
     });
 
     it('becomes false when a row is repeated', function () {
         const visitor: Pricker.Visitor.Proof = new Pricker.Visitor.Proof(),
             row: Pricker.Row =
-                Pricker.rowFromString('231', Pricker.Stage.Cinques);
+                Pricker.rowFromString('231', Pricker.Stage.Cinques),
+            block: Pricker.AbstractBlock =
+                jasmine.createSpyObj('AbstractBlock', ['setFlag']);
 
-        visitor.visit(row);
-        visitor.visit(row);
+        visitor.visit(row, block);
+        visitor.visit(row, block);
         expect(visitor.isTrue()).toBe(false);
     });
 

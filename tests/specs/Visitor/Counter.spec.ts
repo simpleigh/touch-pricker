@@ -18,12 +18,14 @@ describe('Counter visitor', function () {
         const visitor: Pricker.Visitor.Counter =
                 new Pricker.Visitor.Counter(),
             row: Pricker.Row =
-                Pricker.rowFromString('231', Pricker.Stage.Cinques);
+                Pricker.rowFromString('231', Pricker.Stage.Cinques),
+            block: Pricker.AbstractBlock =
+                jasmine.createSpyObj('AbstractBlock', ['setFlag']);
 
         let i: number;
 
         for (i = 1; i < 5; i++) {
-            visitor.visit(row);
+            visitor.visit(row, block);
             expect(visitor.getCount()).toBe(i);
         }
     });

@@ -20,10 +20,12 @@ describe('StringArray visitor', function () {
             row1: Pricker.Row =
                 Pricker.rowFromString('2314567890E', Pricker.Stage.Cinques),
             row2: Pricker.Row =
-                Pricker.rowFromString('3241658709E', Pricker.Stage.Cinques);
+                Pricker.rowFromString('3241658709E', Pricker.Stage.Cinques),
+            block: Pricker.AbstractBlock =
+                jasmine.createSpyObj('AbstractBlock', ['setFlag']);
 
-        visitor.visit(row1);
-        visitor.visit(row2);
+        visitor.visit(row1, block);
+        visitor.visit(row2, block);
 
         expect(visitor.getStrings()).toEqual(['2314567890E', '3241658709E']);
     });

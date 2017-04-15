@@ -11,11 +11,13 @@ describe('Console visitor', function () {
         const visitor: Pricker.Visitor.Console =
                 new Pricker.Visitor.Console(),
             row: Pricker.Row =
-                Pricker.rowFromString('231', Pricker.Stage.Cinques);
+                Pricker.rowFromString('231', Pricker.Stage.Cinques),
+            block: Pricker.AbstractBlock =
+                jasmine.createSpyObj('AbstractBlock', ['setFlag']);
 
         spyOn(console, 'log');
 
-        visitor.visit(row);
+        visitor.visit(row, block);
         expect(console.log).toHaveBeenCalledWith('2314567890E');
     });
 

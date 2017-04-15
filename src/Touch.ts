@@ -29,8 +29,8 @@ namespace Pricker {
             const row: Row = this._initialRow.slice();
 
             Changes.permute1(row);  // Go backwards one change from _initialRow
-            visitor.visit(row);
-            visitor.visit(this._initialRow);
+            visitor.visit(row, this);
+            visitor.visit(this._initialRow, this);
 
             return super.accept(visitor);
         }
