@@ -27,6 +27,11 @@ namespace Pricker {
             protected _rowCounts: { [index: string]: number } = { };
 
             /**
+             * Flag recording truth
+             */
+            protected _isTrue: boolean = true;
+
+            /**
              * Read access to row counts
              */
             public getRowCounts(): { [index: string]: number } {
@@ -47,8 +52,11 @@ namespace Pricker {
             public visitImplementation(row: Row): void {
                 const rowString: string = stringFromRow(row);
                 if (rowString in this._rowCounts) {
+                    // Already seen - i.e. false
                     this._rowCounts[rowString] += 1;
+                    this._isTrue = false;
                 } else {
+                    // Not seen - i.e. true
                     this._rowCounts[rowString] = 1;
                 }
             }
@@ -57,14 +65,7 @@ namespace Pricker {
              * Checks whether the visited touch was true
              */
             public isTrue(): boolean {
-                for (const rowString in this._rowCounts) {
-                    if (this._rowCounts.hasOwnProperty(rowString)) {
-                        if (this._rowCounts[rowString] > 1) {
-                            return false;
-                        }
-                    }
-                }
-                return true;
+                return this._isTrue;
             }
         }
 
