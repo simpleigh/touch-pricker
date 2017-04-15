@@ -110,7 +110,6 @@
     </div>
     <script type="text/javascript">
         var stage,             // Stage we're pricking on
-            initialRow,        // Current start
             course,            // The course itself
             savedCourse,       // Course being saved for later
             touch,             // Touch being composed
@@ -135,28 +134,28 @@
         function setStage() {
             'use strict';
             stage = parseInt(document.getElementById('stage').value);
-            initialRow = getInitialRow();
-            course = new Pricker.Course(initialRow);
+            course = new Pricker.Course(getInitialRow());
             savedCourse = null;
-            touch = new Pricker.Touch(initialRow);
+            touch = new Pricker.Touch(getInitialRow());
             selectedIndex = 0;
             reDraw();
         }
 
         function reDraw() {
             'use strict';
+            var newCourse;
 
             document.getElementById('sixends').innerHTML = course.print('mbd');
 
             document.getElementById('calling').innerHTML = course.print('html');
 
-            course.setInitialRow(getInitialRow());
+            newCourse = course.clone();
+            newCourse.setInitialRow(getInitialRow());
             document.getElementById('callingFromRounds').innerHTML =
-                course.print('html');
-            course.setInitialRow(initialRow);
+                newCourse.print('html');
 
             document.getElementById('initialRow').value =
-                Pricker.stringFromRow(initialRow);
+                Pricker.stringFromRow(course.getInitialRow());
 
             document.getElementById('courseLength').value = course.getLength();
 
@@ -199,6 +198,7 @@
 
         function setInitialRow() {
             'use strict';
+            var initialRow;
             try {
                 initialRow = Pricker.rowFromString(
                     document.getElementById('initialRow').value,
@@ -214,8 +214,7 @@
 
         function resetInitialRow() {
             'use strict';
-            initialRow = getInitialRow();
-            course.setInitialRow(initialRow);
+            course.setInitialRow(getInitialRow());
             reDraw();
         }
 
@@ -234,9 +233,9 @@
 
         function resetCalls() {
             'use strict';
-            var sixes = course.getLength();
-            course = new Pricker.Course(initialRow);
-            course.setLength(sixes);
+            var newCourse = new Pricker.Course(course.getInitialRow());
+            newCourse.setLength(course.getLength());
+            course = newCourse;
             reDraw();
         }
 
@@ -249,12 +248,14 @@
 
         function loadCalling() {
             'use strict';
+            var newCourse;
             if (savedCourse) {
-                course = savedCourse.clone();
-                course.setInitialRow(initialRow);
+                newCourse = savedCourse.clone();
+                newCourse.setInitialRow(course.getInitialRow());
             } else {
-                course = new Pricker.Course(initialRow);
+                newCourse = new Pricker.Course(getInitialRow());
             }
+            course = newCourse;
             reDraw();
         }
 
@@ -293,7 +294,7 @@
             selectedIndex += 1;
 
             if (document.getElementById('rolling').checked) {
-                initialRow = touch.getCourse(selectedIndex).getEnd();
+                course.setInitialRow(touch.getCourse(selectedIndex).getEnd());
                 resetLength();
                 resetCalls();  // Calls reDraw()
             } else {
@@ -312,7 +313,6 @@
             'use strict';
             if (selectedIndex) {
                 course = touch.getCourse(selectedIndex).clone();
-                initialRow = course.getInitialRow();
                 reDraw();
             }
         }
