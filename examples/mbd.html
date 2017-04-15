@@ -102,7 +102,11 @@
       </form>
     </div>
     <div>
-      <textarea id="export" rows="20" cols="60"></textarea>
+      <form onsubmit="return false">
+        <button onclick="importTouch()">Import</button>
+        <button onclick="exportTouch()">Export</button>
+      </form>
+      <textarea id="importexport" rows="20" cols="60"></textarea>
     </div>
     <script type="text/javascript">
         var stage,             // Stage we're pricking on
@@ -141,8 +145,6 @@
 
         function reDraw() {
             'use strict';
-
-            var touchExport = '';
 
             document.getElementById('sixends').innerHTML = course.print('mbd');
 
@@ -186,9 +188,6 @@
                 document.getElementById('courses').appendChild(element);
             }
             document.getElementById('courses').value = selectedIndex;
-
-            // Export
-            document.getElementById('export').innerText = touch.print('text');
 
         }
 
@@ -333,6 +332,33 @@
                 touch.deleteCourse(selectedIndex);
                 reDraw();
             }
+        }
+
+        function importTouch() {
+            'use strict';
+            var input = document.getElementById('importexport').value,
+                newTouch,
+                stage;
+
+            try {
+                newTouch = Pricker.Touch.fromString(input);
+            } catch (e) {
+                // Ignore
+                return;
+            }
+
+            stage = newTouch.getInitialRow().length;
+            document.getElementById('stage').value = stage;
+            setStage();
+
+            touch = newTouch;
+            reDraw();
+        }
+
+        function exportTouch() {
+            'use strict';
+            document.getElementById('importexport').innerText =
+                touch.print('text');
         }
 
         setStage();
