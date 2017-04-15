@@ -7,6 +7,9 @@
 
 /// <reference path="Row.ts" />
 /// <reference path="Changes.ts" />
+/// <reference path="Course.ts" />
+/// <reference path="Stage.ts" />
+/// <reference path="stringFromRow.ts" />
 /// <reference path="Visitor/Abstract.ts" />
 
 namespace Pricker {
@@ -110,6 +113,53 @@ namespace Pricker {
             for (let i: number = index; i <= this.getLength(); i++) {
                 this.getCourse(i).setOwnership(this, i);
             }
+        }
+
+        /**
+         * Creates a new touch from a string representation
+         */
+        public static fromString(input: string): Touch {
+            const lines: string[] = input.split('\n');
+
+            let i: number,
+                line: string,
+                course: Course,
+                touch: Touch | undefined;
+
+            // Process each input line, making text substitutions
+            for (i = 0; i < lines.length; i++) {
+                line = lines[i];
+
+                // Drop any content after comment characters "//"
+                line = line.replace(/\/\/.*$/, '');
+
+                // Ignore a microsiril comment "/" at the start of a line
+                line = line.replace(/^\//, '');
+
+                // Skip this line if it's blank
+                if (/^\s*$/.test(line)) {
+                    continue;
+                }
+
+                if (!touch) {
+                    // Create the touch with a stage based on the first line
+                    line = line.replace(/\s/g, '');
+                    if (!Stage[line.length]) {
+                        throw new Error('Cannot recognise stage');
+                    }
+                    touch = new Touch(rowFromString('231', line.length));
+                } else {
+                    // Create a course for each remaining line
+                    course = Course.fromString(touch.getEnd(), line);
+                    touch.insertCourse(touch.getLength() + 1, course);
+                }
+            }
+
+            if (!touch) {
+                throw new Error('No input lines');
+            }
+
+            return touch;
         }
     }
 }
