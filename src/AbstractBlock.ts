@@ -33,6 +33,11 @@ namespace Pricker {
         protected _initialRow: Row;
 
         /**
+         * Flags storing additional data
+         */
+        protected _flags: {[flagName: string]: boolean};
+
+        /**
          * Constructor
          * @param {Row}                initialRow - initial row for the block
          * @param {AbstractContainer}  container  - container of this block
@@ -44,6 +49,7 @@ namespace Pricker {
             protected _index?: number,
         ) {
             this._initialRow = initialRow.slice();
+            this._flags = { };
         }
 
         /**
@@ -110,6 +116,21 @@ namespace Pricker {
             if (this._container && this._index) {
                 this._container.notify(this._index);
             }
+        }
+
+        /**
+         * Allows read access to flags
+         */
+        public getFlag(flagName: string): boolean | undefined {
+            return this._flags[flagName];
+        }
+
+        /**
+         * Allows write access to flags
+         */
+        public setFlag(flagName: string, value: boolean) {
+            this._flags[flagName] = value;
+            return this;
         }
 
         /**

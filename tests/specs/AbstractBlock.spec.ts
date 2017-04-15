@@ -163,6 +163,26 @@ function testAbstractBlockImplementation(
             expect(block.getOwnership()[1]).toBeUndefined();
         });
 
+        it('allows flags to be set and retrieved', function () {
+            const block: typeof Block = new Block(createTestRow());
+
+            block.setFlag('test', true);
+            expect(block.getFlag('test')).toBe(true);
+
+            block.setFlag('test', false);
+            expect(block.getFlag('test')).toBe(false);
+        });
+
+        it('returns undefined for unknown flags', function () {
+            const block: typeof Block = new Block(createTestRow());
+            expect(block.getFlag('test')).toBeUndefined();
+        });
+
+        it('returns this when setting flags', function () {
+            const block: typeof Block = new Block(createTestRow());
+            expect(block.setFlag('test', true)).toBe(block);
+        });
+
         it('calls a visitor in order to traverse rows', function () {
             const block: typeof Block = new Block(createTestRow()),
                 visitor: Pricker.Visitor.Counter =
