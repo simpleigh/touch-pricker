@@ -173,19 +173,9 @@
                 2
             );
 
-            // Starting row
-            element = document.createElement('option');
-            element.value = 0;
-            element.innerText = Pricker.stringFromRow(getInitialRow());
-            document.getElementById('courses').appendChild(element);
-
-            // Courses
-            for (i = 1; i <= touch.getLength(); i++) {
-                element = document.createElement('option');
-                element.value = i;
-                element.innerText = touch.getCourse(i).print('text');
-                document.getElementById('courses').appendChild(element);
-            }
+            // Course <select>
+            document.getElementById('courses').innerHTML =
+                touch.print('select');
             document.getElementById('courses').value = selectedIndex;
 
         }

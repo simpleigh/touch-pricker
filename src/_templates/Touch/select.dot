@@ -1,0 +1,18 @@
+/**
+ * Free Stedman Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright © 2015-17 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * Renders a touch as HTML for use within a <select> element
+ */
+
+<option value="0">{{= data.initialRow }}</option>
+
+{{~ data.blocks :course }}
+	<option value="{{= course.getOwnership()[1] }}">
+		{{= course.print('text') }}
+	</option>
+{{~}}
