@@ -60,4 +60,17 @@ describe('mbd template for AbstractSix', function () {
         }
     });
 
+    it('marks false sixes', function () {
+        const stage: Pricker.Stage = Pricker.Stage.Cinques,
+            initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
+            six: Pricker.Slow = new Pricker.Slow(initialRow, undefined, 1);
+
+        six.setFlag('proof', false);
+        expect(six.print('mbd')).toBe(''
+            + '<span class="false">342618507E9</span>'
+            + '&nbsp;&nbsp;<span class="oddCall" onclick="c(1)">'
+            + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
+        );
+    });
+
 });

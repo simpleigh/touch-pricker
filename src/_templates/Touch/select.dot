@@ -12,7 +12,12 @@
 <option value="0">{{= data.initialRow }}</option>
 
 {{~ data.blocks :course }}
-	<option value="{{= course.getOwnership()[1] }}">
+	<option value="{{= course.getOwnership()[1] }}"
+	{{? course.getFlag('proof') === false }}
+		 /* single space */
+		style="color:red"
+	{{?}}
+	>
 		{{= course.print('text') }}
 	</option>
 {{~}}

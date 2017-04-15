@@ -27,4 +27,23 @@ describe('select template for Touch', function () {
         );
     });
 
+    it('marks false courses', function () {
+        const stage: Pricker.Stage = Pricker.Stage.Cinques,
+            initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
+            touch: Pricker.Touch = new Pricker.Touch(initialRow);
+
+        touch.setLength(1);
+        touch.getCourse(1).setFlag('proof', false);
+
+        expect(touch.print('select')).toBe(
+            ''
+                + '<option value="0">'
+                + Pricker.stringFromRow(touch.getInitialRow())
+                + '</option>'
+                + '<option value="1" style="color:red">'
+                + touch.getCourse(1).print('text')
+                + '</option>',
+        );
+    });
+
 });

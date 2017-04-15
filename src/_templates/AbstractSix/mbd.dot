@@ -8,8 +8,17 @@
 /**
  * Renders a six as HTML for MBD-style pricker
  */
+
+{{? data.block.getFlag('proof') === false }}
+	<span class="false">
+{{?}}
 {{= data.endRow }}
+{{? data.block.getFlag('proof') === false }}
+	</span>
+{{?}}
+
 &nbsp;&nbsp;
+
 <span
  class="{{= data.index % 2 ? 'odd' : 'even' }}Call"
  onclick="c({{= data.index }})"
@@ -24,6 +33,8 @@
 	{{?}}
 	&nbsp;
 </span>
+
 &nbsp;&nbsp;
+
 {{= data.index }}
 <br />

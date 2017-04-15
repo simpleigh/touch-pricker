@@ -25,6 +25,10 @@
         cursor: pointer;
         background-color: #E2E2F0;
       }
+
+      .false {
+        color: red;
+      }
     </style>
     <script type="text/javascript" src="../dist/stedman-pricker.js"></script>
   </head>
@@ -253,23 +257,25 @@
             'use strict';
             var proof = new Pricker.Visitor.Proof(),
                 counter = new Pricker.Visitor.Counter(),
-                proofText;
+                proofHTML;
 
             touch.accept(proof);
             if (proof.isTrue()) {
                 if (proof.isVisiting()) {
-                    proofText = "True, but doesn't come round";
+                    proofHTML = "True, but doesn't come round";
                 } else {
-                    proofText = 'Composition is true';
+                    proofHTML = 'Composition is true';
                 }
             } else {
-                proofText = 'Composition is FALSE';
+                proofHTML = '<span class="false">Composition is FALSE</span>';
             }
-            document.getElementById('proofResult').innerText = proofText;
+            document.getElementById('proofResult').innerHTML = proofHTML;
 
             touch.accept(counter);
             document.getElementById('numRows').innerText =
                 counter.getCount() + ' Stedman ' + Pricker.Stage[stage];
+
+            reDraw();
         }
 
         function selectCourse() {
