@@ -183,6 +183,32 @@ function testAbstractBlockImplementation(
             expect(block.setFlag('test', true)).toBe(block);
         });
 
+        it('bubbles flags to the parent container', function () {
+            const container: Pricker.AbstractContainer<typeof Block> =
+                    jasmine.createSpyObj('AbstractContainer', ['setFlag']),
+                block: typeof Block = new Block(
+                    createTestRow(),
+                    container,
+                    999,
+                );
+
+            block.setFlag('test', true);
+            expect(container.setFlag).toHaveBeenCalledWith('test', true, true);
+        });
+
+        it('allows bubbling to be disabled', function () {
+            const container: Pricker.AbstractContainer<typeof Block> =
+                    jasmine.createSpyObj('AbstractContainer', ['setFlag']),
+                block: typeof Block = new Block(
+                    createTestRow(),
+                    container,
+                    999,
+                );
+
+            block.setFlag('test', true, false);
+            expect(container.setFlag).not.toHaveBeenCalled();
+        });
+
         it('calls a visitor in order to traverse rows', function () {
             const block: typeof Block = new Block(createTestRow()),
                 visitor: Pricker.Visitor.Counter =

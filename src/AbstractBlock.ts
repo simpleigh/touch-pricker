@@ -127,9 +127,19 @@ namespace Pricker {
 
         /**
          * Allows write access to flags
+         * @param {string}   flagName - Name of the flag
+         * @param {boolean}  value    - Value to set
+         * @param {boolean}  bubble   - Bubble up to parent container
          */
-        public setFlag(flagName: string, value: boolean) {
+        public setFlag(
+            flagName: string,
+            value: boolean,
+            bubble: boolean = true,
+        ) {
             this._flags[flagName] = value;
+            if (bubble && this._container) {
+                this._container.setFlag(flagName, value, true);
+            }
             return this;
         }
 
