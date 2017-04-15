@@ -16,9 +16,11 @@ describe('Counter visitor', function () {
     });
 
     it('increments the count when it visits a row', function () {
-        const visitor = new Pricker.Visitor.Counter();
+        const visitor = new Pricker.Visitor.Counter(),
+            block: Pricker.AbstractBlock =
+                jasmine.createSpyObj('AbstractBlock', ['setFlag']);
         for (let i: number = 1; i < 5; i += 1) {
-            visitor.visit(createTestRow());
+            visitor.visit(createTestRow(), block);
             expect(visitor.getCount()).toBe(i);
         }
     });

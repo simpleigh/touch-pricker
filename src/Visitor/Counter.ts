@@ -5,6 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="../AbstractBlock.ts" />
 /// <reference path="../Row.ts" />
 /// <reference path="Abstract.ts" />
 
@@ -35,7 +36,7 @@ namespace Pricker {
             /**
              * Receives a row for processing
              */
-            public visitImplementation(row: Row): void {
+            public visitImplementation(row: Row, block: AbstractBlock): void {
                 this._count += 1;
             }
         }
