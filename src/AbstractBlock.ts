@@ -144,6 +144,21 @@ namespace Pricker {
         }
 
         /**
+         * Dumps out all flags
+         */
+        public dumpFlags(): {[flagName: string]: boolean} {
+            const output: {[flagName: string]: boolean} = { };
+
+            for (const flagName in this._flags) {
+                if (this._flags.hasOwnProperty(flagName)) {
+                    output[flagName] = this._flags[flagName];
+                }
+            }
+
+            return output;
+        }
+
+        /**
          * Receives a visitor that will be called to process each row
          */
         public abstract accept(visitor: Visitor.AbstractVisitor): this;

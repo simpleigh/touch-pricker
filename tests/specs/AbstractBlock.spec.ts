@@ -209,6 +209,30 @@ function testAbstractBlockImplementation(
             expect(container.setFlag).not.toHaveBeenCalled();
         });
 
+        it('allows all flags to be dumped out', function () {
+            const block: typeof Block = new Block(createTestRow());
+
+            block.setFlag('test1', true);
+            block.setFlag('test2', false);
+
+            expect(block.dumpFlags()).toEqual({'test1': true, 'test2': false});
+        });
+
+        it('starts out with no flags set', function () {
+            const block: typeof Block = new Block(createTestRow());
+            expect(block.dumpFlags()).toEqual({ });
+        });
+
+        it('ignores changes to the dumped flags', function () {
+            const block: typeof Block = new Block(createTestRow()),
+                flags: {[flagName: string]: boolean} = block.dumpFlags(),
+                flagsBackup: {[flagName: string]: boolean} = block.dumpFlags();
+
+            flags.newFlag = true;
+            expect(block.dumpFlags()).not.toEqual(flags);
+            expect(block.dumpFlags()).toEqual(flagsBackup);
+        });
+
         it('calls a visitor in order to traverse rows', function () {
             const block: typeof Block = new Block(createTestRow()),
                 visitor: Pricker.Visitor.Counter =
