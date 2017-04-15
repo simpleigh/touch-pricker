@@ -110,7 +110,6 @@
     </div>
     <script type="text/javascript">
         var stage,             // Stage we're pricking on
-            defaultInitialRow, // Start from rounds
             initialRow,        // Current start
             course,            // The course itself
             savedCourse,       // Course being saved for later
@@ -129,14 +128,17 @@
             }
         }
 
+        function getInitialRow() {
+            return Pricker.rowFromString('231', stage);
+        }
+
         function setStage() {
             'use strict';
             stage = parseInt(document.getElementById('stage').value);
-            defaultInitialRow = Pricker.rowFromString('231', stage);
-            initialRow = defaultInitialRow;
+            initialRow = getInitialRow();
             course = new Pricker.Course(initialRow);
             savedCourse = null;
-            touch = new Pricker.Touch(defaultInitialRow);
+            touch = new Pricker.Touch(initialRow);
             selectedIndex = 0;
             reDraw();
         }
@@ -148,7 +150,7 @@
 
             document.getElementById('calling').innerHTML = course.print('html');
 
-            course.setInitialRow(defaultInitialRow);
+            course.setInitialRow(getInitialRow());
             document.getElementById('callingFromRounds').innerHTML =
                 course.print('html');
             course.setInitialRow(initialRow);
@@ -175,7 +177,7 @@
             // Starting row
             element = document.createElement('option');
             element.value = 0;
-            element.innerText = Pricker.stringFromRow(defaultInitialRow);
+            element.innerText = Pricker.stringFromRow(getInitialRow());
             document.getElementById('courses').appendChild(element);
 
             // Courses
@@ -212,7 +214,7 @@
 
         function resetInitialRow() {
             'use strict';
-            initialRow = defaultInitialRow;
+            initialRow = getInitialRow();
             course.setInitialRow(initialRow);
             reDraw();
         }
@@ -241,7 +243,7 @@
         function saveCalling() {
             'use strict';
             savedCourse = course.clone();
-            savedCourse.setInitialRow(defaultInitialRow);
+            savedCourse.setInitialRow(getInitialRow());
             reDraw();
         }
 
