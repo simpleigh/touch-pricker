@@ -62,6 +62,19 @@ namespace Pricker {
         }
 
         /**
+         * Clears all flags
+         */
+        public clearFlags(): this {
+            let index: number;
+
+            for (index = 0; index < this.getLength(); index += 1) {
+                this._blocks[index].clearFlags();
+            }
+
+            return super.clearFlags();
+        }
+
+        /**
          * Receives a visitor that will be called to process each row
          */
         public accept(visitor: Visitor.AbstractVisitor): this {

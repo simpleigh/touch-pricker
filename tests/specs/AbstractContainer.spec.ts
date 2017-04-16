@@ -238,6 +238,16 @@ function testAbstractContainerImplementation(
             expect(parent.notify).toHaveBeenCalledTimes(2);
         });
 
+        it('clears flags from any contained blocks', function () {
+            const container: typeof Container = new Container(createTestRow());
+
+            container.setLength(10);
+            spyOn(container[getBlockFnName](1), 'clearFlags');
+
+            container.clearFlags();
+            expect(container[getBlockFnName](1).clearFlags).toHaveBeenCalled();
+        });
+
         it('passes contained blocks to templates', function () {
             const container: typeof Container = new Container(createTestRow()),
                 testTemplateSpy = jasmine.createSpy('test');

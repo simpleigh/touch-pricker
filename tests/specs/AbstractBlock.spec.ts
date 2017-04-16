@@ -233,6 +233,18 @@ function testAbstractBlockImplementation(
             expect(block.dumpFlags()).toEqual(flagsBackup);
         });
 
+        it('allows flags to be cleared', function () {
+            const block: typeof Block = new Block(createTestRow());
+            block.setFlag('test', true);
+            block.clearFlags();
+            expect(block.dumpFlags()).toEqual({ });
+        });
+
+        it('returns this when clearing flags', function () {
+            const block: typeof Block = new Block(createTestRow());
+            expect(block.clearFlags()).toBe(block);
+        });
+
         it('calls a visitor in order to traverse rows', function () {
             const block: typeof Block = new Block(createTestRow()),
                 visitor: Pricker.Visitor.Counter =

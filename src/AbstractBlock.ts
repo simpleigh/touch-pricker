@@ -159,6 +159,14 @@ namespace Pricker {
         }
 
         /**
+         * Clears all flags
+         */
+        public clearFlags(): this {
+            this._flags = { };
+            return this;
+        }
+
+        /**
          * Receives a visitor that will be called to process each row
          */
         public abstract accept(visitor: Visitor.AbstractVisitor): this;

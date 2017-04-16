@@ -164,6 +164,22 @@ describe('Touch class', function () {
         expect(touch.getCourse(2).getOwnership()[1]).toBe(2);
     });
 
+    it('clears flags when inserting new courses', function () {
+        const course: Pricker.Course = Pricker.Course.fromString(
+                createTestRow(),
+                COURSES_FOR_INSERT[1],
+            ),
+            touch: Pricker.Touch = Pricker.Touch.fromString('2314567890E');
+
+        course.setFlag('test', true);
+        touch.setFlag('test', true);
+
+        touch.insertCourse(1, course);
+
+        expect(course.dumpFlags()).toEqual({ });
+        expect(touch.dumpFlags()).toEqual({ });
+    });
+
     it('can delete a course from the end', function () {
         const course1: Pricker.Course = Pricker.Course.fromString(
                 createTestRow(),
@@ -222,6 +238,22 @@ describe('Touch class', function () {
 
         expect(course1.getOwnership()[1]).toBe(1);
         expect(course2.getOwnership()[1]).toBe(undefined);
+    });
+
+    it('clears flags when deleting courses', function () {
+        const course: Pricker.Course = Pricker.Course.fromString(
+                createTestRow(),
+                COURSES_FOR_INSERT[1],
+            ),
+            touch: Pricker.Touch = Pricker.Touch.fromString('2314567890E');
+
+        touch.insertCourse(1, course);
+
+        touch.setFlag('test', true);
+
+        touch.deleteCourse(1);
+
+        expect(touch.dumpFlags()).toEqual({ });
     });
 
     describe('can create touches from strings:', function () {

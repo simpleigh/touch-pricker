@@ -89,6 +89,7 @@ namespace Pricker {
             this.fixupOwnership(index);
 
             this.notify(index - 1);
+            this.clearFlags();  // TODO: can we hook notify instead: we need to clear parent flags too (e.g. changing a call might fix the touch)
             return this;
         }
 
@@ -103,6 +104,7 @@ namespace Pricker {
             this.fixupOwnership(index);
 
             this.notify(index - 1);
+            this.clearFlags();
             return course;
         }
 
