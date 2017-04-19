@@ -165,6 +165,11 @@ describe('Course class', function () {
             '2314567890E  1 s10 s13 22',
         ));
 
+        it('a course with calls separated with "."s', testImport(
+            '2314567890E  1.s10. s13 .22',
+            '2314567890E  1 s10 s13 22',
+        ));
+
         it('a more complex course', testImport(
             '23145768E90  1 s6 s17 s19',
             '23145768E90  1 s6 s17 s19',
@@ -172,6 +177,11 @@ describe('Course class', function () {
 
         it('a short course', testImport(
             '21436578E90  1 5 7 8 10 11 s13 15 16  (20 sixes)',
+            '21436578E90  1 5 7 8 10 11 s13 15 16  (20 sixes)',
+        ));
+
+        it('a short course with concise length description', testImport(
+            '21436578E90  1 5 7 8 10 11 s13 15 16  (20)',
             '21436578E90  1 5 7 8 10 11 s13 15 16  (20 sixes)',
         ));
 
@@ -192,6 +202,11 @@ describe('Course class', function () {
 
         it('a string with a broken course end', testImport(
             'abcdefgh  1 s10 s13 22',
+            '2314567890E  1 s10 s13 22',
+        ));
+
+        it('a string with a short course end', testImport(
+            '231  1 s10 s13 22',
             '2314567890E  1 s10 s13 22',
         ));
 

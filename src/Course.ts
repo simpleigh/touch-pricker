@@ -117,9 +117,10 @@ namespace Pricker {
          */
         public static fromString(initialRow: Row, input: string): Course {
             const course: Course = new Course(initialRow),
-                patCourseEnd: string = '[0-9a-z]{7,15}',
+                patCourseEnd: string = '[0-9a-z]{3,15}',
                 patCall: string = '(?:\\d{1,2}|\\d{1,2}s|s\\d{1,2})',
-                patCalling: string = patCall + '(?:\\s+' + patCall + ')*',
+                patSep: string = '[\\s.]+',
+                patCalling: string = patCall + '(?:' + patSep + patCall + ')*',
                 patSixes: string = '\\((\\d{1,2})[^\\d\\)]*\\)',
                 patAll: string = ''
                     + '^\\s*'
@@ -149,7 +150,7 @@ namespace Pricker {
             }
 
             // Otherwise split up the calling and process
-            calls = matches[1].split(/\s+/);
+            calls = matches[1].split(new RegExp(patSep));
             for (i = 0; i < calls.length; i++) {
                 call = calls[i];
                 if (call.charAt(0) === 's') {
