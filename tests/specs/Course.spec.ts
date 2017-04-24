@@ -170,6 +170,11 @@ describe('Course class', function () {
             '2314567890E  1 s10 s13 22',
         ));
 
+        it('a course with calls separated with ","s', testImport(
+            '2314567890E  1,s10, s13 ,22',
+            '2314567890E  1 s10 s13 22',
+        ));
+
         it('a more complex course', testImport(
             '23145768E90  1 s6 s17 s19',
             '23145768E90  1 s6 s17 s19',

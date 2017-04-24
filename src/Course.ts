@@ -119,7 +119,7 @@ namespace Pricker {
             const course: Course = new Course(initialRow),
                 patCourseEnd: string = '[0-9a-z]{3,15}',
                 patCall: string = '(?:\\d{1,2}|\\d{1,2}s|s\\d{1,2})',
-                patSep: string = '[\\s.]+',
+                patSep: string = '[\\s.,]+',
                 patCalling: string = patCall + '(?:' + patSep + patCall + ')*',
                 patSixes: string = '\\((\\d{1,2})[^\\d\\)]*\\)',
                 patAll: string = ''
