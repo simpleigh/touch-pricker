@@ -9,5 +9,5 @@
  * Renders a single course with the initial row underlined before it
  */
 
-<u>{{= data.initialRow }}</u><br />
-{{= data.block.print('text') }}
+<u>{{= context.initialRow }}</u><br />
+{{= context.block.print('text') }}

@@ -9,7 +9,7 @@
  * Renders a touch as text
  */
 
-{{= data.initialRow }}{{= '\n' }}
-{{~ data.blocks :course }}
+{{= context.initialRow }}{{= '\n' }}
+{{~ context.blocks :course }}
 	{{= course.print('text') }}
 {{~}}

@@ -8,7 +8,7 @@
 /**
  * Renders a course as HTML for MBD-style pricker
  */
-<u>{{= data.initialRow }}</u><br />
-{{~ data.blocks :six }}
+<u>{{= context.initialRow }}</u><br />
+{{~ context.blocks :six }}
 	{{= six.print('mbd') }}
 {{~}}

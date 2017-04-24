@@ -11,10 +11,10 @@
  * 2314567890E  p\n
  */
 
-{{= data.endRow }}
+{{= context.endRow }}
  /* single space */
 
-{{~ data.blocks :six }}
+{{~ context.blocks :six }}
 	{{? six.getCall() }}
 		 /* single space */
 		{{? six.getCall() === Pricker.Call.Single }}s{{?}}
@@ -22,15 +22,15 @@
 	{{?}}
 {{~}}
 
-{{? data.block.isPlain() }}
+{{? context.block.isPlain() }}
 	 /* single space */
 	p
 {{?}}
 
-{{? data.blocks.length !== data.endRow.length * 2 }}
+{{? context.blocks.length !== context.endRow.length * 2 }}
 	 /* single space */
 	 /* single space */
-	({{= data.blocks.length }} sixes)
+	({{= context.blocks.length }} sixes)
 {{?}}
 
 {{= '\n' }}

@@ -8,22 +8,22 @@
 /**
  * Renders a six as HTML for MBD-style pricker
  */
-{{= data.endRow }}
+{{= context.endRow }}
 &nbsp;&nbsp;
 <span
- class="{{= data.index % 2 ? 'odd' : 'even' }}Call"
- onclick="c({{= data.index }})"
+ class="{{= context.index % 2 ? 'odd' : 'even' }}Call"
+ onclick="c({{= context.index }})"
 >
 	&nbsp;
-	{{? data.block.getCall() === Pricker.Call.Plain }}
+	{{? context.block.getCall() === Pricker.Call.Plain }}
 		&nbsp;
-	{{?? data.block.getCall() === Pricker.Call.Bob }}
+	{{?? context.block.getCall() === Pricker.Call.Bob }}
 		-
-	{{?? data.block.getCall() === Pricker.Call.Single }}
+	{{?? context.block.getCall() === Pricker.Call.Single }}
 		s
 	{{?}}
 	&nbsp;
 </span>
 &nbsp;&nbsp;
-{{= data.index }}
+{{= context.index }}
 <br />
