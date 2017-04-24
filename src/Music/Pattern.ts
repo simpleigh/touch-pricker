@@ -7,6 +7,7 @@
 
 /// <reference path="../Row.ts" />
 /// <reference path="../stringFromRow.ts" />
+/// <reference path="MatcherInterface.ts" />
 /// <reference path="MatchResult.ts" />
 
 namespace Pricker {
@@ -20,7 +21,7 @@ namespace Pricker {
         /**
          * Pattern that can be used to match rows
          */
-        export class Pattern {
+        export class Pattern implements MatcherInterface {
 
             /**
              * Constructor
