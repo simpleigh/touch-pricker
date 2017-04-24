@@ -53,14 +53,14 @@ gulp.task('build-tests', ['build'], function () {
         declarations,
         tsResult;
 
-    specs = gulp.src(['tests/**/*.ts', '!tests/*.ts'])
+    specs = gulp.src(['tests/**/*.ts'])
         .pipe(plugins.tslint({formatter: 'verbose'}))
         .pipe(plugins.tslint.report({
             emitError: false,
             summarizeFailureOutput: true
         }));
 
-    declarations = gulp.src('tests/*.ts');
+    declarations = gulp.src('dist/stedman-pricker.d.ts');
 
     tsResult = merge([specs, declarations])
         .pipe(plugins.sourcemaps.init())
