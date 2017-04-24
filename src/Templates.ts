@@ -5,6 +5,8 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="TemplateContext.ts" />
+
 namespace Pricker {
     'use strict';
 
@@ -14,5 +16,7 @@ namespace Pricker {
      * Dictionary of template functions that map data to a string
      */
     // tslint:disable-next-line:variable-name
-    export let Templates: {[index: string]: (data: any) => string} = { };
+    export let Templates: {
+        [index: string]: (data: TemplateContext) => string,
+    } = { };
 }

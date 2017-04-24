@@ -9,6 +9,7 @@
 /// <reference path="Row.ts" />
 /// <reference path="AbstractContainer.ts" />
 /// <reference path="Call.ts" />
+/// <reference path="TemplateContext.ts" />
 
 namespace Pricker {
     'use strict';
@@ -30,10 +31,9 @@ namespace Pricker {
          *
          * Derived classes may override this to provide more data to templates
          */
-        protected getTemplateData(): any {
-            const data: any = super.getTemplateData();
-            data.isPlain = this.isPlain();
-            return data;
+        protected getTemplateData(context: TemplateContext): TemplateContext {
+            context.isPlain = this.isPlain();
+            return super.getTemplateData(context);
         }
 
         /* AbstractContainer methods ******************************************/

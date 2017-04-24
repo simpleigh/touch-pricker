@@ -7,6 +7,7 @@
 
 /// <reference path="Row.ts" />
 /// <reference path="stringFromRow.ts" />
+/// <reference path="TemplateContext.ts" />
 /// <reference path="Visitor/Abstract.ts" />
 
 namespace Pricker {
@@ -120,12 +121,12 @@ namespace Pricker {
         /**
          * Renders the block with a template
          */
-        public print(template: string): string {
-            return Templates[
-                this.templatePath + '.' + template
-            ](
-                this.getTemplateData(),
-            );
+        public print(
+            templateName: string,
+            context: TemplateContext = { },
+        ): string {
+            templateName = this.templatePath + '.' + templateName;
+            return Templates[templateName](this.getTemplateData(context));
         }
 
         /**
@@ -138,13 +139,12 @@ namespace Pricker {
          *
          * Derived classes may override this to provide more data to templates
          */
-        protected getTemplateData(): any {
-            return {
-                'block': this,
-                'index': this._index,
-                'initialRow': stringFromRow(this._initialRow),
-                'endRow': stringFromRow(this.getEnd()),
-            };
+        protected getTemplateData(context: TemplateContext): TemplateContext {
+            context.block = this;
+            context.index = this._index;
+            context.initialRow = stringFromRow(this._initialRow);
+            context.endRow = stringFromRow(this.getEnd());
+            return context;
         }
     }
 }

@@ -7,6 +7,7 @@
 
 /// <reference path="Row.ts" />
 /// <reference path="AbstractBlock.ts" />
+/// <reference path="TemplateContext.ts" />
 /// <reference path="Visitor/Abstract.ts" />
 
 namespace Pricker {
@@ -79,10 +80,9 @@ namespace Pricker {
          *
          * Derived classes may override this to provide more data to templates
          */
-        protected getTemplateData(): any {
-            const data: any = super.getTemplateData();
-            data.blocks = this._blocks;
-            return data;
+        protected getTemplateData(context: TemplateContext): TemplateContext {
+            context.blocks = this._blocks;
+            return super.getTemplateData(context);
         }
 
         /* AbstractContainer methods ******************************************/

@@ -205,6 +205,24 @@ function testAbstractBlockImplementation(
             delete Pricker.Templates[block.templatePath + '.test'];
         });
 
+        it('passes additional context to templates', function () {
+            const block: typeof Block = new Block(
+                    createTestRow(),
+                    undefined,
+                    999,
+                ),
+                testTemplateSpy = jasmine.createSpy('test');
+            let data: any;
+
+            Pricker.Templates[block.templatePath + '.test'] = testTemplateSpy;
+            block.print('test', {'context': 'testContext'});
+
+            data = testTemplateSpy.calls.argsFor(0)[0];
+            expect(data.context).toBe('testContext');
+
+            delete Pricker.Templates[block.templatePath + '.test'];
+        });
+
     });
 
 }
