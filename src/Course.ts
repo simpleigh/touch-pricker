@@ -26,16 +26,6 @@ namespace Pricker {
          */
         public readonly templatePath: string = 'Course';
 
-        /**
-         * Provides template data
-         *
-         * Derived classes may override this to provide more data to templates
-         */
-        protected getTemplateData(context: TemplateContext): TemplateContext {
-            context.isPlain = this.isPlain();
-            return super.getTemplateData(context);
-        }
-
         /* AbstractContainer methods ******************************************/
 
         /**

@@ -22,7 +22,7 @@
 	{{?}}
 {{~}}
 
-{{? data.isPlain }}
+{{? data.block.isPlain() }}
 	 /* single space */
 	p
 {{?}}
