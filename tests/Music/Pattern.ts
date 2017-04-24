@@ -5,28 +5,16 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="MatcherInterface.ts" />
+
 describe('Pattern music class', function () {
 
     function createTestRow(input: string = '231'): Pricker.Row {
         return Pricker.rowFromString(input, Pricker.Stage.Cinques);
     }
 
-    it('can match a row', function () {
-        const row: Pricker.Row = createTestRow(),
-            pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
-                '2314567890E',
-                'test',
-            );
-        expect(pattern.match(row).isMatch).toBe(true);
-    });
-
-    it('can identify a mismatch', function () {
-        const row: Pricker.Row = createTestRow(),
-            pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
-                '1234567890E',
-                'test',
-            );
-        expect(pattern.match(row).isMatch).toBe(false);
+    testMatcherInterface(function () {
+        return new Pricker.Music.Pattern('2314567890E', 'test');
     });
 
     it('passes the match name in its result', function () {
