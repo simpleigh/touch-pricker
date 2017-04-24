@@ -24,18 +24,16 @@ namespace Pricker {
 
             /**
              * Constructor
-             * @param {string}   pattern   - String to match
-             * @param {string}   name      - Name of this pattern
-             * @param {boolean}  terminate - Stop matching after this pattern
-             * @param {number}   start     - First row character to match
-             * @param {number}   end       - Last row character to match
+             * @param {string}     pattern   - String to match
+             * @param {string}     name      - Name of this pattern
+             * @param {boolean}    terminate - Stop matching after this pattern
+             * @param {MatchType}  type      - Type of match
              */
             constructor(
                 protected _pattern: string,
                 protected _name: string,
                 protected _terminate: boolean = false,
-                protected _start?: number,
-                protected _end?: number,
+                protected _type: MatchType = MatchType.All,
             ) {
                 // NOOP
             }
@@ -44,14 +42,21 @@ namespace Pricker {
              * Matches a row
              */
             public match(row: Row): MatchResult {
-                const rowString = stringFromRow(row),
-                    result: MatchResult = {
+                const result: MatchResult = {
                         'isMatch': false,
                         'text': this._name,
                         'terminate': this._terminate,
                     };
 
-                if (rowString.slice(this._start, this._end) === this._pattern) {
+                let rowString = stringFromRow(row);
+
+                if (this._type === MatchType.End) {
+                    rowString = rowString.slice(-this._pattern.length);
+                } else if (this._type === MatchType.Start) {
+                    rowString = rowString.slice(0, this._pattern.length);
+                }
+
+                if (rowString === this._pattern) {
                     result.isMatch = true;
                 }
 
