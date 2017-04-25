@@ -1,0 +1,36 @@
+/**
+ * Free Stedman Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright © 2015-17 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * Renders a PatternGroup as text
+ */
+
+{{? context.object.getMatches() > 0 }}
+
+	{{= context.object.getMatches() }}
+
+	 /* single space */
+
+	{{= context.object.getName() }}
+
+	 /* single space */
+	(
+
+	{{ var first = true; }}
+	{{~ context.patterns :pattern }}
+		{{? pattern.getMatches() > 0 }}
+			{{? !first }}, {{?}}
+			{{= pattern.print('text', {'end': ''}) }}
+			{{ first = false; }}
+		{{?}}
+	{{~}}
+
+	)
+
+	{{= '\n' }}
+
+{{?}}

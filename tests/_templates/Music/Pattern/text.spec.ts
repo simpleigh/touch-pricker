@@ -58,4 +58,20 @@ describe('text template for Pattern music class', function () {
         expect(pattern.print('text')).toBe('2 Standard start sixend\n');
     });
 
+    it('allows the line ending to be customised', function () {
+        const row: Pricker.Row = createTestRow(),
+            pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern('90E');
+
+        pattern.match(row);
+        expect(pattern.print('text', {'end': '#'})).toBe('1 90E#');
+    });
+
+    it('allows the line ending to be removed', function () {
+        const row: Pricker.Row = createTestRow(),
+            pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern('90E');
+
+        pattern.match(row);
+        expect(pattern.print('text', {'end': ''})).toBe('1 90E');
+    });
+
 });
