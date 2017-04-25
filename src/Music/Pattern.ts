@@ -24,6 +24,11 @@ namespace Pricker {
         export class Pattern implements MatcherInterface {
 
             /**
+             * Count of matches
+             */
+            protected _matches: number = 0;
+
+            /**
              * Constructor
              * @param {string}     pattern   - String to match
              * @param {string}     name      - Name of this pattern
@@ -59,9 +64,17 @@ namespace Pricker {
 
                 if (rowString === this._pattern) {
                     result.isMatch = true;
+                    this._matches += 1;
                 }
 
                 return result;
+            }
+
+            /**
+             * Provides public access to the count of matches
+             */
+            public getMatches(): number {
+                return this._matches;
             }
 
         }

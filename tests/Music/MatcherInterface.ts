@@ -28,6 +28,22 @@ function testMatcherInterface(createFn: () => Pricker.Music.MatcherInterface) {
             expect(matcher.match(row).isMatch).toBe(false);
         });
 
+        it('starts out with no matches', function () {
+            const matcher: Pricker.Music.MatcherInterface = createFn();
+            expect(matcher.getMatches()).toBe(0);
+        });
+
+        it('increments the match count for each match', function () {
+            const row: Pricker.Row = createTestRow(),
+                matcher: Pricker.Music.MatcherInterface = createFn();
+
+            matcher.match(row);
+            expect(matcher.getMatches()).toBe(1);
+
+            matcher.match(row);
+            expect(matcher.getMatches()).toBe(2);
+        });
+
     });
 
 }

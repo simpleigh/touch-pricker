@@ -23,6 +23,11 @@ namespace Pricker {
              */
             match(row: Row): MatchResult;
 
+            /**
+             * Provides public access to the count of matches
+             */
+            getMatches(): number;
+
         }
 
     }

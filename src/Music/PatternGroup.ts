@@ -67,6 +67,17 @@ namespace Pricker {
                 return result;
             }
 
+            /**
+             * Provides public access to the count of matches
+             */
+            public getMatches(): number {
+                let matches: number = 0;
+                for (const pattern of this._patterns) {
+                    matches += pattern.getMatches();
+                }
+                return matches;
+            }
+
         }
 
     }
