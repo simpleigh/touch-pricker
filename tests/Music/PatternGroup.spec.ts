@@ -5,7 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="MatcherInterface.ts" />
+/// <reference path="MatcherInterface.spec.ts" />
 
 describe('PatternGroup music class', function () {
 
