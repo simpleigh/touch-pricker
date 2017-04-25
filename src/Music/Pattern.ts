@@ -78,6 +78,23 @@ namespace Pricker {
                 return this._matches;
             }
 
+            /**
+             * Renders the block with a template
+             */
+            public print(
+                templateName: string,
+                context: TemplateContext = { },
+            ): string {
+                templateName = this.templatePath + '.' + templateName;
+                context.object = this;
+                return Templates[templateName](context);
+            }
+
+            /**
+             * Path for this class' templates
+             */
+            public readonly templatePath: string = 'Music.Pattern';
+
         }
 
     }
