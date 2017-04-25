@@ -29,14 +29,14 @@ namespace Pricker {
 
             /**
              * Constructor
-             * @param {string}   name     - Name of this pattern group
-             * @param {Pattern}  patterns - Patterns in this group
+             * @param {string}     name     - Name of this pattern group
+             * @param {Pattern[]}  patterns - Patterns in this group
              */
             constructor(
                 protected _name: string,
-                ...patterns: Pattern[],
+                patterns: Pattern[],
             ) {
-                this._patterns = patterns;
+                this._patterns = patterns.slice();
             }
 
             /* MatcherInterface methods ***************************************/

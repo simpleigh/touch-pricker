@@ -13,7 +13,7 @@ describe('text template for PatternGroup music class', function () {
 
     it('displays nothing when nothing matches', function () {
         const group: Pricker.Music.PatternGroup =
-            new Pricker.Music.PatternGroup('group');
+            new Pricker.Music.PatternGroup('group', [ ]);
         expect(group.print('text')).toBe('');
     });
 
@@ -21,7 +21,9 @@ describe('text template for PatternGroup music class', function () {
         const row: Pricker.Row = createTestRow(),
             group: Pricker.Music.PatternGroup = new Pricker.Music.PatternGroup(
                 'group',
-                new Pricker.Music.Pattern('90E'),
+                [
+                    new Pricker.Music.Pattern('90E'),
+                ],
             );
 
         group.match(row);
@@ -32,8 +34,10 @@ describe('text template for PatternGroup music class', function () {
         const row: Pricker.Row = createTestRow(),
             group: Pricker.Music.PatternGroup = new Pricker.Music.PatternGroup(
                 'group',
-                new Pricker.Music.Pattern('90E'),
-                new Pricker.Music.Pattern('890E'),
+                [
+                    new Pricker.Music.Pattern('90E'),
+                    new Pricker.Music.Pattern('890E'),
+                ],
             );
 
         group.match(row);
@@ -44,8 +48,10 @@ describe('text template for PatternGroup music class', function () {
         const row: Pricker.Row = createTestRow(),
             group: Pricker.Music.PatternGroup = new Pricker.Music.PatternGroup(
                 'group',
-                new Pricker.Music.Pattern('90E'),
-                new Pricker.Music.Pattern('09E'),
+                [
+                    new Pricker.Music.Pattern('90E'),
+                    new Pricker.Music.Pattern('09E'),
+                ],
             );
 
         group.match(row);
