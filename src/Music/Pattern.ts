@@ -36,7 +36,7 @@ namespace Pricker {
             constructor(
                 protected _pattern: string,
                 protected _name?: string,
-                protected _type: MatchType = MatchType.All,
+                protected _type: MatchType = MatchType.Row,
             ) {
                 // NOOP
             }
@@ -47,9 +47,9 @@ namespace Pricker {
             public match(row: Row): boolean {
                 let rowString = stringFromRow(row);
 
-                if (this._type === MatchType.End) {
+                if (this._type === MatchType.Back) {
                     rowString = rowString.slice(-this._pattern.length);
-                } else if (this._type === MatchType.Start) {
+                } else if (this._type === MatchType.Front) {
                     rowString = rowString.slice(0, this._pattern.length);
                 }
 
@@ -84,7 +84,7 @@ namespace Pricker {
              * Determines whether this is a wildcard match
              */
             public isWildcardMatch(): boolean {
-                return this._type !== MatchType.All;
+                return this._type !== MatchType.Row;
             }
 
             /**

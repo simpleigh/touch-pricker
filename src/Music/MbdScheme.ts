@@ -36,17 +36,17 @@ namespace Pricker {
 
                 // 567890E
                 pattern = roundsString.slice(4 - this._stage);
-                matchers.push(new Pattern(pattern, pattern, MatchType.End));
+                matchers.push(new Pattern(pattern, pattern, MatchType.Back));
 
                 // 56789E0
                 pattern = roundsString.slice(4 - this._stage, -2)
                     + roundsString.slice(-1)
                     + roundsString.slice(-2, -1);
-                matchers.push(new Pattern(pattern, pattern, MatchType.End));
+                matchers.push(new Pattern(pattern, pattern, MatchType.Back));
 
                 // 657890E
                 pattern = '65' + roundsString.slice(6 - this._stage);
-                matchers.push(new Pattern(pattern, pattern, MatchType.End));
+                matchers.push(new Pattern(pattern, pattern, MatchType.Back));
 
                 // Near misses
                 // TODO: Make this general by stage ##########################################
@@ -68,9 +68,9 @@ namespace Pricker {
                 // TODO: Make this general by stage ##########################################
                 matchers.push(new PatternGroup(
                     '80T',
-                    new Pattern('80',          '80T',    MatchType.End),
-                    new Pattern('680',         '680T',   MatchType.End),
-                    new Pattern('E9780',       'E9780T', MatchType.End),
+                    new Pattern('80',          '80T',    MatchType.Back),
+                    new Pattern('680',         '680T',   MatchType.Back),
+                    new Pattern('E9780',       'E9780T', MatchType.Back),
                     new Pattern('13579E24680', 'Queens'),
                     new Pattern('E9753124680', 'Reverse Queens'),
                     new Pattern('531246E9780', 'Double Whittingtons'),
@@ -78,38 +78,38 @@ namespace Pricker {
 
                 matchers.push(new PatternGroup(
                     'front LB5',
-                    new Pattern('12345', '12345', MatchType.Start),
-                    new Pattern('54321', '54321', MatchType.Start),
-                    new Pattern('23456', '23456', MatchType.Start),
-                    new Pattern('65432', '65432', MatchType.Start),
+                    new Pattern('12345', '12345', MatchType.Front),
+                    new Pattern('54321', '54321', MatchType.Front),
+                    new Pattern('23456', '23456', MatchType.Front),
+                    new Pattern('65432', '65432', MatchType.Front),
                 ));
 
                 matchers.push(new PatternGroup(
                     'back LB5',
-                    new Pattern('12345', '12345', MatchType.End),
-                    new Pattern('54321', '54321', MatchType.End),
-                    new Pattern('23456', '23456', MatchType.End),
-                    new Pattern('65432', '65432', MatchType.End),
+                    new Pattern('12345', '12345', MatchType.Back),
+                    new Pattern('54321', '54321', MatchType.Back),
+                    new Pattern('23456', '23456', MatchType.Back),
+                    new Pattern('65432', '65432', MatchType.Back),
                 ));
 
                 matchers.push(new PatternGroup(
                     'front LB4',
-                    new Pattern('1234', '1234', MatchType.Start),
-                    new Pattern('4321', '4321', MatchType.Start),
-                    new Pattern('2345', '2345', MatchType.Start),
-                    new Pattern('5432', '5432', MatchType.Start),
-                    new Pattern('3456', '3456', MatchType.Start),
-                    new Pattern('6543', '6543', MatchType.Start),
+                    new Pattern('1234', '1234', MatchType.Front),
+                    new Pattern('4321', '4321', MatchType.Front),
+                    new Pattern('2345', '2345', MatchType.Front),
+                    new Pattern('5432', '5432', MatchType.Front),
+                    new Pattern('3456', '3456', MatchType.Front),
+                    new Pattern('6543', '6543', MatchType.Front),
                 ));
 
                 matchers.push(new PatternGroup(
                     'back LB4',
-                    new Pattern('1234', '1234', MatchType.End),
-                    new Pattern('4321', '4321', MatchType.End),
-                    new Pattern('2345', '2345', MatchType.End),
-                    new Pattern('5432', '5432', MatchType.End),
-                    new Pattern('3456', '3456', MatchType.End),
-                    new Pattern('6543', '6543', MatchType.End),
+                    new Pattern('1234', '1234', MatchType.Back),
+                    new Pattern('4321', '4321', MatchType.Back),
+                    new Pattern('2345', '2345', MatchType.Back),
+                    new Pattern('5432', '5432', MatchType.Back),
+                    new Pattern('3456', '3456', MatchType.Back),
+                    new Pattern('6543', '6543', MatchType.Back),
                 ));
 
                 return matchers;

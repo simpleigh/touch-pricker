@@ -15,7 +15,7 @@ describe('text template for Pattern music class', function () {
         const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
                 '567890E',
                 '567890E',
-                Pricker.Music.MatchType.End,
+                Pricker.Music.MatchType.Back,
             );
         expect(pattern.print('text')).toBe('');
     });
@@ -25,7 +25,7 @@ describe('text template for Pattern music class', function () {
             pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
                 '567890E',
                 '567890E',
-                Pricker.Music.MatchType.End,
+                Pricker.Music.MatchType.Back,
             );
 
         pattern.match(row);
@@ -37,7 +37,7 @@ describe('text template for Pattern music class', function () {
             pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
                 '567890E',
                 '567890E',
-                Pricker.Music.MatchType.End,
+                Pricker.Music.MatchType.Back,
             );
 
         pattern.match(row);
@@ -50,7 +50,7 @@ describe('text template for Pattern music class', function () {
             pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
                 '2314567890E',
                 'Standard start sixend',
-                Pricker.Music.MatchType.All,
+                Pricker.Music.MatchType.Row,
             );
 
         pattern.match(row);
@@ -62,7 +62,7 @@ describe('text template for Pattern music class', function () {
             pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
                 '2314567890E',
                 'Standard start sixend',
-                Pricker.Music.MatchType.All,
+                Pricker.Music.MatchType.Row,
             );
 
         pattern.match(row);

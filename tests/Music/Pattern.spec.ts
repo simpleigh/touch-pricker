@@ -27,7 +27,7 @@ describe('Pattern music class', function () {
             pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
                 '231',
                 'test',
-                Pricker.Music.MatchType.Start,
+                Pricker.Music.MatchType.Front,
             );
         expect(pattern.match(row)).toBe(true);
     });
@@ -37,7 +37,7 @@ describe('Pattern music class', function () {
             pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
                 '90E',
                 'test',
-                Pricker.Music.MatchType.End,
+                Pricker.Music.MatchType.Back,
             );
         expect(pattern.match(row)).toBe(true);
     });
@@ -46,7 +46,7 @@ describe('Pattern music class', function () {
         const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
             '657890E',
             '65 rollup',
-            Pricker.Music.MatchType.End,
+            Pricker.Music.MatchType.Back,
         );
         expect(pattern.isWildcardMatch()).toBe(true);
     });
@@ -55,7 +55,7 @@ describe('Pattern music class', function () {
         const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
                 '2314567890E',
                 'Standard start sixend',
-                Pricker.Music.MatchType.All,
+                Pricker.Music.MatchType.Row,
             );
         expect(pattern.isWildcardMatch()).toBe(false);
     });
