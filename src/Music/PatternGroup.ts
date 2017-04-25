@@ -46,19 +46,15 @@ namespace Pricker {
             public match(row: Row): MatchResult {
                 const result: MatchResult = {
                         'isMatch': false,
-                        'text': '',
-                    },
-                    matchText: string[] = [ ];
+                    };
 
                 for (const pattern of this._patterns) {
                     const patternResult: MatchResult = pattern.match(row);
                     if (patternResult.isMatch) {
                         result.isMatch = true;
-                        matchText.push(patternResult.text);
                     }
                 }
 
-                result.text = this._name + ' (' + matchText.join(', ') + ')';
                 return result;
             }
 

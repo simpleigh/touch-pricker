@@ -17,15 +17,6 @@ describe('Pattern music class', function () {
         return new Pricker.Music.Pattern('2314567890E', 'test');
     });
 
-    it('passes the match name in its result', function () {
-        const row: Pricker.Row = createTestRow(),
-            pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
-                '2314567890E',
-                'test',
-            );
-        expect(pattern.match(row).text).toBe('test');
-    });
-
     it('can match the start of a row', function () {
         const row: Pricker.Row = createTestRow(),
             pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(

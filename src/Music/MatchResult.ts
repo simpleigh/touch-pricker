@@ -23,11 +23,6 @@ namespace Pricker {
              */
             isMatch: boolean;
 
-            /**
-             * Text representation of the pattern matched
-             */
-            text: string;
-
         }
 
     }

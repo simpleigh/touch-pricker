@@ -43,14 +43,4 @@ describe('PatternGroup music class', function () {
         expect(group.getMatches()).toBe(2);
     });
 
-    it('concatenates pattern match text', function () {
-        const row: Pricker.Row = createTestRow(),
-            group: Pricker.Music.PatternGroup = new Pricker.Music.PatternGroup(
-                'group',
-                new Pricker.Music.Pattern('2314567890E', 'pattern1'),
-                new Pricker.Music.Pattern('2314567890E', 'pattern2'),
-            );
-        expect(group.match(row).text).toBe('group (pattern1, pattern2)');
-    });
-
 });

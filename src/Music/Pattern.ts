@@ -48,7 +48,6 @@ namespace Pricker {
             public match(row: Row): MatchResult {
                 const result: MatchResult = {
                         'isMatch': false,
-                        'text': this._name,
                     };
 
                 let rowString = stringFromRow(row);
