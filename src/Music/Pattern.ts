@@ -36,7 +36,7 @@ namespace Pricker {
             constructor(
                 protected _pattern: string,
                 protected _name: string,
-                protected _type: MatchType = MatchType.All,
+                protected _type: MatchType = MatchType.End,
             ) {
                 // NOOP
             }
