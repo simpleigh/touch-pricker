@@ -32,13 +32,11 @@ namespace Pricker {
              * Constructor
              * @param {string}     pattern   - String to match
              * @param {string}     name      - Name of this pattern
-             * @param {boolean}    terminate - Stop matching after this pattern
              * @param {MatchType}  type      - Type of match
              */
             constructor(
                 protected _pattern: string,
                 protected _name: string,
-                protected _terminate: boolean = false,
                 protected _type: MatchType = MatchType.All,
             ) {
                 // NOOP
@@ -51,7 +49,6 @@ namespace Pricker {
                 const result: MatchResult = {
                         'isMatch': false,
                         'text': this._name,
-                        'terminate': this._terminate,
                     };
 
                 let rowString = stringFromRow(row);

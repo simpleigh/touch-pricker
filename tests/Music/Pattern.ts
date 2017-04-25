@@ -26,22 +26,11 @@ describe('Pattern music class', function () {
         expect(pattern.match(row).text).toBe('test');
     });
 
-    it('passes the terminate flag in its result', function () {
-        const row: Pricker.Row = createTestRow(),
-            pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
-                '2314567890E',
-                'test',
-                true,
-            );
-        expect(pattern.match(row).terminate).toBe(true);
-    });
-
     it('can match the start of a row', function () {
         const row: Pricker.Row = createTestRow(),
             pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
                 '231',
                 'test',
-                false,
                 Pricker.Music.MatchType.Start,
             );
         expect(pattern.match(row).isMatch).toBe(true);
@@ -52,7 +41,6 @@ describe('Pattern music class', function () {
             pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
                 '90E',
                 'test',
-                false,
                 Pricker.Music.MatchType.End,
             );
         expect(pattern.match(row).isMatch).toBe(true);

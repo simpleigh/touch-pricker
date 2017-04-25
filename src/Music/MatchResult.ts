@@ -28,11 +28,6 @@ namespace Pricker {
              */
             text: string;
 
-            /**
-             * Whether matching should terminate after this result
-             */
-            terminate: boolean;
-
         }
 
     }

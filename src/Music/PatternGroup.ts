@@ -47,19 +47,14 @@ namespace Pricker {
                 const result: MatchResult = {
                         'isMatch': false,
                         'text': '',
-                        'terminate': false,
                     },
                     matchText: string[] = [ ];
 
                 for (const pattern of this._patterns) {
                     const patternResult: MatchResult = pattern.match(row);
-                    result.isMatch = result.isMatch || patternResult.isMatch;
                     if (patternResult.isMatch) {
+                        result.isMatch = true;
                         matchText.push(patternResult.text);
-                        if (patternResult.terminate) {
-                            result.terminate = true;
-                            break;
-                        }
                     }
                 }
 

@@ -53,32 +53,4 @@ describe('PatternGroup music class', function () {
         expect(group.match(row).text).toBe('group (pattern1, pattern2)');
     });
 
-    it('stops processing after any terminating patterns', function () {
-        const row: Pricker.Row = createTestRow(),
-            group: Pricker.Music.PatternGroup = new Pricker.Music.PatternGroup(
-                'group',
-                new Pricker.Music.Pattern('2314567890E', 'pattern1', true),
-                new Pricker.Music.Pattern('2314567890E', 'pattern2'),
-            );
-        expect(group.match(row).text).toBe('group (pattern1)');
-    });
-
-    it('passes the terminate flag in its result', function () {
-        const row: Pricker.Row = createTestRow(),
-            group: Pricker.Music.PatternGroup = new Pricker.Music.PatternGroup(
-                'group',
-                new Pricker.Music.Pattern('2314567890E', 'test', true),
-            );
-        expect(group.match(row).terminate).toBe(true);
-    });
-
-    it('only passes the terminate flag for matches', function () {
-        const row: Pricker.Row = createTestRow(),
-            group: Pricker.Music.PatternGroup = new Pricker.Music.PatternGroup(
-                'group',
-                new Pricker.Music.Pattern('1234567890E', 'test', true),
-            );
-        expect(group.match(row).terminate).toBe(false);
-    });
-
 });
