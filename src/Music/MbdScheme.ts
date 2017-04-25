@@ -36,17 +36,17 @@ namespace Pricker {
 
                 // 567890E
                 pattern = roundsString.slice(4 - this._stage);
-                matchers.push(new Pattern(pattern));
+                matchers.push(new Pattern(pattern, pattern, MatchType.End));
 
                 // 56789E0
                 pattern = roundsString.slice(4 - this._stage, -2)
                     + roundsString.slice(-1)
                     + roundsString.slice(-2, -1);
-                matchers.push(new Pattern(pattern));
+                matchers.push(new Pattern(pattern, pattern, MatchType.End));
 
                 // 657890E
                 pattern = '65' + roundsString.slice(6 - this._stage);
-                matchers.push(new Pattern(pattern));
+                matchers.push(new Pattern(pattern, pattern, MatchType.End));
 
                 // Near misses
                 // TODO: Make this general by stage ##########################################
@@ -68,9 +68,9 @@ namespace Pricker {
                 // TODO: Make this general by stage ##########################################
                 matchers.push(new PatternGroup(
                     '80T',
-                    new Pattern('80',          '80T'),
-                    new Pattern('680',         '680T'),
-                    new Pattern('E9780',       'E9780T'),
+                    new Pattern('80',          '80T',    MatchType.End),
+                    new Pattern('680',         '680T',   MatchType.End),
+                    new Pattern('E9780',       'E9780T', MatchType.End),
                     new Pattern('13579E24680', 'Queens'),
                     new Pattern('E9753124680', 'Reverse Queens'),
                     new Pattern('531246E9780', 'Double Whittingtons'),

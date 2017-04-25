@@ -42,10 +42,4 @@ describe('Pattern music class', function () {
         expect(pattern.match(row)).toBe(true);
     });
 
-    it('matches the end of a row by default', function () {
-        const row: Pricker.Row = createTestRow(),
-            pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern('90E');
-        expect(pattern.match(row)).toBe(true);
-    });
-
 });

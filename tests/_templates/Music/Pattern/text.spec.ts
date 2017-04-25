@@ -12,25 +12,28 @@ describe('text template for Pattern music class', function () {
     }
 
     it('displays nothing when nothing matches', function () {
-        const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern('90E');
+        const pattern: Pricker.Music.Pattern =
+            new Pricker.Music.Pattern('2314567890E');
         expect(pattern.print('text')).toBe('');
     });
 
     it('displays a single match', function () {
         const row: Pricker.Row = createTestRow(),
-            pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern('90E');
+            pattern: Pricker.Music.Pattern =
+                new Pricker.Music.Pattern('2314567890E');
 
         pattern.match(row);
-        expect(pattern.print('text')).toBe('1 90E\n');
+        expect(pattern.print('text')).toBe('1 2314567890E\n');
     });
 
     it('displays multiple matches', function () {
         const row: Pricker.Row = createTestRow(),
-            pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern('90E');
+            pattern: Pricker.Music.Pattern =
+                new Pricker.Music.Pattern('2314567890E');
 
         pattern.match(row);
         pattern.match(row);
-        expect(pattern.print('text')).toBe('2 90E\n');
+        expect(pattern.print('text')).toBe('2 2314567890E\n');
     });
 
 });
