@@ -21,7 +21,7 @@ namespace Pricker {
             /**
              * Matches a row
              */
-            match(row: Row): MatchResult;
+            match(row: Row): boolean;
 
             /**
              * Provides read access to the name

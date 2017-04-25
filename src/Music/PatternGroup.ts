@@ -7,7 +7,6 @@
 
 /// <reference path="../Row.ts" />
 /// <reference path="MatcherInterface.ts" />
-/// <reference path="MatchResult.ts" />
 /// <reference path="Pattern.ts" />
 
 namespace Pricker {
@@ -43,16 +42,14 @@ namespace Pricker {
             /**
              * Matches a row
              */
-            public match(row: Row): MatchResult {
-                const result: MatchResult = {
-                        'isMatch': false,
-                    };
+            public match(row: Row): boolean {
+                let result: boolean = false;
 
                 for (const pattern of this._patterns) {
-                    const patternResult: MatchResult = pattern.match(row);
-                    if (patternResult.isMatch) {
-                        result.isMatch = true;
-                    }
+                    // Call pattern.match explicitly...
+                    const rowResult = pattern.match(row);
+                    // ... not in here, or || will short-circuit it
+                    result = result || rowResult;
                 }
 
                 return result;

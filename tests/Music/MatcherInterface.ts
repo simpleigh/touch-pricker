@@ -19,13 +19,13 @@ function testMatcherInterface(createFn: () => Pricker.Music.MatcherInterface) {
         it('can match a row', function () {
             const row: Pricker.Row = createTestRow(),
                 matcher: Pricker.Music.MatcherInterface = createFn();
-            expect(matcher.match(row).isMatch).toBe(true);
+            expect(matcher.match(row)).toBe(true);
         });
 
         it('can identify a mismatch', function () {
             const row: Pricker.Row = createTestRow('123'),
                 matcher: Pricker.Music.MatcherInterface = createFn();
-            expect(matcher.match(row).isMatch).toBe(false);
+            expect(matcher.match(row)).toBe(false);
         });
 
         it('provides read access to the matcher name', function () {

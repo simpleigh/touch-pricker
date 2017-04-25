@@ -8,7 +8,6 @@
 /// <reference path="../Row.ts" />
 /// <reference path="../stringFromRow.ts" />
 /// <reference path="MatcherInterface.ts" />
-/// <reference path="MatchResult.ts" />
 
 namespace Pricker {
     'use strict';
@@ -45,11 +44,7 @@ namespace Pricker {
             /**
              * Matches a row
              */
-            public match(row: Row): MatchResult {
-                const result: MatchResult = {
-                        'isMatch': false,
-                    };
-
+            public match(row: Row): boolean {
                 let rowString = stringFromRow(row);
 
                 if (this._type === MatchType.End) {
@@ -59,11 +54,11 @@ namespace Pricker {
                 }
 
                 if (rowString === this._pattern) {
-                    result.isMatch = true;
                     this._matches += 1;
+                    return true;
                 }
 
-                return result;
+                return false;
             }
 
             /**

@@ -27,7 +27,7 @@ describe('PatternGroup music class', function () {
                 new Pricker.Music.Pattern('1234567890E', 'fail'),
                 new Pricker.Music.Pattern('2314567890E', 'pass'),
             );
-        expect(group.match(row).isMatch).toBe(true);
+        expect(group.match(row)).toBe(true);
     });
 
     it('combines match counts from patterns', function () {

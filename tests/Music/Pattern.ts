@@ -24,7 +24,7 @@ describe('Pattern music class', function () {
                 'test',
                 Pricker.Music.MatchType.Start,
             );
-        expect(pattern.match(row).isMatch).toBe(true);
+        expect(pattern.match(row)).toBe(true);
     });
 
     it('can match the end of a row', function () {
@@ -34,7 +34,7 @@ describe('Pattern music class', function () {
                 'test',
                 Pricker.Music.MatchType.End,
             );
-        expect(pattern.match(row).isMatch).toBe(true);
+        expect(pattern.match(row)).toBe(true);
     });
 
 });
