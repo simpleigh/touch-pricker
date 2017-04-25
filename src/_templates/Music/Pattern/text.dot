@@ -11,9 +11,13 @@
 
 {{? context.object.getMatches() > 0 }}
 
-	{{= context.object.getMatches() }}
-	 /* single space */
+	{{? context.object.isWildcardMatch() || context.object.getMatches() > 1 }}
+		{{= context.object.getMatches() }}
+		 /* single space */
+	{{?}}
+
 	{{= context.object.getName() }}
+
 	{{= '\n' }}
 
 {{?}}

@@ -78,6 +78,15 @@ namespace Pricker {
                 return this._matches;
             }
 
+            /* Pattern methods ************************************************/
+
+            /**
+             * Determines whether this is a wildcard match
+             */
+            public isWildcardMatch(): boolean {
+                return this._type !== MatchType.All;
+            }
+
             /**
              * Renders the block with a template
              */

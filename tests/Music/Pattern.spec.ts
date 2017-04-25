@@ -42,4 +42,22 @@ describe('Pattern music class', function () {
         expect(pattern.match(row)).toBe(true);
     });
 
+    it('knows if it is a wildcard match', function () {
+        const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
+            '657890E',
+            '65 rollup',
+            Pricker.Music.MatchType.End,
+        );
+        expect(pattern.isWildcardMatch()).toBe(true);
+    });
+
+    it('knows if it is not a wildcard match', function () {
+        const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
+                '2314567890E',
+                'Standard start sixend',
+                Pricker.Music.MatchType.All,
+            );
+        expect(pattern.isWildcardMatch()).toBe(false);
+    });
+
 });
