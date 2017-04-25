@@ -36,7 +36,7 @@ namespace Pricker {
             constructor(
                 protected _pattern: string,
                 protected _name?: string,
-                protected _type: MatchType = MatchType.Row,
+                protected _type: MatchType = MatchType.Back,
             ) {
                 // NOOP
             }

@@ -12,37 +12,25 @@ describe('text template for Pattern music class', function () {
     }
 
     it('displays nothing when nothing matches', function () {
-        const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
-                '567890E',
-                '567890E',
-                Pricker.Music.MatchType.Back,
-            );
+        const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern('90E');
         expect(pattern.print('text')).toBe('');
     });
 
     it('displays a single match', function () {
         const row: Pricker.Row = createTestRow(),
-            pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
-                '567890E',
-                '567890E',
-                Pricker.Music.MatchType.Back,
-            );
+            pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern('90E');
 
         pattern.match(row);
-        expect(pattern.print('text')).toBe('1 567890E\n');
+        expect(pattern.print('text')).toBe('1 90E\n');
     });
 
     it('displays multiple matches', function () {
         const row: Pricker.Row = createTestRow(),
-            pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
-                '567890E',
-                '567890E',
-                Pricker.Music.MatchType.Back,
-            );
+            pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern('90E');
 
         pattern.match(row);
         pattern.match(row);
-        expect(pattern.print('text')).toBe('2 567890E\n');
+        expect(pattern.print('text')).toBe('2 90E\n');
     });
 
     it('suppresses counts for a single named row match', function () {

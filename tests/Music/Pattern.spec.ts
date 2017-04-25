@@ -42,6 +42,12 @@ describe('Pattern music class', function () {
         expect(pattern.match(row)).toBe(true);
     });
 
+    it('matches the end of a row by default', function () {
+        const row: Pricker.Row = createTestRow(),
+            pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern('90E');
+        expect(pattern.match(row)).toBe(true);
+    });
+
     it('knows if it is a wildcard match', function () {
         const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
             '657890E',
@@ -58,6 +64,11 @@ describe('Pattern music class', function () {
                 Pricker.Music.MatchType.Row,
             );
         expect(pattern.isWildcardMatch()).toBe(false);
+    });
+
+    it('is therefore a wildcard match by default', function () {
+        const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern('90E');
+        expect(pattern.isWildcardMatch()).toBe(true);
     });
 
 });
