@@ -39,6 +39,8 @@ namespace Pricker {
                 this._patterns = patterns;
             }
 
+            /* MatcherInterface methods ***************************************/
+
             /**
              * Matches a row
              */

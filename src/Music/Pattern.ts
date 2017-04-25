@@ -41,6 +41,8 @@ namespace Pricker {
                 // NOOP
             }
 
+            /* MatcherInterface methods ***************************************/
+
             /**
              * Matches a row
              */

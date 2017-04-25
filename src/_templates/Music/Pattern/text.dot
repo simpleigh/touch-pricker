@@ -6,7 +6,7 @@
  */
 
 /**
- * Renders a pattern as text
+ * Renders a Pattern as text
  */
 
 {{? context.object.getMatches() > 0 }}
