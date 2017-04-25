@@ -16,7 +16,7 @@ describe('PatternGroup music class', function () {
     testMatcherInterface(function () {
         return new Pricker.Music.PatternGroup(
             'group',
-            new Pricker.Music.Pattern('2314567890E', 'test')
+            new Pricker.Music.Pattern('2314567890E', 'test'),
         );
     });
 

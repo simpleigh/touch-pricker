@@ -32,33 +32,21 @@ namespace Pricker {
                 const matchers: MatcherInterface[] = [ ],
                     rounds: Row = rowFromString('', this._stage),
                     roundsString: string = stringFromRow(rounds);
-                let rowString: string;
+                let testRow: string;
 
                 // 567890E
-                rowString = roundsString.slice(4 - this._stage);
-                matchers.push(new Pattern(
-                    rowString,
-                    rowString,
-                    MatchType.End,
-                ));
+                testRow = roundsString.slice(4 - this._stage);
+                matchers.push(new Pattern(testRow, testRow, MatchType.End));
 
                 // 56789E0
-                rowString = roundsString.slice(4 - this._stage, -2)
+                testRow = roundsString.slice(4 - this._stage, -2)
                     + roundsString.slice(-1)
                     + roundsString.slice(-2, -1);
-                matchers.push(new Pattern(
-                    rowString,
-                    rowString,
-                    MatchType.End,
-                ));
+                matchers.push(new Pattern(testRow, testRow, MatchType.End));
 
                 // 657890E
-                rowString = '65' + roundsString.slice(6 - this._stage);
-                matchers.push(new Pattern(
-                    rowString,
-                    rowString,
-                    MatchType.End,
-                ));
+                testRow = '65' + roundsString.slice(6 - this._stage);
+                matchers.push(new Pattern(testRow, testRow, MatchType.End));
 
                 // Near misses
                 // TODO: Make this general by stage ##########################################
@@ -123,6 +111,8 @@ namespace Pricker {
                     new Pattern('3456', '3456', MatchType.End),
                     new Pattern('6543', '6543', MatchType.End),
                 ));
+
+                return matchers;
 
             }
 
