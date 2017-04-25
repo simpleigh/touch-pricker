@@ -16,7 +16,7 @@ describe('PatternGroup music class', function () {
     testMatcherInterface(function () {
         return new Pricker.Music.PatternGroup(
             'test',
-            new Pricker.Music.Pattern('2314567890E', 'test'),
+            new Pricker.Music.Pattern('2314567890E'),
         );
     });
 
@@ -24,8 +24,8 @@ describe('PatternGroup music class', function () {
         const row: Pricker.Row = createTestRow(),
             group: Pricker.Music.PatternGroup = new Pricker.Music.PatternGroup(
                 'group',
-                new Pricker.Music.Pattern('1234567890E', 'fail'),
-                new Pricker.Music.Pattern('2314567890E', 'pass'),
+                new Pricker.Music.Pattern('1234567890E'), // fail
+                new Pricker.Music.Pattern('2314567890E'), // pass
             );
         expect(group.match(row)).toBe(true);
     });
@@ -34,9 +34,9 @@ describe('PatternGroup music class', function () {
         const row: Pricker.Row = createTestRow(),
             group: Pricker.Music.PatternGroup = new Pricker.Music.PatternGroup(
                 'group',
-                new Pricker.Music.Pattern('2314567890E', 'pass'),
-                new Pricker.Music.Pattern('1234567890E', 'fail'),
-                new Pricker.Music.Pattern('2314567890E', 'pass'),
+                new Pricker.Music.Pattern('2314567890E'), // pass
+                new Pricker.Music.Pattern('1234567890E'), // fail
+                new Pricker.Music.Pattern('2314567890E'), // pass
             );
 
         group.match(row);

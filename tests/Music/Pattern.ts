@@ -17,6 +17,11 @@ describe('Pattern music class', function () {
         return new Pricker.Music.Pattern('2314567890E', 'test');
     });
 
+    it('uses the pattern as the name by default', function () {
+        const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern('231');
+        expect(pattern.getName()).toBe('231');
+    });
+
     it('can match the start of a row', function () {
         const row: Pricker.Row = createTestRow(),
             pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
@@ -39,10 +44,7 @@ describe('Pattern music class', function () {
 
     it('matches the end of a row by default', function () {
         const row: Pricker.Row = createTestRow(),
-            pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
-                '90E',
-                'test',
-            );
+            pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern('90E');
         expect(pattern.match(row)).toBe(true);
     });
 

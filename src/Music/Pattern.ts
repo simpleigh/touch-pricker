@@ -35,7 +35,7 @@ namespace Pricker {
              */
             constructor(
                 protected _pattern: string,
-                protected _name: string,
+                protected _name?: string,
                 protected _type: MatchType = MatchType.End,
             ) {
                 // NOOP
@@ -65,6 +65,9 @@ namespace Pricker {
              * Provides read access to the name
              */
             public getName(): string {
+                if (this._name === undefined) {
+                    return this._pattern;
+                }
                 return this._name;
             }
 
