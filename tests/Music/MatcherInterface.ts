@@ -28,6 +28,11 @@ function testMatcherInterface(createFn: () => Pricker.Music.MatcherInterface) {
             expect(matcher.match(row).isMatch).toBe(false);
         });
 
+        it('provides read access to the matcher name', function () {
+            const matcher: Pricker.Music.MatcherInterface = createFn();
+            expect(matcher.getName()).toBe('test');
+        });
+
         it('starts out with no matches', function () {
             const matcher: Pricker.Music.MatcherInterface = createFn();
             expect(matcher.getMatches()).toBe(0);

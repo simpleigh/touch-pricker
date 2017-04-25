@@ -24,7 +24,12 @@ namespace Pricker {
             match(row: Row): MatchResult;
 
             /**
-             * Provides public access to the count of matches
+             * Provides read access to the name
+             */
+            getName(): string;
+
+            /**
+             * Provides read access to the count of matches
              */
             getMatches(): number;
 

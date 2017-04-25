@@ -63,7 +63,14 @@ namespace Pricker {
             }
 
             /**
-             * Provides public access to the count of matches
+             * Provides read access to the name
+             */
+            public getName(): string {
+                return this._name;
+            }
+
+            /**
+             * Provides read access to the count of matches
              */
             public getMatches(): number {
                 let matches: number = 0;
