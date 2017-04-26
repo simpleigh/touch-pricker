@@ -25,27 +25,36 @@ namespace Pricker {
          */
         export class MbdScheme extends AbstractScheme {
 
+            /* MatcherInterface methods ***************************************/
+
             /**
-             * Get matchers for this scheme/stage
+             * Provides read access to the name
              */
-            public getMatchers(): MatcherInterface[] {
-                const matchers: MatcherInterface[] = [ ],
-                    rounds: Row = rowFromString('', this._stage),
-                    roundsString: string = stringFromRow(rounds);
+            public getName(): string {
+                return 'MBD scheme';
+            }
+
+            /* AbstractScheme methods *****************************************/
+
+            /**
+             * Create matchers for this scheme/stage
+             */
+            protected createMatchers(rounds: string): MatcherInterface[] {
+                const matchers: MatcherInterface[] = [ ];
                 let pattern: string;
 
                 // 567890E
-                pattern = roundsString.slice(4 - this._stage);
+                pattern = rounds.slice(4 - this._stage);
                 matchers.push(new Pattern(pattern));
 
                 // 56789E0
-                pattern = roundsString.slice(4 - this._stage, -2)
-                    + roundsString.slice(-1)
-                    + roundsString.slice(-2, -1);
+                pattern = rounds.slice(4 - this._stage, -2)
+                    + rounds.slice(-1)
+                    + rounds.slice(-2, -1);
                 matchers.push(new Pattern(pattern));
 
                 // 657890E
-                pattern = '65' + roundsString.slice(6 - this._stage);
+                pattern = '65' + rounds.slice(6 - this._stage);
                 matchers.push(new Pattern(pattern));
 
                 // Near misses

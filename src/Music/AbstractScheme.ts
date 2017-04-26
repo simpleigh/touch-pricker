@@ -6,6 +6,8 @@
  */
 
 /// <reference path="../Stage.ts" />
+/// <reference path="../rowFromString.ts" />
+/// <reference path="../stringFromRow.ts" />
 /// <reference path="MatcherInterface.ts" />
 
 namespace Pricker {
@@ -19,19 +21,66 @@ namespace Pricker {
         /**
          * Abstract music matching scheme
          */
-        export abstract class AbstractScheme {
+        export abstract class AbstractScheme implements MatcherInterface {
+
+            /**
+             * Matchers for this scheme
+             */
+            protected _matchers: MatcherInterface[];
 
             /**
              * Constructor
              */
             constructor(protected _stage: Stage) {
-                // NOOP
+                this._matchers = this.createMatchers(
+                    stringFromRow(rowFromString('', _stage)),  // rounds
+                );
+            }
+
+            /* MatcherInterface methods ***************************************/
+
+            /**
+             * Matches a row
+             */
+            public match(row: Row): boolean {
+                let result: boolean = false;
+
+                for (const matcher of this._matchers) {
+                    // Call matcher.match explicitly...
+                    const rowResult: boolean = matcher.match(row);
+                    // ... not in here, or || will short-circuit it
+                    result = result || rowResult;
+                }
+
+                return result;
             }
 
             /**
-             * Get matchers for this scheme/stage
+             * Provides read access to the name
              */
-            public abstract getMatchers(): MatcherInterface[];
+            public abstract getName(): string;
+
+            /**
+             * Provides read access to the count of matches
+             */
+            public getMatches(): number {
+                let matches: number = 0;
+
+                for (const matcher of this._matchers) {
+                    matches += matcher.getMatches();
+                }
+
+                return matches;
+            }
+
+            /* AbstractScheme methods *****************************************/
+
+            /**
+             * Create matchers for this scheme/stage
+             */
+            protected abstract createMatchers(
+                rounds: string,
+            ): MatcherInterface[];
 
         }
 

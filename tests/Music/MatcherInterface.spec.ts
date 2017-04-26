@@ -7,8 +7,13 @@
 
 /**
  * Tests that a matcher behaves appropriately
+ * @param {}        createFn    - function to create the matcher under test
+ * @param {string}  matcherName - expected name of the matcher
  */
-function testMatcherInterface(createFn: () => Pricker.Music.MatcherInterface) {
+function testMatcherInterface(
+    createFn: () => Pricker.Music.MatcherInterface,
+    matcherName: string = 'test',
+) {
 
     function createTestRow(input: string = '231'): Pricker.Row {
         return Pricker.rowFromString(input, Pricker.Stage.Cinques);
@@ -23,14 +28,15 @@ function testMatcherInterface(createFn: () => Pricker.Music.MatcherInterface) {
         });
 
         it('can identify a mismatch', function () {
-            const row: Pricker.Row = createTestRow('123'),
+            // create an unmusical test row that's not likely to be matched
+            const row: Pricker.Row = createTestRow('2614E378509'),
                 matcher: Pricker.Music.MatcherInterface = createFn();
             expect(matcher.match(row)).toBe(false);
         });
 
         it('provides read access to the matcher name', function () {
             const matcher: Pricker.Music.MatcherInterface = createFn();
-            expect(matcher.getName()).toBe('test');
+            expect(matcher.getName()).toBe(matcherName);
         });
 
         it('starts out with no matches', function () {
