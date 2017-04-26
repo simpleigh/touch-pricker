@@ -17,6 +17,9 @@ describe('Custom music scheme', function () {
             return scheme;
         },
         'Custom scheme',
+        [
+            [Pricker.Stage.Cinques, '2314567890E', 1, '1 2314567890E\n'],
+        ],
     );
 
 });
