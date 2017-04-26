@@ -51,7 +51,7 @@ namespace Pricker {
 
                 for (const pattern of this._patterns) {
                     // Call pattern.match explicitly...
-                    const rowResult = pattern.match(row);
+                    const rowResult: boolean = pattern.match(row);
                     // ... not in here, or || will short-circuit it
                     result = result || rowResult;
                 }
@@ -96,7 +96,7 @@ namespace Pricker {
             }
 
             /**
-             * Renders the block with a template
+             * Renders the matcher with a template
              */
             public print(
                 templateName: string,

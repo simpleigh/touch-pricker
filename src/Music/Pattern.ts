@@ -90,7 +90,7 @@ namespace Pricker {
             }
 
             /**
-             * Renders the block with a template
+             * Renders the matcher with a template
              */
             public print(
                 templateName: string,
