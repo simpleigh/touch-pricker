@@ -29,8 +29,8 @@ namespace Pricker {
 
             /**
              * Constructor
-             * @param {string}     name     - Name of this pattern group
-             * @param {Pattern[]}  patterns - Patterns in this group
+             * @param {string}     name     - name of this pattern group
+             * @param {Pattern[]}  patterns - patterns in this group
              */
             constructor(
                 protected _name: string,

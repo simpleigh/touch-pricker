@@ -29,9 +29,9 @@ namespace Pricker {
 
             /**
              * Constructor
-             * @param {string}     pattern   - String to match
-             * @param {string}     name      - Name of this pattern
-             * @param {MatchType}  type      - Type of match
+             * @param {string}     pattern   - string to match
+             * @param {string}     name      - name of this pattern
+             * @param {MatchType}  type      - type of match
              */
             constructor(
                 protected _pattern: string,
