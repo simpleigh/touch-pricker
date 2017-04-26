@@ -202,7 +202,7 @@ function testAbstractContainerImplementation(
             expect(getBlock(5).setInitialRow).toHaveBeenCalled();
         });
 
-        it('notifies the parent container when the length decreases', function () {
+        it('notifies the parent container for length decrease', function () {
             const parent: Pricker.AbstractContainer<typeof Container> =
                     jasmine.createSpyObj('AbstractContainer', ['notify']),
                 container: typeof Container =
@@ -214,7 +214,7 @@ function testAbstractContainerImplementation(
             expect(parent.notify).toHaveBeenCalledTimes(2);
         });
 
-        it('notifies the parent container when the length increases', function () {
+        it('notifies the parent container for length increase', function () {
             const parent: Pricker.AbstractContainer<typeof Container> =
                     jasmine.createSpyObj('AbstractContainer', ['notify']),
                 container: typeof Container =

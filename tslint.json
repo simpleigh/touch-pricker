@@ -5,6 +5,7 @@
             true,
             "never-prefix"
         ],
+        "max-line-length": [true, 80],
         "member-ordering": false,
         "no-namespace": false,
         "no-reference": false,
