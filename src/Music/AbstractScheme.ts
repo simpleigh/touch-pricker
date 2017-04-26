@@ -82,6 +82,24 @@ namespace Pricker {
                 rounds: string,
             ): MatcherInterface[];
 
+            /**
+             * Renders the matcher with a template
+             */
+            public print(
+                templateName: string,
+                context: TemplateContext = { },
+            ): string {
+                templateName = this.templatePath + '.' + templateName;
+                context.object = this;
+                context.matchers = this._matchers;
+                return Templates[templateName](context);
+            }
+
+            /**
+             * Path for this class' templates
+             */
+            public readonly templatePath: string = 'Music.AbstractScheme';
+
         }
 
     }
