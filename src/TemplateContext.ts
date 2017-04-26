@@ -15,5 +15,5 @@ namespace Pricker {
      */
     export interface TemplateContext {
         [index: string]: any;
-    };
+    }
 }
