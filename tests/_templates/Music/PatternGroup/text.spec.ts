@@ -58,4 +58,18 @@ describe('text template for PatternGroup music class', function () {
         expect(group.print('text')).toBe('1 group (1 90E)\n');
     });
 
+    it('hides pattern counts if only the parent pattern matches', function () {
+        const row: Pricker.Row = createTestRow(),
+            group: Pricker.Music.PatternGroup = new Pricker.Music.PatternGroup(
+                'group',
+                [
+                    new Pricker.Music.Pattern('1234567890E'), // fail
+                ],
+                new Pricker.Music.Pattern('2314567890E'), // pass
+            );
+
+        group.match(row);
+        expect(group.print('text')).toBe('1 group\n');
+    });
+
 });

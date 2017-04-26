@@ -29,12 +29,14 @@ namespace Pricker {
 
             /**
              * Constructor
-             * @param {string}     name     - name of this pattern group
-             * @param {Pattern[]}  patterns - patterns in this group
+             * @param {string}     name          - name of this pattern group
+             * @param {Pattern[]}  patterns      - patterns in this group
+             * @param {Pattern}    parentPattern - top-level pattern for count
              */
             constructor(
                 protected _name: string,
                 patterns: Pattern[],
+                protected _parentPattern?: Pattern,
             ) {
                 this._patterns = patterns.slice();
             }
@@ -54,6 +56,10 @@ namespace Pricker {
                     result = result || rowResult;
                 }
 
+                if (this._parentPattern) {
+                    this._parentPattern.match(row);
+                }
+
                 return result;
             }
 
@@ -68,14 +74,26 @@ namespace Pricker {
              * Provides read access to the count of matches
              */
             public getMatches(): number {
-                let matches: number = 0;
-                for (const pattern of this._patterns) {
-                    matches += pattern.getMatches();
+                if (this._parentPattern) {
+                    return this._parentPattern.getMatches();
                 }
-                return matches;
+                return this.getSubmatches();
             }
 
             /* PatternGroup methods *******************************************/
+
+            /**
+             * Provides read access to the count of matches within patterns
+             */
+            public getSubmatches(): number {
+                let matches: number = 0;
+
+                for (const pattern of this._patterns) {
+                    matches += pattern.getMatches();
+                }
+
+                return matches;
+            }
 
             /**
              * Renders the block with a template

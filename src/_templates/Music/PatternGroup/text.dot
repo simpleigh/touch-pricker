@@ -17,19 +17,23 @@
 
 	{{= context.object.getName() }}
 
-	 /* single space */
-	(
+	{{? context.object.getSubmatches() > 0 }}
 
-	{{ var first = true; }}
-	{{~ context.patterns :pattern }}
-		{{? pattern.getMatches() > 0 }}
-			{{? !first }}, {{?}}
-			{{= pattern.print('text', {'end': ''}) }}
-			{{ first = false; }}
-		{{?}}
-	{{~}}
+		 /* single space */
+		(
 
-	)
+		{{ var first = true; }}
+		{{~ context.patterns :pattern }}
+			{{? pattern.getMatches() > 0 }}
+				{{? !first }}, {{?}}
+				{{= pattern.print('text', {'end': ''}) }}
+				{{ first = false; }}
+			{{?}}
+		{{~}}
+
+		)
+
+	{{?}}
 
 	{{= '\n' }}
 

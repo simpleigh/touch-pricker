@@ -71,12 +71,10 @@ namespace Pricker {
                 matchers.push(new PatternGroup(
                     '80T',
                     [
-                        new Pattern('80',          '80T'),
-                        new Pattern('680',         '680T'),
-                        new Pattern('E9780',       'E9780T'),
+                        new Pattern('680', '680T'),
+                        new Pattern('E9780', 'E9780T'),
                         new Pattern('13579E24680', 'Queens', MatchType.Row),
-                        new Pattern(
-                            'E9753124680',
+                        new Pattern('E9753124680',
                             'Reverse Queens',
                             MatchType.Row,
                         ),
@@ -86,6 +84,7 @@ namespace Pricker {
                             MatchType.Row,
                         ),
                     ],
+                    new Pattern('80', '80T'),
                 ));
 
                 matchers.push(new PatternGroup(

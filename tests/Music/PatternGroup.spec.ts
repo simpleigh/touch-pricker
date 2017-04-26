@@ -63,4 +63,32 @@ describe('PatternGroup music class', function () {
         expect(group.getMatches()).toBe(0);
     });
 
+    it('can override the match count with a parent pattern', function () {
+        const row: Pricker.Row = createTestRow(),
+            group: Pricker.Music.PatternGroup = new Pricker.Music.PatternGroup(
+                'group',
+                [
+                    new Pricker.Music.Pattern('1234567890E'), // fail
+                ],
+                new Pricker.Music.Pattern('2314567890E'), // pass
+            );
+
+        group.match(row);
+        expect(group.getMatches()).toBe(1);
+    });
+
+    it('still allows access to the subpattern match count', function () {
+        const row: Pricker.Row = createTestRow(),
+            group: Pricker.Music.PatternGroup = new Pricker.Music.PatternGroup(
+                'group',
+                [
+                    new Pricker.Music.Pattern('1234567890E'), // fail
+                ],
+                new Pricker.Music.Pattern('2314567890E'), // pass
+            );
+
+        group.match(row);
+        expect(group.getSubmatches()).toBe(0);
+    });
+
 });
