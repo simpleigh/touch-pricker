@@ -110,7 +110,7 @@ namespace Pricker {
          * Helper to fixup ownership of blocks
          */
         private fixupOwnership(index: number): void {
-            for (let i: number = index; i <= this.getLength(); i++) {
+            for (let i: number = index; i <= this.getLength(); i += 1) {
                 this.getCourse(i).setOwnership(this, i);
             }
         }
@@ -127,7 +127,7 @@ namespace Pricker {
                 touch: Touch | undefined;
 
             // Process each input line, making text substitutions
-            for (i = 0; i < lines.length; i++) {
+            for (i = 0; i < lines.length; i += 1) {
                 line = lines[i];
 
                 // Drop any content after comment characters "//"

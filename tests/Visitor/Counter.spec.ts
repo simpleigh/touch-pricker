@@ -24,7 +24,7 @@ describe('Counter visitor', function () {
 
         let i: number;
 
-        for (i = 1; i < 5; i++) {
+        for (i = 1; i < 5; i += 1) {
             visitor.visit(row);
             expect(visitor.getCount()).toBe(i);
         }

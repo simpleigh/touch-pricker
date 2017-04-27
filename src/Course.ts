@@ -75,7 +75,7 @@ namespace Pricker {
         public isPlain(): boolean {
             let index: number;
 
-            for (index = 1; index <= this.getLength(); index++) {
+            for (index = 1; index <= this.getLength(); index += 1) {
                 if (this.getSix(index).getCall()) {
                     return false;
                 }
@@ -94,7 +94,7 @@ namespace Pricker {
             cloned.setLength(this.getLength());
 
             // Copy across all the calls
-            for (index = 1; index <= this.getLength(); index++) {
+            for (index = 1; index <= this.getLength(); index += 1) {
                 cloned.getSix(index).setCall(this.getSix(index).getCall());
             }
             cloned.notify(1);
@@ -141,7 +141,7 @@ namespace Pricker {
 
             // Otherwise split up the calling and process
             calls = matches[1].split(new RegExp(patSep));
-            for (i = 0; i < calls.length; i++) {
+            for (i = 0; i < calls.length; i += 1) {
                 call = calls[i];
                 if (call.charAt(0) === 's') {
                     call = call.slice(1);

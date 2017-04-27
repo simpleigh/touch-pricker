@@ -93,7 +93,7 @@ function testSixImplementation(Six, testCases, rowTests) {
             visitor: Pricker.Visitor.StringArray,
             strings: string[];
 
-        for (i = 0; i < rowTests.length; i++) {
+        for (i = 0; i < rowTests.length; i += 1) {
             initialRow = Pricker.rowFromString('', rowTests[i][6]);
             rowTests[i].pop();  // Remove stage
             six = new Six(initialRow);

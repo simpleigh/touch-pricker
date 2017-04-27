@@ -51,7 +51,7 @@ describe('mbd template for AbstractSix', function () {
             row: Pricker.Row,
             six: Pricker.AbstractSix;
 
-        for (i = 0; i < testCases.length; i++) {
+        for (i = 0; i < testCases.length; i += 1) {
             row = Pricker.rowFromString(testCases[i][0], testCases[i][1]);
             six = new testCases[i][2](row, undefined, testCases[i][3]);
             six.setCall(testCases[i][4]);
