@@ -11,7 +11,7 @@ describe('Music visitor', function () {
 
     it('allows access to the provided matcher', function () {
         const matcher: Pricker.Music.MatcherInterface =
-                new Pricker.Music.MbdScheme(),
+                new Pricker.Music.MbdScheme(Pricker.Stage.Cinques),
             visitor: Pricker.Visitor.Music = new Pricker.Visitor.Music(matcher);
 
         expect(visitor.getMatcher()).toBe(matcher);
@@ -29,7 +29,9 @@ describe('Music visitor', function () {
 
     testAbstractVisitorImplementation(
         function (): Pricker.Visitor.Music {
-            return new Pricker.Visitor.Music(new Pricker.Music.MbdScheme());
+            const matcher: Pricker.Music.MatcherInterface =
+                    new Pricker.Music.MbdScheme(Pricker.Stage.Cinques);
+            return new Pricker.Visitor.Music(matcher);
         },
         function (visitor: Pricker.Visitor.Music): number {
             return visitor.getMatcher().getMatches();

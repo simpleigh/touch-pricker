@@ -357,7 +357,7 @@
         function analyseMusic() {
             'use strict';
             var visitor = new Pricker.Visitor.Music(
-                new Pricker.Music.MbdScheme()
+                new Pricker.Music.MbdScheme(stage)
             );
             touch.accept(visitor);
             document.getElementById('music').innerText =
