@@ -5,6 +5,8 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/* tslint:disable:max-line-length */
+
 /// <reference path="../rowFromString.ts" />
 /// <reference path="../Stage.ts" />
 /// <reference path="AbstractScheme.ts" />
@@ -41,7 +43,8 @@ namespace Pricker {
              */
             protected createMatchers(rounds: string): MatcherInterface[] {
                 const matchers: MatcherInterface[] = [ ];
-                let pattern: string;
+                let pattern: string,
+                    patternArray: Pattern[];
 
                 // 567890E
                 pattern = rounds.slice(4 - this._stage);
@@ -58,43 +61,91 @@ namespace Pricker {
                 matchers.push(new Pattern(pattern));
 
                 // Near misses
-                // TODO: Make this general by stage ##########################################
-                matchers.push(new PatternGroup(
-                    'near misses',
-                    [
-                        new Pattern('2134567890E', '21', MatchType.Row),
-                        new Pattern('1324567890E', '32', MatchType.Row),
-                        new Pattern('1243567890E', '43', MatchType.Row),
-                        new Pattern('1235467890E', '54', MatchType.Row),
-                        new Pattern('1234657890E', '65', MatchType.Row),
-                        new Pattern('1234576890E', '76', MatchType.Row),
-                        new Pattern('1234568790E', '87', MatchType.Row),
-                        new Pattern('1234567980E', '98', MatchType.Row),
-                        new Pattern('1234567809E', '09', MatchType.Row),
-                        new Pattern('123456789E0', 'E0', MatchType.Row),
-                    ],
-                ));
+                patternArray = [ ];
+                for (let i: number = 0; i < this._stage - 1; i += 1) {
+                    pattern = rounds.slice(0, i)  // 123
+                        + rounds.charAt(i + 1)    // 5
+                        + rounds.charAt(i)        // 4
+                        + rounds.slice(i + 2);    // 67890E
+                    patternArray.push(new Pattern(
+                        pattern,
+                        rounds.charAt(i + 1) + rounds.charAt(i),
+                        MatchType.Row,
+                    ));
+                }
+                matchers.push(new PatternGroup('near misses', patternArray));
 
                 // Queens music
-                // TODO: Make this general by stage ##########################################
-                matchers.push(new PatternGroup(
-                    '80T',
-                    [
-                        new Pattern('680', '680T'),
-                        new Pattern('E9780', 'E9780T'),
-                        new Pattern('13579E24680', 'Queens', MatchType.Row),
-                        new Pattern('E9753124680',
-                            'Reverse Queens',
-                            MatchType.Row,
-                        ),
-                        new Pattern(
-                            '531246E9780',
-                            'Double Whittingtons',
-                            MatchType.Row,
-                        ),
-                    ],
-                    new Pattern('80', '80T'),
-                ));
+                // tslint:disable-next-line:switch-default
+                switch (this._stage) {
+                    case Pricker.Stage.Triples:
+                        matchers.push(new PatternGroup(
+                            '468',
+                            [
+                                new Pattern('246', '2468'),
+                                new Pattern('75346', '753468'),
+                                new Pattern('1357246', 'Queens', MatchType.Row),
+                                new Pattern('7531246', 'Reverse Queens', MatchType.Row),
+                                new Pattern('1275346', 'Whittingtons', MatchType.Row),
+                            ],
+                            new Pattern('46'),
+                        ));
+                        break;
+
+                    case Pricker.Stage.Caters:
+                        matchers.push(new PatternGroup(
+                            '680',
+                            [
+                                new Pattern('468', '4680'),
+                                new Pattern('97568', '975680'),
+                                new Pattern('135792468', 'Queens', MatchType.Row),
+                                new Pattern('975312468', 'Reverse Queens', MatchType.Row),
+                                new Pattern('123497568', 'Whittingtons', MatchType.Row),
+                            ],
+                            new Pattern('68'),
+                        ));
+                        break;
+
+                    case Pricker.Stage.Cinques:
+                        matchers.push(new PatternGroup(
+                            '80T',
+                            [
+                                new Pattern('680', '680T'),
+                                new Pattern('E9780', 'E9780T'),
+                                new Pattern('13579E24680', 'Queens', MatchType.Row),
+                                new Pattern('E9753124680', 'Reverse Queens', MatchType.Row),
+                                new Pattern('531246E9780', 'Double Whittingtons', MatchType.Row),
+                            ],
+                            new Pattern('80'),
+                        ));
+                        break;
+
+                    case Pricker.Stage.Sextuples:
+                        matchers.push(new PatternGroup(
+                            '0TB',
+                            [
+                                new Pattern('80T', '80TB'),
+                                new Pattern('AE90T', 'AE90TB'),
+                                new Pattern('13579EA24680T', 'Queens', MatchType.Row),
+                                new Pattern('AE9753124680T', 'Reverse Queens', MatchType.Row),
+                            ],
+                            new Pattern('0T'),
+                        ));
+                        break;
+
+                    case Pricker.Stage.Septuples:
+                        matchers.push(new PatternGroup(
+                            'TB',
+                            [
+                                new Pattern('0TB'),
+                                new Pattern('CAETB'),
+                                new Pattern('13579EAC24680TB', 'Queens', MatchType.Row),
+                                new Pattern('CAE9753124680TB', 'Reverse Queens', MatchType.Row),
+                            ],
+                            new Pattern('TB'),
+                        ));
+                        break;
+                }
 
                 matchers.push(new PatternGroup(
                     'front LB5',
@@ -139,6 +190,20 @@ namespace Pricker {
                         new Pattern('6543', '6543', MatchType.Back),
                     ],
                 ));
+
+                // Reverse rollups
+                if (this._stage === Pricker.Stage.Triples) {
+                    matchers.push(new PatternGroup('reverse rollups', [new Pattern('7654')]));
+                } else {
+                    patternArray = [ ];
+                    for (let i: number = this._stage - 8; i >= 0; i -= 1) {
+                        // reverse rounds
+                        pattern = rounds.split('').reverse().join('');
+                        pattern = pattern.slice(i, i + 4);
+                        patternArray.push(new Pattern(pattern));
+                    }
+                    matchers.push(new PatternGroup('reverse rollups', patternArray));
+                }
 
                 return matchers;
 

@@ -14,12 +14,17 @@
  * @param {}        testCases  - array of tests: [stage, row, matches, output]
  */
 function testAbstractSchemeImplementation(
-    createFn: () => Pricker.Music.AbstractScheme,
+    createFn: (stage: Pricker.Stage) => Pricker.Music.AbstractScheme,
     schemeName: string,
     testCases: Array<[Pricker.Stage, string, number, string]>,
 ) {
 
-    testMatcherInterface(createFn, schemeName);
+    testMatcherInterface(
+        function (): Pricker.Music.AbstractScheme {
+            return createFn(Pricker.Stage.Cinques);
+        },
+        schemeName,
+    );
 
     it('matches music correctly', function () {
         for (let i: number = 0; i < testCases.length; i += 1) {
@@ -27,7 +32,7 @@ function testAbstractSchemeImplementation(
                 rowString: string = testCases[i][1],
                 matches: number = testCases[i][2],
                 output: string = testCases[i][3],
-                scheme: Pricker.Music.AbstractScheme = createFn();
+                scheme: Pricker.Music.AbstractScheme = createFn(stage);
 
             scheme.match(Pricker.rowFromString(rowString, stage));
             expect(scheme.getMatches()).toBe(matches);

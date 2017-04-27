@@ -10,9 +10,9 @@
 describe('Custom music scheme', function () {
 
     testAbstractSchemeImplementation(
-        function () {
+        function (stage: Pricker.Stage) {
             const scheme: Pricker.Music.CustomScheme =
-                    new Pricker.Music.CustomScheme(Pricker.Stage.Cinques);
+                    new Pricker.Music.CustomScheme(stage);
             scheme.addMatcher(new Pricker.Music.Pattern('2314567890E'));
             return scheme;
         },
