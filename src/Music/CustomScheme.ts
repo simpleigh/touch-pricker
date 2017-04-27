@@ -34,7 +34,7 @@ namespace Pricker {
              */
             protected createMatchers(rounds: string): MatcherInterface[] {
                 return [ ];
-            };
+            }
 
             /* CustomScheme methods *******************************************/
 

@@ -17,7 +17,7 @@ namespace Pricker {
          * Types of music matching
          * @enum {number}
          */
-        export enum MatchType {Back = -1, Row, Front};
+        export enum MatchType {Back = -1, Row, Front}
 
     }
 

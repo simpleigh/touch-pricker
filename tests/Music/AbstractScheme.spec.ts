@@ -27,11 +27,11 @@ function testAbstractSchemeImplementation(
     );
 
     it('matches music correctly', function () {
-        for (let i: number = 0; i < testCases.length; i += 1) {
-            const stage: Pricker.Stage = testCases[i][0],
-                rowString: string = testCases[i][1],
-                matches: number = testCases[i][2],
-                output: string = testCases[i][3],
+        for (const testCase of testCases) {
+            const stage: Pricker.Stage = testCase[0],
+                rowString: string = testCase[1],
+                matches: number = testCase[2],
+                output: string = testCase[3],
                 scheme: Pricker.Music.AbstractScheme = createFn(stage);
 
             scheme.match(Pricker.rowFromString(rowString, stage));
