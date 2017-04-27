@@ -5,6 +5,8 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="AbstractVisitor.spec.ts" />
+
 describe('Proof visitor', function () {
 
     it('has a dictionary of row counts that starts empty', function () {
@@ -67,7 +69,9 @@ describe('Proof visitor', function () {
     });
 
     testAbstractVisitorImplementation(
-        Pricker.Visitor.Proof,
+        function (): Pricker.Visitor.Proof {
+            return new Pricker.Visitor.Proof();
+        },
         function (
             visitor: Pricker.Visitor.Proof,
         ): { [index: string]: number } {

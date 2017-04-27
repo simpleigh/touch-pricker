@@ -1,0 +1,28 @@
+/**
+ * Free Stedman Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright © 2015-17 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * Renders a Pattern as text
+ * @param {string} end - line ending
+ */
+
+{{? context.end === undefined }}
+	{{ context.end = '\n'; }}
+{{?}}
+
+{{? context.object.getMatches() > 0 }}
+
+	{{? context.object.isWildcardMatch() || context.object.getMatches() > 1 }}
+		{{= context.object.getMatches() }}
+		 /* single space */
+	{{?}}
+
+	{{= context.object.getName() }}
+
+	{{= context.end }}
+
+{{?}}

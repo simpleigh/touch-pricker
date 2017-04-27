@@ -7,13 +7,13 @@
 
 /**
  * Tests that a visitor behaves as an AbstractVisitor
- * @param {AbstractVisitor}  Visitor   - visitor under test
- * @param {}                 getState  - fn that returns the visitor's state
- * @param {}                 setupTest - add spies before testcase
+ * @param {}  createFn  - fn to create visitor under test
+ * @param {}  getState  - fn that returns the visitor's state
+ * @param {}  setupTest - add spies before testcase
  */
 function testAbstractVisitorImplementation(
     // tslint:disable-next-line:variable-name
-    Visitor,
+    createFn: () => Pricker.Visitor.AbstractVisitor,
     getState: (visitor: Pricker.Visitor.AbstractVisitor) => any,
     // tslint:disable-next-line:no-empty
     setupTest: () => void = function () { },
@@ -27,20 +27,20 @@ function testAbstractVisitorImplementation(
 
         it('returns this when processing a row', function () {
             const row: Pricker.Row = createTestRow('231'),
-                visitor: typeof Visitor = new Visitor();
+                visitor: Pricker.Visitor.AbstractVisitor = createFn();
 
             expect(visitor.visit(row)).toBe(visitor);
         });
 
         it('starts out processing rows', function () {
-            const visitor: typeof Visitor = new Visitor();
+            const visitor: Pricker.Visitor.AbstractVisitor = createFn();
             expect(visitor.isVisiting()).toBe(true);
         });
 
         it('stops processing rows after rounds is reached', function () {
             const row: Pricker.Row = createTestRow('231'),
                 rounds: Pricker.Row = createTestRow(''),
-                visitor: typeof Visitor = new Visitor();
+                visitor: Pricker.Visitor.AbstractVisitor = createFn();
 
             visitor.visit(row);
             visitor.visit(rounds);
@@ -50,7 +50,7 @@ function testAbstractVisitorImplementation(
         it('stops changing its state when not processing', function () {
             const row: Pricker.Row = createTestRow('231'),
                 rounds: Pricker.Row = createTestRow(''),
-                visitor: typeof Visitor = new Visitor();
+                visitor: Pricker.Visitor.AbstractVisitor = createFn();
 
             let result: any;
 

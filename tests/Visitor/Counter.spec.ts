@@ -5,6 +5,8 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="AbstractVisitor.spec.ts" />
+
 describe('Counter visitor', function () {
 
     it('has a count that starts from zero', function () {
@@ -29,7 +31,9 @@ describe('Counter visitor', function () {
     });
 
     testAbstractVisitorImplementation(
-        Pricker.Visitor.Counter,
+        function (): Pricker.Visitor.Counter {
+            return new Pricker.Visitor.Counter();
+        },
         function (visitor: Pricker.Visitor.Counter): number {
             return visitor.getCount();
         },

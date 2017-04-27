@@ -5,6 +5,8 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="AbstractVisitor.spec.ts" />
+
 describe('StringArray visitor', function () {
 
     it('has a list of strings that starts empty', function () {
@@ -40,7 +42,9 @@ describe('StringArray visitor', function () {
     });
 
     testAbstractVisitorImplementation(
-        Pricker.Visitor.StringArray,
+        function (): Pricker.Visitor.StringArray {
+            return new Pricker.Visitor.StringArray();
+        },
         function (visitor: Pricker.Visitor.StringArray): string[] {
             return visitor.getStrings();
         },

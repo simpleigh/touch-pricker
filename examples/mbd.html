@@ -108,6 +108,12 @@
       </form>
       <textarea id="importexport" rows="20" cols="60"></textarea>
     </div>
+    <div>
+      <form onsubmit="return false">
+        <button onclick="analyseMusic()">Analyse</button>
+      </form>
+      <textarea id="music" rows="20" cols="60"></textarea>
+    </div>
     <script type="text/javascript">
         var stage,             // Stage we're pricking on
             course,            // The course itself
@@ -346,6 +352,16 @@
             'use strict';
             document.getElementById('importexport').innerText =
                 touch.print('text');
+        }
+
+        function analyseMusic() {
+            'use strict';
+            var visitor = new Pricker.Visitor.Music(
+                new Pricker.Music.MbdScheme(stage)
+            );
+            touch.accept(visitor);
+            document.getElementById('music').innerText =
+                visitor.getMatcher().print('text');
         }
 
         setStage();
