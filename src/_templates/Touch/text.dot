@@ -9,7 +9,7 @@
  * Renders a touch as text
  */
 
-{{= context.initialRow }}{{= '\n' }}
+{{= Pricker.stringFromRow(context.object.getInitialRow()) }}{{= '\n' }}
 {{~ context.blocks :course }}
 	{{= course.print('text') }}
 {{~}}

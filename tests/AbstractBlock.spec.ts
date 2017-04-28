@@ -197,9 +197,6 @@ function testAbstractBlockImplementation(
             data = testTemplateSpy.calls.argsFor(0)[0];
             expect(data.object).toBe(block);
             expect(data.index).toBe(999);
-            expect(data.initialRow).toEqual(
-                Pricker.stringFromRow(block.getInitialRow()),
-            );
 
             delete Pricker.Templates[block.templatePath + '.test'];
         });

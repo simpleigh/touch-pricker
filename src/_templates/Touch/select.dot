@@ -9,7 +9,9 @@
  * Renders a touch as HTML for use within a <select> element
  */
 
-<option value="0">{{= context.initialRow }}</option>
+<option value="0">
+	{{= Pricker.stringFromRow(context.object.getInitialRow()) }}
+</option>
 
 {{~ context.blocks :course }}
 	<option value="{{= course.getOwnership()[1] }}">

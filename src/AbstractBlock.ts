@@ -128,7 +128,6 @@ namespace Pricker {
             templateName = this.templatePath + '.' + templateName;
             context.object = this;
             context.index = this._index;
-            context.initialRow = stringFromRow(this._initialRow);
             return Templates[templateName](context);
         }
 
