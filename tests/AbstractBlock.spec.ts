@@ -17,6 +17,7 @@ function testAbstractBlockImplementation(
     // tslint:disable-next-line:variable-name
     Block,
     triggerNotification: (block: Pricker.AbstractBlock) => void,
+    expectedRows: number,
 ) {
 
     describe('is derived from AbstractBlock and', function () {
@@ -173,6 +174,11 @@ function testAbstractBlockImplementation(
                 visitor = new Pricker.Visitor.Counter();
 
             expect(block.accept(visitor)).toBe(block);
+        });
+
+        it('estimates the number of rows correctly', function () {
+            const block = new Block(createTestRow());
+            expect(block.estimateRows()).toBe(expectedRows);
         });
 
         testPrintableMixinImplementation(() => new Block(createTestRow()));

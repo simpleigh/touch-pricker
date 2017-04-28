@@ -88,6 +88,14 @@ namespace Pricker {
             return this._end.slice();
         }
 
+        /**
+         * Estimates the number of rows in the block
+         * The estimate doesn't take into account coming round part-way through
+         */
+        public estimateRows(): number {
+            return 6;
+        }
+
         /* PrintableMixin methods *********************************************/
 
         /**

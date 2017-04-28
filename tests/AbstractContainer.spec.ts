@@ -15,6 +15,7 @@
  * @param {string}             getBlockFnName  - name of fn to get a block
  * @param {}                   lengthTestCases - expected stage lengths
  * @param {}                   lengthBounds    - limits on container length
+ * @param {number}             expectedRows    - default rows of the container
  */
 function testAbstractContainerImplementation(
     // tslint:disable-next-line:variable-name
@@ -23,6 +24,7 @@ function testAbstractContainerImplementation(
     getBlockFnName: string,
     lengthTestCases: Array<[Pricker.Stage, number]>,
     lengthBounds: [number, number],
+    expectedRows: number,
 ) {
 
     function runLengthTestCases(testFunction) {
@@ -267,9 +269,21 @@ function testAbstractContainerImplementation(
             expect(parent.notify).toHaveBeenCalledTimes(2);
         });
 
+        it('updates the estimate of rows when the length changes', function () {
+            const container = new Container(createTestRow()),
+                length = container.getLength(),
+                rows = container.estimateRows();
+
+            container.setLength(length + 1);
+            expect(container.estimateRows()).toBe(
+                rows + container[getBlockFnName](length + 1).estimateRows(),
+            );
+        });
+
         testAbstractBlockImplementation(
             Container,
             (container: typeof Container) => { container.setLength(10); },
+            expectedRows,
         );
 
     });

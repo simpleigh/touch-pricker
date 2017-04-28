@@ -133,6 +133,12 @@ namespace Pricker {
          */
         public abstract accept(visitor: Visitor.AbstractVisitor): this;
 
+        /**
+         * Estimates the number of rows in the block
+         * The estimate doesn't take into account coming round part-way through
+         */
+        public abstract estimateRows(): number;
+
     }
 
     PrintableMixin.makePrintable(AbstractBlock);

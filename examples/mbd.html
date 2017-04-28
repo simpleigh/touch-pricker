@@ -172,6 +172,10 @@
                 document.getElementById('savedCalling').innerText = 'None';
             }
 
+            // Estimate of rows
+            document.getElementById('numRows').innerText =
+                touch.estimateRows() + ' changes';
+
             // Touch display
             document.getElementById('courses').innerText = '';
             document.getElementById('courses').size = Math.max(

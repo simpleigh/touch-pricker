@@ -169,6 +169,7 @@ function testSixImplementation(Six, testCases, rowTests) {
         testAbstractBlockImplementation(
             Six,
             (six: Pricker.AbstractSix) => { six.toggleCall(); },
+            6,
         );
     });
 }

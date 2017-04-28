@@ -189,5 +189,6 @@ describe('Course class', function () {
             [Pricker.Stage.Septuples, 30],
         ],
         [2, 60],
+        132,
     );
 });

@@ -35,6 +35,14 @@ namespace Pricker {
             return super.accept(visitor);
         }
 
+        /**
+         * Estimates the number of rows in the block
+         * The estimate doesn't take into account coming round part-way through
+         */
+        public estimateRows(): number {
+            return 2 + super.estimateRows();
+        }
+
         /* PrintableMixin methods *********************************************/
 
         /**

@@ -272,5 +272,6 @@ describe('Touch class', function () {
             [Pricker.Stage.Septuples, 0],
         ],
         [0, 100],
+        2,
     );
 });

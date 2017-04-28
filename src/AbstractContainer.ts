@@ -75,6 +75,18 @@ namespace Pricker {
             return this;
         }
 
+        /**
+         * Estimates the number of rows in the block
+         * The estimate doesn't take into account coming round part-way through
+         */
+        public estimateRows(): number {
+            let rows: number = 0;
+            for (const block of this._blocks) {
+                rows += block.estimateRows();
+            }
+            return rows;
+        }
+
         /* AbstractContainer methods ******************************************/
 
         /**
