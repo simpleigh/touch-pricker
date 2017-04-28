@@ -195,7 +195,7 @@ function testAbstractBlockImplementation(
             block.print('test');
 
             data = testTemplateSpy.calls.argsFor(0)[0];
-            expect(data.block).toBe(block);
+            expect(data.object).toBe(block);
             expect(data.index).toBe(999);
             expect(data.initialRow).toEqual(
                 Pricker.stringFromRow(block.getInitialRow()),

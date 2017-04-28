@@ -10,4 +10,4 @@
  */
 
 <u>{{= context.initialRow }}</u><br />
-{{= context.block.print('text') }}
+{{= context.object.print('text') }}

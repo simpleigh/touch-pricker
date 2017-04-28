@@ -15,11 +15,11 @@
  onclick="c({{= context.index }})"
 >
 	&nbsp;
-	{{? context.block.getCall() === Pricker.Call.Plain }}
+	{{? context.object.getCall() === Pricker.Call.Plain }}
 		&nbsp;
-	{{?? context.block.getCall() === Pricker.Call.Bob }}
+	{{?? context.object.getCall() === Pricker.Call.Bob }}
 		-
-	{{?? context.block.getCall() === Pricker.Call.Single }}
+	{{?? context.object.getCall() === Pricker.Call.Single }}
 		s
 	{{?}}
 	&nbsp;

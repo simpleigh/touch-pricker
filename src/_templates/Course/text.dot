@@ -22,7 +22,7 @@
 	{{?}}
 {{~}}
 
-{{? context.block.isPlain() }}
+{{? context.object.isPlain() }}
 	 /* single space */
 	p
 {{?}}

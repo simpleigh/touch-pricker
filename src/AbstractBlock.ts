@@ -140,7 +140,7 @@ namespace Pricker {
          * Derived classes may override this to provide more data to templates
          */
         protected getTemplateData(context: TemplateContext): TemplateContext {
-            context.block = this;
+            context.object = this;
             context.index = this._index;
             context.initialRow = stringFromRow(this._initialRow);
             context.endRow = stringFromRow(this.getEnd());
