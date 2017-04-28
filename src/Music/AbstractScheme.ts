@@ -98,7 +98,6 @@ namespace Pricker {
             ): string {
                 templateName = this.templatePath + '.' + templateName;
                 context.object = this;
-                context.matchers = this._matchers;
                 return Templates[templateName](context);
             }
 
