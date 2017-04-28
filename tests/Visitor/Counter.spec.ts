@@ -5,6 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="../functions.ts" />
 /// <reference path="AbstractVisitor.spec.ts" />
 
 describe('Counter visitor', function () {
@@ -18,25 +19,17 @@ describe('Counter visitor', function () {
 
     it('increments the count when it visits a row', function () {
         const visitor: Pricker.Visitor.Counter =
-                new Pricker.Visitor.Counter(),
-            row: Pricker.Row =
-                Pricker.rowFromString('231', Pricker.Stage.Cinques);
+                new Pricker.Visitor.Counter();
 
-        let i: number;
-
-        for (i = 1; i < 5; i += 1) {
-            visitor.visit(row);
+        for (let i: number = 1; i < 5; i += 1) {
+            visitor.visit(createTestRow());
             expect(visitor.getCount()).toBe(i);
         }
     });
 
     testAbstractVisitorImplementation(
-        function (): Pricker.Visitor.Counter {
-            return new Pricker.Visitor.Counter();
-        },
-        function (visitor: Pricker.Visitor.Counter): number {
-            return visitor.getCount();
-        },
+        () => new Pricker.Visitor.Counter(),
+        (visitor: Pricker.Visitor.Counter) => visitor.getCount(),
     );
 
 });

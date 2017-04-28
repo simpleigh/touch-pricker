@@ -5,6 +5,8 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="../../functions.ts" />
+
 describe('mbd template for AbstractSix', function () {
 
     const testCases: any[] = [
@@ -47,16 +49,14 @@ describe('mbd template for AbstractSix', function () {
     ];
 
     it('renders a six correctly', function () {
-        let i: number,
-            row: Pricker.Row,
+        let row: Pricker.Row,
             six: Pricker.AbstractSix;
 
-        for (i = 0; i < testCases.length; i += 1) {
-            row = Pricker.rowFromString(testCases[i][0], testCases[i][1]);
-            six = new testCases[i][2](row, undefined, testCases[i][3]);
-            six.setCall(testCases[i][4]);
-
-            expect(six.print('mbd')).toBe(testCases[i][5]);
+        for (const testCase of testCases) {
+            row = createTestRow(testCase[0], testCase[1]);
+            six = new testCase[2](row, undefined, testCase[3]);
+            six.setCall(testCase[4]);
+            expect(six.print('mbd')).toBe(testCase[5]);
         }
     });
 

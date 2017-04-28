@@ -5,6 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="functions.ts" />
 /// <reference path="AbstractBlock.spec.ts" />
 
 // tslint:disable-next-line:variable-name
@@ -12,18 +13,12 @@ function testSixImplementation(Six, testCases, rowTests) {
 
     function runTestCases(testFunction) {
         return function () {
-            let i: number;
-
-            for (i = 0; i < testCases.length; i += 1) {
+            for (const testCase of testCases) {
                 testFunction(
-                    // Previous six end
-                    Pricker.rowFromString(testCases[i][0], testCases[i][2]),
-                    // Expected six end
-                    Pricker.rowFromString(testCases[i][1], testCases[i][2]),
-                    // Stage
-                    testCases[i][2],
-                    // Call
-                    testCases[i][3],
+                    createTestRow(testCase[0], testCase[2]),  // Previous sixend
+                    createTestRow(testCase[1], testCase[2]),  // Expected sixend
+                    testCase[2],                              // Stage
+                    testCase[3],                              // Call
                 );
             }
         };
@@ -39,8 +34,7 @@ function testSixImplementation(Six, testCases, rowTests) {
 
     it('updates when the previous six end changes', runTestCases(
         function (previous, expected, stage, call) {
-            const incorrectPrevious: Pricker.Row =
-                    Pricker.rowFromString('', stage),
+            const incorrectPrevious: Pricker.Row = createTestRow('', stage),
                 six: typeof Six = new Six(incorrectPrevious);
 
             six.setCall(call);
@@ -87,30 +81,25 @@ function testSixImplementation(Six, testCases, rowTests) {
     ));
 
     it('generates the correct rows when visited', function () {
-        let i: number,
-            initialRow: Pricker.Row,
+        let initialRow: Pricker.Row,
             six: typeof Six,
             visitor: Pricker.Visitor.StringArray,
             strings: string[];
 
-        for (i = 0; i < rowTests.length; i += 1) {
-            initialRow = Pricker.rowFromString('', rowTests[i][6]);
-            rowTests[i].pop();  // Remove stage
+        for (const rowTest of rowTests) {
+            initialRow = createTestRow('', rowTest[6]);
+            rowTest.pop();  // Remove stage
             six = new Six(initialRow);
             visitor = new Pricker.Visitor.StringArray();
 
             six.accept(visitor);
             strings = visitor.getStrings();
 
-            expect(strings).toEqual(rowTests[i]);
+            expect(strings).toEqual(rowTest);
         }
     });
 
     describe('is derived from AbstractSix and', function () {
-
-        function createTestRow(): Pricker.Row {
-            return Pricker.rowFromString('231', Pricker.Stage.Cinques);
-        }
 
         function createTestSix(
             container: Pricker.AbstractBlock = null,
@@ -180,9 +169,7 @@ function testSixImplementation(Six, testCases, rowTests) {
 
         testAbstractBlockImplementation(
             Six,
-            function (six: typeof Six): void {
-                six.toggleCall();
-            },
+            (six: Pricker.AbstractSix) => { six.toggleCall(); },
         );
     });
 }

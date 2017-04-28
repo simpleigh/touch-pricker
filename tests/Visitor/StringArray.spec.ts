@@ -18,14 +18,10 @@ describe('StringArray visitor', function () {
 
     it('stores a string when it visits a row', function () {
         const visitor: Pricker.Visitor.StringArray =
-                new Pricker.Visitor.StringArray(),
-            row1: Pricker.Row =
-                Pricker.rowFromString('2314567890E', Pricker.Stage.Cinques),
-            row2: Pricker.Row =
-                Pricker.rowFromString('3241658709E', Pricker.Stage.Cinques);
+                new Pricker.Visitor.StringArray();
 
-        visitor.visit(row1);
-        visitor.visit(row2);
+        visitor.visit(createTestRow('2314567890E'));
+        visitor.visit(createTestRow('3241658709E'));
 
         expect(visitor.getStrings()).toEqual(['2314567890E', '3241658709E']);
     });
@@ -42,12 +38,8 @@ describe('StringArray visitor', function () {
     });
 
     testAbstractVisitorImplementation(
-        function (): Pricker.Visitor.StringArray {
-            return new Pricker.Visitor.StringArray();
-        },
-        function (visitor: Pricker.Visitor.StringArray): string[] {
-            return visitor.getStrings();
-        },
+        () => new Pricker.Visitor.StringArray(),
+        (visitor: Pricker.Visitor.StringArray) => visitor.getStrings(),
     );
 
 });

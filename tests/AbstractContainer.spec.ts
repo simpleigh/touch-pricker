@@ -5,6 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="functions.ts" />
 /// <reference path="AbstractBlock.spec.ts" />
 
 /**
@@ -24,19 +25,10 @@ function testAbstractContainerImplementation(
     lengthBounds: [number, number],
 ) {
 
-    function createTestRow(input: string = '231'): Pricker.Row {
-        return Pricker.rowFromString(input, Pricker.Stage.Cinques);
-    }
-
     function runLengthTestCases(testFunction) {
         return function () {
-            let i: number;
-
-            for (i = 0; i < lengthTestCases.length; i += 1) {
-                testFunction(
-                    Pricker.rowFromString('231', lengthTestCases[i][0]),
-                    lengthTestCases[i][1],
-                );
+            for (const testCase of lengthTestCases) {
+                testFunction(createTestRow('231', testCase[0]), testCase[1]);
             }
         };
     }

@@ -5,6 +5,8 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="../functions.ts" />
+
 /**
  * Tests that a matcher behaves appropriately
  * @param {}        createFn    - function to create the matcher under test
@@ -14,10 +16,6 @@ function testMatcherInterface(
     createFn: () => Pricker.Music.MatcherInterface,
     matcherName: string = 'test',
 ) {
-
-    function createTestRow(input: string = '231'): Pricker.Row {
-        return Pricker.rowFromString(input, Pricker.Stage.Cinques);
-    }
 
     describe('implements MatcherInterface and', function () {
 
@@ -43,12 +41,10 @@ function testMatcherInterface(
         });
 
         it('increments the match count for each match', function () {
-            const row: Pricker.Row = createTestRow();
-
-            matcher.match(row);
+            matcher.match(createTestRow());
             expect(matcher.getMatchCount()).toBe(1);
 
-            matcher.match(row);
+            matcher.match(createTestRow());
             expect(matcher.getMatchCount()).toBe(2);
         });
 

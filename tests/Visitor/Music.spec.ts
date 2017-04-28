@@ -5,6 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="../functions.ts" />
 /// <reference path="AbstractVisitor.spec.ts" />
 
 describe('Music visitor', function () {
@@ -20,22 +21,18 @@ describe('Music visitor', function () {
     it('matches rows using the provided matcher', function () {
         const matcher = jasmine.createSpyObj('MatcherInterface', ['match']),
             visitor: Pricker.Visitor.Music = new Pricker.Visitor.Music(matcher),
-            row: Pricker.Row =
-                Pricker.rowFromString('231', Pricker.Stage.Cinques);
+            row: Pricker.Row = createTestRow();
 
         visitor.visit(row);
         expect(matcher.match).toHaveBeenCalledWith(row);
     });
 
     testAbstractVisitorImplementation(
-        function (): Pricker.Visitor.Music {
-            const matcher: Pricker.Music.MatcherInterface =
-                    new Pricker.Music.MbdScheme(Pricker.Stage.Cinques);
-            return new Pricker.Visitor.Music(matcher);
-        },
-        function (visitor: Pricker.Visitor.Music): number {
-            return visitor.getMatcher().getMatchCount();
-        },
+        () => new Pricker.Visitor.Music(
+            new Pricker.Music.MbdScheme(Pricker.Stage.Cinques),
+        ),
+        (visitor: Pricker.Visitor.Music) =>
+            visitor.getMatcher().getMatchCount(),
     );
 
 });

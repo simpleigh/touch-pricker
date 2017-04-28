@@ -5,18 +5,17 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="functions.ts" />
 /// <reference path="AbstractContainer.spec.ts" />
 
 describe('Course class', function () {
 
     function testImport(input, output) {
         return function () {
-            const stage: Pricker.Stage = Pricker.Stage.Cinques,
-                initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
-                course: Pricker.Course = Pricker.Course.fromString(
-                    initialRow,
-                    input,
-                );
+            const course: Pricker.Course = Pricker.Course.fromString(
+                        createTestRow(),
+                        input,
+                    );
 
             // Slice off '\n' when comparing
             expect(course.print('text').slice(0, -1)).toBe(output);
@@ -24,12 +23,10 @@ describe('Course class', function () {
     }
 
     it('calculates sixes correctly', function () {
-        const stage: Pricker.Stage = Pricker.Stage.Cinques,
-            initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
-            course: Pricker.Course = Pricker.Course.fromString(
-                initialRow,
-                '2314567890E  1 s10 s13 22',
-            ),
+        const course: Pricker.Course = Pricker.Course.fromString(
+                    createTestRow(),
+                    '2314567890E  1 s10 s13 22',
+                ),
             expectedSixEnds: string[] = [
                 '3426185970E',
                 '346829105E7',
@@ -64,9 +61,7 @@ describe('Course class', function () {
     });
 
     it('can be cloned', function () {
-        const stage: Pricker.Stage = Pricker.Stage.Cinques,
-            initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
-            course: Pricker.Course = new Pricker.Course(initialRow);
+        const course: Pricker.Course = new Pricker.Course(createTestRow());
 
         let cloned: Pricker.Course;
 
@@ -79,9 +74,7 @@ describe('Course class', function () {
     });
 
     it('ignores changes to the cloned course', function () {
-        const stage: Pricker.Stage = Pricker.Stage.Cinques,
-            initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
-            course: Pricker.Course = new Pricker.Course(initialRow),
+        const course: Pricker.Course = new Pricker.Course(createTestRow()),
             getLengthBackup: number = course.getLength(),
             getEndBackup: Pricker.Row = course.getEnd(),
             cloned: Pricker.Course = course.clone();
@@ -97,9 +90,7 @@ describe('Course class', function () {
     });
 
     it('generates the correct rows when visited', function () {
-        const stage: Pricker.Stage = Pricker.Stage.Cinques,
-            initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
-            course: Pricker.Course = new Pricker.Course(initialRow);
+        const course: Pricker.Course = new Pricker.Course(createTestRow());
 
         let visitor: Pricker.Visitor.StringArray,
             index: number,
@@ -185,11 +176,8 @@ describe('Course class', function () {
         ));
 
         it('a broken course (that raises an error)', function () {
-            const stage: Pricker.Stage = Pricker.Stage.Cinques,
-                initialRow: Pricker.Row = Pricker.rowFromString('231', stage);
-
             expect(function () {
-                Pricker.Course.fromString(initialRow, 'garbage');
+                Pricker.Course.fromString(createTestRow(), 'garbage');
             }).toThrowError('Cannot import course');
         });
     });

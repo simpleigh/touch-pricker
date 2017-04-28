@@ -5,13 +5,10 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="functions.ts" />
 /// <reference path="AbstractContainer.spec.ts" />
 
 describe('Touch class', function () {
-
-    function createTestRow(input: string = '231'): Pricker.Row {
-        return Pricker.rowFromString(input, Pricker.Stage.Cinques);
-    }
 
     function testImport(input, output) {
         return function () {
@@ -21,9 +18,7 @@ describe('Touch class', function () {
     }
 
     it('generates the correct rows when visited', function () {
-        const stage: Pricker.Stage = Pricker.Stage.Cinques,
-            initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
-            touch: Pricker.Touch = new Pricker.Touch(initialRow);
+        const touch: Pricker.Touch = new Pricker.Touch(createTestRow());
 
         let visitor: Pricker.Visitor.StringArray,
             strings: string[] = [

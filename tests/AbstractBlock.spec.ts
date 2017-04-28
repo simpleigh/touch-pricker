@@ -5,6 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="functions.ts" />
 /// <reference path="PrintableMixin.spec.ts" />
 
 /**
@@ -18,10 +19,6 @@ function testAbstractBlockImplementation(
     triggerNotification: (block: Pricker.AbstractBlock) => void,
 ) {
 
-    function createTestRow(input: string = ''): Pricker.Row {
-        return Pricker.rowFromString(input, Pricker.Stage.Cinques);
-    }
-
     describe('is derived from AbstractBlock and', function () {
 
         it('stores the initial row', function () {
@@ -31,8 +28,7 @@ function testAbstractBlockImplementation(
         });
 
         it('allows the initial row to be changed', function () {
-            const initialRow: Pricker.Row = createTestRow(),
-                block: typeof Block = new Block(initialRow),
+            const block: typeof Block = new Block(createTestRow()),
                 newRow: Pricker.Row = createTestRow('2143658709E');
 
             block.setInitialRow(newRow);
@@ -91,10 +87,8 @@ function testAbstractBlockImplementation(
         });
 
         it('ends with a row on the same stage as it starts', function () {
-            const row: Pricker.Row = createTestRow(),
-                block: typeof Block = new Block(row);
-
-            expect(block.getEnd().length).toEqual(row.length);
+            const block: typeof Block = new Block(createTestRow());
+            expect(block.getEnd().length).toEqual(11);
         });
 
         it('ignores changes to the getEnd result', function () {
@@ -166,7 +160,7 @@ function testAbstractBlockImplementation(
         });
 
         it('calls a visitor in order to traverse rows', function () {
-            const block: typeof Block = new Block(createTestRow()),
+            const block: typeof Block = new Block(createTestRow('123')),
                 visitor: Pricker.Visitor.Counter =
                         new Pricker.Visitor.Counter();
 

@@ -5,18 +5,16 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="../../functions.ts" />
+
 describe('text template for Course', function () {
 
     function testRendering(input) {
         return function () {
-            const stage: Pricker.Stage = Pricker.Stage.Cinques,
-                initialRow: Pricker.Row = Pricker.rowFromString('231', stage),
-                course: Pricker.Course = Pricker.Course.fromString(
-                    initialRow,
-                    input,
-                );
-
-            expect(course.print('text')).toBe(input + '\n');
+            expect(
+                Pricker.Course.fromString(createTestRow(), input)
+                    .print('text'),
+            ).toBe(input + '\n');
         };
     }
 
