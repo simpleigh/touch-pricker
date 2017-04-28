@@ -126,7 +126,11 @@ namespace Pricker {
             context: TemplateContext = { },
         ): string {
             templateName = this.templatePath + '.' + templateName;
-            return Templates[templateName](this.getTemplateData(context));
+            context.object = this;
+            context.index = this._index;
+            context.initialRow = stringFromRow(this._initialRow);
+            context.endRow = stringFromRow(this.getEnd());
+            return Templates[templateName](context);
         }
 
         /**
@@ -134,17 +138,5 @@ namespace Pricker {
          */
         public abstract readonly templatePath: string;
 
-        /**
-         * Provides template data
-         *
-         * Derived classes may override this to provide more data to templates
-         */
-        protected getTemplateData(context: TemplateContext): TemplateContext {
-            context.object = this;
-            context.index = this._index;
-            context.initialRow = stringFromRow(this._initialRow);
-            context.endRow = stringFromRow(this.getEnd());
-            return context;
-        }
     }
 }

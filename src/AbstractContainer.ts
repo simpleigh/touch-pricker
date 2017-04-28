@@ -76,13 +76,14 @@ namespace Pricker {
         }
 
         /**
-         * Provides template data
-         *
-         * Derived classes may override this to provide more data to templates
+         * Renders the block with a template
          */
-        protected getTemplateData(context: TemplateContext): TemplateContext {
+        public print(
+            templateName: string,
+            context: TemplateContext = { },
+        ): string {
             context.blocks = this._blocks;
-            return super.getTemplateData(context);
+            return super.print(templateName, context);
         }
 
         /* AbstractContainer methods ******************************************/
