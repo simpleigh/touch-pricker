@@ -17,7 +17,7 @@
 
 	{{= context.object.getName() }}
 
-	{{? context.object.getSubmatches() > 0 }}
+	{{? context.object.getSubmatchCount() > 0 }}
 
 		 /* single space */
 		(

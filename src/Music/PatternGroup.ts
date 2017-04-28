@@ -77,7 +77,7 @@ namespace Pricker {
                 if (this._parentPattern) {
                     return this._parentPattern.getMatchCount();
                 }
-                return this.getSubmatches();
+                return this.getSubmatchCount();
             }
 
             /* PatternGroup methods *******************************************/
@@ -85,7 +85,7 @@ namespace Pricker {
             /**
              * Provides read access to the count of matches within patterns
              */
-            public getSubmatches(): number {
+            public getSubmatchCount(): number {
                 let matches: number = 0;
 
                 for (const pattern of this._patterns) {

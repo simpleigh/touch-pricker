@@ -88,7 +88,7 @@ describe('PatternGroup music class', function () {
             );
 
         group.match(row);
-        expect(group.getSubmatches()).toBe(0);
+        expect(group.getSubmatchCount()).toBe(0);
     });
 
 });
