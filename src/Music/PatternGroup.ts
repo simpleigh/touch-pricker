@@ -83,6 +83,13 @@ namespace Pricker {
             /* PatternGroup methods *******************************************/
 
             /**
+             * Provides read access to the patterns
+             */
+            public getPatterns(): Pattern[] {
+                return this._patterns.slice();
+            }
+
+            /**
              * Provides read access to the count of matches within patterns
              */
             public getSubmatchCount(): number {

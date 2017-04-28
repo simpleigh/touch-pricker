@@ -63,6 +63,29 @@ describe('PatternGroup music class', function () {
         expect(group.getMatchCount()).toBe(0);
     });
 
+    it('provides access to the patterns', function () {
+        const patterns: Pricker.Music.Pattern[] = [
+                new Pricker.Music.Pattern('2314567890E'),
+            ],
+            group: Pricker.Music.PatternGroup =
+                new Pricker.Music.PatternGroup('test', patterns);
+
+        expect(group.getPatterns()).toEqual(patterns);
+    });
+
+    it('ignores changes to the returned pattern array', function () {
+        const patterns: Pricker.Music.Pattern[] = [
+                new Pricker.Music.Pattern('2314567890E'),
+            ],
+            group: Pricker.Music.PatternGroup =
+                new Pricker.Music.PatternGroup('test', patterns);
+
+        expect(group.getPatterns()).not.toBe(patterns);
+
+        patterns.pop();
+        expect(group.getPatterns()).not.toEqual(patterns);
+    });
+
     it('can override the match count with a parent pattern', function () {
         const row: Pricker.Row = createTestRow(),
             group: Pricker.Music.PatternGroup = new Pricker.Music.PatternGroup(
