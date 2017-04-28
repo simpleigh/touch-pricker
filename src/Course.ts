@@ -52,13 +52,14 @@ namespace Pricker {
         }
 
         /**
-         * Returns the limits on length for the particular concrete class
-         *
-         * minimum, maximum
+         * Lower limit on length for the particular concrete class
          */
-        protected getLengthLimits(): [number, number] {
-            return [2, 60];
-        }
+        protected readonly minLength: number = 2;
+
+        /**
+         * Upper limit on length for the particular concrete class
+         */
+        protected readonly maxLength: number = 60;
 
         /* Course methods *****************************************************/
 

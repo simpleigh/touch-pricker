@@ -66,13 +66,14 @@ namespace Pricker {
         }
 
         /**
-         * Returns the limits on length for the particular concrete class
-         *
-         * minimum, maximum
+         * Lower limit on length for the particular concrete class
          */
-        protected getLengthLimits(): [number, number] {
-            return [0, 100];
-        }
+        protected readonly minLength: number = 0;
+
+        /**
+         * Upper limit on length for the particular concrete class
+         */
+        protected readonly maxLength: number = 100;
 
         /* Touch methods ******************************************************/
 

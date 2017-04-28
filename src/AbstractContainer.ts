@@ -145,8 +145,7 @@ namespace Pricker {
          * Write access to the length
          */
         public setLength(length: number): this {
-            const [minimum, maximum]: [number, number] = this.getLengthLimits();
-            if ((length < minimum) || (length > maximum)) {
+            if ((length < this.minLength) || (length > this.maxLength)) {
                 throw new Error('Length out of range');
             }
 
@@ -165,18 +164,20 @@ namespace Pricker {
          * Write access to the length: ignores out-of-range values
          */
         public safeSetLength(length: number): this {
-            const [minimum, maximum]: [number, number] = this.getLengthLimits();
-            length = Math.max(length, minimum);
-            length = Math.min(length, maximum);
+            length = Math.max(length, this.minLength);
+            length = Math.min(length, this.maxLength);
             return this.setLength(length);
         }
 
         /**
-         * Returns the limits on length for the particular concrete class
-         *
-         * minimum, maximum
+         * Lower limit on length for the particular concrete class
          */
-        protected abstract getLengthLimits(): [number, number];
+        protected readonly abstract minLength: number;
+
+        /**
+         * Upper limit on length for the particular concrete class
+         */
+        protected readonly abstract maxLength: number;
 
         /**
          * Read access to the blocks
