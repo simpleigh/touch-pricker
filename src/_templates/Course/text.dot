@@ -14,7 +14,7 @@
 {{= Pricker.stringFromRow(context.object.getEnd()) }}
  /* single space */
 
-{{~ context.blocks :six }}
+{{~ context.object.getSixes() :six }}
 	{{? six.getCall() }}
 		 /* single space */
 		{{? six.getCall() === Pricker.Call.Single }}s{{?}}
@@ -27,10 +27,10 @@
 	p
 {{?}}
 
-{{? context.blocks.length !== context.object.getInitialRow().length * 2 }}
+{{? context.object.getLength() !== context.object.getInitialRow().length * 2 }}
 	 /* single space */
 	 /* single space */
-	({{= context.blocks.length }} sixes)
+	({{= context.object.getLength() }} sixes)
 {{?}}
 
 {{= '\n' }}

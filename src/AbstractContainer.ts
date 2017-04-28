@@ -75,17 +75,6 @@ namespace Pricker {
             return this;
         }
 
-        /**
-         * Renders the block with a template
-         */
-        public print(
-            templateName: string,
-            context: TemplateContext = { },
-        ): string {
-            context.blocks = this._blocks;
-            return super.print(templateName, context);
-        }
-
         /* AbstractContainer methods ******************************************/
 
         /**

@@ -9,6 +9,6 @@
  * Renders a course as HTML for MBD-style pricker
  */
 <u>{{= Pricker.stringFromRow(context.object.getInitialRow()) }}</u><br />
-{{~ context.blocks :six }}
+{{~ context.object.getSixes() :six }}
 	{{= six.print('mbd') }}
 {{~}}

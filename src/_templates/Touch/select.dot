@@ -13,7 +13,7 @@
 	{{= Pricker.stringFromRow(context.object.getInitialRow()) }}
 </option>
 
-{{~ context.blocks :course }}
+{{~ context.object.getCourses() :course }}
 	<option value="{{= course.getOwnership()[1] }}">
 		{{= course.print('text') }}
 	</option>
