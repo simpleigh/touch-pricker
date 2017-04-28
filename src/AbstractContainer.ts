@@ -75,16 +75,6 @@ namespace Pricker {
             return this;
         }
 
-        /**
-         * Provides template data
-         *
-         * Derived classes may override this to provide more data to templates
-         */
-        protected getTemplateData(context: TemplateContext): TemplateContext {
-            context.blocks = this._blocks;
-            return super.getTemplateData(context);
-        }
-
         /* AbstractContainer methods ******************************************/
 
         /**
@@ -187,6 +177,16 @@ namespace Pricker {
          * minimum, maximum
          */
         protected abstract getLengthLimits(): [number, number];
+
+        /**
+         * Read access to the blocks
+         *
+         * Derived classes should provide public access via a more
+         * suitably-named method
+         */
+        protected getBlocks(): Block[] {
+            return this._blocks.slice();
+        }
 
         /**
          * Read access to a block

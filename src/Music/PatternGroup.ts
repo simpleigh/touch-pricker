@@ -5,6 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="../PrintableMixin.ts"/>
 /// <reference path="../Row.ts" />
 /// <reference path="MatcherInterface.ts" />
 /// <reference path="Pattern.ts" />
@@ -20,7 +21,7 @@ namespace Pricker {
         /**
          * Group of similar patterns to match related rows
          */
-        export class PatternGroup implements MatcherInterface {
+        export class PatternGroup implements MatcherInterface, PrintableMixin {
 
             /**
              * Patterns in this group
@@ -73,47 +74,50 @@ namespace Pricker {
             /**
              * Provides read access to the count of matches
              */
-            public getMatches(): number {
+            public getMatchCount(): number {
                 if (this._parentPattern) {
-                    return this._parentPattern.getMatches();
+                    return this._parentPattern.getMatchCount();
                 }
-                return this.getSubmatches();
+                return this.getSubmatchCount();
             }
 
-            /* PatternGroup methods *******************************************/
+            /* PrintableMixin methods *****************************************/
 
             /**
-             * Provides read access to the count of matches within patterns
+             * Renders the object with a template
              */
-            public getSubmatches(): number {
-                let matches: number = 0;
-
-                for (const pattern of this._patterns) {
-                    matches += pattern.getMatches();
-                }
-
-                return matches;
-            }
-
-            /**
-             * Renders the matcher with a template
-             */
-            public print(
-                templateName: string,
-                context: TemplateContext = { },
-            ): string {
-                templateName = this.templatePath + '.' + templateName;
-                context.object = this;
-                context.patterns = this._patterns;
-                return Templates[templateName](context);
-            }
+            public print: (t: string, c?: TemplateContext) => string;
 
             /**
              * Path for this class' templates
              */
             public readonly templatePath: string = 'Music.PatternGroup';
 
+            /* PatternGroup methods *******************************************/
+
+            /**
+             * Provides read access to the patterns
+             */
+            public getPatterns(): Pattern[] {
+                return this._patterns.slice();
+            }
+
+            /**
+             * Provides read access to the count of matches within patterns
+             */
+            public getSubmatchCount(): number {
+                let matches: number = 0;
+
+                for (const pattern of this._patterns) {
+                    matches += pattern.getMatchCount();
+                }
+
+                return matches;
+            }
+
         }
+
+        PrintableMixin.makePrintable(PatternGroup);
 
     }
 

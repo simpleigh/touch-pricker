@@ -5,6 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="PrintableMixin.ts"/>
 /// <reference path="Row.ts" />
 /// <reference path="stringFromRow.ts" />
 /// <reference path="TemplateContext.ts" />
@@ -27,7 +28,7 @@ namespace Pricker {
      * Containers notify blocks of changes by setting a new initial row.
      * Blocks notify containers of changes via a callback (receiveNotification).
      */
-    export abstract class AbstractBlock {
+    export abstract class AbstractBlock implements PrintableMixin {
         /**
          * Initial row for the block
          */
@@ -46,6 +47,20 @@ namespace Pricker {
         ) {
             this._initialRow = initialRow.slice();
         }
+
+        /* PrintableMixin methods *********************************************/
+
+        /**
+         * Renders the object with a template
+         */
+        public print: (t: string, c?: TemplateContext) => string;
+
+        /**
+         * Path for this class' templates
+         */
+        public readonly templatePath: string = 'AbstractBlock';
+
+        /* AbstractBlock methods **********************************************/
 
         /**
          * Does any calculation needed by the block
@@ -118,33 +133,8 @@ namespace Pricker {
          */
         public abstract accept(visitor: Visitor.AbstractVisitor): this;
 
-        /**
-         * Renders the block with a template
-         */
-        public print(
-            templateName: string,
-            context: TemplateContext = { },
-        ): string {
-            templateName = this.templatePath + '.' + templateName;
-            return Templates[templateName](this.getTemplateData(context));
-        }
-
-        /**
-         * Path for this class' templates
-         */
-        public abstract readonly templatePath: string;
-
-        /**
-         * Provides template data
-         *
-         * Derived classes may override this to provide more data to templates
-         */
-        protected getTemplateData(context: TemplateContext): TemplateContext {
-            context.block = this;
-            context.index = this._index;
-            context.initialRow = stringFromRow(this._initialRow);
-            context.endRow = stringFromRow(this.getEnd());
-            return context;
-        }
     }
+
+    PrintableMixin.makePrintable(AbstractBlock);
+
 }

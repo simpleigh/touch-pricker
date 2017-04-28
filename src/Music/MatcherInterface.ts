@@ -31,7 +31,7 @@ namespace Pricker {
             /**
              * Provides read access to the count of matches
              */
-            getMatches(): number;
+            getMatchCount(): number;
 
         }
 

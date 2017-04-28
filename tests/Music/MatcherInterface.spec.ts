@@ -41,7 +41,7 @@ function testMatcherInterface(
 
         it('starts out with no matches', function () {
             const matcher: Pricker.Music.MatcherInterface = createFn();
-            expect(matcher.getMatches()).toBe(0);
+            expect(matcher.getMatchCount()).toBe(0);
         });
 
         it('increments the match count for each match', function () {
@@ -49,10 +49,10 @@ function testMatcherInterface(
                 matcher: Pricker.Music.MatcherInterface = createFn();
 
             matcher.match(row);
-            expect(matcher.getMatches()).toBe(1);
+            expect(matcher.getMatchCount()).toBe(1);
 
             matcher.match(row);
-            expect(matcher.getMatches()).toBe(2);
+            expect(matcher.getMatchCount()).toBe(2);
         });
 
     });

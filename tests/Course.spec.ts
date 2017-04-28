@@ -196,6 +196,7 @@ describe('Course class', function () {
 
     testAbstractContainerImplementation(
         Pricker.Course,
+        'getSixes',
         'getSix',
         [
             [Pricker.Stage.Triples, 14],

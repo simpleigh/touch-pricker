@@ -5,6 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="../PrintableMixin.spec.ts" />
 /// <reference path="MatcherInterface.spec.ts" />
 
 describe('PatternGroup music class', function () {
@@ -46,7 +47,7 @@ describe('PatternGroup music class', function () {
             );
 
         group.match(row);
-        expect(group.getMatches()).toBe(2);
+        expect(group.getMatchCount()).toBe(2);
     });
 
     it('ignores changes to the original patterns', function () {
@@ -60,7 +61,30 @@ describe('PatternGroup music class', function () {
         group.match(row);
 
         // ... but it shouldn't match
-        expect(group.getMatches()).toBe(0);
+        expect(group.getMatchCount()).toBe(0);
+    });
+
+    it('provides access to the patterns', function () {
+        const patterns: Pricker.Music.Pattern[] = [
+                new Pricker.Music.Pattern('2314567890E'),
+            ],
+            group: Pricker.Music.PatternGroup =
+                new Pricker.Music.PatternGroup('test', patterns);
+
+        expect(group.getPatterns()).toEqual(patterns);
+    });
+
+    it('ignores changes to the returned pattern array', function () {
+        const patterns: Pricker.Music.Pattern[] = [
+                new Pricker.Music.Pattern('2314567890E'),
+            ],
+            group: Pricker.Music.PatternGroup =
+                new Pricker.Music.PatternGroup('test', patterns);
+
+        expect(group.getPatterns()).not.toBe(patterns);
+
+        patterns.pop();
+        expect(group.getPatterns()).not.toEqual(patterns);
     });
 
     it('can override the match count with a parent pattern', function () {
@@ -74,7 +98,7 @@ describe('PatternGroup music class', function () {
             );
 
         group.match(row);
-        expect(group.getMatches()).toBe(1);
+        expect(group.getMatchCount()).toBe(1);
     });
 
     it('still allows access to the subpattern match count', function () {
@@ -88,7 +112,11 @@ describe('PatternGroup music class', function () {
             );
 
         group.match(row);
-        expect(group.getSubmatches()).toBe(0);
+        expect(group.getSubmatchCount()).toBe(0);
     });
+
+    testPrintableMixinImplementation(
+        () => new Pricker.Music.PatternGroup('test', [ ]),
+    );
 
 });

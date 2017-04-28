@@ -34,7 +34,7 @@ describe('Music visitor', function () {
             return new Pricker.Visitor.Music(matcher);
         },
         function (visitor: Pricker.Visitor.Music): number {
-            return visitor.getMatcher().getMatches();
+            return visitor.getMatcher().getMatchCount();
         },
     );
 

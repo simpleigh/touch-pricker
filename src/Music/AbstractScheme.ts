@@ -5,6 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="../PrintableMixin.ts"/>
 /// <reference path="../Stage.ts" />
 /// <reference path="../rowFromString.ts" />
 /// <reference path="../stringFromRow.ts" />
@@ -21,7 +22,8 @@ namespace Pricker {
         /**
          * Abstract music matching scheme
          */
-        export abstract class AbstractScheme implements MatcherInterface {
+        export abstract class AbstractScheme
+            implements MatcherInterface, PrintableMixin {
 
             /**
              * Matchers for this scheme
@@ -63,15 +65,27 @@ namespace Pricker {
             /**
              * Provides read access to the count of matches
              */
-            public getMatches(): number {
+            public getMatchCount(): number {
                 let matches: number = 0;
 
                 for (const matcher of this._matchers) {
-                    matches += matcher.getMatches();
+                    matches += matcher.getMatchCount();
                 }
 
                 return matches;
             }
+
+            /* PrintableMixin methods *****************************************/
+
+            /**
+             * Renders the object with a template
+             */
+            public print: (t: string, c?: TemplateContext) => string;
+
+            /**
+             * Path for this class' templates
+             */
+            public readonly templatePath: string = 'Music.AbstractScheme';
 
             /* AbstractScheme methods *****************************************/
 
@@ -83,24 +97,15 @@ namespace Pricker {
             ): MatcherInterface[];
 
             /**
-             * Renders the matcher with a template
+             * Provides read access to the matchers
              */
-            public print(
-                templateName: string,
-                context: TemplateContext = { },
-            ): string {
-                templateName = this.templatePath + '.' + templateName;
-                context.object = this;
-                context.matchers = this._matchers;
-                return Templates[templateName](context);
+            public getMatchers(): MatcherInterface[] {
+                return this._matchers.slice();
             }
 
-            /**
-             * Path for this class' templates
-             */
-            public readonly templatePath: string = 'Music.AbstractScheme';
-
         }
+
+        PrintableMixin.makePrintable(AbstractScheme);
 
     }
 

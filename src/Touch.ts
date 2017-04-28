@@ -35,6 +35,8 @@ namespace Pricker {
             return super.accept(visitor);
         }
 
+        /* PrintableMixin methods *********************************************/
+
         /**
          * Path for this class' templates
          */
@@ -75,11 +77,14 @@ namespace Pricker {
         /* Touch methods ******************************************************/
 
         /**
-         * Read access to courses
+         * Read access to the courses
          */
-        public getCourse(index: number): Course {
-            return this.getBlock(index);
-        }
+        public getCourses: () => Course[] = this.getBlocks;
+
+        /**
+         * Read access to a course
+         */
+        public getCourse: (index: number) => Course = this.getBlock;
 
         /**
          * Inserts a course at the specified index
@@ -96,7 +101,7 @@ namespace Pricker {
          * Deletes the course at the specified index
          */
         public deleteCourse(index: number): Course {
-            const course: Course = this.getBlock(index);
+            const course: Course = this.getCourse(index);
 
             this._blocks.splice(index - 1, 1);
             course.clearOwnership();

@@ -14,10 +14,12 @@
 	{{ context.end = '\n'; }}
 {{?}}
 
-{{? context.object.getMatches() > 0 }}
+{{? context.object.getMatchCount() > 0 }}
 
-	{{? context.object.isWildcardMatch() || context.object.getMatches() > 1 }}
-		{{= context.object.getMatches() }}
+	{{? context.object.isWildcardMatch() ||
+			context.object.getMatchCount() > 1
+	}}
+		{{= context.object.getMatchCount() }}
 		 /* single space */
 	{{?}}
 
