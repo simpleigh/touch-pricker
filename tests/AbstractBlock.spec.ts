@@ -196,7 +196,6 @@ function testAbstractBlockImplementation(
 
             data = testTemplateSpy.calls.argsFor(0)[0];
             expect(data.object).toBe(block);
-            expect(data.index).toBe(999);
 
             delete Pricker.Templates[block.templatePath + '.test'];
         });

@@ -11,8 +11,8 @@
 {{= Pricker.stringFromRow(context.object.getEnd()) }}
 &nbsp;&nbsp;
 <span
- class="{{= context.index % 2 ? 'odd' : 'even' }}Call"
- onclick="c({{= context.index }})"
+ class="{{= context.object.getOwnership()[1] % 2 ? 'odd' : 'even' }}Call"
+ onclick="c({{= context.object.getOwnership()[1] }})"
 >
 	&nbsp;
 	{{? context.object.getCall() === Pricker.Call.Plain }}
@@ -25,5 +25,5 @@
 	&nbsp;
 </span>
 &nbsp;&nbsp;
-{{= context.index }}
+{{= context.object.getOwnership()[1] }}
 <br />
