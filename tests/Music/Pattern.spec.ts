@@ -5,6 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="../PrintableMixin.spec.ts" />
 /// <reference path="MatcherInterface.spec.ts" />
 
 describe('Pattern music class', function () {
@@ -67,8 +68,10 @@ describe('Pattern music class', function () {
     });
 
     it('is therefore a wildcard match by default', function () {
-        const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern('90E');
+        const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern('231');
         expect(pattern.isWildcardMatch()).toBe(true);
     });
+
+    testPrintableMixinImplementation(() => new Pricker.Music.Pattern('231'));
 
 });

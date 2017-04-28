@@ -5,6 +5,8 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="PrintableMixin.spec.ts" />
+
 /**
  * Tests that a block behaves as an AbstractBlock
  * @param {AbstractBlock}  Block               - block under test
@@ -182,41 +184,7 @@ function testAbstractBlockImplementation(
             expect(block.accept(visitor)).toBe(block);
         });
 
-        it('passes standard data fields to templates', function () {
-            const block: typeof Block = new Block(
-                    createTestRow(),
-                    undefined,
-                    999,
-                ),
-                testTemplateSpy = jasmine.createSpy('test');
-            let data: any;
-
-            Pricker.Templates[block.templatePath + '.test'] = testTemplateSpy;
-            block.print('test');
-
-            data = testTemplateSpy.calls.argsFor(0)[0];
-            expect(data.object).toBe(block);
-
-            delete Pricker.Templates[block.templatePath + '.test'];
-        });
-
-        it('passes additional context to templates', function () {
-            const block: typeof Block = new Block(
-                    createTestRow(),
-                    undefined,
-                    999,
-                ),
-                testTemplateSpy = jasmine.createSpy('test');
-            let data: any;
-
-            Pricker.Templates[block.templatePath + '.test'] = testTemplateSpy;
-            block.print('test', {'context': 'testContext'});
-
-            data = testTemplateSpy.calls.argsFor(0)[0];
-            expect(data.context).toBe('testContext');
-
-            delete Pricker.Templates[block.templatePath + '.test'];
-        });
+        testPrintableMixinImplementation(() => new Block(createTestRow()));
 
     });
 

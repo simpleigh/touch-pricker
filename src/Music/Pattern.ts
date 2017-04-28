@@ -5,6 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="../PrintableMixin.ts" />
 /// <reference path="../Row.ts" />
 /// <reference path="../stringFromRow.ts" />
 /// <reference path="MatcherInterface.ts" />
@@ -20,7 +21,7 @@ namespace Pricker {
         /**
          * Pattern that can be used to match rows
          */
-        export class Pattern implements MatcherInterface {
+        export class Pattern implements MatcherInterface, PrintableMixin {
 
             /**
              * Count of matches
@@ -80,6 +81,18 @@ namespace Pricker {
                 return this._matchCount;
             }
 
+            /* PrintableMixin methods******************************************/
+
+            /**
+             * Renders the object with a template
+             */
+            public print: (t: string, c?: TemplateContext) => string;
+
+            /**
+             * Path for this class' templates
+             */
+            public readonly templatePath: string = 'Music.Pattern';
+
             /* Pattern methods ************************************************/
 
             /**
@@ -89,24 +102,9 @@ namespace Pricker {
                 return this._type !== MatchType.Row;
             }
 
-            /**
-             * Renders the matcher with a template
-             */
-            public print(
-                templateName: string,
-                context: TemplateContext = { },
-            ): string {
-                templateName = this.templatePath + '.' + templateName;
-                context.object = this;
-                return Templates[templateName](context);
-            }
-
-            /**
-             * Path for this class' templates
-             */
-            public readonly templatePath: string = 'Music.Pattern';
-
         }
+
+        PrintableMixin.makePrintable(Pattern);
 
     }
 

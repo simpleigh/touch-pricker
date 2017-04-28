@@ -5,6 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="../PrintableMixin.ts"/>
 /// <reference path="../Stage.ts" />
 /// <reference path="../rowFromString.ts" />
 /// <reference path="../stringFromRow.ts" />
@@ -21,7 +22,8 @@ namespace Pricker {
         /**
          * Abstract music matching scheme
          */
-        export abstract class AbstractScheme implements MatcherInterface {
+        export abstract class AbstractScheme
+            implements MatcherInterface, PrintableMixin {
 
             /**
              * Matchers for this scheme
@@ -73,6 +75,18 @@ namespace Pricker {
                 return matches;
             }
 
+            /* PrintableMixin methods *****************************************/
+
+            /**
+             * Renders the object with a template
+             */
+            public print: (t: string, c?: TemplateContext) => string;
+
+            /**
+             * Path for this class' templates
+             */
+            public readonly templatePath: string = 'Music.AbstractScheme';
+
             /* AbstractScheme methods *****************************************/
 
             /**
@@ -89,24 +103,9 @@ namespace Pricker {
                 return this._matchers.slice();
             }
 
-            /**
-             * Renders the matcher with a template
-             */
-            public print(
-                templateName: string,
-                context: TemplateContext = { },
-            ): string {
-                templateName = this.templatePath + '.' + templateName;
-                context.object = this;
-                return Templates[templateName](context);
-            }
-
-            /**
-             * Path for this class' templates
-             */
-            public readonly templatePath: string = 'Music.AbstractScheme';
-
         }
+
+        PrintableMixin.makePrintable(AbstractScheme);
 
     }
 

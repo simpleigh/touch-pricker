@@ -35,6 +35,8 @@ namespace Pricker {
             return super.accept(visitor);
         }
 
+        /* PrintableMixin methods *********************************************/
+
         /**
          * Path for this class' templates
          */

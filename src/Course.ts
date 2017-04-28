@@ -19,7 +19,7 @@ namespace Pricker {
      */
     export class Course extends AbstractContainer<AbstractSix> {
 
-        /* AbstractBlock methods **********************************************/
+        /* PrintableMixin methods *********************************************/
 
         /**
          * Path for this class' templates

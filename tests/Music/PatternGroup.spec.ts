@@ -5,6 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="../PrintableMixin.spec.ts" />
 /// <reference path="MatcherInterface.spec.ts" />
 
 describe('PatternGroup music class', function () {
@@ -113,5 +114,9 @@ describe('PatternGroup music class', function () {
         group.match(row);
         expect(group.getSubmatchCount()).toBe(0);
     });
+
+    testPrintableMixinImplementation(
+        () => new Pricker.Music.PatternGroup('test', [ ]),
+    );
 
 });

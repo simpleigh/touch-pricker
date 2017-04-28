@@ -88,6 +88,8 @@ namespace Pricker {
             return this._end.slice();
         }
 
+        /* PrintableMixin methods *********************************************/
+
         /**
          * Path for this class' templates
          */

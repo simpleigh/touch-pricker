@@ -5,6 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="../PrintableMixin.spec.ts" />
 /// <reference path="MatcherInterface.spec.ts" />
 
 /**
@@ -55,5 +56,9 @@ function testAbstractSchemeImplementation(
             expect(scheme.print('text')).toBe(output);
         }
     });
+
+    testPrintableMixinImplementation(
+        () => createFn(Pricker.Stage.Cinques),
+    );
 
 }
