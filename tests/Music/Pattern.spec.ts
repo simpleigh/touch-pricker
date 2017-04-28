@@ -14,9 +14,7 @@ describe('Pattern music class', function () {
         return Pricker.rowFromString(input, Pricker.Stage.Cinques);
     }
 
-    testMatcherInterface(function () {
-        return new Pricker.Music.Pattern('2314567890E', 'test');
-    });
+    const row: Pricker.Row = createTestRow();
 
     it('uses the pattern as the name by default', function () {
         const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern('231');
@@ -24,8 +22,7 @@ describe('Pattern music class', function () {
     });
 
     it('can match the start of a row', function () {
-        const row: Pricker.Row = createTestRow(),
-            pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
+        const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
                 '231',
                 'test',
                 Pricker.Music.MatchType.Front,
@@ -34,8 +31,7 @@ describe('Pattern music class', function () {
     });
 
     it('can match the end of a row', function () {
-        const row: Pricker.Row = createTestRow(),
-            pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
+        const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
                 '90E',
                 'test',
                 Pricker.Music.MatchType.Back,
@@ -44,8 +40,7 @@ describe('Pattern music class', function () {
     });
 
     it('matches the end of a row by default', function () {
-        const row: Pricker.Row = createTestRow(),
-            pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern('90E');
+        const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern('90E');
         expect(pattern.match(row)).toBe(true);
     });
 
@@ -71,6 +66,10 @@ describe('Pattern music class', function () {
         const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern('231');
         expect(pattern.isWildcardMatch()).toBe(true);
     });
+
+    testMatcherInterface(
+        () => new Pricker.Music.Pattern('2314567890E', 'test'),
+    );
 
     testPrintableMixinImplementation(() => new Pricker.Music.Pattern('231'));
 

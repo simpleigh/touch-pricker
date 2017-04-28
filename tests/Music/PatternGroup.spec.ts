@@ -14,30 +14,21 @@ describe('PatternGroup music class', function () {
         return Pricker.rowFromString(input, Pricker.Stage.Cinques);
     }
 
-    testMatcherInterface(function () {
-        return new Pricker.Music.PatternGroup(
-            'test',
-            [
-                new Pricker.Music.Pattern('2314567890E'),
-            ],
-        );
-    });
-
     it('can match a row with any pattern', function () {
-        const row: Pricker.Row = createTestRow(),
-            group: Pricker.Music.PatternGroup = new Pricker.Music.PatternGroup(
+        const group: Pricker.Music.PatternGroup =
+            new Pricker.Music.PatternGroup(
                 'group',
                 [
                     new Pricker.Music.Pattern('1234567890E'), // fail
                     new Pricker.Music.Pattern('2314567890E'), // pass
                 ],
             );
-        expect(group.match(row)).toBe(true);
+        expect(group.match(createTestRow())).toBe(true);
     });
 
     it('combines match counts from patterns', function () {
-        const row: Pricker.Row = createTestRow(),
-            group: Pricker.Music.PatternGroup = new Pricker.Music.PatternGroup(
+        const group: Pricker.Music.PatternGroup =
+            new Pricker.Music.PatternGroup(
                 'group',
                 [
                     new Pricker.Music.Pattern('2314567890E'), // pass
@@ -46,19 +37,18 @@ describe('PatternGroup music class', function () {
                 ],
             );
 
-        group.match(row);
+        group.match(createTestRow());
         expect(group.getMatchCount()).toBe(2);
     });
 
     it('ignores changes to the original patterns', function () {
-        const row: Pricker.Row = createTestRow(),
-            patterns: Pricker.Music.Pattern[] = [ ],
+        const patterns: Pricker.Music.Pattern[] = [ ],
             group: Pricker.Music.PatternGroup =
                 new Pricker.Music.PatternGroup('group', patterns);
 
         // We add a pattern to the array
         patterns.push(new Pricker.Music.Pattern('2314567890E'));
-        group.match(row);
+        group.match(createTestRow());
 
         // ... but it shouldn't match
         expect(group.getMatchCount()).toBe(0);
@@ -88,32 +78,33 @@ describe('PatternGroup music class', function () {
     });
 
     it('can override the match count with a parent pattern', function () {
-        const row: Pricker.Row = createTestRow(),
-            group: Pricker.Music.PatternGroup = new Pricker.Music.PatternGroup(
+        const group: Pricker.Music.PatternGroup =
+            new Pricker.Music.PatternGroup(
                 'group',
-                [
-                    new Pricker.Music.Pattern('1234567890E'), // fail
-                ],
+                [new Pricker.Music.Pattern('1234567890E')], // fail
                 new Pricker.Music.Pattern('2314567890E'), // pass
             );
 
-        group.match(row);
+        group.match(createTestRow());
         expect(group.getMatchCount()).toBe(1);
     });
 
     it('still allows access to the subpattern match count', function () {
-        const row: Pricker.Row = createTestRow(),
-            group: Pricker.Music.PatternGroup = new Pricker.Music.PatternGroup(
+        const group: Pricker.Music.PatternGroup =
+            new Pricker.Music.PatternGroup(
                 'group',
-                [
-                    new Pricker.Music.Pattern('1234567890E'), // fail
-                ],
+                [new Pricker.Music.Pattern('1234567890E')], // fail
                 new Pricker.Music.Pattern('2314567890E'), // pass
             );
 
-        group.match(row);
+        group.match(createTestRow());
         expect(group.getSubmatchCount()).toBe(0);
     });
+
+    testMatcherInterface(() => new Pricker.Music.PatternGroup(
+        'test',
+        [new Pricker.Music.Pattern('2314567890E')],
+    ));
 
     testPrintableMixinImplementation(
         () => new Pricker.Music.PatternGroup('test', [ ]),

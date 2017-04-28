@@ -14,9 +14,7 @@ describe('Mbd music scheme', function () {
     const S = Pricker.Stage;
 
     testAbstractSchemeImplementation(
-        function (stage: Pricker.Stage) {
-            return new Pricker.Music.MbdScheme(stage);
-        },
+        (stage: Pricker.Stage = Pricker.Stage.Cinques) => new Pricker.Music.MbdScheme(stage),
         'MBD scheme',
         [
             // 567890E

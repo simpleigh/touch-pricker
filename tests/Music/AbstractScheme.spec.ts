@@ -15,50 +15,46 @@
  * @param {}        testCases  - array of tests: [stage, row, matches, output]
  */
 function testAbstractSchemeImplementation(
-    createFn: (stage: Pricker.Stage) => Pricker.Music.AbstractScheme,
+    createFn: (stage?: Pricker.Stage) => Pricker.Music.AbstractScheme,
     schemeName: string,
     testCases: Array<[Pricker.Stage, string, number, string]>,
 ) {
 
-    testMatcherInterface(
-        function (): Pricker.Music.AbstractScheme {
-            return createFn(Pricker.Stage.Cinques);
-        },
-        schemeName,
-    );
+    describe('is derived from AbstractScheme and', function () {
 
-    it('provides access to the matchers', function () {
-        const scheme: Pricker.Music.AbstractScheme =
-                createFn(Pricker.Stage.Cinques);
-        expect(scheme.getMatchers().length).toBeGreaterThan(0);
+        it('provides access to the matchers', function () {
+            const scheme: Pricker.Music.AbstractScheme = createFn();
+            expect(scheme.getMatchers().length).toBeGreaterThan(0);
+        });
+
+        it('ignores changes to the returned matchers array', function () {
+            const scheme: Pricker.Music.AbstractScheme = createFn(),
+                matchers: Pricker.Music.MatcherInterface[] =
+                    scheme.getMatchers(),
+                length: number = matchers.length;
+
+            matchers.slice(1);
+            expect(scheme.getMatchers().length).toBe(length);
+        });
+
+        it('matches music correctly', function () {
+            for (const testCase of testCases) {
+                const stage: Pricker.Stage = testCase[0],
+                    rowString: string = testCase[1],
+                    matches: number = testCase[2],
+                    output: string = testCase[3],
+                    scheme: Pricker.Music.AbstractScheme = createFn(stage);
+
+                scheme.match(Pricker.rowFromString(rowString, stage));
+                expect(scheme.getMatchCount()).toBe(matches);
+                expect(scheme.print('text')).toBe(output);
+            }
+        });
+
+        testMatcherInterface(createFn, schemeName);
+
+        testPrintableMixinImplementation(() => createFn(Pricker.Stage.Cinques));
+
     });
-
-    it('ignores changes to the returned matchers array', function () {
-        const scheme: Pricker.Music.AbstractScheme =
-                createFn(Pricker.Stage.Cinques),
-            matchers: Pricker.Music.MatcherInterface[] = scheme.getMatchers(),
-            length: number = matchers.length;
-
-        matchers.slice(1);
-        expect(scheme.getMatchers().length).toBe(length);
-    });
-
-    it('matches music correctly', function () {
-        for (const testCase of testCases) {
-            const stage: Pricker.Stage = testCase[0],
-                rowString: string = testCase[1],
-                matches: number = testCase[2],
-                output: string = testCase[3],
-                scheme: Pricker.Music.AbstractScheme = createFn(stage);
-
-            scheme.match(Pricker.rowFromString(rowString, stage));
-            expect(scheme.getMatchCount()).toBe(matches);
-            expect(scheme.print('text')).toBe(output);
-        }
-    });
-
-    testPrintableMixinImplementation(
-        () => createFn(Pricker.Stage.Cinques),
-    );
 
 }

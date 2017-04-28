@@ -21,32 +21,29 @@ function testMatcherInterface(
 
     describe('implements MatcherInterface and', function () {
 
+        let matcher: Pricker.Music.MatcherInterface;
+
+        beforeEach(() => { matcher = createFn(); });
+
         it('can match a row', function () {
-            const row: Pricker.Row = createTestRow(),
-                matcher: Pricker.Music.MatcherInterface = createFn();
-            expect(matcher.match(row)).toBe(true);
+            expect(matcher.match(createTestRow())).toBe(true);
         });
 
         it('can identify a mismatch', function () {
-            // create an unmusical test row that's not likely to be matched
-            const row: Pricker.Row = createTestRow('2614E378509'),
-                matcher: Pricker.Music.MatcherInterface = createFn();
-            expect(matcher.match(row)).toBe(false);
+            // Unmusical test row that's not likely to be matched
+            expect(matcher.match(createTestRow('2614E378509'))).toBe(false);
         });
 
         it('provides read access to the matcher name', function () {
-            const matcher: Pricker.Music.MatcherInterface = createFn();
             expect(matcher.getName()).toBe(matcherName);
         });
 
         it('starts out with no matches', function () {
-            const matcher: Pricker.Music.MatcherInterface = createFn();
             expect(matcher.getMatchCount()).toBe(0);
         });
 
         it('increments the match count for each match', function () {
-            const row: Pricker.Row = createTestRow(),
-                matcher: Pricker.Music.MatcherInterface = createFn();
+            const row: Pricker.Row = createTestRow();
 
             matcher.match(row);
             expect(matcher.getMatchCount()).toBe(1);
