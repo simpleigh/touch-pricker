@@ -25,7 +25,7 @@ namespace Pricker {
             /**
              * Count of matches
              */
-            protected _matches: number = 0;
+            protected _matchCount: number = 0;
 
             /**
              * Constructor
@@ -56,7 +56,7 @@ namespace Pricker {
                 }
 
                 if (rowString === this._pattern) {
-                    this._matches += 1;
+                    this._matchCount += 1;
                     return true;
                 }
 
@@ -76,8 +76,8 @@ namespace Pricker {
             /**
              * Provides read access to the count of matches
              */
-            public getMatches(): number {
-                return this._matches;
+            public getMatchCount(): number {
+                return this._matchCount;
             }
 
             /* Pattern methods ************************************************/

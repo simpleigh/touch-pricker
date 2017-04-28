@@ -63,11 +63,11 @@ namespace Pricker {
             /**
              * Provides read access to the count of matches
              */
-            public getMatches(): number {
+            public getMatchCount(): number {
                 let matches: number = 0;
 
                 for (const matcher of this._matchers) {
-                    matches += matcher.getMatches();
+                    matches += matcher.getMatchCount();
                 }
 
                 return matches;

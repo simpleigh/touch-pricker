@@ -73,9 +73,9 @@ namespace Pricker {
             /**
              * Provides read access to the count of matches
              */
-            public getMatches(): number {
+            public getMatchCount(): number {
                 if (this._parentPattern) {
-                    return this._parentPattern.getMatches();
+                    return this._parentPattern.getMatchCount();
                 }
                 return this.getSubmatches();
             }
@@ -89,7 +89,7 @@ namespace Pricker {
                 let matches: number = 0;
 
                 for (const pattern of this._patterns) {
-                    matches += pattern.getMatches();
+                    matches += pattern.getMatchCount();
                 }
 
                 return matches;

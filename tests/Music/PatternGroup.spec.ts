@@ -46,7 +46,7 @@ describe('PatternGroup music class', function () {
             );
 
         group.match(row);
-        expect(group.getMatches()).toBe(2);
+        expect(group.getMatchCount()).toBe(2);
     });
 
     it('ignores changes to the original patterns', function () {
@@ -60,7 +60,7 @@ describe('PatternGroup music class', function () {
         group.match(row);
 
         // ... but it shouldn't match
-        expect(group.getMatches()).toBe(0);
+        expect(group.getMatchCount()).toBe(0);
     });
 
     it('can override the match count with a parent pattern', function () {
@@ -74,7 +74,7 @@ describe('PatternGroup music class', function () {
             );
 
         group.match(row);
-        expect(group.getMatches()).toBe(1);
+        expect(group.getMatchCount()).toBe(1);
     });
 
     it('still allows access to the subpattern match count', function () {

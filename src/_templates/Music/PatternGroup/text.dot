@@ -9,9 +9,9 @@
  * Renders a PatternGroup as text
  */
 
-{{? context.object.getMatches() > 0 }}
+{{? context.object.getMatchCount() > 0 }}
 
-	{{= context.object.getMatches() }}
+	{{= context.object.getMatchCount() }}
 
 	 /* single space */
 
@@ -24,7 +24,7 @@
 
 		{{ var first = true; }}
 		{{~ context.patterns :pattern }}
-			{{? pattern.getMatches() > 0 }}
+			{{? pattern.getMatchCount() > 0 }}
 				{{? !first }}, {{?}}
 				{{= pattern.print('text', {'end': ''}) }}
 				{{ first = false; }}

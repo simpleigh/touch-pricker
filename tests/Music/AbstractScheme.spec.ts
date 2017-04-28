@@ -35,7 +35,7 @@ function testAbstractSchemeImplementation(
                 scheme: Pricker.Music.AbstractScheme = createFn(stage);
 
             scheme.match(Pricker.rowFromString(rowString, stage));
-            expect(scheme.getMatches()).toBe(matches);
+            expect(scheme.getMatchCount()).toBe(matches);
             expect(scheme.print('text')).toBe(output);
         }
     });
