@@ -7,9 +7,12 @@
 
 /**
  * Renders a course, e.g.:
- * 480735692E1  s2 3  (4 sixes)\n
- * 2314567890E  p\n
+ * 480735692E1  s2 3  (4 sixes)
+ * 2314567890E  p
+ * @param {string} end - line ending
  */
+
+{{ context.end = context.end || ''; }}
 
 {{= Pricker.stringFromRow(context.object.getEnd()) }}
  /* single space */
@@ -33,4 +36,4 @@
 	({{= context.object.getLength() }} sixes)
 {{?}}
 
-{{= '\n' }}
+{{= context.end }}

@@ -39,9 +39,9 @@ describe('Touch class', function () {
 
     const COURSES: string[] = [
         '',  // Blank entry for [0] so course indices will line up
-        '32145678E90  1 s7\n',
-        '23145687E90  s7 s13 s15 s22\n',
-        '2314567890E  12 14 s16 17 18 19  (20 sixes)\n',
+        '32145678E90  1 s7',
+        '23145687E90  s7 s13 s15 s22',
+        '2314567890E  12 14 s16 17 18 19  (20 sixes)',
     ];
 
     it('starts out empty', function () {

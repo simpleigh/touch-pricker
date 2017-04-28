@@ -12,9 +12,8 @@ describe('text template for Course', function () {
     function testRendering(input) {
         return function () {
             expect(
-                Pricker.Course.fromString(createTestRow(), input)
-                    .print('text'),
-            ).toBe(input + '\n');
+                Pricker.Course.fromString(createTestRow(), input).print('text'),
+            ).toBe(input);
         };
     }
 
@@ -29,5 +28,10 @@ describe('text template for Course', function () {
     it('displays "p" when a course has no calls', testRendering(
         '2314567890E  p',
     ));
+
+    it('allows the line ending to be customised', function () {
+        const course = new Pricker.Course(createTestRow());
+        expect(course.print('text', {'end': '#'})).toBe('2314567890E  p#');
+    });
 
 });

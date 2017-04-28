@@ -12,10 +12,9 @@ describe('Course class', function () {
 
     function testImport(input, output) {
         return function () {
-            const course = Pricker.Course.fromString(createTestRow(), input);
-
-            // Slice off '\n' when comparing
-            expect(course.print('text').slice(0, -1)).toBe(output);
+            expect(
+                Pricker.Course.fromString(createTestRow(), input).print('text'),
+            ).toBe(output);
         };
     }
 
