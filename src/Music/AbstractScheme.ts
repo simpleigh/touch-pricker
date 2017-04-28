@@ -83,6 +83,13 @@ namespace Pricker {
             ): MatcherInterface[];
 
             /**
+             * Provides read access to the matchers
+             */
+            public getMatchers(): MatcherInterface[] {
+                return this._matchers.slice();
+            }
+
+            /**
              * Renders the matcher with a template
              */
             public print(

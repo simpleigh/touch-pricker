@@ -26,6 +26,22 @@ function testAbstractSchemeImplementation(
         schemeName,
     );
 
+    it('provides access to the matchers', function () {
+        const scheme: Pricker.Music.AbstractScheme =
+                createFn(Pricker.Stage.Cinques);
+        expect(scheme.getMatchers().length).toBeGreaterThan(0);
+    });
+
+    it('ignores changes to the returned matchers array', function () {
+        const scheme: Pricker.Music.AbstractScheme =
+                createFn(Pricker.Stage.Cinques),
+            matchers: Pricker.Music.MatcherInterface[] = scheme.getMatchers(),
+            length: number = matchers.length;
+
+        matchers.slice(1);
+        expect(scheme.getMatchers().length).toBe(length);
+    });
+
     it('matches music correctly', function () {
         for (const testCase of testCases) {
             const stage: Pricker.Stage = testCase[0],
