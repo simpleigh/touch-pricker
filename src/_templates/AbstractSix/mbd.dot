@@ -8,7 +8,7 @@
 /**
  * Renders a six as HTML for MBD-style pricker
  */
-{{= context.endRow }}
+{{= Pricker.stringFromRow(context.object.getEnd()) }}
 &nbsp;&nbsp;
 <span
  class="{{= context.index % 2 ? 'odd' : 'even' }}Call"

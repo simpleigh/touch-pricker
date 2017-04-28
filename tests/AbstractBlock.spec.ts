@@ -200,7 +200,6 @@ function testAbstractBlockImplementation(
             expect(data.initialRow).toEqual(
                 Pricker.stringFromRow(block.getInitialRow()),
             );
-            expect(data.endRow).toEqual(Pricker.stringFromRow(block.getEnd()));
 
             delete Pricker.Templates[block.templatePath + '.test'];
         });

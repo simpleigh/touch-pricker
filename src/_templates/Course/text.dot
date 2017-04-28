@@ -11,7 +11,7 @@
  * 2314567890E  p\n
  */
 
-{{= context.endRow }}
+{{= Pricker.stringFromRow(context.object.getEnd()) }}
  /* single space */
 
 {{~ context.blocks :six }}
@@ -27,7 +27,7 @@
 	p
 {{?}}
 
-{{? context.blocks.length !== context.endRow.length * 2 }}
+{{? context.blocks.length !== context.object.getInitialRow().length * 2 }}
 	 /* single space */
 	 /* single space */
 	({{= context.blocks.length }} sixes)
