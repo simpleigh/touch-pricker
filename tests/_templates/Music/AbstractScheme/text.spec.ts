@@ -7,16 +7,18 @@
 
 describe('text template for AbstractScheme music class', function () {
 
+    let scheme: Pricker.Music.CustomScheme;
+
+    beforeEach(function () {
+        scheme = new Pricker.Music.CustomScheme(Pricker.Stage.Cinques);
+    });
+
     it('displays nothing when nothing matches', function () {
-        const scheme: Pricker.Music.CustomScheme =
-                new Pricker.Music.CustomScheme(Pricker.Stage.Cinques);
         expect(scheme.print('text')).toBe('');
     });
 
     it('displays matches by calling contained matchers', function () {
-        const scheme: Pricker.Music.CustomScheme =
-                new Pricker.Music.CustomScheme(Pricker.Stage.Cinques),
-            pattern1 = jasmine.createSpyObj('Pattern', ['print']),
+        const pattern1 = jasmine.createSpyObj('Pattern', ['print']),
             pattern2 = jasmine.createSpyObj('Pattern', ['print']);
 
         pattern1.print.and.returnValue('test1');

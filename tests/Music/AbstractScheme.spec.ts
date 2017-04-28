@@ -23,15 +23,13 @@ function testAbstractSchemeImplementation(
     describe('is derived from AbstractScheme and', function () {
 
         it('provides access to the matchers', function () {
-            const scheme: Pricker.Music.AbstractScheme = createFn();
-            expect(scheme.getMatchers().length).toBeGreaterThan(0);
+            expect(createFn().getMatchers().length).toBeGreaterThan(0);
         });
 
         it('ignores changes to the returned matchers array', function () {
-            const scheme: Pricker.Music.AbstractScheme = createFn(),
-                matchers: Pricker.Music.MatcherInterface[] =
-                    scheme.getMatchers(),
-                length: number = matchers.length;
+            const scheme = createFn(),
+                matchers = scheme.getMatchers(),
+                length = matchers.length;
 
             matchers.slice(1);
             expect(scheme.getMatchers().length).toBe(length);
@@ -43,7 +41,7 @@ function testAbstractSchemeImplementation(
                     rowString: string = testCase[1],
                     matches: number = testCase[2],
                     output: string = testCase[3],
-                    scheme: Pricker.Music.AbstractScheme = createFn(stage);
+                    scheme = createFn(stage);
 
                 scheme.match(Pricker.rowFromString(rowString, stage));
                 expect(scheme.getMatchCount()).toBe(matches);

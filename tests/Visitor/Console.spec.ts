@@ -11,9 +11,7 @@
 describe('Console visitor', function () {
 
     it('logs to the console when it visits a row', function () {
-        const visitor: Pricker.Visitor.Console =
-                new Pricker.Visitor.Console();
-
+        const visitor = new Pricker.Visitor.Console();
         spyOn(console, 'log');
 
         visitor.visit(createTestRow());

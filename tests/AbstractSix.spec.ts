@@ -26,7 +26,7 @@ function testSixImplementation(Six, testCases, rowTests) {
 
     it('transposes the six end correctly', runTestCases(
         function (previous, expected, stage, call) {
-            const six: typeof Six = new Six(previous);
+            const six = new Six(previous);
             six.setCall(call);
             expect(six.getEnd()).toEqual(expected);
         },
@@ -35,7 +35,7 @@ function testSixImplementation(Six, testCases, rowTests) {
     it('updates when the previous six end changes', runTestCases(
         function (previous, expected, stage, call) {
             const incorrectPrevious: Pricker.Row = createTestRow('', stage),
-                six: typeof Six = new Six(incorrectPrevious);
+                six = new Six(incorrectPrevious);
 
             six.setCall(call);
             expect(six.getEnd()).not.toEqual(expected);
@@ -47,7 +47,7 @@ function testSixImplementation(Six, testCases, rowTests) {
 
     it('updates when the call is toggled', runTestCases(
         function (previous, expected, stage, call) {
-            const six: typeof Six = new Six(previous);
+            const six = new Six(previous);
 
             // Set the call to the one before the right one
             if (call === Pricker.Call.Plain) {
@@ -67,9 +67,8 @@ function testSixImplementation(Six, testCases, rowTests) {
 
     it('generates the correct end row when visited', runTestCases(
         function (previous, expected, stage, call) {
-            const six: typeof Six = new Six(previous),
-                visitor: Pricker.Visitor.StringArray =
-                    new Pricker.Visitor.StringArray();
+            const six = new Six(previous),
+                visitor = new Pricker.Visitor.StringArray();
             let strings: string[];
 
             six.setCall(call);
@@ -113,13 +112,13 @@ function testSixImplementation(Six, testCases, rowTests) {
         });
 
         it('lets the call be set', function () {
-            const six: typeof Six = createTestSix();
+            const six = createTestSix();
             six.setCall(Pricker.Call.Bob);
             expect(six.getCall()).toBe(Pricker.Call.Bob);
         });
 
         it('rotates between calls when toggled', function () {
-            const six: typeof Six = createTestSix();
+            const six = createTestSix();
 
             six.toggleCall();
             expect(six.getCall()).toBe(Pricker.Call.Bob);
@@ -132,14 +131,14 @@ function testSixImplementation(Six, testCases, rowTests) {
         });
 
         it('returns the new call when toggled', function () {
-            const six: typeof Six = createTestSix();
+            const six = createTestSix();
             expect(six.toggleCall()).toBe(Pricker.Call.Bob);
             expect(six.toggleCall()).toBe(Pricker.Call.Single);
             expect(six.toggleCall()).toBe(Pricker.Call.Plain);
         });
 
         it('can suppress updates when a call is set', function () {
-            const six: typeof Six = createTestSix(),
+            const six = createTestSix(),
                 originalEnd: Pricker.Row = six.getEnd();
 
             six.setCall(Pricker.Call.Bob, false);
@@ -148,21 +147,21 @@ function testSixImplementation(Six, testCases, rowTests) {
 
         it('notifies the parent course when a call is set', function () {
             const parent = jasmine.createSpyObj('Course', ['notify']),
-                six: typeof Six = createTestSix(parent);
+                six = createTestSix(parent);
             six.setCall(Pricker.Call.Plain);
             expect(parent.notify).toHaveBeenCalledWith(999);
         });
 
         it('notifies the parent course when toggled', function () {
             const parent = jasmine.createSpyObj('Course', ['notify']),
-                six: typeof Six = createTestSix(parent);
+                six = createTestSix(parent);
             six.toggleCall();
             expect(parent.notify).toHaveBeenCalledWith(999);
         });
 
         it('can suppress notification when a call is set', function () {
             const parent = jasmine.createSpyObj('Course', ['notify']),
-                six: typeof Six = createTestSix(parent);
+                six = createTestSix(parent);
             six.setCall(Pricker.Call.Plain, false);
             expect(parent.notify).not.toHaveBeenCalled();
         });

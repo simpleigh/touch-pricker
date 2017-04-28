@@ -12,13 +12,13 @@ describe('Touch class', function () {
 
     function testImport(input, output) {
         return function () {
-            const touch: Pricker.Touch = Pricker.Touch.fromString(input);
+            const touch = Pricker.Touch.fromString(input);
             expect(touch.print('text')).toBe(output);
         };
     }
 
     it('generates the correct rows when visited', function () {
-        const touch: Pricker.Touch = new Pricker.Touch(createTestRow());
+        const touch = new Pricker.Touch(createTestRow());
 
         let visitor: Pricker.Visitor.StringArray,
             strings: string[] = [
@@ -37,7 +37,7 @@ describe('Touch class', function () {
         expect(visitor.getStrings()).toEqual(strings);
     });
 
-    const COURSES_FOR_INSERT: string[] = [
+    const COURSES: string[] = [
         '',  // Blank entry for [0] so course indices will line up
         '32145678E90  1 s7\n',
         '23145687E90  s7 s13 s15 s22\n',
@@ -45,44 +45,35 @@ describe('Touch class', function () {
     ];
 
     it('starts out empty', function () {
-        const touch: Pricker.Touch = new Pricker.Touch(createTestRow());
+        const touch = new Pricker.Touch(createTestRow());
         expect(touch.getLength()).toBe(0);
     });
 
     it('can insert a new course', function () {
-        const course: Pricker.Course = Pricker.Course.fromString(
-                createTestRow(),
-                COURSES_FOR_INSERT[1],
-            ),
-            touch: Pricker.Touch = Pricker.Touch.fromString('2314567890E');
+        const course = Pricker.Course.fromString(createTestRow(), COURSES[1]),
+            touch = Pricker.Touch.fromString('2314567890E');
 
         touch.insertCourse(1, course);
         expect(touch.getLength()).toBe(1);
         expect(touch.getEnd()).toEqual(touch.getCourse(1).getEnd());
-        expect(touch.getCourse(1).print('text')).toBe(COURSES_FOR_INSERT[1]);
+        expect(touch.getCourse(1).print('text')).toBe(COURSES[1]);
     });
 
     it('ignores the initial row when inserting a new course', function () {
-        const course: Pricker.Course = Pricker.Course.fromString(
-                createTestRow('13579E24680'),
-                COURSES_FOR_INSERT[1],
-            ),
-            touch: Pricker.Touch = Pricker.Touch.fromString('2314567890E');
+        const course = Pricker.Course.fromString(
+                    createTestRow('13579E24680'),
+                    COURSES[1],
+                ),
+            touch = Pricker.Touch.fromString('2314567890E');
 
         touch.insertCourse(1, course);
         expect(touch.getEnd()).toEqual(touch.getCourse(1).getEnd());
-        expect(touch.getCourse(1).print('text')).toBe(COURSES_FOR_INSERT[1]);
+        expect(touch.getCourse(1).print('text')).toBe(COURSES[1]);
     });
 
     it('can insert a second course', function () {
-        const course1: Pricker.Course = Pricker.Course.fromString(
-                createTestRow(),
-                COURSES_FOR_INSERT[1],
-            ),
-            course2: Pricker.Course = Pricker.Course.fromString(
-                createTestRow(),
-                COURSES_FOR_INSERT[2],
-            ),
+        const course1 = Pricker.Course.fromString(createTestRow(), COURSES[1]),
+            course2 = Pricker.Course.fromString(createTestRow(), COURSES[2]),
             touch: Pricker.Touch = Pricker.Touch.fromString('2314567890E');
 
         touch.insertCourse(1, course1);
@@ -90,64 +81,43 @@ describe('Touch class', function () {
 
         expect(touch.getLength()).toBe(2);
         expect(touch.getEnd()).toEqual(touch.getCourse(2).getEnd());
-        expect(touch.getCourse(1).print('text')).toBe(COURSES_FOR_INSERT[1]);
-        expect(touch.getCourse(2).print('text')).toBe(COURSES_FOR_INSERT[2]);
+        expect(touch.getCourse(1).print('text')).toBe(COURSES[1]);
+        expect(touch.getCourse(2).print('text')).toBe(COURSES[2]);
     });
 
     it('can insert a course at the beginning', function () {
-        const course1: Pricker.Course = Pricker.Course.fromString(
-                createTestRow(),
-                COURSES_FOR_INSERT[1],
-            ),
-            course2: Pricker.Course = Pricker.Course.fromString(
-                createTestRow(),
-                COURSES_FOR_INSERT[2],
-            ),
-            touch: Pricker.Touch = Pricker.Touch.fromString('2314567890E');
+        const course1 = Pricker.Course.fromString(createTestRow(), COURSES[1]),
+            course2 = Pricker.Course.fromString(createTestRow(), COURSES[2]),
+            touch = Pricker.Touch.fromString('2314567890E');
 
         touch.insertCourse(1, course2);
         touch.insertCourse(1, course1);
 
         expect(touch.getEnd()).toEqual(touch.getCourse(2).getEnd());
-        expect(touch.getCourse(1).print('text')).toBe(COURSES_FOR_INSERT[1]);
-        expect(touch.getCourse(2).print('text')).toBe(COURSES_FOR_INSERT[2]);
+        expect(touch.getCourse(1).print('text')).toBe(COURSES[1]);
+        expect(touch.getCourse(2).print('text')).toBe(COURSES[2]);
     });
 
     it('can insert a course in the middle', function () {
-        const course1: Pricker.Course = Pricker.Course.fromString(
-                createTestRow(),
-                COURSES_FOR_INSERT[1],
-            ),
-            course2: Pricker.Course = Pricker.Course.fromString(
-                createTestRow(),
-                COURSES_FOR_INSERT[2],
-            ),
-            course3: Pricker.Course = Pricker.Course.fromString(
-                createTestRow(),
-                COURSES_FOR_INSERT[3],
-            ),
-            touch: Pricker.Touch = Pricker.Touch.fromString('2314567890E');
+        const course1 = Pricker.Course.fromString(createTestRow(), COURSES[1]),
+            course2 = Pricker.Course.fromString(createTestRow(), COURSES[2]),
+            course3 = Pricker.Course.fromString(createTestRow(), COURSES[3]),
+            touch = Pricker.Touch.fromString('2314567890E');
 
         touch.insertCourse(1, course1);
         touch.insertCourse(2, course3);
         touch.insertCourse(2, course2);
 
         expect(touch.getEnd()).toEqual(touch.getCourse(3).getEnd());
-        expect(touch.getCourse(1).print('text')).toBe(COURSES_FOR_INSERT[1]);
-        expect(touch.getCourse(2).print('text')).toBe(COURSES_FOR_INSERT[2]);
-        expect(touch.getCourse(3).print('text')).toBe(COURSES_FOR_INSERT[3]);
+        expect(touch.getCourse(1).print('text')).toBe(COURSES[1]);
+        expect(touch.getCourse(2).print('text')).toBe(COURSES[2]);
+        expect(touch.getCourse(3).print('text')).toBe(COURSES[3]);
     });
 
     it('sets ownership correctly when inserting new courses', function () {
-        const course1: Pricker.Course = Pricker.Course.fromString(
-                createTestRow(),
-                COURSES_FOR_INSERT[1],
-            ),
-            course2: Pricker.Course = Pricker.Course.fromString(
-                createTestRow(),
-                COURSES_FOR_INSERT[2],
-            ),
-            touch: Pricker.Touch = Pricker.Touch.fromString('2314567890E');
+        const course1 = Pricker.Course.fromString(createTestRow(), COURSES[1]),
+            course2 = Pricker.Course.fromString(createTestRow(), COURSES[2]),
+            touch = Pricker.Touch.fromString('2314567890E');
 
         touch.insertCourse(1, course1);
         touch.insertCourse(2, course2);
@@ -160,15 +130,9 @@ describe('Touch class', function () {
     });
 
     it('can delete a course from the end', function () {
-        const course1: Pricker.Course = Pricker.Course.fromString(
-                createTestRow(),
-                COURSES_FOR_INSERT[1],
-            ),
-            course2: Pricker.Course = Pricker.Course.fromString(
-                createTestRow(),
-                COURSES_FOR_INSERT[2],
-            ),
-            touch: Pricker.Touch = Pricker.Touch.fromString('2314567890E');
+        const course1 = Pricker.Course.fromString(createTestRow(), COURSES[1]),
+            course2 = Pricker.Course.fromString(createTestRow(), COURSES[2]),
+            touch = Pricker.Touch.fromString('2314567890E');
 
         touch.insertCourse(1, course1);
         touch.insertCourse(2, course2);
@@ -179,34 +143,22 @@ describe('Touch class', function () {
     });
 
     it('can delete a course from the middle', function () {
-        const course1: Pricker.Course = Pricker.Course.fromString(
-                createTestRow(),
-                COURSES_FOR_INSERT[1],
-            ),
-            course2: Pricker.Course = Pricker.Course.fromString(
-                createTestRow(),
-                COURSES_FOR_INSERT[2],
-            ),
-            touch: Pricker.Touch = Pricker.Touch.fromString('2314567890E');
+        const course1 = Pricker.Course.fromString(createTestRow(), COURSES[1]),
+            course2 = Pricker.Course.fromString(createTestRow(), COURSES[2]),
+            touch = Pricker.Touch.fromString('2314567890E');
 
         touch.insertCourse(1, course2);  // This course will be removed,
         touch.insertCourse(2, course1);  // leaving only course1
         touch.deleteCourse(1);
 
         expect(touch.getEnd()).toEqual(touch.getCourse(1).getEnd());
-        expect(touch.getCourse(1).print('text')).toBe(COURSES_FOR_INSERT[1]);
+        expect(touch.getCourse(1).print('text')).toBe(COURSES[1]);
     });
 
     it('sets ownership correctly when deleting courses', function () {
-        const course1: Pricker.Course = Pricker.Course.fromString(
-                createTestRow(),
-                COURSES_FOR_INSERT[1],
-            ),
-            course2: Pricker.Course = Pricker.Course.fromString(
-                createTestRow(),
-                COURSES_FOR_INSERT[2],
-            ),
-            touch: Pricker.Touch = Pricker.Touch.fromString('2314567890E');
+        const course1 = Pricker.Course.fromString(createTestRow(), COURSES[1]),
+            course2 = Pricker.Course.fromString(createTestRow(), COURSES[2]),
+            touch = Pricker.Touch.fromString('2314567890E');
 
         touch.insertCourse(1, course2);  // This course will be removed,
         touch.insertCourse(2, course1);  // leaving only course1

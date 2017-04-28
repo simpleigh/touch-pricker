@@ -12,12 +12,12 @@
 describe('Pattern music class', function () {
 
     it('uses the pattern as the name by default', function () {
-        const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern('231');
+        const pattern = new Pricker.Music.Pattern('231');
         expect(pattern.getName()).toBe('231');
     });
 
     it('can match the start of a row', function () {
-        const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
+        const pattern = new Pricker.Music.Pattern(
                     '231',
                     'test',
                     Pricker.Music.MatchType.Front,
@@ -26,7 +26,7 @@ describe('Pattern music class', function () {
     });
 
     it('can match the end of a row', function () {
-        const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
+        const pattern = new Pricker.Music.Pattern(
                     '90E',
                     'test',
                     Pricker.Music.MatchType.Back,
@@ -35,12 +35,12 @@ describe('Pattern music class', function () {
     });
 
     it('matches the end of a row by default', function () {
-        const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern('90E');
+        const pattern = new Pricker.Music.Pattern('90E');
         expect(pattern.match(createTestRow())).toBe(true);
     });
 
     it('knows if it is a wildcard match', function () {
-        const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
+        const pattern = new Pricker.Music.Pattern(
                     '657890E',
                     '65 rollup',
                     Pricker.Music.MatchType.Back,
@@ -49,7 +49,7 @@ describe('Pattern music class', function () {
     });
 
     it('knows if it is not a wildcard match', function () {
-        const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern(
+        const pattern = new Pricker.Music.Pattern(
                     '2314567890E',
                     'Standard start sixend',
                     Pricker.Music.MatchType.Row,
@@ -58,7 +58,7 @@ describe('Pattern music class', function () {
     });
 
     it('is therefore a wildcard match by default', function () {
-        const pattern: Pricker.Music.Pattern = new Pricker.Music.Pattern('231');
+        const pattern = new Pricker.Music.Pattern('231');
         expect(pattern.isWildcardMatch()).toBe(true);
     });
 

@@ -5,20 +5,27 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
-type TestCase = [string, Pricker.Stage];
+/// <reference path="functions.ts" />
 
-function createChangeTests(testFn, testCases: TestCase[]) {
+function createChangeTests(
+    testFn: (row: Pricker.Row) => void,
+    testCases: Array<[string, Pricker.Stage]>,
+) {
 
     return function () {
 
         it('applies the permutation correctly', function () {
-            let index: number,
+            let expected: string,
+                stage: Pricker.Stage,
                 row: Pricker.Row;
 
-            for (index = 0; index < testCases.length; index += 1) {
-                row = Pricker.rowFromString('', testCases[index][1]);
+            for (const testCase of testCases) {
+                expected = testCase[0];
+                stage = testCase[1];
+
+                row = createTestRow('', stage);
                 testFn(row);
-                expect(Pricker.stringFromRow(row)).toEqual(testCases[index][0]);
+                expect(Pricker.stringFromRow(row)).toEqual(expected);
             }
         });
 

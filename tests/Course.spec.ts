@@ -12,10 +12,7 @@ describe('Course class', function () {
 
     function testImport(input, output) {
         return function () {
-            const course: Pricker.Course = Pricker.Course.fromString(
-                        createTestRow(),
-                        input,
-                    );
+            const course = Pricker.Course.fromString(createTestRow(), input);
 
             // Slice off '\n' when comparing
             expect(course.print('text').slice(0, -1)).toBe(output);
@@ -23,7 +20,7 @@ describe('Course class', function () {
     }
 
     it('calculates sixes correctly', function () {
-        const course: Pricker.Course = Pricker.Course.fromString(
+        const course = Pricker.Course.fromString(
                     createTestRow(),
                     '2314567890E  1 s10 s13 22',
                 ),
@@ -61,8 +58,7 @@ describe('Course class', function () {
     });
 
     it('can be cloned', function () {
-        const course: Pricker.Course = new Pricker.Course(createTestRow());
-
+        const course = new Pricker.Course(createTestRow());
         let cloned: Pricker.Course;
 
         course.setLength(20);
@@ -74,10 +70,10 @@ describe('Course class', function () {
     });
 
     it('ignores changes to the cloned course', function () {
-        const course: Pricker.Course = new Pricker.Course(createTestRow()),
-            getLengthBackup: number = course.getLength(),
-            getEndBackup: Pricker.Row = course.getEnd(),
-            cloned: Pricker.Course = course.clone();
+        const course = new Pricker.Course(createTestRow()),
+            getLengthBackup = course.getLength(),
+            getEndBackup = course.getEnd(),
+            cloned = course.clone();
 
         cloned.setLength(20);
         cloned.getSix(5).toggleCall();
@@ -90,7 +86,7 @@ describe('Course class', function () {
     });
 
     it('generates the correct rows when visited', function () {
-        const course: Pricker.Course = new Pricker.Course(createTestRow());
+        const course = new Pricker.Course(createTestRow());
 
         let visitor: Pricker.Visitor.StringArray,
             index: number,

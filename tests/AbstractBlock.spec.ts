@@ -22,28 +22,28 @@ function testAbstractBlockImplementation(
     describe('is derived from AbstractBlock and', function () {
 
         it('stores the initial row', function () {
-            const initialRow: Pricker.Row = createTestRow(),
-                block: typeof Block = new Block(initialRow);
+            const initialRow = createTestRow(),
+                block = new Block(initialRow);
             expect(block.getInitialRow()).toEqual(initialRow);
         });
 
         it('allows the initial row to be changed', function () {
-            const block: typeof Block = new Block(createTestRow()),
-                newRow: Pricker.Row = createTestRow('2143658709E');
+            const block = new Block(createTestRow()),
+                newRow = createTestRow('2143658709E');
 
             block.setInitialRow(newRow);
             expect(block.getInitialRow()).toEqual(newRow);
         });
 
         it('returns this when changing the initial row', function () {
-            const block: typeof Block = new Block(createTestRow());
+            const block = new Block(createTestRow());
             expect(block.setInitialRow(createTestRow())).toBe(block);
         });
 
         it('ignores changes to the original initial row', function () {
-            const initialRow: Pricker.Row = createTestRow(),
-                initialRowBackup: Pricker.Row = initialRow.slice(),
-                block: typeof Block = new Block(initialRow);
+            const initialRow = createTestRow(),
+                initialRowBackup = initialRow.slice(),
+                block = new Block(initialRow);
 
             initialRow[3] = 999;  // Mutate the initial row
             expect(initialRow).not.toEqual(initialRowBackup);
@@ -53,10 +53,9 @@ function testAbstractBlockImplementation(
         });
 
         it('ignores changes to the getInitialRow result', function () {
-            const block: typeof Block = new Block(createTestRow()),
-                getInitialRow: Pricker.Row = block.getInitialRow(),
-                getInitialRowBackup: Pricker.Row =
-                    block.getInitialRow().slice();
+            const block = new Block(createTestRow()),
+                getInitialRow = block.getInitialRow(),
+                getInitialRowBackup = block.getInitialRow().slice();
 
             getInitialRow[3] = 999;  // Mutate the getInitialRow result
             expect(getInitialRow).not.toEqual(getInitialRowBackup);
@@ -66,7 +65,7 @@ function testAbstractBlockImplementation(
         });
 
         it('ignores changes to the setInitialRow argument', function () {
-            const block: typeof Block = new Block(createTestRow()),
+            const block = new Block(createTestRow()),
                 setInitialRow = createTestRow('2143658709E'),
                 setInitialRowBackup = setInitialRow.slice();
 
@@ -79,7 +78,7 @@ function testAbstractBlockImplementation(
         });
 
         it('updates when the initial row changes', function () {
-            const block: typeof Block = new Block(createTestRow()),
+            const block = new Block(createTestRow()),
                 endRow: Pricker.Row = block.getEnd();
 
             block.setInitialRow(createTestRow('2143658709E'));
@@ -87,12 +86,12 @@ function testAbstractBlockImplementation(
         });
 
         it('ends with a row on the same stage as it starts', function () {
-            const block: typeof Block = new Block(createTestRow());
+            const block = new Block(createTestRow());
             expect(block.getEnd().length).toEqual(11);
         });
 
         it('ignores changes to the getEnd result', function () {
-            const block: typeof Block = new Block(createTestRow()),
+            const block = new Block(createTestRow()),
                 getEnd: Pricker.Row = block.getEnd(),
                 getEndBackup: Pricker.Row = getEnd.slice();
 
@@ -106,7 +105,7 @@ function testAbstractBlockImplementation(
         it('notifies the parent container', function () {
             const container: Pricker.AbstractContainer<typeof Block> =
                     jasmine.createSpyObj('AbstractContainer', ['notify']),
-                block: typeof Block = new Block(
+                block = new Block(
                     createTestRow(),
                     container,
                     999,
@@ -119,7 +118,7 @@ function testAbstractBlockImplementation(
         it('allows access to parent information', function () {
             const container: Pricker.AbstractContainer<typeof Block> =
                     jasmine.createSpyObj('AbstractContainer', ['notify']),
-                block: typeof Block = new Block(
+                block = new Block(
                     createTestRow(),
                     container,
                     999,
@@ -134,7 +133,7 @@ function testAbstractBlockImplementation(
                     jasmine.createSpyObj('AbstractContainer', ['notify']),
                 containerNew: Pricker.AbstractContainer<typeof Block> =
                     jasmine.createSpyObj('AbstractContainer', ['notify']),
-                block: typeof Block = new Block(
+                block = new Block(
                     createTestRow(),
                     containerOld,
                     999,
@@ -148,7 +147,7 @@ function testAbstractBlockImplementation(
         it('can be detached from a parent', function () {
             const container: Pricker.AbstractContainer<typeof Block> =
                     jasmine.createSpyObj('AbstractContainer', ['notify']),
-                block: typeof Block = new Block(
+                block = new Block(
                     createTestRow(),
                     container,
                     999,
@@ -160,9 +159,8 @@ function testAbstractBlockImplementation(
         });
 
         it('calls a visitor in order to traverse rows', function () {
-            const block: typeof Block = new Block(createTestRow('123')),
-                visitor: Pricker.Visitor.Counter =
-                        new Pricker.Visitor.Counter();
+            const block = new Block(createTestRow('123')),
+                visitor = new Pricker.Visitor.Counter();
 
             spyOn(visitor, 'visit').and.callThrough();
             block.accept(visitor);
@@ -171,9 +169,8 @@ function testAbstractBlockImplementation(
         });
 
         it('returns this when receiving a visitor', function () {
-            const block: typeof Block = new Block(createTestRow()),
-                visitor: Pricker.Visitor.Counter =
-                        new Pricker.Visitor.Counter();
+            const block = new Block(createTestRow()),
+                visitor = new Pricker.Visitor.Counter();
 
             expect(block.accept(visitor)).toBe(block);
         });

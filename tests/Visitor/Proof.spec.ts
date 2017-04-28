@@ -19,8 +19,8 @@ describe('Proof visitor', function () {
     });
 
     it('accumulates counts when it visits a row', function () {
-        const row1: Pricker.Row = createTestRow('2314567890E'),
-            row2: Pricker.Row = createTestRow('3241658709E');
+        const row1 = createTestRow('2314567890E'),
+            row2 = createTestRow('3241658709E');
 
         visitor.visit(row1);
         visitor.visit(row2);

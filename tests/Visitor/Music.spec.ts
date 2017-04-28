@@ -11,16 +11,14 @@
 describe('Music visitor', function () {
 
     it('allows access to the provided matcher', function () {
-        const matcher: Pricker.Music.MatcherInterface =
-                new Pricker.Music.MbdScheme(Pricker.Stage.Cinques),
+        const matcher = new Pricker.Music.MbdScheme(Pricker.Stage.Cinques),
             visitor: Pricker.Visitor.Music = new Pricker.Visitor.Music(matcher);
-
         expect(visitor.getMatcher()).toBe(matcher);
     });
 
     it('matches rows using the provided matcher', function () {
         const matcher = jasmine.createSpyObj('MatcherInterface', ['match']),
-            visitor: Pricker.Visitor.Music = new Pricker.Visitor.Music(matcher),
+            visitor = new Pricker.Visitor.Music(matcher),
             row: Pricker.Row = createTestRow();
 
         visitor.visit(row);

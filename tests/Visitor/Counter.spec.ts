@@ -11,16 +11,12 @@
 describe('Counter visitor', function () {
 
     it('has a count that starts from zero', function () {
-        const visitor: Pricker.Visitor.Counter =
-                new Pricker.Visitor.Counter();
-
+        const visitor = new Pricker.Visitor.Counter();
         expect(visitor.getCount()).toBe(0);
     });
 
     it('increments the count when it visits a row', function () {
-        const visitor: Pricker.Visitor.Counter =
-                new Pricker.Visitor.Counter();
-
+        const visitor = new Pricker.Visitor.Counter();
         for (let i: number = 1; i < 5; i += 1) {
             visitor.visit(createTestRow());
             expect(visitor.getCount()).toBe(i);

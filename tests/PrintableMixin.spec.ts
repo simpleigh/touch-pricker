@@ -40,7 +40,6 @@ function testPrintableMixinImplementation(
 
         it('passes itself to templates', function () {
             let context: any;
-
             object.print('test');
             context = testTemplateSpy.calls.mostRecent().args[0];
             expect(context.object).toBe(object);
@@ -48,7 +47,6 @@ function testPrintableMixinImplementation(
 
         it('passes additional context to templates', function () {
             let context: any;
-
             object.print('test', {'test': 'extra'});
             context = testTemplateSpy.calls.mostRecent().args[0];
             expect(context.test).toBe('extra');

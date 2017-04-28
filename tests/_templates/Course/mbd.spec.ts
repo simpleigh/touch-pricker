@@ -10,7 +10,7 @@
 describe('mbd template for Course', function () {
 
     it('renders a course correctly', function () {
-        const course: Pricker.Course = Pricker.Course.fromString(
+        const course = Pricker.Course.fromString(
                     createTestRow(),
                     '480735692E1  s2 3  (4 sixes)',
                 );

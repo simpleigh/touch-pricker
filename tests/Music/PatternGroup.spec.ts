@@ -12,27 +12,20 @@
 describe('PatternGroup music class', function () {
 
     it('can match a row with any pattern', function () {
-        const group: Pricker.Music.PatternGroup =
-                new Pricker.Music.PatternGroup(
-                    'group',
-                    [
-                        new Pricker.Music.Pattern('1234567890E'), // fail
-                        new Pricker.Music.Pattern('2314567890E'), // pass
-                    ],
-                );
+        const group = new Pricker.Music.PatternGroup('group', [
+                    new Pricker.Music.Pattern('1234567890E'), // fail
+                    new Pricker.Music.Pattern('2314567890E'), // pass
+                ]);
+
         expect(group.match(createTestRow())).toBe(true);
     });
 
     it('combines match counts from patterns', function () {
-        const group: Pricker.Music.PatternGroup =
-                new Pricker.Music.PatternGroup(
-                    'group',
-                    [
-                        new Pricker.Music.Pattern('2314567890E'), // pass
-                        new Pricker.Music.Pattern('1234567890E'), // fail
-                        new Pricker.Music.Pattern('2314567890E'), // pass
-                    ],
-                );
+        const group = new Pricker.Music.PatternGroup('group', [
+                    new Pricker.Music.Pattern('2314567890E'), // pass
+                    new Pricker.Music.Pattern('1234567890E'), // fail
+                    new Pricker.Music.Pattern('2314567890E'), // pass
+                ]);
 
         group.match(createTestRow());
         expect(group.getMatchCount()).toBe(2);
@@ -40,33 +33,27 @@ describe('PatternGroup music class', function () {
 
     it('ignores changes to the original patterns', function () {
         const patterns: Pricker.Music.Pattern[] = [ ],
-            group: Pricker.Music.PatternGroup =
-                new Pricker.Music.PatternGroup('group', patterns);
+            group = new Pricker.Music.PatternGroup('group', patterns);
 
         // We add a pattern to the array
         patterns.push(new Pricker.Music.Pattern('2314567890E'));
-        group.match(createTestRow());
 
-        // ... but it shouldn't match
-        expect(group.getMatchCount()).toBe(0);
+        // ... but it shouldn't be added to the group
+        expect(group.getPatterns().length).toBe(0);
     });
 
     it('provides access to the patterns', function () {
-        const patterns: Pricker.Music.Pattern[] = [
-                new Pricker.Music.Pattern('2314567890E'),
-            ],
-            group: Pricker.Music.PatternGroup =
-                new Pricker.Music.PatternGroup('test', patterns);
+        const patterns: Pricker.Music.Pattern[] =
+                [new Pricker.Music.Pattern('2314567890E')],
+            group = new Pricker.Music.PatternGroup('test', patterns);
 
         expect(group.getPatterns()).toEqual(patterns);
     });
 
     it('ignores changes to the returned pattern array', function () {
-        const patterns: Pricker.Music.Pattern[] = [
-                new Pricker.Music.Pattern('2314567890E'),
-            ],
-            group: Pricker.Music.PatternGroup =
-                new Pricker.Music.PatternGroup('test', patterns);
+        const patterns: Pricker.Music.Pattern[] =
+                [new Pricker.Music.Pattern('2314567890E')],
+            group = new Pricker.Music.PatternGroup('test', patterns);
 
         expect(group.getPatterns()).not.toBe(patterns);
 
@@ -75,8 +62,7 @@ describe('PatternGroup music class', function () {
     });
 
     it('can override the match count with a parent pattern', function () {
-        const group: Pricker.Music.PatternGroup =
-                new Pricker.Music.PatternGroup(
+        const group = new Pricker.Music.PatternGroup(
                     'group',
                     [new Pricker.Music.Pattern('1234567890E')], // fail
                     new Pricker.Music.Pattern('2314567890E'), // pass
@@ -87,8 +73,7 @@ describe('PatternGroup music class', function () {
     });
 
     it('still allows access to the subpattern match count', function () {
-        const group: Pricker.Music.PatternGroup =
-                new Pricker.Music.PatternGroup(
+        const group = new Pricker.Music.PatternGroup(
                     'group',
                     [new Pricker.Music.Pattern('1234567890E')], // fail
                     new Pricker.Music.Pattern('2314567890E'), // pass
