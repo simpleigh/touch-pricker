@@ -190,6 +190,16 @@ namespace Pricker {
         protected abstract getLengthLimits(): [number, number];
 
         /**
+         * Read access to the blocks
+         *
+         * Derived classes should provide public access via a more
+         * suitably-named method
+         */
+        protected getBlocks(): Block[] {
+            return this._blocks.slice();
+        }
+
+        /**
          * Read access to a block
          *
          * Derived classes should provide public access via a more

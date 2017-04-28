@@ -9,14 +9,16 @@
 
 /**
  * Tests that a container behaves as an AbstractContainer
- * @param {AbstractContainer}  Container           - container under test
- * @param {string}             getBlockFnName      - name of fn to get blocks
- * @param {}                   lengthTestCases     - expected stage lengths
- * @param {}                   lengthBounds        - limits on container length
+ * @param {AbstractContainer}  Container       - container under test
+ * @param {string}             getBlocksFnName - name of fn to get blocks
+ * @param {string}             getBlockFnName  - name of fn to get a block
+ * @param {}                   lengthTestCases - expected stage lengths
+ * @param {}                   lengthBounds    - limits on container length
  */
 function testAbstractContainerImplementation(
     // tslint:disable-next-line:variable-name
     Container,
+    getBlocksFnName: string,
     getBlockFnName: string,
     lengthTestCases: Array<[Pricker.Stage, number]>,
     lengthBounds: [number, number],
@@ -65,7 +67,46 @@ function testAbstractContainerImplementation(
             },
         ));
 
-        it('grants access to contained blocks', runLengthTestCases(
+        it('grants access to all the blocks', runLengthTestCases(
+            function (initialRow: Pricker.Row, length: number) {
+                const container: typeof Container = new Container(initialRow);
+
+                // Handle case with zero blocks
+                if (container.getLength() === 0) {
+                    container.setLength(1);
+                    length = 1;
+                }
+
+                expect(container[getBlocksFnName]().length)
+                    .toBe(container.getLength());
+
+                // First block
+                expect(container[getBlocksFnName]()[0])
+                    .toBe(container[getBlockFnName](1));
+                // Last block
+                expect(container[getBlocksFnName]()[length - 1])
+                    .toBe(container[getBlockFnName](length));
+            },
+        ));
+
+        it('ignores changes to the returned blocks array', runLengthTestCases(
+            function (initialRow: Pricker.Row, length: number) {
+                const container: typeof Container = new Container(initialRow);
+                let blocks: any[];
+
+                // Handle case with zero blocks
+                if (container.getLength() === 0) {
+                    container.setLength(1);
+                    length = 1;
+                }
+
+                blocks = container[getBlocksFnName]();
+                blocks.pop();
+                expect(container.getLength()).toBe(length);
+            },
+        ));
+
+        it('grants access to a contained block', runLengthTestCases(
             function (initialRow: Pricker.Row, length: number) {
                 const container: typeof Container = new Container(initialRow);
 

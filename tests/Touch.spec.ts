@@ -315,6 +315,7 @@ describe('Touch class', function () {
 
     testAbstractContainerImplementation(
         Pricker.Touch,
+        'getCourses',
         'getCourse',
         [
             [Pricker.Stage.Triples, 0],

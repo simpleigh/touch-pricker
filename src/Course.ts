@@ -63,11 +63,14 @@ namespace Pricker {
         /* Course methods *****************************************************/
 
         /**
-         * Read access to sixes
+         * Read access to the sixes
          */
-        public getSix(six: number): AbstractSix {
-            return this.getBlock(six);
-        }
+        public getSixes: () => AbstractSix[] = this.getBlocks;
+
+        /**
+         * Read access to a six
+         */
+        public getSix: (index: number) => AbstractSix = this.getBlock;
 
         /**
          * Checks whether this is a plain course
