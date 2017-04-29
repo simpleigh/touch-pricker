@@ -121,7 +121,8 @@
             touch,             // Touch being composed
             selectedIndex,     // Course selected in touch view
             i,                 // Generic counter
-            element;           // Generic HTML element
+            element,           // Generic HTML element
+            rowCount;          // count of rows in touch
 
         for (i = 7; i <= 15; i = i + 2) {
             element = document.createElement('option');
@@ -143,6 +144,7 @@
             course = new Pricker.Course(getInitialRow());
             savedCourse = null;
             touch = new Pricker.Touch(getInitialRow());
+            resetProofMetrics();
             selectedIndex = 0;
             reDraw();
         }
@@ -172,9 +174,14 @@
                 document.getElementById('savedCalling').innerText = 'None';
             }
 
-            // Estimate of rows
-            document.getElementById('numRows').innerText =
-                touch.estimateRows() + ' changes';
+            // Number of rows
+            if (rowCount) {
+                document.getElementById('numRows').innerText =
+                    rowCount + ' Stedman ' + Pricker.Stage[stage];
+            } else {
+                document.getElementById('numRows').innerText =
+                    touch.estimateRows() + ' changes';
+            }
 
             // Touch display
             document.getElementById('courses').innerText = '';
@@ -188,6 +195,11 @@
                 touch.print('select');
             document.getElementById('courses').value = selectedIndex;
 
+        }
+
+        function resetProofMetrics() {
+            'use strict';
+            rowCount = undefined;
         }
 
         function c(six) {
@@ -278,8 +290,9 @@
             document.getElementById('proofResult').innerText = proofText;
 
             touch.accept(counter);
-            document.getElementById('numRows').innerText =
-                counter.getCount() + ' Stedman ' + Pricker.Stage[stage];
+            rowCount = counter.getCount();
+
+            reDraw();
         }
 
         function selectCourse() {
@@ -291,6 +304,7 @@
         function insertCourse() {
             'use strict';
             touch.insertCourse(selectedIndex + 1, course.clone());
+            resetProofMetrics();
             selectedIndex += 1;
 
             if (document.getElementById('rolling').checked) {
@@ -327,6 +341,7 @@
             'use strict';
             if (selectedIndex) {
                 touch.deleteCourse(selectedIndex);
+                resetProofMetrics();
                 reDraw();
             }
         }
