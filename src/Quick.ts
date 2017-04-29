@@ -38,6 +38,13 @@ namespace Pricker {
             );
         }
 
+        /* PrintableMixin methods *********************************************/
+
+        /**
+         * Path for this class' templates
+         */
+        public readonly templatePath: string = 'Quick';
+
         /* AbstractSix methods ************************************************/
 
         /**
@@ -50,8 +57,6 @@ namespace Pricker {
             return this;
         }
 
-        /* Slow six symbols ***************************************************/
-
-        public readonly type = 'quick';
     }
+
 }

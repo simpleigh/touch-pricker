@@ -7,57 +7,62 @@
 
 /// <reference path="../../functions.ts" />
 
-describe('mbd template for AbstractSix', function () {
+/**
+ * Tests the template behaves like the parent version
+ * @param {AbstractSix}  Six - six to test
+ */
+// tslint:disable-next-line:variable-name
+function testAbstractTemplateImplementation(Six) {
 
-    const testCases: any[] = [
-        [
-            '231',                  // Starting row
-            Pricker.Stage.Cinques,  // Stage
-            Pricker.Slow,           // Six under test
-            1,                      // Container index
-            Pricker.Call.Plain,     // Call
-            '342618507E9&nbsp;&nbsp;<span class="oddCall" onclick="c(1)">'
-                + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
-        ],
-        [
-            '342618507E9',
-            Pricker.Stage.Cinques,
-            Pricker.Quick,
-            2,
-            Pricker.Call.Single,
-            '3468201759E&nbsp;&nbsp;<span class="evenCall" onclick="c(2)">'
-                + '&nbsp;s&nbsp;</span>&nbsp;&nbsp;2<br />',
-        ],
-        [
-            '3468201759E',
-            Pricker.Stage.Cinques,
-            Pricker.Slow,
-            3,
-            Pricker.Call.Bob,
-            '4830672519E&nbsp;&nbsp;<span class="oddCall" onclick="c(3)">'
-                + '&nbsp;-&nbsp;</span>&nbsp;&nbsp;3<br />',
-        ],
-        [
-            '4830672519E',
-            Pricker.Stage.Cinques,
-            Pricker.Quick,
-            4,
-            Pricker.Call.Plain,
-            '480735692E1&nbsp;&nbsp;<span class="evenCall" onclick="c(4)">'
-                + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;4<br />',
-        ],
-    ];
+    describe('is derived from mbd template for AbstractSix and', function () {
 
-    it('renders a six correctly', function () {
-        let row: Pricker.Row,
-            six: Pricker.AbstractSix;
+        it('renders a six correctly', function () {
+            const six = new Six(createTestRow(), undefined, 1);
+            expect(six.print('mbd')).toBe(
+                Pricker.stringFromRow(six.getEnd())
+                    + '&nbsp;&nbsp;<span class="oddCall" onclick="c(1)">'
+                    + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
+            );
+        });
 
-        for (const testCase of testCases) {
-            row = createTestRow(testCase[0], testCase[1]);
-            six = new testCase[2](row, undefined, testCase[3]);
-            six.setCall(testCase[4]);
-            expect(six.print('mbd')).toBe(testCase[5]);
-        }
+        it('displays bobbed sixes correctly', function () {
+            const six = new Six(createTestRow(), undefined, 1);
+            six.setCall(Pricker.Call.Bob);
+            expect(six.print('mbd')).toBe(
+                Pricker.stringFromRow(six.getEnd())
+                    + '&nbsp;&nbsp;<span class="oddCall" onclick="c(1)">'
+                    + '&nbsp;-&nbsp;</span>&nbsp;&nbsp;1<br />',
+            );
+        });
+
+        it('displays singled sixes correctly', function () {
+            const six = new Six(createTestRow(), undefined, 1);
+            six.setCall(Pricker.Call.Single);
+            expect(six.print('mbd')).toBe(
+                Pricker.stringFromRow(six.getEnd())
+                    + '&nbsp;&nbsp;<span class="oddCall" onclick="c(1)">'
+                    + '&nbsp;s&nbsp;</span>&nbsp;&nbsp;1<br />',
+            );
+        });
+
+        it('displays the index correctly', function () {
+            const six = new Six(createTestRow(), undefined, 999);
+            expect(six.print('mbd')).toBe(
+                Pricker.stringFromRow(six.getEnd())
+                    + '&nbsp;&nbsp;<span class="oddCall" onclick="c(999)">'
+                    + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;999<br />',
+            );
+        });
+
+        it('uses a different style for even sixes', function () {
+            const six = new Six(createTestRow(), undefined, 2);
+            expect(six.print('mbd')).toBe(
+                Pricker.stringFromRow(six.getEnd())
+                    + '&nbsp;&nbsp;<span class="evenCall" onclick="c(2)">'
+                    + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;2<br />',
+            );
+        });
+
     });
 
-});
+}

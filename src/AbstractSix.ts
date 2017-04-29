@@ -96,13 +96,6 @@ namespace Pricker {
             return 6;
         }
 
-        /* PrintableMixin methods *********************************************/
-
-        /**
-         * Path for this class' templates
-         */
-        public readonly templatePath: string = 'AbstractSix';
-
         /* AbstractSix methods ************************************************/
 
         /**
