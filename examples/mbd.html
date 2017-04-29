@@ -122,7 +122,8 @@
             selectedIndex,     // Course selected in touch view
             i,                 // Generic counter
             element,           // Generic HTML element
-            rowCount;          // count of rows in touch
+            rowCount,          // Count of rows in touch
+            proofText;         // Report of touch proof status
 
         for (i = 7; i <= 15; i = i + 2) {
             element = document.createElement('option');
@@ -174,7 +175,8 @@
                 document.getElementById('savedCalling').innerText = 'None';
             }
 
-            // Number of rows
+            // Proof and number of rows
+            document.getElementById('proofResult').innerText = proofText || '';
             if (rowCount) {
                 document.getElementById('numRows').innerText =
                     rowCount + ' Stedman ' + Pricker.Stage[stage];
@@ -200,6 +202,7 @@
         function resetProofMetrics() {
             'use strict';
             rowCount = undefined;
+            proofText = undefined;
         }
 
         function c(six) {
@@ -274,8 +277,7 @@
         function prove() {
             'use strict';
             var proof = new Pricker.Visitor.Proof(),
-                counter = new Pricker.Visitor.Counter(),
-                proofText;
+                counter = new Pricker.Visitor.Counter();
 
             touch.accept(proof);
             if (proof.isTrue()) {
@@ -287,7 +289,6 @@
             } else {
                 proofText = 'Composition is FALSE';
             }
-            document.getElementById('proofResult').innerText = proofText;
 
             touch.accept(counter);
             rowCount = counter.getCount();
