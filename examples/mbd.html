@@ -193,8 +193,11 @@
             );
 
             // Course <select>
-            document.getElementById('courses').innerHTML =
-                touch.print('select');
+            document.getElementById('courses').innerHTML = 
+                touch.print('select', {
+                    'touchRows': rowCount,
+                    'styleUnreached': 'color:gray',
+                });
             document.getElementById('courses').value = selectedIndex;
 
         }

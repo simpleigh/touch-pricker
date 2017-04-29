@@ -7,14 +7,29 @@
 
 /**
  * Renders a touch as HTML for use within a <select> element
+ * @param {number}  touchRows      - count of rows in the touch
+ * @param {string}  styleUnreached - style to apply for unreached courses
  */
+
+{{
+	var currentRows = 2;  /* TODO: magic number */
+	context.touchRows = context.touchRows || Infinity;
+	context.styleUnreached = context.styleUnreached || '';
+}}
 
 <option value="0">
 	{{= Pricker.stringFromRow(context.object.getInitialRow()) }}
 </option>
 
 {{~ context.object.getCourses() :course }}
-	<option value="{{= course.getOwnership()[1] }}">
+	<option
+		 value="{{= course.getOwnership()[1] }}"
+		{{? currentRows > context.touchRows }}
+			 /* single space */
+			style="{{= context.styleUnreached }}"
+		{{?}}
+	>
 		{{= course.print('text') }}
 	</option>
+	{{ currentRows += course.estimateRows(); }}
 {{~}}

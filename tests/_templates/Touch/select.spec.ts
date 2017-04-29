@@ -5,13 +5,16 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="../../functions.ts" />
+
 describe('select template for Touch', function () {
 
     it('renders a touch correctly', function () {
-        const text: string = '2314567890E\n'
-                + '2314568790E  1 s10 s13 s15 22\n'
-                + '2314567890E  1 s10 s13 s15 22\n',
-            touch: Pricker.Touch = Pricker.Touch.fromString(text);
+        const touch = Pricker.Touch.fromString(
+                '2314567890E\n'
+                    + '2314568790E  1 s10 s13 s15 22\n'
+                    + '2314567890E  1 s10 s13 s15 22\n',
+                );
 
         expect(touch.print('select')).toBe(
             ''
@@ -24,6 +27,23 @@ describe('select template for Touch', function () {
                 + '<option value="2">'
                 + touch.getCourse(2).print('text')
                 + '</option>',
+        );
+    });
+
+    it('applies a style for unreachable courses', function () {
+        const touch = new Pricker.Touch(createTestRow());
+        touch.setLength(3);
+
+        expect(touch.print('select', {
+            'touchRows': 200,
+            'styleUnreached': 'color:gray',
+        })).toBe(
+            ''
+                + '<option value="0">2314567890E</option>'
+                + '<option value="1">2314567890E  p</option>'
+                + '<option value="2">2314567890E  p</option>'
+                + '<option value="3" style="color:gray">'
+                + '2314567890E  p</option>',
         );
     });
 
