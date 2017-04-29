@@ -12,7 +12,7 @@
  * @param {AbstractSix}  Six - six to test
  */
 // tslint:disable-next-line:variable-name
-function testAbstractTemplateImplementation(Six) {
+function testMbdAbstractSixTemplate(Six) {
 
     describe('is derived from mbd template for AbstractSix and', function () {
 

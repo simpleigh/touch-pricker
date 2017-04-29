@@ -9,7 +9,7 @@
  * Renders a course for consumption by gsiril
  */
 
-{{~ context.object.getSixes() :six:index }}
+{{~ context.object.getSixes() :six }}
 	{{? six.getCall() === Pricker.Call.Plain }}
 		plain
 	{{?? six.getCall() === Pricker.Call.Bob }}
@@ -18,8 +18,9 @@
 		single
 	{{?}}
 	,
-	{{= six.type }}
+	{{= six.print('gsiril') }}
 	,
 {{~}}
+
 "@  {{= context.object.print('text') }}"
 {{= '\n' }}

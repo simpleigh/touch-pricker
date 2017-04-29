@@ -5,10 +5,8 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../AbstractSix/mbd.spec.ts" />
+/**
+ * Renders a quick six for consumption by gsiril
+ */
 
-describe('mbd template for Slow six', function () {
-
-    testMbdAbstractSixTemplate(Pricker.Slow);
-
-});
+quick

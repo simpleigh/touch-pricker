@@ -5,10 +5,10 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../AbstractSix/mbd.spec.ts" />
+/// <reference path="../AbstractSix/gsiril.spec.ts" />
 
-describe('mbd template for Slow six', function () {
+describe('gsiril template for Slow six', function () {
 
-    testMbdAbstractSixTemplate(Pricker.Slow);
+    testGsirilAbstractSixTemplate(Pricker.Slow, 'slow');
 
 });
