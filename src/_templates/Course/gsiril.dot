@@ -10,16 +10,7 @@
  */
 
 {{~ context.object.getSixes() :six }}
-	{{? six.getCall() === Pricker.Call.Plain }}
-		plain
-	{{?? six.getCall() === Pricker.Call.Bob }}
-		bob
-	{{?? six.getCall() === Pricker.Call.Single }}
-		single
-	{{?}}
-	,
 	{{= six.print('gsiril') }}
-	,
 {{~}}
 
 "@  {{= context.object.print('text') }}"

@@ -19,7 +19,19 @@ function testGsirilAbstractSixTemplate(Six, type: string) {
 
         it('renders a six correctly', function () {
             const six = new Six(createTestRow());
-            expect(six.print('gsiril')).toBe(type);
+            expect(six.print('gsiril')).toBe('plain,' + type + ',');
+        });
+
+        it('renders a bobbed six', function () {
+            const six = new Six(createTestRow());
+            six.setCall(Pricker.Call.Bob);
+            expect(six.print('gsiril')).toBe('bob,' + type + ',');
+        });
+
+        it('renders a singled six', function () {
+            const six = new Six(createTestRow());
+            six.setCall(Pricker.Call.Single);
+            expect(six.print('gsiril')).toBe('single,' + type + ',');
         });
 
     });

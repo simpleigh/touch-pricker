@@ -10,4 +10,13 @@
  * @param {string}  type - six type, either "quick" or "slow"
  */
 
+{{? context.object.getCall() === Pricker.Call.Plain }}
+	plain
+{{?? context.object.getCall() === Pricker.Call.Bob }}
+	bob
+{{?? context.object.getCall() === Pricker.Call.Single }}
+	single
+{{?}}
+,
 {{= context.type }}
+,
