@@ -11,7 +11,11 @@
  */
 
 {{
-	var courseNames = [ ];
+	var courseNames = [ ],
+		rounds = Pricker.stringFromRow(
+			Pricker.rowFromString('', context.object.getInitialRow().length)
+		);
+
 	context.touchRows = context.touchRows || Infinity;
 	context.touchRows -= 2;  /* TODO: magic number */
 }}
@@ -30,28 +34,9 @@
 
 slow = +3.1.3.1.3{{= '\n' }}
 quick = +1.3.1.3.1{{= '\n' }}
-
-{{? context.object.getInitialRow().length == 7 }}
-	plain = +7{{= '\n' }}
-	bob = +5{{= '\n' }}
-	single = +567{{= '\n' }}
-{{?? context.object.getInitialRow().length == 9 }}
-	plain = +9{{= '\n' }}
-	bob = +7{{= '\n' }}
-	single = +789{{= '\n' }}
-{{?? context.object.getInitialRow().length == 11 }}
-	plain = +E{{= '\n' }}
-	bob = +9{{= '\n' }}
-	single = +90E{{= '\n' }}
-{{?? context.object.getInitialRow().length == 13 }}
-	plain = +A{{= '\n' }}
-	bob = +E{{= '\n' }}
-	single = +ETA{{= '\n' }}
-{{?? context.object.getInitialRow().length == 15 }}
-	plain = +C{{= '\n' }}
-	bob = +A{{= '\n' }}
-	single = +ABC{{= '\n' }}
-{{?}}
+plain = +{{= rounds.slice(-1) }}{{= '\n' }}
+bob = +{{= rounds.slice(-3, -2) }}{{= '\n' }}
+single = +{{= rounds.slice(-3) }}{{= '\n' }}
 {{= '\n' }}
 
 {{~ context.object.getCourses() :course:index }}
