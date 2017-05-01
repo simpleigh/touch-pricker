@@ -110,6 +110,12 @@
     </div>
     <div>
       <form onsubmit="return false">
+        <button onclick="generateGsiril()">Generate</button>
+      </form>
+      <textarea id="gsiril" rows="20" cols="60"></textarea>
+    <div>
+    <div>
+      <form onsubmit="return false">
         <button onclick="analyseMusic()">Analyse</button>
       </form>
       <textarea id="music" rows="20" cols="60"></textarea>
@@ -375,6 +381,12 @@
             'use strict';
             document.getElementById('importexport').innerText =
                 touch.print('text');
+        }
+
+        function generateGsiril() {
+            'use strict';
+            document.getElementById('gsiril').innerText =
+                touch.print('gsiril', {'touchRows': rowCount});
         }
 
         function analyseMusic() {

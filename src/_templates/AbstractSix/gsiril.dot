@@ -1,0 +1,38 @@
+/**
+ * Free Stedman Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright © 2015-17 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * Renders a six for consumption by gsiril
+ * @param {number}   touchRows - rows remaining in the touch
+ * @param {string}   type      - six type, either "quick" or "slow"
+ * @param {string[]} notation  - array of place notation
+ */
+
+{{
+	context.touchRows = context.touchRows || Infinity;
+}}
+
+{{? context.object.getCall() === Pricker.Call.Plain }}
+	plain
+{{?? context.object.getCall() === Pricker.Call.Bob }}
+	bob
+{{?? context.object.getCall() === Pricker.Call.Single }}
+	single
+{{?}}
+,
+ /* single space */
+
+{{? context.touchRows > 1}}
+	{{? context.touchRows >= 6 }}
+		{{= context.type }}
+	{{??}}
+		+
+		{{= context.notation.slice(0, context.touchRows - 1).join('.') }}
+	{{?}}
+	,
+	 /* single space */
+{{?}}

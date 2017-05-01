@@ -10,11 +10,7 @@
 describe('html template for Course', function () {
 
     it('renders a course correctly', function () {
-        const course = Pricker.Course.fromString(
-                    createTestRow(),
-                    '480735692E1  s2 3  (4 sixes)',
-                );
-
+        const course = Pricker.Course.fromString(createTestRow(), 's2 3  (4)');
         expect(course.print('html')).toBe(
             '<u>2314567890E</u><br />' + course.print('text'),
         );
