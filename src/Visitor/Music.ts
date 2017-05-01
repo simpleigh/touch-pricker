@@ -5,7 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../AbstractBlock.ts" />
+/// <reference path="../AbstractSix.ts" />
 /// <reference path="../Row.ts" />
 /// <reference path="../Music/MatcherInterface.ts" />
 /// <reference path="Abstract.ts" />
@@ -40,7 +40,7 @@ namespace Pricker {
             /**
              * Receives a row for processing
              */
-            public visitImplementation(row: Row, block?: AbstractBlock): void {
+            public visitImplementation(row: Row, six?: AbstractSix): void {
                 this._matcher.match(row);
             }
 

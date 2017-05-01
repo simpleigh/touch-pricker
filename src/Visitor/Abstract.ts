@@ -5,7 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../AbstractBlock.ts" />
+/// <reference path="../AbstractSix.ts" />
 /// <reference path="../Row.ts" />
 /// <reference path="../rowFromString.ts" />
 /// <reference path="../stringFromRow.ts" />
@@ -35,13 +35,13 @@ namespace Pricker {
             /**
              * Receives a row for processing, stopping after rounds is reached
              */
-            public visit(row: Row, block?: AbstractBlock): this {
+            public visit(row: Row, six?: AbstractSix): this {
                 if (!this._rounds) {
                     this._rounds = stringFromRow(rowFromString('', row.length));
                 }
 
                 if (this._visiting) {
-                    this.visitImplementation(row, block);
+                    this.visitImplementation(row, six);
                     if (stringFromRow(row) === this._rounds) {
                         this._visiting = false;
                     }
@@ -61,7 +61,7 @@ namespace Pricker {
              */
             protected abstract visitImplementation(
                 row: Row,
-                block?: AbstractBlock,
+                six?: AbstractSix,
             ): void;
         }
 
