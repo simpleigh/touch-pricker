@@ -385,7 +385,8 @@
 
         function generateGsiril() {
             'use strict';
-            document.getElementById('gsiril').innerText = touch.print('gsiril');
+            document.getElementById('gsiril').innerText =
+                touch.print('gsiril', {'touchRows': rowCount});
         }
 
         function analyseMusic() {
