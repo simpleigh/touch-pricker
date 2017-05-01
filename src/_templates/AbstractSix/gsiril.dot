@@ -24,6 +24,7 @@
 	single
 {{?}}
 ,
+ /* single space */
 
 {{? context.touchRows > 1}}
 	{{? context.touchRows >= 6 }}
@@ -33,4 +34,5 @@
 		{{= context.notation.slice(0, context.touchRows - 1).join('.') }}
 	{{?}}
 	,
+	 /* single space */
 {{?}}

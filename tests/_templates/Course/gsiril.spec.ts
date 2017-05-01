@@ -12,7 +12,7 @@ describe('gsiril template for Course', function () {
     it('renders a course correctly', function () {
         const course = Pricker.Course.fromString(createTestRow(), 's2 3 (4)');
         expect(course.print('gsiril')).toBe(
-            'plain,slow,single,quick,bob,slow,plain,quick,"@  '
+            'plain, slow, single, quick, bob, slow, plain, quick, "@  '
                 + course.print('text', {'courseEnd': false})
                 + '"\n',
         );
@@ -20,30 +20,30 @@ describe('gsiril template for Course', function () {
 
     const EXPECTED_OUTPUTS: string[] = [
         '',  // length zero not tested
-        'plain,',
-        'plain,+3,',
-        'plain,+3.1,',
-        'plain,+3.1.3,',
-        'plain,+3.1.3.1,',
-        'plain,slow,',
-        'plain,slow,single,',
-        'plain,slow,single,+1,',
-        'plain,slow,single,+1.3,',
-        'plain,slow,single,+1.3.1,',
-        'plain,slow,single,+1.3.1.3,',
-        'plain,slow,single,quick,',
-        'plain,slow,single,quick,bob,',
-        'plain,slow,single,quick,bob,+3,',
-        'plain,slow,single,quick,bob,+3.1,',
-        'plain,slow,single,quick,bob,+3.1.3,',
-        'plain,slow,single,quick,bob,+3.1.3.1,',
-        'plain,slow,single,quick,bob,slow,',
-        'plain,slow,single,quick,bob,slow,plain,',
-        'plain,slow,single,quick,bob,slow,plain,+1,',
-        'plain,slow,single,quick,bob,slow,plain,+1.3,',
-        'plain,slow,single,quick,bob,slow,plain,+1.3.1,',
-        'plain,slow,single,quick,bob,slow,plain,+1.3.1.3,',
-        'plain,slow,single,quick,bob,slow,plain,quick,',
+        'plain, ',
+        'plain, +3, ',
+        'plain, +3.1, ',
+        'plain, +3.1.3, ',
+        'plain, +3.1.3.1, ',
+        'plain, slow, ',
+        'plain, slow, single, ',
+        'plain, slow, single, +1, ',
+        'plain, slow, single, +1.3, ',
+        'plain, slow, single, +1.3.1, ',
+        'plain, slow, single, +1.3.1.3, ',
+        'plain, slow, single, quick, ',
+        'plain, slow, single, quick, bob, ',
+        'plain, slow, single, quick, bob, +3, ',
+        'plain, slow, single, quick, bob, +3.1, ',
+        'plain, slow, single, quick, bob, +3.1.3, ',
+        'plain, slow, single, quick, bob, +3.1.3.1, ',
+        'plain, slow, single, quick, bob, slow, ',
+        'plain, slow, single, quick, bob, slow, plain, ',
+        'plain, slow, single, quick, bob, slow, plain, +1, ',
+        'plain, slow, single, quick, bob, slow, plain, +1.3, ',
+        'plain, slow, single, quick, bob, slow, plain, +1.3.1, ',
+        'plain, slow, single, quick, bob, slow, plain, +1.3.1.3, ',
+        'plain, slow, single, quick, bob, slow, plain, quick, ',
     ];
 
     it('stops rendering based on the remaining rows in the touch', function () {
