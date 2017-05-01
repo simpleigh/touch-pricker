@@ -9,4 +9,6 @@
  * Renders a quick six for consumption by gsiril
  */
 
-quick
+{{ context.type = 'quick'; }}
+
+{{= Pricker.Templates['AbstractSix.gsiril'](context) }}

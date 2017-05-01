@@ -6,9 +6,8 @@
  */
 
 /**
- * Renders a slow six for consumption by gsiril
+ * Renders a six for consumption by gsiril
+ * @param {string}  type - six type, either "quick" or "slow"
  */
 
-{{ context.type = 'slow'; }}
-
-{{= Pricker.Templates['AbstractSix.gsiril'](context) }}
+{{= context.type }}
