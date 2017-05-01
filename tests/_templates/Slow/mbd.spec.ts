@@ -9,6 +9,6 @@
 
 describe('mbd template for Slow six', function () {
 
-    testMbdAbstractSixTemplate(Pricker.Slow);
+    testMbdAbstractSixTemplate(Pricker.Slow, 'slow');
 
 });

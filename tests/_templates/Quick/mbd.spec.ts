@@ -9,6 +9,6 @@
 
 describe('mbd template for Quick six', function () {
 
-    testMbdAbstractSixTemplate(Pricker.Quick);
+    testMbdAbstractSixTemplate(Pricker.Quick, 'quick');
 
 });

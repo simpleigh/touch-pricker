@@ -9,4 +9,6 @@
  * Renders a quick six as HTML for MBD-style pricker
  */
 
+{{ context.type = 'quick'; }}
+
 {{= Pricker.Templates['AbstractSix.mbd'](context) }}

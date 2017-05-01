@@ -9,10 +9,11 @@
 
 /**
  * Tests the template behaves like the parent version
- * @param {AbstractSix}  Six - six to test
+ * @param {AbstractSix}  Six  - six to test
+ * @param {string}       type - six type
  */
 // tslint:disable-next-line:variable-name
-function testMbdAbstractSixTemplate(Six) {
+function testMbdAbstractSixTemplate(Six, type: string) {
 
     describe('is derived from mbd template for AbstractSix and', function () {
 
@@ -20,7 +21,8 @@ function testMbdAbstractSixTemplate(Six) {
             const six = new Six(createTestRow(), undefined, 1);
             expect(six.print('mbd')).toBe(
                 Pricker.stringFromRow(six.getEnd())
-                    + '&nbsp;&nbsp;<span class="oddCall" onclick="c(1)">'
+                    + '&nbsp;&nbsp;<span class="' + type
+                    + 'Six" onclick="c(1)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
         });
@@ -30,7 +32,8 @@ function testMbdAbstractSixTemplate(Six) {
             six.setCall(Pricker.Call.Bob);
             expect(six.print('mbd')).toBe(
                 Pricker.stringFromRow(six.getEnd())
-                    + '&nbsp;&nbsp;<span class="oddCall" onclick="c(1)">'
+                    + '&nbsp;&nbsp;<span class="' + type
+                    + 'Six" onclick="c(1)">'
                     + '&nbsp;-&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
         });
@@ -40,7 +43,8 @@ function testMbdAbstractSixTemplate(Six) {
             six.setCall(Pricker.Call.Single);
             expect(six.print('mbd')).toBe(
                 Pricker.stringFromRow(six.getEnd())
-                    + '&nbsp;&nbsp;<span class="oddCall" onclick="c(1)">'
+                    + '&nbsp;&nbsp;<span class="' + type
+                    + 'Six" onclick="c(1)">'
                     + '&nbsp;s&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
         });
@@ -49,17 +53,9 @@ function testMbdAbstractSixTemplate(Six) {
             const six = new Six(createTestRow(), undefined, 999);
             expect(six.print('mbd')).toBe(
                 Pricker.stringFromRow(six.getEnd())
-                    + '&nbsp;&nbsp;<span class="oddCall" onclick="c(999)">'
+                    + '&nbsp;&nbsp;<span class="' + type
+                    + 'Six" onclick="c(999)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;999<br />',
-            );
-        });
-
-        it('uses a different style for even sixes', function () {
-            const six = new Six(createTestRow(), undefined, 2);
-            expect(six.print('mbd')).toBe(
-                Pricker.stringFromRow(six.getEnd())
-                    + '&nbsp;&nbsp;<span class="evenCall" onclick="c(2)">'
-                    + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;2<br />',
             );
         });
 

@@ -7,11 +7,13 @@
 
 /**
  * Renders a six as HTML for MBD-style pricker
+ * @param {string}  type - six type, either "quick" or "slow"
  */
+
 {{= Pricker.stringFromRow(context.object.getEnd()) }}
 &nbsp;&nbsp;
 <span
- class="{{= context.object.getOwnership()[1] % 2 ? 'odd' : 'even' }}Call"
+ class="{{= context.type }}Six"
  onclick="c({{= context.object.getOwnership()[1] }})"
 >
 	&nbsp;
