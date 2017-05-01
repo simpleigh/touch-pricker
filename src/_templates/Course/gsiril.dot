@@ -7,10 +7,20 @@
 
 /**
  * Renders a course for consumption by gsiril
+ * @param {number}  touchRows - rows remaining in the touch
  */
 
+{{
+	context.touchRows = context.touchRows || Infinity;
+}}
+
 {{~ context.object.getSixes() :six }}
-	{{= six.print('gsiril') }}
+	{{= six.print('gsiril', {'touchRows': context.touchRows}) }}
+
+	{{ context.touchRows -= six.estimateRows(); }}
+	{{? context.touchRows <= 0 }}
+		{{ break; }}
+	{{?}}
 {{~}}
 
 "@  {{= context.object.print('text') }}"
