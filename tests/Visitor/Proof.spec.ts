@@ -10,13 +10,9 @@
 
 describe('Proof visitor', function () {
 
-    let visitor: Pricker.Visitor.Proof,
-        block: Pricker.AbstractBlock;
+    let visitor: Pricker.Visitor.Proof;
 
-    beforeEach(function () {
-        visitor = new Pricker.Visitor.Proof();
-        block = jasmine.createSpyObj('AbstractBlock', ['setFlag']);
-    });
+    beforeEach(() => { visitor = new Pricker.Visitor.Proof(); });
 
     it('has a dictionary of row counts that starts empty', function () {
         expect(visitor.getRowCounts()).toEqual({ });
@@ -26,9 +22,9 @@ describe('Proof visitor', function () {
         const row1 = createTestRow('2314567890E'),
             row2 = createTestRow('3241658709E');
 
-        visitor.visit(row1, block);
-        visitor.visit(row2, block);
-        visitor.visit(row2, block);
+        visitor.visit(row1);
+        visitor.visit(row2);
+        visitor.visit(row2);
 
         expect(visitor.getRowCounts()).toEqual(
             {
@@ -53,13 +49,13 @@ describe('Proof visitor', function () {
     });
 
     it('remains true when rows are visited', function () {
-        visitor.visit(createTestRow(), block);
+        visitor.visit(createTestRow());
         expect(visitor.isTrue()).toBe(true);
     });
 
     it('becomes false when a row is repeated', function () {
-        visitor.visit(createTestRow(), block);
-        visitor.visit(createTestRow(), block);
+        visitor.visit(createTestRow());
+        visitor.visit(createTestRow());
         expect(visitor.isTrue()).toBe(false);
     });
 

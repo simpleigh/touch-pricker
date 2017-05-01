@@ -9,21 +9,17 @@
 
 describe('StringArray visitor', function () {
 
-    let visitor: Pricker.Visitor.StringArray,
-        block: Pricker.AbstractBlock;
+    let visitor: Pricker.Visitor.StringArray;
 
-    beforeEach(function () {
-        visitor = new Pricker.Visitor.StringArray();
-        block = jasmine.createSpyObj('AbstractBlock', ['setFlag']);
-    });
+    beforeEach(() => { visitor = new Pricker.Visitor.StringArray(); });
 
     it('has a list of strings that starts empty', function () {
         expect(visitor.getStrings()).toEqual([ ]);
     });
 
     it('stores a string when it visits a row', function () {
-        visitor.visit(createTestRow('2314567890E'), block);
-        visitor.visit(createTestRow('3241658709E'), block);
+        visitor.visit(createTestRow('2314567890E'));
+        visitor.visit(createTestRow('3241658709E'));
         expect(visitor.getStrings()).toEqual(['2314567890E', '3241658709E']);
     });
 

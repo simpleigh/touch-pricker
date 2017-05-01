@@ -23,16 +23,12 @@ function testAbstractVisitorImplementation(
 
     describe('is derived from AbstractVisitor and', function () {
 
-        let visitor: Pricker.Visitor.AbstractVisitor,
-            block: Pricker.AbstractBlock;
+        let visitor: Pricker.Visitor.AbstractVisitor;
 
-        beforeEach(function () {
-            visitor = createFn();
-            block = jasmine.createSpyObj('AbstractBlock', ['setFlag']);
-        });
+        beforeEach(() => { visitor = createFn(); });
 
         it('returns this when processing a row', function () {
-            expect(visitor.visit(createTestRow(), block)).toBe(visitor);
+            expect(visitor.visit(createTestRow())).toBe(visitor);
         });
 
         it('starts out processing rows', function () {
@@ -40,8 +36,8 @@ function testAbstractVisitorImplementation(
         });
 
         it('stops processing rows after rounds is reached', function () {
-            visitor.visit(createTestRow(), block);
-            visitor.visit(createTestRow('123'), block);
+            visitor.visit(createTestRow());
+            visitor.visit(createTestRow('123'));
             expect(visitor.isVisiting()).toBe(false);
         });
 
@@ -49,11 +45,11 @@ function testAbstractVisitorImplementation(
             let result: any;
 
             setupTest();
-            visitor.visit(createTestRow(), block);
-            visitor.visit(createTestRow('123'), block);
+            visitor.visit(createTestRow());
+            visitor.visit(createTestRow('123'));
             result = getState(visitor);
 
-            visitor.visit(createTestRow(), block);
+            visitor.visit(createTestRow());
             expect(getState(visitor)).toEqual(result);
         });
 

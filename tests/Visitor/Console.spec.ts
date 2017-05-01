@@ -11,11 +11,10 @@
 describe('Console visitor', function () {
 
     it('logs to the console when it visits a row', function () {
-        const visitor = new Pricker.Visitor.Console(),
-            block: Pricker.AbstractBlock =
-                jasmine.createSpyObj('AbstractBlock', ['setFlag']);
+        const visitor = new Pricker.Visitor.Console();
         spyOn(console, 'log');
-        visitor.visit(createTestRow(), block);
+
+        visitor.visit(createTestRow());
         expect(console.log).toHaveBeenCalledWith('2314567890E');
     });
 

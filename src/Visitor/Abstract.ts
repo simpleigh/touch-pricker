@@ -35,7 +35,7 @@ namespace Pricker {
             /**
              * Receives a row for processing, stopping after rounds is reached
              */
-            public visit(row: Row, block: AbstractBlock): this {
+            public visit(row: Row, block?: AbstractBlock): this {
                 if (!this._rounds) {
                     this._rounds = stringFromRow(rowFromString('', row.length));
                 }
@@ -61,7 +61,7 @@ namespace Pricker {
              */
             protected abstract visitImplementation(
                 row: Row,
-                block: AbstractBlock,
+                block?: AbstractBlock,
             ): void;
         }
 

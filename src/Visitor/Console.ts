@@ -25,7 +25,7 @@ namespace Pricker {
             /**
              * Receives a row for processing
              */
-            public visitImplementation(row: Row, block: AbstractBlock): void {
+            public visitImplementation(row: Row, block?: AbstractBlock): void {
                 /* tslint:disable-next-line:no-console */
                 console.log(stringFromRow(row));
             }

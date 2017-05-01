@@ -40,7 +40,7 @@ namespace Pricker {
             /**
              * Receives a row for processing
              */
-            public visitImplementation(row: Row, block: AbstractBlock): void {
+            public visitImplementation(row: Row, block?: AbstractBlock): void {
                 this._matcher.match(row);
             }
 
