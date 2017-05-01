@@ -9,6 +9,10 @@
 
 describe('gsiril template for Slow six', function () {
 
-    testGsirilAbstractSixTemplate(Pricker.Slow, 'slow');
+    testGsirilAbstractSixTemplate(
+        Pricker.Slow,
+        'slow',
+        ['3', '1', '3', '1'],
+    );
 
 });

@@ -9,6 +9,10 @@
 
 describe('gsiril template for Quick six', function () {
 
-    testGsirilAbstractSixTemplate(Pricker.Quick, 'quick');
+    testGsirilAbstractSixTemplate(
+        Pricker.Quick,
+        'quick',
+        ['1', '3', '1', '3'],
+    );
 
 });
