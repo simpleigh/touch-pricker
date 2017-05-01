@@ -23,5 +23,5 @@
 	{{?}}
 {{~}}
 
-"@  {{= context.object.print('text') }}"
+"@  {{= context.object.print('text', {'courseEnd': false}) }}"
 {{= '\n' }}

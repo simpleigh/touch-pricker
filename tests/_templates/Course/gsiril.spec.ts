@@ -13,7 +13,7 @@ describe('gsiril template for Course', function () {
         const course = Pricker.Course.fromString(createTestRow(), 's2 3 (4)');
         expect(course.print('gsiril')).toBe(
             'plain,slow,single,quick,bob,slow,plain,quick,"@  '
-                + course.print('text')
+                + course.print('text', {'courseEnd': false})
                 + '"\n',
         );
     });
@@ -51,7 +51,7 @@ describe('gsiril template for Course', function () {
         for (let i: number = 1; i < EXPECTED_OUTPUTS.length; i += 1) {
             expect(course.print('gsiril', {'touchRows': i})).toBe(
                 EXPECTED_OUTPUTS[i]
-                    + '"@  480735692E1  s2 3  (4 sixes)"\n',
+                    + '"@  s2 3  (4 sixes)"\n',
             );
         }
     });
