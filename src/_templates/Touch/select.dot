@@ -12,8 +12,8 @@
  */
 
 {{
-	var currentRows = 2;  /* TODO: magic number */
 	context.touchRows = context.touchRows || Infinity;
+	context.touchRows -= 2;  /* TODO magic number */
 	context.styleUnreached = context.styleUnreached || '';
 }}
 
@@ -24,12 +24,12 @@
 {{~ context.object.getCourses() :course }}
 	<option
 		 value="{{= course.getOwnership()[1] }}"
-		{{? currentRows > context.touchRows }}
+		{{? context.touchRows <= 0 }}
 			 /* single space */
 			style="{{= context.styleUnreached }}"
 		{{?}}
 	>
 		{{= course.print('text') }}
 	</option>
-	{{ currentRows += course.estimateRows(); }}
+	{{ context.touchRows -= course.estimateRows(); }}
 {{~}}
