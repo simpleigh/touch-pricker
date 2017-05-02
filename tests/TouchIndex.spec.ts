@@ -28,14 +28,23 @@ describe('TouchIndex class', function () {
         }
     });
 
-    it('knows it contains a six once it has been indexed', function () {
+    it('can index a six directly', function () {
         const six = touch.getCourse(1).getSix(3);
         index.add(six);
         expect(index.contains(six)).toBe(true);
     });
 
-    it('returns this when adding sixes to the index', function () {
+    it('can index a six using coordinates', function () {
+        index.add(1, 3);
+        expect(index.contains(1, 3)).toBe(true);
+    });
+
+    it('returns this when adding a six directly', function () {
         expect(index.add(touch.getCourse(1).getSix(3))).toBe(index);
+    });
+
+    it('returns this when adding a six using coordinates', function () {
+        expect(index.add(1, 3)).toBe(index);
     });
 
     it('throws an exception if the six has no container', function () {

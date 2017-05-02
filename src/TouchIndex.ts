@@ -30,10 +30,19 @@ namespace Pricker {
 
         /**
          * Adds a six to the index
-         * @param {AbstractSix}  six - six to add
          */
-        public add(six: AbstractSix): this {
-            const [courseIndex, sixIndex] = this.getCoordinates(six);
+        public add(six: AbstractSix): this;
+        public add(courseIndex: number, sixIndex: number): this;
+
+        public add(param1: any, param2?: number): this {
+            let courseIndex: number,
+                sixIndex: number;
+
+            if (param2) {
+                [courseIndex, sixIndex] = [param1, param2];
+            } else {
+                [courseIndex, sixIndex] = this.getCoordinates(param1);
+            }
 
             if (!this._index[courseIndex]) {
                 this._index[courseIndex] = [ ];
@@ -45,10 +54,19 @@ namespace Pricker {
 
         /**
          * Checks whether a six is in the index
-         * @param {AbstractSix}  six - six to check
          */
-        public contains(six: AbstractSix): boolean {
-            const [courseIndex, sixIndex] = this.getCoordinates(six);
+        public contains(six: AbstractSix): boolean;
+        public contains(courseIndex: number, sixIndex: number): boolean;
+
+        public contains(param1: any, param2?: number) {
+            let courseIndex: number,
+                sixIndex: number;
+
+            if (param2) {
+                [courseIndex, sixIndex] = [param1, param2];
+            } else {
+                [courseIndex, sixIndex] = this.getCoordinates(param1);
+            }
 
             if (!this._index[courseIndex]) {
                 return false;
@@ -59,7 +77,6 @@ namespace Pricker {
 
         /**
          * Helper to find the indices for a six
-         * @param {AbstractSix}  six
          */
         private getCoordinates(six: AbstractSix): [number, number] {
             const [course, sixIndex] = six.getOwnership();
