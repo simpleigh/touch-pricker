@@ -40,7 +40,7 @@ single = +{{= rounds.slice(-3) }}{{= '\n' }}
 {{= '\n' }}
 
 {{~ context.object.getCourses() :course:index }}
-	course{{= index + 1 }} = 
+	course{{= index + 1 }} =
 	 /* single space */
 	{{= course.print('gsiril', {'touchRows': context.touchRows}) }}
 	{{ courseNames.push('course' + (index + 1)); }}
