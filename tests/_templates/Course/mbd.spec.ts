@@ -10,7 +10,7 @@
 describe('mbd template for Course', function () {
 
     it('renders a course correctly', function () {
-        const course = Pricker.Course.fromString(createTestRow(), 's2 3  (4)');
+        const course = Pricker.Course.fromString(createTestRow(), 's2 3 (4)');
         expect(course.print('mbd')).toBe(''
             + '<u>2314567890E</u><br />'
             + course.getSix(1).print('mbd')
