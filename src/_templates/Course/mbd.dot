@@ -7,8 +7,12 @@
 
 /**
  * Renders a course as HTML for MBD-style pricker
+ * @param {TouchIndex}  musicIndex  - index to check sixes against for music
+ * @param {number}      courseIndex - index number of the course
  */
+
 <u>{{= Pricker.stringFromRow(context.object.getInitialRow()) }}</u><br />
+
 {{~ context.object.getSixes() :six }}
-	{{= six.print('mbd') }}
+	{{= six.print('mbd', context) }}
 {{~}}

@@ -59,6 +59,22 @@ function testMbdAbstractSixTemplate(Six, type: string) {
             );
         });
 
+        it('highlights sixes based on a music index', function () {
+            const six = new Six(createTestRow(), undefined, 1),
+                musicIndex = new Pricker.TouchIndex();
+            musicIndex.add(2, 1);
+            expect(
+                six.print('mbd', {'musicIndex': musicIndex, 'courseIndex': 2}),
+            ).toBe(
+                '<span class="musicalBlock">'
+                    + Pricker.stringFromRow(six.getEnd())
+                    + '</span>'
+                    + '&nbsp;&nbsp;<span class="' + type
+                    + 'Six" onclick="c(1)">'
+                    + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
+            );
+        });
+
     });
 
 }
