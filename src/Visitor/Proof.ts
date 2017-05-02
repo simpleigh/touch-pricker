@@ -5,6 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="../AbstractSix.ts" />
 /// <reference path="../Row.ts" />
 /// <reference path="../stringFromRow.ts" />
 /// <reference path="Abstract.ts" />
@@ -49,7 +50,7 @@ namespace Pricker {
             /**
              * Receives a row for processing
              */
-            public visitImplementation(row: Row): void {
+            public visitImplementation(row: Row, six?: AbstractSix): void {
                 const rowString: string = stringFromRow(row);
                 if (rowString in this._rowCounts) {
                     // Already seen - i.e. false

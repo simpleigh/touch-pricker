@@ -25,6 +25,10 @@
         cursor: pointer;
         background-color: #E2E2F0;
       }
+
+      .musicalBlock {
+        color: gold;
+      }
     </style>
     <script type="text/javascript" src="../dist/stedman-pricker.js"></script>
   </head>
@@ -126,10 +130,12 @@
             savedCourse,       // Course being saved for later
             touch,             // Touch being composed
             selectedIndex,     // Course selected in touch view
+            copiedIndex,       // Course copied from touch view
             i,                 // Generic counter
             element,           // Generic HTML element
             rowCount,          // Count of rows in touch
-            proofText;         // Report of touch proof status
+            proofText,         // Report of touch proof status
+            musicIndex;        // Touch index with musical sixes
 
         for (i = 7; i <= 15; i = i + 2) {
             element = document.createElement('option');
@@ -151,7 +157,7 @@
             course = new Pricker.Course(getInitialRow());
             savedCourse = null;
             touch = new Pricker.Touch(getInitialRow());
-            resetProofMetrics();
+            resetTouchMetrics();
             selectedIndex = 0;
             reDraw();
         }
@@ -160,7 +166,10 @@
             'use strict';
             var newCourse;
 
-            document.getElementById('sixends').innerHTML = course.print('mbd');
+            document.getElementById('sixends').innerHTML = course.print('mbd', {
+                'musicIndex': musicIndex,
+                'courseIndex': copiedIndex
+            });
 
             document.getElementById('calling').innerHTML = course.print('html');
 
@@ -208,15 +217,17 @@
 
         }
 
-        function resetProofMetrics() {
+        function resetTouchMetrics() {
             'use strict';
             rowCount = undefined;
             proofText = undefined;
+            musicIndex = undefined;
         }
 
         function c(six) {
             'use strict';
             course.getSix(six).toggleCall();
+            copiedIndex = undefined;
             reDraw();
         }
 
@@ -314,7 +325,7 @@
         function insertCourse() {
             'use strict';
             touch.insertCourse(selectedIndex + 1, course.clone());
-            resetProofMetrics();
+            resetTouchMetrics();
             selectedIndex += 1;
 
             if (document.getElementById('rolling').checked) {
@@ -337,6 +348,7 @@
             'use strict';
             if (selectedIndex) {
                 course = touch.getCourse(selectedIndex).clone();
+                copiedIndex = selectedIndex;
                 reDraw();
             }
         }
@@ -351,7 +363,7 @@
             'use strict';
             if (selectedIndex) {
                 touch.deleteCourse(selectedIndex);
-                resetProofMetrics();
+                resetTouchMetrics();
                 reDraw();
             }
         }
@@ -397,6 +409,7 @@
             touch.accept(visitor);
             document.getElementById('music').innerText =
                 visitor.getMatcher().print('text');
+            musicIndex = visitor.getIndex();
         }
 
         setStage();
