@@ -5,7 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../AbstractSix.ts" />
+/* Don't reference AbstractSix or this leads to compilation errors... */
 /// <reference path="../Row.ts" />
 /// <reference path="../rowFromString.ts" />
 /// <reference path="../stringFromRow.ts" />
