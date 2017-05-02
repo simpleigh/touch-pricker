@@ -76,6 +76,13 @@ namespace Pricker {
             throw new Error('Cannot index six: bad ownership');
         }
 
+        /**
+         * Checks whether the index is empty
+         */
+        public isEmpty(): boolean {
+            return !this._index.length;
+        }
+
     }
 
 }

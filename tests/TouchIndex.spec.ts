@@ -18,7 +18,7 @@ describe('TouchIndex class', function () {
         touch.setLength(2);
     });
 
-    it('starts out empty', function () {
+    it('starts out without any indexed sixes', function () {
         for (let courseIndex: number = 1; courseIndex <= 2; courseIndex += 1) {
             for (let sixIndex: number = 1; sixIndex <= 22; sixIndex += 1) {
                 expect(index.contains(
@@ -28,7 +28,7 @@ describe('TouchIndex class', function () {
         }
     });
 
-    it('knows when sixes have been added', function () {
+    it('knows it contains a six once it has been indexed', function () {
         const six = touch.getCourse(1).getSix(3);
         index.add(six);
         expect(index.contains(six)).toBe(true);
@@ -46,6 +46,15 @@ describe('TouchIndex class', function () {
     it('throws an exception if the course has no container', function () {
         const course = new Pricker.Course(createTestRow());
         expect(function () { index.add(course.getSix(3)); }).toThrow();
+    });
+
+    it('knows when it is empty', function () {
+        expect(index.isEmpty()).toBe(true);
+    });
+
+    it('knows when it contains a six', function () {
+        index.add(touch.getCourse(1).getSix(3));
+        expect(index.isEmpty()).toBe(false);
     });
 
 });
