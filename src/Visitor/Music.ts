@@ -7,6 +7,7 @@
 
 /// <reference path="../AbstractSix.ts" />
 /// <reference path="../Row.ts" />
+/// <reference path="../TouchIndex.ts" />
 /// <reference path="../Music/MatcherInterface.ts" />
 /// <reference path="Abstract.ts" />
 
@@ -23,11 +24,14 @@ namespace Pricker {
          */
         export class Music extends AbstractVisitor {
 
+            private _index: Pricker.TouchIndex;
+
             /**
              * Constructor
              */
             constructor(protected _matcher: Pricker.Music.MatcherInterface) {
                 super();
+                this._index = new Pricker.TouchIndex();
             }
 
             /**
@@ -38,10 +42,20 @@ namespace Pricker {
             }
 
             /**
+             * Read access to the index
+             */
+            public getIndex(): Pricker.TouchIndex {
+                return this._index;
+            }
+
+            /**
              * Receives a row for processing
              */
             public visitImplementation(row: Row, six?: AbstractSix): void {
-                this._matcher.match(row);
+                const matches = this._matcher.match(row);
+                if (matches && six) {
+                    this._index.add(six);
+                }
             }
 
         }
