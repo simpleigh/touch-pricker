@@ -373,6 +373,7 @@
             'use strict';
             if (selectedIndex) {
                 touch.deleteCourse(selectedIndex);
+                selectedIndex = Math.min(selectedIndex, touch.getLength());
                 resetTouchMetrics();
                 reDraw();
             }
