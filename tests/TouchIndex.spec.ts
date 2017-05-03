@@ -47,14 +47,23 @@ describe('TouchIndex class', function () {
         expect(index.add(1, 3)).toBe(index);
     });
 
-    it('throws an exception if the six has no container', function () {
-        const six = new Pricker.Slow(createTestRow());
+    it('throws an exception if the six has no index', function () {
+        const row = createTestRow(),
+            six = new Pricker.Slow(row, touch.getCourse(1), undefined);
         expect(function () { index.add(six); }).toThrow();
+        expect(function () { index.contains(six); }).toThrow();
     });
 
-    it('throws an exception if the course has no container', function () {
+    it('throws an exception if the six has no container', function () {
+        const six = new Pricker.Slow(createTestRow(), undefined, 1);
+        expect(function () { index.add(six); }).toThrow();
+        expect(function () { index.contains(six); }).toThrow();
+    });
+
+    it('throws an exception if the course has no index', function () {
         const course = new Pricker.Course(createTestRow());
         expect(function () { index.add(course.getSix(3)); }).toThrow();
+        expect(function () { index.contains(course.getSix(3)); }).toThrow();
     });
 
     it('knows when it is empty', function () {
@@ -64,6 +73,29 @@ describe('TouchIndex class', function () {
     it('knows when it contains a six', function () {
         index.add(touch.getCourse(1).getSix(3));
         expect(index.isEmpty()).toBe(false);
+    });
+
+    it('knows no sixes are indexed for a course directly', function () {
+        expect(index.containsFrom(touch.getCourse(1))).toBe(false);
+    });
+
+    it('knows no sixes are indexed for a course by coordinates', function () {
+        expect(index.containsFrom(1)).toBe(false);
+    });
+
+    it('knows when sixes are indexed for a course directly', function () {
+        index.add(touch.getCourse(1).getSix(3));
+        expect(index.containsFrom(touch.getCourse(1))).toBe(true);
+    });
+
+    it('knows when sixes are indexed for a course by coordinates', function () {
+        index.add(1, 3);
+        expect(index.containsFrom(1)).toBe(true);
+    });
+
+    it('throws an exception checking a course with no index', function () {
+        const course = new Pricker.Course(createTestRow(), touch, undefined);
+        expect(function () { index.containsFrom(course); }).toThrow();
     });
 
 });

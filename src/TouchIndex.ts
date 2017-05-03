@@ -6,6 +6,7 @@
  */
 
 /// <reference path="AbstractSix.ts" />
+/// <reference path="Course.ts" />
 
 namespace Pricker {
     'use strict';
@@ -91,6 +92,26 @@ namespace Pricker {
             }
 
             throw new Error('Cannot index six: bad ownership');
+        }
+
+        /**
+         * Checks whether any sixes from a course are in the index
+         */
+        public containsFrom(param: Course | number): boolean {
+            let courseIndex: number | undefined;
+
+            if (typeof param === 'object') {
+                courseIndex = param.getOwnership()[1];
+            } else {
+                courseIndex = param;
+            }
+
+            if (courseIndex) {
+                return !!this._index[courseIndex];
+            }
+
+            throw new Error('Cannot check course: bad ownerhsip');
+
         }
 
         /**
