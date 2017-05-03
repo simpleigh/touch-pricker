@@ -90,4 +90,29 @@ describe('Changes:', function () {
         ],
     ));
 
+    describe('permuteCall function', function () {
+
+        it('can apply plain transpositions', function () {
+            const row = createTestRow();
+            spyOn(Pricker.Changes, 'permuteN');
+            Pricker.Changes.permuteCall(row, Pricker.Call.Plain);
+            expect(Pricker.Changes.permuteN).toHaveBeenCalledWith(row);
+        });
+
+        it('can apply bob transpositions', function () {
+            const row = createTestRow();
+            spyOn(Pricker.Changes, 'permuteBob');
+            Pricker.Changes.permuteCall(row, Pricker.Call.Bob);
+            expect(Pricker.Changes.permuteBob).toHaveBeenCalledWith(row);
+        });
+
+        it('can apply single transpositions', function () {
+            const row = createTestRow();
+            spyOn(Pricker.Changes, 'permuteSingle');
+            Pricker.Changes.permuteCall(row, Pricker.Call.Single);
+            expect(Pricker.Changes.permuteSingle).toHaveBeenCalledWith(row);
+        });
+
+    });
+
 });

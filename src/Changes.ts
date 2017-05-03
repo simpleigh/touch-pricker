@@ -6,6 +6,7 @@
  */
 
 /// <reference path="Bell.ts" />
+/// <reference path="Call.ts" />
 /// <reference path="Row.ts" />
 
 namespace Pricker {
@@ -78,6 +79,19 @@ namespace Pricker {
 
             for (index = 0; index < row.length - 3; index += 2) {
                 swapPair(row, index);
+            }
+        }
+
+        /**
+         * Notation dependent on call
+         */
+        export function permuteCall(row: Row, call: Call): void {
+            if (call === Call.Plain) {
+                Changes.permuteN(row);
+            } else if (call === Call.Bob) {
+                Changes.permuteBob(row);
+            } else if (call === Call.Single) {
+                Changes.permuteSingle(row);
             }
         }
 

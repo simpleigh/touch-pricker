@@ -51,15 +51,7 @@ namespace Pricker {
          */
         protected calculate(): void {
             this._end = this._initialRow.slice(); // Create new array
-
-            if (this._call === Pricker.Call.Plain) {
-                Changes.permuteN(this._end);
-            } else if (this._call === Pricker.Call.Bob) {
-                Changes.permuteBob(this._end);
-            } else if (this._call === Pricker.Call.Single) {
-                Changes.permuteSingle(this._end);
-            }
-
+            Changes.permuteCall(this._end, this._call);
             this.applySixTransposition();
         }
 
@@ -118,15 +110,7 @@ namespace Pricker {
          */
         protected getFirstRow(): Row {
             const row: Row = this._initialRow.slice();
-
-            if (this._call === Call.Plain) {
-                Changes.permuteN(row);
-            } else if (this._call === Call.Bob) {
-                Changes.permuteBob(row);
-            } else if (this._call === Call.Single) {
-                Changes.permuteSingle(row);
-            }
-
+            Changes.permuteCall(row, this._call);
             return row;
         }
 
