@@ -50,11 +50,8 @@ namespace Pricker {
         /**
          * Transposes the front three bells depending upon the type of six
          */
-        protected transposeFrontThree(): AbstractSix {
-            this._end[0] = this._initialRow[1];
-            this._end[1] = this._initialRow[3];
-            this._end[2] = this._initialRow[0];
-            return this;
+        protected applySixTransposition(): void {
+            Changes.permute1(this._end);
         }
 
     }

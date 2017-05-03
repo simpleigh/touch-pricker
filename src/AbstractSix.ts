@@ -50,35 +50,17 @@ namespace Pricker {
          * Does any calculation needed by the block
          */
         protected calculate(): void {
-            let n: number;
             this._end = this._initialRow.slice(); // Create new array
 
-            this.transposeFrontThree();
-
-            // Odd places go up
-            for (n = 4; n < this._end.length; n += 2) {
-                this._end[n] = this._initialRow[n - 2];
+            if (this._call === Pricker.Call.Plain) {
+                Changes.permuteN(this._end);
+            } else if (this._call === Pricker.Call.Bob) {
+                Changes.permuteBob(this._end);
+            } else if (this._call === Pricker.Call.Single) {
+                Changes.permuteSingle(this._end);
             }
 
-            // Even places go in
-            for (n = 5; n < this._end.length; n += 2) {
-                this._end[n - 2] = this._initialRow[n];
-            }
-
-            // Random stuff happens at the back
-            n = this._end.length - 1;
-            if (this._call === Call.Plain) {
-                this._end[n - 1] = this._initialRow[n];
-            } else {
-                this._end[n - 3] = this._initialRow[n - 2];
-                if (this._call === Call.Bob) {
-                    this._end[n - 1] = this._initialRow[n - 1];
-                    this._end[n] = this._initialRow[n];
-                } else {
-                    this._end[n - 1] = this._initialRow[n];
-                    this._end[n] = this._initialRow[n - 1];
-                }
-            }
+            this.applySixTransposition();
         }
 
         /**
@@ -127,9 +109,9 @@ namespace Pricker {
         }
 
         /**
-         * Transposes the front three bells depending upon the type of six
+         * Finishes transposing the end row depending upon the type of six
          */
-        protected abstract transposeFrontThree(): AbstractSix;
+        protected abstract applySixTransposition(): void;
 
         /**
          * Computes the first row of the six by applying notation <n>
