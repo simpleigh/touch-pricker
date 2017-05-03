@@ -47,4 +47,23 @@ describe('select template for Touch', function () {
         );
     });
 
+    it('applies a style for false courses', function () {
+        const touch = new Pricker.Touch(createTestRow()),
+            falseness = new Pricker.TouchIndex();
+
+        touch.setLength(2);
+        falseness.add(1, 3);
+
+        expect(touch.print('select', {
+            'falseness': falseness,
+            'styleFalse': 'color:red',
+        })).toBe(
+            ''
+                + '<option value="0">2314567890E</option>'
+                + '<option value="1" style="color:red">'
+                + '2314567890E  p</option>'
+                + '<option value="2">2314567890E  p</option>',
+        );
+    });
+
 });
