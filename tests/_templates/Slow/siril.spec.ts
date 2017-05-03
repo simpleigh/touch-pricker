@@ -5,11 +5,11 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../AbstractSix/gsiril.spec.ts" />
+/// <reference path="../AbstractSix/siril.spec.ts" />
 
-describe('gsiril template for Slow six', function () {
+describe('siril template for Slow six', function () {
 
-    testGsirilAbstractSixTemplate(
+    testSirilAbstractSixTemplate(
         Pricker.Slow,
         'slow',
         ['3', '1', '3', '1'],

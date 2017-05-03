@@ -118,9 +118,9 @@
     </div>
     <div>
       <form onsubmit="return false">
-        <button onclick="generateGsiril()">Generate</button>
+        <button onclick="generateSiril()">Generate</button>
       </form>
-      <textarea id="gsiril" rows="20" cols="60"></textarea>
+      <textarea id="siril" rows="20" cols="60"></textarea>
     </div>
     <div>
       <form onsubmit="return false">
@@ -406,10 +406,10 @@
                 touch.print('text');
         }
 
-        function generateGsiril() {
+        function generateSiril() {
             'use strict';
-            document.getElementById('gsiril').innerText =
-                touch.print('gsiril', {'touchRows': rowCount});
+            document.getElementById('siril').innerText =
+                touch.print('siril', {'touchRows': rowCount});
         }
 
         function analyseMusic() {

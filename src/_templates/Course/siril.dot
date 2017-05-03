@@ -6,7 +6,7 @@
  */
 
 /**
- * Renders a course for consumption by gsiril
+ * Renders a course for consumption by siril-based provers
  * @param {number}  touchRows - rows remaining in the touch
  */
 
@@ -15,7 +15,7 @@
 }}
 
 {{~ context.object.getSixes() :six }}
-	{{= six.print('gsiril', {'touchRows': context.touchRows}) }}
+	{{= six.print('siril', {'touchRows': context.touchRows}) }}
 
 	{{ context.touchRows -= six.estimateRows(); }}
 	{{? context.touchRows <= 0 }}
