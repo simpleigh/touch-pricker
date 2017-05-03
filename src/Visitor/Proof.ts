@@ -22,15 +22,31 @@ namespace Pricker {
          * Proof visitor that proves touches
          */
         export class Proof extends AbstractVisitor {
+
             /**
              * Log of rows that we've seen
              */
-            protected _rowCounts: { [index: string]: number } = { };
+            private _rowCounts:
+                { [index: string]: Array<AbstractSix | undefined> };
+
+            /**
+             * Index of false blocks
+             */
+            private _index: Pricker.TouchIndex;
 
             /**
              * Flag recording truth
              */
-            protected _isTrue: boolean = true;
+            private _isTrue: boolean = true;
+
+            /**
+             * Constructor
+             */
+            constructor() {
+                super();
+                this._rowCounts = { };
+                this._index = new Pricker.TouchIndex();
+            }
 
             /**
              * Read access to row counts
@@ -40,11 +56,18 @@ namespace Pricker {
 
                 for (const rowString in this._rowCounts) {
                     if (this._rowCounts.hasOwnProperty(rowString)) {
-                        result[rowString] = this._rowCounts[rowString];
+                        result[rowString] = this._rowCounts[rowString].length;
                     }
                 }
 
                 return result;
+            }
+
+            /**
+             * Read access to the index
+             */
+            public getIndex(): Pricker.TouchIndex {
+                return this._index;
             }
 
             /**
@@ -54,11 +77,16 @@ namespace Pricker {
                 const rowString: string = stringFromRow(row);
                 if (rowString in this._rowCounts) {
                     // Already seen - i.e. false
-                    this._rowCounts[rowString] += 1;
+                    this._rowCounts[rowString].push(six);
                     this._isTrue = false;
+                    for (const block of this._rowCounts[rowString]) {
+                        if (block) {
+                            this._index.add(block);
+                        }
+                    }
                 } else {
                     // Not seen - i.e. true
-                    this._rowCounts[rowString] = 1;
+                    this._rowCounts[rowString] = [six];
                 }
             }
 

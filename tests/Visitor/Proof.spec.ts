@@ -59,6 +59,34 @@ describe('Proof visitor', function () {
         expect(visitor.isTrue()).toBe(false);
     });
 
+    it('builds up an index that starts out empty', function () {
+        expect(visitor.getIndex().isEmpty()).toBe(true);
+    });
+
+    it('indexes new blocks found to be false', function () {
+        const touch = new Pricker.Touch(createTestRow());
+        touch.setLength(2);
+
+        visitor.visit(createTestRow());
+        visitor.visit(createTestRow(), touch.getCourse(1).getSix(3));
+
+        expect(
+            visitor.getIndex().contains(touch.getCourse(1).getSix(3)),
+        ).toBe(true);
+    });
+
+    it('indexes old blocks now found to be false', function () {
+        const touch = new Pricker.Touch(createTestRow());
+        touch.setLength(2);
+
+        visitor.visit(createTestRow(), touch.getCourse(1).getSix(3));
+        visitor.visit(createTestRow());
+
+        expect(
+            visitor.getIndex().contains(touch.getCourse(1).getSix(3)),
+        ).toBe(true);
+    });
+
     testAbstractVisitorImplementation(
         () => new Pricker.Visitor.Proof(),
         (testVisitor: Pricker.Visitor.Proof) => testVisitor.getRowCounts(),
