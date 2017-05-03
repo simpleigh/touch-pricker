@@ -61,12 +61,52 @@ function testMbdAbstractSixTemplate(Six, type: string) {
 
         it('highlights sixes based on a music index', function () {
             const six = new Six(createTestRow(), undefined, 1),
-                musicIndex = new Pricker.TouchIndex();
-            musicIndex.add(2, 1);
-            expect(
-                six.print('mbd', {'musicIndex': musicIndex, 'courseIndex': 2}),
-            ).toBe(
+                music = new Pricker.TouchIndex();
+
+            music.add(2, 1);
+
+            expect(six.print('mbd', {'music': music, 'courseIndex': 2})).toBe(
                 '<span class="musicalBlock">'
+                    + Pricker.stringFromRow(six.getEnd())
+                    + '</span>'
+                    + '&nbsp;&nbsp;<span class="' + type
+                    + 'Six" onclick="c(1)">'
+                    + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
+            );
+        });
+
+        it('highlights sixes based on a falseness index', function () {
+            const six = new Six(createTestRow(), undefined, 1),
+                falseness = new Pricker.TouchIndex();
+
+            falseness.add(2, 1);
+
+            expect(
+                six.print('mbd', {'falseness': falseness, 'courseIndex': 2}),
+            ).toBe(
+                '<span class="falseBlock">'
+                    + Pricker.stringFromRow(six.getEnd())
+                    + '</span>'
+                    + '&nbsp;&nbsp;<span class="' + type
+                    + 'Six" onclick="c(1)">'
+                    + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
+            );
+        });
+
+        it('gives priority to falseness over music', function () {
+            const six = new Six(createTestRow(), undefined, 1),
+                falseness = new Pricker.TouchIndex(),
+                music = new Pricker.TouchIndex();
+
+            falseness.add(2, 1);
+            music.add(2, 1);
+
+            expect(six.print('mbd', {
+                'falseness': falseness,
+                'music': music,
+                'courseIndex': 2,
+            })).toBe(
+                '<span class="falseBlock">'
                     + Pricker.stringFromRow(six.getEnd())
                     + '</span>'
                     + '&nbsp;&nbsp;<span class="' + type

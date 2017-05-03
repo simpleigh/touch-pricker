@@ -26,6 +26,10 @@
         background-color: #E2E2F0;
       }
 
+      .falseBlock {
+        color: red;
+      }
+
       .musicalBlock {
         color: gold;
       }
@@ -135,7 +139,8 @@
             element,           // Generic HTML element
             rowCount,          // Count of rows in touch
             proofText,         // Report of touch proof status
-            musicIndex;        // Touch index with musical sixes
+            falseness,         // Touch index with false sixes
+            music;             // Touch index with musical sixes
 
         for (i = 7; i <= 15; i = i + 2) {
             element = document.createElement('option');
@@ -167,7 +172,8 @@
             var newCourse;
 
             document.getElementById('sixends').innerHTML = course.print('mbd', {
-                'musicIndex': musicIndex,
+                'falseness': falseness,
+                'music': music,
                 'courseIndex': copiedIndex
             });
 
@@ -221,7 +227,8 @@
             'use strict';
             rowCount = undefined;
             proofText = undefined;
-            musicIndex = undefined;
+            falseness = undefined;
+            music = undefined;
         }
 
         function c(six) {
@@ -312,6 +319,7 @@
 
             touch.accept(counter);
             rowCount = counter.getCount();
+            falseness = proof.getIndex();
 
             reDraw();
         }
@@ -409,7 +417,7 @@
             touch.accept(visitor);
             document.getElementById('music').innerText =
                 visitor.getMatcher().print('text');
-            musicIndex = visitor.getIndex();
+            music = visitor.getIndex();
         }
 
         setStage();

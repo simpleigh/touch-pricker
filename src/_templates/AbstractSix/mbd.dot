@@ -7,13 +7,23 @@
 
 /**
  * Renders a six as HTML for MBD-style pricker
- * @param {TouchIndex}  musicIndex  - index to check sixes against for music
+ * @param {TouchIndex}  falseness   - index to lookup falseness
+ * @param {TouchIndex}  music       - index to lookup music
  * @param {number}      courseIndex - index number of the course
  * @param {string}      type        - six type, either "quick" or "slow"
  */
 
 {{?
-	context.musicIndex && context.courseIndex && context.musicIndex.contains(
+	context.falseness && context.courseIndex && context.falseness.contains(
+		context.courseIndex,
+		context.object.getOwnership()[1]
+	)
+}}
+	<span class="falseBlock">
+	{{= Pricker.stringFromRow(context.object.getEnd()) }}
+	</span>
+{{??
+	context.music && context.courseIndex && context.music.contains(
 		context.courseIndex,
 		context.object.getOwnership()[1]
 	)
