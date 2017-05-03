@@ -349,9 +349,22 @@
 
         function pasteCourse() {
             'use strict';
-            deleteCourse();
-            selectedIndex -= 1;
-            insertCourse();
+            if (selectedIndex) {
+                touch.deleteCourse(selectedIndex);
+                touch.insertCourse(selectedIndex, course.clone());
+
+                if (document.getElementById('rolling').checked) {
+                    course.setInitialRow(
+                        touch.getCourse(selectedIndex).getEnd()
+                    );
+                    selectedIndex =
+                        Math.min(selectedIndex + 1, touch.getLength());
+                    resetLength();
+                    resetCalls();  // Calls reDraw()
+                } else {
+                    reDraw();
+                }
+            }
         }
 
         function copyCourse() {
