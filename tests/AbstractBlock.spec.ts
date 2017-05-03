@@ -116,6 +116,19 @@ function testAbstractBlockImplementation(
             expect(container.notify).toHaveBeenCalledWith(999);
         });
 
+        it('does not notify when the initial row changes', function () {
+            const container: Pricker.AbstractContainer<typeof Block> =
+                    jasmine.createSpyObj('AbstractContainer', ['notify']),
+                block = new Block(
+                    createTestRow(),
+                    container,
+                    999,
+                );
+
+            block.setInitialRow(createTestRow());
+            expect(container.notify).not.toHaveBeenCalled();
+        });
+
         it('allows access to parent information', function () {
             const container: Pricker.AbstractContainer<typeof Block> =
                     jasmine.createSpyObj('AbstractContainer', ['notify']),

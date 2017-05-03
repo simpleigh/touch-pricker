@@ -142,8 +142,6 @@ namespace Pricker {
                 this._blocks[index].setInitialRow(initialRow);
                 initialRow = this._blocks[index].getEnd();
             }
-
-            this.notifyContainer();
         }
 
         /**
@@ -220,6 +218,7 @@ namespace Pricker {
          */
         public notify(index: number): void {
             this.calculateBlocks(index);
+            this.notifyContainer();
         }
     }
 }

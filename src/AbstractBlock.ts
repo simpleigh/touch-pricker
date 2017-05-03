@@ -22,7 +22,7 @@ namespace Pricker {
      *  - provides access to the end row at the end of the block
      *  - recalculates that end row if the initial row is changed
      *  - provides mechanisms for controlling how the end row is created
-     *  - notifies any parent block whenever the end row changes
+     *  - notifies any parent block whenever those mechanisms are actuated
      *
      * Blocks are designed to be aggregated into containers.
      * Containers notify blocks of changes by setting a new initial row.
