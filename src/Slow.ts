@@ -24,18 +24,25 @@ namespace Pricker {
          * Receives a visitor that will be called to process each row
          */
         public accept(visitor: Visitor.AbstractVisitor): this {
-            const oddRow: Row = this.getFirstRow(),
-                evenRow: Row = oddRow.slice();
+            const row = this.getInitialRow();
 
-            Changes.permute3(evenRow);
+            Changes.permuteCall(row, this._call);
+            visitor.visit(row);
 
-            return this.acceptHelper(
-                visitor,
-                oddRow,
-                this.forwardRotator,
-                evenRow,
-                this.backwardRotator,
-            );
+            Changes.permute3(row);
+            visitor.visit(row);
+
+            Changes.permute1(row);
+            visitor.visit(row);
+
+            Changes.permute3(row);
+            visitor.visit(row);
+
+            Changes.permute1(row);
+            visitor.visit(row);
+
+            visitor.visit(this._end);
+            return this;
         }
 
         /* PrintableMixin methods *********************************************/

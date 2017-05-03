@@ -105,66 +105,6 @@ namespace Pricker {
          */
         protected abstract applySixTransposition(): void;
 
-        /**
-         * Computes the first row of the six by applying notation <n>
-         */
-        protected getFirstRow(): Row {
-            const row: Row = this._initialRow.slice();
-            Changes.permuteCall(row, this._call);
-            return row;
-        }
-
-        /**
-         * Rotates the first three bells forwards (abc -> bca)
-         */
-        protected forwardRotator(row: Row): void {
-            const bell: Bell = row[0];
-            row[0] = row[1];
-            row[1] = row[2];
-            row[2] = bell;
-        }
-
-        /**
-         * Rotates the first three bells backwards (abc -> cab)
-         */
-        protected backwardRotator(row: Row): void {
-            const bell: Bell = row[2];
-            row[2] = row[1];
-            row[1] = row[0];
-            row[0] = bell;
-        }
-
-        /**
-         * Visits all rows of the six
-         * @param {Visitor.AbstractVisitor} visitor     - visitor being used
-         * @param {Row}                     oddRow      - row 1
-         * @param {(row: Row) => void}      oddRotator  - rotator row 1 -> row 3
-         * @param {Row}                     evenRow     - row 2
-         * @param {(row: Row) => void}      evenRotator - rotator row 2 -> row 4
-         */
-        protected acceptHelper(
-            visitor: Visitor.AbstractVisitor,
-            oddRow: Row,
-            oddRotator: (row: Row) => void,
-            evenRow: Row,
-            evenRotator: (row: Row) => void,
-        ): this {
-            visitor.visit(oddRow, this);
-            visitor.visit(evenRow, this);
-
-            oddRotator(oddRow);
-            evenRotator(evenRow);
-
-            visitor.visit(oddRow, this);
-            visitor.visit(evenRow, this);
-
-            oddRotator(oddRow);
-            evenRotator(evenRow);
-
-            visitor.visit(oddRow, this);
-            visitor.visit(evenRow, this);
-
-            return this;
-        }
     }
+
 }
