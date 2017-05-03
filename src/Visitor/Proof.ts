@@ -71,6 +71,13 @@ namespace Pricker {
             }
 
             /**
+             * Checks whether the visited touch was true
+             */
+            public isTrue(): boolean {
+                return this._isTrue;
+            }
+
+            /**
              * Receives a row for processing
              */
             public visitImplementation(row: Row, six?: AbstractSix): void {
@@ -100,12 +107,6 @@ namespace Pricker {
                 }
             }
 
-            /**
-             * Checks whether the visited touch was true
-             */
-            public isTrue(): boolean {
-                return this._isTrue;
-            }
         }
 
     }

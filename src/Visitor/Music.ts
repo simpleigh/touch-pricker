@@ -24,6 +24,9 @@ namespace Pricker {
          */
         export class Music extends AbstractVisitor {
 
+            /**
+             * index of musical blocks
+             */
             private _index: Pricker.TouchIndex;
 
             /**

@@ -63,6 +63,7 @@ namespace Pricker {
                 row: Row,
                 six?: AbstractSix,
             ): void;
+
         }
 
     }

@@ -24,7 +24,7 @@ namespace Pricker {
             /**
              * Count of rows we've seen
              */
-            protected _count: number = 0;
+            private _count: number = 0;
 
             /**
              * Read access to the count

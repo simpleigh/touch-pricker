@@ -34,13 +34,12 @@ describe('Music visitor', function () {
     it('adds matched blocks to the index', function () {
         const matcher = jasmine.createSpyObj('MatcherInterface', ['match']),
             visitor = new Pricker.Visitor.Music(matcher),
-            row = createTestRow(),
-            touch = new Pricker.Touch(row);
+            touch = new Pricker.Touch(createTestRow());
 
         matcher.match.and.returnValue(true);
         touch.setLength(2);
 
-        visitor.visit(row, touch.getCourse(1).getSix(3));
+        visitor.visit(createTestRow(), touch.getCourse(1).getSix(3));
         expect(
             visitor.getIndex().contains(touch.getCourse(1).getSix(3)),
         ).toBe(true);
@@ -49,13 +48,12 @@ describe('Music visitor', function () {
     it('does not add unmatched blocks to the index', function () {
         const matcher = jasmine.createSpyObj('MatcherInterface', ['match']),
             visitor = new Pricker.Visitor.Music(matcher),
-            row = createTestRow(),
-            touch = new Pricker.Touch(row);
+            touch = new Pricker.Touch(createTestRow());
 
         matcher.match.and.returnValue(false);
         touch.setLength(2);
 
-        visitor.visit(row, touch.getCourse(1).getSix(3));
+        visitor.visit(createTestRow(), touch.getCourse(1).getSix(3));
         expect(
             visitor.getIndex().contains(touch.getCourse(1).getSix(3)),
         ).toBe(false);

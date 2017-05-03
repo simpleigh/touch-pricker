@@ -22,10 +22,11 @@ namespace Pricker {
          * StringArray visitor that accumulates rows into an array
          */
         export class StringArray extends AbstractVisitor {
+
             /**
              * Rows we've seen
              */
-            protected _strings: string[] = [ ];
+            private _strings: string[] = [ ];
 
             /**
              * Read access to the rows
@@ -40,6 +41,7 @@ namespace Pricker {
             public visitImplementation(row: Row, six?: AbstractSix): void {
                 this._strings.push(stringFromRow(row));
             }
+
         }
 
     }
