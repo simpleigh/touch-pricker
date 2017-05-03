@@ -7,6 +7,7 @@
 
 /// <reference path="../AbstractSix.ts" />
 /// <reference path="../Row.ts" />
+/// <reference path="../stringFromRow.ts" />
 /// <reference path="../TouchIndex.ts" />
 /// <reference path="../Music/MatcherInterface.ts" />
 /// <reference path="Abstract.ts" />
@@ -55,7 +56,7 @@ namespace Pricker {
              * Receives a row for processing
              */
             public visitImplementation(row: Row, six?: AbstractSix): void {
-                const matches = this._matcher.match(row);
+                const matches = this._matcher.match(stringFromRow(row));
                 if (matches && six) {
                     this._index.add(six);
                 }

@@ -7,7 +7,6 @@
 
 /// <reference path="../PrintableMixin.ts" />
 /// <reference path="../Row.ts" />
-/// <reference path="../stringFromRow.ts" />
 /// <reference path="MatcherInterface.ts" />
 
 namespace Pricker {
@@ -45,18 +44,16 @@ namespace Pricker {
             /* MatcherInterface methods ***************************************/
 
             /**
-             * Matches a row
+             * Matches a row string
              */
-            public match(row: Row): boolean {
-                let rowString = stringFromRow(row);
-
+            public match(row: string): boolean {
                 if (this._type === MatchType.Back) {
-                    rowString = rowString.slice(-this._pattern.length);
+                    row = row.slice(-this._pattern.length);
                 } else if (this._type === MatchType.Front) {
-                    rowString = rowString.slice(0, this._pattern.length);
+                    row = row.slice(0, this._pattern.length);
                 }
 
-                if (rowString === this._pattern) {
+                if (row === this._pattern) {
                     this._matchCount += 1;
                     return true;
                 }

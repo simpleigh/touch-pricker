@@ -18,11 +18,9 @@ describe('Music visitor', function () {
 
     it('matches rows using the provided matcher', function () {
         const matcher = jasmine.createSpyObj('MatcherInterface', ['match']),
-            visitor = new Pricker.Visitor.Music(matcher),
-            row = createTestRow();
-
-        visitor.visit(row);
-        expect(matcher.match).toHaveBeenCalledWith(row);
+            visitor = new Pricker.Visitor.Music(matcher);
+        visitor.visit(createTestRow());
+        expect(matcher.match).toHaveBeenCalledWith('2314567890E');
     });
 
     it('builds up an index that starts out empty', function () {

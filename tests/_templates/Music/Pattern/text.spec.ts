@@ -16,14 +16,14 @@ describe('text template for Pattern music class', function () {
 
     it('displays a single match', function () {
         const pattern = new Pricker.Music.Pattern('90E');
-        pattern.match(createTestRow());
+        pattern.match('2314567890E');
         expect(pattern.print('text')).toBe('1 90E\n');
     });
 
     it('displays multiple matches', function () {
         const pattern = new Pricker.Music.Pattern('90E');
-        pattern.match(createTestRow());
-        pattern.match(createTestRow());
+        pattern.match('2314567890E');
+        pattern.match('2314567890E');
         expect(pattern.print('text')).toBe('2 90E\n');
     });
 
@@ -34,7 +34,7 @@ describe('text template for Pattern music class', function () {
                 Pricker.Music.MatchType.Row,
             );
 
-        pattern.match(createTestRow());
+        pattern.match('2314567890E');
         expect(pattern.print('text')).toBe('Standard start sixend\n');
     });
 
@@ -45,20 +45,20 @@ describe('text template for Pattern music class', function () {
                 Pricker.Music.MatchType.Row,
             );
 
-        pattern.match(createTestRow());
-        pattern.match(createTestRow());
+        pattern.match('2314567890E');
+        pattern.match('2314567890E');
         expect(pattern.print('text')).toBe('2 Standard start sixend\n');
     });
 
     it('allows the line ending to be customised', function () {
         const pattern = new Pricker.Music.Pattern('90E');
-        pattern.match(createTestRow());
+        pattern.match('2314567890E');
         expect(pattern.print('text', {'end': '#'})).toBe('1 90E#');
     });
 
     it('allows the line ending to be removed', function () {
         const pattern = new Pricker.Music.Pattern('90E');
-        pattern.match(createTestRow());
+        pattern.match('2314567890E');
         expect(pattern.print('text', {'end': ''})).toBe('1 90E');
     });
 

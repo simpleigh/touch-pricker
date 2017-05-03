@@ -19,9 +19,9 @@ namespace Pricker {
         export interface MatcherInterface {
 
             /**
-             * Matches a row
+             * Matches a row string
              */
-            match(row: Row): boolean;
+            match(row: string): boolean;
 
             /**
              * Provides read access to the name

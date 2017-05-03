@@ -17,7 +17,7 @@ describe('PatternGroup music class', function () {
                     new Pricker.Music.Pattern('2314567890E'), // pass
                 ]);
 
-        expect(group.match(createTestRow())).toBe(true);
+        expect(group.match('2314567890E')).toBe(true);
     });
 
     it('combines match counts from patterns', function () {
@@ -27,7 +27,7 @@ describe('PatternGroup music class', function () {
                     new Pricker.Music.Pattern('2314567890E'), // pass
                 ]);
 
-        group.match(createTestRow());
+        group.match('2314567890E');
         expect(group.getMatchCount()).toBe(2);
     });
 
@@ -68,7 +68,7 @@ describe('PatternGroup music class', function () {
                     new Pricker.Music.Pattern('2314567890E'), // pass
                 );
 
-        group.match(createTestRow());
+        group.match('2314567890E');
         expect(group.getMatchCount()).toBe(1);
     });
 
@@ -79,7 +79,7 @@ describe('PatternGroup music class', function () {
                     new Pricker.Music.Pattern('2314567890E'), // pass
                 );
 
-        group.match(createTestRow());
+        group.match('2314567890E');
         expect(group.getSubmatchCount()).toBe(0);
     });
 

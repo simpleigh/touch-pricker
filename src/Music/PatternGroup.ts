@@ -45,9 +45,9 @@ namespace Pricker {
             /* MatcherInterface methods ***************************************/
 
             /**
-             * Matches a row
+             * Matches a row string
              */
-            public match(row: Row): boolean {
+            public match(row: string): boolean {
                 let result: boolean = false;
 
                 for (const pattern of this._patterns) {

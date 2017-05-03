@@ -43,7 +43,7 @@ function testAbstractSchemeImplementation(
                     output: string = testCase[3],
                     scheme = createFn(stage);
 
-                scheme.match(Pricker.rowFromString(rowString, stage));
+                scheme.match(rowString);
                 expect(scheme.getMatchCount()).toBe(matches);
                 expect(scheme.print('text')).toBe(output);
             }

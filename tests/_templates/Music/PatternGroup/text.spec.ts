@@ -20,7 +20,7 @@ describe('text template for PatternGroup music class', function () {
                     [new Pricker.Music.Pattern('90E')],
                 );
 
-        group.match(createTestRow());
+        group.match('2314567890E');
         expect(group.print('text')).toBe('1 group (1 90E)\n');
     });
 
@@ -30,7 +30,7 @@ describe('text template for PatternGroup music class', function () {
                     new Pricker.Music.Pattern('890E'),
                 ]);
 
-        group.match(createTestRow());
+        group.match('2314567890E');
         expect(group.print('text')).toBe('2 group (1 90E, 1 890E)\n');
     });
 
@@ -40,7 +40,7 @@ describe('text template for PatternGroup music class', function () {
                     new Pricker.Music.Pattern('09E'),
                 ]);
 
-        group.match(createTestRow());
+        group.match('2314567890E');
         expect(group.print('text')).toBe('1 group (1 90E)\n');
     });
 
@@ -51,7 +51,7 @@ describe('text template for PatternGroup music class', function () {
                     new Pricker.Music.Pattern('2314567890E'), // pass
                 );
 
-        group.match(createTestRow());
+        group.match('2314567890E');
         expect(group.print('text')).toBe('1 group\n');
     });
 

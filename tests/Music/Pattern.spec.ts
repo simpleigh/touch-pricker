@@ -22,7 +22,7 @@ describe('Pattern music class', function () {
                     'test',
                     Pricker.Music.MatchType.Front,
                 );
-        expect(pattern.match(createTestRow())).toBe(true);
+        expect(pattern.match('2314567890E')).toBe(true);
     });
 
     it('can match the end of a row', function () {
@@ -31,12 +31,12 @@ describe('Pattern music class', function () {
                     'test',
                     Pricker.Music.MatchType.Back,
                 );
-        expect(pattern.match(createTestRow())).toBe(true);
+        expect(pattern.match('2314567890E')).toBe(true);
     });
 
     it('matches the end of a row by default', function () {
         const pattern = new Pricker.Music.Pattern('90E');
-        expect(pattern.match(createTestRow())).toBe(true);
+        expect(pattern.match('2314567890E')).toBe(true);
     });
 
     it('knows if it is a wildcard match', function () {

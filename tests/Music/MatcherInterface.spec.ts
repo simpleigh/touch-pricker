@@ -24,12 +24,12 @@ function testMatcherInterface(
         beforeEach(() => { matcher = createFn(); });
 
         it('can match a row', function () {
-            expect(matcher.match(createTestRow())).toBe(true);
+            expect(matcher.match('2314567890E')).toBe(true);
         });
 
         it('can identify a mismatch', function () {
             // Unmusical test row that's not likely to be matched
-            expect(matcher.match(createTestRow('2614E378509'))).toBe(false);
+            expect(matcher.match('2614E378509')).toBe(false);
         });
 
         it('provides read access to the matcher name', function () {
@@ -41,10 +41,10 @@ function testMatcherInterface(
         });
 
         it('increments the match count for each match', function () {
-            matcher.match(createTestRow());
+            matcher.match('2314567890E');
             expect(matcher.getMatchCount()).toBe(1);
 
-            matcher.match(createTestRow());
+            matcher.match('2314567890E');
             expect(matcher.getMatchCount()).toBe(2);
         });
 
