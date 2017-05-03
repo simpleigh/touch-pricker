@@ -75,15 +75,25 @@ namespace Pricker {
              */
             public visitImplementation(row: Row, six?: AbstractSix): void {
                 const rowString: string = stringFromRow(row);
+
                 if (rowString in this._rowCounts) {
                     // Already seen - i.e. false
-                    this._rowCounts[rowString].push(six);
-                    this._isTrue = false;
-                    for (const block of this._rowCounts[rowString]) {
-                        if (block) {
-                            this._index.add(block);
+
+                    if (this._rowCounts[rowString].length === 1) {
+                        // First time this row has run false
+                        // need to add the previous block to the index
+                        const previousSix = this._rowCounts[rowString][0];
+                        if (previousSix) {
+                            this._index.add(previousSix);
                         }
                     }
+
+                    this._isTrue = false;
+                    if (six) {
+                        this._index.add(six);
+                    }
+                    this._rowCounts[rowString].push(six);
+
                 } else {
                     // Not seen - i.e. true
                     this._rowCounts[rowString] = [six];
