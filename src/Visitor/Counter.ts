@@ -12,15 +12,13 @@
 namespace Pricker {
     'use strict';
 
-    /**
-     * Visitor classes to traverse blocks
-     */
     export namespace Visitor {
 
         /**
          * Counter visitor that counts rows
          */
         export class Counter extends AbstractVisitor {
+
             /**
              * Count of rows we've seen
              */
@@ -33,12 +31,15 @@ namespace Pricker {
                 return this._count;
             }
 
+            /* AbstractVisitor methods ****************************************/
+
             /**
              * Receives a row for processing
              */
-            public visitImplementation(row: Row, six?: AbstractSix): void {
+            protected visitImplementation(row: Row, six?: AbstractSix): void {
                 this._count += 1;
             }
+
         }
 
     }

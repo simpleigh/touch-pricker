@@ -14,26 +14,46 @@ namespace Pricker {
     'use strict';
 
     /**
-     * Visitor classes to traverse blocks
+     * Visitor classes to analyse blocks
+     *
+     * Any [[AbstractBlock]] can [[accept]] a visitor that will process their
+     * [[Row]]s (An [[AbstractContainer]] recursively calls contained blocks in
+     * turn to make sure all rows are reached).
+     *
+     * Visitors process each row in turn in the order they would be rung.
+     * They take action for each row, probably modifying some internal state
+     * based on the rows that they receive.
+     * They stop processing rows if rounds is reached.
+     *
+     * There's no way to reset a visitor: create a new one in order to complete
+     * a fresh analysis.
      */
     export namespace Visitor {
 
         /**
-         * Interface for visitors
+         * Base class for all visitors
+         *
+         * Defers to derived classes in order to process rows, but does check
+         * whether rounds has been reached and stops processing at that point.
          */
         export abstract class AbstractVisitor {
+
             /**
-             * Whether or not we're still processing rows
+             * Whether or not we're still processing rows.
+             * Defaults to `true` (processing rows), but is set to `false` once
+             * rounds has been visited.
              */
             private _visiting: boolean = true;
 
             /**
-             * Remember rounds so we don't have to keep regenerating
+             * Remember rounds so we don't have to regenerate for each new row.
              */
             private _rounds: string;
 
             /**
-             * Receives a row for processing, stopping after rounds is reached
+             * Visits a row.
+             * If we're still visiting (i.e. rounds hasn't been reached) then
+             * we pass that row to derived classes for processing.
              */
             public visit(row: Row, six?: AbstractSix): this {
                 if (!this._rounds) {
@@ -50,14 +70,16 @@ namespace Pricker {
             }
 
             /**
-             * Reports whether rows are still being processed
+             * Reports whether rows are still being processed by providing
+             * public access to [[_visiting]].
              */
             public isVisiting(): boolean {
                 return this._visiting;
             }
 
             /**
-             * Underlying implementation to be overridden by derived classes
+             * Underlying visitor implementation (to be overridden by derived
+             * classes).
              */
             protected abstract visitImplementation(
                 row: Row,

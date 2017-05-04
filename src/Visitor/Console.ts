@@ -13,22 +13,23 @@
 namespace Pricker {
     'use strict';
 
-    /**
-     * Visitor classes to traverse blocks
-     */
     export namespace Visitor {
 
         /**
          * Console visitor that logs rows to the console
          */
         export class Console extends AbstractVisitor {
+
+            /* AbstractVisitor methods ****************************************/
+
             /**
              * Receives a row for processing
              */
-            public visitImplementation(row: Row, six?: AbstractSix): void {
+            protected visitImplementation(row: Row, six?: AbstractSix): void {
                 /* tslint:disable-next-line:no-console */
                 console.log(stringFromRow(row));
             }
+
         }
 
     }

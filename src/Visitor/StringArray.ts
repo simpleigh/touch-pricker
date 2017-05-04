@@ -13,9 +13,6 @@
 namespace Pricker {
     'use strict';
 
-    /**
-     * Visitor classes to traverse blocks
-     */
     export namespace Visitor {
 
         /**
@@ -35,10 +32,12 @@ namespace Pricker {
                 return this._strings.slice();
             }
 
+            /* AbstractVisitor methods ****************************************/
+
             /**
              * Receives a row for processing
              */
-            public visitImplementation(row: Row, six?: AbstractSix): void {
+            protected visitImplementation(row: Row, six?: AbstractSix): void {
                 this._strings.push(stringFromRow(row));
             }
 
