@@ -30,9 +30,9 @@ namespace Pricker {
 
             /**
              * Constructor
-             * @param {string}     name          - name of this pattern group
-             * @param {Pattern[]}  patterns      - patterns in this group
-             * @param {Pattern}    parentPattern - top-level pattern for count
+             * @param name           name of this pattern group
+             * @param patterns       patterns in this group
+             * @param parentPattern  top-level pattern for count
              */
             constructor(
                 protected _name: string,

@@ -9,8 +9,8 @@
 
 /**
  * Tests that a matcher behaves appropriately
- * @param {}        createFn    - function to create the matcher under test
- * @param {string}  matcherName - expected name of the matcher
+ * @param createFn     function to create the matcher under test
+ * @param matcherName  expected name of the matcher
  */
 function testMatcherInterface(
     createFn: () => Pricker.Music.MatcherInterface,

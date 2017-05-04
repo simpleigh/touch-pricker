@@ -10,9 +10,9 @@
 
 /**
  * Tests that a scheme behaves as an AbstractScheme
- * @param {}        createFn   - function to create the sceme under test
- * @param {string}  schemeName - expected name of the scheme
- * @param {}        testCases  - array of tests: [stage, row, matches, output]
+ * @param createFn    function to create the sceme under test
+ * @param schemeName  expected name of the scheme
+ * @param testCases   array of tests: [stage, row, matches, output]
  */
 function testAbstractSchemeImplementation(
     createFn: (stage?: Pricker.Stage) => Pricker.Music.AbstractScheme,

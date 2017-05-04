@@ -10,12 +10,12 @@
 
 /**
  * Tests that a container behaves as an AbstractContainer
- * @param {AbstractContainer}  Container       - container under test
- * @param {string}             getBlocksFnName - name of fn to get blocks
- * @param {string}             getBlockFnName  - name of fn to get a block
- * @param {}                   lengthTestCases - expected stage lengths
- * @param {}                   lengthBounds    - limits on container length
- * @param {number}             expectedRows    - default rows of the container
+ * @param Container        container under test
+ * @param getBlocksFnName  name of fn to get all blocks from the container
+ * @param getBlockFnName   name of fn to get a block from the container
+ * @param lengthTestCases  expected lengths for each stage
+ * @param lengthBounds     limits on container length
+ * @param expectedRows     default rows of the container
  */
 function testAbstractContainerImplementation(
     // tslint:disable-next-line:variable-name

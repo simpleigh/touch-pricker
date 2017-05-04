@@ -7,9 +7,9 @@
 
 /**
  * Renders a six for consumption by siril-based provers
- * @param {number}   touchRows - rows remaining in the touch
- * @param {string}   type      - six type, either "quick" or "slow"
- * @param {string[]} notation  - array of place notation
+ * @param {number}   touchRows  rows remaining in the touch
+ * @param {string}   type       six type, either "quick" or "slow"
+ * @param {string[]} notation   array of place notation
  */
 
 {{

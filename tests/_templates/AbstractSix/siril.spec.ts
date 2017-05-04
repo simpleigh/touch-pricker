@@ -9,9 +9,9 @@
 
 /**
  * Tests the template behaves like the parent version
- * @param {AbstractSix}  Six      - six to test
- * @param {string}       type     - six type
- * @param {string[]}     notation - array of place notation
+ * @param Six       six to test
+ * @param type      six type
+ * @param notation  array of place notation
  */
 // tslint:disable-next-line:variable-name
 function testSirilAbstractSixTemplate(Six, type: string, notation: string[]) {

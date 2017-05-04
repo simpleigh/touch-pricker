@@ -7,7 +7,7 @@
 
 /**
  * Renders a quick six for consumption by siril-based provers
- * @param {number}  touchRows - rows remaining in the touch
+ * @param {number}  touchRows  rows remaining in the touch
  */
 
 {{

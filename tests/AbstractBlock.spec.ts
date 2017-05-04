@@ -10,8 +10,9 @@
 
 /**
  * Tests that a block behaves as an AbstractBlock
- * @param {AbstractBlock}  Block               - block under test
- * @param {}               triggerNotification - make block notify parent
+ * @param Block                block under test
+ * @param triggerNotification  make block notify parent
+ * @param expectedRows         number of rows expected in this block
  */
 function testAbstractBlockImplementation(
     // tslint:disable-next-line:variable-name

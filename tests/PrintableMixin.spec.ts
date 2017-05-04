@@ -7,7 +7,7 @@
 
 /**
  * Tests that an object correctly implements PrintableMixin
- * @param {}  createFn - create the object under test
+ * @param createFn  create the object under test
  */
 function testPrintableMixinImplementation(
     createFn: () => Pricker.PrintableMixin,

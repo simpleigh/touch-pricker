@@ -42,8 +42,8 @@ namespace Pricker {
          *
          * Used by extend() when creating the container or increasing its
          * length.
-         * @param {Row}     initialRow - initial row for the block
-         * @param {number}  index      - index of block in container
+         * @param initialRow  initial row for the block
+         * @param index       index of block in container
          */
         protected createBlock(initialRow: Row, index: number): AbstractSix {
             return index % 2

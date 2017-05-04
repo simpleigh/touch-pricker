@@ -91,7 +91,7 @@ namespace Pricker {
 
         /**
          * Extends the container by adding the specified number of blocks
-         * @param {number}  blocks - blocks to add
+         * @param blocks  blocks to add
          */
         private extend(blocks: number): this {
             const oldLength: number = this.getLength(),
@@ -122,14 +122,14 @@ namespace Pricker {
          *
          * Used by extend() when creating the container or increasing its
          * length.
-         * @param {Row}     initialRow - initial row for the block
-         * @param {number}  index      - index of block in container
+         * @param initialRow  initial row for the block
+         * @param index       index of block in container
          */
         protected abstract createBlock(initialRow: Row, index: number): Block;
 
         /**
          * Calculates blocks within the container
-         * @param {number} index - where to start when recalculating
+         * @param index  where to start when recalculating
          */
         private calculateBlocks(index: number = 0): void {
             let initialRow: Row = this._initialRow;
@@ -214,7 +214,7 @@ namespace Pricker {
 
         /**
          * Receives a notification from a block that has changed
-         * @param {number}  index - index of changed block in container
+         * @param index  index of changed block in container
          */
         public notify(index: number): void {
             this.calculateBlocks(index);

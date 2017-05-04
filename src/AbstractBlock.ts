@@ -29,6 +29,7 @@ namespace Pricker {
      * Blocks notify containers of changes via a callback (receiveNotification).
      */
     export abstract class AbstractBlock implements PrintableMixin {
+
         /**
          * Initial row for the block
          */
@@ -36,9 +37,9 @@ namespace Pricker {
 
         /**
          * Constructor
-         * @param {Row}                initialRow - initial row for the block
-         * @param {AbstractContainer}  container  - container of this block
-         * @param {number}             index      - index of block in container
+         * @param initialRow  initial row for the block
+         * @param container   container of this block
+         * @param index       index of block in container
          */
         constructor(
             initialRow: Row,

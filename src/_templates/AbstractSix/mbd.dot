@@ -7,10 +7,10 @@
 
 /**
  * Renders a six as HTML for MBD-style pricker
- * @param {TouchIndex}  falseness   - index to lookup falseness
- * @param {TouchIndex}  music       - index to lookup music
- * @param {number}      courseIndex - index number of the course
- * @param {string}      type        - six type, either "quick" or "slow"
+ * @param {TouchIndex}  falseness    index to lookup falseness
+ * @param {TouchIndex}  music        index to lookup music
+ * @param {number}      courseIndex  index number of the course
+ * @param {string}      type         six type, either "quick" or "slow"
  */
 
 {{?

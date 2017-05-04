@@ -7,7 +7,7 @@
 
 /**
  * Renders a Pattern as text
- * @param {string} end - line ending
+ * @param {string} end  line ending
  */
 
 {{? context.end === undefined }}
