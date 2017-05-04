@@ -13,19 +13,29 @@ namespace Pricker {
     'use strict';
 
     /**
-     * Lookup table from bell characters back to numbers
-     */
-    const BELL_SYMBOLS_REVERSE: any = {
-        '1': 1, '2': 2, '3': 3, '4': 4, '5': 5,
-        '6': 6, '7': 7, '8': 8, '9': 9, '0': 10,
-        'E': 11, 'T': 12, 'A': 13, 'B': 14, 'C': 15,
-    };
-
-    /**
-     * Converts a string into a row array
+     * Converts a string into a [[Row]].
+     *
+     * Tries to convert a string representation of a row into a row on a
+     * particular stage.
+     * If any bells are missing from the input string then these will be added
+     * in order at the end of the row.
+     * An exception is thrown if:
+     *  - The input string is too long for the stage
+     *  - A character is repeated in the input string
+     *  - A character doesn't represent a bell on the current stage
+     *
+     * ```
+     * > Pricker.rowFromString('231', Pricker.Stage.Cinques);
+     * [2, 3, 1, 4, 5, 6, 7, 8, 9, 0, 11]
+     * ```
      */
     export function rowFromString(input: string, stage: Stage): Row {
-        const bellsSeen: boolean[] = [ ],
+        const bellSymbolsMap = {
+                    '1': 1, '2': 2, '3': 3, '4': 4, '5': 5,
+                    '6': 6, '7': 7, '8': 8, '9': 9, '0': 10,
+                    'E': 11, 'T': 12, 'A': 13, 'B': 14, 'C': 15,
+                },
+            bellsSeen: boolean[] = [ ],
             output: Row = [ ];
 
         let bellNumber: Bell,
@@ -47,7 +57,7 @@ namespace Pricker {
             inputIndex < input.length && inputIndex < stage;
             inputIndex += 1
         ) {
-            bellNumber = BELL_SYMBOLS_REVERSE[input.charAt(inputIndex)];
+            bellNumber = bellSymbolsMap[input.charAt(inputIndex)];
 
             if (bellNumber && bellNumber <= stage) {
                 if (bellsSeen[bellNumber]) {
@@ -70,4 +80,5 @@ namespace Pricker {
 
         return output;
     }
+
 }

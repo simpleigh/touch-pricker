@@ -11,21 +11,17 @@ namespace Pricker {
     'use strict';
 
     /**
-     * Symbols to be used for bells
-     */
-    const BELL_SYMBOLS: string = ' 1234567890ETABC';
-
-    /**
-     * Converts a row array to a string
+     * Converts a [[Row]] into a string.
      */
     export function stringFromRow(row: Row): string {
-        const bellCharacters: string[] = [ ];
-        let bellIndex: number;
+        const bellSymbols = ' 1234567890ETABC',
+            bellCharacters: string[] = [ ];
 
-        for (bellIndex = 0; bellIndex < row.length; bellIndex += 1) {
-            bellCharacters.push(BELL_SYMBOLS.charAt(row[bellIndex]));
+        for (const bell of row) {
+            bellCharacters.push(bellSymbols.charAt(bell));
         }
 
         return bellCharacters.join('');
     }
+
 }
