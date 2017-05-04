@@ -97,6 +97,16 @@ gulp.task('watch', ['default'], function () {
     gulp.watch('tests/**/*.ts', ['test']);
 });
 
+gulp.task('docs', function () {
+    'use strict';
+    tsProject.src()
+        .pipe(plugins.typedoc({
+            out: 'docs/',
+            name: 'Free Stedman Pricker',
+            mode: 'file',
+        }));
+});
+
 gulp.task('clean', function () {
     'use strict';
     del('dist');

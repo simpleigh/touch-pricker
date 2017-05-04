@@ -17,11 +17,11 @@ Free Stedman pricker
 
 * `build` - builds source code
 * `build-tests` - builds testcases (depends on build)
+* `docs` - builds [TypeDoc](http://typedoc.org/) documentation
 * `test` - runs unit tests under PhantomJS (default)
 * `test-browsers` - runs unit tests under various browsers
 * `watch` - rebuild whenever changes are made
 
 ## To test in a browser window
 
-Build tests (`bin/gulp build-tests`) then navigate to
-`tests/jasmine.html`.
+Build tests (`bin/gulp build-tests`) then navigate to `jasmine.html`.
