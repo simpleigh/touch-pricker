@@ -20,17 +20,17 @@ describe('BlockDirectory class', function () {
 
     it('can compute the ownership of a six', function () {
         const six = touch.getCourse(1).getSix(3);
-        expect(Pricker.BlockDirectory.getIndexArray(six)).toEqual([1, 3]);
+        expect(Pricker.BlockDirectory.getIndices(six)).toEqual([1, 3]);
     });
 
     it('can compute the ownership of a course', function () {
         const course = touch.getCourse(1);
-        expect(Pricker.BlockDirectory.getIndexArray(course)).toEqual([1]);
+        expect(Pricker.BlockDirectory.getIndices(course)).toEqual([1]);
     });
 
     it('throws an exception for objects with no ownership', function () {
         expect(function () {
-            Pricker.BlockDirectory.getIndexArray(touch);
+            Pricker.BlockDirectory.getIndices(touch);
         }).toThrow();
     });
 
@@ -38,7 +38,7 @@ describe('BlockDirectory class', function () {
         const six = touch.getCourse(1).getSix(3);
         six.setOwnership(touch.getCourse(1), undefined);
         expect(function () {
-            Pricker.BlockDirectory.getIndexArray(six);
+            Pricker.BlockDirectory.getIndices(six);
         }).toThrow();
     });
 

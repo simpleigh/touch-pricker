@@ -34,7 +34,7 @@ namespace Pricker {
                 finalIndex: number | undefined;
 
             if (typeof param === 'object') {
-                indices = BlockDirectory.getIndexArray(param);
+                indices = BlockDirectory.getIndices(param);
             } else {
                 indices.unshift(param);
             }
@@ -66,7 +66,7 @@ namespace Pricker {
             let directory: any;
 
             if (typeof param === 'object') {
-                indices = BlockDirectory.getIndexArray(param);
+                indices = BlockDirectory.getIndices(param);
             } else {
                 indices.unshift(param);
             }
@@ -85,7 +85,7 @@ namespace Pricker {
         /**
          * Computes an array of ownership indices for block
          */
-        public static getIndexArray(block: AbstractBlock): number[] {
+        public static getIndices(block: AbstractBlock): number[] {
             const ownershipArray: number[] = [ ];
             let container: AbstractContainer<AbstractBlock> | undefined,
                 index: number | undefined;
