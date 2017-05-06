@@ -18,6 +18,30 @@ describe('BlockDirectory class', function () {
         touch.setLength(2);
     });
 
+    it('can compute the ownership of a six', function () {
+        const six = touch.getCourse(1).getSix(3);
+        expect(Pricker.BlockDirectory.getIndexArray(six)).toEqual([1, 3]);
+    });
+
+    it('can compute the ownership of a course', function () {
+        const course = touch.getCourse(1);
+        expect(Pricker.BlockDirectory.getIndexArray(course)).toEqual([1]);
+    });
+
+    it('throws an exception for objects with no ownership', function () {
+        expect(function () {
+            Pricker.BlockDirectory.getIndexArray(touch);
+        }).toThrow();
+    });
+
+    it('throws an exception for a container but no index', function () {
+        const six = touch.getCourse(1).getSix(3);
+        six.setOwnership(touch.getCourse(1), undefined);
+        expect(function () {
+            Pricker.BlockDirectory.getIndexArray(six);
+        }).toThrow();
+    });
+
     it('starts out without any indexed sixes', function () {
         for (let courseIndex: number = 1; courseIndex <= 2; courseIndex += 1) {
             for (let sixIndex: number = 1; sixIndex <= 22; sixIndex += 1) {

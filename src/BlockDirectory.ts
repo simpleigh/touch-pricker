@@ -5,6 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="AbstractBlock.ts" />
 /// <reference path="AbstractSix.ts" />
 /// <reference path="Course.ts" />
 
@@ -85,6 +86,30 @@ namespace Pricker {
             }
 
             throw new Error('Cannot index six: bad ownership');
+        }
+
+        /**
+         * Computes an array of ownership indices for block
+         */
+        public static getIndexArray(block: AbstractBlock): number[] {
+            const ownershipArray: number[] = [ ];
+            let container: AbstractContainer<AbstractBlock> | undefined,
+                index: number | undefined;
+
+            [container, index] = block.getOwnership();
+            if (!container) {
+                throw new Error('Bad ownership: block has no container');
+            }
+
+            while (container) {
+                if (!index) {
+                    throw new Error('Bad ownership: container but no index');
+                }
+                ownershipArray.unshift(index);
+                [container, index] = container.getOwnership();
+            }
+
+            return ownershipArray;
         }
 
         /**
