@@ -26,6 +26,10 @@
         background-color: #E2E2F0;
       }
 
+      .extraSix {
+        color: #505050;
+      }
+
       .falseBlock {
         color: red;
       }
@@ -131,6 +135,7 @@
     <script type="text/javascript">
         var stage,             // Stage we're pricking on
             course,            // The course itself
+            extraSixes,        // Additional sixes displayed after the course
             savedCourse,       // Course being saved for later
             touch,             // Touch being composed
             selectedIndex,     // Course selected in touch view
@@ -160,6 +165,8 @@
             'use strict';
             stage = parseInt(document.getElementById('stage').value);
             course = new Pricker.Course(getInitialRow());
+            extraSixes = new Pricker.Course(getInitialRow());
+            extraSixes.setLength(8);
             savedCourse = null;
             touch = new Pricker.Touch(getInitialRow());
             resetTouchMetrics();
@@ -171,10 +178,12 @@
             'use strict';
             var newCourse;
 
+            extraSixes.setInitialRow(course.getEnd());
             document.getElementById('sixends').innerHTML = course.print('mbd', {
                 'falseness': falseness,
                 'music': music,
-                'courseIndex': copiedIndex
+                'courseIndex': copiedIndex,
+                'extraSixes': extraSixes
             });
 
             document.getElementById('calling').innerHTML = course.print('html');

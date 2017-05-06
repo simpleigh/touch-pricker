@@ -10,16 +10,22 @@
  * @param {TouchIndex}  falseness    index to lookup falseness
  * @param {TouchIndex}  music        index to lookup music
  * @param {number}      courseIndex  index number of the course
+ * @param {Course}      extraSixes   additional sixes to print after the pricker
  */
 
 <u>{{= Pricker.stringFromRow(context.object.getInitialRow()) }}</u><br />
 
 {{~ context.object.getSixes() :six }}
-
 	{{? six.getOwnership()[1] === context.object.getLength() }}
 		{{ context.underline = true }}
 	{{?}}
-
 	{{= six.print('mbd', context) }}
-
 {{~}}
+
+{{? context.extraSixes }}
+	{{~ context.extraSixes.getSixes() :six }}
+		<span class="extraSix">
+		{{= Pricker.stringFromRow(six.getEnd()) }}
+		</span><br />
+	{{~}}
+{{?}}

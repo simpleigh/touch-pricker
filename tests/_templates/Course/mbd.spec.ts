@@ -20,4 +20,24 @@ describe('mbd template for Course', function () {
         );
     });
 
+    it('can print extra sixes after the pricker', function () {
+        const course = new Pricker.Course(createTestRow()),
+            extraSixes = course.clone();
+
+        course.setLength(2);
+        extraSixes.setLength(2);
+
+        expect(course.print('mbd', {'extraSixes': extraSixes})).toBe(''
+            + '<u>2314567890E</u><br />'
+            + course.getSix(1).print('mbd')
+            + course.getSix(2).print('mbd', {'underline': true})
+            + '<span class="extraSix">'
+            + Pricker.stringFromRow(extraSixes.getSix(1).getEnd())
+            + '</span><br />'
+            + '<span class="extraSix">'
+            + Pricker.stringFromRow(extraSixes.getSix(2).getEnd())
+            + '</span><br />',
+        );
+    });
+
 });
