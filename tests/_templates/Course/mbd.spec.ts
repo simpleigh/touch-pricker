@@ -16,7 +16,7 @@ describe('mbd template for Course', function () {
             + course.getSix(1).print('mbd')
             + course.getSix(2).print('mbd')
             + course.getSix(3).print('mbd')
-            + course.getSix(4).print('mbd'),
+            + course.getSix(4).print('mbd', {'underline': true}),
         );
     });
 

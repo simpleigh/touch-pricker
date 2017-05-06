@@ -115,6 +115,16 @@ function testMbdAbstractSixTemplate(Six, type: string) {
             );
         });
 
+        it('can underline a sixend', function () {
+            const six = new Six(createTestRow(), undefined, 1);
+            expect(six.print('mbd', {'underline': true})).toBe(
+                '<u>' + Pricker.stringFromRow(six.getEnd()) + '</u>'
+                    + '&nbsp;&nbsp;<span class="' + type
+                    + 'Six" onclick="c(1)">'
+                    + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
+            );
+        });
+
     });
 
 }

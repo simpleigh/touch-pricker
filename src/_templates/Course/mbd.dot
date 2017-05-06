@@ -15,5 +15,11 @@
 <u>{{= Pricker.stringFromRow(context.object.getInitialRow()) }}</u><br />
 
 {{~ context.object.getSixes() :six }}
+
+	{{? six.getOwnership()[1] === context.object.getLength() }}
+		{{ context.underline = true }}
+	{{?}}
+
 	{{= six.print('mbd', context) }}
+
 {{~}}

@@ -10,8 +10,19 @@
  * @param {TouchIndex}  falseness    index to lookup falseness
  * @param {TouchIndex}  music        index to lookup music
  * @param {number}      courseIndex  index number of the course
+ * @param {boolean}     underline    whether to underline the sixend
  * @param {string}      type         six type, either "quick" or "slow"
  */
+
+/* Six end */
+
+{{? context.underline !== true }}
+	{{ context.underline = false; }}
+{{?}}
+
+{{? context.underline }}
+	<u>
+{{?}}
 
 {{?
 	context.falseness && context.courseIndex && context.falseness.contains(
@@ -35,7 +46,15 @@
 	{{= Pricker.stringFromRow(context.object.getEnd()) }}
 {{?}}
 
+{{? context.underline }}
+	</u>
+{{?}}
+
 &nbsp;&nbsp;
+
+
+/* Call */
+
 <span
  class="{{= context.type }}Six"
  onclick="c({{= context.object.getOwnership()[1] }})"
@@ -50,6 +69,12 @@
 	{{?}}
 	&nbsp;
 </span>
+
 &nbsp;&nbsp;
+
+
+/* Index */
+
 {{= context.object.getOwnership()[1] }}
+
 <br />
