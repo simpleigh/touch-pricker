@@ -77,14 +77,11 @@ namespace Pricker {
          * Checks whether this is a plain course
          */
         public isPlain(): boolean {
-            let index: number;
-
-            for (index = 1; index <= this.getLength(); index += 1) {
-                if (this.getSix(index).getCall()) {
+            for (const six of this._blocks) {
+                if (six.getCall()) {
                     return false;
                 }
             }
-
             return true;
         }
 
