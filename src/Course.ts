@@ -90,15 +90,18 @@ namespace Pricker {
          */
         public clone(): Course {
             const cloned: Course = new Course(this._initialRow);
-            let index: number;
-
             cloned.setLength(this.getLength());
 
             // Copy across all the calls
-            for (index = 1; index <= this.getLength(); index += 1) {
-                cloned.getSix(index).setCall(this.getSix(index).getCall());
+            for (let index = 1; index <= this.getLength(); index += 1) {
+                cloned.getSix(index).setCall(
+                    this.getSix(index).getCall(),
+                    false,  // We'll update everything in a few lines
+                );
             }
-            cloned.notify(1);
+
+            // Trigger update of all the end rows
+            cloned.getSix(1).setCall(this.getSix(1).getCall());
 
             return cloned;
         }
