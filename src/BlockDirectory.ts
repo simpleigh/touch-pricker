@@ -6,8 +6,6 @@
  */
 
 /// <reference path="AbstractBlock.ts" />
-/// <reference path="AbstractSix.ts" />
-/// <reference path="Course.ts" />
 
 namespace Pricker {
     'use strict';
