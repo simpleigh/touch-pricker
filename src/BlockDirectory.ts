@@ -31,7 +31,6 @@ namespace Pricker {
 
         public add(param: any, ...indices: number[]): this {
             let directory: any,
-                index: number | undefined,
                 finalIndex: number | undefined;
 
             if (typeof param === 'object') {
@@ -46,12 +45,7 @@ namespace Pricker {
             }
 
             directory = this._directory;
-            while (true) {
-                index = indices.shift();
-                if (!index) {
-                    break;
-                }
-
+            for (const index of indices) {
                 if (!directory[index]) {
                     directory[index] = [ ];
                 }
@@ -59,7 +53,6 @@ namespace Pricker {
             }
 
             directory[finalIndex] = true;
-
             return this;
         }
 
@@ -70,8 +63,7 @@ namespace Pricker {
         public contains(...indices: number[]): boolean;
 
         public contains(param: any, ...indices: number[]): boolean {
-            let directory: any,
-                index: number | undefined;
+            let directory: any;
 
             if (typeof param === 'object') {
                 indices = BlockDirectory.getIndexArray(param);
@@ -80,19 +72,14 @@ namespace Pricker {
             }
 
             directory = this._directory;
-            while (true) {
-                index = indices.shift();
-                if (!index) {
-                    // All indices we've checked have been present
-                    return true;
-                }
-
+            for (const index of indices) {
                 if (!directory[index]) {
-                    // This index isn't present
                     return false;
                 }
                 directory = directory[index];
             }
+
+            return true;
         }
 
         /**
