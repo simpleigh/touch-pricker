@@ -84,12 +84,6 @@ describe('BlockDirectory class', function () {
         expect(function () { directory.contains(six); }).toThrow();
     });
 
-    it('throws an exception if the course has no index', function () {
-        const course = new Pricker.Course(createTestRow());
-        expect(function () { directory.add(course.getSix(3)); }).toThrow();
-        expect(function () { directory.contains(course.getSix(3)); }).toThrow();
-    });
-
     it('knows when it is empty', function () {
         expect(directory.isEmpty()).toBe(true);
     });
@@ -100,26 +94,26 @@ describe('BlockDirectory class', function () {
     });
 
     it('find no six from a course directly', function () {
-        expect(directory.containsFrom(touch.getCourse(1))).toBe(false);
+        expect(directory.contains(touch.getCourse(1))).toBe(false);
     });
 
     it('find no six from a course by coordinates', function () {
-        expect(directory.containsFrom(1)).toBe(false);
+        expect(directory.contains(1)).toBe(false);
     });
 
     it('find a six from a course directly', function () {
         directory.add(touch.getCourse(1).getSix(3));
-        expect(directory.containsFrom(touch.getCourse(1))).toBe(true);
+        expect(directory.contains(touch.getCourse(1))).toBe(true);
     });
 
     it('find a six from a course by coordinates', function () {
         directory.add(1, 3);
-        expect(directory.containsFrom(1)).toBe(true);
+        expect(directory.contains(1)).toBe(true);
     });
 
     it('throws an exception checking a course with no index', function () {
         const course = new Pricker.Course(createTestRow(), touch, undefined);
-        expect(function () { directory.containsFrom(course); }).toThrow();
+        expect(function () { directory.contains(course); }).toThrow();
     });
 
 });

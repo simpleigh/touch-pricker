@@ -31,7 +31,7 @@
 			 /* single space */
 			style="{{= context.styleUnreached }}"
 		{{?}}
-		{{? context.falseness && context.falseness.containsFrom(course) }}
+		{{? context.falseness && context.falseness.contains(course) }}
 			 /* single space */
 			style="{{= context.styleFalse }}"
 		{{?}}

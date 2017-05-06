@@ -21,71 +21,78 @@ namespace Pricker {
         /**
          * The directory itself
          */
-        protected _directory: boolean[][] = [ ];
+        protected _directory: any = [ ];
 
         /**
          * Adds a six to the directory
          */
-        public add(six: AbstractSix): this;
-        public add(courseIndex: number, sixIndex: number): this;
+        public add(block: AbstractBlock): this;
+        public add(...indices: number[]): this;
 
-        public add(param1: any, param2?: number): this {
-            let courseIndex: number,
-                sixIndex: number;
+        public add(param: any, ...indices: number[]): this {
+            let directory: any,
+                index: number | undefined,
+                finalIndex: number | undefined;
 
-            if (param2) {
-                [courseIndex, sixIndex] = [param1, param2];
+            if (typeof param === 'object') {
+                indices = BlockDirectory.getIndexArray(param);
             } else {
-                [courseIndex, sixIndex] = this.getCoordinates(param1);
+                indices.unshift(param);
             }
 
-            if (!this._directory[courseIndex]) {
-                this._directory[courseIndex] = [ ];
+            finalIndex = indices.pop();
+            if (!finalIndex) {
+                throw new Error('Bad ownership: must have at least one index');
             }
 
-            this._directory[courseIndex][sixIndex] = true;
+            directory = this._directory;
+            while (true) {
+                index = indices.shift();
+                if (!index) {
+                    break;
+                }
+
+                if (!directory[index]) {
+                    directory[index] = [ ];
+                }
+                directory = directory[index];
+            }
+
+            directory[finalIndex] = true;
+
             return this;
         }
 
         /**
          * Checks whether a six is in the directory
          */
-        public contains(six: AbstractSix): boolean;
-        public contains(courseIndex: number, sixIndex: number): boolean;
+        public contains(block: AbstractBlock): boolean;
+        public contains(...indices: number[]): boolean;
 
-        public contains(param1: any, param2?: number) {
-            let courseIndex: number,
-                sixIndex: number;
+        public contains(param: any, ...indices: number[]): boolean {
+            let directory: any,
+                index: number | undefined;
 
-            if (param2) {
-                [courseIndex, sixIndex] = [param1, param2];
+            if (typeof param === 'object') {
+                indices = BlockDirectory.getIndexArray(param);
             } else {
-                [courseIndex, sixIndex] = this.getCoordinates(param1);
+                indices.unshift(param);
             }
 
-            if (!this._directory[courseIndex]) {
-                return false;
+            directory = this._directory;
+            while (true) {
+                index = indices.shift();
+                if (!index) {
+                    // All indices we've checked have been present
+                    return true;
+                }
+
+                if (!directory[index]) {
+                    // This index isn't present
+                    return false;
+                }
+                directory = directory[index];
             }
-
-            return !!this._directory[courseIndex][sixIndex];
-        }
-
-        /**
-         * Helper to find the indices for a six
-         */
-        private getCoordinates(six: AbstractSix): [number, number] {
-            const [course, sixIndex] = six.getOwnership();
-            let courseIndex: number | undefined;
-
-            if (course) {
-                courseIndex = course.getOwnership()[1];
-            }
-
-            if (courseIndex && sixIndex) {
-                return [courseIndex, sixIndex];
-            }
-
-            throw new Error('Cannot index six: bad ownership');
         }
 
         /**
@@ -110,26 +117,6 @@ namespace Pricker {
             }
 
             return ownershipArray;
-        }
-
-        /**
-         * Checks whether any sixes from a course are in the directory
-         */
-        public containsFrom(param: Course | number): boolean {
-            let courseIndex: number | undefined;
-
-            if (typeof param === 'object') {
-                courseIndex = param.getOwnership()[1];
-            } else {
-                courseIndex = param;
-            }
-
-            if (courseIndex) {
-                return !!this._directory[courseIndex];
-            }
-
-            throw new Error('Cannot check course: bad ownerhsip');
-
         }
 
         /**
