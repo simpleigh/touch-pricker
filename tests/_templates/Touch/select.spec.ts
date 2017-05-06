@@ -49,7 +49,7 @@ describe('select template for Touch', function () {
 
     it('applies a style for false courses', function () {
         const touch = new Pricker.Touch(createTestRow()),
-            falseness = new Pricker.TouchIndex();
+            falseness = new Pricker.BlockDirectory();
 
         touch.setLength(2);
         falseness.add(1, 3);

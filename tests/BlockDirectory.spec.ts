@@ -7,13 +7,13 @@
 
 /// <reference path="functions.ts" />
 
-describe('TouchIndex class', function () {
+describe('BlockDirectory class', function () {
 
-    let index: Pricker.TouchIndex,
+    let directory: Pricker.BlockDirectory,
         touch: Pricker.Touch;
 
     beforeEach(function () {
-        index = new Pricker.TouchIndex();
+        directory = new Pricker.BlockDirectory();
         touch = new Pricker.Touch(createTestRow());
         touch.setLength(2);
     });
@@ -21,7 +21,7 @@ describe('TouchIndex class', function () {
     it('starts out without any indexed sixes', function () {
         for (let courseIndex: number = 1; courseIndex <= 2; courseIndex += 1) {
             for (let sixIndex: number = 1; sixIndex <= 22; sixIndex += 1) {
-                expect(index.contains(
+                expect(directory.contains(
                     touch.getCourse(courseIndex).getSix(sixIndex),
                 )).toBe(false);
             }
@@ -30,72 +30,72 @@ describe('TouchIndex class', function () {
 
     it('can index a six directly', function () {
         const six = touch.getCourse(1).getSix(3);
-        index.add(six);
-        expect(index.contains(six)).toBe(true);
+        directory.add(six);
+        expect(directory.contains(six)).toBe(true);
     });
 
     it('can index a six using coordinates', function () {
-        index.add(1, 3);
-        expect(index.contains(1, 3)).toBe(true);
+        directory.add(1, 3);
+        expect(directory.contains(1, 3)).toBe(true);
     });
 
     it('returns this when adding a six directly', function () {
-        expect(index.add(touch.getCourse(1).getSix(3))).toBe(index);
+        expect(directory.add(touch.getCourse(1).getSix(3))).toBe(directory);
     });
 
     it('returns this when adding a six using coordinates', function () {
-        expect(index.add(1, 3)).toBe(index);
+        expect(directory.add(1, 3)).toBe(directory);
     });
 
     it('throws an exception if the six has no index', function () {
         const row = createTestRow(),
             six = new Pricker.Slow(row, touch.getCourse(1), undefined);
-        expect(function () { index.add(six); }).toThrow();
-        expect(function () { index.contains(six); }).toThrow();
+        expect(function () { directory.add(six); }).toThrow();
+        expect(function () { directory.contains(six); }).toThrow();
     });
 
     it('throws an exception if the six has no container', function () {
         const six = new Pricker.Slow(createTestRow(), undefined, 1);
-        expect(function () { index.add(six); }).toThrow();
-        expect(function () { index.contains(six); }).toThrow();
+        expect(function () { directory.add(six); }).toThrow();
+        expect(function () { directory.contains(six); }).toThrow();
     });
 
     it('throws an exception if the course has no index', function () {
         const course = new Pricker.Course(createTestRow());
-        expect(function () { index.add(course.getSix(3)); }).toThrow();
-        expect(function () { index.contains(course.getSix(3)); }).toThrow();
+        expect(function () { directory.add(course.getSix(3)); }).toThrow();
+        expect(function () { directory.contains(course.getSix(3)); }).toThrow();
     });
 
     it('knows when it is empty', function () {
-        expect(index.isEmpty()).toBe(true);
+        expect(directory.isEmpty()).toBe(true);
     });
 
     it('knows when it contains a six', function () {
-        index.add(touch.getCourse(1).getSix(3));
-        expect(index.isEmpty()).toBe(false);
+        directory.add(touch.getCourse(1).getSix(3));
+        expect(directory.isEmpty()).toBe(false);
     });
 
-    it('knows no sixes are indexed for a course directly', function () {
-        expect(index.containsFrom(touch.getCourse(1))).toBe(false);
+    it('find no six from a course directly', function () {
+        expect(directory.containsFrom(touch.getCourse(1))).toBe(false);
     });
 
-    it('knows no sixes are indexed for a course by coordinates', function () {
-        expect(index.containsFrom(1)).toBe(false);
+    it('find no six from a course by coordinates', function () {
+        expect(directory.containsFrom(1)).toBe(false);
     });
 
-    it('knows when sixes are indexed for a course directly', function () {
-        index.add(touch.getCourse(1).getSix(3));
-        expect(index.containsFrom(touch.getCourse(1))).toBe(true);
+    it('find a six from a course directly', function () {
+        directory.add(touch.getCourse(1).getSix(3));
+        expect(directory.containsFrom(touch.getCourse(1))).toBe(true);
     });
 
-    it('knows when sixes are indexed for a course by coordinates', function () {
-        index.add(1, 3);
-        expect(index.containsFrom(1)).toBe(true);
+    it('find a six from a course by coordinates', function () {
+        directory.add(1, 3);
+        expect(directory.containsFrom(1)).toBe(true);
     });
 
     it('throws an exception checking a course with no index', function () {
         const course = new Pricker.Course(createTestRow(), touch, undefined);
-        expect(function () { index.containsFrom(course); }).toThrow();
+        expect(function () { directory.containsFrom(course); }).toThrow();
     });
 
 });

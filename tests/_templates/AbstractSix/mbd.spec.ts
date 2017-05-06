@@ -59,9 +59,9 @@ function testMbdAbstractSixTemplate(Six, type: string) {
             );
         });
 
-        it('highlights sixes based on a music index', function () {
+        it('highlights sixes based on a music directory', function () {
             const six = new Six(createTestRow(), undefined, 1),
-                music = new Pricker.TouchIndex();
+                music = new Pricker.BlockDirectory();
 
             music.add(2, 1);
 
@@ -75,9 +75,9 @@ function testMbdAbstractSixTemplate(Six, type: string) {
             );
         });
 
-        it('highlights sixes based on a falseness index', function () {
+        it('highlights sixes based on a falseness directory', function () {
             const six = new Six(createTestRow(), undefined, 1),
-                falseness = new Pricker.TouchIndex();
+                falseness = new Pricker.BlockDirectory();
 
             falseness.add(2, 1);
 
@@ -95,8 +95,8 @@ function testMbdAbstractSixTemplate(Six, type: string) {
 
         it('gives priority to falseness over music', function () {
             const six = new Six(createTestRow(), undefined, 1),
-                falseness = new Pricker.TouchIndex(),
-                music = new Pricker.TouchIndex();
+                falseness = new Pricker.BlockDirectory(),
+                music = new Pricker.BlockDirectory();
 
             falseness.add(2, 1);
             music.add(2, 1);

@@ -12,18 +12,18 @@ namespace Pricker {
     'use strict';
 
     /**
-     * A touch index
+     * A block directory
      * Files information about blocks in a touch, indexed by their location
      */
-    export class TouchIndex {
+    export class BlockDirectory {
 
         /**
-         * The index itself
+         * The directory itself
          */
-        protected _index: boolean[][] = [ ];
+        protected _directory: boolean[][] = [ ];
 
         /**
-         * Adds a six to the index
+         * Adds a six to the directory
          */
         public add(six: AbstractSix): this;
         public add(courseIndex: number, sixIndex: number): this;
@@ -38,16 +38,16 @@ namespace Pricker {
                 [courseIndex, sixIndex] = this.getCoordinates(param1);
             }
 
-            if (!this._index[courseIndex]) {
-                this._index[courseIndex] = [ ];
+            if (!this._directory[courseIndex]) {
+                this._directory[courseIndex] = [ ];
             }
 
-            this._index[courseIndex][sixIndex] = true;
+            this._directory[courseIndex][sixIndex] = true;
             return this;
         }
 
         /**
-         * Checks whether a six is in the index
+         * Checks whether a six is in the directory
          */
         public contains(six: AbstractSix): boolean;
         public contains(courseIndex: number, sixIndex: number): boolean;
@@ -62,11 +62,11 @@ namespace Pricker {
                 [courseIndex, sixIndex] = this.getCoordinates(param1);
             }
 
-            if (!this._index[courseIndex]) {
+            if (!this._directory[courseIndex]) {
                 return false;
             }
 
-            return !!this._index[courseIndex][sixIndex];
+            return !!this._directory[courseIndex][sixIndex];
         }
 
         /**
@@ -88,7 +88,7 @@ namespace Pricker {
         }
 
         /**
-         * Checks whether any sixes from a course are in the index
+         * Checks whether any sixes from a course are in the directory
          */
         public containsFrom(param: Course | number): boolean {
             let courseIndex: number | undefined;
@@ -100,7 +100,7 @@ namespace Pricker {
             }
 
             if (courseIndex) {
-                return !!this._index[courseIndex];
+                return !!this._directory[courseIndex];
             }
 
             throw new Error('Cannot check course: bad ownerhsip');
@@ -111,7 +111,7 @@ namespace Pricker {
          * Checks whether the index is empty
          */
         public isEmpty(): boolean {
-            return !this._index.length;
+            return !this._directory.length;
         }
 
     }
