@@ -29,7 +29,7 @@ namespace Pricker {
         /**
          * Call used to start the six
          */
-        protected _call: Call;
+        protected _call: Call = Call.Plain;
 
         /**
          * Constructor
@@ -40,7 +40,6 @@ namespace Pricker {
             protected _index?: number,
         ) {
             super(initialRow, _container, _index);
-            this._call = Call.Plain;
             this.calculate();
         }
 

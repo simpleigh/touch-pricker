@@ -33,7 +33,7 @@ namespace Pricker {
             /**
              * Index of musical blocks.
              */
-            private _index: Pricker.TouchIndex;
+            private _index: Pricker.TouchIndex = new Pricker.TouchIndex();
 
             /**
              * Creates the visitor, providing the matcher that should be used.
@@ -41,7 +41,6 @@ namespace Pricker {
              */
             constructor(protected _matcher: Pricker.Music.MatcherInterface) {
                 super();
-                this._index = new Pricker.TouchIndex();
             }
 
             /**

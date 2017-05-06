@@ -20,14 +20,7 @@ namespace Pricker {
         /**
          * The index itself
          */
-        protected _index: boolean[][];
-
-        /**
-         * Constructor
-         */
-        constructor() {
-            this._index = [ ];
-        }
+        protected _index: boolean[][] = [ ];
 
         /**
          * Adds a six to the index

@@ -23,7 +23,7 @@ namespace Pricker {
         /**
          * Blocks within the container
          */
-        protected _blocks: Block[];
+        protected _blocks: Block[] = [ ];
 
         /**
          * Constructor
@@ -36,8 +36,6 @@ namespace Pricker {
             protected _index?: number,
         ) {
             super(initialRow, _container, _index);
-
-            this._blocks = [ ];
             this.extend(this.getDefaultLength(initialRow));
         }
 

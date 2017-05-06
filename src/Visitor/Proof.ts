@@ -37,12 +37,12 @@ namespace Pricker {
              * row.
              */
             private _rowCounts:
-                { [index: string]: Array<AbstractSix | undefined> };
+                { [index: string]: Array<AbstractSix | undefined> } = { };
 
             /**
              * Index of false blocks.
              */
-            private _index: Pricker.TouchIndex;
+            private _index: Pricker.TouchIndex = new Pricker.TouchIndex();
 
             /**
              * Flag recording truth.
@@ -51,15 +51,6 @@ namespace Pricker {
              * this property each time we check truth.
              */
             private _isTrue: boolean = true;
-
-            /**
-             * Constructor
-             */
-            constructor() {
-                super();
-                this._rowCounts = { };
-                this._index = new Pricker.TouchIndex();
-            }
 
             /**
              * Reports the number of times each row has been processed.
