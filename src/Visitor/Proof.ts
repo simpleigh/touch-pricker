@@ -6,8 +6,9 @@
  */
 
 /// <reference path="../AbstractSix.ts" />
-/// <reference path="../Row.ts" />
+/// <reference path="../BlockDirectory.ts" />
 /// <reference path="../stringFromRow.ts" />
+/// <reference path="../Row.ts" />
 /// <reference path="Abstract.ts" />
 
 namespace Pricker {
@@ -23,8 +24,8 @@ namespace Pricker {
          *
          * Stores the rows that have been visited and reports when whether any
          * rows were repeated.
-         * This visitor also accumulates a [[TouchIndex]] containing references
-         * to each block containing a false row.
+         * This visitor also accumulates a [[BlockDirectory]] referencing
+         * each block containing a false row.
          */
         export class Proof extends AbstractVisitor {
 
@@ -40,9 +41,10 @@ namespace Pricker {
                 { [index: string]: Array<AbstractSix | undefined> } = { };
 
             /**
-             * Index of false blocks.
+             * Directory of false blocks.
              */
-            private _index: Pricker.TouchIndex = new Pricker.TouchIndex();
+            private _directory: Pricker.BlockDirectory =
+                new Pricker.BlockDirectory();
 
             /**
              * Flag recording truth.
@@ -73,10 +75,10 @@ namespace Pricker {
 
             /**
              * Reports on the distribution of falseness within a touch by
-             * providing public access to [[_index]].
+             * providing public access to [[_directory]].
              */
-            public getIndex(): Pricker.TouchIndex {
-                return this._index;
+            public getDirectory(): Pricker.BlockDirectory {
+                return this._directory;
             }
 
             /**
@@ -100,16 +102,16 @@ namespace Pricker {
 
                     if (this._rowCounts[rowString].length === 1) {
                         // First time this row has run false
-                        // need to add the previous block to the index
+                        // need to add the previous block to the directory
                         const previousSix = this._rowCounts[rowString][0];
                         if (previousSix) {
-                            this._index.add(previousSix);
+                            this._directory.add(previousSix);
                         }
                     }
 
                     this._isTrue = false;
                     if (six) {
-                        this._index.add(six);
+                        this._directory.add(six);
                     }
                     this._rowCounts[rowString].push(six);
 

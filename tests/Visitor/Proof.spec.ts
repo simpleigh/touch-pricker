@@ -59,11 +59,11 @@ describe('Proof visitor', function () {
         expect(visitor.isTrue()).toBe(false);
     });
 
-    it('builds up an index that starts out empty', function () {
-        expect(visitor.getIndex().isEmpty()).toBe(true);
+    it('builds up a directory that starts out empty', function () {
+        expect(visitor.getDirectory().isEmpty()).toBe(true);
     });
 
-    it('indexes new blocks found to be false', function () {
+    it('adds new blocks found to be false to the directory', function () {
         const touch = new Pricker.Touch(createTestRow());
         touch.setLength(2);
 
@@ -71,11 +71,11 @@ describe('Proof visitor', function () {
         visitor.visit(createTestRow(), touch.getCourse(1).getSix(3));
 
         expect(
-            visitor.getIndex().contains(touch.getCourse(1).getSix(3)),
+            visitor.getDirectory().contains(touch.getCourse(1).getSix(3)),
         ).toBe(true);
     });
 
-    it('indexes old blocks now found to be false', function () {
+    it('adds old blocks now found to be false to the directory', function () {
         const touch = new Pricker.Touch(createTestRow());
         touch.setLength(2);
 
@@ -83,7 +83,7 @@ describe('Proof visitor', function () {
         visitor.visit(createTestRow());
 
         expect(
-            visitor.getIndex().contains(touch.getCourse(1).getSix(3)),
+            visitor.getDirectory().contains(touch.getCourse(1).getSix(3)),
         ).toBe(true);
     });
 

@@ -7,10 +7,10 @@
 
 /**
  * Renders a touch as HTML for use within a <select> element
- * @param {number}      touchRows       count of rows in the touch
- * @param {string}      styleUnreached  style to apply for unreached courses
- * @param {TouchIndex}  falseness       index to lookup falseness
- * @param {string}      styleFalse      style to apply for false courses
+ * @param {number}          touchRows       count of rows in the touch
+ * @param {string}          styleUnreached  style to apply for unreached courses
+ * @param {BlockDirectory}  falseness       directory to lookup falseness
+ * @param {string}          styleFalse      style to apply for false courses
  */
 
 {{
@@ -31,7 +31,7 @@
 			 /* single space */
 			style="{{= context.styleUnreached }}"
 		{{?}}
-		{{? context.falseness && context.falseness.containsFrom(course) }}
+		{{? context.falseness && context.falseness.contains(course) }}
 			 /* single space */
 			style="{{= context.styleFalse }}"
 		{{?}}

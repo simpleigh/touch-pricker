@@ -23,13 +23,13 @@ describe('Music visitor', function () {
         expect(matcher.match).toHaveBeenCalledWith('2314567890E');
     });
 
-    it('builds up an index that starts out empty', function () {
+    it('builds up an directory that starts out empty', function () {
         const matcher = new Pricker.Music.MbdScheme(Pricker.Stage.Cinques),
             visitor = new Pricker.Visitor.Music(matcher);
-        expect(visitor.getIndex().isEmpty()).toBe(true);
+        expect(visitor.getDirectory().isEmpty()).toBe(true);
     });
 
-    it('adds matched blocks to the index', function () {
+    it('adds matched blocks to the directory', function () {
         const matcher = jasmine.createSpyObj('MatcherInterface', ['match']),
             visitor = new Pricker.Visitor.Music(matcher),
             touch = new Pricker.Touch(createTestRow());
@@ -39,11 +39,11 @@ describe('Music visitor', function () {
 
         visitor.visit(createTestRow(), touch.getCourse(1).getSix(3));
         expect(
-            visitor.getIndex().contains(touch.getCourse(1).getSix(3)),
+            visitor.getDirectory().contains(touch.getCourse(1).getSix(3)),
         ).toBe(true);
     });
 
-    it('does not add unmatched blocks to the index', function () {
+    it('does not add unmatched blocks to the directory', function () {
         const matcher = jasmine.createSpyObj('MatcherInterface', ['match']),
             visitor = new Pricker.Visitor.Music(matcher),
             touch = new Pricker.Touch(createTestRow());
@@ -53,7 +53,7 @@ describe('Music visitor', function () {
 
         visitor.visit(createTestRow(), touch.getCourse(1).getSix(3));
         expect(
-            visitor.getIndex().contains(touch.getCourse(1).getSix(3)),
+            visitor.getDirectory().contains(touch.getCourse(1).getSix(3)),
         ).toBe(false);
     });
 
