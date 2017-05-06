@@ -28,21 +28,7 @@ describe('BlockDirectory class', function () {
         expect(Pricker.BlockDirectory.getIndices(course)).toEqual([1]);
     });
 
-    it('throws an exception for objects with no ownership', function () {
-        expect(function () {
-            Pricker.BlockDirectory.getIndices(touch);
-        }).toThrow();
-    });
-
-    it('throws an exception for a container but no index', function () {
-        const six = touch.getCourse(1).getSix(3);
-        six.setOwnership(touch.getCourse(1), undefined);
-        expect(function () {
-            Pricker.BlockDirectory.getIndices(six);
-        }).toThrow();
-    });
-
-    it('starts out without any indexed sixes', function () {
+    it('starts out with no sixes in the index', function () {
         for (let courseIndex: number = 1; courseIndex <= 2; courseIndex += 1) {
             for (let sixIndex: number = 1; sixIndex <= 22; sixIndex += 1) {
                 expect(directory.contains(
@@ -52,68 +38,70 @@ describe('BlockDirectory class', function () {
         }
     });
 
-    it('can index a six directly', function () {
+    it('starts out with no courses in the index', function () {
+        for (let courseIndex: number = 1; courseIndex <= 2; courseIndex += 1) {
+            expect(directory.contains(touch.getCourse(courseIndex)))
+                .toBe(false);
+        }
+    });
+
+    it('can store a six', function () {
         const six = touch.getCourse(1).getSix(3);
         directory.add(six);
         expect(directory.contains(six)).toBe(true);
     });
 
-    it('can index a six using coordinates', function () {
+    it('can store with indices', function () {
         directory.add(1, 3);
         expect(directory.contains(1, 3)).toBe(true);
     });
 
-    it('returns this when adding a six directly', function () {
+    it('returns this when storing a six', function () {
         expect(directory.add(touch.getCourse(1).getSix(3))).toBe(directory);
     });
 
-    it('returns this when adding a six using coordinates', function () {
+    it('returns this when storing with indices', function () {
         expect(directory.add(1, 3)).toBe(directory);
     });
 
-    it('throws an exception if the six has no index', function () {
-        const row = createTestRow(),
-            six = new Pricker.Slow(row, touch.getCourse(1), undefined);
-        expect(function () { directory.add(six); }).toThrow();
-        expect(function () { directory.contains(six); }).toThrow();
+    it('stores a course as well as a six', function () {
+        directory.add(touch.getCourse(1).getSix(3));
+        expect(directory.contains(touch.getCourse(1))).toBe(true);
     });
 
-    it('throws an exception if the six has no container', function () {
-        const six = new Pricker.Slow(createTestRow(), undefined, 1);
-        expect(function () { directory.add(six); }).toThrow();
-        expect(function () { directory.contains(six); }).toThrow();
+    it('stores a course as well as a six by coordinates', function () {
+        directory.add(1, 3);
+        expect(directory.contains(1)).toBe(true);
     });
 
     it('knows when it is empty', function () {
         expect(directory.isEmpty()).toBe(true);
     });
 
-    it('knows when it contains a six', function () {
+    it('knows when it is not empty', function () {
         directory.add(touch.getCourse(1).getSix(3));
         expect(directory.isEmpty()).toBe(false);
     });
 
-    it('find no six from a course directly', function () {
-        expect(directory.contains(touch.getCourse(1))).toBe(false);
+    it('throws an exception for an owned block with no index', function () {
+        const row = createTestRow(),
+            six = new Pricker.Slow(row, touch.getCourse(1), undefined);
+        expect(() => { Pricker.BlockDirectory.getIndices(six); }).toThrow();
+        expect(() => { directory.add(six); }).toThrow();
+        expect(() => { directory.contains(six); }).toThrow();
     });
 
-    it('find no six from a course by coordinates', function () {
-        expect(directory.contains(1)).toBe(false);
+    it('throws an exception for an unowned block', function () {
+        expect(() => { Pricker.BlockDirectory.getIndices(touch); }).toThrow();
+        expect(() => { directory.add(touch); }).toThrow();
+        expect(() => { directory.contains(touch); }).toThrow();
     });
 
-    it('find a six from a course directly', function () {
-        directory.add(touch.getCourse(1).getSix(3));
-        expect(directory.contains(touch.getCourse(1))).toBe(true);
-    });
-
-    it('find a six from a course by coordinates', function () {
-        directory.add(1, 3);
-        expect(directory.contains(1)).toBe(true);
-    });
-
-    it('throws an exception checking a course with no index', function () {
-        const course = new Pricker.Course(createTestRow(), touch, undefined);
-        expect(function () { directory.contains(course); }).toThrow();
+    it('throws an exception for an unowned block with an index', function () {
+        const six = new Pricker.Slow(createTestRow(), undefined, 1);
+        expect(() => { Pricker.BlockDirectory.getIndices(six); }).toThrow();
+        expect(() => { directory.add(six); }).toThrow();
+        expect(() => { directory.contains(six); }).toThrow();
     });
 
 });
