@@ -77,8 +77,7 @@ namespace Pricker {
             context: TemplateContext = { },
         ): string {
             templateName = this.templatePath + '.' + templateName;
-            context.object = this;
-            return Templates[templateName](context);
+            return Templates[templateName]({...context, 'object': this});
         }
 
         /**

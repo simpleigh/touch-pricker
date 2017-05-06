@@ -52,6 +52,12 @@ function testPrintableMixinImplementation(
             expect(context.test).toBe('extra');
         });
 
+        it('leaves the passed context unchanged', function () {
+            const context: Pricker.TemplateContext = { };
+            object.print('test', context);
+            expect(context).toEqual({ });
+        });
+
     });
 
 }
