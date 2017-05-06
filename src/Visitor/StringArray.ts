@@ -13,20 +13,27 @@
 namespace Pricker {
     'use strict';
 
+    /**
+     * Visitor classes to analyse blocks
+     */
     export namespace Visitor {
 
         /**
-         * StringArray visitor that accumulates rows into an array
+         * Simple visitor that accumulates rows into an array of strings
+         *
+         * Converts each visited row to a string and stores it.
+         * The visitor accumulates rows from a touch in the order they're rung.
          */
         export class StringArray extends AbstractVisitor {
 
             /**
-             * Rows we've seen
+             * Array of string representations of rows that have been visited.
              */
             private _strings: string[] = [ ];
 
             /**
-             * Read access to the rows
+             * Reports the rows that have been visited by providing public
+             * access to [[_strings]].
              */
             public getStrings(): string[] {
                 return this._strings.slice();
@@ -35,7 +42,7 @@ namespace Pricker {
             /* AbstractVisitor methods ****************************************/
 
             /**
-             * Receives a row for processing
+             * Receives a row for processing.
              */
             protected visitImplementation(row: Row, six?: AbstractSix): void {
                 this._strings.push(stringFromRow(row));

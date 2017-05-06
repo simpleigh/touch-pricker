@@ -13,26 +13,42 @@
 namespace Pricker {
     'use strict';
 
+    /**
+     * Visitor classes to analyse blocks
+     */
     export namespace Visitor {
 
         /**
-         * Proof visitor that proves touches
+         * Visitor for proving touches
+         *
+         * Stores the rows that have been visited and reports when whether any
+         * rows were repeated.
+         * This visitor also accumulates a [[TouchIndex]] containing references
+         * to each block containing a false row.
          */
         export class Proof extends AbstractVisitor {
 
             /**
-             * Log of rows that we've seen
+             * Log of rows that we've seen.
+             * Rows are accumulated into a dictionary indexed by the string
+             * representation of a row (the JavaScript implementation will thus
+             * store a hash table, ensuring good performance).
+             * Each value is an array of all blocks that contain the indexed
+             * row.
              */
             private _rowCounts:
                 { [index: string]: Array<AbstractSix | undefined> };
 
             /**
-             * Index of false blocks
+             * Index of false blocks.
              */
             private _index: Pricker.TouchIndex;
 
             /**
-             * Flag recording truth
+             * Flag recording truth.
+             * Truth can easily be calculated from [[_rowCounts]], but keeping a
+             * flag up-to-date is a simple optimisation to avoid iterating over
+             * this property each time we check truth.
              */
             private _isTrue: boolean = true;
 
@@ -46,7 +62,11 @@ namespace Pricker {
             }
 
             /**
-             * Read access to row counts
+             * Reports the number of times each row has been processed.
+             * Processes [[_rowCounts]] to convert each array of blocks into a
+             * count.
+             * @returns Dictionary containing the count of each row seen,
+             * indexed by the string representation of that row.
              */
             public getRowCounts(): { [index: string]: number } {
                 const result: { [index: string]: number } = { };
@@ -61,14 +81,16 @@ namespace Pricker {
             }
 
             /**
-             * Read access to the index
+             * Reports on the distribution of falseness within a touch by
+             * providing public access to [[_index]].
              */
             public getIndex(): Pricker.TouchIndex {
                 return this._index;
             }
 
             /**
-             * Checks whether the visited touch was true
+             * Reports whether a touch is true by providing public access to
+             * [[_isTrue]].
              */
             public isTrue(): boolean {
                 return this._isTrue;
@@ -77,7 +99,7 @@ namespace Pricker {
             /* AbstractVisitor methods ****************************************/
 
             /**
-             * Receives a row for processing
+             * Receives a row for processing.
              */
             protected visitImplementation(row: Row, six?: AbstractSix): void {
                 const rowString: string = stringFromRow(row);

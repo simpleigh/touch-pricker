@@ -13,17 +13,24 @@
 namespace Pricker {
     'use strict';
 
+    /**
+     * Visitor classes to analyse blocks
+     */
     export namespace Visitor {
 
         /**
-         * Console visitor that logs rows to the console
+         * Simple visitor that logs rows to the console
+         *
+         * All visited rows are output via `console.log()`.
+         * This visitor is useful for easily discovering what rows are being
+         * generated.
          */
         export class Console extends AbstractVisitor {
 
             /* AbstractVisitor methods ****************************************/
 
             /**
-             * Receives a row for processing
+             * Receives a row for processing.
              */
             protected visitImplementation(row: Row, six?: AbstractSix): void {
                 /* tslint:disable-next-line:no-console */
