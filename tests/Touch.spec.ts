@@ -122,11 +122,11 @@ describe('Touch class', function () {
         touch.insertCourse(1, course1);
         touch.insertCourse(2, course2);
 
-        expect(touch.getCourse(1).getOwnership()[0]).toBe(touch);
-        expect(touch.getCourse(2).getOwnership()[0]).toBe(touch);
+        expect(touch.getCourse(1).getContainer()).toBe(touch);
+        expect(touch.getCourse(2).getContainer()).toBe(touch);
 
-        expect(touch.getCourse(1).getOwnership()[1]).toBe(1);
-        expect(touch.getCourse(2).getOwnership()[1]).toBe(2);
+        expect(touch.getCourse(1).getIndex()).toBe(1);
+        expect(touch.getCourse(2).getIndex()).toBe(2);
     });
 
     it('can delete a course from the end', function () {
@@ -164,11 +164,11 @@ describe('Touch class', function () {
         touch.insertCourse(2, course1);  // leaving only course1
         touch.deleteCourse(1);
 
-        expect(course1.getOwnership()[0]).toBe(touch);
-        expect(course2.getOwnership()[0]).toBe(undefined);
+        expect(course1.getContainer()).toBe(touch);
+        expect(course2.getContainer()).toBe(undefined);
 
-        expect(course1.getOwnership()[1]).toBe(1);
-        expect(course2.getOwnership()[1]).toBe(undefined);
+        expect(course1.getIndex()).toBe(1);
+        expect(course2.getIndex()).toBe(undefined);
     });
 
     describe('can create touches from strings:', function () {

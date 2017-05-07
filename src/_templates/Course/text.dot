@@ -31,7 +31,7 @@
 	{{? six.getCall() }}
 		{{ calls.push(
 			((six.getCall() === Pricker.Call.Single) ? 's' : '')
-				+ six.getOwnership()[1]
+				+ six.getIndex()
 		); }}
 	{{?}}
 {{~}}

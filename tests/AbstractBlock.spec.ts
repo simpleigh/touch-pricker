@@ -139,8 +139,8 @@ function testAbstractBlockImplementation(
                     999,
                 );
 
-            expect(block.getOwnership()[0]).toBe(container);
-            expect(block.getOwnership()[1]).toBe(999);
+            expect(block.getContainer()).toBe(container);
+            expect(block.getIndex()).toBe(999);
         });
 
         it('can be attached to a new parent', function () {
@@ -155,8 +155,8 @@ function testAbstractBlockImplementation(
                 );
 
             block.setOwnership(containerNew, 998);
-            expect(block.getOwnership()[0]).toBe(containerNew);
-            expect(block.getOwnership()[1]).toBe(998);
+            expect(block.getContainer()).toBe(containerNew);
+            expect(block.getIndex()).toBe(998);
         });
 
         it('can be detached from a parent', function () {
@@ -169,8 +169,8 @@ function testAbstractBlockImplementation(
                 );
 
             block.clearOwnership();
-            expect(block.getOwnership()[0]).toBeUndefined();
-            expect(block.getOwnership()[1]).toBeUndefined();
+            expect(block.getContainer()).toBeUndefined();
+            expect(block.getIndex()).toBeUndefined();
         });
 
         it('calls a visitor in order to traverse rows', function () {

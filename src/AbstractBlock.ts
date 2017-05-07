@@ -102,11 +102,17 @@ namespace Pricker {
         }
 
         /**
-         * Allows public access to parent container references
+         * Allows public access to the container
          */
-        public getOwnership():
-            [AbstractContainer<AbstractBlock> | undefined, number | undefined] {
-            return [this._container, this._index];
+        public getContainer(): AbstractContainer<AbstractBlock> | undefined {
+            return this._container;
+        }
+
+        /**
+         * Allows public access to the index
+         */
+        public getIndex(): number | undefined {
+            return this._index;
         }
 
         /**

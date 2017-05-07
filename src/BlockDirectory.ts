@@ -88,7 +88,8 @@ namespace Pricker {
             let container: AbstractContainer<AbstractBlock> | undefined,
                 index: number | undefined;
 
-            [container, index] = block.getOwnership();
+            index = block.getIndex();
+            container = block.getContainer();
             if (!container) {
                 throw new Error('Bad ownership: block has no container');
             }
@@ -98,7 +99,8 @@ namespace Pricker {
                     throw new Error('Bad ownership: container but no index');
                 }
                 ownershipArray.unshift(index);
-                [container, index] = container.getOwnership();
+                index = container.getIndex();
+                container = container.getContainer();
             }
 
             return ownershipArray;
