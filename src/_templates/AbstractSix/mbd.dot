@@ -27,7 +27,7 @@
 {{?
 	context.falseness && context.courseIndex && context.falseness.contains(
 		context.courseIndex,
-		context.object.getOwnership()[1]
+		context.object.getIndex()
 	)
 }}
 	<span class="falseBlock">
@@ -36,7 +36,7 @@
 {{??
 	context.music && context.courseIndex && context.music.contains(
 		context.courseIndex,
-		context.object.getOwnership()[1]
+		context.object.getIndex()
 	)
 }}
 	<span class="musicalBlock">
@@ -57,7 +57,7 @@
 
 <span
  class="{{= context.type }}Six"
- onclick="c({{= context.object.getOwnership()[1] }})"
+ onclick="c({{= context.object.getIndex() }})"
 >
 	&nbsp;
 	{{? context.object.getCall() === Pricker.Call.Plain }}
@@ -75,6 +75,6 @@
 
 /* Index */
 
-{{= context.object.getOwnership()[1] }}
+{{= context.object.getIndex() }}
 
 <br />

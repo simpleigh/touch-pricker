@@ -47,8 +47,8 @@ namespace Pricker {
          */
         protected createBlock(initialRow: Row, index: number): AbstractSix {
             return index % 2
-                ? new Slow(initialRow, this, index)
-                : new Quick(initialRow, this, index);
+                ? new Slow(initialRow, {'container': this, 'index': index})
+                : new Quick(initialRow, {'container': this, 'index': index});
         }
 
         /**

@@ -239,7 +239,10 @@ function testAbstractContainerImplementation(
         it('notifies the parent container for length decrease', function () {
             const parent: Pricker.AbstractContainer<typeof Container> =
                     jasmine.createSpyObj('AbstractContainer', ['notify']),
-                container = new Container(createTestRow(), parent, 999);
+                container = new Container(
+                    createTestRow(),
+                    {'container': parent, 'index': 999},
+                );
 
             container.setLength(10);
             container.setLength(9);
@@ -250,7 +253,10 @@ function testAbstractContainerImplementation(
         it('notifies the parent container for length increase', function () {
             const parent: Pricker.AbstractContainer<typeof Container> =
                     jasmine.createSpyObj('AbstractContainer', ['notify']),
-                container = new Container(createTestRow(), parent, 999);
+                container = new Container(
+                    createTestRow(),
+                    {'container': parent, 'index': 999},
+                );
 
             container.setLength(10);
             container.setLength(11);
@@ -261,7 +267,10 @@ function testAbstractContainerImplementation(
         it('notifies the parent container on notify', function () {
             const parent: Pricker.AbstractContainer<typeof Container> =
                     jasmine.createSpyObj('AbstractContainer', ['notify']),
-                container = new Container(createTestRow(), parent, 999);
+                container = new Container(
+                    createTestRow(),
+                    {'container': parent, 'index': 999},
+                );
 
             container.setLength(5);
             container.notify(5);
