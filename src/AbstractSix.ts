@@ -5,12 +5,13 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="Bell.ts" />
-/// <reference path="Row.ts" />
-/// <reference path="Call.ts" />
-/// <reference path="Changes.ts" />
 /// <reference path="AbstractBlock.ts" />
 /// <reference path="AbstractContainer.ts" />
+/// <reference path="Bell.ts" />
+/// <reference path="BlockOwnership.ts" />
+/// <reference path="Call.ts" />
+/// <reference path="Changes.ts" />
+/// <reference path="Row.ts" />
 /// <reference path="TemplateContext.ts" />
 /// <reference path="Visitor/Abstract.ts" />
 
@@ -36,10 +37,9 @@ namespace Pricker {
          */
         constructor(
             initialRow: Row,
-            protected _container?: AbstractContainer<AbstractSix>,
-            protected _index?: number,
+            protected _ownership?: BlockOwnership,
         ) {
-            super(initialRow, _container, _index);
+            super(initialRow, _ownership);
             this.calculate();
         }
 

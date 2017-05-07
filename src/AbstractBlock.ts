@@ -5,6 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="BlockOwnership.ts" />
 /// <reference path="PrintableMixin.ts"/>
 /// <reference path="Row.ts" />
 /// <reference path="stringFromRow.ts" />
@@ -38,13 +39,11 @@ namespace Pricker {
         /**
          * Constructor
          * @param initialRow  initial row for the block
-         * @param container   container of this block
-         * @param index       index of block in container
+         * @param ownership   ownership of this block
          */
         constructor(
             initialRow: Row,
-            protected _container?: AbstractContainer<AbstractBlock>,
-            protected _index?: number,
+            protected _ownership?: BlockOwnership,
         ) {
             this._initialRow = initialRow.slice();
         }
@@ -92,12 +91,8 @@ namespace Pricker {
         /**
          * Updates references to the parent container
          */
-        public setOwnership(
-            container: AbstractContainer<AbstractBlock>,
-            index: number,
-        ): AbstractBlock {
-            this._container = container;
-            this._index = index;
+        public setOwnership(ownership: BlockOwnership): AbstractBlock {
+            this._ownership = ownership;
             return this;
         }
 
@@ -105,22 +100,21 @@ namespace Pricker {
          * Allows public access to the container
          */
         public getContainer(): AbstractContainer<AbstractBlock> | undefined {
-            return this._container;
+            return this._ownership ? this._ownership.container : undefined;
         }
 
         /**
          * Allows public access to the index
          */
         public getIndex(): number | undefined {
-            return this._index;
+            return this._ownership ? this._ownership.index : undefined;
         }
 
         /**
          * Clears references to the parent container
          */
         public clearOwnership(): AbstractBlock {
-            this._container = undefined;
-            this._index = undefined;
+            this._ownership = undefined;
             return this;
         }
 
@@ -130,8 +124,8 @@ namespace Pricker {
          * Derived classes should call this whenever the end row changes.
          */
         protected notifyContainer(): void {
-            if (this._container && this._index) {
-                this._container.notify(this._index);
+            if (this._ownership) {
+                this._ownership.container.notify(this._ownership.index);
             }
         }
 

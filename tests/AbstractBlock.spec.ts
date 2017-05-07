@@ -109,8 +109,7 @@ function testAbstractBlockImplementation(
                     jasmine.createSpyObj('AbstractContainer', ['notify']),
                 block = new Block(
                     createTestRow(),
-                    container,
-                    999,
+                    {'container': container, 'index': 999},
                 );
 
             triggerNotification(block);
@@ -122,8 +121,7 @@ function testAbstractBlockImplementation(
                     jasmine.createSpyObj('AbstractContainer', ['notify']),
                 block = new Block(
                     createTestRow(),
-                    container,
-                    999,
+                    {'container': container, 'index': 999},
                 );
 
             block.setInitialRow(createTestRow());
@@ -135,8 +133,7 @@ function testAbstractBlockImplementation(
                     jasmine.createSpyObj('AbstractContainer', ['notify']),
                 block = new Block(
                     createTestRow(),
-                    container,
-                    999,
+                    {'container': container, 'index': 999},
                 );
 
             expect(block.getContainer()).toBe(container);
@@ -150,11 +147,10 @@ function testAbstractBlockImplementation(
                     jasmine.createSpyObj('AbstractContainer', ['notify']),
                 block = new Block(
                     createTestRow(),
-                    containerOld,
-                    999,
+                    {'container': containerOld, 'index': 999},
                 );
 
-            block.setOwnership(containerNew, 998);
+            block.setOwnership({'container': containerNew, 'index': 998});
             expect(block.getContainer()).toBe(containerNew);
             expect(block.getIndex()).toBe(998);
         });
@@ -164,8 +160,7 @@ function testAbstractBlockImplementation(
                     jasmine.createSpyObj('AbstractContainer', ['notify']),
                 block = new Block(
                     createTestRow(),
-                    container,
-                    999,
+                    {'container': container, 'index': 999},
                 );
 
             block.clearOwnership();

@@ -104,7 +104,13 @@ function testSixImplementation(Six, testCases, rowTests) {
             container: Pricker.AbstractBlock = null,
             index: number = 999,
         ): typeof Six {
-            return new Six(createTestRow(), container, index);
+            if (container) {
+                return new Six(
+                    createTestRow(),
+                    {'container': container, 'index': index},
+                );
+            }
+            return new Six(createTestRow());
         }
 
         it('starts life as a plain six', function () {

@@ -83,25 +83,10 @@ describe('BlockDirectory class', function () {
         expect(directory.isEmpty()).toBe(false);
     });
 
-    it('throws an exception for an owned block with no index', function () {
-        const row = createTestRow(),
-            six = new Pricker.Slow(row, touch.getCourse(1), undefined);
-        expect(() => { Pricker.BlockDirectory.getIndices(six); }).toThrow();
-        expect(() => { directory.add(six); }).toThrow();
-        expect(() => { directory.contains(six); }).toThrow();
-    });
-
     it('throws an exception for an unowned block', function () {
         expect(() => { Pricker.BlockDirectory.getIndices(touch); }).toThrow();
         expect(() => { directory.add(touch); }).toThrow();
         expect(() => { directory.contains(touch); }).toThrow();
-    });
-
-    it('throws an exception for an unowned block with an index', function () {
-        const six = new Pricker.Slow(createTestRow(), undefined, 1);
-        expect(() => { Pricker.BlockDirectory.getIndices(six); }).toThrow();
-        expect(() => { directory.add(six); }).toThrow();
-        expect(() => { directory.contains(six); }).toThrow();
     });
 
 });

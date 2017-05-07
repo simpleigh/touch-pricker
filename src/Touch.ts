@@ -70,7 +70,7 @@ namespace Pricker {
          * @param index       index of block in container
          */
         protected createBlock(initialRow: Row, index: number): Course {
-            return new Course(initialRow, this, index);
+            return new Course(initialRow, {'container': this, 'index': index});
         }
 
         /**
@@ -125,7 +125,7 @@ namespace Pricker {
          */
         private fixupOwnership(index: number): void {
             for (let i: number = index; i <= this.getLength(); i += 1) {
-                this.getCourse(i).setOwnership(this, i);
+                this.getCourse(i).setOwnership({'container': this, 'index': i});
             }
         }
 
