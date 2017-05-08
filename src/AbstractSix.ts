@@ -6,7 +6,6 @@
  */
 
 /// <reference path="AbstractBlock.ts" />
-/// <reference path="AbstractContainer.ts" />
 /// <reference path="Bell.ts" />
 /// <reference path="BlockOwnership.ts" />
 /// <reference path="Call.ts" />

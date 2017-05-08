@@ -6,6 +6,7 @@
  */
 
 /// <reference path="BlockOwnership.ts" />
+/// <reference path="Notifiable.ts" />
 /// <reference path="PrintableMixin.ts"/>
 /// <reference path="Row.ts" />
 /// <reference path="stringFromRow.ts" />
@@ -99,7 +100,7 @@ namespace Pricker {
         /**
          * Allows public access to the container
          */
-        public getContainer(): AbstractContainer<AbstractBlock> | undefined {
+        public getContainer(): Notifiable | undefined {
             return this._ownership ? this._ownership.container : undefined;
         }
 

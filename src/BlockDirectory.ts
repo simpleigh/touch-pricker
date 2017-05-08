@@ -6,6 +6,7 @@
  */
 
 /// <reference path="AbstractBlock.ts" />
+/// <reference path="Notifiable.ts" />
 
 namespace Pricker {
     'use strict';
@@ -85,7 +86,7 @@ namespace Pricker {
          */
         public static getIndices(block: AbstractBlock): number[] {
             const ownershipArray: number[] = [ ];
-            let container: AbstractContainer<AbstractBlock> | undefined,
+            let container: Notifiable | undefined,
                 index: number | undefined;
 
             index = block.getIndex();
@@ -94,7 +95,7 @@ namespace Pricker {
                 throw new Error('Bad ownership: block has no container');
             }
 
-            while (container) {
+            while (container instanceof AbstractBlock) {
                 if (!index) {
                     throw new Error('Bad ownership: container but no index');
                 }

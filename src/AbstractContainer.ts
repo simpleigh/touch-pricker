@@ -7,6 +7,7 @@
 
 /// <reference path="AbstractBlock.ts" />
 /// <reference path="BlockOwnership.ts" />
+/// <reference path="Notifiable.ts" />
 /// <reference path="Row.ts" />
 /// <reference path="TemplateContext.ts" />
 /// <reference path="Visitor/Abstract.ts" />
@@ -20,7 +21,8 @@ namespace Pricker {
      * Note that containers are also blocks themselves.
      */
     export abstract class AbstractContainer<Block extends AbstractBlock>
-        extends AbstractBlock {
+        extends AbstractBlock implements Notifiable {
+
         /**
          * Blocks within the container
          */
@@ -82,6 +84,17 @@ namespace Pricker {
                 rows += block.estimateRows();
             }
             return rows;
+        }
+
+        /* Notifiable methods *************************************************/
+
+        /**
+         * Receives a notification from a block that has changed
+         * @param index  index of changed block in container
+         */
+        public notify(index: number): void {
+            this.calculateBlocks(index);
+            this.notifyContainer();
         }
 
         /* AbstractContainer methods ******************************************/
@@ -209,13 +222,6 @@ namespace Pricker {
             return this._blocks[index - 1];
         }
 
-        /**
-         * Receives a notification from a block that has changed
-         * @param index  index of changed block in container
-         */
-        public notify(index: number): void {
-            this.calculateBlocks(index);
-            this.notifyContainer();
-        }
     }
+
 }

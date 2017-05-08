@@ -5,7 +5,7 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
-/* Don't reference dependencies or this leads to compilation errors... */
+/// <reference path="Notifiable.ts" />
 
 namespace Pricker {
     'use strict';
@@ -23,7 +23,7 @@ namespace Pricker {
         /**
          * Container of the block.
          */
-        container: AbstractContainer<AbstractBlock>;
+        container: Notifiable;
 
         /**
          * Index within the container.
