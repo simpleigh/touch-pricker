@@ -6,8 +6,9 @@
  */
 
 /// <reference path="../PrintableMixin.ts" />
-/// <reference path="../Row.ts" />
+/// <reference path="../TemplateContext.ts" />
 /// <reference path="MatcherInterface.ts" />
+/// <reference path="MatchType.ts" />
 
 namespace Pricker {
     'use strict';

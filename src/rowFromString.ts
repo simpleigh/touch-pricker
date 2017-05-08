@@ -6,8 +6,8 @@
  */
 
 /// <reference path="Bell.ts" />
-/// <reference path="Stage" />
 /// <reference path="Row" />
+/// <reference path="Stage" />
 
 namespace Pricker {
     'use strict';

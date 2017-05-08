@@ -5,9 +5,8 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="Row.ts" />
-/// <reference path="Changes.ts" />
 /// <reference path="AbstractSix.ts" />
+/// <reference path="Changes.ts" />
 /// <reference path="Visitor/Abstract.ts" />
 
 namespace Pricker {

@@ -5,11 +5,10 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="Stage.ts" />
-/// <reference path="Row.ts" />
 /// <reference path="AbstractContainer.ts" />
+/// <reference path="AbstractSix.ts" />
 /// <reference path="Call.ts" />
-/// <reference path="TemplateContext.ts" />
+/// <reference path="Row.ts" />
 
 namespace Pricker {
     'use strict';

@@ -9,7 +9,6 @@
 /// <reference path="Notifiable.ts" />
 /// <reference path="PrintableMixin.ts"/>
 /// <reference path="Row.ts" />
-/// <reference path="stringFromRow.ts" />
 /// <reference path="TemplateContext.ts" />
 /// <reference path="Visitor/Abstract.ts" />
 

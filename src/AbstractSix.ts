@@ -6,13 +6,10 @@
  */
 
 /// <reference path="AbstractBlock.ts" />
-/// <reference path="Bell.ts" />
 /// <reference path="BlockOwnership.ts" />
 /// <reference path="Call.ts" />
 /// <reference path="Changes.ts" />
 /// <reference path="Row.ts" />
-/// <reference path="TemplateContext.ts" />
-/// <reference path="Visitor/Abstract.ts" />
 
 namespace Pricker {
     'use strict';
@@ -48,7 +45,7 @@ namespace Pricker {
          * Does any calculation needed by the block
          */
         protected calculate(): void {
-            this._end = this._initialRow.slice(); // Create new array
+            this._end = this._initialRow.slice();  // Create new array
             Changes.permuteCall(this._end, this._call);
             this.applySixTransposition();
         }

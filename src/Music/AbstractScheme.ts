@@ -6,8 +6,8 @@
  */
 
 /// <reference path="../PrintableMixin.ts"/>
-/// <reference path="../Stage.ts" />
 /// <reference path="../rowFromString.ts" />
+/// <reference path="../Stage.ts" />
 /// <reference path="../stringFromRow.ts" />
 /// <reference path="MatcherInterface.ts" />
 

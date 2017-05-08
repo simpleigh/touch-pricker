@@ -9,7 +9,6 @@
 /// <reference path="BlockOwnership.ts" />
 /// <reference path="Notifiable.ts" />
 /// <reference path="Row.ts" />
-/// <reference path="TemplateContext.ts" />
 /// <reference path="Visitor/Abstract.ts" />
 
 namespace Pricker {

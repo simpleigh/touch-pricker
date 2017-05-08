@@ -7,8 +7,8 @@
 
 /// <reference path="../AbstractSix.ts" />
 /// <reference path="../BlockDirectory.ts" />
-/// <reference path="../stringFromRow.ts" />
 /// <reference path="../Row.ts" />
+/// <reference path="../stringFromRow.ts" />
 /// <reference path="Abstract.ts" />
 
 namespace Pricker {

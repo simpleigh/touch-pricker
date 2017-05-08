@@ -7,7 +7,6 @@
 
 /* tslint:disable:max-line-length */
 
-/// <reference path="../rowFromString.ts" />
 /// <reference path="../Stage.ts" />
 /// <reference path="AbstractScheme.ts" />
 /// <reference path="MatchType.ts" />

@@ -5,6 +5,9 @@
  * @copyright © 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="AbstractScheme.ts" />
+/// <reference path="MatcherInterface" />
+
 namespace Pricker {
     'use strict';
 
