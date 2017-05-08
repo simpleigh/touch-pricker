@@ -63,9 +63,11 @@ namespace Pricker {
         /**
          * Receives a visitor that will be called to process each row
          */
-        public accept(visitor: Visitor.AbstractVisitor): this {
+        public accept(...visitors: Visitor.AbstractVisitor[]): this {
             for (const block of this._blocks) {
-                block.accept(visitor);
+                for (const visitor of visitors) {
+                    block.accept(visitor);
+                }
             }
             return this;
         }

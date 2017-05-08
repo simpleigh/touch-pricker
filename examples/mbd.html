@@ -317,7 +317,8 @@
             var proof = new Pricker.Visitor.Proof(),
                 counter = new Pricker.Visitor.Counter();
 
-            touch.accept(proof);
+            touch.accept(proof, counter);
+
             if (proof.isTrue()) {
                 if (proof.isVisiting()) {
                     proofText = "True, but doesn't come round";
@@ -328,7 +329,6 @@
                 proofText = 'Composition is FALSE';
             }
 
-            touch.accept(counter);
             rowCount = counter.getCount();
             falseness = proof.getDirectory();
 

@@ -23,25 +23,28 @@ namespace Pricker {
         /**
          * Receives a visitor that will be called to process each row
          */
-        public accept(visitor: Visitor.AbstractVisitor): this {
+        public accept(...visitors: Visitor.AbstractVisitor[]): this {
             const row = this.getInitialRow();
 
-            Changes.permuteCall(row, this._call);
-            visitor.visit(row);
+            for (const visitor of visitors) {
+                Changes.permuteCall(row, this._call);
+                visitor.visit(row);
 
-            Changes.permute3(row);
-            visitor.visit(row);
+                Changes.permute3(row);
+                visitor.visit(row);
 
-            Changes.permute1(row);
-            visitor.visit(row);
+                Changes.permute1(row);
+                visitor.visit(row);
 
-            Changes.permute3(row);
-            visitor.visit(row);
+                Changes.permute3(row);
+                visitor.visit(row);
 
-            Changes.permute1(row);
-            visitor.visit(row);
+                Changes.permute1(row);
+                visitor.visit(row);
 
-            visitor.visit(this._end);
+                visitor.visit(this._end);
+            }
+
             return this;
         }
 

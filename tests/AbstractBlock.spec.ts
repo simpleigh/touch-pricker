@@ -185,6 +185,17 @@ function testAbstractBlockImplementation(
             expect(block.accept(visitor)).toBe(block);
         });
 
+        it('can call multiple visitors', function () {
+            const block = new Block(createTestRow()),
+                visitor1 = new Pricker.Visitor.Counter(),
+                visitor2 = new Pricker.Visitor.Counter();
+
+            block.accept(visitor1, visitor2);
+            expect(visitor1.getCount()).toBeGreaterThan(0);
+            expect(visitor2.getCount()).toBeGreaterThan(0);
+            expect(visitor1.getCount()).toEqual(visitor2.getCount());
+        });
+
         it('estimates the number of rows correctly', function () {
             const block = new Block(createTestRow());
             expect(block.estimateRows()).toBe(expectedRows);

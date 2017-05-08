@@ -132,7 +132,7 @@ namespace Pricker {
         /**
          * Receives a visitor that will be called to process each row
          */
-        public abstract accept(visitor: Visitor.AbstractVisitor): this;
+        public abstract accept(...visitors: Visitor.AbstractVisitor[]): this;
 
         /**
          * Estimates the number of rows in the block
