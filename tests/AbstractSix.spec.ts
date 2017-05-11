@@ -172,6 +172,17 @@ function testSixImplementation(Six, testCases, rowTests) {
             expect(parent.notify).not.toHaveBeenCalled();
         });
 
+        it('passes itself to visitors', function () {
+            const six = new Six(createTestRow('123')),
+                visitor = jasmine.createSpyObj('AbstractVisitor', ['visit']);
+
+            six.accept(visitor);
+            expect(visitor.visit).toHaveBeenCalledTimes(6);
+            for (let i = 0; i < 6; i += 1) {
+                expect(visitor.visit.calls.argsFor(i)[1]).toBe(six);
+            }
+        });
+
         testAbstractBlockImplementation(
             Six,
             (six: Pricker.AbstractSix) => { six.toggleCall(); },

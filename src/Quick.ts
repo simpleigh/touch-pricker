@@ -27,21 +27,21 @@ namespace Pricker {
 
             for (const visitor of visitors) {
                 Changes.permuteCall(row, this._call);
-                visitor.visit(row);
+                visitor.visit(row, this);
 
                 Changes.permute1(row);
-                visitor.visit(row);
+                visitor.visit(row, this);
 
                 Changes.permute3(row);
-                visitor.visit(row);
+                visitor.visit(row, this);
 
                 Changes.permute1(row);
-                visitor.visit(row);
+                visitor.visit(row, this);
 
                 Changes.permute3(row);
-                visitor.visit(row);
+                visitor.visit(row, this);
 
-                visitor.visit(this._end);
+                visitor.visit(this._end, this);
             }
 
             return this;
