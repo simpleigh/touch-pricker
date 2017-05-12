@@ -51,6 +51,7 @@ namespace Pricker {
                 let result: boolean = false;
 
                 for (const pattern of this._patterns) {
+                    if (!pattern) { continue; }  // IE8 trailing comma
                     // Call pattern.match explicitly...
                     const rowResult: boolean = pattern.match(row);
                     // ... not in here, or || will short-circuit it
@@ -109,6 +110,7 @@ namespace Pricker {
                 let matches: number = 0;
 
                 for (const pattern of this._patterns) {
+                    if (!pattern) { continue; }  // IE8 trailing comma
                     matches += pattern.getMatchCount();
                 }
 
