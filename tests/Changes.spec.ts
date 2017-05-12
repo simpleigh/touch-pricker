@@ -26,7 +26,7 @@ function createChangeTests(
 
                 row = createTestRow('', stage);
                 testFn(row);
-                expect(Pricker.stringFromRow(row)).toEqual(expected);
+                expect(Pricker.stringFromRow(row)).toBe(expected);
             }
         });
 
