@@ -20,6 +20,7 @@ function createChangeTests(
                 row: Pricker.Row;
 
             for (const testCase of testCases) {
+                if (!testCase) { continue; }  // IE8 trailing comma
                 expected = testCase[0];
                 stage = testCase[1];
 

@@ -29,7 +29,7 @@ describe('Touch class', function () {
         visitor = new Pricker.Visitor.StringArray();
         touch.setLength(1);
         touch.getCourse(1).accept(visitor);
-        strings = strings.concat(visitor.getStrings());
+        strings = strings.slice(0, 2).concat(visitor.getStrings());
 
         visitor = new Pricker.Visitor.StringArray();
         touch.accept(visitor);

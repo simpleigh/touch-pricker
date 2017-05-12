@@ -11,14 +11,11 @@
  * Tests that a visitor behaves as an AbstractVisitor
  * @param createFn   fn to create visitor under test
  * @param getState   fn that returns the visitor's state
- * @param setupTest  add spies before testcase
  */
 function testAbstractVisitorImplementation(
     // tslint:disable-next-line:variable-name
     createFn: () => Pricker.Visitor.AbstractVisitor,
     getState: (visitor: Pricker.Visitor.AbstractVisitor) => any,
-    // tslint:disable-next-line:no-empty
-    setupTest: () => void = function () { },
 ) {
 
     describe('is derived from AbstractVisitor and', function () {
@@ -44,7 +41,6 @@ function testAbstractVisitorImplementation(
         it('stops changing its state when not processing', function () {
             let result: any;
 
-            setupTest();
             visitor.visit(createTestRow());
             visitor.visit(createTestRow('123'));
             result = getState(visitor);

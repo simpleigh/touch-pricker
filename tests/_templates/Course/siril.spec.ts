@@ -49,6 +49,7 @@ describe('siril template for Course', function () {
     it('stops rendering based on the remaining rows in the touch', function () {
         const course = Pricker.Course.fromString(createTestRow(), 's2 3 (4)');
         for (let i: number = 1; i < EXPECTED_OUTPUTS.length; i += 1) {
+            if (!EXPECTED_OUTPUTS[i]) { continue; }  // IE8 trailing comma
             expect(course.print('siril', {'touchRows': i})).toBe(
                 EXPECTED_OUTPUTS[i]
                     + '"@  s2 3  (4 sixes)"\n',

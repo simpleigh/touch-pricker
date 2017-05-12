@@ -10,10 +10,22 @@
 
 describe('Console visitor', function () {
 
+    const consoleBackup = console;
+
+    beforeEach(function () {
+        // Replace window.console in case it doesn't behave as expected (IE8)
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        console = { } as Console;
+        console.log = function () { /* NOOP */ };
+        spyOn(console, 'log');
+    });
+
+    afterEach(function () {
+        console = consoleBackup;
+    });
+
     it('logs to the console when it visits a row', function () {
         const visitor = new Pricker.Visitor.Console();
-        spyOn(console, 'log');
-
         visitor.visit(createTestRow());
         expect(console.log).toHaveBeenCalledWith('2314567890E');
     });
@@ -25,7 +37,6 @@ describe('Console visitor', function () {
             // tslint:disable-next-line:no-string-literal
             return console.log['calls'].allArgs();
         },
-        () => { spyOn(console, 'log'); },
     );
 
 });
