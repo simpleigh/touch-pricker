@@ -203,11 +203,7 @@
         <button onclick="cutCourse()">Cut</button>
         <button onclick="deleteCourse()">Delete</button>
       </form>
-      <select
-        id="courses"
-        size="2"
-        onchange="selectCourse()"
-        ondblclick="copyCourse()">
+      <select id="courses">
       </select>
       <form onsubmit="return false">
         <button onclick="insertCourse()">Insert</button>
@@ -302,20 +298,20 @@
             }
 
             // Touch display
-            document.getElementById('courses').innerText = '';
+            document.getElementById('courses').outerHTML =
+                '<select id="courses"'
+                    + 'onchange="selectCourse()" ondblclick="copyCourse()">'
+                    + touch.print('select', {
+                        'touchRows': rowCount,
+                        'styleUnreached': 'color:gray',
+                        'falseness': falseness,
+                        'styleFalse': 'color:red'
+                    })
+                    + '</select>';
             document.getElementById('courses').size = Math.max(
                 touch.getLength() + 1,
                 2
             );
-
-            // Course <select>
-            document.getElementById('courses').innerHTML =
-                touch.print('select', {
-                    'touchRows': rowCount,
-                    'styleUnreached': 'color:gray',
-                    'falseness': falseness,
-                    'styleFalse': 'color:red'
-                });
             document.getElementById('courses').value = selectedIndex;
 
         }
