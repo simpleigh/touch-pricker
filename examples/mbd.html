@@ -111,15 +111,15 @@
     <div id="controls">
 
       <div id="tabs">
-        <div class="tab tab-selected" onclick="switchTab(event, 'pricking')">Pricking</div>
-        <div class="tab" onclick="switchTab(event, 'loadSave')">Load/Save</div>
-        <div class="tab" onclick="switchTab(event, 'siril')">Siril</div>
-        <div class="tab" onclick="switchTab(event, 'music')">Music</div>
+        <div id="tab_pricking" onclick="switchTab('pricking')" class="tab tab-selected">Pricking</div>
+        <div id="tab_loadSave" onclick="switchTab('loadSave')" class="tab">Load/Save</div>
+        <div id="tab_siril"    onclick="switchTab('siril')"    class="tab">Siril</div>
+        <div id="tab_music"    onclick="switchTab('music')"    class="tab">Music</div>
       </div>
 
       <div id="pages">
 
-        <div class="page page-selected" id="pricking">
+        <div class="page page-selected" id="page_pricking">
           <div>
             <label for="stage">Number of bells:</label>
             <select id="stage" onchange="setStage()"></select>
@@ -160,7 +160,7 @@
           </div>
         </div>
 
-        <div class="page" id="loadSave">
+        <div class="page" id="page_loadSave">
           <form onsubmit="return false">
             <button onclick="loadTouch()">Import</button>
             <button onclick="saveTouch()">Export</button>
@@ -168,14 +168,14 @@
           <textarea id="loadSaveTextarea"></textarea>
         </div>
 
-        <div class="page" id="siril">
+        <div class="page" id="page_siril">
           <form onsubmit="return false">
             <button onclick="generateSiril()">Generate</button>
           </form>
           <textarea id="sirilTextarea"></textarea>
         </div>
 
-        <div class="page" id="music">
+        <div class="page" id="page_music">
           <form onsubmit="return false">
             <button onclick="analyseMusic()">Analyse</button>
           </form>
@@ -527,12 +527,12 @@
             music = visitor.getDirectory();
         }
 
-        function switchTab(event, pageId) {
+        function switchTab(pageId) {
             'use strict';
-            var tabs = document.getElementsByClassName('tab'),
-                tab = event.target,
-                pages = document.getElementsByClassName('page'),
-                page = document.getElementById(pageId),
+            var tabs = document.getElementById('tabs').children,
+                tab = document.getElementById('tab_' + pageId),
+                pages = document.getElementById('pages').children,
+                page = document.getElementById('page_' + pageId),
                 i;
 
             for (i = 0; i < tabs.length; i += 1) {
