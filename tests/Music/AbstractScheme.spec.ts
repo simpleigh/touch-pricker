@@ -37,6 +37,7 @@ function testAbstractSchemeImplementation(
 
         it('matches music correctly', function () {
             for (const testCase of testCases) {
+                if (!testCase) { continue; }  // IE8 trailing comma
                 const stage: Pricker.Stage = testCase[0],
                     rowString: string = testCase[1],
                     matches: number = testCase[2],

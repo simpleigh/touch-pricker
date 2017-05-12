@@ -30,6 +30,7 @@ function testAbstractContainerImplementation(
     function runLengthTestCases(testFunction) {
         return function () {
             for (const testCase of lengthTestCases) {
+                if (!testCase) { continue; }  // IE8 trailing comma
                 testFunction(createTestRow('231', testCase[0]), testCase[1]);
             }
         };

@@ -14,6 +14,7 @@ function testSixImplementation(Six, testCases, rowTests) {
     function runTestCases(testFunction) {
         return function () {
             for (const testCase of testCases) {
+                if (!testCase) { continue; }  // IE8 trailing comma
                 testFunction(
                     createTestRow(testCase[0], testCase[2]),  // Previous sixend
                     createTestRow(testCase[1], testCase[2]),  // Expected sixend
@@ -86,15 +87,16 @@ function testSixImplementation(Six, testCases, rowTests) {
             strings: string[];
 
         for (const rowTest of rowTests) {
-            initialRow = createTestRow('', rowTest[6]);
-            rowTest.pop();  // Remove stage
+            if (!rowTest) { continue; }  // IE8 trailing comma
+            const expectedRow: any[] = rowTest.slice(0, 6);  // Six test rows
+            initialRow = createTestRow('', rowTest[6]);      // ... and stage
             six = new Six(initialRow);
             visitor = new Pricker.Visitor.StringArray();
 
             six.accept(visitor);
             strings = visitor.getStrings();
 
-            expect(strings).toEqual(rowTest);
+            expect(strings).toEqual(expectedRow);
         }
     });
 
