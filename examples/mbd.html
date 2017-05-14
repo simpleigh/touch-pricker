@@ -362,15 +362,13 @@
 
         function resetLength() {
             'use strict';
-            course.setLength(stage * 2);
+            course.resetLength();
             reDraw();
         }
 
         function resetCalls() {
             'use strict';
-            var newCourse = new Pricker.Course(course.getInitialRow());
-            newCourse.setLength(course.getLength());
-            course = newCourse;
+            course.resetCalls();
             reDraw();
         }
 
@@ -431,11 +429,11 @@
 
             if (document.getElementById('rolling').checked) {
                 course.setInitialRow(touch.getCourse(selectedIndex).getEnd());
-                resetLength();
-                resetCalls();  // Calls reDraw()
-            } else {
-                reDraw();
+                course.resetLength();
+                course.resetCalls();
             }
+
+            reDraw();
         }
 
         function pasteCourse() {
@@ -448,13 +446,13 @@
                     course.setInitialRow(
                         touch.getCourse(selectedIndex).getEnd()
                     );
+                    course.resetLength();
+                    course.resetCalls();
                     selectedIndex =
                         Math.min(selectedIndex + 1, touch.getLength());
-                    resetLength();
-                    resetCalls();  // Calls reDraw()
-                } else {
-                    reDraw();
                 }
+
+                reDraw();
             }
         }
 

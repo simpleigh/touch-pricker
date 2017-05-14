@@ -73,6 +73,24 @@ namespace Pricker {
         public getSix: (index: number) => AbstractSix = this.getBlock;
 
         /**
+         * Resets the course to be the default length
+         */
+        public resetLength(): this {
+            this.setLength(this.getDefaultLength(this._initialRow));
+            return this;
+        }
+
+        /**
+         * Makes the course into a plain course
+         */
+        public resetCalls(): this {
+            for (const six of this._blocks) {
+                six.setCall(Call.Plain);
+            }
+            return this;
+        }
+
+        /**
          * Checks whether this is a plain course
          */
         public isPlain(): boolean {

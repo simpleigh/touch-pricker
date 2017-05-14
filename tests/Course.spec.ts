@@ -56,6 +56,30 @@ describe('Course class', function () {
         }
     });
 
+    it('can be reset to the default length', function () {
+        const course = new Pricker.Course(createTestRow());
+        course.setLength(20);
+        course.resetLength();
+        expect(course.getLength()).toBe(22);
+    });
+
+    it('returns this when resetting the length', function () {
+        const course = new Pricker.Course(createTestRow());
+        expect(course.resetLength()).toBe(course);
+    });
+
+    it('can be reset to a plain course', function () {
+        const course = new Pricker.Course(createTestRow());
+        course.getSix(5).toggleCall();
+        course.resetCalls();
+        expect(course.getSix(5).getCall()).toBe(Pricker.Call.Plain);
+    });
+
+    it('returns this when resetting the calls', function () {
+        const course = new Pricker.Course(createTestRow());
+        expect(course.resetCalls()).toBe(course);
+    });
+
     it('can be cloned', function () {
         const course = new Pricker.Course(createTestRow());
         let cloned: Pricker.Course;
