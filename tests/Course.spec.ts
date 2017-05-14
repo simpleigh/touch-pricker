@@ -80,6 +80,17 @@ describe('Course class', function () {
         expect(course.resetCalls()).toBe(course);
     });
 
+    it('starts out as a plain course', function () {
+        const course = new Pricker.Course(createTestRow());
+        expect(course.isPlain()).toBe(true);
+    });
+
+    it('knows when it is not a plain course', function () {
+        const course = new Pricker.Course(createTestRow());
+        course.getSix(5).toggleCall();
+        expect(course.isPlain()).toBe(false);
+    });
+
     it('can be cloned', function () {
         const course = new Pricker.Course(createTestRow());
         let cloned: Pricker.Course;
