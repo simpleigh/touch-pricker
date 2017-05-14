@@ -300,7 +300,7 @@
             // Touch display
             document.getElementById('courses').outerHTML =
                 '<select id="courses"'
-                    + 'onchange="selectCourse()" ondblclick="copyCourse()">'
+                    + 'ondblclick="copyCourse()">'
                     + touch.print('select', {
                         'touchRows': rowCount,
                         'styleUnreached': 'color:gray',
@@ -415,10 +415,9 @@
             reDraw();
         }
 
-        function selectCourse() {
+        function selectCourse(index) {
             'use strict';
-            selectedIndex = parseInt(document.getElementById('courses').value);
-            selectedIndex = selectedIndex || 0;
+            selectedIndex = index;
         }
 
         function insertCourse() {
