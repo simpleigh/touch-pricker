@@ -43,8 +43,7 @@ namespace Pricker {
             /**
              * Directory of false blocks.
              */
-            private _directory: Pricker.BlockDirectory =
-                new Pricker.BlockDirectory();
+            private _directory: BlockDirectory = new BlockDirectory();
 
             /**
              * Flag recording truth.
@@ -77,7 +76,7 @@ namespace Pricker {
              * Reports on the distribution of falseness within a touch by
              * providing public access to [[_directory]].
              */
-            public getDirectory(): Pricker.BlockDirectory {
+            public getDirectory(): BlockDirectory {
                 return this._directory;
             }
 

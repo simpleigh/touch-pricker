@@ -33,14 +33,13 @@ namespace Pricker {
             /**
              * Directory of musical blocks.
              */
-            private _directory: Pricker.BlockDirectory =
-                new Pricker.BlockDirectory();
+            private _directory: BlockDirectory = new BlockDirectory();
 
             /**
              * Creates the visitor, providing the matcher that should be used.
              * @param _matcher Matcher to be used.
              */
-            constructor(protected _matcher: Pricker.Music.MatcherInterface) {
+            constructor(protected _matcher: Music.MatcherInterface) {
                 super();
             }
 
@@ -48,7 +47,7 @@ namespace Pricker {
              * Reports on musical content of a touch by providing public access
              * to [[_matcher]].
              */
-            public getMatcher(): Pricker.Music.MatcherInterface {
+            public getMatcher(): Music.MatcherInterface {
                 return this._matcher;
             }
 
@@ -56,7 +55,7 @@ namespace Pricker {
              * Reports where music is found within a touch by providing public
              * access to [[_directory]].
              */
-            public getDirectory(): Pricker.BlockDirectory {
+            public getDirectory(): BlockDirectory {
                 return this._directory;
             }
 

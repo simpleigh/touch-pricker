@@ -77,7 +77,7 @@ namespace Pricker {
                 // Queens music
                 // tslint:disable-next-line:switch-default
                 switch (this._stage) {
-                    case Pricker.Stage.Triples:
+                    case Stage.Triples:
                         matchers.push(new PatternGroup(
                             '468',
                             [
@@ -91,7 +91,7 @@ namespace Pricker {
                         ));
                         break;
 
-                    case Pricker.Stage.Caters:
+                    case Stage.Caters:
                         matchers.push(new PatternGroup(
                             '680',
                             [
@@ -105,7 +105,7 @@ namespace Pricker {
                         ));
                         break;
 
-                    case Pricker.Stage.Cinques:
+                    case Stage.Cinques:
                         matchers.push(new PatternGroup(
                             '80T',
                             [
@@ -119,7 +119,7 @@ namespace Pricker {
                         ));
                         break;
 
-                    case Pricker.Stage.Sextuples:
+                    case Stage.Sextuples:
                         matchers.push(new PatternGroup(
                             '0TB',
                             [
@@ -132,7 +132,7 @@ namespace Pricker {
                         ));
                         break;
 
-                    case Pricker.Stage.Septuples:
+                    case Stage.Septuples:
                         matchers.push(new PatternGroup(
                             'TB',
                             [
@@ -191,7 +191,7 @@ namespace Pricker {
                 ));
 
                 // Reverse rollups
-                if (this._stage === Pricker.Stage.Triples) {
+                if (this._stage === Stage.Triples) {
                     matchers.push(new PatternGroup('reverse rollups', [new Pattern('7654')]));
                 } else {
                     patternArray = [ ];

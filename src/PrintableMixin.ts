@@ -43,7 +43,7 @@ namespace Pricker {
      *    [[print]].
      *    For our `Banana` class this would be done as follows:
      *    ```
-     *    Pricker.PrintableMixin.makePrintable(Banana);
+     *    PrintableMixin.makePrintable(Banana);
      *    ```
      *
      * 5. (Optionally) check that everything has worked by extending the new
