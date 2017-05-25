@@ -57,7 +57,7 @@
 
 <span
  class="{{= context.type }}Six"
- onclick="c({{= context.object.getIndex() }})"
+ onclick="pricker.c({{= context.object.getIndex() }})"
 >
 	&nbsp;
 	{{? context.object.getCall() === Pricker.Call.Plain }}

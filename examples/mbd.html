@@ -111,10 +111,10 @@
     <div id="controls">
 
       <div id="tabs">
-        <div id="tab_pricking" onclick="switchTab('pricking')" class="tab tab-selected">Pricking</div>
-        <div id="tab_loadSave" onclick="switchTab('loadSave')" class="tab">Load/Save</div>
-        <div id="tab_siril"    onclick="switchTab('siril')"    class="tab">Siril</div>
-        <div id="tab_music"    onclick="switchTab('music')"    class="tab">Music</div>
+        <div id="tab_pricking" onclick="pricker.switchTab('pricking')" class="tab tab-selected">Pricking</div>
+        <div id="tab_loadSave" onclick="pricker.switchTab('loadSave')" class="tab">Load/Save</div>
+        <div id="tab_siril"    onclick="pricker.switchTab('siril')"    class="tab">Siril</div>
+        <div id="tab_music"    onclick="pricker.switchTab('music')"    class="tab">Music</div>
       </div>
 
       <div id="pages">
@@ -122,7 +122,7 @@
         <div class="page page-selected" id="page_pricking">
           <div>
             <label for="stage">Number of bells:</label>
-            <select id="stage" onchange="setStage()"></select>
+            <select id="stage" onchange="pricker.setStage()"></select>
           </div>
           <div>
             Course from rounds:
@@ -136,21 +136,21 @@
             <form onsubmit="return false">
             <label for="initialRow">Starting row:</label>
             <input type="text" id="initialRow" size="15" maxLength="15" />
-            <button onclick="pricker.setInitialRow(document.getElementById('initialRow').value)">Set</button>
-            <button onclick="pricker.setInitialRow()">Reset</button>
+            <button onclick="pricker.setInitialRow()">Set</button>
+            <button onclick="pricker.resetInitialRow()">Reset</button>
             </form>
           </div>
           <div>
             <form onsubmit="return false">
             <label for="courseLength">Course length:</label>
             <input type="text" id="courseLength" size="2" maxLength="2" />
-            <button onclick="pricker.setLength(parseInt(document.getElementById('courseLength').value))">Set</button>
-            <button onclick="pricker.setLength()">Reset</button>
+            <button onclick="pricker.setLength()">Set</button>
+            <button onclick="pricker.resetLength()">Reset</button>
             </form>
           </div>
           <div>
             <label for="callReset">Current calling:</label>
-            <button id="callReset" onclick="resetCalls()">Reset</button>
+            <button id="callReset" onclick="pricker.resetCalls()">Reset</button>
           </div>
           <div>
             Saved calling:
@@ -162,22 +162,22 @@
 
         <div class="page" id="page_loadSave">
           <form onsubmit="return false">
-            <button onclick="loadTouch()">Import</button>
-            <button onclick="saveTouch()">Export</button>
+            <button onclick="pricker.loadTouch()">Import</button>
+            <button onclick="pricker.saveTouch()">Export</button>
           </form>
           <textarea id="loadSaveTextarea"></textarea>
         </div>
 
         <div class="page" id="page_siril">
           <form onsubmit="return false">
-            <button onclick="generateSiril()">Generate</button>
+            <button onclick="pricker.generateSiril()">Generate</button>
           </form>
           <textarea id="sirilTextarea"></textarea>
         </div>
 
         <div class="page" id="page_music">
           <form onsubmit="return false">
-            <button onclick="analyseMusic()">Analyse</button>
+            <button onclick="pricker.analyseMusic()">Analyse</button>
           </form>
           <textarea id="musicTextarea"></textarea>
         </div>
@@ -188,7 +188,7 @@
 
     <div id="touch">
       <div>
-        <button onclick="prove()">PROVE</button>
+        <button onclick="pricker.prove()">PROVE</button>
         <span id="proofResult"></span>
       </div>
       <div id="numRows"></div>
@@ -215,237 +215,7 @@
     </div>
 
     <script type="text/javascript">
-        var stage,             // Stage we're pricking on
-            course,            // The course itself
-            extraSixes,        // Additional sixes displayed after the course
-            savedCourse,       // Course being saved for later
-            touch,             // Touch being composed
-            selectedIndex,     // Course selected in touch view
-            copiedIndex,       // Course copied from touch view
-            i,                 // Generic counter
-            element,           // Generic HTML element
-            rowCount,          // Count of rows in touch
-            proofText,         // Report of touch proof status
-            falseness,         // Touch index with false sixes
-            music;             // Touch index with musical sixes
-
-        for (i = 7; i <= 15; i = i + 2) {
-            element = document.createElement('option');
-            element.value = i;
-            element.innerText = Pricker.Stage[i];
-            document.getElementById('stage').appendChild(element);
-            if (i === Pricker.Stage.Cinques) {
-                document.getElementById('stage').value = i;
-            }
-        }
-
-        function getInitialRow() {
-            return Pricker.rowFromString('231', stage);
-        }
-
-        function setStage() {
-            'use strict';
-            stage = parseInt(document.getElementById('stage').value);
-            course = new Pricker.Course(getInitialRow());
-            extraSixes = new Pricker.Course(getInitialRow());
-            extraSixes.setLength(8);
-            savedCourse = null;
-            touch = new Pricker.Touch(getInitialRow());
-            resetTouchMetrics();
-            selectedIndex = 0;
-            reDraw();
-        }
-
-        function reDraw() {
-            'use strict';
-            var newCourse;
-
-            extraSixes.setInitialRow(course.getEnd());
-            document.getElementById('sixends').innerHTML = course.print('mbd', {
-                'falseness': falseness,
-                'music': music,
-                'courseIndex': copiedIndex,
-                'extraSixes': extraSixes
-            });
-
-            document.getElementById('calling').innerHTML = course.print('html');
-
-            newCourse = course.clone();
-            newCourse.setInitialRow(getInitialRow());
-            document.getElementById('callingFromRounds').innerHTML =
-                newCourse.print('html');
-
-            document.getElementById('initialRow').value =
-                Pricker.stringFromRow(course.getInitialRow());
-
-            document.getElementById('courseLength').value = course.getLength();
-
-            if (savedCourse) {
-                document.getElementById('savedCalling').innerHTML =
-                    savedCourse.print('html');
-            } else {
-                document.getElementById('savedCalling').innerText = 'None';
-            }
-
-            // Proof and number of rows
-            document.getElementById('proofResult').innerText = proofText || '';
-            if (rowCount) {
-                document.getElementById('numRows').innerText =
-                    rowCount + ' Stedman ' + Pricker.Stage[stage];
-            } else {
-                document.getElementById('numRows').innerText =
-                    touch.estimateRows() + ' changes';
-            }
-
-            // Touch display
-            document.getElementById('courses').outerHTML =
-                '<select id="courses"'
-                    + 'ondblclick="copyCourse()">'
-                    + touch.print('select', {
-                        'touchRows': rowCount,
-                        'styleUnreached': 'color:gray',
-                        'falseness': falseness,
-                        'styleFalse': 'color:red'
-                    })
-                    + '</select>';
-            document.getElementById('courses').size = Math.max(
-                touch.getLength() + 1,
-                2
-            );
-            document.getElementById('courses').value = selectedIndex;
-
-        }
-
-        function resetCalls() {
-            'use strict';
-            course.resetCalls();
-            reDraw();
-        }
-
-        function insertCourse() {
-            'use strict';
-            touch.insertCourse(selectedIndex + 1, course.clone());
-            resetTouchMetrics();
-            selectedIndex += 1;
-
-            if (document.getElementById('rolling').checked) {
-                course.setInitialRow(touch.getCourse(selectedIndex).getEnd());
-                course.resetLength();
-                course.resetCalls();
-            }
-
-            reDraw();
-        }
-
-        function pasteCourse() {
-            'use strict';
-            if (selectedIndex) {
-                touch.deleteCourse(selectedIndex);
-                touch.insertCourse(selectedIndex, course.clone());
-
-                if (document.getElementById('rolling').checked) {
-                    course.setInitialRow(
-                        touch.getCourse(selectedIndex).getEnd()
-                    );
-                    course.resetLength();
-                    course.resetCalls();
-                    selectedIndex =
-                        Math.min(selectedIndex + 1, touch.getLength());
-                }
-
-                reDraw();
-            }
-        }
-
-        function copyCourse() {
-            'use strict';
-            if (selectedIndex) {
-                course = touch.getCourse(selectedIndex).clone();
-                copiedIndex = selectedIndex;
-                reDraw();
-            }
-        }
-
-        function cutCourse() {
-            'use strict';
-            copyCourse();
-            deleteCourse();
-        }
-
-        function deleteCourse() {
-            'use strict';
-            if (selectedIndex) {
-                touch.deleteCourse(selectedIndex);
-                selectedIndex = Math.min(selectedIndex, touch.getLength());
-                resetTouchMetrics();
-                reDraw();
-            }
-        }
-
-        function loadTouch() {
-            'use strict';
-            var input = document.getElementById('loadSaveTextarea').value,
-                newTouch,
-                stage;
-
-            try {
-                newTouch = Pricker.Touch.fromString(input);
-            } catch (e) {
-                // Ignore
-                return;
-            }
-
-            stage = newTouch.getInitialRow().length;
-            document.getElementById('stage').value = stage;
-            setStage();
-
-            touch = newTouch;
-            reDraw();
-        }
-
-        function saveTouch() {
-            'use strict';
-            document.getElementById('loadSaveTextarea').innerText =
-                touch.print('text');
-        }
-
-        function generateSiril() {
-            'use strict';
-            document.getElementById('sirilTextarea').innerText =
-                touch.print('siril', {'touchRows': rowCount});
-        }
-
-        function analyseMusic() {
-            'use strict';
-            var visitor = new Pricker.Visitor.Music(
-                new Pricker.Music.MbdScheme(stage)
-            );
-            touch.accept(visitor);
-            document.getElementById('musicTextarea').innerText =
-                visitor.getMatcher().print('text');
-            music = visitor.getDirectory();
-        }
-
-        function switchTab(pageId) {
-            'use strict';
-            var tabs = document.getElementById('tabs').children,
-                tab = document.getElementById('tab_' + pageId),
-                pages = document.getElementById('pages').children,
-                page = document.getElementById('page_' + pageId),
-                i;
-
-            for (i = 0; i < tabs.length; i += 1) {
-                tabs[i].className = 'tab';
-            }
-            tab.className = 'tab tab-selected';
-
-            for (i = 0; i < pages.length; i += 1) {
-                pages[i].className = 'page';
-            }
-            page.className = 'page page-selected';
-        }
-
-        setStage();
+        var pricker = new Pricker.Pricker.Mbd();
     </script>
   </body>
 </html>
