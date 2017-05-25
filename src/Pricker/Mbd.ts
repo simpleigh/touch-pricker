@@ -276,6 +276,7 @@ namespace Pricker {
             public saveCalling(): void {
                 this._savedCourse = this._course.clone();
                 this._savedCourse.setInitialRow(this._initialRow);
+                this.redraw();
             }
 
             public loadCalling(): void {
@@ -290,6 +291,8 @@ namespace Pricker {
                     'container': this,
                     'index': Block.Course,
                 });
+
+                this.redraw();
             }
 
             public selectCourse(index: number) {
