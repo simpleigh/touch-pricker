@@ -5,7 +5,6 @@
  * @copyright Copyright 2015-17 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../PrintableMixin.ts"/>
 /// <reference path="../TemplateContext.ts" />
 /// <reference path="MatcherInterface.ts" />
 /// <reference path="Pattern.ts" />
@@ -21,7 +20,7 @@ namespace Pricker {
         /**
          * Group of similar patterns to match related rows
          */
-        export class PatternGroup implements MatcherInterface, PrintableMixin {
+        export class PatternGroup implements MatcherInterface {
 
             /**
              * Patterns in this group

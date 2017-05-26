@@ -88,8 +88,4 @@ describe('PatternGroup music class', function () {
         [new Pricker.Music.Pattern('2314567890E')],
     ));
 
-    testPrintableMixinImplementation(
-        () => new Pricker.Music.PatternGroup('test', [ ]),
-    );
-
 });

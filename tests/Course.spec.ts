@@ -80,6 +80,17 @@ describe('Course class', function () {
         expect(course.resetCalls()).toBe(course);
     });
 
+    it('only calls notify once when resetting the calls', function () {
+        const container = jasmine.createSpyObj('Notifiable', ['notify']),
+            course = new Pricker.Course(
+                createTestRow(),
+                {'container': container, 'index': 1},
+            );
+
+        course.resetCalls();
+        expect(container.notify).toHaveBeenCalledTimes(1);
+    });
+
     it('starts out as a plain course', function () {
         const course = new Pricker.Course(createTestRow());
         expect(course.isPlain()).toBe(true);

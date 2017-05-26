@@ -5,7 +5,6 @@
  * @copyright Copyright 2015-17 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../PrintableMixin.ts" />
 /// <reference path="../TemplateContext.ts" />
 /// <reference path="MatcherInterface.ts" />
 /// <reference path="MatchType.ts" />
@@ -21,7 +20,7 @@ namespace Pricker {
         /**
          * Pattern that can be used to match rows
          */
-        export class Pattern implements MatcherInterface, PrintableMixin {
+        export class Pattern implements MatcherInterface {
 
             /**
              * Count of matches

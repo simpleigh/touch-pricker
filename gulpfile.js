@@ -30,14 +30,9 @@ gulp.task('build', function () {
             .pipe(plugins.sourcemaps.init())
             .pipe(tsProject()),
         templates = gulp.src('src/_templates/**/*.dot')
-            .pipe(plugins.sourcemaps.init())
             .pipe(plugins.dotPrecompiler({
                 dictionary: 'Pricker.Templates',
                 varname: 'context',
-            }))
-            .pipe(plugins.sourcemaps.mapSources(function(sourcePath, file) {
-                // Fix source path for templates
-                return 'src/_templates/' + sourcePath;
             }));
 
     return merge([

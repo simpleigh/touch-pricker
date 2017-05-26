@@ -18,13 +18,13 @@ describe('select template for Touch', function () {
 
         expect(touch.print('select')).toBe(
             ''
-                + '<option value="0" onclick="selectCourse(0)">'
+                + '<option value="0">'
                 + Pricker.stringFromRow(touch.getInitialRow())
                 + '</option>'
-                + '<option value="1" onclick="selectCourse(1)">'
+                + '<option value="1">'
                 + touch.getCourse(1).print('text')
                 + '</option>'
-                + '<option value="2" onclick="selectCourse(2)">'
+                + '<option value="2">'
                 + touch.getCourse(2).print('text')
                 + '</option>',
         );
@@ -39,13 +39,13 @@ describe('select template for Touch', function () {
             'styleUnreached': 'color:gray',
         })).toBe(
             ''
-                + '<option value="0" onclick="selectCourse(0)">'
+                + '<option value="0">'
                 + '2314567890E</option>'
-                + '<option value="1" onclick="selectCourse(1)">'
+                + '<option value="1">'
                 + '2314567890E  p</option>'
-                + '<option value="2" onclick="selectCourse(2)">'
+                + '<option value="2">'
                 + '2314567890E  p</option>'
-                + '<option value="3" onclick="selectCourse(3)"'
+                + '<option value="3"'
                 + ' style="color:gray">2314567890E  p</option>',
         );
     });
@@ -62,11 +62,11 @@ describe('select template for Touch', function () {
             'styleFalse': 'color:red',
         })).toBe(
             ''
-                + '<option value="0" onclick="selectCourse(0)">'
+                + '<option value="0">'
                 + '2314567890E</option>'
-                + '<option value="1" onclick="selectCourse(1)"'
+                + '<option value="1"'
                 + ' style="color:red">2314567890E  p</option>'
-                + '<option value="2" onclick="selectCourse(2)">'
+                + '<option value="2">'
                 + '2314567890E  p</option>',
         );
     });

@@ -66,6 +66,4 @@ describe('Pattern music class', function () {
         () => new Pricker.Music.Pattern('2314567890E', 'test'),
     );
 
-    testPrintableMixinImplementation(() => new Pricker.Music.Pattern('231'));
-
 });

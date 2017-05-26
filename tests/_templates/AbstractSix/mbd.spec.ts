@@ -32,7 +32,7 @@ function testMbdAbstractSixTemplate(Six, type: string) {
             expect(six.print('mbd')).toBe(
                 Pricker.stringFromRow(six.getEnd())
                     + '&nbsp;&nbsp;<span class="' + type
-                    + 'Six" onclick="c(1)">'
+                    + 'Six" onclick="pricker.c(1)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
         });
@@ -43,7 +43,7 @@ function testMbdAbstractSixTemplate(Six, type: string) {
             expect(six.print('mbd')).toBe(
                 Pricker.stringFromRow(six.getEnd())
                     + '&nbsp;&nbsp;<span class="' + type
-                    + 'Six" onclick="c(1)">'
+                    + 'Six" onclick="pricker.c(1)">'
                     + '&nbsp;-&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
         });
@@ -54,7 +54,7 @@ function testMbdAbstractSixTemplate(Six, type: string) {
             expect(six.print('mbd')).toBe(
                 Pricker.stringFromRow(six.getEnd())
                     + '&nbsp;&nbsp;<span class="' + type
-                    + 'Six" onclick="c(1)">'
+                    + 'Six" onclick="pricker.c(1)">'
                     + '&nbsp;s&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
         });
@@ -64,7 +64,7 @@ function testMbdAbstractSixTemplate(Six, type: string) {
             expect(six.print('mbd')).toBe(
                 Pricker.stringFromRow(six.getEnd())
                     + '&nbsp;&nbsp;<span class="' + type
-                    + 'Six" onclick="c(999)">'
+                    + 'Six" onclick="pricker.c(999)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;999<br />',
             );
         });
@@ -80,7 +80,7 @@ function testMbdAbstractSixTemplate(Six, type: string) {
                     + Pricker.stringFromRow(six.getEnd())
                     + '</span>'
                     + '&nbsp;&nbsp;<span class="' + type
-                    + 'Six" onclick="c(1)">'
+                    + 'Six" onclick="pricker.c(1)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
         });
@@ -98,7 +98,7 @@ function testMbdAbstractSixTemplate(Six, type: string) {
                     + Pricker.stringFromRow(six.getEnd())
                     + '</span>'
                     + '&nbsp;&nbsp;<span class="' + type
-                    + 'Six" onclick="c(1)">'
+                    + 'Six" onclick="pricker.c(1)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
         });
@@ -120,7 +120,7 @@ function testMbdAbstractSixTemplate(Six, type: string) {
                     + Pricker.stringFromRow(six.getEnd())
                     + '</span>'
                     + '&nbsp;&nbsp;<span class="' + type
-                    + 'Six" onclick="c(1)">'
+                    + 'Six" onclick="pricker.c(1)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
         });
@@ -130,7 +130,7 @@ function testMbdAbstractSixTemplate(Six, type: string) {
             expect(six.print('mbd', {'underline': true})).toBe(
                 '<u>' + Pricker.stringFromRow(six.getEnd()) + '</u>'
                     + '&nbsp;&nbsp;<span class="' + type
-                    + 'Six" onclick="c(1)">'
+                    + 'Six" onclick="pricker.c(1)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
         });

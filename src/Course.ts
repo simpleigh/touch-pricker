@@ -85,8 +85,12 @@ namespace Pricker {
          */
         public resetCalls(): this {
             for (const six of this._blocks) {
-                six.setCall(Call.Plain);
+                six.setCall(Call.Plain, false);  // Avoid multiple updates...
             }
+
+            // ... and trigger one at the end
+            this.getSix(1).setCall(Call.Plain);
+
             return this;
         }
 
@@ -113,11 +117,11 @@ namespace Pricker {
             for (let index = 1; index <= this.getLength(); index += 1) {
                 cloned.getSix(index).setCall(
                     this.getSix(index).getCall(),
-                    false,  // We'll update everything in a few lines
+                    false,  // Avoid multiple updates...
                 );
             }
 
-            // Trigger update of all the end rows
+            // ... and trigger one at the end
             cloned.getSix(1).setCall(this.getSix(1).getCall());
 
             return cloned;
