@@ -301,11 +301,12 @@ namespace Pricker {
             }
 
             public insertCourse(): void {
+                this._selectedIndex += 1;
+
                 this._touch.insertCourse(
-                    this._selectedIndex + 1,
+                    this._selectedIndex,
                     this._course.clone(),
                 );
-                this._selectedIndex += 1;
 
                 if (document.getElementById('rolling').checked) {
                     this._course.setInitialRow(
@@ -314,8 +315,6 @@ namespace Pricker {
                     this._course.resetLength();
                     this._course.resetCalls();
                 }
-
-                this.redraw();
             }
 
             public pasteCourse(): void {
@@ -330,15 +329,13 @@ namespace Pricker {
                         this._course.setInitialRow(
                             this._touch.getCourse(this._selectedIndex).getEnd(),
                         );
-                        this._course.resetLength();
-                        this._course.resetCalls();
                         this._selectedIndex = Math.min(
                             this._selectedIndex + 1,
                             this._touch.getLength(),
                         );
+                        this._course.resetLength();
+                        this._course.resetCalls();
                     }
-
-                    this.redraw();
                 }
             }
 
