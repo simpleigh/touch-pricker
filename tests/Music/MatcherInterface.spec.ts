@@ -48,6 +48,8 @@ function testMatcherInterface(
             expect(matcher.getMatchCount()).toBe(2);
         });
 
+        testPrintableMixinImplementation(createFn);
+
     });
 
 }

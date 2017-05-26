@@ -52,8 +52,6 @@ function testAbstractSchemeImplementation(
 
         testMatcherInterface(createFn, schemeName);
 
-        testPrintableMixinImplementation(() => createFn(Pricker.Stage.Cinques));
-
     });
 
 }

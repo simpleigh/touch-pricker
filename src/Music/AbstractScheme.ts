@@ -5,7 +5,6 @@
  * @copyright Copyright 2015-17 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../PrintableMixin.ts"/>
 /// <reference path="../rowFromString.ts" />
 /// <reference path="../Stage.ts" />
 /// <reference path="../stringFromRow.ts" />
@@ -22,8 +21,7 @@ namespace Pricker {
         /**
          * Abstract music matching scheme
          */
-        export abstract class AbstractScheme
-            implements MatcherInterface, PrintableMixin {
+        export abstract class AbstractScheme implements MatcherInterface {
 
             /**
              * Matchers for this scheme

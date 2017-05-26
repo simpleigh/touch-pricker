@@ -5,6 +5,8 @@
  * @copyright Copyright 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="../PrintableMixin" />
+
 namespace Pricker {
     'use strict';
 
@@ -16,7 +18,7 @@ namespace Pricker {
         /**
          * Interface supported by classes that can match a row for music
          */
-        export interface MatcherInterface {
+        export interface MatcherInterface extends PrintableMixin {
 
             /**
              * Matches a row string
