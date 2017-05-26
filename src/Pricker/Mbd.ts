@@ -215,7 +215,8 @@ namespace Pricker {
                 // Touch display
                 document.getElementById('courses').outerHTML =
                     '<select id="courses"'
-                        + 'ondblclick="pricker.copyCourse()">'
+                        + ' onclick="pricker.selectCourse()"'
+                        + ' ondblclick="pricker.copyCourse()">'
                         + this._touch.print('select', {
                             'touchRows': this._rowCount,
                             'styleUnreached': 'color:gray',
@@ -294,8 +295,9 @@ namespace Pricker {
                 this.redraw();
             }
 
-            public selectCourse(index: number) {
-                this._selectedIndex = index;
+            public selectCourse() {
+                const input = document.getElementById('courses').value;
+                this._selectedIndex = parseInt(input, 10);
             }
 
             public insertCourse(): void {

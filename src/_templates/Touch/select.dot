@@ -20,14 +20,13 @@
 	context.styleFalse = context.styleFalse || '';
 }}
 
-<option value="0" onclick="pricker.selectCourse(0)">
+<option value="0">
 	{{= Pricker.stringFromRow(context.object.getInitialRow()) }}
 </option>
 
 {{~ context.object.getCourses() :course }}
 	<option
 		 value="{{= course.getIndex() }}"
-		 onclick="pricker.selectCourse({{= course.getIndex() }})"
 		{{? context.touchRows <= 0 }}
 			 /* single space */
 			style="{{= context.styleUnreached }}"
