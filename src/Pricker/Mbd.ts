@@ -109,9 +109,10 @@ namespace Pricker {
                     element = document.createElement('option');
                     element.value = i.toString();
                     element.innerText = Stage[i];
-                    document.getElementById('stage').appendChild(element);
+                    this.getEl('stage').appendChild(element);
                 }
-                document.getElementById('stage').value = Stage.Cinques;
+                this.getEl<HTMLSelectElement>('stage').value =
+                    Stage.Cinques.toString();
 
                 this.setStage();
             }
@@ -149,9 +150,17 @@ namespace Pricker {
 
             /* Pricker methods ************************************************/
 
+            /**
+             * Wraps document.getElementById to add type information
+             */
+            protected getEl<T extends HTMLElement>(id: string): T {
+                // Ignore risk elements may be null: this is our own HTML doc
+                return document.getElementById(id) as T;
+            }
+
             public setStage(): void {
                 this._stage =
-                    parseInt(document.getElementById('stage').value, 10);
+                    parseInt(this.getEl<HTMLSelectElement>('stage').value, 10);
                 this._initialRow = rowFromString('231', this._stage);
 
                 this._course = new Course(
@@ -173,47 +182,44 @@ namespace Pricker {
                 const newCourse = this._course.clone();
 
                 this._extraSixes.setInitialRow(this._course.getEnd());
-                document.getElementById('sixends').innerHTML =
-                    this._course.print('mbd', {
-                        'falseness': this._falseness,
-                        'music': this._music,
-                        'courseIndex': this._copiedIndex,
-                        'extraSixes': this._extraSixes,
-                    });
+                this.getEl('sixends').innerHTML = this._course.print('mbd', {
+                    'falseness': this._falseness,
+                    'music': this._music,
+                    'courseIndex': this._copiedIndex,
+                    'extraSixes': this._extraSixes,
+                });
 
-                document.getElementById('calling').innerHTML =
-                    this._course.print('html');
+                this.getEl('calling').innerHTML = this._course.print('html');
 
                 newCourse.setInitialRow(this._initialRow);
-                document.getElementById('callingFromRounds').innerHTML =
+                this.getEl('callingFromRounds').innerHTML =
                     newCourse.print('html');
 
-                document.getElementById('initialRow').value =
+                this.getEl<HTMLInputElement>('initialRow').value =
                     stringFromRow(this._course.getInitialRow());
 
-                document.getElementById('courseLength').value =
-                    this._course.getLength();
+                this.getEl<HTMLInputElement>('courseLength').value =
+                    this._course.getLength().toString();
 
                 if (this._savedCourse) {
-                    document.getElementById('savedCalling').innerHTML =
+                    this.getEl('savedCalling').innerHTML =
                         this._savedCourse.print('html');
                 } else {
-                    document.getElementById('savedCalling').innerText = 'None';
+                    this.getEl('savedCalling').innerText = 'None';
                 }
 
                 // Proof and number of rows
-                document.getElementById('proofResult').innerText =
-                    this._proofText || '';
+                this.getEl('proofResult').innerText = this._proofText || '';
                 if (this._rowCount) {
-                    document.getElementById('numRows').innerText =
+                    this.getEl('numRows').innerText =
                         this._rowCount + ' Stedman ' + Stage[this._stage];
                 } else {
-                    document.getElementById('numRows').innerText =
+                    this.getEl('numRows').innerText =
                         this._touch.estimateRows() + ' changes';
                 }
 
                 // Touch display
-                document.getElementById('courses').outerHTML =
+                this.getEl('courses').outerHTML =
                     '<select id="courses"'
                         + ' onclick="pricker.selectCourse()"'
                         + ' ondblclick="pricker.copyCourse()">'
@@ -224,11 +230,12 @@ namespace Pricker {
                             'styleFalse': 'color:red',
                         })
                         + '</select>';
-                document.getElementById('courses').size = Math.max(
+                this.getEl<HTMLSelectElement>('courses').size = Math.max(
                     this._touch.getLength() + 1,
                     2,
                 );
-                document.getElementById('courses').value = this._selectedIndex;
+                this.getEl<HTMLSelectElement>('courses').value =
+                    this._selectedIndex.toString();
             }
 
             public c(six: number): void {
@@ -236,7 +243,7 @@ namespace Pricker {
             }
 
             public setInitialRow(): void {
-                const input = document.getElementById('initialRow').value;
+                const input = this.getEl<HTMLInputElement>('initialRow').value;
                 let initialRow: Row;
 
                 try {
@@ -257,7 +264,8 @@ namespace Pricker {
             }
 
             public setLength(): void {
-                const input = document.getElementById('courseLength').value,
+                const input =
+                        this.getEl<HTMLInputElement>('courseLength').value,
                     length = parseInt(input, 10);
 
                 if (length) {
@@ -296,7 +304,7 @@ namespace Pricker {
             }
 
             public selectCourse() {
-                const input = document.getElementById('courses').value;
+                const input = this.getEl<HTMLSelectElement>('courses').value;
                 this._selectedIndex = parseInt(input, 10);
             }
 
@@ -308,7 +316,7 @@ namespace Pricker {
                     this._course.clone(),
                 );
 
-                if (document.getElementById('rolling').checked) {
+                if (this.getEl<HTMLInputElement>('rolling').checked) {
                     this._course.setInitialRow(
                         this._touch.getCourse(this._selectedIndex).getEnd(),
                     );
@@ -325,7 +333,7 @@ namespace Pricker {
                         this._course.clone(),
                     );
 
-                    if (document.getElementById('rolling').checked) {
+                    if (this.getEl<HTMLInputElement>('rolling').checked) {
                         this._course.setInitialRow(
                             this._touch.getCourse(this._selectedIndex).getEnd(),
                         );
@@ -370,7 +378,8 @@ namespace Pricker {
             }
 
             public loadTouch() {
-                const input = document.getElementById('loadSaveTextarea').value;
+                const input =
+                    this.getEl<HTMLTextAreaElement>('loadSaveTextarea').value;
                 let newTouch: Touch;
 
                 try {
@@ -381,7 +390,8 @@ namespace Pricker {
                 }
 
                 this._stage = newTouch.getInitialRow().length;
-                document.getElementById('stage').value = this._stage;
+                this.getEl<HTMLSelectElement>('stage').value =
+                    this._stage.toString();
                 this.setStage();
 
                 this._touch = newTouch;
@@ -394,19 +404,19 @@ namespace Pricker {
             }
 
             public saveTouch() {
-                document.getElementById('loadSaveTextarea').innerText =
+                this.getEl('loadSaveTextarea').innerText =
                     this._touch.print('text');
             }
 
             public generateSiril(): void {
-                document.getElementById('sirilTextarea').innerText =
+                this.getEl('sirilTextarea').innerText =
                     this._touch.print('siril', {'touchRows': this._rowCount});
             }
 
             public analyseMusic(): void {
                 const visitor = new Visitor.Music(this._musicScheme);
                 this._touch.accept(visitor);
-                document.getElementById('musicTextarea').innerText =
+                this.getEl('musicTextarea').innerText =
                     visitor.getMatcher().print('text');
                 this._music = visitor.getDirectory();
             }
@@ -434,10 +444,10 @@ namespace Pricker {
             }
 
             public switchTab(pageId: string): void {
-                const tabs = document.getElementById('tabs').children,
-                    tab = document.getElementById('tab_' + pageId),
-                    pages = document.getElementById('pages').children,
-                    page = document.getElementById('page_' + pageId);
+                const tabs = this.getEl('tabs').children,
+                    tab = this.getEl('tab_' + pageId),
+                    pages = this.getEl('pages').children,
+                    page = this.getEl('page_' + pageId);
 
                 // tslint:disable-next-line:prefer-for-of
                 for (let i = 0; i < tabs.length; i += 1) {
