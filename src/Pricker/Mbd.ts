@@ -114,7 +114,7 @@ namespace Pricker {
                 this.getEl<HTMLSelectElement>('stage').value =
                     Stage.Cinques.toString();
 
-                this.setStage();
+                this.onStage();
             }
 
             /* Notifiable methods *********************************************/
@@ -158,7 +158,7 @@ namespace Pricker {
                 return document.getElementById(id) as T;
             }
 
-            public setStage(): void {
+            public onStage(): void {
                 this._stage =
                     parseInt(this.getEl<HTMLSelectElement>('stage').value, 10);
                 this._initialRow = rowFromString('231', this._stage);
@@ -221,8 +221,8 @@ namespace Pricker {
                 // Touch display
                 this.getEl('courses').outerHTML =
                     '<select id="courses"'
-                        + ' onclick="pricker.selectCourse()"'
-                        + ' ondblclick="pricker.copyCourse()">'
+                        + ' onclick="pricker.onSelectCourse()"'
+                        + ' ondblclick="pricker.onCopyCourse()">'
                         + this._touch.print('select', {
                             'touchRows': this._rowCount,
                             'styleUnreached': 'color:gray',
@@ -242,7 +242,7 @@ namespace Pricker {
                 this._course.getSix(six).toggleCall();
             }
 
-            public setInitialRow(): void {
+            public onSetInitialRow(): void {
                 const input = this.getEl<HTMLInputElement>('initialRow').value;
                 let initialRow: Row;
 
@@ -257,13 +257,13 @@ namespace Pricker {
                 this.redraw();
             }
 
-            public resetInitialRow(): void {
+            public onResetInitialRow(): void {
                 this._course.setInitialRow(this._initialRow);
                 this._extraSixes.setInitialRow(this._course.getEnd());
                 this.redraw();
             }
 
-            public setLength(): void {
+            public onSetLength(): void {
                 const input =
                         this.getEl<HTMLInputElement>('courseLength').value,
                     length = parseInt(input, 10);
@@ -273,21 +273,21 @@ namespace Pricker {
                 }
             }
 
-            public resetLength(): void {
+            public onResetLength(): void {
                 this._course.resetLength();
             }
 
-            public resetCalls(): void {
+            public onResetCalls(): void {
                 this._course.resetCalls();
             }
 
-            public saveCalling(): void {
+            public onSaveCalling(): void {
                 this._savedCourse = this._course.clone();
                 this._savedCourse.setInitialRow(this._initialRow);
                 this.redraw();
             }
 
-            public loadCalling(): void {
+            public onLoadCalling(): void {
                 if (this._savedCourse) {
                     this._course = this._savedCourse.clone();
                     this._course.setInitialRow(this._initialRow);
@@ -303,12 +303,12 @@ namespace Pricker {
                 this.redraw();
             }
 
-            public selectCourse() {
+            public onSelectCourse() {
                 const input = this.getEl<HTMLSelectElement>('courses').value;
                 this._selectedIndex = parseInt(input, 10);
             }
 
-            public insertCourse(): void {
+            public onInsertCourse(): void {
                 this._selectedIndex += 1;
 
                 this._touch.insertCourse(
@@ -325,7 +325,7 @@ namespace Pricker {
                 }
             }
 
-            public pasteCourse(): void {
+            public onPasteCourse(): void {
                 if (this._selectedIndex) {
                     this._touch.deleteCourse(this._selectedIndex);
                     this._touch.insertCourse(
@@ -347,7 +347,7 @@ namespace Pricker {
                 }
             }
 
-            public copyCourse(): void {
+            public onCopyCourse(): void {
                 if (this._selectedIndex) {
                     this._course =
                         this._touch.getCourse(this._selectedIndex).clone();
@@ -361,12 +361,12 @@ namespace Pricker {
                 }
             }
 
-            public cutCourse(): void {
-                this.copyCourse();
-                this.deleteCourse();
+            public onCutCourse(): void {
+                this.onCopyCourse();
+                this.onDeleteCourse();
             }
 
-            public deleteCourse(): void {
+            public onDeleteCourse(): void {
                 if (this._selectedIndex) {
                     this._touch.deleteCourse(this._selectedIndex);
                     this._selectedIndex = Math.min(
@@ -377,7 +377,7 @@ namespace Pricker {
                 }
             }
 
-            public loadTouch() {
+            public onLoadTouch() {
                 const input =
                     this.getEl<HTMLTextAreaElement>('loadSaveTextarea').value;
                 let newTouch: Touch;
@@ -392,7 +392,7 @@ namespace Pricker {
                 this._stage = newTouch.getInitialRow().length;
                 this.getEl<HTMLSelectElement>('stage').value =
                     this._stage.toString();
-                this.setStage();
+                this.onStage();
 
                 this._touch = newTouch;
                 this._touch.setOwnership({
@@ -403,17 +403,17 @@ namespace Pricker {
                 this.redraw();
             }
 
-            public saveTouch() {
+            public onSaveTouch() {
                 this.getEl('loadSaveTextarea').innerText =
                     this._touch.print('text');
             }
 
-            public generateSiril(): void {
+            public onGenerateSiril(): void {
                 this.getEl('sirilTextarea').innerText =
                     this._touch.print('siril', {'touchRows': this._rowCount});
             }
 
-            public analyseMusic(): void {
+            public onAnalyseMusic(): void {
                 const visitor = new Visitor.Music(this._musicScheme);
                 this._touch.accept(visitor);
                 this.getEl('musicTextarea').innerText =
@@ -421,7 +421,7 @@ namespace Pricker {
                 this._music = visitor.getDirectory();
             }
 
-            public prove(): boolean {
+            public onProve(): boolean {
                 const proof = new Visitor.Proof(),
                     counter = new Visitor.Counter();
 
@@ -443,7 +443,7 @@ namespace Pricker {
                 return proof.isTrue();
             }
 
-            public switchTab(pageId: string): void {
+            public onTab(pageId: string): void {
                 const tabs = this.getEl('tabs').children,
                     tab = this.getEl('tab_' + pageId),
                     pages = this.getEl('pages').children,
