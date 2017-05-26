@@ -99,24 +99,6 @@ namespace Pricker {
              */
             private _music: BlockDirectory | undefined;
 
-            /**
-             * Constructor
-             */
-            constructor() {
-                let element: HTMLOptionElement;
-
-                for (let i = Stage.Triples; i <= Stage.Septuples; i += 2) {
-                    element = document.createElement('option');
-                    element.value = i.toString();
-                    element.innerText = Stage[i];
-                    this.getEl('stage').appendChild(element);
-                }
-                this.getEl<HTMLSelectElement>('stage').value =
-                    Stage.Cinques.toString();
-
-                this.onStage();
-            }
-
             /* Notifiable methods *********************************************/
 
             /**
@@ -156,6 +138,21 @@ namespace Pricker {
             protected getEl<T extends HTMLElement>(id: string): T {
                 // Ignore risk elements may be null: this is our own HTML doc
                 return document.getElementById(id) as T;
+            }
+
+            public init(): void {
+                let element: HTMLOptionElement;
+
+                for (let i = Stage.Triples; i <= Stage.Septuples; i += 2) {
+                    element = document.createElement('option');
+                    element.value = i.toString();
+                    element.innerText = Stage[i];
+                    this.getEl('stage').appendChild(element);
+                }
+                this.getEl<HTMLSelectElement>('stage').value =
+                    Stage.Cinques.toString();
+
+                this.onStage();
             }
 
             public onStage(): void {

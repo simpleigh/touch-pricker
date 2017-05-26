@@ -1,0 +1,109 @@
+/**
+ * Free Stedman Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-17 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * CSS for MBD-style pricker
+ */
+
+#sixends {
+    float: left;
+    font-family: "Courier New", "Courier", "monospace";
+    font-size: 12pt;
+    margin-right: 25px;
+}
+
+#controls {
+    float: left;
+    margin-right: 25px;
+}
+
+.tab {
+    background-color: #EFEFF7;
+    border-color: black;
+    border-radius: 15px 0 0 0;
+    border-style: solid;
+    border-width: 1px 1px 0 1px;
+    cursor: pointer;
+    float: left;
+    height: 20px;
+    line-height: 20px;
+    padding-left: 5px;
+    text-align: center;
+    width: 80px;
+}
+
+.tab-selected {
+    background-color: #BDBDE7;
+    font-weight: bold;
+}
+
+#pages {
+    margin-top: 20px;
+    position: relative;
+    width: 360px;
+}
+
+.page {
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    height: 480px;
+    left: 0;
+    padding: 9px;
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+    width: 340px;
+}
+
+.page-selected {
+    visibility: visible;
+}
+
+.page div {
+    margin-bottom: 20px;
+}
+
+.page form {
+    height: 25px;
+    margin-bottom: 10px;
+}
+
+.page textarea {
+    border-width: 1px;
+    height: 441px;
+    padding: 1px;
+    width: 336px;
+}
+
+#touch {
+    background-color: #EFEFF7;
+    float: left;
+    padding: 10px;
+}
+
+.slowSix {
+    background-color: #F0F0F8;
+    cursor: pointer;
+}
+
+.quickSix {
+    background-color: #E2E2F0;
+    cursor: pointer;
+}
+
+.extraSix {
+    color: #505050;
+}
+
+.falseBlock {
+    color: red;
+}
+
+.musicalBlock {
+    color: gold;
+}
