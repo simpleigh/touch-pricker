@@ -270,7 +270,6 @@ namespace Pricker {
 
             public resetCalls(): void {
                 this._course.resetCalls();
-                this.redraw();
             }
 
             public saveCalling(): void {
