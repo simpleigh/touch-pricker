@@ -156,7 +156,7 @@ namespace Pricker {
 
             // Second group matches length of course
             if (matches[2]) {
-                course.setLength(parseInt(matches[2], 10));
+                course.setLength(parseInt(matches[2]));
             }
 
             // If this is a plain course then our job is done
@@ -170,12 +170,12 @@ namespace Pricker {
                 call = calls[i];
                 if (call.charAt(0) === 's') {
                     call = call.slice(1);
-                    course.getSix(parseInt(call, 10)).setCall(Call.Single);
+                    course.getSix(parseInt(call)).setCall(Call.Single);
                 } else if (call.slice(-1) === 's') {
                     call = call.slice(0, -1);
-                    course.getSix(parseInt(call, 10)).setCall(Call.Single);
+                    course.getSix(parseInt(call)).setCall(Call.Single);
                 } else {
-                    course.getSix(parseInt(call, 10)).setCall(Call.Bob);
+                    course.getSix(parseInt(call)).setCall(Call.Bob);
                 }
             }
             return course;

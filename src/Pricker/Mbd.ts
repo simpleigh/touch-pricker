@@ -157,7 +157,7 @@ namespace Pricker {
 
             public onStage(): void {
                 this._stage =
-                    parseInt(this.getEl<HTMLSelectElement>('stage').value, 10);
+                    parseInt(this.getEl<HTMLSelectElement>('stage').value);
                 this._initialRow = rowFromString('231', this._stage);
 
                 this._course = new Course(
@@ -263,7 +263,7 @@ namespace Pricker {
             public onSetLength(): void {
                 const input =
                         this.getEl<HTMLInputElement>('courseLength').value,
-                    length = parseInt(input, 10);
+                    length = parseInt(input);
 
                 if (length) {
                     this._course.safeSetLength(length);
@@ -302,7 +302,7 @@ namespace Pricker {
 
             public onSelectCourse() {
                 const input = this.getEl<HTMLSelectElement>('courses').value;
-                this._selectedIndex = parseInt(input, 10);
+                this._selectedIndex = parseInt(input);
             }
 
             public onInsertCourse(): void {
