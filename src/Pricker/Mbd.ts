@@ -101,6 +101,13 @@ namespace Pricker {
              */
             private _music: BlockDirectory | undefined;
 
+            /**
+             * Constructor
+             */
+            constructor(protected _document: HTMLDocument = document) {
+                // NOOP
+            }
+
             /* Notifiable methods *********************************************/
 
             /**
@@ -135,21 +142,29 @@ namespace Pricker {
             /* Pricker methods ************************************************/
 
             /**
-             * Wraps document.getElementById to add type information
+             * Wraps document.getElementById
+             * Adds type information and calls the correct document
              */
             protected getEl<T extends HTMLElement>(id: string): T {
                 // Ignore risk elements may be null: this is our own HTML doc
-                return document.getElementById(id) as T;
+                return this._document.getElementById(id) as T;
             }
 
-            public init(): void {
-                let element: HTMLOptionElement;
+            public onLoad(): void {
+                const style = this._document.createElement('style');
+                let option: HTMLOptionElement;
+
+                style.type = 'text/css';
+                style.innerHTML = this.print('css');
+                this._document.head.appendChild(style);
+
+                this._document.body.innerHTML = this.print('html');
 
                 for (let i = Stage.Triples; i <= Stage.Septuples; i += 2) {
-                    element = document.createElement('option');
-                    element.value = i.toString();
-                    element.innerText = Stage[i];
-                    this.getEl('stage').appendChild(element);
+                    option = document.createElement('option');
+                    option.value = i.toString();
+                    option.innerText = Stage[i];
+                    this.getEl('stage').appendChild(option);
                 }
                 this.getEl<HTMLSelectElement>('stage').value =
                     Stage.Cinques.toString();

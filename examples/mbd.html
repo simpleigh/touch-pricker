@@ -4,19 +4,24 @@
     <title>Stedman Pricker Test Page</title>
     <script type="text/javascript" src="../dist/stedman-pricker.js"></script>
     <script type="text/javascript">
-        var pricker = new Pricker.Pricker.Mbd();
-
         window.onload = function () {
-            var style = document.createElement('style'),
-                div = document.getElementById('pricker');
+            var iframe = document.createElement('iframe'),
+                theDoc,
+                script;
 
-            style.type = 'text/css';
-            style.innerText = pricker.print('css');
-            document.head.appendChild(style);
+            iframe.style.border = 'none';
+            iframe.width = '1000px';  // TODO: remove
+            iframe.height = '1000px';  // TODO: remove
+            document.getElementById('pricker').appendChild(iframe);
 
-            div.innerHTML = pricker.print('html');
+            theDoc = iframe.contentDocument || iframe.contentWindow.document;
 
-            pricker.init();
+            iframe.contentWindow.pricker = new Pricker.Pricker.Mbd(theDoc);
+
+            script = theDoc.createElement('script');
+            script.type = 'text/javascript';
+            script.innerHTML = 'pricker.onLoad();';
+            theDoc.body.appendChild(script);
         };
     </script>
   </head>
