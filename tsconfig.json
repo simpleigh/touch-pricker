@@ -1,13 +1,16 @@
 {
     "compilerOptions": {
+        "alwaysStrict": true,
         "declaration": true,
         "newLine": "LF",
+        "noEmitOnError": true,
         "noFallthroughCasesInSwitch": true,
         "noImplicitAny": true,
         "noImplicitReturns": true,
         "noImplicitThis": true,
         "noUnusedLocals": true,
         "outFile": "dist/stedman-pricker.js",
+        "strict": true,
         "strictNullChecks": true
     },
     "include": [

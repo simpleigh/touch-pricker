@@ -23,10 +23,7 @@ gulp.task('build', function () {
     'use strict';
     var tsResult = tsProject.src()
             .pipe(plugins.tslint({formatter: 'verbose'}))
-            .pipe(plugins.tslint.report({
-                emitError: false,
-                summarizeFailureOutput: true
-            }))
+            .pipe(plugins.tslint.report({summarizeFailureOutput: true}))
             .pipe(plugins.sourcemaps.init())
             .pipe(tsProject()),
         templates = gulp.src('src/_templates/**/*.dot')
@@ -55,10 +52,7 @@ gulp.task('build-tests', ['build'], function () {
 
     specs = gulp.src(['tests/**/*.ts'])
         .pipe(plugins.tslint({formatter: 'verbose'}))
-        .pipe(plugins.tslint.report({
-            emitError: false,
-            summarizeFailureOutput: true
-        }));
+        .pipe(plugins.tslint.report({summarizeFailureOutput: true}));
 
     declarations = gulp.src('dist/stedman-pricker.d.ts');
 
