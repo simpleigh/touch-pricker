@@ -6,22 +6,19 @@
     <script type="text/javascript">
         window.onload = function () {
             var iframe = document.createElement('iframe'),
-                theDoc,
-                script;
+                theDoc;
 
             iframe.style.border = 'none';
             iframe.width = '1000px';  // TODO: remove
             iframe.height = '1000px';  // TODO: remove
             document.getElementById('pricker').appendChild(iframe);
 
-            theDoc = iframe.contentDocument || iframe.contentWindow.document;
+            theDoc = iframe.contentWindow.document;
 
+            theDoc.open();
             iframe.contentWindow.pricker = new Pricker.Pricker.Mbd(theDoc);
-
-            script = theDoc.createElement('script');
-            script.type = 'text/javascript';
-            script.innerHTML = 'pricker.onLoad();';
-            theDoc.body.appendChild(script);
+            theDoc.write(Pricker.Templates['loader']());
+            theDoc.close();
         };
     </script>
   </head>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Free Stedman Pricker</title>
+    <script type="text/javascript">
+        window.onload = function () {
+            pricker.onLoad();
+        };
+    </script>
+  </head>
+  <body></body>
+</html>
