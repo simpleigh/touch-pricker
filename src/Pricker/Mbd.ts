@@ -151,14 +151,7 @@ namespace Pricker {
             }
 
             public onLoad(): void {
-                const style = this._document.createElement('style');
                 let option: HTMLOptionElement;
-
-                style.type = 'text/css';
-                style.innerHTML = this.print('css');
-                this._document.head.appendChild(style);
-
-                this._document.body.innerHTML = this.print('html');
 
                 for (let i = Stage.Triples; i <= Stage.Septuples; i += 2) {
                     option = document.createElement('option');

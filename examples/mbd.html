@@ -6,7 +6,8 @@
     <script type="text/javascript">
         window.onload = function () {
             var iframe = document.createElement('iframe'),
-                theDoc;
+                theDoc,
+                pricker;
 
             iframe.style.border = 'none';
             iframe.width = '1000px';  // TODO: remove
@@ -14,10 +15,11 @@
             document.getElementById('pricker').appendChild(iframe);
 
             theDoc = iframe.contentWindow.document;
+            pricker = new Pricker.Pricker.Mbd(theDoc);
 
             theDoc.open();
-            iframe.contentWindow.pricker = new Pricker.Pricker.Mbd(theDoc);
-            theDoc.write(Pricker.Templates['loader']());
+            iframe.contentWindow.pricker = pricker;
+            theDoc.write(Pricker.Templates['loader']({'pricker': pricker}));
             theDoc.close();
         };
     </script>
