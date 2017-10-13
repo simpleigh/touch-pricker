@@ -104,7 +104,10 @@ namespace Pricker {
             /**
              * Constructor
              */
-            constructor(protected _document: HTMLDocument = document) {
+            constructor(
+                protected _document: HTMLDocument = document,
+                protected _iframe?: HTMLIFrameElement,
+            ) {
                 // NOOP
             }
 
@@ -243,6 +246,15 @@ namespace Pricker {
                 );
                 this.getEl<HTMLSelectElement>('courses').value =
                     this._selectedIndex.toString();
+
+                if (this._iframe) {
+                    if (this._document.body.offsetHeight) {
+                        this._iframe.height =
+                            this._document.body.offsetHeight.toString();
+                        this._iframe.width =
+                            this._document.body.offsetWidth.toString();
+                    }
+                }
             }
 
             public c(six: number): void {

@@ -11,12 +11,13 @@
 
             iframe.frameBorder = 0;
             iframe.style.border = 'none';
-            iframe.width = '1000px';  // TODO: remove
-            iframe.height = '1000px';  // TODO: remove
             document.getElementById('pricker').appendChild(iframe);
 
+            window.name = 'parent';
+            iframe.contentWindow.name = 'child'
+
             theDoc = iframe.contentWindow.document;
-            pricker = new Pricker.Pricker.Mbd(theDoc);
+            pricker = new Pricker.Pricker.Mbd(theDoc, iframe);
 
             theDoc.open();
             iframe.contentWindow.pricker = pricker;
