@@ -26,7 +26,10 @@ namespace Pricker {
 
     /**
      * Prickers
+     * Sadly for tslint, these will shadow the top-level namespace until I can
+     * think of a better name.
      */
+    // tslint:disable-next-line:no-shadowed-variable
     export namespace Pricker {
 
         /**

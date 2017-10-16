@@ -144,7 +144,7 @@ namespace Pricker {
                     + '(?:\\s+' + patSixes + ')?'  // group 2 in here
                     + '\\s*$',
                 rxAll: RegExp = new RegExp(patAll, 'i'),
-                matches: null|string[] = rxAll.exec(input);
+                matches: null | string[] = rxAll.exec(input);
 
             let calls: string[],
                 i: number,
