@@ -8,7 +8,7 @@
   "bugs": "https://github.com/simpleigh/stedman-pricker/issues",
   "devDependencies": {
     "@types/jasmine": "^2.5.51",
-    "del": "^2.2.2",
+    "del": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-append-prepend": "^1.0.3",
     "gulp-concat": "^2.6.1",
@@ -17,7 +17,7 @@
     "gulp-minify": "0.0.15",
     "gulp-sourcemaps": "^2.6.0",
     "gulp-tslint": "^8.1.1",
-    "gulp-typedoc": "^2.0.2",
+    "gulp-typedoc": "^2.1.1",
     "gulp-typescript": "^3.1.7",
     "jasmine-core": "^2.6.2",
     "karma": "^1.7.0",
@@ -30,7 +30,7 @@
     "merge2": "^1.0.3",
     "phantomjs-prebuilt": "^2.1.14",
     "tslint": "^5.4.2",
-    "typedoc": "^0.7.1",
+    "typedoc": "^0.9.0",
     "typescript": "^2.3.4"
   },
   "scripts": {
