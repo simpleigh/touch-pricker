@@ -8,7 +8,8 @@ Free Stedman pricker
 
 ## To build and run tests
 
-    npm install
+    nvm install
+    yarn install
     bin/gulp
 
 (exchange `/` for `\` on Windows)
