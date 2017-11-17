@@ -14,7 +14,6 @@
 /// <reference path="PatternGroup.ts" />
 
 namespace Pricker {
-    'use strict';
 
     /**
      * Music classes to analyse rows

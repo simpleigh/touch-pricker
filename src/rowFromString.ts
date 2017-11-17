@@ -10,7 +10,6 @@
 /// <reference path="Stage" />
 
 namespace Pricker {
-    'use strict';
 
     /**
      * Converts a string into a [[Row]].

@@ -13,7 +13,6 @@
 /// <reference path="Visitor/Abstract.ts" />
 
 namespace Pricker {
-    'use strict';
 
     /**
      * Abstract class representing blocks of rows

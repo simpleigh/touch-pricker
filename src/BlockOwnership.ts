@@ -8,7 +8,6 @@
 /// <reference path="Notifiable.ts" />
 
 namespace Pricker {
-    'use strict';
 
     /**
      * Ownership of a block

@@ -8,7 +8,6 @@
 /// <reference path="TemplateContext.ts" />
 
 namespace Pricker {
-    'use strict';
 
     /**
      * Mixin that provides print functionality via templates

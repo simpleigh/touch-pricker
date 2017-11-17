@@ -10,7 +10,6 @@
 /// <reference path="Row.ts" />
 
 namespace Pricker {
-    'use strict';
 
     /**
      * Simple functions to permute rows

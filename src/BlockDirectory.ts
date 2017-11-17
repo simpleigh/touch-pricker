@@ -9,7 +9,6 @@
 /// <reference path="Notifiable.ts" />
 
 namespace Pricker {
-    'use strict';
 
     /**
      * A block directory

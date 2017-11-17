@@ -8,7 +8,6 @@
 /// <reference path="Bell.ts" />
 
 namespace Pricker {
-    'use strict';
 
     /**
      * A row (permutation of bells)

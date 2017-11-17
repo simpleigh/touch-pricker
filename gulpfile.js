@@ -7,6 +7,8 @@
 
 /*global: require*/
 
+'use strict';
+
 var del = require('del'),
     fs = require('fs'),
     gulp = require('gulp'),
@@ -20,7 +22,6 @@ gulp.task('default', ['test']);
 var tsProject = plugins.typescript.createProject('tsconfig.json');
 
 gulp.task('build', function () {
-    'use strict';
     var tsResult = tsProject.src()
             .pipe(plugins.tslint({formatter: 'verbose'}))
             .pipe(plugins.tslint.report({summarizeFailureOutput: true}))
@@ -45,7 +46,6 @@ gulp.task('build', function () {
 });
 
 gulp.task('build-tests', ['build'], function () {
-    'use strict';
     var specs,
         declarations,
         tsResult;
@@ -68,7 +68,6 @@ gulp.task('build-tests', ['build'], function () {
 });
 
 gulp.task('test', ['build', 'build-tests'], function (done) {
-    'use strict';
     new karma.Server({
         configFile: path.join(__dirname, 'karma.conf.js'),
         browsers: ['PhantomJS']
@@ -76,20 +75,17 @@ gulp.task('test', ['build', 'build-tests'], function (done) {
 });
 
 gulp.task('test-browsers', ['build', 'build-tests'], function (done) {
-    'use strict';
     new karma.Server({
         configFile: path.join(__dirname, 'karma.conf.js')
     }, done).start();
 });
 
 gulp.task('watch', ['default'], function () {
-    'use strict';
     gulp.watch('src/**/*.ts', ['default']);
     gulp.watch('tests/**/*.ts', ['test']);
 });
 
 gulp.task('docs', function () {
-    'use strict';
     tsProject.src()
         .pipe(plugins.typedoc({
             out: 'docs/',
@@ -99,6 +95,5 @@ gulp.task('docs', function () {
 });
 
 gulp.task('clean', function () {
-    'use strict';
     del('dist');
 });

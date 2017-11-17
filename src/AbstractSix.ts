@@ -12,7 +12,6 @@
 /// <reference path="Row.ts" />
 
 namespace Pricker {
-    'use strict';
 
     /**
      * Base class for sixes

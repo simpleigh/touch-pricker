@@ -8,7 +8,6 @@
 /// <reference path="TemplateContext.ts" />
 
 namespace Pricker {
-    'use strict';
 
     /**
      * Container for templates

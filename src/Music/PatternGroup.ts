@@ -10,7 +10,6 @@
 /// <reference path="Pattern.ts" />
 
 namespace Pricker {
-    'use strict';
 
     /**
      * Music classes to analyse rows

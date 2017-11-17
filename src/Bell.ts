@@ -6,7 +6,6 @@
  */
 
 namespace Pricker {
-    'use strict';
 
     /**
      * Bell number

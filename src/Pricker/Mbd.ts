@@ -20,7 +20,6 @@
 /// <reference path="../Visitor/Proof.ts" />
 
 namespace Pricker {
-    'use strict';
 
     enum Block {Course, Touch}
 

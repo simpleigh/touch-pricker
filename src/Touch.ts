@@ -12,7 +12,6 @@
 /// <reference path="Visitor/Abstract.ts" />
 
 namespace Pricker {
-    'use strict';
 
     /**
      * A touch, being a set of courses

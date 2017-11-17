@@ -6,7 +6,6 @@
  */
 
 namespace Pricker {
-    'use strict';
 
     /**
      * Interface for objects that can receive notifications from children

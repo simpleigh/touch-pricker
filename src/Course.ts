@@ -11,7 +11,6 @@
 /// <reference path="Row.ts" />
 
 namespace Pricker {
-    'use strict';
 
     /**
      * A course, being a set of sixes

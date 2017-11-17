@@ -8,7 +8,6 @@
 /// <reference path="Row.ts" />
 
 namespace Pricker {
-    'use strict';
 
     /**
      * Converts a [[Row]] into a string.

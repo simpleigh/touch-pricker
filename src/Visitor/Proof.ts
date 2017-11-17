@@ -12,7 +12,6 @@
 /// <reference path="Abstract.ts" />
 
 namespace Pricker {
-    'use strict';
 
     /**
      * Visitor classes to analyse blocks

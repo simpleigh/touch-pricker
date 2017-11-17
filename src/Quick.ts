@@ -10,7 +10,6 @@
 /// <reference path="Visitor/Abstract.ts" />
 
 namespace Pricker {
-    'use strict';
 
     /**
      * A quick six

@@ -6,7 +6,6 @@
  */
 
 namespace Pricker {
-    'use strict';
 
     /**
      * Matches the number of bells to the name of each stage

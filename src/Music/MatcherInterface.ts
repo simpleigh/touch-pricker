@@ -8,7 +8,6 @@
 /// <reference path="../PrintableMixin" />
 
 namespace Pricker {
-    'use strict';
 
     /**
      * Music classes to analyse rows
