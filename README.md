@@ -23,6 +23,13 @@ Free Stedman pricker
 * `test-browsers` - runs unit tests under various browsers
 * `watch` - rebuild whenever changes are made
 
+## NPM scripts
+
+* `build` - as above
+* `lint` - calls `tslint` in isolation
+* `test` - as above
+* `watch` - as above
+
 ## To test in a browser window
 
 Build tests (`bin/gulp build-tests`) then navigate to `jasmine.html`.

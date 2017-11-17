@@ -6,6 +6,13 @@
   "license": "GPL-3.0",
   "repository": "simpleigh/stedman-pricker",
   "bugs": "https://github.com/simpleigh/stedman-pricker/issues",
+  "scripts": {
+    "build": "gulp",
+    "lint": "tslint '{src,tests}/**/*.ts'",
+    "pretest": "gulp build-tests",
+    "test": "karma start --single-run --browsers PhantomJS",
+    "watch": "gulp watch"
+  },
   "devDependencies": {
     "@types/jasmine": "^2.5.51",
     "del": "^3.0.0",
@@ -32,9 +39,5 @@
     "tslint": "^5.8.0",
     "typedoc": "^0.9.0",
     "typescript": "^2.3.4"
-  },
-  "scripts": {
-    "pretest": "gulp build-tests",
-    "test": "karma start --single-run --browsers PhantomJS"
   }
 }
