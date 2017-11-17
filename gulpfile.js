@@ -31,14 +31,17 @@ gulp.task('build', function () {
             .pipe(plugins.dotPrecompiler({
                 dictionary: 'Pricker.Templates',
                 varname: 'context',
-            }));
+            })),
+        header = fs.readFileSync('header.js', 'utf8');
 
     return merge([
         merge(tsResult.js, templates)
             .pipe(plugins.concat('stedman-pricker.js'))
+            .pipe(plugins.header(header))
             .pipe(plugins.sourcemaps.write())
-            .pipe(plugins.minify({ext: {min: '.min.js'}}))
-            .pipe(plugins.header(fs.readFileSync('header.js', 'utf8')))
+            .pipe(gulp.dest('./dist'))
+            .pipe(plugins.uglify({ output: { preamble: header } }))
+            .pipe(plugins.rename({ extname: '.min.js' }))
             .pipe(gulp.dest('./dist')),
         tsResult.dts
             .pipe(gulp.dest('.'))
