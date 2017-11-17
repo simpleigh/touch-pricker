@@ -1,0 +1,17 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Dotfiles use tabs as these will be removed during compilation
+[*.dot]
+indent_style = tab
+
+# HTML tends to be more nested: shrink intend to 2 spaces
+[*.html]
+indent_size = 2
