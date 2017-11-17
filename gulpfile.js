@@ -8,7 +8,7 @@
 /*global: require*/
 
 var del = require('del'),
-    gap = require('gulp-append-prepend'),
+    fs = require('fs'),
     gulp = require('gulp'),
     karma = require('karma'),
     merge = require('merge2'),
@@ -37,7 +37,7 @@ gulp.task('build', function () {
             .pipe(plugins.concat('stedman-pricker.js'))
             .pipe(plugins.sourcemaps.write())
             .pipe(plugins.minify({ext: {min: '.min.js'}}))
-            .pipe(gap.prependFile('header.js'))
+            .pipe(plugins.header(fs.readFileSync('header.js', 'utf8')))
             .pipe(gulp.dest('./dist')),
         tsResult.dts
             .pipe(gulp.dest('.'))
