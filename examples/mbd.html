@@ -10,11 +10,10 @@
                 pricker;
 
             iframe.frameBorder = 0;
+            // iframe.sandbox = 'allow-scripts';  // TODO
+            iframe.scrolling = 'no';  // TODO
             iframe.style.border = 'none';
             document.getElementById('pricker').appendChild(iframe);
-
-            window.name = 'parent';
-            iframe.contentWindow.name = 'child'
 
             theDoc = iframe.contentWindow.document;
             pricker = new Pricker.Pricker.Mbd(theDoc, iframe);
