@@ -248,20 +248,17 @@ namespace Pricker {
                     this._selectedIndex.toString();
 
                 if (this._iframe) {
-                    const elements = [
-                        this.getEl<HTMLDivElement>('sixends'),
-                        this.getEl<HTMLDivElement>('controls'),
-                        this.getEl<HTMLDivElement>('touch'),
-                    ];
-                    this._iframe.width = elements
-                        .map((element) => element.offsetWidth)
-                        .reduce((total, current) => total + current, 0)
-                        + 50  // margins
-                        + 3   // 3 widths may have fractional part - add cushion
-                        + 'px';
-                    this._iframe.height = Math.max(
-                        ...elements.map((element) => element.offsetHeight),
-                    ) + 1 + 'px';
+                    let width = 0;
+                    let height = 0;
+                    const elements = this._document.body.children;
+                    // tslint:disable-next-line:prefer-for-of
+                    for (let i = 0; i < elements.length; i = i + 1) {
+                        const element = elements[i] as HTMLElement;
+                        width = width + element.offsetWidth;
+                        height = Math.max(height, element.offsetHeight);
+                    }
+                    this._iframe.width = width + 54 + 'px';  // margins + buffer
+                    this._iframe.height = height + 'px';
                 }
             }
 
