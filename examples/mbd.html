@@ -10,8 +10,9 @@
                 pricker;
 
             iframe.frameBorder = 0;
-            // iframe.sandbox = 'allow-scripts';  // TODO
-            iframe.scrolling = 'no';  // TODO
+            iframe.sandbox = 'allow-same-origin allow-scripts';
+            iframe.scrolling = 'no';
+            iframe.src = 'about:blank';
             iframe.style.border = 'none';
             document.getElementById('pricker').appendChild(iframe);
 
