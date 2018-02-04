@@ -247,6 +247,10 @@ namespace Pricker {
                 this.getEl<HTMLSelectElement>('courses').value =
                     this._selectedIndex.toString();
 
+                this.resize();
+            }
+
+            private resize(): void {
                 if (this._iframe) {
                     let width = 0;
                     let height = 0;
@@ -484,6 +488,8 @@ namespace Pricker {
                     pages[i].className = 'page';
                 }
                 page.className = 'page page-selected';
+
+                this.resize();
             }
 
         }
