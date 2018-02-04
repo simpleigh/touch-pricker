@@ -47,8 +47,6 @@ body {
 }
 
 #pages {
-    margin-top: 20px;
-    position: relative;
     width: 360px;
 }
 
@@ -56,21 +54,24 @@ body {
     border-color: black;
     border-style: solid;
     border-width: 1px;
-    height: 480px;
-    left: 0;
+    clear: left;
+    display: none;
     padding: 9px;
-    position: absolute;
-    top: 0;
     visibility: hidden;
     width: 340px;
 }
 
 .page-selected {
+    display: block;
     visibility: visible;
 }
 
-.page div {
+.page div, .page div#savedCalling {
     margin-bottom: 20px;
+}
+
+.page div:last-of-type {
+    margin-bottom: 0px;
 }
 
 .page form {
@@ -80,7 +81,7 @@ body {
 
 .page textarea {
     border-width: 1px;
-    height: 441px;
+    height: 450px;
     padding: 1px;
     width: 336px;
 }
