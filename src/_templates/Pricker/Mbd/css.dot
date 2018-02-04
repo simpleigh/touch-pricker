@@ -9,6 +9,11 @@
  * CSS for MBD-style pricker
  */
 
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
 #sixends {
     float: left;
     font-family: "Courier New", "Courier", "monospace";

@@ -248,12 +248,20 @@ namespace Pricker {
                     this._selectedIndex.toString();
 
                 if (this._iframe) {
-                    if (this._document.body.offsetHeight) {
-                        this._iframe.height =
-                            this._document.body.offsetHeight.toString();
-                        this._iframe.width =
-                            this._document.body.offsetWidth.toString();
-                    }
+                    const elements = [
+                        this.getEl<HTMLDivElement>('sixends'),
+                        this.getEl<HTMLDivElement>('controls'),
+                        this.getEl<HTMLDivElement>('touch'),
+                    ];
+                    this._iframe.width = elements
+                        .map((element) => element.offsetWidth)
+                        .reduce((total, current) => total + current, 0)
+                        + 50  // margins
+                        + 3   // 3 widths may have fractional part - add cushion
+                        + 'px';
+                    this._iframe.height = Math.max(
+                        ...elements.map((element) => element.offsetHeight),
+                    ) + 1 + 'px';
                 }
             }
 
