@@ -5,24 +5,7 @@
     <script type="text/javascript" src="../dist/stedman-pricker.js"></script>
     <script type="text/javascript">
         window.onload = function () {
-            var iframe = document.createElement('iframe'),
-                theDoc,
-                pricker;
-
-            iframe.frameBorder = 0;
-            iframe.sandbox = 'allow-same-origin allow-scripts';
-            iframe.scrolling = 'no';
-            iframe.src = 'about:blank';
-            iframe.style.border = 'none';
-            document.getElementById('pricker').appendChild(iframe);
-
-            theDoc = iframe.contentWindow.document;
-            pricker = new Pricker.Pricker.Mbd(theDoc, iframe);
-
-            theDoc.open();
-            iframe.contentWindow.pricker = pricker;
-            theDoc.write(Pricker.Templates['loader']({'pricker': pricker}));
-            theDoc.close();
+            var pricker = Pricker.create('pricker');
         };
     </script>
   </head>
