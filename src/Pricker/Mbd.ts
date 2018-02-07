@@ -5,6 +5,7 @@
  * @copyright Copyright 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="Abstract.ts" />
 /// <reference path="../BlockDirectory.ts" />
 /// <reference path="../Course.ts" />
 /// <reference path="../Notifiable.ts" />
@@ -34,7 +35,8 @@ namespace Pricker {
         /**
          * An MBD pricker
          */
-        export class Mbd implements Notifiable, PrintableMixin {
+        export class Mbd extends AbstractPricker
+            implements Notifiable, PrintableMixin {
 
             /**
              * Stage we're pricking on
@@ -101,16 +103,6 @@ namespace Pricker {
              */
             private _music: BlockDirectory | undefined;
 
-            /**
-             * Constructor
-             */
-            constructor(
-                protected _document: HTMLDocument = document,
-                protected _iframe?: HTMLIFrameElement,
-            ) {
-                // NOOP
-            }
-
             /* Notifiable methods *********************************************/
 
             /**
@@ -143,15 +135,6 @@ namespace Pricker {
             public readonly templatePath: string = 'Pricker.Mbd';
 
             /* Pricker methods ************************************************/
-
-            /**
-             * Wraps document.getElementById
-             * Adds type information and calls the correct document
-             */
-            protected getEl<T extends HTMLElement>(id: string): T {
-                // Ignore risk elements may be null: this is our own HTML doc
-                return this._document.getElementById(id) as T;
-            }
 
             public onLoad(): void {
                 let option: HTMLOptionElement;
@@ -248,22 +231,6 @@ namespace Pricker {
                     this._selectedIndex.toString();
 
                 this.resize();
-            }
-
-            private resize(): void {
-                if (this._iframe) {
-                    let width = 0;
-                    let height = 0;
-                    const elements = this._document.body.children;
-                    // tslint:disable-next-line:prefer-for-of
-                    for (let i = 0; i < elements.length; i = i + 1) {
-                        const element = elements[i] as HTMLElement;
-                        width = width + element.offsetWidth;
-                        height = Math.max(height, element.offsetHeight);
-                    }
-                    this._iframe.width = width + 54 + 'px';  // margins + buffer
-                    this._iframe.height = height + 'px';
-                }
             }
 
             public c(six: number): void {
