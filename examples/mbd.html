@@ -4,19 +4,8 @@
     <title>Stedman Pricker Test Page</title>
     <script type="text/javascript" src="../dist/stedman-pricker.js"></script>
     <script type="text/javascript">
-        var pricker = new Pricker.Pricker.Mbd();
-
         window.onload = function () {
-            var style = document.createElement('style'),
-                div = document.getElementById('pricker');
-
-            style.type = 'text/css';
-            style.innerText = pricker.print('css');
-            document.head.appendChild(style);
-
-            div.innerHTML = pricker.print('html');
-
-            pricker.init();
+            var pricker = Pricker.create('pricker');
         };
     </script>
   </head>

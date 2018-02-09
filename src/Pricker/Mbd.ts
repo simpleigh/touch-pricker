@@ -5,6 +5,7 @@
  * @copyright Copyright 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="Abstract.ts" />
 /// <reference path="../BlockDirectory.ts" />
 /// <reference path="../Course.ts" />
 /// <reference path="../Notifiable.ts" />
@@ -34,7 +35,8 @@ namespace Pricker {
         /**
          * An MBD pricker
          */
-        export class Mbd implements Notifiable, PrintableMixin {
+        export class Mbd extends AbstractPricker
+            implements Notifiable, PrintableMixin {
 
             /**
              * Stage we're pricking on
@@ -134,22 +136,14 @@ namespace Pricker {
 
             /* Pricker methods ************************************************/
 
-            /**
-             * Wraps document.getElementById to add type information
-             */
-            protected getEl<T extends HTMLElement>(id: string): T {
-                // Ignore risk elements may be null: this is our own HTML doc
-                return document.getElementById(id) as T;
-            }
-
-            public init(): void {
-                let element: HTMLOptionElement;
+            public onLoad(): void {
+                let option: HTMLOptionElement;
 
                 for (let i = Stage.Triples; i <= Stage.Septuples; i += 2) {
-                    element = document.createElement('option');
-                    element.value = i.toString();
-                    element.innerText = Stage[i];
-                    this.getEl('stage').appendChild(element);
+                    option = document.createElement('option');
+                    option.value = i.toString();
+                    option.innerText = Stage[i];
+                    this.getEl('stage').appendChild(option);
                 }
                 this.getEl<HTMLSelectElement>('stage').value =
                     Stage.Cinques.toString();
@@ -235,6 +229,8 @@ namespace Pricker {
                 );
                 this.getEl<HTMLSelectElement>('courses').value =
                     this._selectedIndex.toString();
+
+                this.resize();
             }
 
             public c(six: number): void {
@@ -459,6 +455,8 @@ namespace Pricker {
                     pages[i].className = 'page';
                 }
                 page.className = 'page page-selected';
+
+                this.resize();
             }
 
         }
