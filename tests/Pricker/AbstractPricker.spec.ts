@@ -5,6 +5,8 @@
  * @copyright Copyright 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="../../dist/stedman-pricker.d.ts" />
+
 /**
  * Tests that a pricker behaves as an AbstractPricker
  * @param TestPricker  pricker under test

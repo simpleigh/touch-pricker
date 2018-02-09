@@ -5,6 +5,7 @@
  * @copyright Copyright 2015-17 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="../../dist/stedman-pricker.d.ts" />
 /// <reference path="AbstractPricker.spec.ts" />
 
 describe('Mbd Pricker class', function () {

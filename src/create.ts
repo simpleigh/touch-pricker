@@ -14,17 +14,21 @@ namespace Pricker {
     /**
      * Factory function to create a pricker
      * @param elementId - ID of HTML element to which the pricker will be bound
+     * @param parentDocument - document to use to create pricker (for testing)
      */
-    export function create(elementId: string): Pricker.AbstractPricker {
+    export function create(
+        elementId: string,
+        parentDocument: HTMLDocument = document,
+    ): Pricker.AbstractPricker {
         let theDoc: HTMLDocument;
         let pricker: Pricker.AbstractPricker;
 
-        const element = document.getElementById(elementId);
+        const element = parentDocument.getElementById(elementId);
         if (!element) {
             throw new Error(`Cannot find HTML element: '${elementId}'`);
         }
 
-        const iframe = document.createElement('iframe');
+        const iframe = parentDocument.createElement('iframe');
         iframe.frameBorder = '0';
         if (iframe.sandbox) {
             iframe.sandbox.add('allow-same-origin');
