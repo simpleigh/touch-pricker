@@ -9,7 +9,7 @@
 
 /// <reference path="AbstractScheme.spec.ts" />
 
-describe('Mbd music scheme', function () {
+describe('Mbd music scheme', () => {
 
     const S = Pricker.Stage;
 

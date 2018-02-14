@@ -7,10 +7,10 @@
 
 /// <reference path="AbstractScheme.spec.ts" />
 
-describe('Custom music scheme', function () {
+describe('Custom music scheme', () => {
 
     testAbstractSchemeImplementation(
-        function (stage: Pricker.Stage = Pricker.Stage.Cinques) {
+        (stage: Pricker.Stage = Pricker.Stage.Cinques) => {
             const scheme = new Pricker.Music.CustomScheme(stage);
             scheme.addMatcher(new Pricker.Music.Pattern('2314567890E'));
             return scheme;

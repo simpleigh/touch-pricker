@@ -5,9 +5,9 @@
  * @copyright Copyright 2015-17 Leigh Simpson. All rights reserved.
  */
 
-describe('text template for Touch', function () {
+describe('text template for Touch', () => {
 
-    it('renders a touch correctly', function () {
+    it('renders a touch correctly', () => {
         const text: string = '2314567890E\n'
                 + '2314568790E  1 s10 s13 s15 22\n'
                 + '2314567890E  1 s10 s13 s15 22\n',

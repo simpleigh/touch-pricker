@@ -28,7 +28,7 @@ function testAbstractContainerImplementation(
 ) {
 
     function runLengthTestCases(testFunction) {
-        return function () {
+        return () => {
             for (const testCase of lengthTestCases) {
                 if (!testCase) { continue; }  // IE8 trailing comma
                 testFunction(createTestRow('231', testCase[0]), testCase[1]);
@@ -36,16 +36,16 @@ function testAbstractContainerImplementation(
         };
     }
 
-    describe('is derived from AbstractContainer and', function () {
+    describe('is derived from AbstractContainer and', () => {
 
-        it('starts out with the end row equal to the initial row', function () {
+        it('starts out with the end row equal to the initial row', () => {
             const row = createTestRow(),
                 container = new Container(row);
 
             expect(container.getEnd()).toEqual(row);
         });
 
-        it('keeps the end row in sync with the initial row', function () {
+        it('keeps the end row in sync with the initial row', () => {
             const row = createTestRow(),
                 newRow = createTestRow('123'),
                 container = new Container(row);
@@ -56,14 +56,14 @@ function testAbstractContainerImplementation(
         });
 
         it('starts out the correct length', runLengthTestCases(
-            function (initialRow: Pricker.Row, length: number) {
+            (initialRow: Pricker.Row, length: number) => {
                 const container = new Container(initialRow);
                 expect(container.getLength()).toBe(length);
             },
         ));
 
         it('grants access to all the blocks', runLengthTestCases(
-            function (initialRow: Pricker.Row, length: number) {
+            (initialRow: Pricker.Row, length: number) => {
                 const container = new Container(initialRow);
 
                 // Handle case with zero blocks
@@ -85,7 +85,7 @@ function testAbstractContainerImplementation(
         ));
 
         it('ignores changes to the returned blocks array', runLengthTestCases(
-            function (initialRow: Pricker.Row, length: number) {
+            (initialRow: Pricker.Row, length: number) => {
                 const container = new Container(initialRow);
                 let blocks: any[];
 
@@ -102,7 +102,7 @@ function testAbstractContainerImplementation(
         ));
 
         it('grants access to a contained block', runLengthTestCases(
-            function (initialRow: Pricker.Row, length: number) {
+            (initialRow: Pricker.Row, length: number) => {
                 const container = new Container(initialRow);
 
                 // Handle case with zero blocks
@@ -122,18 +122,18 @@ function testAbstractContainerImplementation(
         ));
 
         it('throws an exception for out-of-bounds blocks', runLengthTestCases(
-            function (initialRow: Pricker.Row, length: number) {
+            (initialRow: Pricker.Row, length: number) => {
                 const container = new Container(initialRow);
 
-                expect(function () { container[getBlockFnName](0); })
+                expect(() => { container[getBlockFnName](0); })
                     .toThrowError('Block index out of range');
-                expect(function () { container[getBlockFnName](length + 1); })
+                expect(() => { container[getBlockFnName](length + 1); })
                     .toThrowError('Block index out of range');
             },
         ));
 
         it('allows the length to be increased', runLengthTestCases(
-            function (initialRow: Pricker.Row, length: number) {
+            (initialRow: Pricker.Row, length: number) => {
                 const container = new Container(initialRow);
                 container.setLength(length + 1);
                 expect(container.getLength()).toBe(length + 1);
@@ -141,7 +141,7 @@ function testAbstractContainerImplementation(
         ));
 
         it('recalculates end row when increasing length', runLengthTestCases(
-            function (initialRow: Pricker.Row, length: number) {
+            (initialRow: Pricker.Row, length: number) => {
                 const container = new Container(initialRow),
                     newLength = length ? length * 2 : 1;
 
@@ -151,7 +151,7 @@ function testAbstractContainerImplementation(
         ));
 
         it('allows the length to be decreased', runLengthTestCases(
-            function (initialRow: Pricker.Row, length: number) {
+            (initialRow: Pricker.Row, length: number) => {
                 const container = new Container(initialRow);
 
                 // Handle case with zero blocks
@@ -166,7 +166,7 @@ function testAbstractContainerImplementation(
         ));
 
         it('recalculates end row when decreasing length', runLengthTestCases(
-            function (initialRow: Pricker.Row, length: number) {
+            (initialRow: Pricker.Row, length: number) => {
                 const container = new Container(initialRow);
                 let newLength: number = Math.floor(length / 2);
 
@@ -183,23 +183,23 @@ function testAbstractContainerImplementation(
         ));
 
         it('returns this when setting the length', runLengthTestCases(
-            function (initialRow: Pricker.Row, length: number) {
+            (initialRow: Pricker.Row, length: number) => {
                 const container = new Container(initialRow);
                 expect(container.setLength(length + 1)).toBe(container);
             },
         ));
 
-        it('throws an exception when setting invalid lengths', function () {
+        it('throws an exception when setting invalid lengths', () => {
             const container = new Container(createTestRow()),
                 [minimum, maximum]: [number, number] = lengthBounds;
 
-            expect(function () { container.setLength(minimum - 1); })
+            expect(() => { container.setLength(minimum - 1); })
                 .toThrowError('Length out of range');
-            expect(function () { container.setLength(maximum + 1); })
+            expect(() => { container.setLength(maximum + 1); })
                 .toThrowError('Length out of range');
         });
 
-        it('provides a way to set lengths without exceptions', function () {
+        it('provides a way to set lengths without exceptions', () => {
             const container = new Container(createTestRow()),
                 [minimum, maximum]: [number, number] = lengthBounds;
 
@@ -209,7 +209,7 @@ function testAbstractContainerImplementation(
             expect(container.getLength()).toBe(maximum);
         });
 
-        it('recalculates blocks when notified of changes', function () {
+        it('recalculates blocks when notified of changes', () => {
             const container = new Container(createTestRow());
 
             function getBlock(index: number): Pricker.AbstractBlock {
@@ -237,7 +237,7 @@ function testAbstractContainerImplementation(
             expect(getBlock(5).setInitialRow).toHaveBeenCalled();
         });
 
-        it('notifies the parent container for length decrease', function () {
+        it('notifies the parent container for length decrease', () => {
             const parent: Pricker.AbstractContainer<typeof Container> =
                     jasmine.createSpyObj('AbstractContainer', ['notify']),
                 container = new Container(
@@ -251,7 +251,7 @@ function testAbstractContainerImplementation(
             expect(parent.notify).toHaveBeenCalledTimes(2);
         });
 
-        it('notifies the parent container for length increase', function () {
+        it('notifies the parent container for length increase', () => {
             const parent: Pricker.AbstractContainer<typeof Container> =
                     jasmine.createSpyObj('AbstractContainer', ['notify']),
                 container = new Container(
@@ -265,7 +265,7 @@ function testAbstractContainerImplementation(
             expect(parent.notify).toHaveBeenCalledTimes(2);
         });
 
-        it('notifies the parent container on notify', function () {
+        it('notifies the parent container on notify', () => {
             const parent: Pricker.AbstractContainer<typeof Container> =
                     jasmine.createSpyObj('AbstractContainer', ['notify']),
                 container = new Container(
@@ -279,7 +279,7 @@ function testAbstractContainerImplementation(
             expect(parent.notify).toHaveBeenCalledTimes(2);
         });
 
-        it('updates the estimate of rows when the length changes', function () {
+        it('updates the estimate of rows when the length changes', () => {
             const container = new Container(createTestRow()),
                 length = container.getLength(),
                 rows = container.estimateRows();

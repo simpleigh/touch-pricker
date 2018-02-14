@@ -8,14 +8,14 @@
 /// <reference path="../functions.ts" />
 /// <reference path="AbstractVisitor.spec.ts" />
 
-describe('Counter visitor', function () {
+describe('Counter visitor', () => {
 
-    it('has a count that starts from zero', function () {
+    it('has a count that starts from zero', () => {
         const visitor = new Pricker.Visitor.Counter();
         expect(visitor.getCount()).toBe(0);
     });
 
-    it('increments the count when it visits a row', function () {
+    it('increments the count when it visits a row', () => {
         const visitor = new Pricker.Visitor.Counter();
         for (let i: number = 1; i < 5; i += 1) {
             visitor.visit(createTestRow());

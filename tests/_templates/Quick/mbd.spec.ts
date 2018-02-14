@@ -7,7 +7,7 @@
 
 /// <reference path="../AbstractSix/mbd.spec.ts" />
 
-describe('mbd template for Quick six', function () {
+describe('mbd template for Quick six', () => {
 
     testMbdAbstractSixTemplate(Pricker.Quick, 'quick');
 

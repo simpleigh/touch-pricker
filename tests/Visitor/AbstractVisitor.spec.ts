@@ -18,27 +18,27 @@ function testAbstractVisitorImplementation(
     getState: (visitor: Pricker.Visitor.AbstractVisitor) => any,
 ) {
 
-    describe('is derived from AbstractVisitor and', function () {
+    describe('is derived from AbstractVisitor and', () => {
 
         let visitor: Pricker.Visitor.AbstractVisitor;
 
         beforeEach(() => { visitor = createFn(); });
 
-        it('returns this when processing a row', function () {
+        it('returns this when processing a row', () => {
             expect(visitor.visit(createTestRow())).toBe(visitor);
         });
 
-        it('starts out processing rows', function () {
+        it('starts out processing rows', () => {
             expect(visitor.isVisiting()).toBe(true);
         });
 
-        it('stops processing rows after rounds is reached', function () {
+        it('stops processing rows after rounds is reached', () => {
             visitor.visit(createTestRow());
             visitor.visit(createTestRow('123'));
             expect(visitor.isVisiting()).toBe(false);
         });
 
-        it('stops changing its state when not processing', function () {
+        it('stops changing its state when not processing', () => {
             let result: any;
 
             visitor.visit(createTestRow());

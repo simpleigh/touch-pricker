@@ -8,17 +8,17 @@
 /// <reference path="functions.ts" />
 /// <reference path="AbstractContainer.spec.ts" />
 
-describe('Course class', function () {
+describe('Course class', () => {
 
     function testImport(input, output) {
-        return function () {
+        return () => {
             expect(
                 Pricker.Course.fromString(createTestRow(), input).print('text'),
             ).toBe(output);
         };
     }
 
-    it('calculates sixes correctly', function () {
+    it('calculates sixes correctly', () => {
         const course = Pricker.Course.fromString(
                     createTestRow(),
                     '2314567890E  1 s10 s13 22',
@@ -56,31 +56,31 @@ describe('Course class', function () {
         }
     });
 
-    it('can be reset to the default length', function () {
+    it('can be reset to the default length', () => {
         const course = new Pricker.Course(createTestRow());
         course.setLength(20);
         course.resetLength();
         expect(course.getLength()).toBe(22);
     });
 
-    it('returns this when resetting the length', function () {
+    it('returns this when resetting the length', () => {
         const course = new Pricker.Course(createTestRow());
         expect(course.resetLength()).toBe(course);
     });
 
-    it('can be reset to a plain course', function () {
+    it('can be reset to a plain course', () => {
         const course = new Pricker.Course(createTestRow());
         course.getSix(5).toggleCall();
         course.resetCalls();
         expect(course.getSix(5).getCall()).toBe(Pricker.Call.Plain);
     });
 
-    it('returns this when resetting the calls', function () {
+    it('returns this when resetting the calls', () => {
         const course = new Pricker.Course(createTestRow());
         expect(course.resetCalls()).toBe(course);
     });
 
-    it('only calls notify once when resetting the calls', function () {
+    it('only calls notify once when resetting the calls', () => {
         const container = jasmine.createSpyObj('Notifiable', ['notify']),
             course = new Pricker.Course(
                 createTestRow(),
@@ -91,18 +91,18 @@ describe('Course class', function () {
         expect(container.notify).toHaveBeenCalledTimes(1);
     });
 
-    it('starts out as a plain course', function () {
+    it('starts out as a plain course', () => {
         const course = new Pricker.Course(createTestRow());
         expect(course.isPlain()).toBe(true);
     });
 
-    it('knows when it is not a plain course', function () {
+    it('knows when it is not a plain course', () => {
         const course = new Pricker.Course(createTestRow());
         course.getSix(5).toggleCall();
         expect(course.isPlain()).toBe(false);
     });
 
-    it('can be cloned', function () {
+    it('can be cloned', () => {
         const course = new Pricker.Course(createTestRow());
         let cloned: Pricker.Course;
 
@@ -114,7 +114,7 @@ describe('Course class', function () {
         expect(cloned.getEnd()).toEqual(course.getEnd());
     });
 
-    it('ignores changes to the cloned course', function () {
+    it('ignores changes to the cloned course', () => {
         const course = new Pricker.Course(createTestRow()),
             getLengthBackup = course.getLength(),
             getEndBackup = course.getEnd(),
@@ -130,7 +130,7 @@ describe('Course class', function () {
         expect(course.getEnd()).toEqual(getEndBackup);
     });
 
-    it('generates the correct rows when visited', function () {
+    it('generates the correct rows when visited', () => {
         const course = new Pricker.Course(createTestRow());
 
         let visitor: Pricker.Visitor.StringArray,
@@ -149,7 +149,7 @@ describe('Course class', function () {
         expect(visitor.getStrings()).toEqual(strings);
     });
 
-    describe('can create courses from strings:', function () {
+    describe('can create courses from strings:', () => {
 
         it('a simple course ending in rounds', testImport(
             '2314567890E  1 s10 s13 22',
@@ -216,8 +216,8 @@ describe('Course class', function () {
             '2314567890E  1 s10 s13 22',
         ));
 
-        it('a broken course (that raises an error)', function () {
-            expect(function () {
+        it('a broken course (that raises an error)', () => {
+            expect(() => {
                 Pricker.Course.fromString(createTestRow(), 'garbage');
             }).toThrowError('Cannot import course');
         });

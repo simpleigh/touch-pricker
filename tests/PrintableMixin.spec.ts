@@ -13,46 +13,46 @@ function testPrintableMixinImplementation(
     createFn: () => Pricker.PrintableMixin,
 ) {
 
-    describe('implements PrintableMixin and', function () {
+    describe('implements PrintableMixin and', () => {
 
         let object: Pricker.PrintableMixin,
             testTemplateSpy: jasmine.Spy;
 
-        beforeEach(function () {
+        beforeEach(() => {
             object = createFn();
             testTemplateSpy = jasmine.createSpy('test');
             Pricker.Templates[object.templatePath + '.test'] = testTemplateSpy;
         });
 
-        afterEach(function () {
+        afterEach(() => {
             delete Pricker.Templates[object.templatePath + '.test'];
         });
 
-        it('defines its template path', function () {
+        it('defines its template path', () => {
             expect(typeof object.templatePath).toBe('string');
             expect(object.templatePath.length).toBeGreaterThan(0);
         });
 
-        it('calls the correct template', function () {
+        it('calls the correct template', () => {
             object.print('test');
             expect(testTemplateSpy).toHaveBeenCalled();
         });
 
-        it('passes itself to templates', function () {
+        it('passes itself to templates', () => {
             let context: any;
             object.print('test');
             context = testTemplateSpy.calls.mostRecent().args[0];
             expect(context.object).toBe(object);
         });
 
-        it('passes additional context to templates', function () {
+        it('passes additional context to templates', () => {
             let context: any;
             object.print('test', {'test': 'extra'});
             context = testTemplateSpy.calls.mostRecent().args[0];
             expect(context.test).toBe('extra');
         });
 
-        it('leaves the passed context unchanged', function () {
+        it('leaves the passed context unchanged', () => {
             const context: Pricker.TemplateContext = { };
             object.print('test', context);
             expect(context).toEqual({ });

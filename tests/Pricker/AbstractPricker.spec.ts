@@ -16,15 +16,15 @@ function testAbstractPrickerImplementation(
     TestPricker,
 ) {
 
-    describe('is derived from AbstractPricker and', function () {
+    describe('is derived from AbstractPricker and', () => {
 
-        it('has a template for printing CSS', function () {
+        it('has a template for printing CSS', () => {
             const pricker = new TestPricker(),
                 templateName = pricker.templatePath + '.css';
             expect(Pricker.Templates[templateName]).toBeDefined();
         });
 
-        it('has a template for printing HTML', function () {
+        it('has a template for printing HTML', () => {
             const pricker = new TestPricker(),
                 templateName = pricker.templatePath + '.html';
             expect(Pricker.Templates[templateName]).toBeDefined();

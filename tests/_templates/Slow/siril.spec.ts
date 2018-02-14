@@ -7,7 +7,7 @@
 
 /// <reference path="../AbstractSix/siril.spec.ts" />
 
-describe('siril template for Slow six', function () {
+describe('siril template for Slow six', () => {
 
     testSirilAbstractSixTemplate(
         Pricker.Slow,

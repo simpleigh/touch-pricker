@@ -9,9 +9,9 @@
 /// <reference path="../PrintableMixin.spec.ts" />
 /// <reference path="MatcherInterface.spec.ts" />
 
-describe('PatternGroup music class', function () {
+describe('PatternGroup music class', () => {
 
-    it('can match a row with any pattern', function () {
+    it('can match a row with any pattern', () => {
         const group = new Pricker.Music.PatternGroup('group', [
                     new Pricker.Music.Pattern('1234567890E'), // fail
                     new Pricker.Music.Pattern('2314567890E'), // pass
@@ -20,7 +20,7 @@ describe('PatternGroup music class', function () {
         expect(group.match('2314567890E')).toBe(true);
     });
 
-    it('combines match counts from patterns', function () {
+    it('combines match counts from patterns', () => {
         const group = new Pricker.Music.PatternGroup('group', [
                     new Pricker.Music.Pattern('2314567890E'), // pass
                     new Pricker.Music.Pattern('1234567890E'), // fail
@@ -31,7 +31,7 @@ describe('PatternGroup music class', function () {
         expect(group.getMatchCount()).toBe(2);
     });
 
-    it('ignores changes to the original patterns', function () {
+    it('ignores changes to the original patterns', () => {
         const patterns: Pricker.Music.Pattern[] = [ ],
             group = new Pricker.Music.PatternGroup('group', patterns);
 
@@ -42,7 +42,7 @@ describe('PatternGroup music class', function () {
         expect(group.getPatterns().length).toBe(0);
     });
 
-    it('provides access to the patterns', function () {
+    it('provides access to the patterns', () => {
         const patterns: Pricker.Music.Pattern[] =
                 [new Pricker.Music.Pattern('2314567890E')],
             group = new Pricker.Music.PatternGroup('test', patterns);
@@ -50,7 +50,7 @@ describe('PatternGroup music class', function () {
         expect(group.getPatterns()).toEqual(patterns);
     });
 
-    it('ignores changes to the returned pattern array', function () {
+    it('ignores changes to the returned pattern array', () => {
         const patterns: Pricker.Music.Pattern[] =
                 [new Pricker.Music.Pattern('2314567890E')],
             group = new Pricker.Music.PatternGroup('test', patterns);
@@ -61,7 +61,7 @@ describe('PatternGroup music class', function () {
         expect(group.getPatterns()).not.toEqual(patterns);
     });
 
-    it('can override the match count with a parent pattern', function () {
+    it('can override the match count with a parent pattern', () => {
         const group = new Pricker.Music.PatternGroup(
                     'group',
                     [new Pricker.Music.Pattern('1234567890E')], // fail
@@ -72,7 +72,7 @@ describe('PatternGroup music class', function () {
         expect(group.getMatchCount()).toBe(1);
     });
 
-    it('still allows access to the subpattern match count', function () {
+    it('still allows access to the subpattern match count', () => {
         const group = new Pricker.Music.PatternGroup(
                     'group',
                     [new Pricker.Music.Pattern('1234567890E')], // fail

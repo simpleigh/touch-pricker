@@ -20,13 +20,13 @@ function testAbstractSchemeImplementation(
     testCases: Array<[Pricker.Stage, string, number, string]>,
 ) {
 
-    describe('is derived from AbstractScheme and', function () {
+    describe('is derived from AbstractScheme and', () => {
 
-        it('provides access to the matchers', function () {
+        it('provides access to the matchers', () => {
             expect(createFn().getMatchers().length).toBeGreaterThan(0);
         });
 
-        it('ignores changes to the returned matchers array', function () {
+        it('ignores changes to the returned matchers array', () => {
             const scheme = createFn(),
                 matchers = scheme.getMatchers(),
                 length = matchers.length;
@@ -35,7 +35,7 @@ function testAbstractSchemeImplementation(
             expect(scheme.getMatchers().length).toBe(length);
         });
 
-        it('matches music correctly', function () {
+        it('matches music correctly', () => {
             for (const testCase of testCases) {
                 if (!testCase) { continue; }  // IE8 trailing comma
                 const stage: Pricker.Stage = testCase[0],

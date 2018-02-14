@@ -12,7 +12,7 @@
 function testSixImplementation(Six, testCases, rowTests) {
 
     function runTestCases(testFunction) {
-        return function () {
+        return () => {
             for (const testCase of testCases) {
                 if (!testCase) { continue; }  // IE8 trailing comma
                 testFunction(
@@ -26,7 +26,7 @@ function testSixImplementation(Six, testCases, rowTests) {
     }
 
     it('transposes the six end correctly', runTestCases(
-        function (previous, expected, stage, call) {
+        (previous, expected, stage, call) => {
             const six = new Six(previous);
             six.setCall(call);
             expect(six.getEnd()).toEqual(expected);
@@ -34,7 +34,7 @@ function testSixImplementation(Six, testCases, rowTests) {
     ));
 
     it('updates when the previous six end changes', runTestCases(
-        function (previous, expected, stage, call) {
+        (previous, expected, stage, call) => {
             const incorrectPrevious: Pricker.Row = createTestRow('', stage),
                 six = new Six(incorrectPrevious);
 
@@ -47,7 +47,7 @@ function testSixImplementation(Six, testCases, rowTests) {
     ));
 
     it('updates when the call is toggled', runTestCases(
-        function (previous, expected, stage, call) {
+        (previous, expected, stage, call) => {
             const six = new Six(previous);
 
             // Set the call to the one before the right one
@@ -67,7 +67,7 @@ function testSixImplementation(Six, testCases, rowTests) {
     ));
 
     it('generates the correct end row when visited', runTestCases(
-        function (previous, expected, stage, call) {
+        (previous, expected, stage, call) => {
             const six = new Six(previous),
                 visitor = new Pricker.Visitor.StringArray();
             let strings: string[];
@@ -80,7 +80,7 @@ function testSixImplementation(Six, testCases, rowTests) {
         },
     ));
 
-    it('generates the correct rows when visited', function () {
+    it('generates the correct rows when visited', () => {
         let initialRow: Pricker.Row,
             six: typeof Six,
             visitor: Pricker.Visitor.StringArray,
@@ -100,7 +100,7 @@ function testSixImplementation(Six, testCases, rowTests) {
         }
     });
 
-    describe('is derived from AbstractSix and', function () {
+    describe('is derived from AbstractSix and', () => {
 
         function createTestSix(
             container: Pricker.AbstractBlock = null,
@@ -115,17 +115,17 @@ function testSixImplementation(Six, testCases, rowTests) {
             return new Six(createTestRow());
         }
 
-        it('starts life as a plain six', function () {
+        it('starts life as a plain six', () => {
             expect(createTestSix().getCall()).toBe(Pricker.Call.Plain);
         });
 
-        it('lets the call be set', function () {
+        it('lets the call be set', () => {
             const six = createTestSix();
             six.setCall(Pricker.Call.Bob);
             expect(six.getCall()).toBe(Pricker.Call.Bob);
         });
 
-        it('rotates between calls when toggled', function () {
+        it('rotates between calls when toggled', () => {
             const six = createTestSix();
 
             six.toggleCall();
@@ -138,14 +138,14 @@ function testSixImplementation(Six, testCases, rowTests) {
             expect(six.getCall()).toBe(Pricker.Call.Plain);
         });
 
-        it('returns the new call when toggled', function () {
+        it('returns the new call when toggled', () => {
             const six = createTestSix();
             expect(six.toggleCall()).toBe(Pricker.Call.Bob);
             expect(six.toggleCall()).toBe(Pricker.Call.Single);
             expect(six.toggleCall()).toBe(Pricker.Call.Plain);
         });
 
-        it('can suppress updates when a call is set', function () {
+        it('can suppress updates when a call is set', () => {
             const six = createTestSix(),
                 originalEnd: Pricker.Row = six.getEnd();
 
@@ -153,28 +153,28 @@ function testSixImplementation(Six, testCases, rowTests) {
             expect(six.getEnd()).toEqual(originalEnd);
         });
 
-        it('notifies the parent course when a call is set', function () {
+        it('notifies the parent course when a call is set', () => {
             const parent = jasmine.createSpyObj('Course', ['notify']),
                 six = createTestSix(parent);
             six.setCall(Pricker.Call.Plain);
             expect(parent.notify).toHaveBeenCalledWith(999);
         });
 
-        it('notifies the parent course when toggled', function () {
+        it('notifies the parent course when toggled', () => {
             const parent = jasmine.createSpyObj('Course', ['notify']),
                 six = createTestSix(parent);
             six.toggleCall();
             expect(parent.notify).toHaveBeenCalledWith(999);
         });
 
-        it('can suppress notification when a call is set', function () {
+        it('can suppress notification when a call is set', () => {
             const parent = jasmine.createSpyObj('Course', ['notify']),
                 six = createTestSix(parent);
             six.setCall(Pricker.Call.Plain, false);
             expect(parent.notify).not.toHaveBeenCalled();
         });
 
-        it('passes itself to visitors', function () {
+        it('passes itself to visitors', () => {
             const six = new Six(createTestRow('123')),
                 visitor = jasmine.createSpyObj('AbstractVisitor', ['visit']);
 

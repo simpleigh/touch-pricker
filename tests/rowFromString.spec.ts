@@ -5,9 +5,9 @@
  * @copyright Copyright 2015-17 Leigh Simpson. All rights reserved.
  */
 
-describe('rowFromString function', function () {
+describe('rowFromString function', () => {
 
-    it('converts strings to rows', function () {
+    it('converts strings to rows', () => {
         expect(
             Pricker.rowFromString('2315476', Pricker.Stage.Triples),
         ).toEqual([2, 3, 1, 5, 4, 7, 6]);
@@ -25,37 +25,37 @@ describe('rowFromString function', function () {
         ).toEqual([2, 3, 1, 5, 4, 7, 6, 9, 8, 11, 10, 13, 12, 15, 14]);
     });
 
-    it('copes with lowercase letters', function () {
+    it('copes with lowercase letters', () => {
         expect(
             Pricker.rowFromString('231547698e0atcb', Pricker.Stage.Septuples),
         ).toEqual([2, 3, 1, 5, 4, 7, 6, 9, 8, 11, 10, 13, 12, 15, 14]);
     });
 
-    it('rejects repeated bells', function () {
-        expect(function () {
+    it('rejects repeated bells', () => {
+        expect(() => {
             Pricker.rowFromString('1123456', Pricker.Stage.Triples);
         }).toThrowError('Bell repeated');
     });
 
-    it('rejects unknown symbols', function () {
-        expect(function () {
+    it('rejects unknown symbols', () => {
+        expect(() => {
             Pricker.rowFromString('123#567', Pricker.Stage.Triples);
         }).toThrowError('Unknown bell');
     });
 
-    it('rejects bells that are too high', function () {
-        expect(function () {
+    it('rejects bells that are too high', () => {
+        expect(() => {
             Pricker.rowFromString('1238567', Pricker.Stage.Triples);
         }).toThrowError('Unknown bell');
     });
 
-    it('rejects rows that are too long', function () {
-        expect(function () {
+    it('rejects rows that are too long', () => {
+        expect(() => {
             Pricker.rowFromString('12345678', Pricker.Stage.Triples);
         }).toThrowError('Row too long');
     });
 
-    it("fills in bells that aren't specified", function () {
+    it("fills in bells that aren't specified", () => {
         expect(
             Pricker.rowFromString('231', Pricker.Stage.Triples),
         ).toEqual([2, 3, 1, 4, 5, 6, 7]);

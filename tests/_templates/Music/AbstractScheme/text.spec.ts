@@ -5,19 +5,19 @@
  * @copyright Copyright 2015-17 Leigh Simpson. All rights reserved.
  */
 
-describe('text template for AbstractScheme music class', function () {
+describe('text template for AbstractScheme music class', () => {
 
     let scheme: Pricker.Music.CustomScheme;
 
-    beforeEach(function () {
+    beforeEach(() => {
         scheme = new Pricker.Music.CustomScheme(Pricker.Stage.Cinques);
     });
 
-    it('displays nothing when nothing matches', function () {
+    it('displays nothing when nothing matches', () => {
         expect(scheme.print('text')).toBe('');
     });
 
-    it('displays matches by calling contained matchers', function () {
+    it('displays matches by calling contained matchers', () => {
         const pattern1 = jasmine.createSpyObj('Pattern', ['print']),
             pattern2 = jasmine.createSpyObj('Pattern', ['print']);
 

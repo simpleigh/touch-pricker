@@ -15,7 +15,7 @@
 // tslint:disable-next-line:variable-name
 function testMbdAbstractSixTemplate(Six, type: string) {
 
-    describe('is derived from mbd template for AbstractSix and', function () {
+    describe('is derived from mbd template for AbstractSix and', () => {
 
         function createTestSix(index: number): typeof Six {
             const container: Pricker.AbstractContainer<typeof Six> =
@@ -27,7 +27,7 @@ function testMbdAbstractSixTemplate(Six, type: string) {
             );
         }
 
-        it('renders a six correctly', function () {
+        it('renders a six correctly', () => {
             const six = createTestSix(1);
             expect(six.print('mbd')).toBe(
                 Pricker.stringFromRow(six.getEnd())
@@ -37,7 +37,7 @@ function testMbdAbstractSixTemplate(Six, type: string) {
             );
         });
 
-        it('displays bobbed sixes correctly', function () {
+        it('displays bobbed sixes correctly', () => {
             const six = createTestSix(1);
             six.setCall(Pricker.Call.Bob);
             expect(six.print('mbd')).toBe(
@@ -48,7 +48,7 @@ function testMbdAbstractSixTemplate(Six, type: string) {
             );
         });
 
-        it('displays singled sixes correctly', function () {
+        it('displays singled sixes correctly', () => {
             const six = createTestSix(1);
             six.setCall(Pricker.Call.Single);
             expect(six.print('mbd')).toBe(
@@ -59,7 +59,7 @@ function testMbdAbstractSixTemplate(Six, type: string) {
             );
         });
 
-        it('displays the index correctly', function () {
+        it('displays the index correctly', () => {
             const six = createTestSix(999);
             expect(six.print('mbd')).toBe(
                 Pricker.stringFromRow(six.getEnd())
@@ -69,7 +69,7 @@ function testMbdAbstractSixTemplate(Six, type: string) {
             );
         });
 
-        it('highlights sixes based on a music directory', function () {
+        it('highlights sixes based on a music directory', () => {
             const six = createTestSix(1),
                 music = new Pricker.BlockDirectory();
 
@@ -85,7 +85,7 @@ function testMbdAbstractSixTemplate(Six, type: string) {
             );
         });
 
-        it('highlights sixes based on a falseness directory', function () {
+        it('highlights sixes based on a falseness directory', () => {
             const six = createTestSix(1),
                 falseness = new Pricker.BlockDirectory();
 
@@ -103,7 +103,7 @@ function testMbdAbstractSixTemplate(Six, type: string) {
             );
         });
 
-        it('gives priority to falseness over music', function () {
+        it('gives priority to falseness over music', () => {
             const six = createTestSix(1),
                 falseness = new Pricker.BlockDirectory(),
                 music = new Pricker.BlockDirectory();
@@ -125,7 +125,7 @@ function testMbdAbstractSixTemplate(Six, type: string) {
             );
         });
 
-        it('can underline a sixend', function () {
+        it('can underline a sixend', () => {
             const six = createTestSix(1);
             expect(six.print('mbd', {'underline': true})).toBe(
                 '<u>' + Pricker.stringFromRow(six.getEnd()) + '</u>'

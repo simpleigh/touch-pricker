@@ -16,37 +16,37 @@
 // tslint:disable-next-line:variable-name
 function testSirilAbstractSixTemplate(Six, type: string, notation: string[]) {
 
-    describe('is a siril template', function () {
+    describe('is a siril template', () => {
 
-        it('renders a six correctly', function () {
+        it('renders a six correctly', () => {
             const six = new Six(createTestRow());
             expect(six.print('siril')).toBe('plain, ' + type + ', ');
         });
 
-        it('renders a bobbed six', function () {
+        it('renders a bobbed six', () => {
             const six = new Six(createTestRow());
             six.setCall(Pricker.Call.Bob);
             expect(six.print('siril')).toBe('bob, ' + type + ', ');
         });
 
-        it('renders a singled six', function () {
+        it('renders a singled six', () => {
             const six = new Six(createTestRow());
             six.setCall(Pricker.Call.Single);
             expect(six.print('siril')).toBe('single, ' + type + ', ');
         });
 
-        it('renders just the call when only one row is needed', function () {
+        it('renders just the call when only one row is needed', () => {
             const six = new Six(createTestRow());
             expect(six.print('siril', {'touchRows': 1})).toBe('plain, ');
         });
 
-        it('renders the whole six when six rows are needed', function () {
+        it('renders the whole six when six rows are needed', () => {
             const six = new Six(createTestRow());
             expect(six.print('siril', {'touchRows': 6}))
                 .toBe('plain, ' + type + ', ');
         });
 
-        it('renders place notation for lengths in between', function () {
+        it('renders place notation for lengths in between', () => {
             const six = new Six(createTestRow());
             for (let touchRows: number = 2; touchRows <= 5; touchRows += 1) {
                 expect(six.print('siril', {'touchRows': touchRows})).toBe(

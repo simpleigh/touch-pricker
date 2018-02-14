@@ -7,14 +7,14 @@
 
 /// <reference path="../../../functions.ts" />
 
-describe('text template for PatternGroup music class', function () {
+describe('text template for PatternGroup music class', () => {
 
-    it('displays nothing when nothing matches', function () {
+    it('displays nothing when nothing matches', () => {
         const group = new Pricker.Music.PatternGroup('group', [ ]);
         expect(group.print('text')).toBe('');
     });
 
-    it('displays one match correctly', function () {
+    it('displays one match correctly', () => {
         const group = new Pricker.Music.PatternGroup(
                     'group',
                     [new Pricker.Music.Pattern('90E')],
@@ -24,7 +24,7 @@ describe('text template for PatternGroup music class', function () {
         expect(group.print('text')).toBe('1 group (1 90E)\n');
     });
 
-    it('displays multiple matches correctly', function () {
+    it('displays multiple matches correctly', () => {
         const group = new Pricker.Music.PatternGroup('group', [
                     new Pricker.Music.Pattern('90E'),
                     new Pricker.Music.Pattern('890E'),
@@ -34,7 +34,7 @@ describe('text template for PatternGroup music class', function () {
         expect(group.print('text')).toBe('2 group (1 90E, 1 890E)\n');
     });
 
-    it('ignores unmatched patterns', function () {
+    it('ignores unmatched patterns', () => {
         const group = new Pricker.Music.PatternGroup('group', [
                     new Pricker.Music.Pattern('90E'),
                     new Pricker.Music.Pattern('09E'),
@@ -44,7 +44,7 @@ describe('text template for PatternGroup music class', function () {
         expect(group.print('text')).toBe('1 group (1 90E)\n');
     });
 
-    it('hides pattern counts if only the parent pattern matches', function () {
+    it('hides pattern counts if only the parent pattern matches', () => {
         const group = new Pricker.Music.PatternGroup(
                     'group',
                     [new Pricker.Music.Pattern('1234567890E')], // fail

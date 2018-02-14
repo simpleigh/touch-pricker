@@ -21,7 +21,7 @@ gulp.task('default', ['test']);
 
 var tsProject = plugins.typescript.createProject('tsconfig.json');
 
-gulp.task('build', function () {
+gulp.task('build', () => {
     var tsResult = tsProject.src()
             .pipe(plugins.tslint({formatter: 'verbose'}))
             .pipe(plugins.tslint.report({summarizeFailureOutput: true}))
@@ -48,7 +48,7 @@ gulp.task('build', function () {
     ]);
 });
 
-gulp.task('build-tests', ['build'], function () {
+gulp.task('build-tests', ['build'], () => {
     var specs,
         declarations,
         tsResult;
@@ -70,25 +70,25 @@ gulp.task('build-tests', ['build'], function () {
         .pipe(gulp.dest('.'));
 });
 
-gulp.task('test', ['build', 'build-tests'], function (done) {
+gulp.task('test', ['build', 'build-tests'], (done) => {
     new karma.Server({
         configFile: path.join(__dirname, 'karma.conf.js'),
         browsers: ['PhantomJS']
     }, done).start();
 });
 
-gulp.task('test-browsers', ['build', 'build-tests'], function (done) {
+gulp.task('test-browsers', ['build', 'build-tests'], (done) => {
     new karma.Server({
         configFile: path.join(__dirname, 'karma.conf.js')
     }, done).start();
 });
 
-gulp.task('watch', ['default'], function () {
+gulp.task('watch', ['default'], () => {
     gulp.watch('src/**/*.ts', ['default']);
     gulp.watch('tests/**/*.ts', ['test']);
 });
 
-gulp.task('docs', function () {
+gulp.task('docs', () => {
     tsProject.src()
         .pipe(plugins.typedoc({
             out: 'docs/',
@@ -97,6 +97,6 @@ gulp.task('docs', function () {
         }));
 });
 
-gulp.task('clean', function () {
+gulp.task('clean', () => {
     del('dist');
 });

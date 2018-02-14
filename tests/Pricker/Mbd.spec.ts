@@ -8,7 +8,7 @@
 /// <reference path="../../dist/stedman-pricker.d.ts" />
 /// <reference path="AbstractPricker.spec.ts" />
 
-describe('Mbd Pricker class', function () {
+describe('Mbd Pricker class', () => {
 
     testAbstractPrickerImplementation(
         Pricker.Pricker.Mbd,

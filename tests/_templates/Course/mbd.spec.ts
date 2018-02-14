@@ -7,9 +7,9 @@
 
 /// <reference path="../../functions.ts" />
 
-describe('mbd template for Course', function () {
+describe('mbd template for Course', () => {
 
-    it('renders a course correctly', function () {
+    it('renders a course correctly', () => {
         const course = Pricker.Course.fromString(createTestRow(), 's2 3 (4)');
         expect(course.print('mbd')).toBe(''
             + '<u>2314567890E</u><br />'
@@ -20,7 +20,7 @@ describe('mbd template for Course', function () {
         );
     });
 
-    it('can print extra sixes after the pricker', function () {
+    it('can print extra sixes after the pricker', () => {
         const course = new Pricker.Course(createTestRow()),
             extraSixes = course.clone();
 

@@ -7,7 +7,7 @@
 
 /// <reference path="AbstractSix.spec.ts" />
 
-describe('Slow six class', function () {
+describe('Slow six class', () => {
     const S = Pricker.Stage,
         C = Pricker.Call;
 

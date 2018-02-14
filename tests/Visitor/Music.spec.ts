@@ -8,28 +8,28 @@
 /// <reference path="../functions.ts" />
 /// <reference path="AbstractVisitor.spec.ts" />
 
-describe('Music visitor', function () {
+describe('Music visitor', () => {
 
-    it('allows access to the provided matcher', function () {
+    it('allows access to the provided matcher', () => {
         const matcher = new Pricker.Music.MbdScheme(Pricker.Stage.Cinques),
             visitor = new Pricker.Visitor.Music(matcher);
         expect(visitor.getMatcher()).toBe(matcher);
     });
 
-    it('matches rows using the provided matcher', function () {
+    it('matches rows using the provided matcher', () => {
         const matcher = jasmine.createSpyObj('MatcherInterface', ['match']),
             visitor = new Pricker.Visitor.Music(matcher);
         visitor.visit(createTestRow());
         expect(matcher.match).toHaveBeenCalledWith('2314567890E');
     });
 
-    it('builds up an directory that starts out empty', function () {
+    it('builds up an directory that starts out empty', () => {
         const matcher = new Pricker.Music.MbdScheme(Pricker.Stage.Cinques),
             visitor = new Pricker.Visitor.Music(matcher);
         expect(visitor.getDirectory().isEmpty()).toBe(true);
     });
 
-    it('adds matched blocks to the directory', function () {
+    it('adds matched blocks to the directory', () => {
         const matcher = jasmine.createSpyObj('MatcherInterface', ['match']),
             visitor = new Pricker.Visitor.Music(matcher),
             touch = new Pricker.Touch(createTestRow());
@@ -43,7 +43,7 @@ describe('Music visitor', function () {
         ).toBe(true);
     });
 
-    it('does not add unmatched blocks to the directory', function () {
+    it('does not add unmatched blocks to the directory', () => {
         const matcher = jasmine.createSpyObj('MatcherInterface', ['match']),
             visitor = new Pricker.Visitor.Music(matcher),
             touch = new Pricker.Touch(createTestRow());

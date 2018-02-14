@@ -17,30 +17,30 @@ function testMatcherInterface(
     matcherName: string = 'test',
 ) {
 
-    describe('implements MatcherInterface and', function () {
+    describe('implements MatcherInterface and', () => {
 
         let matcher: Pricker.Music.MatcherInterface;
 
         beforeEach(() => { matcher = createFn(); });
 
-        it('can match a row', function () {
+        it('can match a row', () => {
             expect(matcher.match('2314567890E')).toBe(true);
         });
 
-        it('can identify a mismatch', function () {
+        it('can identify a mismatch', () => {
             // Unmusical test row that's not likely to be matched
             expect(matcher.match('2614E378509')).toBe(false);
         });
 
-        it('provides read access to the matcher name', function () {
+        it('provides read access to the matcher name', () => {
             expect(matcher.getName()).toBe(matcherName);
         });
 
-        it('starts out with no matches', function () {
+        it('starts out with no matches', () => {
             expect(matcher.getMatchCount()).toBe(0);
         });
 
-        it('increments the match count for each match', function () {
+        it('increments the match count for each match', () => {
             matcher.match('2314567890E');
             expect(matcher.getMatchCount()).toBe(1);
 

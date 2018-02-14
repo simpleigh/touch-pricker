@@ -5,9 +5,9 @@
  * @copyright Copyright 2015-17 Leigh Simpson. All rights reserved.
  */
 
-describe('Stage enum', function () {
+describe('Stage enum', () => {
 
-    it('maps stage names to numbers of bells', function () {
+    it('maps stage names to numbers of bells', () => {
         expect(Pricker.Stage.Triples).toBe(7);
         expect(Pricker.Stage.Caters).toBe(9);
         expect(Pricker.Stage.Cinques).toBe(11);
@@ -15,7 +15,7 @@ describe('Stage enum', function () {
         expect(Pricker.Stage.Septuples).toBe(15);
     });
 
-    it('maps numbers of bells to stage names', function () {
+    it('maps numbers of bells to stage names', () => {
         expect(Pricker.Stage[7]).toBe('Triples');
         expect(Pricker.Stage[9]).toBe('Caters');
         expect(Pricker.Stage[11]).toBe('Cinques');

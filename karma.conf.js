@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-17 Leigh Simpson. All rights reserved.
  */
 
-module.exports = function(config) {
+module.exports = (config) => {
     config.set({
         autoWatch: false,
         browsers: ['Chrome', 'Edge', 'Firefox', 'IE', 'PhantomJS'],

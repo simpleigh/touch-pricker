@@ -12,9 +12,9 @@ function createChangeTests(
     testCases: Array<[string, Pricker.Stage]>,
 ) {
 
-    return function () {
+    return () => {
 
-        it('applies the permutation correctly', function () {
+        it('applies the permutation correctly', () => {
             let expected: string,
                 stage: Pricker.Stage,
                 row: Pricker.Row;
@@ -34,7 +34,7 @@ function createChangeTests(
 
 }
 
-describe('Changes:', function () {
+describe('Changes:', () => {
 
     describe('permute1 function', createChangeTests(
         Pricker.Changes.permute1,
@@ -91,23 +91,23 @@ describe('Changes:', function () {
         ],
     ));
 
-    describe('permuteCall function', function () {
+    describe('permuteCall function', () => {
 
-        it('can apply plain transpositions', function () {
+        it('can apply plain transpositions', () => {
             const row = createTestRow();
             spyOn(Pricker.Changes, 'permuteN');
             Pricker.Changes.permuteCall(row, Pricker.Call.Plain);
             expect(Pricker.Changes.permuteN).toHaveBeenCalledWith(row);
         });
 
-        it('can apply bob transpositions', function () {
+        it('can apply bob transpositions', () => {
             const row = createTestRow();
             spyOn(Pricker.Changes, 'permuteBob');
             Pricker.Changes.permuteCall(row, Pricker.Call.Bob);
             expect(Pricker.Changes.permuteBob).toHaveBeenCalledWith(row);
         });
 
-        it('can apply single transpositions', function () {
+        it('can apply single transpositions', () => {
             const row = createTestRow();
             spyOn(Pricker.Changes, 'permuteSingle');
             Pricker.Changes.permuteCall(row, Pricker.Call.Single);

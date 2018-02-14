@@ -5,9 +5,9 @@
  * @copyright Copyright 2015-17 Leigh Simpson. All rights reserved.
  */
 
-describe('stringFromRow function', function () {
+describe('stringFromRow function', () => {
 
-    it('converts rows to strings', function () {
+    it('converts rows to strings', () => {
         const row: string = 'CBATE0987654321';
         expect(
             Pricker.stringFromRow(

@@ -52,7 +52,7 @@ namespace Pricker {
      *    ```
      *    ... and then call the test function:
      *    ```
-     *    describe('Banana class', function () {
+     *    describe('Banana class', () => {
      *        testPrintableMixinImplementation(() => new Banana());
      *    });
      *    ```

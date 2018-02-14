@@ -7,9 +7,9 @@
 
 /// <reference path="../../functions.ts" />
 
-describe('select template for Touch', function () {
+describe('select template for Touch', () => {
 
-    it('renders a touch correctly', function () {
+    it('renders a touch correctly', () => {
         const touch = Pricker.Touch.fromString(
                 '2314567890E\n'
                     + '2314568790E  1 s10 s13 s15 22\n'
@@ -30,7 +30,7 @@ describe('select template for Touch', function () {
         );
     });
 
-    it('applies a style for unreachable courses', function () {
+    it('applies a style for unreachable courses', () => {
         const touch = new Pricker.Touch(createTestRow());
         touch.setLength(3);
 
@@ -50,7 +50,7 @@ describe('select template for Touch', function () {
         );
     });
 
-    it('applies a style for false courses', function () {
+    it('applies a style for false courses', () => {
         const touch = new Pricker.Touch(createTestRow()),
             falseness = new Pricker.BlockDirectory();
 

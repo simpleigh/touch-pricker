@@ -8,16 +8,16 @@
 /// <reference path="functions.ts" />
 /// <reference path="AbstractContainer.spec.ts" />
 
-describe('Touch class', function () {
+describe('Touch class', () => {
 
     function testImport(input, output) {
-        return function () {
+        return () => {
             const touch = Pricker.Touch.fromString(input);
             expect(touch.print('text')).toBe(output);
         };
     }
 
-    it('generates the correct rows when visited', function () {
+    it('generates the correct rows when visited', () => {
         const touch = new Pricker.Touch(createTestRow());
 
         let visitor: Pricker.Visitor.StringArray,
@@ -44,12 +44,12 @@ describe('Touch class', function () {
         '2314567890E  12 14 s16 17 18 19  (20 sixes)',
     ];
 
-    it('starts out empty', function () {
+    it('starts out empty', () => {
         const touch = new Pricker.Touch(createTestRow());
         expect(touch.getLength()).toBe(0);
     });
 
-    it('can insert a new course', function () {
+    it('can insert a new course', () => {
         const course = Pricker.Course.fromString(createTestRow(), COURSES[1]),
             touch = Pricker.Touch.fromString('2314567890E');
 
@@ -59,7 +59,7 @@ describe('Touch class', function () {
         expect(touch.getCourse(1).print('text')).toBe(COURSES[1]);
     });
 
-    it('ignores the initial row when inserting a new course', function () {
+    it('ignores the initial row when inserting a new course', () => {
         const course = Pricker.Course.fromString(
                     createTestRow('13579E24680'),
                     COURSES[1],
@@ -71,7 +71,7 @@ describe('Touch class', function () {
         expect(touch.getCourse(1).print('text')).toBe(COURSES[1]);
     });
 
-    it('can insert a second course', function () {
+    it('can insert a second course', () => {
         const course1 = Pricker.Course.fromString(createTestRow(), COURSES[1]),
             course2 = Pricker.Course.fromString(createTestRow(), COURSES[2]),
             touch: Pricker.Touch = Pricker.Touch.fromString('2314567890E');
@@ -85,7 +85,7 @@ describe('Touch class', function () {
         expect(touch.getCourse(2).print('text')).toBe(COURSES[2]);
     });
 
-    it('can insert a course at the beginning', function () {
+    it('can insert a course at the beginning', () => {
         const course1 = Pricker.Course.fromString(createTestRow(), COURSES[1]),
             course2 = Pricker.Course.fromString(createTestRow(), COURSES[2]),
             touch = Pricker.Touch.fromString('2314567890E');
@@ -98,7 +98,7 @@ describe('Touch class', function () {
         expect(touch.getCourse(2).print('text')).toBe(COURSES[2]);
     });
 
-    it('can insert a course in the middle', function () {
+    it('can insert a course in the middle', () => {
         const course1 = Pricker.Course.fromString(createTestRow(), COURSES[1]),
             course2 = Pricker.Course.fromString(createTestRow(), COURSES[2]),
             course3 = Pricker.Course.fromString(createTestRow(), COURSES[3]),
@@ -114,7 +114,7 @@ describe('Touch class', function () {
         expect(touch.getCourse(3).print('text')).toBe(COURSES[3]);
     });
 
-    it('sets ownership correctly when inserting new courses', function () {
+    it('sets ownership correctly when inserting new courses', () => {
         const course1 = Pricker.Course.fromString(createTestRow(), COURSES[1]),
             course2 = Pricker.Course.fromString(createTestRow(), COURSES[2]),
             touch = Pricker.Touch.fromString('2314567890E');
@@ -129,7 +129,7 @@ describe('Touch class', function () {
         expect(touch.getCourse(2).getIndex()).toBe(2);
     });
 
-    it('can delete a course from the end', function () {
+    it('can delete a course from the end', () => {
         const course1 = Pricker.Course.fromString(createTestRow(), COURSES[1]),
             course2 = Pricker.Course.fromString(createTestRow(), COURSES[2]),
             touch = Pricker.Touch.fromString('2314567890E');
@@ -142,7 +142,7 @@ describe('Touch class', function () {
         expect(touch.getEnd()).toEqual(touch.getCourse(1).getEnd());
     });
 
-    it('can delete a course from the middle', function () {
+    it('can delete a course from the middle', () => {
         const course1 = Pricker.Course.fromString(createTestRow(), COURSES[1]),
             course2 = Pricker.Course.fromString(createTestRow(), COURSES[2]),
             touch = Pricker.Touch.fromString('2314567890E');
@@ -155,7 +155,7 @@ describe('Touch class', function () {
         expect(touch.getCourse(1).print('text')).toBe(COURSES[1]);
     });
 
-    it('sets ownership correctly when deleting courses', function () {
+    it('sets ownership correctly when deleting courses', () => {
         const course1 = Pricker.Course.fromString(createTestRow(), COURSES[1]),
             course2 = Pricker.Course.fromString(createTestRow(), COURSES[2]),
             touch = Pricker.Touch.fromString('2314567890E');
@@ -171,7 +171,7 @@ describe('Touch class', function () {
         expect(course2.getIndex()).toBe(undefined);
     });
 
-    describe('can create touches from strings:', function () {
+    describe('can create touches from strings:', () => {
 
         it('a simple touch', testImport(
             '2314567890E\n'
@@ -237,20 +237,20 @@ describe('Touch class', function () {
                 + '2314567890E  1 s10 s13 22\n',
         ));
 
-        it('a touch with no lines', function () {
-            expect(function () {
+        it('a touch with no lines', () => {
+            expect(() => {
                 Pricker.Touch.fromString('');
             }).toThrowError('No input lines');
         });
 
-        it('a touch with a broken initial row', function () {
-            expect(function () {
+        it('a touch with a broken initial row', () => {
+            expect(() => {
                 Pricker.Touch.fromString('not');
             }).toThrowError('Cannot recognise stage');
         });
 
-        it('a touch with a broken course', function () {
-            expect(function () {
+        it('a touch with a broken course', () => {
+            expect(() => {
                 Pricker.Touch.fromString(
                     '2314567890E\n'
                         + 'garbage\n',

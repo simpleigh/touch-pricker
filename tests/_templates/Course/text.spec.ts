@@ -7,10 +7,10 @@
 
 /// <reference path="../../functions.ts" />
 
-describe('text template for Course', function () {
+describe('text template for Course', () => {
 
     function testRendering(input) {
-        return function () {
+        return () => {
             expect(
                 Pricker.Course.fromString(createTestRow(), input).print('text'),
             ).toBe(input);
@@ -29,12 +29,12 @@ describe('text template for Course', function () {
         '2314567890E  p',
     ));
 
-    it('allows the line ending to be customised', function () {
+    it('allows the line ending to be customised', () => {
         const course = new Pricker.Course(createTestRow());
         expect(course.print('text', {'end': '#'})).toBe('2314567890E  p#');
     });
 
-    it('can render without the course end', function () {
+    it('can render without the course end', () => {
         const course = Pricker.Course.fromString(createTestRow(), 's2 3 (4)');
         expect(course.print('text', {'courseEnd': false}))
             .toBe('s2 3  (4 sixes)');
