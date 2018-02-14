@@ -12,7 +12,8 @@
         "noUnusedLocals": true,
         "outFile": "dist/stedman-pricker.js",
         "strict": true,
-        "strictNullChecks": true
+        "strictNullChecks": true,
+        "strictPropertyInitialization": false
     },
     "include": [
         "src/**/*.ts"
