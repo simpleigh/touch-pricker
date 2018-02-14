@@ -28,6 +28,7 @@
     "gulp-typedoc": "^2.2.0",
     "gulp-typescript": "^4.0.1",
     "gulp-uglify": "^3.0.0",
+    "gulp-umd": "^0.2.1",
     "jasmine-core": "^2.8.0",
     "karma": "^2.0.0",
     "karma-chrome-launcher": "^2.2.0",

@@ -38,6 +38,10 @@ gulp.task('build', () => {
         merge(tsResult.js, templates)
             .pipe(plugins.concat('stedman-pricker.js'))
             .pipe(plugins.header(header))
+            .pipe(plugins.umd({
+                exports: () => 'Pricker',
+                namespace: () => 'Pricker'
+            }))
             .pipe(plugins.sourcemaps.write())
             .pipe(gulp.dest('./dist'))
             .pipe(plugins.uglify({ output: { preamble: header } }))
