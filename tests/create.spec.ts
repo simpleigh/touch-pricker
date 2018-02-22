@@ -13,12 +13,10 @@ describe('create function', () => {
     let childDocument: jasmine.SpyObj<HTMLDocument>;
     let element: jasmine.SpyObj<HTMLDivElement>;
     let iframe: any;
-    let pricker: Pricker.Pricker.AbstractPricker;
 
     beforeEach(() => {
         parentDocument = jasmine.createSpyObj('HTMLDocument', [
             'getElementById',
-            'createElement',
         ]);
         childDocument = jasmine.createSpyObj('HTMLDocument', [
             'open',
@@ -30,11 +28,10 @@ describe('create function', () => {
             'contentWindow': { 'document': childDocument },
             'style': { },
         };
+        spyOn(Pricker.Dom, 'createIframe');
 
         parentDocument.getElementById.and.returnValue(element);
-        parentDocument.createElement.and.returnValue(iframe);
-
-        pricker = Pricker.create('element', parentDocument);
+        (Pricker.Dom.createIframe as jasmine.Spy).and.returnValue(iframe);
     });
 
     it('throws an error if the element is not found', () => {
@@ -44,35 +41,32 @@ describe('create function', () => {
     });
 
     it('creates the pricker', () => {
+        const pricker = Pricker.create('element', parentDocument);
         expect(pricker).toEqual(new Pricker.Pricker.Mbd(childDocument, iframe));
     });
 
     it('creates an iframe to hold the pricker', () => {
-        expect(parentDocument.createElement).toHaveBeenCalledWith('iframe');
-    });
-
-    it('ensures the created iframe has no border', () => {
-        expect(iframe.frameBorder).toBe('0');
-        expect(iframe.style.border).toBe('none');
-    });
-
-    it('disables scrolling on the created iframe', () => {
-        expect(iframe.scrolling).toBe('no');
+        Pricker.create('element', parentDocument);
+        expect(Pricker.Dom.createIframe).toHaveBeenCalled();
     });
 
     it('appends the created iframe to the supplied element', () => {
+        Pricker.create('element', parentDocument);
         expect(element.appendChild).toHaveBeenCalledWith(iframe);
     });
 
     it('passes the created pricker to the child window', () => {
+        const pricker = Pricker.create('element', parentDocument);
         expect(iframe.contentWindow.pricker).toBe(pricker);
     });
 
     it('opens the document for writing', () => {
+        Pricker.create('element', parentDocument);
         expect(childDocument.open).toHaveBeenCalled();
     });
 
     it('writes the pricker into the document', () => {
+        const pricker = Pricker.create('element', parentDocument);
         expect(childDocument.write)
             .toHaveBeenCalledWith(Pricker.Templates.create({
                 'pricker': pricker,
@@ -80,6 +74,7 @@ describe('create function', () => {
     });
 
     it('closes the document after use', () => {
+        Pricker.create('element', parentDocument);
         expect(childDocument.close).toHaveBeenCalled();
     });
 });

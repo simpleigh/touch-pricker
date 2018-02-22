@@ -7,6 +7,7 @@
 
 /// <reference path="Pricker/Abstract.ts" />
 /// <reference path="Pricker/Mbd.ts" />
+/// <reference path="Dom.ts" />
 /// <reference path="Templates.ts" />
 
 namespace Pricker {
@@ -28,15 +29,7 @@ namespace Pricker {
             throw new Error(`Cannot find HTML element: '${elementId}'`);
         }
 
-        const iframe = parentDocument.createElement('iframe');
-        iframe.frameBorder = '0';
-        if (iframe.sandbox) {
-            iframe.sandbox.add('allow-same-origin');
-            iframe.sandbox.add('allow-scripts');
-        }
-        iframe.scrolling = 'no';
-        iframe.src = 'about:blank';
-        iframe.style.border = 'none';
+        const iframe = Dom.createIframe(parentDocument);
         element.appendChild(iframe);
 
         theDoc = iframe.contentWindow.document;
