@@ -8,6 +8,7 @@
 /// <reference path="Pricker/Abstract.ts" />
 /// <reference path="Pricker/Mbd.ts" />
 /// <reference path="Dom/createIframe.ts" />
+/// <reference path="Dom/injectIframeData.ts" />
 /// <reference path="Templates.ts" />
 
 namespace Pricker {
@@ -21,7 +22,6 @@ namespace Pricker {
         elementId: string,
         parentDocument: HTMLDocument = document,
     ): Pricker.AbstractPricker {
-        let theDoc: HTMLDocument;
         let pricker: Pricker.AbstractPricker;
 
         const element = parentDocument.getElementById(elementId);
@@ -32,13 +32,13 @@ namespace Pricker {
         const iframe = Dom.createIframe(parentDocument);
         element.appendChild(iframe);
 
-        theDoc = iframe.contentWindow.document;
         pricker = new Pricker.Mbd(iframe);
 
-        theDoc.open();
-        (iframe.contentWindow as any).pricker = pricker;
-        theDoc.write(Templates.create({'pricker': pricker}));
-        theDoc.close();
+        Dom.injectIframeData(
+            iframe,
+            Templates.create({'pricker': pricker}),
+            { pricker },
+        );
 
         return pricker;
     }

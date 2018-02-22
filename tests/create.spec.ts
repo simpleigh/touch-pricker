@@ -10,25 +10,17 @@
 describe('create function', () => {
 
     let parentDocument: jasmine.SpyObj<HTMLDocument>;
-    let childDocument: jasmine.SpyObj<HTMLDocument>;
     let element: jasmine.SpyObj<HTMLDivElement>;
-    let iframe: any;
+    const iframe: any = { };
 
     beforeEach(() => {
         parentDocument = jasmine.createSpyObj('HTMLDocument', [
             'getElementById',
         ]);
-        childDocument = jasmine.createSpyObj('HTMLDocument', [
-            'open',
-            'write',
-            'close',
-        ]);
         element = jasmine.createSpyObj('HTMLDivElement', ['appendChild']);
-        iframe = {
-            'contentWindow': { 'document': childDocument },
-            'style': { },
-        };
+
         spyOn(Pricker.Dom, 'createIframe');
+        spyOn(Pricker.Dom, 'injectIframeData');
 
         parentDocument.getElementById.and.returnValue(element);
         (Pricker.Dom.createIframe as jasmine.Spy).and.returnValue(iframe);
@@ -47,7 +39,7 @@ describe('create function', () => {
 
     it('creates an iframe to hold the pricker', () => {
         Pricker.create('element', parentDocument);
-        expect(Pricker.Dom.createIframe).toHaveBeenCalled();
+        expect(Pricker.Dom.createIframe).toHaveBeenCalledWith(parentDocument);
     });
 
     it('appends the created iframe to the supplied element', () => {
@@ -55,26 +47,13 @@ describe('create function', () => {
         expect(element.appendChild).toHaveBeenCalledWith(iframe);
     });
 
-    it('passes the created pricker to the child window', () => {
+    it('injects data into the iframe', () => {
         const pricker = Pricker.create('element', parentDocument);
-        expect(iframe.contentWindow.pricker).toBe(pricker);
+        expect(Pricker.Dom.injectIframeData).toHaveBeenCalledWith(
+            iframe,
+            Pricker.Templates.create({'pricker': pricker}),
+            { pricker },
+        );
     });
 
-    it('opens the document for writing', () => {
-        Pricker.create('element', parentDocument);
-        expect(childDocument.open).toHaveBeenCalled();
-    });
-
-    it('writes the pricker into the document', () => {
-        const pricker = Pricker.create('element', parentDocument);
-        expect(childDocument.write)
-            .toHaveBeenCalledWith(Pricker.Templates.create({
-                'pricker': pricker,
-            }));
-    });
-
-    it('closes the document after use', () => {
-        Pricker.create('element', parentDocument);
-        expect(childDocument.close).toHaveBeenCalled();
-    });
 });
