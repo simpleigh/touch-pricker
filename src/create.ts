@@ -10,6 +10,7 @@
 /// <reference path="Dom/createAndAppendStyle.ts" />
 /// <reference path="Dom/createIframe.ts" />
 /// <reference path="Dom/injectIframeData.ts" />
+/// <reference path="Options.ts" />
 /// <reference path="Templates.ts" />
 
 namespace Pricker {
@@ -22,7 +23,7 @@ namespace Pricker {
      */
     export function create(
         elementId: string,
-        options: any = { },
+        options: Options = { },
         parentDocument: HTMLDocument = document,
     ): Pricker.Mbd {
         let pricker: Pricker.Mbd;
