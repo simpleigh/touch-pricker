@@ -42,6 +42,6 @@
     "pre-commit": "^1.2.2",
     "tslint": "^5.9.1",
     "typedoc": "^0.10.0",
-    "typescript": "^2.7.1"
+    "typescript": "^2.7.2"
   }
 }
