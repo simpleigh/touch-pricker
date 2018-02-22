@@ -42,7 +42,7 @@ describe('create function', () => {
 
     it('creates the pricker', () => {
         const pricker = Pricker.create('element', parentDocument);
-        expect(pricker).toEqual(new Pricker.Pricker.Mbd(childDocument, iframe));
+        expect(pricker).toEqual(new Pricker.Pricker.Mbd(iframe));
     });
 
     it('creates an iframe to hold the pricker', () => {

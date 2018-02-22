@@ -33,7 +33,7 @@ namespace Pricker {
         element.appendChild(iframe);
 
         theDoc = iframe.contentWindow.document;
-        pricker = new Pricker.Mbd(theDoc, iframe);
+        pricker = new Pricker.Mbd(iframe);
 
         theDoc.open();
         (iframe.contentWindow as any).pricker = pricker;

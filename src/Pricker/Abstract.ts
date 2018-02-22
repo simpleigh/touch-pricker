@@ -24,7 +24,6 @@ namespace Pricker {
              * Constructor
              */
             constructor(
-                protected _document: HTMLDocument = document,
                 protected _iframe?: HTMLIFrameElement,
             ) {
                 // NOOP
@@ -36,7 +35,7 @@ namespace Pricker {
             public abstract onLoad(): void;
 
             /**
-             * Resizes the parent iframe
+             * Resizes the parent iframe if one exists
              * May be overridden; default implementation uses elements that are
              * immediate children of the body element as follows:
              *  - width: sum of all elements' widths and margins
@@ -47,7 +46,8 @@ namespace Pricker {
                     return;
                 }
 
-                const elements = this._document.body.children;
+                const theDoc = this._iframe.contentWindow.document;
+                const elements = theDoc.body.children;
                 let width = 0;
                 let height = 0;
 
@@ -66,8 +66,12 @@ namespace Pricker {
              * Wraps document.getElementById and adds type information
              */
             protected getEl<T extends HTMLElement>(id: string): T {
+                const theDoc = this._iframe
+                    ? this._iframe.contentWindow.document
+                    : document;
+
                 // Ignore risk elements may be null when using our own templates
-                return this._document.getElementById(id) as T;
+                return theDoc.getElementById(id) as T;
             }
 
             /**
