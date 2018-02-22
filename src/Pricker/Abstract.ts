@@ -31,9 +31,9 @@ namespace Pricker {
             }
 
             /**
-             * Event handler for window.onload
+             * Shows the pricker
              */
-            public abstract onLoad(): void;
+            public abstract show(): void;
 
             /**
              * Resizes the parent iframe if one exists

@@ -3,13 +3,13 @@
   <head>
     <title>Free Stedman Pricker</title>
     <style type="text/css">
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+
       {{= context.pricker.print('css') }}
     </style>
-    <script type="text/javascript">
-        window.onload = function () {
-            pricker.onLoad();
-        };
-    </script>
   </head>
   <body>
     {{= context.pricker.print('html') }}
