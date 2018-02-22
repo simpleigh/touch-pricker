@@ -5,11 +5,6 @@
     <style type="text/css">
       {{= context.pricker.print('css') }}
     </style>
-    <script type="text/javascript">
-        window.onload = function () {
-            pricker.onLoad();
-        };
-    </script>
   </head>
   <body>
     {{= context.pricker.print('html') }}
