@@ -7,7 +7,7 @@
 
 /// <reference path="Pricker/Abstract.ts" />
 /// <reference path="Pricker/Mbd.ts" />
-/// <reference path="Dom.ts" />
+/// <reference path="Dom/createIframe.ts" />
 /// <reference path="Templates.ts" />
 
 namespace Pricker {
