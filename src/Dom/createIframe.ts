@@ -22,10 +22,6 @@ namespace Pricker {
             const iframe = parentDocument.createElement('iframe');
 
             iframe.frameBorder = '0';
-            if (iframe.sandbox) {
-                iframe.sandbox.add('allow-same-origin');
-                iframe.sandbox.add('allow-scripts');
-            }
             iframe.scrolling = 'no';
             iframe.src = 'about:blank';
             iframe.style.border = 'none';
