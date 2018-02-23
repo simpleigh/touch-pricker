@@ -30,7 +30,9 @@ function testMbdAbstractSixTemplate(Six, type: string) {
         it('renders a six correctly', () => {
             const six = createTestSix(1);
             expect(six.print('mbd')).toBe(
-                Pricker.stringFromRow(six.getEnd())
+                '<span>'
+                    + Pricker.stringFromRow(six.getEnd())
+                    + '</span>'
                     + '&nbsp;&nbsp;<span class="' + type
                     + 'Six" onclick="pricker.c(1)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
@@ -41,7 +43,9 @@ function testMbdAbstractSixTemplate(Six, type: string) {
             const six = createTestSix(1);
             six.setCall(Pricker.Call.Bob);
             expect(six.print('mbd')).toBe(
-                Pricker.stringFromRow(six.getEnd())
+                '<span>'
+                    + Pricker.stringFromRow(six.getEnd())
+                    + '</span>'
                     + '&nbsp;&nbsp;<span class="' + type
                     + 'Six" onclick="pricker.c(1)">'
                     + '&nbsp;-&nbsp;</span>&nbsp;&nbsp;1<br />',
@@ -52,7 +56,9 @@ function testMbdAbstractSixTemplate(Six, type: string) {
             const six = createTestSix(1);
             six.setCall(Pricker.Call.Single);
             expect(six.print('mbd')).toBe(
-                Pricker.stringFromRow(six.getEnd())
+                '<span>'
+                    + Pricker.stringFromRow(six.getEnd())
+                    + '</span>'
                     + '&nbsp;&nbsp;<span class="' + type
                     + 'Six" onclick="pricker.c(1)">'
                     + '&nbsp;s&nbsp;</span>&nbsp;&nbsp;1<br />',
@@ -62,7 +68,9 @@ function testMbdAbstractSixTemplate(Six, type: string) {
         it('displays the index correctly', () => {
             const six = createTestSix(999);
             expect(six.print('mbd')).toBe(
-                Pricker.stringFromRow(six.getEnd())
+                '<span>'
+                    + Pricker.stringFromRow(six.getEnd())
+                    + '</span>'
                     + '&nbsp;&nbsp;<span class="' + type
                     + 'Six" onclick="pricker.c(999)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;999<br />',
@@ -128,7 +136,9 @@ function testMbdAbstractSixTemplate(Six, type: string) {
         it('can underline a sixend', () => {
             const six = createTestSix(1);
             expect(six.print('mbd', {'underline': true})).toBe(
-                '<u>' + Pricker.stringFromRow(six.getEnd()) + '</u>'
+                '<span><u>'
+                    + Pricker.stringFromRow(six.getEnd())
+                    + '</u></span>'
                     + '&nbsp;&nbsp;<span class="' + type
                     + 'Six" onclick="pricker.c(1)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
