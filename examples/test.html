@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test page</title>
+        <script type="text/javascript" src="../dist/stedman-pricker.js"></script>
+    </head>
+    <body>
+        <script type="text/javascript">
+var row = Pricker.rowFromString('231', Pricker.Stage.Cinques);
+var renderer = new Pricker.MbdPrickerRowRenderer();
+var i;
+
+document.write(renderer.print(row));
+for (i = 0; i < 22; i += 1) {
+    var six,
+        call = i % 2 ? Pricker.Call.Plain : Pricker.Call.Bob;
+    six = i % 2
+        ? new Pricker.Six.Quick(row, call)
+        : new Pricker.Six.Slow(row, call);
+    document.write(renderer.print(six.getSixEnd(), call, i + 1));
+    row = six.getSixEnd();
+}
+        </script>
+    </body>
+</html>
