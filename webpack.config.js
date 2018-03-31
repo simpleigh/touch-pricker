@@ -7,7 +7,13 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.ts$/, use: 'ts-loader',
+                test: /\.ts$/,
+                enforce: 'pre',
+                use: 'tslint-loader',
+                exclude: /node_modules/,
+            },
+            {
+                test: /\.ts$/,
                 use: 'ts-loader',
                 exclude: /node_modules/,
             },
