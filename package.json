@@ -6,6 +6,9 @@
   "license": "GPL-3.0",
   "repository": "simpleigh/stedman-pricker",
   "bugs": "https://github.com/simpleigh/stedman-pricker/issues",
+  "scripts": {
+    "build": "webpack"
+  },
   "devDependencies": {
     "@types/jasmine": "^2.8.6",
     "jasmine-core": "^2.8.0",
