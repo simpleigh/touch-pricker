@@ -1,3 +1,4 @@
+const DtsBundleWebpack = require('dts-bundle-webpack')
 const path = require('path');
 
 module.exports = {
@@ -25,6 +26,12 @@ module.exports = {
         libraryTarget: 'umd',
         path: path.resolve(__dirname, 'dist'),
     },
+    plugins: [
+        new DtsBundleWebpack({
+            name: 'Pricker',
+            main: 'dist/dist/index.d.ts',
+        }),
+    ],
     resolve: {
         extensions: ['.ts'],
     },
