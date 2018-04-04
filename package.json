@@ -11,6 +11,9 @@
   },
   "devDependencies": {
     "@types/jasmine": "^2.8.6",
+    "awesome-typescript-loader": "^4.0.1",
+    "dot": "^1.1.2",
+    "dotjs-loader": "^0.1.0",
     "dts-bundle-webpack": "^1.0.0",
     "jasmine-core": "^2.8.0",
     "karma": "^2.0.0",
@@ -18,7 +21,7 @@
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-webpack": "^3.0.0",
     "phantomjs-prebuilt": "^2.1.16",
-    "ts-loader": "^4.1.0",
+    "source-map-loader": "^0.2.3",
     "tslint": "^5.9.1",
     "tslint-loader": "^3.6.0",
     "typescript": "^2.7.1",

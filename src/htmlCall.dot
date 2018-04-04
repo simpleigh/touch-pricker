@@ -1,0 +1,4 @@
+{{ context = context || { }; }}
+<span class="{{=context.class}}" onclick="c({{=context.sixNumber}})">
+{{=context.call}}
+</span>

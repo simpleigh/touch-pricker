@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "declaration": true,
-        "module": "es6",
+        "module": "commonjs",
         "newLine": "LF",
         "noEmitOnError": true,
         "noFallthroughCasesInSwitch": true,

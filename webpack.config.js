@@ -8,15 +8,25 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.ts$/,
                 enforce: 'pre',
-                use: 'tslint-loader',
-                exclude: /node_modules/,
+                test: /\.ts$/,
+                loader: 'tslint-loader',
             },
             {
                 test: /\.ts$/,
-                use: 'ts-loader',
-                exclude: /node_modules/,
+                loader: 'awesome-typescript-loader',
+            },
+            {
+                enforce: 'pre',
+                test: /\.js$/,
+                loader: 'source-map-loader',
+            },
+            {
+                test: /\.dot$/,
+                loader: 'dotjs-loader',
+                options: {
+                    varname: 'context',
+                },
             },
         ],
     },
@@ -29,10 +39,10 @@ module.exports = {
     plugins: [
         new DtsBundleWebpack({
             name: 'Pricker',
-            main: 'dist/dist/index.d.ts',
+            main: 'dist/index.d.ts',
         }),
     ],
     resolve: {
-        extensions: ['.ts'],
+        extensions: ['.dot', '.ts'],
     },
 };
