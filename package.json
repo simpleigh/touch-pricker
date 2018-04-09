@@ -14,7 +14,6 @@
     "awesome-typescript-loader": "^4.0.1",
     "dot": "^1.1.2",
     "dotjs-loader": "^0.1.0",
-    "dts-bundle-webpack": "^1.0.0",
     "jasmine-core": "^2.8.0",
     "karma": "^2.0.0",
     "karma-jasmine": "^1.1.1",
