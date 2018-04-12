@@ -18,13 +18,10 @@ module.exports = {
                 path.resolve(__dirname, 'src'),
                 requestPath
             );
-            const objectLookup = relativePath
-                .split(path.sep)
-                .map(r => `[${JSON.stringify(r)}]`)
-                .join('');
+            const objectLookup = relativePath.split(path.sep).join('.');
 
             // Load requested item from top-level Pricker object
-            callback(null, `{ default: Pricker${objectLookup} }`);
+            callback(null, `{ default: Pricker.${objectLookup} }`);
         }
     },
     mode: 'development',

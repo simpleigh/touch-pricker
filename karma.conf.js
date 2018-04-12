@@ -10,7 +10,7 @@ module.exports = (config) => {
         ],
         frameworks: ['jasmine'],
         preprocessors: {
-            'src/index.spec.js': ['webpack'],
+            'src/index.spec.js': ['webpack', 'sourcemap'],
         },
         singleRun: true,
         webpack: webpackConfig,
