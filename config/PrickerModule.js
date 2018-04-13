@@ -46,11 +46,6 @@ class PrickerModule extends Module {
 
     source(dependencyTemplates, runtime) {
         const sourceString = `exports.default = Pricker.${this.objectLookup};`;
-
-        if (this.useSourceMap) {
-            return new OriginalSource(sourceString, `src/${this.relativePath}`);
-        }
-
         return new RawSource(sourceString);
     }
 
