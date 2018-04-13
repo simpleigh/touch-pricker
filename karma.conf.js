@@ -6,11 +6,11 @@ module.exports = (config) => {
         browsers: ['PhantomJS'],
         files: [
             { pattern: 'dist/stedman-pricker.js', nocache: true },
-            'src/index.spec.js',
+            'src/index.spec.ts',
         ],
         frameworks: ['jasmine'],
         preprocessors: {
-            'src/index.spec.js': ['webpack', 'sourcemap'],
+            'src/index.spec.ts': ['webpack', 'sourcemap'],
         },
         singleRun: true,
         webpack: webpackConfig,
