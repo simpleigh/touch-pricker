@@ -47,6 +47,10 @@ namespace Pricker {
             Dom.createAndAppendStyle(parentDocument, pricker.print('css'));
             element.innerHTML = pricker.print('html');
             (window as any).pricker = pricker;
+            if (parentDocument === document) {
+                // don't run in tests (when document has been overridden)
+                pricker.onLoad();
+            }
         }
 
         return pricker;

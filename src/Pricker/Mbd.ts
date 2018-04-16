@@ -136,7 +136,7 @@ namespace Pricker {
 
             /* Pricker methods ************************************************/
 
-            public show(): void {
+            public onLoad(): void {
                 let option: HTMLOptionElement;
 
                 for (let i = Stage.Triples; i <= Stage.Septuples; i += 2) {
