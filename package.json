@@ -13,7 +13,6 @@
     "test": "karma start --single-run --browsers PhantomJS",
     "watch": "gulp watch"
   },
-  "pre-commit": "lint",
   "devDependencies": {
     "@types/jasmine": "^2.8.6",
     "del": "^3.0.0",
@@ -39,7 +38,6 @@
     "karma-phantomjs-launcher": "^1.0.4",
     "merge2": "^1.2.1",
     "phantomjs-prebuilt": "^2.1.16",
-    "pre-commit": "^1.2.2",
     "tslint": "^5.9.1",
     "typedoc": "^0.10.0",
     "typescript": "^2.7.2"
