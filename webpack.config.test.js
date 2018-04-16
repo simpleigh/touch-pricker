@@ -25,7 +25,7 @@ module.exports = {
         ],
     },
     output: {
-        filename: 'stedman-pricker.spec.js',
+        filename: 'touch-pricker.spec.js',
         path: path.resolve(__dirname, 'dist'),
     },
     plugins: [

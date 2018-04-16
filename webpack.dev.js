@@ -8,9 +8,9 @@ module.exports = merge(common, {
     devtool: 'inline-source-map',
     mode: 'development',
     output: {
-        filename: 'stedman-pricker.js',
+        filename: 'touch-pricker.js',
     },
     plugins: [
-        new CleanWebpackPlugin([path.join('dist', 'stedman-pricker.js')]),
+        new CleanWebpackPlugin([path.join('dist', 'touch-pricker.js')]),
     ],
 });

@@ -5,7 +5,7 @@ module.exports = (config) => {
         autoWatch: true,
         browsers: ['PhantomJS'],
         files: [
-            { pattern: 'dist/stedman-pricker.js', nocache: true },
+            { pattern: 'dist/touch-pricker.js', nocache: true },
             'tests/index.spec.js',
         ],
         frameworks: ['jasmine'],

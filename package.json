@@ -1,11 +1,11 @@
 {
-  "name": "stedman-pricker",
+  "name": "touch-pricker",
   "version": "0.1.0",
-  "description": "Free Stedman pricker",
+  "description": "Free Touch pricker",
   "author": "Leigh Simpson <code@simpleigh.com> (http://simpleigh.com/)",
   "license": "GPL-3.0",
-  "repository": "simpleigh/stedman-pricker",
-  "bugs": "https://github.com/simpleigh/stedman-pricker/issues",
+  "repository": "simpleigh/touch-pricker",
+  "bugs": "https://github.com/simpleigh/touch-pricker/issues",
   "scripts": {
     "build:test": "webpack --config webpack.config.test.js",
     "dev": "webpack --config webpack.dev.js",

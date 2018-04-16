@@ -9,10 +9,10 @@ module.exports = merge(common, {
     devtool: 'source-map',
     mode: 'production',
     output: {
-        filename: 'stedman-pricker.min.js',
+        filename: 'touch-pricker.min.js',
     },
     plugins: [
-        new CleanWebpackPlugin([path.join('dist', 'stedman-pricker.min.js')]),
+        new CleanWebpackPlugin([path.join('dist', 'touch-pricker.min.js')]),
         new UglifyJSPlugin({
             sourceMap: true,
         }),
