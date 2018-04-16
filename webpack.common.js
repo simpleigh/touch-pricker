@@ -1,9 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    devtool: 'inline-source-map',
-    entry: './src/index.ts',
-    mode: 'development',
+    entry: path.resolve(__dirname, 'src', 'index.ts'),
     module: {
         rules: [
             {
@@ -30,7 +28,6 @@ module.exports = {
         ],
     },
     output: {
-        filename: 'stedman-pricker.js',
         library: 'Pricker',
         libraryTarget: 'umd',
         path: path.resolve(__dirname, 'dist'),
