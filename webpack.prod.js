@@ -12,7 +12,10 @@ module.exports = merge(common, {
         filename: 'touch-pricker.min.js',
     },
     plugins: [
-        new CleanWebpackPlugin([path.join('dist', 'touch-pricker.min.js')]),
+        new CleanWebpackPlugin([
+            path.resolve(__dirname, 'dist', 'touch-pricker.min.js'),
+            path.resolve(__dirname, 'dist', 'touch-pricker.min.js.map'),
+        ]),
         new UglifyJSPlugin({
             sourceMap: true,
         }),

@@ -11,6 +11,8 @@ module.exports = merge(common, {
         filename: 'touch-pricker.js',
     },
     plugins: [
-        new CleanWebpackPlugin([path.join('dist', 'touch-pricker.js')]),
+        new CleanWebpackPlugin([
+            path.resolve(__dirname, 'dist', 'touch-pricker.js'),
+        ]),
     ],
 });
