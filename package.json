@@ -7,7 +7,9 @@
   "repository": "simpleigh/stedman-pricker",
   "bugs": "https://github.com/simpleigh/stedman-pricker/issues",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "build:test": "webpack --config webpack.config.test.js",
+    "test": "karma start"
   },
   "devDependencies": {
     "@types/jasmine": "^2.8.6",
