@@ -13,7 +13,7 @@ class PrickerPlugin {
                     const context = data.context;
                     const request = data.dependencies[0].request;
 
-                    if (request.match(/\.spec(\.ts)?$/)) {
+                    if (request.match(/\.spec(\.[jt]s)?$/)) {
                         // Spec: add to bundle
                         return factory(data, callback);
                     }

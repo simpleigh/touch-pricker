@@ -4,7 +4,7 @@ const PrickerPlugin = require('./config/PrickerPlugin');
 
 module.exports = {
     devtool: 'inline-source-map',
-    entry: path.resolve(__dirname, 'src', 'index.spec.ts'),
+    entry: path.resolve(__dirname, 'tests', 'index.spec.js'),
     mode: 'development',
     module: {
         rules: [
