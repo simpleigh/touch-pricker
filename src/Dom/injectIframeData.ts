@@ -17,7 +17,7 @@ namespace Pricker {
             content: string = '',
             globals: { [key: string]: any } = { },
         ) {
-            const theDoc = iframe.contentWindow.document;
+            const theDoc = (iframe.contentWindow as Window).document;
             theDoc.open();
 
             for (const key in globals) {
