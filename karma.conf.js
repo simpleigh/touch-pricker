@@ -1,5 +1,5 @@
 /**
- * Free Stedman Pricker
+ * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
  * @copyright Copyright 2015-17 Leigh Simpson. All rights reserved.
@@ -10,7 +10,7 @@ module.exports = (config) => {
         autoWatch: false,
         browsers: ['Chrome', 'Edge', 'Firefox', 'IE', 'PhantomJS'],
         files: [
-            'dist/stedman-pricker.js',
+            'dist/touch-pricker.js',
             'dist/tests.js'
         ],
         frameworks: ['jasmine'],

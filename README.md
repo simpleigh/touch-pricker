@@ -1,8 +1,8 @@
-# stedman-pricker
+# touch-pricker
 
-[![Build Status](https://travis-ci.org/simpleigh/stedman-pricker.svg?branch=master)](https://travis-ci.org/simpleigh/stedman-pricker)
+[![Build Status](https://travis-ci.org/simpleigh/touch-pricker.svg?branch=master)](https://travis-ci.org/simpleigh/touch-pricker)
 
-Free Stedman pricker
+Free Touch Pricker
 
 (WIP)
 
