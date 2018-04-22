@@ -9,6 +9,14 @@
   "license": "GPL-3.0",
   "repository": "simpleigh/touch-pricker",
   "bugs": "https://github.com/simpleigh/touch-pricker/issues",
+  "files": [
+    "dist",
+    "examples",
+    "CHANGELOG.md",
+    "COPYING",
+    "COPYING.GPL",
+    "README.md"
+  ],
   "scripts": {
     "build": "gulp",
     "lint": "tslint '{src,tests}/**/*.ts'",
