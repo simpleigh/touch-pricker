@@ -80,6 +80,27 @@ function testSixImplementation(Six, testCases, rowTests) {
         },
     ));
 
+    it('computes its start row correctly', runTestCases(
+        (previous, expected, stage, call) => {
+            const six = new Six(previous),
+                row = previous.slice();
+            Pricker.Changes.permuteCall(row, call);
+            six.setCall(call);
+            expect(six.getStartRow()).toEqual(row);
+        },
+    ));
+
+    it('ignores changes to the returned start row', runTestCases(
+        (previous, expected, stage, call) => {
+            const six = new Six(previous),
+                originalStartRow = six.getStartRow().slice(),
+                returnedStartRow = six.getStartRow();
+            Pricker.Changes.permuteCall(returnedStartRow, call);
+            expect(six.getStartRow()).not.toEqual(returnedStartRow);
+            expect(six.getStartRow()).toEqual(originalStartRow);
+        },
+    ));
+
     it('generates the correct rows when visited', () => {
         let initialRow: Pricker.Row,
             six: typeof Six,

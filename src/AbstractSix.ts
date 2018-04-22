@@ -67,6 +67,15 @@ namespace Pricker {
         /* AbstractSix methods ************************************************/
 
         /**
+         * Returns the start row
+         */
+        public getStartRow(): Row {
+            const start = this._initialRow.slice();
+            Changes.permuteCall(start, this._call);
+            return start;
+        }
+
+        /**
          * Read access to the call
          */
         public getCall(): Call {
