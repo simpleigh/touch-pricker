@@ -1,0 +1,103 @@
+/**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * Renders a six as HTML for MBD-style pricker
+ * @param {BlockDirectory}  falseness    directory to lookup falseness
+ * @param {BlockDirectory}  music        directory to lookup music
+ * @param {number}          courseIndex  index number of the course
+ * @param {boolean}         underline    whether to underline the sixend
+ * @param {string}          type         six type, either "quick" or "slow"
+ * @param {boolean}         showSixHeads  show six heads as well as six ends
+ */
+
+{{? context.underline !== true }}
+	{{ context.underline = false; }}
+{{?}}
+
+{{?
+	context.falseness && context.courseIndex && context.falseness.contains(
+		context.courseIndex,
+		context.object.getIndex()
+	)
+}}
+	{{ var className = 'falseBlock'; }}
+{{??
+	context.music && context.courseIndex && context.music.contains(
+		context.courseIndex,
+		context.object.getIndex()
+	)
+}}
+	{{ var className = 'musicalBlock'; }}
+{{??}}
+	{{ var className = ''; }}
+{{?}}
+
+
+/* Six head/end */
+
+<span class="{{= className }}">
+
+	{{? context.showSixHeads }}
+		{{= Pricker.stringFromRow(context.object.getStartRow()) }}
+	{{??}}
+
+		{{? context.underline }}
+			<u>
+		{{?}}
+
+			{{= Pricker.stringFromRow(context.object.getEnd()) }}
+
+		{{? context.underline }}
+			</u>
+		{{?}}
+
+	{{?}}
+
+</span>
+
+&nbsp;&nbsp;
+
+
+/* Call */
+
+<span
+ class="{{= context.type }}Six"
+ onclick="pricker.c({{= context.object.getIndex() }})"
+>
+	&nbsp;
+	{{? context.object.getCall() === Pricker.Call.Plain }}
+		&nbsp;
+	{{?? context.object.getCall() === Pricker.Call.Bob }}
+		-
+	{{?? context.object.getCall() === Pricker.Call.Single }}
+		s
+	{{?}}
+	&nbsp;
+</span>
+
+&nbsp;&nbsp;
+
+
+/* Index */
+
+{{= context.object.getIndex() }}
+
+<br />
+
+
+/* Six end */
+
+{{? context.showSixHeads }}
+	<span class="{{= className }}">
+		<u>
+			{{= Pricker.stringFromRow(context.object.getEnd()) }}
+		</u>
+	</span>
+
+	<br />
+{{?}}

@@ -1,0 +1,15 @@
+/**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * Renders a touch as text
+ */
+
+{{= Pricker.stringFromRow(context.object.getInitialRow()) }}{{= '\n' }}
+{{~ context.object.getCourses() :course }}
+	{{= course.print('text', {'end': '\n'}) }}
+{{~}}

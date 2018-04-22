@@ -1,0 +1,17 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "declaration": true,
+        "newLine": "LF",
+        "noEmitOnError": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "outFile": "dist/touch-pricker.js",
+        "strict": true,
+        "strictPropertyInitialization": false
+    },
+    "include": [
+        "src/**/*.ts"
+    ]
+}

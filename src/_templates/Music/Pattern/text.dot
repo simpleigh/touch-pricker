@@ -1,0 +1,30 @@
+/**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * Renders a Pattern as text
+ * @param {string} end  line ending
+ */
+
+{{? context.end === undefined }}
+	{{ context.end = '\n'; }}
+{{?}}
+
+{{? context.object.getMatchCount() > 0 }}
+
+	{{? context.object.isWildcardMatch() ||
+			context.object.getMatchCount() > 1
+	}}
+		{{= context.object.getMatchCount() }}
+		 /* single space */
+	{{?}}
+
+	{{= context.object.getName() }}
+
+	{{= context.end }}
+
+{{?}}

@@ -1,0 +1,32 @@
+/**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * Renders a course as HTML for MBD-style pricker
+ * @param {BlockDirectory}  falseness     directory to lookup falseness
+ * @param {BlockDirectory}  music         directory to lookup music
+ * @param {number}          courseIndex   index number of the course
+ * @param {Course}          extraSixes    additional sixes to print
+ * @param {boolean}         showSixHeads  show six heads as well as six ends
+ */
+
+<u>{{= Pricker.stringFromRow(context.object.getInitialRow()) }}</u><br />
+
+{{~ context.object.getSixes() :six }}
+	{{? six.getIndex() === context.object.getLength() }}
+		{{ context.underline = true }}
+	{{?}}
+	{{= six.print('mbd', context) }}
+{{~}}
+
+{{? context.extraSixes }}
+	{{~ context.extraSixes.getSixes() :six }}
+		<span class="extraSix">
+		{{= Pricker.stringFromRow(six.getEnd()) }}
+		</span><br />
+	{{~}}
+{{?}}

@@ -1,0 +1,41 @@
+/**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * Renders a PatternGroup as text
+ */
+
+{{? context.object.getMatchCount() > 0 }}
+
+	{{= context.object.getMatchCount() }}
+
+	 /* single space */
+
+	{{= context.object.getName() }}
+
+	{{? context.object.getSubmatchCount() > 0 }}
+
+		 /* single space */
+		(
+
+		{{ var first = true; }}
+		{{~ context.object.getPatterns() :pattern }}
+			{{ if (!pattern) { continue; } /* IE8 trailing comma */ }}
+			{{? pattern.getMatchCount() > 0 }}
+				{{? !first }}, {{?}}
+				{{= pattern.print('text', {'end': ''}) }}
+				{{ first = false; }}
+			{{?}}
+		{{~}}
+
+		)
+
+	{{?}}
+
+	{{= '\n' }}
+
+{{?}}
