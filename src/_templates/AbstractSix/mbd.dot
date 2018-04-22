@@ -12,9 +12,8 @@
  * @param {number}          courseIndex  index number of the course
  * @param {boolean}         underline    whether to underline the sixend
  * @param {string}          type         six type, either "quick" or "slow"
+ * @param {boolean}         showSixHeads  show six heads as well as six ends
  */
-
-/* Six end */
 
 {{? context.underline !== true }}
 	{{ context.underline = false; }}
@@ -26,26 +25,37 @@
 		context.object.getIndex()
 	)
 }}
-	<span class="falseBlock">
+	{{ var className = 'falseBlock'; }}
 {{??
 	context.music && context.courseIndex && context.music.contains(
 		context.courseIndex,
 		context.object.getIndex()
 	)
 }}
-	<span class="musicalBlock">
+	{{ var className = 'musicalBlock'; }}
 {{??}}
-	<span>
+	{{ var className = ''; }}
 {{?}}
 
-	{{? context.underline }}
-		<u>
-	{{?}}
 
-		{{= Pricker.stringFromRow(context.object.getEnd()) }}
+/* Six head/end */
 
-	{{? context.underline }}
-		</u>
+<span class="{{= className }}">
+
+	{{? context.showSixHeads }}
+		{{= Pricker.stringFromRow(context.object.getStartRow()) }}
+	{{??}}
+
+		{{? context.underline }}
+			<u>
+		{{?}}
+
+			{{= Pricker.stringFromRow(context.object.getEnd()) }}
+
+		{{? context.underline }}
+			</u>
+		{{?}}
+
 	{{?}}
 
 </span>
@@ -78,3 +88,16 @@
 {{= context.object.getIndex() }}
 
 <br />
+
+
+/* Six end */
+
+{{? context.showSixHeads }}
+	<span class="{{= className }}">
+		<u>
+			{{= Pricker.stringFromRow(context.object.getEnd()) }}
+		</u>
+	</span>
+
+	<br />
+{{?}}
