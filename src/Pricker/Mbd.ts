@@ -69,6 +69,11 @@ namespace Pricker {
             private _touch: Touch;
 
             /**
+             * Whether we're showing six heads
+             */
+            private _showSixHeads: boolean = false;
+
+            /**
              * Course selected in touch view
              */
             private _selectedIndex: number = 0;
@@ -180,6 +185,7 @@ namespace Pricker {
                     'music': this._music,
                     'courseIndex': this._copiedIndex,
                     'extraSixes': this._extraSixes,
+                    'showSixHeads': this._showSixHeads,
                 });
 
                 this.getEl('calling').innerHTML = this._course.print('html');
@@ -414,6 +420,12 @@ namespace Pricker {
                 this.getEl('musicTextarea').innerText =
                     visitor.getMatcher().print('text');
                 this._music = visitor.getDirectory();
+            }
+
+            public onShowSixHeads(): void {
+                const element = this.getEl<HTMLInputElement>('showSixHeads');
+                this._showSixHeads = element.checked;
+                this.redraw();
             }
 
             public onProve(): boolean {

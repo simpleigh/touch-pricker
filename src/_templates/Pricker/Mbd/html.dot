@@ -18,6 +18,7 @@
     <div id="tab_loadSave" onclick="pricker.onTab('loadSave')" class="tab">Load/Save</div>
     <div id="tab_siril"    onclick="pricker.onTab('siril')"    class="tab">Siril</div>
     <div id="tab_music"    onclick="pricker.onTab('music')"    class="tab">Music</div>
+	<div id="tab_view"     onclick="pricker.onTab('view')"     class="tab">View</div>
   </div>
 
   <div id="pages">
@@ -83,6 +84,11 @@
         <button onclick="pricker.onAnalyseMusic()">Analyse</button>
       </form>
       <textarea id="musicTextarea"></textarea>
+    </div>
+
+    <div class="page" id="page_view">
+      <input type="checkbox" id="showSixHeads" onclick="pricker.onShowSixHeads()"/>
+      <label for="showSixHeads">Show six heads</label>
     </div>
 
   </div>
