@@ -1,8 +1,8 @@
 /**
- * Free Stedman Pricker
+ * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-17 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
 /*global: require*/
@@ -36,7 +36,7 @@ gulp.task('build', () => {
 
     return merge([
         merge(tsResult.js, templates)
-            .pipe(plugins.concat('stedman-pricker.js'))
+            .pipe(plugins.concat('touch-pricker.js'))
             .pipe(plugins.header(header))
             .pipe(plugins.umd({
                 exports: () => 'Pricker',
@@ -61,7 +61,7 @@ gulp.task('build-tests', ['build'], () => {
         .pipe(plugins.tslint({formatter: 'verbose'}))
         .pipe(plugins.tslint.report({summarizeFailureOutput: true}));
 
-    declarations = gulp.src('dist/stedman-pricker.d.ts');
+    declarations = gulp.src('dist/touch-pricker.d.ts');
 
     tsResult = merge([specs, declarations])
         .pipe(plugins.sourcemaps.init())
@@ -96,7 +96,7 @@ gulp.task('docs', () => {
     tsProject.src()
         .pipe(plugins.typedoc({
             out: 'docs/',
-            name: 'Free Stedman Pricker',
+            name: 'Free Touch Pricker',
             mode: 'file',
         }));
 });

@@ -1,11 +1,22 @@
 {
-  "name": "stedman-pricker",
-  "version": "0.1.0",
-  "description": "Free Stedman pricker",
+  "name": "touch-pricker",
+  "version": "1.0.0",
+  "description": "Free Touch Pricker",
+  "main": "dist/touch-pricker.js",
+  "jsnext:main": "dist/touch-pricker.js",
+  "browser": "dist/touch-pricker.js",
   "author": "Leigh Simpson <code@simpleigh.com> (http://simpleigh.com/)",
   "license": "GPL-3.0",
-  "repository": "simpleigh/stedman-pricker",
-  "bugs": "https://github.com/simpleigh/stedman-pricker/issues",
+  "repository": "simpleigh/touch-pricker",
+  "bugs": "https://github.com/simpleigh/touch-pricker/issues",
+  "files": [
+    "dist",
+    "examples",
+    "CHANGELOG.md",
+    "COPYING",
+    "COPYING.GPL",
+    "README.md"
+  ],
   "scripts": {
     "build": "gulp",
     "lint": "tslint '{src,tests}/**/*.ts'",
