@@ -270,7 +270,7 @@ namespace Pricker {
                     length = parseInt(input);
 
                 if (length) {
-                    this._course.safeSetLength(length - (length % 2));
+                    this._course.safeSetLength(length);
                 }
             }
 
