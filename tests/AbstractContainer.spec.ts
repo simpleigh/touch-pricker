@@ -38,21 +38,21 @@ function testAbstractContainerImplementation(
 
     describe('is derived from AbstractContainer and', () => {
 
-        it('starts out with the end row equal to the initial row', () => {
+        it('starts out with the last row equal to the initial row', () => {
             const row = createTestRow(),
                 container = new Container(row);
 
-            expect(container.getEnd()).toEqual(row);
+            expect(container.getLast()).toEqual(row);
         });
 
-        it('keeps the end row in sync with the initial row', () => {
+        it('keeps the last row in sync with the initial row', () => {
             const row = createTestRow(),
                 newRow = createTestRow('123'),
                 container = new Container(row);
 
             container.setInitialRow(newRow);
-            expect(container.getEnd()).not.toEqual(row);
-            expect(container.getEnd()).toEqual(newRow);
+            expect(container.getLast()).not.toEqual(row);
+            expect(container.getLast()).toEqual(newRow);
         });
 
         it('starts out the correct length', runLengthTestCases(
@@ -116,8 +116,8 @@ function testAbstractContainerImplementation(
                     .toEqual(initialRow);
 
                 // Last block, final row
-                expect(container[getBlockFnName](length).getEnd())
-                    .toEqual(container.getEnd());
+                expect(container[getBlockFnName](length).getLast())
+                    .toEqual(container.getLast());
             },
         ));
 
@@ -140,13 +140,13 @@ function testAbstractContainerImplementation(
             },
         ));
 
-        it('recalculates end row when increasing length', runLengthTestCases(
+        it('recalculates last row when increasing length', runLengthTestCases(
             (initialRow: Pricker.Row, length: number) => {
                 const container = new Container(initialRow),
                     newLength = length ? length * 2 : 1;
 
                 container.setLength(newLength);
-                expect(container.getEnd()).toEqual(initialRow);
+                expect(container.getLast()).toEqual(initialRow);
             },
         ));
 
@@ -165,7 +165,7 @@ function testAbstractContainerImplementation(
             },
         ));
 
-        it('recalculates end row when decreasing length', runLengthTestCases(
+        it('recalculates last row when decreasing length', runLengthTestCases(
             (initialRow: Pricker.Row, length: number) => {
                 const container = new Container(initialRow);
                 let newLength: number = Math.floor(length / 2);
@@ -177,8 +177,8 @@ function testAbstractContainerImplementation(
                 }
 
                 container.setLength(newLength);
-                expect(container.getEnd())
-                    .toEqual(container[getBlockFnName](newLength).getEnd());
+                expect(container.getLast())
+                    .toEqual(container[getBlockFnName](newLength).getLast());
             },
         ));
 

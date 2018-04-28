@@ -49,11 +49,12 @@ namespace Pricker {
         }
 
         /**
-         * Returns the end row
+         * Returns the last row in the block
+         * e.g. a course head or a course end (for Stedman)
          */
-        public getEnd(): Row {
+        public getLast(): Row {
             if (this._blocks.length) {
-                return this._blocks[this._blocks.length - 1].getEnd();
+                return this._blocks[this._blocks.length - 1].getLast();
             }
 
             // Handle case with zero blocks
@@ -106,11 +107,11 @@ namespace Pricker {
                 newLength: number = oldLength + blocks;
 
             let index: number,
-                initialRow: Row = this.getEnd();
+                initialRow: Row = this.getLast();
 
             for (index = oldLength + 1; index <= newLength; index += 1) {
                 this._blocks[index - 1] = this.createBlock(initialRow, index);
-                initialRow = this._blocks[index - 1].getEnd();
+                initialRow = this._blocks[index - 1].getLast();
             }
 
             return this;
@@ -143,12 +144,12 @@ namespace Pricker {
             let initialRow: Row = this._initialRow;
 
             if (index) {
-                initialRow = this._blocks[index - 1].getEnd();
+                initialRow = this._blocks[index - 1].getLast();
             }
 
             for (; index < this.getLength(); index += 1) {
                 this._blocks[index].setInitialRow(initialRow);
-                initialRow = this._blocks[index].getEnd();
+                initialRow = this._blocks[index].getLast();
             }
         }
 

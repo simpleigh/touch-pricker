@@ -58,12 +58,12 @@ describe('mbd template for Course', () => {
                 'underline': true,
             })
             + '<span class="extraSix">'
-            + Pricker.stringFromRow(extraSixes.getSix(1).getStartRow())
+            + Pricker.stringFromRow(extraSixes.getSix(1).getHead())
             + '<br /><u>'
             + Pricker.stringFromRow(extraSixes.getSix(1).getEnd())
             + '</u></span><br />'
             + '<span class="extraSix">'
-            + Pricker.stringFromRow(extraSixes.getSix(2).getStartRow())
+            + Pricker.stringFromRow(extraSixes.getSix(2).getHead())
             + '<br /><u>'
             + Pricker.stringFromRow(extraSixes.getSix(2).getEnd())
             + '</u></span><br />',

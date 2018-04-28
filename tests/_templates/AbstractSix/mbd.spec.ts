@@ -149,7 +149,7 @@ function testMbdAbstractSixTemplate(Six, type: string) {
             const six = createTestSix(1);
             expect(six.print('mbd', {'showSixHeads': true})).toBe(
                 '<span class="">'
-                    + Pricker.stringFromRow(six.getStartRow())
+                    + Pricker.stringFromRow(six.getHead())
                     + '</span>'
                     + '&nbsp;&nbsp;<span class="' + type
                     + 'Six" onclick="pricker.c(1)">'

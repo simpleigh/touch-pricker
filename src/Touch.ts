@@ -165,7 +165,7 @@ namespace Pricker {
                     touch = new Touch(rowFromString('231', line.length));
                 } else {
                     // Create a course for each remaining line
-                    course = Course.fromString(touch.getEnd(), line);
+                    course = Course.fromString(touch.getLast(), line);
                     touch.insertCourse(touch.getLength() + 1, course);
                 }
             }

@@ -19,9 +19,9 @@ namespace Pricker {
      *
      * A block:
      *  - is initialised from a row
-     *  - provides access to the end row at the end of the block
-     *  - recalculates that end row if the initial row is changed
-     *  - provides mechanisms for controlling how the end row is created
+     *  - provides access to the last row in the block
+     *  - recalculates that row if the initial row is changed
+     *  - provides mechanisms for controlling how the last row is created
      *  - notifies any parent block whenever those mechanisms are actuated
      *
      * Blocks are designed to be aggregated into containers.
@@ -83,9 +83,10 @@ namespace Pricker {
         }
 
         /**
-         * Returns the end row
+         * Returns the last row in the block
+         * e.g. a lead head or a six end (for Stedman)
          */
-        public abstract getEnd(): Row;
+        public abstract getLast(): Row;
 
         /**
          * Updates references to the parent container
@@ -120,7 +121,7 @@ namespace Pricker {
         /**
          * Notifies the parent container
          *
-         * Derived classes should call this whenever the end row changes.
+         * Derived classes should call this whenever the last row changes.
          */
         protected notifyContainer(): void {
             if (this._ownership) {

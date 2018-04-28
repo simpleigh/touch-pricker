@@ -62,6 +62,13 @@ namespace Pricker {
         /* Course methods *****************************************************/
 
         /**
+         * Returns the course end
+         */
+        public getEnd(): Row {
+            return this.getLast();
+        }
+
+        /**
          * Read access to the sixes
          */
         public getSixes: () => AbstractSix[] = this.getBlocks;

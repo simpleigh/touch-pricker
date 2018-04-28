@@ -43,7 +43,7 @@
 <span class="{{= className }}">
 
 	{{? context.showSixHeads }}
-		{{= Pricker.stringFromRow(context.object.getStartRow()) }}
+		{{= Pricker.stringFromRow(context.object.getHead()) }}
 	{{??}}
 
 		{{? context.underline }}

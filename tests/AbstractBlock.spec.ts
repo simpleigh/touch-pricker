@@ -81,27 +81,27 @@ function testAbstractBlockImplementation(
 
         it('updates when the initial row changes', () => {
             const block = new Block(createTestRow()),
-                endRow: Pricker.Row = block.getEnd();
+                lastRow: Pricker.Row = block.getLast();
 
             block.setInitialRow(createTestRow('2143658709E'));
-            expect(block.getEnd()).not.toEqual(endRow);
+            expect(block.getLast()).not.toEqual(lastRow);
         });
 
-        it('ends with a row on the same stage as it starts', () => {
+        it('has a last row on the same stage as it starts', () => {
             const block = new Block(createTestRow());
-            expect(block.getEnd().length).toEqual(11);
+            expect(block.getLast().length).toEqual(11);
         });
 
-        it('ignores changes to the getEnd result', () => {
+        it('ignores changes to the getLast result', () => {
             const block = new Block(createTestRow()),
-                getEnd: Pricker.Row = block.getEnd(),
-                getEndBackup: Pricker.Row = getEnd.slice();
+                getLast: Pricker.Row = block.getLast(),
+                getLastBackup: Pricker.Row = getLast.slice();
 
-            getEnd[3] = 999;  // Mutate the getEnd result
-            expect(getEnd).not.toEqual(getEndBackup);
+            getLast[3] = 999;  // Mutate the getLast result
+            expect(getLast).not.toEqual(getLastBackup);
 
-            expect(block.getEnd()).not.toEqual(getEnd);
-            expect(block.getEnd()).toEqual(getEndBackup);
+            expect(block.getLast()).not.toEqual(getLast);
+            expect(block.getLast()).toEqual(getLastBackup);
         });
 
         it('notifies the parent container', () => {

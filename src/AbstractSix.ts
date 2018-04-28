@@ -50,9 +50,9 @@ namespace Pricker {
         }
 
         /**
-         * Returns the end row
+         * Returns the last row in the block (the six end)
          */
-        public getEnd(): Row {
+        public getLast(): Row {
             return this._end.slice();
         }
 
@@ -67,12 +67,19 @@ namespace Pricker {
         /* AbstractSix methods ************************************************/
 
         /**
-         * Returns the start row
+         * Returns the six head
          */
-        public getStartRow(): Row {
+        public getHead(): Row {
             const start = this._initialRow.slice();
             Changes.permuteCall(start, this._call);
             return start;
+        }
+
+        /**
+         * Returns the six end
+         */
+        public getEnd(): Row {
+            return this.getLast();
         }
 
         /**

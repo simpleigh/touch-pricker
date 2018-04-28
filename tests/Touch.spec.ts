@@ -55,7 +55,7 @@ describe('Touch class', () => {
 
         touch.insertCourse(1, course);
         expect(touch.getLength()).toBe(1);
-        expect(touch.getEnd()).toEqual(touch.getCourse(1).getEnd());
+        expect(touch.getLast()).toEqual(touch.getCourse(1).getLast());
         expect(touch.getCourse(1).print('text')).toBe(COURSES[1]);
     });
 
@@ -67,7 +67,7 @@ describe('Touch class', () => {
             touch = Pricker.Touch.fromString('2314567890E');
 
         touch.insertCourse(1, course);
-        expect(touch.getEnd()).toEqual(touch.getCourse(1).getEnd());
+        expect(touch.getLast()).toEqual(touch.getCourse(1).getLast());
         expect(touch.getCourse(1).print('text')).toBe(COURSES[1]);
     });
 
@@ -80,7 +80,7 @@ describe('Touch class', () => {
         touch.insertCourse(2, course2);
 
         expect(touch.getLength()).toBe(2);
-        expect(touch.getEnd()).toEqual(touch.getCourse(2).getEnd());
+        expect(touch.getLast()).toEqual(touch.getCourse(2).getLast());
         expect(touch.getCourse(1).print('text')).toBe(COURSES[1]);
         expect(touch.getCourse(2).print('text')).toBe(COURSES[2]);
     });
@@ -93,7 +93,7 @@ describe('Touch class', () => {
         touch.insertCourse(1, course2);
         touch.insertCourse(1, course1);
 
-        expect(touch.getEnd()).toEqual(touch.getCourse(2).getEnd());
+        expect(touch.getLast()).toEqual(touch.getCourse(2).getLast());
         expect(touch.getCourse(1).print('text')).toBe(COURSES[1]);
         expect(touch.getCourse(2).print('text')).toBe(COURSES[2]);
     });
@@ -108,7 +108,7 @@ describe('Touch class', () => {
         touch.insertCourse(2, course3);
         touch.insertCourse(2, course2);
 
-        expect(touch.getEnd()).toEqual(touch.getCourse(3).getEnd());
+        expect(touch.getLast()).toEqual(touch.getCourse(3).getLast());
         expect(touch.getCourse(1).print('text')).toBe(COURSES[1]);
         expect(touch.getCourse(2).print('text')).toBe(COURSES[2]);
         expect(touch.getCourse(3).print('text')).toBe(COURSES[3]);
@@ -139,7 +139,7 @@ describe('Touch class', () => {
         touch.deleteCourse(2);
 
         expect(touch.getLength()).toBe(1);
-        expect(touch.getEnd()).toEqual(touch.getCourse(1).getEnd());
+        expect(touch.getLast()).toEqual(touch.getCourse(1).getLast());
     });
 
     it('can delete a course from the middle', () => {
@@ -151,7 +151,7 @@ describe('Touch class', () => {
         touch.insertCourse(2, course1);  // leaving only course1
         touch.deleteCourse(1);
 
-        expect(touch.getEnd()).toEqual(touch.getCourse(1).getEnd());
+        expect(touch.getLast()).toEqual(touch.getCourse(1).getLast());
         expect(touch.getCourse(1).print('text')).toBe(COURSES[1]);
     });
 

@@ -18,6 +18,11 @@ describe('Course class', () => {
         };
     }
 
+    it('provides a getEnd method for convenience', () => {
+        const course = new Pricker.Course(createTestRow());
+        expect(course.getEnd()).toEqual(course.getLast());
+    });
+
     it('calculates sixes correctly', () => {
         const course = Pricker.Course.fromString(
                     createTestRow(),
@@ -111,23 +116,23 @@ describe('Course class', () => {
         cloned = course.clone();
 
         expect(cloned.getLength()).toBe(course.getLength());
-        expect(cloned.getEnd()).toEqual(course.getEnd());
+        expect(cloned.getLast()).toEqual(course.getLast());
     });
 
     it('ignores changes to the cloned course', () => {
         const course = new Pricker.Course(createTestRow()),
             getLengthBackup = course.getLength(),
-            getEndBackup = course.getEnd(),
+            getLastBackup = course.getLast(),
             cloned = course.clone();
 
         cloned.setLength(20);
         cloned.getSix(5).toggleCall();
 
         expect(cloned.getLength()).not.toBe(course.getLength());
-        expect(cloned.getEnd()).not.toEqual(course.getEnd());
+        expect(cloned.getLast()).not.toEqual(course.getLast());
 
         expect(course.getLength()).toBe(getLengthBackup);
-        expect(course.getEnd()).toEqual(getEndBackup);
+        expect(course.getLast()).toEqual(getLastBackup);
     });
 
     it('generates the correct rows when visited', () => {
