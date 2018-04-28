@@ -254,13 +254,11 @@ namespace Pricker {
                 }
 
                 this._course.setInitialRow(initialRow);
-                this._extraSixes.setInitialRow(this._course.getEnd());
                 this.redraw();
             }
 
             public onResetInitialRow(): void {
                 this._course.setInitialRow(this._initialRow);
-                this._extraSixes.setInitialRow(this._course.getEnd());
                 this.redraw();
             }
 
