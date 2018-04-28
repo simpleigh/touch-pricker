@@ -22,6 +22,11 @@ namespace Pricker {
          */
         public type = SixType.Slow;
 
+        /**
+         * Notation (excluding call)
+         */
+        public notation = ['3', '1', '3', '1'];
+
         /* AbstractBlock methods **********************************************/
 
         /**
@@ -51,13 +56,6 @@ namespace Pricker {
 
             return this;
         }
-
-        /* PrintableMixin methods *********************************************/
-
-        /**
-         * Path for this class' templates
-         */
-        public readonly templatePath: string = 'Slow';
 
         /* AbstractSix methods ************************************************/
 

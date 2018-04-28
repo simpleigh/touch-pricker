@@ -9,7 +9,7 @@
 /// <reference path="AbstractBlock.spec.ts" />
 
 // tslint:disable-next-line:variable-name
-function testSixImplementation(Six, testCases, rowTests, type) {
+function testSixImplementation(Six, testCases, rowTests, type, notation) {
 
     function runTestCases(testFunction) {
         return () => {
@@ -26,8 +26,13 @@ function testSixImplementation(Six, testCases, rowTests, type) {
     }
 
     it('has the expected type', () => {
-        const six = new Six(createTestRow(testCases[0][0], testCases[0][2]));
+        const six = new Six(createTestRow('231'));
         expect(six.type).toBe(type);
+    });
+
+    it('has the expected notation', () => {
+        const six = new Six(createTestRow('231'));
+        expect(six.notation).toEqual(notation);
     });
 
     it('calculates the last row correctly', runTestCases(

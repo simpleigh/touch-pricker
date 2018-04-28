@@ -11,7 +11,6 @@
  * @param {BlockDirectory}  music        directory to lookup music
  * @param {number}          courseIndex  index number of the course
  * @param {boolean}         underline    whether to underline the sixend
- * @param {string}          type         six type, either "quick" or "slow"
  * @param {boolean}         showSixHeads  show six heads as well as six ends
  */
 
@@ -66,7 +65,7 @@
 /* Call */
 
 <span
- class="{{= context.type }}Six"
+ class="{{= Pricker.SixType[context.object.type].toLowerCase() }}Six"
  onclick="pricker.c({{= context.object.getIndex() }})"
 >
 	&nbsp;

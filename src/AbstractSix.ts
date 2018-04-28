@@ -25,6 +25,11 @@ namespace Pricker {
         public type: SixType;
 
         /**
+         * Notation (excluding call)
+         */
+        public notation: string[];
+
+        /**
          * Six end of this six
          */
         protected _end: Row;
@@ -44,6 +49,13 @@ namespace Pricker {
             super(initialRow, _ownership);
             this.calculate();
         }
+
+        /* PrintableMixin methods *********************************************/
+
+        /**
+         * Path for this class' templates
+         */
+        public readonly templatePath: string = 'AbstractSix';
 
         /* AbstractBlock methods **********************************************/
 
