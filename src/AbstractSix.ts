@@ -10,6 +10,7 @@
 /// <reference path="Call.ts" />
 /// <reference path="Changes.ts" />
 /// <reference path="Row.ts" />
+/// <reference path="SixType" />
 
 namespace Pricker {
 
@@ -17,6 +18,12 @@ namespace Pricker {
      * Base class for sixes
      */
     export abstract class AbstractSix extends AbstractBlock {
+
+        /**
+         * Type of the six
+         */
+        public type: SixType;
+
         /**
          * Six end of this six
          */

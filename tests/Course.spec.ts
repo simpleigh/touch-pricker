@@ -61,6 +61,52 @@ describe('Course class', () => {
         }
     });
 
+    it('starts out with a slow six by default', () => {
+        const course = new Pricker.Course(createTestRow());
+        expect(course.getFirstSixType()).toBe(Pricker.SixType.Slow);
+    });
+
+    it('can change the parity of its sixes', () => {
+        const course = new Pricker.Course(createTestRow());
+        course.setFirstSixType(Pricker.SixType.Quick);
+        expect(course.getFirstSixType()).toBe(Pricker.SixType.Quick);
+    });
+
+    it('recalculates when the parity is changed', () => {
+        const course = new Pricker.Course(createTestRow());
+        course.setLength(2);
+
+        course.setFirstSixType(Pricker.SixType.Quick);
+        expect(course.getSix(1).getEnd()).toEqual(createTestRow('234618507E9'));
+        expect(course.getSix(2).getEnd()).toEqual(createTestRow('3628401E597'));
+    });
+
+    it('maintains the parity when adding sixes to the course', () => {
+        const course = new Pricker.Course(createTestRow());
+        course.setLength(2);
+        course.setFirstSixType(Pricker.SixType.Quick);
+
+        course.setLength(4);
+        expect(course.getSix(3).getEnd()).toEqual(createTestRow('36802E49175'));
+        expect(course.getSix(4).getEnd()).toEqual(createTestRow('603E8927451'));
+    });
+
+    it('maintains calls correctly when the parity is changed', () => {
+        const course = new Pricker.Course(createTestRow());
+        course.setLength(4);
+        course.getSix(2).setCall(Pricker.Call.Single);
+        course.getSix(3).setCall(Pricker.Call.Bob);
+
+        course.setFirstSixType(Pricker.SixType.Quick);
+        expect(course.getSix(2).getCall()).toBe(Pricker.Call.Single);
+        expect(course.getSix(3).getCall()).toBe(Pricker.Call.Bob);
+
+        expect(course.getSix(1).getEnd()).toEqual(createTestRow('234618507E9'));
+        expect(course.getSix(2).getEnd()).toEqual(createTestRow('3628401759E'));
+        expect(course.getSix(3).getEnd()).toEqual(createTestRow('3680274519E'));
+        expect(course.getSix(4).getEnd()).toEqual(createTestRow('603785294E1'));
+    });
+
     it('can be reset to the default length', () => {
         const course = new Pricker.Course(createTestRow());
         course.setLength(20);
@@ -112,10 +158,12 @@ describe('Course class', () => {
         let cloned: Pricker.Course;
 
         course.setLength(20);
+        course.setFirstSixType(Pricker.SixType.Quick);
         course.getSix(5).toggleCall();
         cloned = course.clone();
 
         expect(cloned.getLength()).toBe(course.getLength());
+        expect(cloned.getFirstSixType()).toBe(course.getFirstSixType());
         expect(cloned.getLast()).toEqual(course.getLast());
     });
 

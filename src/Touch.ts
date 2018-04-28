@@ -8,6 +8,7 @@
 /// <reference path="Changes.ts" />
 /// <reference path="Course.ts" />
 /// <reference path="Row.ts" />
+/// <reference path="SixType.ts" />
 /// <reference path="Stage.ts" />
 /// <reference path="Visitor/Abstract.ts" />
 
@@ -72,6 +73,18 @@ namespace Pricker {
          */
         protected createBlock(initialRow: Row, index: number): Course {
             return new Course(initialRow, {'container': this, 'index': index});
+        }
+
+        /**
+         * Propagates data from a previous block to a current block
+         */
+        protected propagateCurrentBlock(
+            previous: Course,
+            current: Course,
+        ): void {
+            const sixType = previous.getSix(previous.getLength()).type;
+            current.setInitialRow(previous.getLast());
+            current.setFirstSixType((sixType + 1) % 2);
         }
 
         /**

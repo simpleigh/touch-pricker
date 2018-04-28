@@ -12,6 +12,7 @@
 /// <reference path="../PrintableMixin.ts" />
 /// <reference path="../rowFromString.ts" />
 /// <reference path="../Row.ts" />
+/// <reference path="../SixType.ts" />
 /// <reference path="../Stage.ts" />
 /// <reference path="../stringFromRow.ts" />
 /// <reference path="../Touch.ts" />
@@ -179,6 +180,8 @@ namespace Pricker {
             private redraw(): void {
                 const newCourse = this._course.clone();
 
+                const lastSix = this._course.getSix(this._course.getLength());
+                this._extraSixes.setFirstSixType((lastSix.type + 1) % 2);
                 this._extraSixes.setInitialRow(this._course.getEnd());
                 this.getEl('sixends').innerHTML = this._course.print('mbd', {
                     'falseness': this._falseness,
@@ -191,11 +194,15 @@ namespace Pricker {
                 this.getEl('calling').innerHTML = this._course.print('html');
 
                 newCourse.setInitialRow(this._initialRow);
+                newCourse.setFirstSixType(SixType.Slow);
                 this.getEl('callingFromRounds').innerHTML =
                     newCourse.print('html');
 
                 this.getEl<HTMLInputElement>('initialRow').value =
                     stringFromRow(this._course.getInitialRow());
+
+                this.getEl<HTMLSelectElement>('firstSix').value =
+                    this._course.getFirstSixType().toString();
 
                 this.getEl<HTMLInputElement>('courseLength').value =
                     this._course.getLength().toString();
@@ -254,13 +261,17 @@ namespace Pricker {
                 }
 
                 this._course.setInitialRow(initialRow);
-                this._extraSixes.setInitialRow(this._course.getEnd());
                 this.redraw();
             }
 
             public onResetInitialRow(): void {
                 this._course.setInitialRow(this._initialRow);
-                this._extraSixes.setInitialRow(this._course.getEnd());
+                this.redraw();
+            }
+
+            public onFirstSix(): void {
+                const input = this.getEl<HTMLSelectElement>('firstSix').value;
+                this._course.setFirstSixType(parseInt(input));
                 this.redraw();
             }
 
@@ -270,7 +281,7 @@ namespace Pricker {
                     length = parseInt(input);
 
                 if (length) {
-                    this._course.safeSetLength(length - (length % 2));
+                    this._course.safeSetLength(length);
                 }
             }
 
@@ -318,9 +329,10 @@ namespace Pricker {
                 );
 
                 if (this.getEl<HTMLInputElement>('rolling').checked) {
-                    this._course.setInitialRow(
-                        this._touch.getCourse(this._selectedIndex).getEnd(),
-                    );
+                    const course = this._touch.getCourse(this._selectedIndex);
+                    const sixType = course.getSix(course.getLength()).type;
+                    this._course.setFirstSixType((sixType + 1) % 2);
+                    this._course.setInitialRow(course.getEnd());
                     this._course.resetLength();
                     this._course.resetCalls();
                 }
@@ -335,9 +347,12 @@ namespace Pricker {
                     );
 
                     if (this.getEl<HTMLInputElement>('rolling').checked) {
-                        this._course.setInitialRow(
-                            this._touch.getCourse(this._selectedIndex).getEnd(),
+                        const course = this._touch.getCourse(
+                            this._selectedIndex,
                         );
+                        const sixType = course.getSix(course.getLength()).type;
+                        this._course.setFirstSixType((sixType + 1) % 2);
+                        this._course.setInitialRow(course.getEnd());
                         this._selectedIndex = Math.min(
                             this._selectedIndex + 1,
                             this._touch.getLength(),

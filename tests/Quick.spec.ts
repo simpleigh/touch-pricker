@@ -77,6 +77,7 @@ describe('Quick six class', () => {
                 Pricker.Stage.Septuples,
             ],
         ],
+        Pricker.SixType.Quick,
     );
 
 });

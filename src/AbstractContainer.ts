@@ -45,7 +45,7 @@ namespace Pricker {
          * Does any calculation needed by the block
          */
         protected calculate(): void {
-            this.calculateBlocks();
+            this.propagateBlocks();
         }
 
         /**
@@ -92,7 +92,7 @@ namespace Pricker {
          * @param index  index of changed block in container
          */
         public notify(index: number): void {
-            this.calculateBlocks(index);
+            this.propagateBlocks(index);
             this.notifyContainer();
         }
 
@@ -137,20 +137,29 @@ namespace Pricker {
         protected abstract createBlock(initialRow: Row, index: number): Block;
 
         /**
-         * Calculates blocks within the container
+         * Propagates data between blocks within the container
          * @param index  where to start when recalculating
          */
-        private calculateBlocks(index: number = 0): void {
-            let initialRow: Row = this._initialRow;
-
-            if (index) {
-                initialRow = this._blocks[index - 1].getLast();
+        private propagateBlocks(index: number = 0): void {
+            // Handle first block
+            if (!index && this.getLength()) {
+                this._blocks[0].setInitialRow(this._initialRow);
+                index = 1;
             }
 
             for (; index < this.getLength(); index += 1) {
-                this._blocks[index].setInitialRow(initialRow);
-                initialRow = this._blocks[index].getLast();
+                this.propagateCurrentBlock(
+                    this._blocks[index - 1],
+                    this._blocks[index],
+                );
             }
+        }
+
+        /**
+         * Propagates data from a previous block to a current block
+         */
+        protected propagateCurrentBlock(previous: Block, current: Block): void {
+            current.setInitialRow(previous.getLast());
         }
 
         /**

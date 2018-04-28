@@ -7,6 +7,7 @@
 
 /// <reference path="AbstractSix.ts" />
 /// <reference path="Changes.ts" />
+/// <reference path="SixType" />
 /// <reference path="Visitor/Abstract.ts" />
 
 namespace Pricker {
@@ -15,6 +16,11 @@ namespace Pricker {
      * A slow six
      */
     export class Slow extends AbstractSix {
+
+        /**
+         * Type of the six
+         */
+        public type = SixType.Slow;
 
         /* AbstractBlock methods **********************************************/
 
