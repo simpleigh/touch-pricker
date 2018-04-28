@@ -171,6 +171,34 @@ describe('Touch class', () => {
         expect(course2.getIndex()).toBe(undefined);
     });
 
+    it('sets the type of six when inserting a course at the end', () => {
+        const course1 = Pricker.Course.fromString(createTestRow(), COURSES[1]),
+            course2 = Pricker.Course.fromString(createTestRow(), COURSES[2]),
+            touch = Pricker.Touch.fromString('2314567890E');
+
+        course1.setLength(11);
+
+        touch.insertCourse(1, course1);
+        touch.insertCourse(2, course2);
+
+        expect(touch.getCourse(2).getFirstSixType())
+            .toBe(Pricker.SixType.Quick);
+    });
+
+    it('sets the type of six when inserting a course at the beginning', () => {
+        const course1 = Pricker.Course.fromString(createTestRow(), COURSES[1]),
+            course2 = Pricker.Course.fromString(createTestRow(), COURSES[2]),
+            touch = Pricker.Touch.fromString('2314567890E');
+
+        course1.setLength(11);
+
+        touch.insertCourse(1, course2);
+        touch.insertCourse(1, course1);
+
+        expect(touch.getCourse(2).getFirstSixType())
+            .toBe(Pricker.SixType.Quick);
+    });
+
     describe('can create touches from strings:', () => {
 
         it('a simple touch', testImport(

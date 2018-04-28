@@ -8,6 +8,7 @@
 /// <reference path="Changes.ts" />
 /// <reference path="Course.ts" />
 /// <reference path="Row.ts" />
+/// <reference path="SixType.ts" />
 /// <reference path="Stage.ts" />
 /// <reference path="Visitor/Abstract.ts" />
 
@@ -72,6 +73,28 @@ namespace Pricker {
          */
         protected createBlock(initialRow: Row, index: number): Course {
             return new Course(initialRow, {'container': this, 'index': index});
+        }
+
+        /**
+         * Calculates blocks within the container
+         * @param index  where to start when recalculating
+         */
+        protected calculateBlocks(index: number = 0): void {
+            let initialRow: Row = this._initialRow;
+            let sixType: SixType = SixType.Slow;
+
+            if (index) {
+                const course = this._blocks[index - 1];
+                initialRow = course.getLast();
+                sixType = (course.getSix(course.getLength()).type + 1) % 2;
+            }
+
+            for (; index < this.getLength(); index += 1) {
+                this._blocks[index].setInitialRow(initialRow);
+                this._blocks[index].setFirstSixType(sixType);
+                initialRow = this._blocks[index].getLast();
+                sixType = (sixType + this._blocks[index].getLength()) % 2;
+            }
         }
 
         /**
