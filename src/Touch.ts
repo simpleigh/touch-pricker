@@ -76,25 +76,15 @@ namespace Pricker {
         }
 
         /**
-         * Calculates blocks within the container
-         * @param index  where to start when recalculating
+         * Propagates data from a previous block to a current block
          */
-        protected calculateBlocks(index: number = 0): void {
-            let initialRow: Row = this._initialRow;
-            let sixType: SixType = SixType.Slow;
-
-            if (index) {
-                const course = this._blocks[index - 1];
-                initialRow = course.getLast();
-                sixType = (course.getSix(course.getLength()).type + 1) % 2;
-            }
-
-            for (; index < this.getLength(); index += 1) {
-                this._blocks[index].setInitialRow(initialRow);
-                this._blocks[index].setFirstSixType(sixType);
-                initialRow = this._blocks[index].getLast();
-                sixType = (sixType + this._blocks[index].getLength()) % 2;
-            }
+        protected propagateCurrentBlock(
+            previous: Course,
+            current: Course,
+        ): void {
+            const sixType = previous.getSix(previous.getLength()).type;
+            current.setInitialRow(previous.getLast());
+            current.setFirstSixType((sixType + 1) % 2);
         }
 
         /**
