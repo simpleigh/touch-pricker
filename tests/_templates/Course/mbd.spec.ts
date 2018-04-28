@@ -40,4 +40,34 @@ describe('mbd template for Course', () => {
         );
     });
 
+    it('can display a six head as well as a six end', () => {
+        const course = new Pricker.Course(createTestRow()),
+            extraSixes = course.clone();
+
+        course.setLength(2);
+        extraSixes.setLength(2);
+
+        expect(course.print('mbd', {
+            'extraSixes': extraSixes,
+            'showSixHeads': true,
+        })).toBe(''
+            + '<u>2314567890E</u><br />'
+            + course.getSix(1).print('mbd', {'showSixHeads': true})
+            + course.getSix(2).print('mbd', {
+                'showSixHeads': true,
+                'underline': true,
+            })
+            + '<span class="extraSix">'
+            + Pricker.stringFromRow(extraSixes.getSix(1).getStartRow())
+            + '<br /><u>'
+            + Pricker.stringFromRow(extraSixes.getSix(1).getEnd())
+            + '</u></span><br />'
+            + '<span class="extraSix">'
+            + Pricker.stringFromRow(extraSixes.getSix(2).getStartRow())
+            + '<br /><u>'
+            + Pricker.stringFromRow(extraSixes.getSix(2).getEnd())
+            + '</u></span><br />',
+        );
+    });
+
 });
