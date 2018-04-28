@@ -158,10 +158,12 @@ describe('Course class', () => {
         let cloned: Pricker.Course;
 
         course.setLength(20);
+        course.setFirstSixType(Pricker.SixType.Quick);
         course.getSix(5).toggleCall();
         cloned = course.clone();
 
         expect(cloned.getLength()).toBe(course.getLength());
+        expect(cloned.getFirstSixType()).toBe(course.getFirstSixType());
         expect(cloned.getLast()).toEqual(course.getLast());
     });
 

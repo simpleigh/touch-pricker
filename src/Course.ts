@@ -155,6 +155,7 @@ namespace Pricker {
         public clone(): Course {
             const cloned: Course = new Course(this._initialRow);
             cloned.setLength(this.getLength());
+            cloned.setFirstSixType(this.getFirstSixType());
 
             // Copy across all the calls
             for (let index = 1; index <= this.getLength(); index += 1) {
