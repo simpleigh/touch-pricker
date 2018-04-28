@@ -45,6 +45,13 @@
         </form>
       </div>
       <div>
+        <label for="firstSix">First six:</label>
+        <select id="firstSix" onchange="pricker.onFirstSix()">
+          <option value="{{= Pricker.SixType.Slow }}">Slow</option>
+          <option value="{{= Pricker.SixType.Quick }}">Quick</option>
+        </select>
+      </div>
+      <div>
         <form onsubmit="return false">
         <label for="courseLength">Course length:</label>
         <input type="text" id="courseLength" size="2" maxLength="2" />
