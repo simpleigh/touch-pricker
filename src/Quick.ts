@@ -20,12 +20,12 @@ namespace Pricker {
         /**
          * Type of the six
          */
-        public type = SixType.Quick;
+        public readonly type = SixType.Quick;
 
         /**
          * Notation (excluding call)
          */
-        public notation = ['1', '3', '1', '3'];
+        public readonly notation = ['1', '3', '1', '3'];
 
         /* AbstractBlock methods **********************************************/
 

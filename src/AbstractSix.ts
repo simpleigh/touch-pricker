@@ -22,12 +22,12 @@ namespace Pricker {
         /**
          * Type of the six
          */
-        public type: SixType;
+        public readonly abstract type: SixType;
 
         /**
          * Notation (excluding call)
          */
-        public notation: string[];
+        public readonly abstract notation: string[];
 
         /**
          * Six end of this six
