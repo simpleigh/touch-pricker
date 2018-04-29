@@ -5,10 +5,10 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="AbstractContainer.ts" />
 /// <reference path="AbstractSix.ts" />
 /// <reference path="Call.ts" />
 /// <reference path="Row.ts" />
+/// <reference path="SerialContainer.ts" />
 /// <reference path="SixType.ts" />
 
 namespace Pricker {
@@ -16,7 +16,7 @@ namespace Pricker {
     /**
      * A course, being a set of sixes
      */
-    export class Course extends AbstractContainer<AbstractSix> {
+    export class Course extends SerialContainer<AbstractSix> {
 
         /**
          * Type of the first six
@@ -70,9 +70,7 @@ namespace Pricker {
         /**
          * Returns the course end
          */
-        public getEnd(): Row {
-            return this.getLast();
-        }
+        public getEnd: () => Row = this.getLast;
 
         /**
          * Read access to the sixes

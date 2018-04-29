@@ -7,8 +7,8 @@
 
 /// <reference path="Changes.ts" />
 /// <reference path="Course.ts" />
+/// <reference path="RandomAccessContainer.ts" />
 /// <reference path="Row.ts" />
-/// <reference path="SixType.ts" />
 /// <reference path="Stage.ts" />
 /// <reference path="Visitor/Abstract.ts" />
 
@@ -17,7 +17,7 @@ namespace Pricker {
     /**
      * A touch, being a set of courses
      */
-    export class Touch extends AbstractContainer<Course> {
+    export class Touch extends RandomAccessContainer<Course> {
 
         /* AbstractBlock methods **********************************************/
 
@@ -55,27 +55,6 @@ namespace Pricker {
         /* AbstractContainer methods ******************************************/
 
         /**
-         * Returns the default length of new containers of this type
-         *
-         * Derived classes should override this method if required.
-         */
-        protected getDefaultLength(initialRow: Row): number {
-            return 0;
-        }
-
-        /**
-         * Creates a new block for the container
-         *
-         * Used by extend() when creating the container or increasing its
-         * length.
-         * @param initialRow  initial row for the block
-         * @param index       index of block in container
-         */
-        protected createBlock(initialRow: Row, index: number): Course {
-            return new Course(initialRow, {'container': this, 'index': index});
-        }
-
-        /**
          * Propagates data from a previous block to a current block
          */
         protected propagateCurrentBlock(
@@ -86,16 +65,6 @@ namespace Pricker {
             current.setInitialRow(previous.getLast());
             current.setFirstSixType((sixType + 1) % 2);
         }
-
-        /**
-         * Lower limit on length for the particular concrete class
-         */
-        protected readonly minLength: number = 0;
-
-        /**
-         * Upper limit on length for the particular concrete class
-         */
-        protected readonly maxLength: number = 100;
 
         /* Touch methods ******************************************************/
 
@@ -112,36 +81,13 @@ namespace Pricker {
         /**
          * Inserts a course at the specified index
          */
-        public insertCourse(index: number, course: Course): this {
-            this._blocks.splice(index - 1, 0, course);
-            this.fixupOwnership(index);
-
-            this.notify(index - 1);
-            return this;
-        }
+        public insertCourse: (index: number, course: Course) => this =
+            this.insertBlock;
 
         /**
          * Deletes the course at the specified index
          */
-        public deleteCourse(index: number): Course {
-            const course: Course = this.getCourse(index);
-
-            this._blocks.splice(index - 1, 1);
-            course.clearOwnership();
-            this.fixupOwnership(index);
-
-            this.notify(index - 1);
-            return course;
-        }
-
-        /**
-         * Helper to fixup ownership of blocks
-         */
-        private fixupOwnership(index: number): void {
-            for (let i: number = index; i <= this.getLength(); i += 1) {
-                this.getCourse(i).setOwnership({'container': this, 'index': i});
-            }
-        }
+        public deleteCourse: (index: number) => Course = this.deleteBlock;
 
         /**
          * Creates a new touch from a string representation

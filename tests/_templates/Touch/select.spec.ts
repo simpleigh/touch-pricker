@@ -9,6 +9,8 @@
 
 describe('select template for Touch', () => {
 
+    const testRow = createTestRow();
+
     it('renders a touch correctly', () => {
         const touch = Pricker.Touch.fromString(
                 '2314567890E\n'
@@ -31,8 +33,10 @@ describe('select template for Touch', () => {
     });
 
     it('applies a style for unreachable courses', () => {
-        const touch = new Pricker.Touch(createTestRow());
-        touch.setLength(3);
+        const touch = new Pricker.Touch(testRow);
+        touch.insertBlock(1, new Pricker.Course(testRow));
+        touch.insertBlock(2, new Pricker.Course(testRow));
+        touch.insertBlock(3, new Pricker.Course(testRow));
 
         expect(touch.print('select', {
             'touchRows': 200,
@@ -51,10 +55,11 @@ describe('select template for Touch', () => {
     });
 
     it('applies a style for false courses', () => {
-        const touch = new Pricker.Touch(createTestRow()),
-            falseness = new Pricker.BlockDirectory();
+        const touch = new Pricker.Touch(testRow);
+        const falseness = new Pricker.BlockDirectory();
 
-        touch.setLength(2);
+        touch.insertBlock(1, new Pricker.Course(testRow));
+        touch.insertBlock(2, new Pricker.Course(testRow));
         falseness.add(1, 3);
 
         expect(touch.print('select', {

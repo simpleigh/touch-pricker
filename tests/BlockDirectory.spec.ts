@@ -9,13 +9,17 @@
 
 describe('BlockDirectory class', () => {
 
-    let directory: Pricker.BlockDirectory,
-        touch: Pricker.Touch;
+    const testRow = createTestRow();
+
+    let directory: Pricker.BlockDirectory;
+
+    let touch: Pricker.Touch;
 
     beforeEach(() => {
         directory = new Pricker.BlockDirectory();
-        touch = new Pricker.Touch(createTestRow());
-        touch.setLength(2);
+        touch = new Pricker.Touch(testRow);
+        touch.insertBlock(1, new Pricker.Course(testRow));
+        touch.insertBlock(2, new Pricker.Course(testRow));
     });
 
     it('can compute the ownership of a six', () => {

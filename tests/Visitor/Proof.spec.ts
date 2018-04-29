@@ -10,17 +10,29 @@
 
 describe('Proof visitor', () => {
 
+    const testRow = createTestRow();
+
     let visitor: Pricker.Visitor.Proof;
 
-    beforeEach(() => { visitor = new Pricker.Visitor.Proof(); });
+    let touch: Pricker.Touch;
+
+    beforeAll(() => {
+        touch = new Pricker.Touch(testRow);
+        touch.insertBlock(1, new Pricker.Course(testRow));
+        touch.insertBlock(2, new Pricker.Course(testRow));
+    });
+
+    beforeEach(() => {
+        visitor = new Pricker.Visitor.Proof();
+    });
 
     it('has a dictionary of row counts that starts empty', () => {
         expect(visitor.getRowCounts()).toEqual({ });
     });
 
     it('accumulates counts when it visits a row', () => {
-        const row1 = createTestRow('2314567890E'),
-            row2 = createTestRow('3241658709E');
+        const row1 = createTestRow('2314567890E');
+        const row2 = createTestRow('3241658709E');
 
         visitor.visit(row1);
         visitor.visit(row2);
@@ -49,13 +61,13 @@ describe('Proof visitor', () => {
     });
 
     it('remains true when rows are visited', () => {
-        visitor.visit(createTestRow());
+        visitor.visit(testRow);
         expect(visitor.isTrue()).toBe(true);
     });
 
     it('becomes false when a row is repeated', () => {
-        visitor.visit(createTestRow());
-        visitor.visit(createTestRow());
+        visitor.visit(testRow);
+        visitor.visit(testRow);
         expect(visitor.isTrue()).toBe(false);
     });
 
@@ -64,11 +76,8 @@ describe('Proof visitor', () => {
     });
 
     it('adds new blocks found to be false to the directory', () => {
-        const touch = new Pricker.Touch(createTestRow());
-        touch.setLength(2);
-
-        visitor.visit(createTestRow());
-        visitor.visit(createTestRow(), touch.getCourse(1).getSix(3));
+        visitor.visit(testRow);
+        visitor.visit(testRow, touch.getCourse(1).getSix(3));
 
         expect(
             visitor.getDirectory().contains(touch.getCourse(1).getSix(3)),
@@ -76,11 +85,8 @@ describe('Proof visitor', () => {
     });
 
     it('adds old blocks now found to be false to the directory', () => {
-        const touch = new Pricker.Touch(createTestRow());
-        touch.setLength(2);
-
-        visitor.visit(createTestRow(), touch.getCourse(1).getSix(3));
-        visitor.visit(createTestRow());
+        visitor.visit(testRow, touch.getCourse(1).getSix(3));
+        visitor.visit(testRow);
 
         expect(
             visitor.getDirectory().contains(touch.getCourse(1).getSix(3)),
