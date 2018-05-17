@@ -423,7 +423,8 @@ namespace Pricker {
                     'index': Block.Touch,
                 });
 
-                this.redraw();
+                // Call notify() to clear out state from the previous touch
+                this.notify(Block.Touch); // calls redraw()
                 this.redrawTouch();
             }
 
