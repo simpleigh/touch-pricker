@@ -175,6 +175,7 @@ namespace Pricker {
                 this._musicScheme = new Music.MbdScheme(this._stage);
 
                 this.redraw();
+                this.redrawTouch();
             }
 
             private redraw(): void {
@@ -224,7 +225,10 @@ namespace Pricker {
                         this._touch.estimateRows() + ' changes';
                 }
 
-                // Touch display
+                this.resize();
+            }
+
+            private redrawTouch(): void {
                 this.getEl('courses').outerHTML =
                     '<select id="courses"'
                         + ' onclick="pricker.onSelectCourse()"'
@@ -242,8 +246,6 @@ namespace Pricker {
                 );
                 this.getEl<HTMLSelectElement>('courses').value =
                     this._selectedIndex.toString();
-
-                this.resize();
             }
 
             public c(six: number): void {
@@ -336,6 +338,8 @@ namespace Pricker {
                     this._course.resetLength();
                     this._course.resetCalls();
                 }
+
+                this.redrawTouch();
             }
 
             public onPasteCourse(): void {
@@ -360,6 +364,8 @@ namespace Pricker {
                         this._course.resetLength();
                         this._course.resetCalls();
                     }
+
+                    this.redrawTouch();
                 }
             }
 
@@ -390,6 +396,7 @@ namespace Pricker {
                         this._touch.getLength(),
                     );
                     this.redraw();
+                    this.redrawTouch();
                 }
             }
 
@@ -417,6 +424,7 @@ namespace Pricker {
                 });
 
                 this.redraw();
+                this.redrawTouch();
             }
 
             public onSaveTouch() {
@@ -462,6 +470,7 @@ namespace Pricker {
                 }
 
                 this.redraw();
+                this.redrawTouch();
                 return proof.isTrue();
             }
 
