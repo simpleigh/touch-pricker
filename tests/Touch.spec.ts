@@ -71,6 +71,12 @@ describe('Touch class', () => {
         expect(touch.getBlock(2).getFirstSixType()).toBe(Pricker.SixType.Quick);
     });
 
+    it('defaults to a standard start', () => {
+        const start = touch.getStart();
+        expect(start.getRowIndex()).toBe(4);
+        expect(start.getSixType()).toBe(Pricker.SixType.Quick);
+    });
+
     describe('can create touches from strings:', () => {
 
         const testImport = (input: string, output: string) => () => {

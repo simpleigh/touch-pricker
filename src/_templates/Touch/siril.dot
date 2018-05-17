@@ -46,6 +46,8 @@ quick = +1.3.1.3.1{{= '\n' }}
 plain = +{{= rounds.slice(-1) }}{{= '\n' }}
 bob = +{{= rounds.slice(-3, -2) }}{{= '\n' }}
 single = +{{= rounds.slice(-3) }}{{= '\n' }}
+/* Can't use the name "start": it's processed separately by gsiril */
+strt = {{= context.object.getStart().print('siril') }}{{= '\n' }}
 {{= '\n' }}
 
 /* Course definitions */
@@ -63,7 +65,7 @@ single = +{{= rounds.slice(-3) }}{{= '\n' }}
 {{= '\n' }}
 
 /* Touch - all the courses */
-touch = +3.1, {{= courseNames.join(', ') }}{{= '\n' }}
+touch = strt, {{= courseNames.join(', ') }}{{= '\n' }}
 {{= '\n' }}
 
 /* Define the touch to prove for GSiril */

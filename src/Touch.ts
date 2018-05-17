@@ -10,6 +10,7 @@
 /// <reference path="RandomAccessContainer.ts" />
 /// <reference path="Row.ts" />
 /// <reference path="Stage.ts" />
+/// <reference path="Start.ts" />
 /// <reference path="Visitor/Abstract.ts" />
 
 namespace Pricker {
@@ -19,19 +20,21 @@ namespace Pricker {
      */
     export class Touch extends RandomAccessContainer<Course> {
 
+        /**
+         * Start for this touch
+         */
+        private _start = new Start();
+
         /* AbstractBlock methods **********************************************/
 
         /**
          * Receives a visitor that will be called to process each row
          */
         public accept(...visitors: Visitor.AbstractVisitor[]): this {
-            const row: Row = this._initialRow.slice();
-
-            Changes.permute1(row);  // Go backwards one change from _initialRow
+            this._start.setStage(this._initialRow.length);
 
             for (const visitor of visitors) {
-                visitor.visit(row);
-                visitor.visit(this._initialRow);
+                this._start.accept(visitor);
             }
 
             return super.accept(...visitors);
@@ -42,7 +45,7 @@ namespace Pricker {
          * The estimate doesn't take into account coming round part-way through
          */
         public estimateRows(): number {
-            return 2 + super.estimateRows();
+            return this._start.estimateRows() + super.estimateRows();
         }
 
         /* PrintableMixin methods *********************************************/
@@ -88,6 +91,13 @@ namespace Pricker {
          * Deletes the course at the specified index
          */
         public deleteCourse: (index: number) => Course = this.deleteBlock;
+
+        /**
+         * Read access to the start
+         */
+        public getStart(): Start {
+            return this._start;
+        }
 
         /**
          * Creates a new touch from a string representation
