@@ -429,7 +429,7 @@ namespace Pricker {
             }
 
             public onSaveTouch() {
-                this.getEl('loadSaveTextarea').innerText =
+                this.getEl<HTMLTextAreaElement>('loadSaveTextarea').value =
                     this._touch.print('text');
             }
 
