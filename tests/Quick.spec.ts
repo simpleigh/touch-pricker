@@ -78,7 +78,7 @@ describe('Quick six class', () => {
             ],
         ],
         Pricker.SixType.Quick,
-        ['1', '3', '1', '3'],
+        ['1', '3', '1', '3', '1'],
     );
 
 });
