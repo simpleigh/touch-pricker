@@ -6,6 +6,7 @@
  */
 
 /// <reference path="Changes.ts" />
+/// <reference path="PrintableMixin.ts" />
 /// <reference path="Row.ts" />
 /// <reference path="rowFromString.ts" />
 /// <reference path="SixType.ts" />
@@ -17,7 +18,7 @@ namespace Pricker {
     /**
      * A start for a touch of Stedman
      */
-     export class Start {
+    export class Start implements PrintableMixin {
 
         /**
          * Index of rounds within the six
@@ -51,6 +52,20 @@ namespace Pricker {
             this._rowIndex = rowIndex;
             this._sixType = sixType;
         }
+
+        /* PrintableMixin methods *********************************************/
+
+        /**
+         * Renders the object with a template
+         */
+        public print: (t: string, c?: TemplateContext) => string;
+
+        /**
+         * Path for this class' templates
+         */
+        public readonly templatePath: string = 'Start';
+
+        /* Start methods ******************************************************/
 
         /**
          * Sets the stage
@@ -134,5 +149,7 @@ namespace Pricker {
         }
 
     }
+
+    PrintableMixin.makePrintable(Start);
 
 }
