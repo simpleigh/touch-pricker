@@ -11,7 +11,7 @@
 
 {{ var start = context.object.getStart().print('text'); }}
 
-{{= Pricker.stringFromRow(context.object.getInitialRow()) }}{{= '\n' }}
+{{= Pricker.stringFromRow(context.object.getStart().getLast()) }}{{= '\n' }}
 {{~ context.object.getCourses() :course }}
 	{{= course.print('text', {'end': '\n'}) }}
 {{~}}

@@ -8,6 +8,7 @@
 /* tslint:disable:max-line-length */
 
 /// <reference path="functions.ts" />
+/// <reference path="AbstractBlock.spec.ts" />
 
 const START_CASES: Array<[number, Pricker.SixType]> = [
     [1, Pricker.SixType.Quick],
@@ -26,64 +27,52 @@ const START_CASES: Array<[number, Pricker.SixType]> = [
 
 describe('Start class', () => {
 
-    it('provides read access to the row index', () => {
-        const start = new Pricker.Start(3);
-        expect(start.getRowIndex()).toBe(3);
-    });
+    const testRow = createTestRow();
 
-    it('provides read access to the six type', () => {
-        let start: Pricker.Start;
-        start = new Pricker.Start(undefined, Pricker.SixType.Quick);
-        expect(start.getSixType()).toBe(Pricker.SixType.Quick);
-        start = new Pricker.Start(undefined, Pricker.SixType.Slow);
-        expect(start.getSixType()).toBe(Pricker.SixType.Slow);
+    let start;
+
+    beforeEach(() => {
+        start = new Pricker.Start(testRow);
     });
 
     it('defaults to a standard start', () => {
-        const start = new Pricker.Start();
         expect(start.getRowIndex()).toBe(4);
         expect(start.getSixType()).toBe(Pricker.SixType.Quick);
     });
 
-    it('ignores changes to the getLast result', () => {
-        const start = new Pricker.Start();
-        start.setStage(Pricker.Stage.Cinques);
-        const getLast = start.getLast();
-        const getLastBackup = getLast.slice();
+    it('allows the row index to be set', () => {
+        start.setRowIndex(3);
+        expect(start.getRowIndex()).toBe(3);
+    });
 
-        getLast[3] = 999;  // Mutate the getLast result
-        expect(getLast).not.toEqual(getLastBackup);
+    it('allows the row index to be reset', () => {
+        start.setRowIndex(3);
+        start.setRowIndex();
+        expect(start.getRowIndex()).toBe(4);
+    });
 
-        expect(start.getLast()).not.toEqual(getLast);
-        expect(start.getLast()).toEqual(getLastBackup);
+    it('returns this when setting the row index', () => {
+        expect(start.setRowIndex(3)).toBe(start);
     });
 
     it('throws an exception if the row index is out of range', () => {
-        expect(() => new Pricker.Start(0)).toThrow();
-        expect(() => new Pricker.Start(7)).toThrow();
+        expect(() => start.setRowIndex(0)).toThrow();
+        expect(() => start.setRowIndex(7)).toThrow();
     });
 
-    it('throws an exception if getting the last row with no stage set', () => {
-        const start = new Pricker.Start();
-        expect(() => start.getLast()).toThrow();
+    it('allows the six type to be set', () => {
+        start.setSixType(Pricker.SixType.Slow);
+        expect(start.getSixType()).toBe(Pricker.SixType.Slow);
     });
 
-    it('throws an exception if visiting with no stage set', () => {
-        const start = new Pricker.Start();
-        const visitor = new Pricker.Visitor.StringArray();
-        expect(() => start.accept(visitor)).toThrow();
+    it('allows the six type to be reset', () => {
+        start.setSixType(Pricker.SixType.Slow);
+        start.setSixType();
+        expect(start.getSixType()).toBe(Pricker.SixType.Quick);
     });
 
-    it('returns this when setting the stage', () => {
-        const start = new Pricker.Start();
-        expect(start.setStage(Pricker.Stage.Cinques)).toBe(start);
-    });
-
-    it('returns this when visiting', () => {
-        const start = new Pricker.Start();
-        start.setStage(Pricker.Stage.Cinques);
-        const visitor = new Pricker.Visitor.StringArray();
-        expect(start.accept(visitor)).toBe(start);
+    it('returns this when setting the six type', () => {
+        expect(start.setSixType(Pricker.SixType.Slow)).toBe(start);
     });
 
     type TestCase = [Pricker.Stage, string[]];
@@ -185,20 +174,23 @@ describe('Start class', () => {
             const sixType = startPosition[1];
             const testCases = startPosition[2];
 
-            const start = new Pricker.Start(rowIndex, sixType);
             for (const testCase of testCases) {
                 const stage = testCase[0];
                 const rows = testCase[1];
+                const fixture = new Pricker.Start(createTestRow('123', stage));
 
-                start.setStage(stage);
-                testFn(start, stage, rows);
+                fixture.setRowIndex(rowIndex);
+                fixture.setSixType(sixType);
+                testFn(fixture, rows);
             }
         }
     };
 
     it('computes the last row correctly', runTestCases(
-        (start: Pricker.Start, stage: Pricker.Stage, rows: string[]) => {
-            const last = start.getLast();
+        (fixture: Pricker.Start, rows: string[]) => {
+            const last = fixture.getLast();
+            const stage = last.length;
+
             if (rows.length) {
                 const expected = rows[rows.length - 1];
                 expect(last).toEqual(Pricker.rowFromString(expected, stage));
@@ -209,17 +201,23 @@ describe('Start class', () => {
     ));
 
     it('computes the rows correctly', runTestCases(
-        (start: Pricker.Start, stage: Pricker.Stage, rows: string[]) => {
+        (fixture: Pricker.Start, rows: string[]) => {
             const visitor = new Pricker.Visitor.StringArray();
-            start.accept(visitor);
+            fixture.accept(visitor);
             expect(visitor.getStrings()).toEqual(rows);
         },
     ));
 
     it('computes the length correctly', runTestCases(
-        (start: Pricker.Start, stage: Pricker.Stage, rows: string[]) => {
-            expect(start.estimateRows()).toBe(rows.length);
+        (fixture: Pricker.Start, rows: string[]) => {
+            expect(fixture.estimateRows()).toBe(rows.length);
         },
     ));
+
+    testAbstractBlockImplementation(
+        Pricker.Start,
+        (fixture: Pricker.Start) => { fixture.setRowIndex(2); },
+        2,
+    );
 
 });

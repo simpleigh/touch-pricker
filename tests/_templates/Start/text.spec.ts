@@ -9,6 +9,8 @@
 
 describe('text template for Start', () => {
 
+    const initialRow = createTestRow();
+
     type StartPosition = [Pricker.SixType, string[]];
 
     const startPositions: StartPosition[] = [
@@ -39,7 +41,9 @@ describe('text template for Start', () => {
             const trimmed = expected.substring(21, expected.length - 1);
 
             it(`prints correctly for ${trimmed}`, () => {
-                const start = new Pricker.Start(rowIndex, sixType);
+                const start = new Pricker.Start(initialRow);
+                start.setRowIndex(rowIndex);
+                start.setSixType(sixType);
                 expect(start.print('text')).toBe(expected);
             });
         }

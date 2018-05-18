@@ -23,7 +23,23 @@ namespace Pricker {
         /**
          * Start for this touch
          */
-        private _start = new Start();
+        private _start: Start;
+
+        /**
+         * Constructor
+         *
+         * Extends the AbstractBlock container to set up the start.
+         */
+        constructor(
+            initialRow: Row,
+            protected _ownership?: BlockOwnership,
+        ) {
+            super(initialRow, _ownership);
+            this._start = new Start(
+                initialRow,
+                { 'container': this, 'index': 0 },
+            );
+        }
 
         /* AbstractBlock methods **********************************************/
 
@@ -31,8 +47,6 @@ namespace Pricker {
          * Receives a visitor that will be called to process each row
          */
         public accept(...visitors: Visitor.AbstractVisitor[]): this {
-            this._start.setStage(this._initialRow.length);
-
             for (const visitor of visitors) {
                 this._start.accept(visitor);
             }
@@ -75,7 +89,6 @@ namespace Pricker {
          */
         protected propagateFirstBlock(first: Course): void {
             const sixType = this._start.getSixType();
-            this._start.setStage(this._initialRow.length);
             first.setInitialRow(this._start.getLast());
             first.setFirstSixType((sixType + 1) % 2);
         }
@@ -111,15 +124,6 @@ namespace Pricker {
         }
 
         /**
-         * Write access to the start
-         */
-        public setStart(start: Start): Touch {
-            this._start = start;
-            this.notify(0);
-            return this;
-        }
-
-        /**
          * Creates a new touch from a string representation
          */
         public static fromString(input: string): Touch {
@@ -151,7 +155,7 @@ namespace Pricker {
                     if (!Stage[line.length]) {
                         throw new Error('Cannot recognise stage');
                     }
-                    touch = new Touch(rowFromString('231', line.length));
+                    touch = new Touch(rowFromString('123', line.length));
                 } else {
                     // Create a course for each remaining line
                     course = Course.fromString(touch.getLast(), line);

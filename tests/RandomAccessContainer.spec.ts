@@ -18,6 +18,9 @@ function testRandomAccessContainerImplementation(
     // tslint:disable-next-line:variable-name
     Container,
     testBlocks: Pricker.AbstractBlock[],
+    firstBlockInitialRowFn:
+        (container: Pricker.RandomAccessContainer<Pricker.AbstractBlock>) =>
+            Pricker.Row,
     expectedRows: number,
 ) {
 
@@ -34,7 +37,7 @@ function testRandomAccessContainerImplementation(
         const checkPropagation = () => {
             // First block initial row OK
             expect(container.getBlock(1).getInitialRow())
-                .toEqual(container.getInitialRow());
+                .toEqual(firstBlockInitialRowFn(container));
 
             // All blocks connected to the previous one
             for (let index = 2; index <= container.getLength(); index += 1) {
@@ -71,7 +74,12 @@ function testRandomAccessContainerImplementation(
         });
 
         it('ignores the initial row when inserting a new block', () => {
-            const initialRow = container.getInitialRow();
+            // Set container initial row different from block initial row
+            const initialRow = testBlocks[0].getInitialRow();
+            Pricker.Changes.permuteN(initialRow);
+            container.setInitialRow(initialRow);
+
+            // Container initial row should be unaffected when inserting
             container.insertBlock(1, testBlocks[0]);
             expect(container.getInitialRow()).toEqual(initialRow);
             checkPropagation();

@@ -5,6 +5,7 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="AbstractBlock.ts" />
 /// <reference path="Changes.ts" />
 /// <reference path="PrintableMixin.ts" />
 /// <reference path="Row.ts" />
@@ -18,7 +19,7 @@ namespace Pricker {
     /**
      * A start for a touch of Stedman
      */
-    export class Start implements PrintableMixin {
+    export class Start extends AbstractBlock {
 
         /**
          * Index of rounds within the six
@@ -42,41 +43,37 @@ namespace Pricker {
 
         /**
          * Constructor
-         * @param rowIndex  index of rounds within the six
-         * @param sixType   type of six
          */
-        constructor(rowIndex: number = 4, sixType: SixType = SixType.Quick) {
-            if (rowIndex < 1 || rowIndex > 6) {
-                throw new Error('Row index out of range');
-            }
-            this._rowIndex = rowIndex;
-            this._sixType = sixType;
+        constructor(
+            initialRow: Row,
+            protected _ownership?: BlockOwnership,
+        ) {
+            super(initialRow, _ownership);
+
+            this._rowIndex = 4;
+            this._sixType = SixType.Quick;
+            this.calculate();
         }
 
         /* PrintableMixin methods *********************************************/
-
-        /**
-         * Renders the object with a template
-         */
-        public print: (t: string, c?: TemplateContext) => string;
 
         /**
          * Path for this class' templates
          */
         public readonly templatePath: string = 'Start';
 
-        /* Start methods ******************************************************/
+        /* AbstractBlock methods **********************************************/
 
         /**
-         * Sets the stage
+         * Does any calculation needed by the block
          */
-        public setStage(stage: Stage): this {
-            const row = rowFromString('123', stage);
+        protected calculate(): void {
+            const row = this._initialRow.slice();
             this._rows = [];
 
             if (this._rowIndex === 6) {
                 this._lastRow = row;
-                return this;
+                return;
             }
 
             // Figure out what sort of change to apply
@@ -96,31 +93,13 @@ namespace Pricker {
             }
 
             this._lastRow = this._rows[this._rows.length - 1];
-            return this;
         }
 
         /**
-         * Provides read access to the row index
-         */
-        public getRowIndex(): number {
-            return this._rowIndex;
-        }
-
-        /**
-         * Provides read access to the six type
-         */
-        public getSixType(): SixType {
-            return this._sixType;
-        }
-
-        /**
-         * Returns the last row of the start
+         * Returns the last row in the block
+         * e.g. a lead head or a six end (for Stedman)
          */
         public getLast(): Row {
-            if (!this._lastRow) {
-                throw new Error('Must set stage before using start object');
-            }
-
             return this._lastRow.slice();
         }
 
@@ -128,10 +107,6 @@ namespace Pricker {
          * Receives a visitor that will be called to process each row
          */
         public accept(...visitors: Visitor.AbstractVisitor[]): this {
-            if (!this._rows) {
-                throw new Error('Must set stage before using start object');
-            }
-
             for (const visitor of visitors) {
                 for (const row of this._rows) {
                     visitor.visit(row);
@@ -142,14 +117,54 @@ namespace Pricker {
         }
 
         /**
-         * Counts the number of rows during the start
+         * Estimates the number of rows in the block
+         * The estimate doesn't take into account coming round part-way through
          */
         public estimateRows(): number {
-            return 6 - this._rowIndex;
+            return this._rows.length;
+        }
+
+        /* Start methods ******************************************************/
+
+        /**
+         * Provides read access to the row index
+         */
+        public getRowIndex(): number {
+            return this._rowIndex;
+        }
+
+        /**
+         * Provides write access to the row index
+         */
+        public setRowIndex(rowIndex: number = 4): Start {
+            if (rowIndex < 1 || rowIndex > 6) {
+                throw new Error('Row index out of range');
+            }
+            this._rowIndex = rowIndex;
+
+            this.calculate();
+            this.notifyContainer();
+            return this;
+        }
+
+        /**
+         * Provides read access to the six type
+         */
+        public getSixType(): SixType {
+            return this._sixType;
+        }
+
+        /**
+         * Provides write access to the six type
+         */
+        public setSixType(sixType: SixType = SixType.Quick): Start {
+            this._sixType = sixType;
+
+            this.calculate();
+            this.notifyContainer();
+            return this;
         }
 
     }
-
-    PrintableMixin.makePrintable(Start);
 
 }

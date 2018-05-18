@@ -169,7 +169,7 @@ namespace Pricker {
                 this._extraSixes = new Course(this._initialRow);
                 this._extraSixes.setLength(8);
                 this._touch = new Touch(
-                    this._initialRow,
+                    rowFromString('', this._stage),
                     {'container': this, 'index': Block.Touch},
                 );
                 this._musicScheme = new Music.MbdScheme(this._stage);

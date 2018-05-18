@@ -9,6 +9,8 @@
 
 describe('siril template for Start', () => {
 
+    const initialRow = createTestRow();
+
     type StartPosition = [Pricker.SixType, string[]];
 
     const startPositions: StartPosition[] = [
@@ -38,7 +40,9 @@ describe('siril template for Start', () => {
             const expected = startPosition[1][rowIndex];
 
             it(`prints correctly "${expected}"`, () => {
-                const start = new Pricker.Start(rowIndex, sixType);
+                const start = new Pricker.Start(initialRow);
+                start.setRowIndex(rowIndex);
+                start.setSixType(sixType);
                 expect(start.print('siril')).toBe(expected);
             });
         }
