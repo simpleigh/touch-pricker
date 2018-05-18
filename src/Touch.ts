@@ -111,6 +111,15 @@ namespace Pricker {
         }
 
         /**
+         * Write access to the start
+         */
+        public setStart(start: Start): Touch {
+            this._start = start;
+            this.notify(0);
+            return this;
+        }
+
+        /**
          * Creates a new touch from a string representation
          */
         public static fromString(input: string): Touch {

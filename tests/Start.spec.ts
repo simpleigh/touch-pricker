@@ -9,6 +9,21 @@
 
 /// <reference path="functions.ts" />
 
+const START_CASES: Array<[number, Pricker.SixType]> = [
+    [1, Pricker.SixType.Quick],
+    [2, Pricker.SixType.Quick],
+    [3, Pricker.SixType.Quick],
+    [4, Pricker.SixType.Quick],
+    [5, Pricker.SixType.Quick],
+    [6, Pricker.SixType.Quick],
+    [1, Pricker.SixType.Slow],
+    [2, Pricker.SixType.Slow],
+    [3, Pricker.SixType.Slow],
+    [4, Pricker.SixType.Slow],
+    [5, Pricker.SixType.Slow],
+    [6, Pricker.SixType.Slow],
+];
+
 describe('Start class', () => {
 
     it('provides read access to the row index', () => {
