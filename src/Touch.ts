@@ -69,6 +69,17 @@ namespace Pricker {
             current.setFirstSixType((sixType + 1) % 2);
         }
 
+        /**
+         * Propagates data for the first block within the container
+         * Handled as a special case to allow for e.g. Stedman starts
+         */
+        protected propagateFirstBlock(first: Course): void {
+            const sixType = this._start.getSixType();
+            this._start.setStage(this._initialRow.length);
+            first.setInitialRow(this._start.getLast());
+            first.setFirstSixType((sixType + 1) % 2);
+        }
+
         /* Touch methods ******************************************************/
 
         /**

@@ -71,12 +71,7 @@ function testRandomAccessContainerImplementation(
         });
 
         it('ignores the initial row when inserting a new block', () => {
-            // Set container initial row different from block initial row
-            const initialRow = testBlocks[0].getInitialRow();
-            Pricker.Changes.permuteN(initialRow);
-            container.setInitialRow(initialRow);
-
-            // Container initial row should be unaffected when inserting
+            const initialRow = container.getInitialRow();
             container.insertBlock(1, testBlocks[0]);
             expect(container.getInitialRow()).toEqual(initialRow);
             checkPropagation();

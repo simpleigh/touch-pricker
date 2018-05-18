@@ -96,7 +96,7 @@ namespace Pricker {
         private propagateBlocks(index: number = 0): void {
             // Handle first block
             if (!index && this.getLength()) {
-                this._blocks[0].setInitialRow(this._initialRow);
+                this.propagateFirstBlock(this._blocks[0]);
                 index = 1;
             }
 
@@ -113,6 +113,14 @@ namespace Pricker {
          */
         protected propagateCurrentBlock(previous: Block, current: Block): void {
             current.setInitialRow(previous.getLast());
+        }
+
+        /**
+         * Propagates data for the first block within the container
+         * Handled as a special case to allow for e.g. Stedman starts
+         */
+        protected propagateFirstBlock(first: Block): void {
+            first.setInitialRow(this._initialRow);
         }
 
         /**
