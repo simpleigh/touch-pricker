@@ -434,6 +434,11 @@ namespace Pricker {
             }
 
             public onGenerateSiril(): void {
+                // Make sure we have the count of rows before generating
+                if (!this._rowCount) {
+                    this.onProve();
+                }
+
                 this.getEl('sirilTextarea').innerText =
                     this._touch.print('siril', {'touchRows': this._rowCount});
             }
