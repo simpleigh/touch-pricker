@@ -10,6 +10,7 @@
 /// <reference path="RandomAccessContainer.ts" />
 /// <reference path="Row.ts" />
 /// <reference path="Stage.ts" />
+/// <reference path="Start.ts" />
 /// <reference path="Visitor/Abstract.ts" />
 
 namespace Pricker {
@@ -19,19 +20,35 @@ namespace Pricker {
      */
     export class Touch extends RandomAccessContainer<Course> {
 
+        /**
+         * Start for this touch
+         */
+        private _start: Start;
+
+        /**
+         * Constructor
+         *
+         * Extends the AbstractBlock container to set up the start.
+         */
+        constructor(
+            initialRow: Row,
+            protected _ownership?: BlockOwnership,
+        ) {
+            super(initialRow, _ownership);
+            this._start = new Start(
+                initialRow,
+                { 'container': this, 'index': 0 },
+            );
+        }
+
         /* AbstractBlock methods **********************************************/
 
         /**
          * Receives a visitor that will be called to process each row
          */
         public accept(...visitors: Visitor.AbstractVisitor[]): this {
-            const row: Row = this._initialRow.slice();
-
-            Changes.permute1(row);  // Go backwards one change from _initialRow
-
             for (const visitor of visitors) {
-                visitor.visit(row);
-                visitor.visit(this._initialRow);
+                this._start.accept(visitor);
             }
 
             return super.accept(...visitors);
@@ -42,7 +59,7 @@ namespace Pricker {
          * The estimate doesn't take into account coming round part-way through
          */
         public estimateRows(): number {
-            return 2 + super.estimateRows();
+            return this._start.estimateRows() + super.estimateRows();
         }
 
         /* PrintableMixin methods *********************************************/
@@ -64,6 +81,16 @@ namespace Pricker {
             const sixType = previous.getSix(previous.getLength()).type;
             current.setInitialRow(previous.getLast());
             current.setFirstSixType((sixType + 1) % 2);
+        }
+
+        /**
+         * Propagates data for the first block within the container
+         * Handled as a special case to allow for e.g. Stedman starts
+         */
+        protected propagateFirstBlock(first: Course): void {
+            const sixType = this._start.getSixType();
+            first.setInitialRow(this._start.getLast());
+            first.setFirstSixType((sixType + 1) % 2);
         }
 
         /* Touch methods ******************************************************/
@@ -90,6 +117,13 @@ namespace Pricker {
         public deleteCourse: (index: number) => Course = this.deleteBlock;
 
         /**
+         * Read access to the start
+         */
+        public getStart(): Start {
+            return this._start;
+        }
+
+        /**
          * Creates a new touch from a string representation
          */
         public static fromString(input: string): Touch {
@@ -98,7 +132,8 @@ namespace Pricker {
             let i: number,
                 line: string,
                 course: Course,
-                touch: Touch | undefined;
+                touch: Touch | undefined,
+                start: string | undefined;
 
             // Process each input line, making text substitutions
             for (i = 0; i < lines.length; i += 1) {
@@ -115,13 +150,19 @@ namespace Pricker {
                     continue;
                 }
 
+                // Store start definitions for later processing
+                if (/start/i.test(line)) {
+                    start = line;
+                    continue;
+                }
+
                 if (!touch) {
                     // Create the touch with a stage based on the first line
                     line = line.replace(/\s/g, '');
                     if (!Stage[line.length]) {
                         throw new Error('Cannot recognise stage');
                     }
-                    touch = new Touch(rowFromString('231', line.length));
+                    touch = new Touch(rowFromString('123', line.length));
                 } else {
                     // Create a course for each remaining line
                     course = Course.fromString(touch.getLast(), line);
@@ -131,6 +172,10 @@ namespace Pricker {
 
             if (!touch) {
                 throw new Error('No input lines');
+            }
+
+            if (start) {
+                touch.getStart().setFromString(start);
             }
 
             return touch;

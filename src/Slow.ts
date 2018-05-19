@@ -25,7 +25,8 @@ namespace Pricker {
         /**
          * Notation (excluding call)
          */
-        public readonly notation = ['3', '1', '3', '1'];
+        public static readonly notation = ['3', '1', '3', '1', '3'];
+        public readonly notation = Slow.notation;
 
         /* AbstractBlock methods **********************************************/
 

@@ -33,6 +33,7 @@ function testSixImplementation(Six, testCases, rowTests, type, notation) {
     it('has the expected notation', () => {
         const six = new Six(createTestRow('231'));
         expect(six.notation).toEqual(notation);
+        expect(Six.notation).toEqual(notation);
     });
 
     it('calculates the last row correctly', runTestCases(

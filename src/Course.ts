@@ -30,7 +30,7 @@ namespace Pricker {
          */
         public readonly templatePath: string = 'Course';
 
-        /* AbstractContainer methods ******************************************/
+        /* SerialContainer methods ********************************************/
 
         /**
          * Returns the default length of new containers of this type
@@ -103,12 +103,21 @@ namespace Pricker {
             let initialRow = this._initialRow;
             const newSixes: AbstractSix[] = [];
             for (let index = 1; index <= this.getLength(); index += 1) {
-                newSixes[index - 1] = this.createBlock(initialRow, index);
-                newSixes[index - 1].setCall(this.getSix(index).getCall());
+                const block = this.createBlock(initialRow, index);
+                block.setCall(
+                    this.getSix(index).getCall(),
+                    false,  // Avoid multiple updates...
+                );
+                newSixes.push(block);
                 initialRow = newSixes[index - 1].getLast();
             }
 
             this._blocks = newSixes;
+
+            // ... and trigger one at the end
+            if (newSixes.length) {
+                this.getSix(1).setCall(this.getSix(1).getCall());
+            }
 
             return this;
         }

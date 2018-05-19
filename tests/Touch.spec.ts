@@ -7,10 +7,11 @@
 
 /// <reference path="functions.ts" />
 /// <reference path="RandomAccessContainer.spec.ts" />
+/// <reference path="Start.spec.ts" />
 
 describe('Touch class', () => {
 
-    const testRow = createTestRow();
+    const testRow = createTestRow('123');
 
     let touch;
 
@@ -70,6 +71,78 @@ describe('Touch class', () => {
         touch.insertCourse(1, course1);
         expect(touch.getBlock(2).getFirstSixType()).toBe(Pricker.SixType.Quick);
     });
+
+    it('allows access to the start', () => {
+        const start = touch.getStart();
+        expect(start.getRowIndex()).toBe(4);
+        expect(start.getSixType()).toBe(Pricker.SixType.Quick);
+    });
+
+    const runStartCases = (testFunction) => () => {
+        for (const testCase of START_CASES) {
+            if (!testCase) { continue; }  // IE8 trailing comma
+            testFunction(
+                testCase[0],  // row index
+                testCase[1],  // six type
+            );
+
+            // Clear out any course that may have been added
+            if (touch.getLength()) {
+                touch.deleteCourse(1);
+            }
+        }
+    };
+
+    it('propagates when adding courses', runStartCases(
+        (rowIndex, sixType) => {
+            const course = new Pricker.Course(testRow);
+            touch.getStart()
+                .setRowIndex(rowIndex)
+                .setSixType(sixType);
+            touch.insertCourse(1, course);
+
+            expect(touch.getCourse(1).getInitialRow())
+                .toEqual(touch.getStart().getLast());
+        },
+    ));
+
+    it('propagates when setting the start', runStartCases(
+        (rowIndex, sixType) => {
+            const course = new Pricker.Course(testRow);
+            touch.insertCourse(1, course);
+            touch.getStart()
+                .setRowIndex(rowIndex)
+                .setSixType(sixType);
+
+            expect(touch.getCourse(1).getInitialRow())
+                .toEqual(touch.getStart().getLast());
+        },
+    ));
+
+    it('includes the start when visiting rows', runStartCases(
+        (rowIndex, sixType) => {
+            const startVisitor = new Pricker.Visitor.StringArray();
+            const touchVisitor = new Pricker.Visitor.StringArray();
+
+            touch.getStart()
+                .setRowIndex(rowIndex)
+                .setSixType(sixType)
+                .accept(startVisitor);
+            touch.accept(touchVisitor);
+
+            expect(touchVisitor.getStrings())
+                .toEqual(startVisitor.getStrings());
+        },
+    ));
+
+    it('includes the start in the estimate of rows', runStartCases(
+        (rowIndex, sixType) => {
+            touch.getStart()
+                .setRowIndex(rowIndex)
+                .setSixType(sixType);
+            expect(touch.estimateRows()).toBe(touch.getStart().estimateRows());
+        },
+    ));
 
     describe('can create touches from strings:', () => {
 
@@ -142,6 +215,15 @@ describe('Touch class', () => {
                 + '2314567890E  1 s10 s13 22\n',
         ));
 
+        it('a touch with a start', testImport(
+            '321547698E0\n'
+                + '3765421E098  1 s10 s13 22\n'
+                + 'Start from rounds as the third row of a slow six.\n',
+            '321547698E0\n'
+                + '3765421E098  1 s10 s13 22\n'
+                + 'Start from rounds as the third row of a slow six.\n',
+        ));
+
         it('a touch with no lines', () => {
             expect(() => {
                 Pricker.Touch.fromString('');
@@ -175,6 +257,7 @@ describe('Touch class', () => {
                 '2314567890E  12 14 s16 17 18 19  (20 sixes)',
             ),
         ],
+        (container: Pricker.Touch) => container.getStart().getLast(),
         2,
     );
 

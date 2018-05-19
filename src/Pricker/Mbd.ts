@@ -169,7 +169,7 @@ namespace Pricker {
                 this._extraSixes = new Course(this._initialRow);
                 this._extraSixes.setLength(8);
                 this._touch = new Touch(
-                    this._initialRow,
+                    rowFromString('', this._stage),
                     {'container': this, 'index': Block.Touch},
                 );
                 this._musicScheme = new Music.MbdScheme(this._stage);
@@ -230,6 +230,11 @@ namespace Pricker {
             }
 
             private redrawTouch(): void {
+                this.getEl<HTMLSelectElement>('rowIndex').value =
+                    this._touch.getStart().getRowIndex().toString();
+                this.getEl<HTMLSelectElement>('sixType').value =
+                    this._touch.getStart().getSixType().toString();
+
                 this.getEl('courses').outerHTML =
                     '<select id="courses"'
                         + ' onclick="pricker.onSelectCourse()"'
@@ -316,6 +321,18 @@ namespace Pricker {
                 });
 
                 this.redraw();
+            }
+
+            public onRowIndex() {
+                const input = this.getEl<HTMLSelectElement>('rowIndex').value;
+                this._touch.getStart().setRowIndex(parseInt(input));
+                this.redrawTouch();
+            }
+
+            public onSixType() {
+                const input = this.getEl<HTMLSelectElement>('sixType').value;
+                this._touch.getStart().setSixType(parseInt(input));
+                this.redrawTouch();
             }
 
             public onSelectCourse() {

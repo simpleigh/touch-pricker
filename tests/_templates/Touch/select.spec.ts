@@ -9,7 +9,7 @@
 
 describe('select template for Touch', () => {
 
-    const testRow = createTestRow();
+    const testRow = createTestRow('123');
 
     it('renders a touch correctly', () => {
         const touch = Pricker.Touch.fromString(
@@ -21,7 +21,7 @@ describe('select template for Touch', () => {
         expect(touch.print('select')).toBe(
             ''
                 + '<option value="0">'
-                + Pricker.stringFromRow(touch.getInitialRow())
+                + Pricker.stringFromRow(touch.getStart().getLast())
                 + '</option>'
                 + '<option value="1">'
                 + touch.getCourse(1).print('text')

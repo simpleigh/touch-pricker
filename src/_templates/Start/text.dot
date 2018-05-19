@@ -1,0 +1,34 @@
+/**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * Renders a start, e.g.:
+ * "Start from rounds as the fifth row of a quick six."
+ */
+
+{{ var rowMap = ['', 'first', 'second', 'third', 'fourth', 'fifth', 'last']; }}
+
+{{?
+	context.object.getRowIndex() === 4 &&
+		context.object.getSixType() === Pricker.SixType.Quick
+}}
+
+	/* No output for standard start */
+
+{{??}}
+
+	Start from rounds as the
+	 /* single space */
+	{{= rowMap[context.object.getRowIndex()] }}
+	 /* single space */
+	row of a
+	 /* single space */
+	{{= Pricker.SixType[context.object.getSixType()].toLowerCase() }}
+	 /* single space */
+	six.
+
+{{?}}

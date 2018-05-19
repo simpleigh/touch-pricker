@@ -18,6 +18,9 @@ function testRandomAccessContainerImplementation(
     // tslint:disable-next-line:variable-name
     Container,
     testBlocks: Pricker.AbstractBlock[],
+    firstBlockInitialRowFn:
+        (container: Pricker.RandomAccessContainer<Pricker.AbstractBlock>) =>
+            Pricker.Row,
     expectedRows: number,
 ) {
 
@@ -34,7 +37,7 @@ function testRandomAccessContainerImplementation(
         const checkPropagation = () => {
             // First block initial row OK
             expect(container.getBlock(1).getInitialRow())
-                .toEqual(container.getInitialRow());
+                .toEqual(firstBlockInitialRowFn(container));
 
             // All blocks connected to the previous one
             for (let index = 2; index <= container.getLength(); index += 1) {
