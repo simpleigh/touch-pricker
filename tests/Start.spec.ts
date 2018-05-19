@@ -170,11 +170,13 @@ describe('Start class', () => {
 
     const runTestCases = (testFn) => () => {
         for (const startPosition of startPositions) {
+            if (!startPosition) { continue; }  // IE8 trailing comma
             const rowIndex = startPosition[0];
             const sixType = startPosition[1];
             const testCases = startPosition[2];
 
             for (const testCase of testCases) {
+                if (!testCase) { continue; }  // IE8 trailing comma
                 const stage = testCase[0];
                 const rows = testCase[1];
                 const fixture = new Pricker.Start(createTestRow('123', stage));

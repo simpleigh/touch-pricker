@@ -35,6 +35,7 @@ describe('siril template for Start', () => {
     ];
 
     for (const startPosition of startPositions) {
+        if (!startPosition) { continue; }  // IE8 trailing comma
         for (let rowIndex = 1; rowIndex <= 6; rowIndex = rowIndex + 1) {
             const sixType = startPosition[0];
             const expected = startPosition[1][rowIndex];
