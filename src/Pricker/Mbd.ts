@@ -252,6 +252,8 @@ namespace Pricker {
                 );
                 this.getEl<HTMLSelectElement>('courses').value =
                     this._selectedIndex.toString();
+
+                this.resize();
             }
 
             public c(six: number): void {
