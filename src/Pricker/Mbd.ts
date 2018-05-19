@@ -174,7 +174,9 @@ namespace Pricker {
                 );
                 this._musicScheme = new Music.MbdScheme(this._stage);
 
-                this.redraw();
+                // Call notify() to clear out state from the previous touch
+                this.notify(Block.Touch); // calls redraw()
+                this.redrawTouch();
             }
 
             private redraw(): void {
@@ -224,7 +226,10 @@ namespace Pricker {
                         this._touch.estimateRows() + ' changes';
                 }
 
-                // Touch display
+                this.resize();
+            }
+
+            private redrawTouch(): void {
                 this.getEl('courses').outerHTML =
                     '<select id="courses"'
                         + ' onclick="pricker.onSelectCourse()"'
@@ -242,8 +247,6 @@ namespace Pricker {
                 );
                 this.getEl<HTMLSelectElement>('courses').value =
                     this._selectedIndex.toString();
-
-                this.resize();
             }
 
             public c(six: number): void {
@@ -336,6 +339,8 @@ namespace Pricker {
                     this._course.resetLength();
                     this._course.resetCalls();
                 }
+
+                this.redrawTouch();
             }
 
             public onPasteCourse(): void {
@@ -360,6 +365,8 @@ namespace Pricker {
                         this._course.resetLength();
                         this._course.resetCalls();
                     }
+
+                    this.redrawTouch();
                 }
             }
 
@@ -390,6 +397,7 @@ namespace Pricker {
                         this._touch.getLength(),
                     );
                     this.redraw();
+                    this.redrawTouch();
                 }
             }
 
@@ -416,15 +424,22 @@ namespace Pricker {
                     'index': Block.Touch,
                 });
 
-                this.redraw();
+                // Call notify() to clear out state from the previous touch
+                this.notify(Block.Touch); // calls redraw()
+                this.redrawTouch();
             }
 
             public onSaveTouch() {
-                this.getEl('loadSaveTextarea').innerText =
+                this.getEl<HTMLTextAreaElement>('loadSaveTextarea').value =
                     this._touch.print('text');
             }
 
             public onGenerateSiril(): void {
+                // Make sure we have the count of rows before generating
+                if (!this._rowCount) {
+                    this.onProve();
+                }
+
                 this.getEl('sirilTextarea').innerText =
                     this._touch.print('siril', {'touchRows': this._rowCount});
             }
@@ -462,6 +477,7 @@ namespace Pricker {
                 }
 
                 this.redraw();
+                this.redrawTouch();
                 return proof.isTrue();
             }
 
