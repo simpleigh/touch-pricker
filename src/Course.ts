@@ -30,7 +30,7 @@ namespace Pricker {
          */
         public readonly templatePath: string = 'Course';
 
-        /* AbstractContainer methods ******************************************/
+        /* SerialContainer methods ********************************************/
 
         /**
          * Returns the default length of new containers of this type
