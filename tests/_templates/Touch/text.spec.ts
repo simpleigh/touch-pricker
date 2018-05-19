@@ -5,6 +5,8 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+/// <reference path="../../functions.ts" />
+
 describe('text template for Touch', () => {
 
     it('renders a touch correctly', () => {

@@ -88,7 +88,7 @@ gulp.task('test-browsers', ['build', 'build-tests'], (done) => {
 });
 
 gulp.task('watch', ['default'], () => {
-    gulp.watch('src/**/*.ts', ['default']);
+    gulp.watch(['src/**/*.ts', 'src/_templates/**/*.dot'], ['default']);
     gulp.watch('tests/**/*.ts', ['test']);
 });
 

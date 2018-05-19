@@ -87,6 +87,18 @@
     padding: 10px;
 }
 
+#touch div {
+    margin-bottom: 5px;
+}
+
+#touch div:last-of-type {
+    margin-bottom: 0px;
+}
+
+#courses {
+    margin: 5px 0;
+}
+
 .slowSix {
     background-color: #F0F0F8;
     cursor: pointer;
