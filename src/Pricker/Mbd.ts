@@ -216,7 +216,10 @@ namespace Pricker {
                     this.getEl('savedCalling').innerText = 'None';
                 }
 
-                // Proof and number of rows
+                this.resize();
+            }
+
+            private redrawTouch(): void {
                 this.getEl('proofResult').innerText = this._proofText || '';
                 if (this._rowCount) {
                     this.getEl('numRows').innerText =
@@ -226,10 +229,6 @@ namespace Pricker {
                         this._touch.estimateRows() + ' changes';
                 }
 
-                this.resize();
-            }
-
-            private redrawTouch(): void {
                 this.getEl<HTMLSelectElement>('rowIndex').value =
                     this._touch.getStart().getRowIndex().toString();
                 this.getEl<HTMLSelectElement>('sixType').value =
