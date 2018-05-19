@@ -17,7 +17,7 @@
 		);
 
 	context.touchRows = context.touchRows || Infinity;
-	context.touchRows -= 2;  /* TODO: magic number */
+	context.touchRows -= context.object.getStart().estimateRows();
 }}
 
 /* Header */
