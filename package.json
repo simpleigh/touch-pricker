@@ -1,6 +1,6 @@
 {
   "name": "touch-pricker",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Free Touch Pricker",
   "main": "dist/touch-pricker.js",
   "jsnext:main": "dist/touch-pricker.js",
