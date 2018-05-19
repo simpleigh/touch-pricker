@@ -6,7 +6,6 @@
  */
 
 /// <reference path="AbstractBlock.ts" />
-/// <reference path="BlockOwnership.ts" />
 /// <reference path="Notifiable.ts" />
 /// <reference path="Row.ts" />
 /// <reference path="Visitor/Abstract.ts" />
@@ -16,7 +15,12 @@ namespace Pricker {
     /**
      * Abstract class representing containers for blocks of rows
      *
-     * Note that containers are also blocks themselves.
+     * Containers are blocks that contain other blocks.
+     * Like blocks, containers:
+     *  - are initialised from a row
+     *  - provide access to the last row in the container
+     *  - etc.
+     * In addition to this containers propagate changes between child blocks.
      */
     export abstract class AbstractContainer<Block extends AbstractBlock>
         extends AbstractBlock implements Notifiable {
@@ -26,34 +30,22 @@ namespace Pricker {
          */
         protected _blocks: Block[] = [ ];
 
-        /**
-         * Constructor
-         *
-         * Extends the AbstractBlock container to create contained blocks.
-         */
-        constructor(
-            initialRow: Row,
-            protected _ownership?: BlockOwnership,
-        ) {
-            super(initialRow, _ownership);
-            this.extend(this.getDefaultLength(initialRow));
-        }
-
         /* AbstractBlock methods **********************************************/
 
         /**
          * Does any calculation needed by the block
          */
         protected calculate(): void {
-            this.calculateBlocks();
+            this.propagateBlocks();
         }
 
         /**
-         * Returns the end row
+         * Returns the last row in the block
+         * e.g. a course head or a course end (for Stedman)
          */
-        public getEnd(): Row {
+        public getLast(): Row {
             if (this._blocks.length) {
-                return this._blocks[this._blocks.length - 1].getEnd();
+                return this._blocks[this._blocks.length - 1].getLast();
             }
 
             // Handle case with zero blocks
@@ -91,65 +83,44 @@ namespace Pricker {
          * @param index  index of changed block in container
          */
         public notify(index: number): void {
-            this.calculateBlocks(index);
+            this.propagateBlocks(index);
             this.notifyContainer();
         }
 
         /* AbstractContainer methods ******************************************/
 
         /**
-         * Extends the container by adding the specified number of blocks
-         * @param blocks  blocks to add
-         */
-        private extend(blocks: number): this {
-            const oldLength: number = this.getLength(),
-                newLength: number = oldLength + blocks;
-
-            let index: number,
-                initialRow: Row = this.getEnd();
-
-            for (index = oldLength + 1; index <= newLength; index += 1) {
-                this._blocks[index - 1] = this.createBlock(initialRow, index);
-                initialRow = this._blocks[index - 1].getEnd();
-            }
-
-            return this;
-        }
-
-        /**
-         * Returns the default length of new containers of this type
-         *
-         * Derived classes should override this method if required.
-         */
-        protected getDefaultLength(initialRow: Row): number {
-            return 1;
-        }
-
-        /**
-         * Creates a new block for the container
-         *
-         * Used by extend() when creating the container or increasing its
-         * length.
-         * @param initialRow  initial row for the block
-         * @param index       index of block in container
-         */
-        protected abstract createBlock(initialRow: Row, index: number): Block;
-
-        /**
-         * Calculates blocks within the container
+         * Propagates data between blocks within the container
          * @param index  where to start when recalculating
          */
-        private calculateBlocks(index: number = 0): void {
-            let initialRow: Row = this._initialRow;
-
-            if (index) {
-                initialRow = this._blocks[index - 1].getEnd();
+        private propagateBlocks(index: number = 0): void {
+            // Handle first block
+            if (!index && this.getLength()) {
+                this.propagateFirstBlock(this._blocks[0]);
+                index = 1;
             }
 
             for (; index < this.getLength(); index += 1) {
-                this._blocks[index].setInitialRow(initialRow);
-                initialRow = this._blocks[index].getEnd();
+                this.propagateCurrentBlock(
+                    this._blocks[index - 1],
+                    this._blocks[index],
+                );
             }
+        }
+
+        /**
+         * Propagates data from a previous block to a current block
+         */
+        protected propagateCurrentBlock(previous: Block, current: Block): void {
+            current.setInitialRow(previous.getLast());
+        }
+
+        /**
+         * Propagates data for the first block within the container
+         * Handled as a special case to allow for e.g. Stedman starts
+         */
+        protected propagateFirstBlock(first: Block): void {
+            first.setInitialRow(this._initialRow);
         }
 
         /**
@@ -160,50 +131,12 @@ namespace Pricker {
         }
 
         /**
-         * Write access to the length
-         */
-        public setLength(length: number): this {
-            if ((length < this.minLength) || (length > this.maxLength)) {
-                throw new Error('Length out of range');
-            }
-
-            if (length > this.getLength()) {
-                this.extend(length - this.getLength());
-            } else {
-                this._blocks = this._blocks.slice(0, length);
-            }
-
-            this.notifyContainer();
-
-            return this;
-        }
-
-        /**
-         * Write access to the length: ignores out-of-range values
-         */
-        public safeSetLength(length: number): this {
-            length = Math.max(length, this.minLength);
-            length = Math.min(length, this.maxLength);
-            return this.setLength(length);
-        }
-
-        /**
-         * Lower limit on length for the particular concrete class
-         */
-        protected readonly abstract minLength: number;
-
-        /**
-         * Upper limit on length for the particular concrete class
-         */
-        protected readonly abstract maxLength: number;
-
-        /**
          * Read access to the blocks
          *
          * Derived classes should provide public access via a more
          * suitably-named method
          */
-        protected getBlocks(): Block[] {
+        public getBlocks(): Block[] {
             return this._blocks.slice();
         }
 
@@ -213,7 +146,7 @@ namespace Pricker {
          * Derived classes should provide public access via a more
          * suitably-named method
          */
-        protected getBlock(index: number): Block {
+        public getBlock(index: number): Block {
             if (index < 1 || index > this.getLength()) {
                 throw new Error('Block index out of range');
             }

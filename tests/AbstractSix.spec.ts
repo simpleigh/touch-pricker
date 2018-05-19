@@ -9,7 +9,7 @@
 /// <reference path="AbstractBlock.spec.ts" />
 
 // tslint:disable-next-line:variable-name
-function testSixImplementation(Six, testCases, rowTests) {
+function testSixImplementation(Six, testCases, rowTests, type, notation) {
 
     function runTestCases(testFunction) {
         return () => {
@@ -25,24 +25,35 @@ function testSixImplementation(Six, testCases, rowTests) {
         };
     }
 
-    it('transposes the six end correctly', runTestCases(
+    it('has the expected type', () => {
+        const six = new Six(createTestRow('231'));
+        expect(six.type).toBe(type);
+    });
+
+    it('has the expected notation', () => {
+        const six = new Six(createTestRow('231'));
+        expect(six.notation).toEqual(notation);
+        expect(Six.notation).toEqual(notation);
+    });
+
+    it('calculates the last row correctly', runTestCases(
         (previous, expected, stage, call) => {
             const six = new Six(previous);
             six.setCall(call);
-            expect(six.getEnd()).toEqual(expected);
+            expect(six.getLast()).toEqual(expected);
         },
     ));
 
-    it('updates when the previous six end changes', runTestCases(
+    it('updates when the initial row changes', runTestCases(
         (previous, expected, stage, call) => {
             const incorrectPrevious: Pricker.Row = createTestRow('', stage),
                 six = new Six(incorrectPrevious);
 
             six.setCall(call);
-            expect(six.getEnd()).not.toEqual(expected);
+            expect(six.getLast()).not.toEqual(expected);
 
             six.setInitialRow(previous);
-            expect(six.getEnd()).toEqual(expected);
+            expect(six.getLast()).toEqual(expected);
         },
     ));
 
@@ -59,14 +70,14 @@ function testSixImplementation(Six, testCases, rowTests) {
                 six.setCall(Pricker.Call.Bob);
             }
 
-            expect(six.getEnd()).not.toEqual(expected);
+            expect(six.getLast()).not.toEqual(expected);
 
             six.toggleCall();
-            expect(six.getEnd()).toEqual(expected);
+            expect(six.getLast()).toEqual(expected);
         },
     ));
 
-    it('generates the correct end row when visited', runTestCases(
+    it('generates the correct last row when visited', runTestCases(
         (previous, expected, stage, call) => {
             const six = new Six(previous),
                 visitor = new Pricker.Visitor.StringArray();
@@ -80,24 +91,13 @@ function testSixImplementation(Six, testCases, rowTests) {
         },
     ));
 
-    it('computes its start row correctly', runTestCases(
+    it('computes the six head correctly', runTestCases(
         (previous, expected, stage, call) => {
             const six = new Six(previous),
                 row = previous.slice();
             Pricker.Changes.permuteCall(row, call);
             six.setCall(call);
-            expect(six.getStartRow()).toEqual(row);
-        },
-    ));
-
-    it('ignores changes to the returned start row', runTestCases(
-        (previous, expected, stage, call) => {
-            const six = new Six(previous),
-                originalStartRow = six.getStartRow().slice(),
-                returnedStartRow = six.getStartRow();
-            Pricker.Changes.permuteCall(returnedStartRow, call);
-            expect(six.getStartRow()).not.toEqual(returnedStartRow);
-            expect(six.getStartRow()).toEqual(originalStartRow);
+            expect(six.getHead()).toEqual(row);
         },
     ));
 
@@ -136,6 +136,23 @@ function testSixImplementation(Six, testCases, rowTests) {
             return new Six(createTestRow());
         }
 
+        it('ignores changes to the returned six head', () => {
+            const six = createTestSix(),
+                getHead = six.getHead(),
+                getHeadBackup = getHead.slice();
+
+            getHead[3] = 999;  // Mutate the getHead result
+            expect(getHead).not.toEqual(getHeadBackup);
+
+            expect(six.getHead()).not.toEqual(getHead);
+            expect(six.getHead()).toEqual(getHeadBackup);
+        });
+
+        it('provides a getEnd method for convenience', () => {
+            const six = createTestSix();
+            expect(six.getEnd()).toEqual(six.getLast());
+        });
+
         it('starts life as a plain six', () => {
             expect(createTestSix().getCall()).toBe(Pricker.Call.Plain);
         });
@@ -168,10 +185,10 @@ function testSixImplementation(Six, testCases, rowTests) {
 
         it('can suppress updates when a call is set', () => {
             const six = createTestSix(),
-                originalEnd: Pricker.Row = six.getEnd();
+                originalLast: Pricker.Row = six.getLast();
 
             six.setCall(Pricker.Call.Bob, false);
-            expect(six.getEnd()).toEqual(originalEnd);
+            expect(six.getLast()).toEqual(originalLast);
         });
 
         it('notifies the parent course when a call is set', () => {

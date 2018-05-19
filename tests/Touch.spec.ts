@@ -6,30 +6,45 @@
  */
 
 /// <reference path="functions.ts" />
-/// <reference path="AbstractContainer.spec.ts" />
+/// <reference path="RandomAccessContainer.spec.ts" />
+/// <reference path="Start.spec.ts" />
 
 describe('Touch class', () => {
 
-    function testImport(input, output) {
-        return () => {
-            const touch = Pricker.Touch.fromString(input);
-            expect(touch.print('text')).toBe(output);
-        };
-    }
+    const testRow = createTestRow('123');
+
+    let touch;
+
+    beforeEach(() => {
+        touch = new Pricker.Touch(testRow);
+    });
+
+    it('exposes getBlocks as getCourses', () => {
+        expect(touch.getCourses).toBe(touch.getBlocks);
+    });
+
+    it('exposes getBlock as getCourse', () => {
+        expect(touch.getCourse).toBe(touch.getBlock);
+    });
+
+    it('exposes insertBlock as insertCourse', () => {
+        expect(touch.insertCourse).toBe(touch.insertBlock);
+    });
+
+    it('exposes deleteBlock as deleteCourse', () => {
+        expect(touch.deleteCourse).toBe(touch.deleteBlock);
+    });
 
     it('generates the correct rows when visited', () => {
-        const touch = new Pricker.Touch(createTestRow());
-
-        let visitor: Pricker.Visitor.StringArray,
-            strings: string[] = [
-                '213547698E0',
-                '2314567890E',
-            ];
+        let visitor: Pricker.Visitor.StringArray;
+        let strings: string[] = ['213547698E0', '2314567890E'];
+        touch.insertBlock(1, new Pricker.Course(testRow));
+        touch.insertBlock(2, new Pricker.Course(testRow));
 
         visitor = new Pricker.Visitor.StringArray();
-        touch.setLength(1);
-        touch.getCourse(1).accept(visitor);
-        strings = strings.slice(0, 2).concat(visitor.getStrings());
+        touch.getBlock(1).accept(visitor);
+        touch.getBlock(2).accept(visitor);
+        strings = strings.concat(visitor.getStrings());
 
         visitor = new Pricker.Visitor.StringArray();
         touch.accept(visitor);
@@ -37,141 +52,104 @@ describe('Touch class', () => {
         expect(visitor.getStrings()).toEqual(strings);
     });
 
-    const COURSES: string[] = [
-        '',  // Blank entry for [0] so course indices will line up
-        '32145678E90  1 s7',
-        '23145687E90  s7 s13 s15 s22',
-        '2314567890E  12 14 s16 17 18 19  (20 sixes)',
-    ];
-
-    it('starts out empty', () => {
-        const touch = new Pricker.Touch(createTestRow());
-        expect(touch.getLength()).toBe(0);
-    });
-
-    it('can insert a new course', () => {
-        const course = Pricker.Course.fromString(createTestRow(), COURSES[1]),
-            touch = Pricker.Touch.fromString('2314567890E');
-
-        touch.insertCourse(1, course);
-        expect(touch.getLength()).toBe(1);
-        expect(touch.getEnd()).toEqual(touch.getCourse(1).getEnd());
-        expect(touch.getCourse(1).print('text')).toBe(COURSES[1]);
-    });
-
-    it('ignores the initial row when inserting a new course', () => {
-        const course = Pricker.Course.fromString(
-                    createTestRow('13579E24680'),
-                    COURSES[1],
-                ),
-            touch = Pricker.Touch.fromString('2314567890E');
-
-        touch.insertCourse(1, course);
-        expect(touch.getEnd()).toEqual(touch.getCourse(1).getEnd());
-        expect(touch.getCourse(1).print('text')).toBe(COURSES[1]);
-    });
-
-    it('can insert a second course', () => {
-        const course1 = Pricker.Course.fromString(createTestRow(), COURSES[1]),
-            course2 = Pricker.Course.fromString(createTestRow(), COURSES[2]),
-            touch: Pricker.Touch = Pricker.Touch.fromString('2314567890E');
+    it('sets the type of six when inserting a course at the end', () => {
+        const course1 = new Pricker.Course(testRow);
+        const course2 = new Pricker.Course(testRow);
+        course1.setLength(11);
 
         touch.insertCourse(1, course1);
         touch.insertCourse(2, course2);
-
-        expect(touch.getLength()).toBe(2);
-        expect(touch.getEnd()).toEqual(touch.getCourse(2).getEnd());
-        expect(touch.getCourse(1).print('text')).toBe(COURSES[1]);
-        expect(touch.getCourse(2).print('text')).toBe(COURSES[2]);
+        expect(touch.getBlock(2).getFirstSixType()).toBe(Pricker.SixType.Quick);
     });
 
-    it('can insert a course at the beginning', () => {
-        const course1 = Pricker.Course.fromString(createTestRow(), COURSES[1]),
-            course2 = Pricker.Course.fromString(createTestRow(), COURSES[2]),
-            touch = Pricker.Touch.fromString('2314567890E');
+    it('sets the type of six when inserting a course at the beginning', () => {
+        const course1 = new Pricker.Course(testRow);
+        const course2 = new Pricker.Course(testRow);
+        course1.setLength(11);
 
         touch.insertCourse(1, course2);
         touch.insertCourse(1, course1);
-
-        expect(touch.getEnd()).toEqual(touch.getCourse(2).getEnd());
-        expect(touch.getCourse(1).print('text')).toBe(COURSES[1]);
-        expect(touch.getCourse(2).print('text')).toBe(COURSES[2]);
+        expect(touch.getBlock(2).getFirstSixType()).toBe(Pricker.SixType.Quick);
     });
 
-    it('can insert a course in the middle', () => {
-        const course1 = Pricker.Course.fromString(createTestRow(), COURSES[1]),
-            course2 = Pricker.Course.fromString(createTestRow(), COURSES[2]),
-            course3 = Pricker.Course.fromString(createTestRow(), COURSES[3]),
-            touch = Pricker.Touch.fromString('2314567890E');
-
-        touch.insertCourse(1, course1);
-        touch.insertCourse(2, course3);
-        touch.insertCourse(2, course2);
-
-        expect(touch.getEnd()).toEqual(touch.getCourse(3).getEnd());
-        expect(touch.getCourse(1).print('text')).toBe(COURSES[1]);
-        expect(touch.getCourse(2).print('text')).toBe(COURSES[2]);
-        expect(touch.getCourse(3).print('text')).toBe(COURSES[3]);
+    it('allows access to the start', () => {
+        const start = touch.getStart();
+        expect(start.getRowIndex()).toBe(4);
+        expect(start.getSixType()).toBe(Pricker.SixType.Quick);
     });
 
-    it('sets ownership correctly when inserting new courses', () => {
-        const course1 = Pricker.Course.fromString(createTestRow(), COURSES[1]),
-            course2 = Pricker.Course.fromString(createTestRow(), COURSES[2]),
-            touch = Pricker.Touch.fromString('2314567890E');
+    const runStartCases = (testFunction) => () => {
+        for (const testCase of START_CASES) {
+            if (!testCase) { continue; }  // IE8 trailing comma
+            testFunction(
+                testCase[0],  // row index
+                testCase[1],  // six type
+            );
 
-        touch.insertCourse(1, course1);
-        touch.insertCourse(2, course2);
+            // Clear out any course that may have been added
+            if (touch.getLength()) {
+                touch.deleteCourse(1);
+            }
+        }
+    };
 
-        expect(touch.getCourse(1).getContainer()).toBe(touch);
-        expect(touch.getCourse(2).getContainer()).toBe(touch);
+    it('propagates when adding courses', runStartCases(
+        (rowIndex, sixType) => {
+            const course = new Pricker.Course(testRow);
+            touch.getStart()
+                .setRowIndex(rowIndex)
+                .setSixType(sixType);
+            touch.insertCourse(1, course);
 
-        expect(touch.getCourse(1).getIndex()).toBe(1);
-        expect(touch.getCourse(2).getIndex()).toBe(2);
-    });
+            expect(touch.getCourse(1).getInitialRow())
+                .toEqual(touch.getStart().getLast());
+        },
+    ));
 
-    it('can delete a course from the end', () => {
-        const course1 = Pricker.Course.fromString(createTestRow(), COURSES[1]),
-            course2 = Pricker.Course.fromString(createTestRow(), COURSES[2]),
-            touch = Pricker.Touch.fromString('2314567890E');
+    it('propagates when setting the start', runStartCases(
+        (rowIndex, sixType) => {
+            const course = new Pricker.Course(testRow);
+            touch.insertCourse(1, course);
+            touch.getStart()
+                .setRowIndex(rowIndex)
+                .setSixType(sixType);
 
-        touch.insertCourse(1, course1);
-        touch.insertCourse(2, course2);
-        touch.deleteCourse(2);
+            expect(touch.getCourse(1).getInitialRow())
+                .toEqual(touch.getStart().getLast());
+        },
+    ));
 
-        expect(touch.getLength()).toBe(1);
-        expect(touch.getEnd()).toEqual(touch.getCourse(1).getEnd());
-    });
+    it('includes the start when visiting rows', runStartCases(
+        (rowIndex, sixType) => {
+            const startVisitor = new Pricker.Visitor.StringArray();
+            const touchVisitor = new Pricker.Visitor.StringArray();
 
-    it('can delete a course from the middle', () => {
-        const course1 = Pricker.Course.fromString(createTestRow(), COURSES[1]),
-            course2 = Pricker.Course.fromString(createTestRow(), COURSES[2]),
-            touch = Pricker.Touch.fromString('2314567890E');
+            touch.getStart()
+                .setRowIndex(rowIndex)
+                .setSixType(sixType)
+                .accept(startVisitor);
+            touch.accept(touchVisitor);
 
-        touch.insertCourse(1, course2);  // This course will be removed,
-        touch.insertCourse(2, course1);  // leaving only course1
-        touch.deleteCourse(1);
+            expect(touchVisitor.getStrings())
+                .toEqual(startVisitor.getStrings());
+        },
+    ));
 
-        expect(touch.getEnd()).toEqual(touch.getCourse(1).getEnd());
-        expect(touch.getCourse(1).print('text')).toBe(COURSES[1]);
-    });
-
-    it('sets ownership correctly when deleting courses', () => {
-        const course1 = Pricker.Course.fromString(createTestRow(), COURSES[1]),
-            course2 = Pricker.Course.fromString(createTestRow(), COURSES[2]),
-            touch = Pricker.Touch.fromString('2314567890E');
-
-        touch.insertCourse(1, course2);  // This course will be removed,
-        touch.insertCourse(2, course1);  // leaving only course1
-        touch.deleteCourse(1);
-
-        expect(course1.getContainer()).toBe(touch);
-        expect(course2.getContainer()).toBe(undefined);
-
-        expect(course1.getIndex()).toBe(1);
-        expect(course2.getIndex()).toBe(undefined);
-    });
+    it('includes the start in the estimate of rows', runStartCases(
+        (rowIndex, sixType) => {
+            touch.getStart()
+                .setRowIndex(rowIndex)
+                .setSixType(sixType);
+            expect(touch.estimateRows()).toBe(touch.getStart().estimateRows());
+        },
+    ));
 
     describe('can create touches from strings:', () => {
+
+        const testImport = (input: string, output: string) => () => {
+            const imported = Pricker.Touch.fromString(input);
+            expect(imported.print('text')).toBe(output);
+        };
 
         it('a simple touch', testImport(
             '2314567890E\n'
@@ -237,6 +215,15 @@ describe('Touch class', () => {
                 + '2314567890E  1 s10 s13 22\n',
         ));
 
+        it('a touch with a start', testImport(
+            '321547698E0\n'
+                + '3765421E098  1 s10 s13 22\n'
+                + 'Start from rounds as the third row of a slow six.\n',
+            '321547698E0\n'
+                + '3765421E098  1 s10 s13 22\n'
+                + 'Start from rounds as the third row of a slow six.\n',
+        ));
+
         it('a touch with no lines', () => {
             expect(() => {
                 Pricker.Touch.fromString('');
@@ -260,18 +247,18 @@ describe('Touch class', () => {
 
     });
 
-    testAbstractContainerImplementation(
+    testRandomAccessContainerImplementation(
         Pricker.Touch,
-        'getCourses',
-        'getCourse',
         [
-            [Pricker.Stage.Triples, 0],
-            [Pricker.Stage.Caters, 0],
-            [Pricker.Stage.Cinques, 0],
-            [Pricker.Stage.Sextuples, 0],
-            [Pricker.Stage.Septuples, 0],
+            Pricker.Course.fromString(testRow, '32145678E90  1 s7'),
+            Pricker.Course.fromString(testRow, '23145687E90  s7 s13 s15 s22'),
+            Pricker.Course.fromString(
+                testRow,
+                '2314567890E  12 14 s16 17 18 19  (20 sixes)',
+            ),
         ],
-        [0, 100],
+        (container: Pricker.Touch) => container.getStart().getLast(),
         2,
     );
+
 });

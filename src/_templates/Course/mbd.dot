@@ -26,7 +26,15 @@
 {{? context.extraSixes }}
 	{{~ context.extraSixes.getSixes() :six }}
 		<span class="extraSix">
-		{{= Pricker.stringFromRow(six.getEnd()) }}
+			{{? context.showSixHeads }}
+				{{= Pricker.stringFromRow(six.getHead()) }}
+				<br />
+				<u>
+					{{= Pricker.stringFromRow(six.getEnd()) }}
+				</u>
+			{{??}}
+				{{= Pricker.stringFromRow(six.getEnd()) }}
+			{{?}}
 		</span><br />
 	{{~}}
 {{?}}

@@ -7,8 +7,10 @@
 
 /// <reference path="Changes.ts" />
 /// <reference path="Course.ts" />
+/// <reference path="RandomAccessContainer.ts" />
 /// <reference path="Row.ts" />
 /// <reference path="Stage.ts" />
+/// <reference path="Start.ts" />
 /// <reference path="Visitor/Abstract.ts" />
 
 namespace Pricker {
@@ -16,7 +18,28 @@ namespace Pricker {
     /**
      * A touch, being a set of courses
      */
-    export class Touch extends AbstractContainer<Course> {
+    export class Touch extends RandomAccessContainer<Course> {
+
+        /**
+         * Start for this touch
+         */
+        private _start: Start;
+
+        /**
+         * Constructor
+         *
+         * Extends the AbstractBlock container to set up the start.
+         */
+        constructor(
+            initialRow: Row,
+            protected _ownership?: BlockOwnership,
+        ) {
+            super(initialRow, _ownership);
+            this._start = new Start(
+                initialRow,
+                { 'container': this, 'index': 0 },
+            );
+        }
 
         /* AbstractBlock methods **********************************************/
 
@@ -24,13 +47,8 @@ namespace Pricker {
          * Receives a visitor that will be called to process each row
          */
         public accept(...visitors: Visitor.AbstractVisitor[]): this {
-            const row: Row = this._initialRow.slice();
-
-            Changes.permute1(row);  // Go backwards one change from _initialRow
-
             for (const visitor of visitors) {
-                visitor.visit(row);
-                visitor.visit(this._initialRow);
+                this._start.accept(visitor);
             }
 
             return super.accept(...visitors);
@@ -41,7 +59,7 @@ namespace Pricker {
          * The estimate doesn't take into account coming round part-way through
          */
         public estimateRows(): number {
-            return 2 + super.estimateRows();
+            return this._start.estimateRows() + super.estimateRows();
         }
 
         /* PrintableMixin methods *********************************************/
@@ -54,35 +72,26 @@ namespace Pricker {
         /* AbstractContainer methods ******************************************/
 
         /**
-         * Returns the default length of new containers of this type
-         *
-         * Derived classes should override this method if required.
+         * Propagates data from a previous block to a current block
          */
-        protected getDefaultLength(initialRow: Row): number {
-            return 0;
+        protected propagateCurrentBlock(
+            previous: Course,
+            current: Course,
+        ): void {
+            const sixType = previous.getSix(previous.getLength()).type;
+            current.setInitialRow(previous.getLast());
+            current.setFirstSixType((sixType + 1) % 2);
         }
 
         /**
-         * Creates a new block for the container
-         *
-         * Used by extend() when creating the container or increasing its
-         * length.
-         * @param initialRow  initial row for the block
-         * @param index       index of block in container
+         * Propagates data for the first block within the container
+         * Handled as a special case to allow for e.g. Stedman starts
          */
-        protected createBlock(initialRow: Row, index: number): Course {
-            return new Course(initialRow, {'container': this, 'index': index});
+        protected propagateFirstBlock(first: Course): void {
+            const sixType = this._start.getSixType();
+            first.setInitialRow(this._start.getLast());
+            first.setFirstSixType((sixType + 1) % 2);
         }
-
-        /**
-         * Lower limit on length for the particular concrete class
-         */
-        protected readonly minLength: number = 0;
-
-        /**
-         * Upper limit on length for the particular concrete class
-         */
-        protected readonly maxLength: number = 100;
 
         /* Touch methods ******************************************************/
 
@@ -99,35 +108,19 @@ namespace Pricker {
         /**
          * Inserts a course at the specified index
          */
-        public insertCourse(index: number, course: Course): this {
-            this._blocks.splice(index - 1, 0, course);
-            this.fixupOwnership(index);
-
-            this.notify(index - 1);
-            return this;
-        }
+        public insertCourse: (index: number, course: Course) => this =
+            this.insertBlock;
 
         /**
          * Deletes the course at the specified index
          */
-        public deleteCourse(index: number): Course {
-            const course: Course = this.getCourse(index);
-
-            this._blocks.splice(index - 1, 1);
-            course.clearOwnership();
-            this.fixupOwnership(index);
-
-            this.notify(index - 1);
-            return course;
-        }
+        public deleteCourse: (index: number) => Course = this.deleteBlock;
 
         /**
-         * Helper to fixup ownership of blocks
+         * Read access to the start
          */
-        private fixupOwnership(index: number): void {
-            for (let i: number = index; i <= this.getLength(); i += 1) {
-                this.getCourse(i).setOwnership({'container': this, 'index': i});
-            }
+        public getStart(): Start {
+            return this._start;
         }
 
         /**
@@ -139,7 +132,8 @@ namespace Pricker {
             let i: number,
                 line: string,
                 course: Course,
-                touch: Touch | undefined;
+                touch: Touch | undefined,
+                start: string | undefined;
 
             // Process each input line, making text substitutions
             for (i = 0; i < lines.length; i += 1) {
@@ -156,22 +150,32 @@ namespace Pricker {
                     continue;
                 }
 
+                // Store start definitions for later processing
+                if (/start/i.test(line)) {
+                    start = line;
+                    continue;
+                }
+
                 if (!touch) {
                     // Create the touch with a stage based on the first line
                     line = line.replace(/\s/g, '');
                     if (!Stage[line.length]) {
                         throw new Error('Cannot recognise stage');
                     }
-                    touch = new Touch(rowFromString('231', line.length));
+                    touch = new Touch(rowFromString('123', line.length));
                 } else {
                     // Create a course for each remaining line
-                    course = Course.fromString(touch.getEnd(), line);
+                    course = Course.fromString(touch.getLast(), line);
                     touch.insertCourse(touch.getLength() + 1, course);
                 }
             }
 
             if (!touch) {
                 throw new Error('No input lines');
+            }
+
+            if (start) {
+                touch.getStart().setFromString(start);
             }
 
             return touch;

@@ -7,6 +7,7 @@
 
 /// <reference path="AbstractSix.ts" />
 /// <reference path="Changes.ts" />
+/// <reference path="SixType" />
 /// <reference path="Visitor/Abstract.ts" />
 
 namespace Pricker {
@@ -15,6 +16,17 @@ namespace Pricker {
      * A slow six
      */
     export class Slow extends AbstractSix {
+
+        /**
+         * Type of the six
+         */
+        public readonly type = SixType.Slow;
+
+        /**
+         * Notation (excluding call)
+         */
+        public static readonly notation = ['3', '1', '3', '1', '3'];
+        public readonly notation = Slow.notation;
 
         /* AbstractBlock methods **********************************************/
 
@@ -45,13 +57,6 @@ namespace Pricker {
 
             return this;
         }
-
-        /* PrintableMixin methods *********************************************/
-
-        /**
-         * Path for this class' templates
-         */
-        public readonly templatePath: string = 'Slow';
 
         /* AbstractSix methods ************************************************/
 

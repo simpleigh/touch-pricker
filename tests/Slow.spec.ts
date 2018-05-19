@@ -77,6 +77,8 @@ describe('Slow six class', () => {
                 S.Septuples,
             ],
         ],
+        Pricker.SixType.Slow,
+        ['3', '1', '3', '1', '3'],
     );
 
 });

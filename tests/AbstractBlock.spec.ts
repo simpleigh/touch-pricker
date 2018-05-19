@@ -23,41 +23,42 @@ function testAbstractBlockImplementation(
 
     describe('is derived from AbstractBlock and', () => {
 
+        const testRow = createTestRow();
+
+        let block: typeof Block;
+
+        beforeEach(() => {
+            block = new Block(testRow);
+        });
+
         it('stores the initial row', () => {
-            const initialRow = createTestRow(),
-                block = new Block(initialRow);
-            expect(block.getInitialRow()).toEqual(initialRow);
+            expect(block.getInitialRow()).toEqual(testRow);
         });
 
         it('allows the initial row to be changed', () => {
-            const block = new Block(createTestRow()),
-                newRow = createTestRow('2143658709E');
-
+            const newRow = createTestRow('2143658709E');
             block.setInitialRow(newRow);
             expect(block.getInitialRow()).toEqual(newRow);
         });
 
         it('returns this when changing the initial row', () => {
-            const block = new Block(createTestRow());
-            expect(block.setInitialRow(createTestRow())).toBe(block);
+            expect(block.setInitialRow(testRow)).toBe(block);
         });
 
         it('ignores changes to the original initial row', () => {
-            const initialRow = createTestRow(),
-                initialRowBackup = initialRow.slice(),
-                block = new Block(initialRow);
+            const initialRow = createTestRow();
+            block = new Block(initialRow);
 
             initialRow[3] = 999;  // Mutate the initial row
-            expect(initialRow).not.toEqual(initialRowBackup);
+            expect(initialRow).not.toEqual(testRow);
 
             expect(block.getInitialRow()).not.toEqual(initialRow);
-            expect(block.getInitialRow()).toEqual(initialRowBackup);
+            expect(block.getInitialRow()).toEqual(testRow);
         });
 
         it('ignores changes to the getInitialRow result', () => {
-            const block = new Block(createTestRow()),
-                getInitialRow = block.getInitialRow(),
-                getInitialRowBackup = block.getInitialRow().slice();
+            const getInitialRow = block.getInitialRow();
+            const getInitialRowBackup = block.getInitialRow().slice();
 
             getInitialRow[3] = 999;  // Mutate the getInitialRow result
             expect(getInitialRow).not.toEqual(getInitialRowBackup);
@@ -67,9 +68,8 @@ function testAbstractBlockImplementation(
         });
 
         it('ignores changes to the setInitialRow argument', () => {
-            const block = new Block(createTestRow()),
-                setInitialRow = createTestRow('2143658709E'),
-                setInitialRowBackup = setInitialRow.slice();
+            const setInitialRow = createTestRow('2143658709E');
+            const setInitialRowBackup = setInitialRow.slice();
 
             block.setInitialRow(setInitialRow);
             setInitialRow[3] = 999;  // Mutate the setInitialRow argument
@@ -80,75 +80,59 @@ function testAbstractBlockImplementation(
         });
 
         it('updates when the initial row changes', () => {
-            const block = new Block(createTestRow()),
-                endRow: Pricker.Row = block.getEnd();
-
+            const lastRow = block.getLast();
             block.setInitialRow(createTestRow('2143658709E'));
-            expect(block.getEnd()).not.toEqual(endRow);
+            expect(block.getLast()).not.toEqual(lastRow);
         });
 
-        it('ends with a row on the same stage as it starts', () => {
-            const block = new Block(createTestRow());
-            expect(block.getEnd().length).toEqual(11);
+        it('has a last row on the same stage as it starts', () => {
+            expect(block.getLast().length).toEqual(11);
         });
 
-        it('ignores changes to the getEnd result', () => {
-            const block = new Block(createTestRow()),
-                getEnd: Pricker.Row = block.getEnd(),
-                getEndBackup: Pricker.Row = getEnd.slice();
+        it('ignores changes to the getLast result', () => {
+            const getLast = block.getLast();
+            const getLastBackup = getLast.slice();
 
-            getEnd[3] = 999;  // Mutate the getEnd result
-            expect(getEnd).not.toEqual(getEndBackup);
+            getLast[3] = 999;  // Mutate the getLast result
+            expect(getLast).not.toEqual(getLastBackup);
 
-            expect(block.getEnd()).not.toEqual(getEnd);
-            expect(block.getEnd()).toEqual(getEndBackup);
+            expect(block.getLast()).not.toEqual(getLast);
+            expect(block.getLast()).toEqual(getLastBackup);
         });
 
         it('notifies the parent container', () => {
             const container: Pricker.AbstractContainer<typeof Block> =
-                    jasmine.createSpyObj('AbstractContainer', ['notify']),
-                block = new Block(
-                    createTestRow(),
-                    {'container': container, 'index': 999},
-                );
-
+                jasmine.createSpyObj('AbstractContainer', ['notify']);
+            block.setOwnership({ 'container': container, 'index': 999 });
             triggerNotification(block);
             expect(container.notify).toHaveBeenCalledWith(999);
         });
 
         it('does not notify when the initial row changes', () => {
             const container: Pricker.AbstractContainer<typeof Block> =
-                    jasmine.createSpyObj('AbstractContainer', ['notify']),
-                block = new Block(
-                    createTestRow(),
-                    {'container': container, 'index': 999},
-                );
-
-            block.setInitialRow(createTestRow());
+                jasmine.createSpyObj('AbstractContainer', ['notify']);
+            block.setOwnership({ 'container': container, 'index': 999 });
+            block.setInitialRow(testRow);
             expect(container.notify).not.toHaveBeenCalled();
         });
 
         it('allows access to parent information', () => {
             const container: Pricker.AbstractContainer<typeof Block> =
-                    jasmine.createSpyObj('AbstractContainer', ['notify']),
-                block = new Block(
-                    createTestRow(),
-                    {'container': container, 'index': 999},
-                );
-
+                jasmine.createSpyObj('AbstractContainer', ['notify']);
+            block.setOwnership({ 'container': container, 'index': 999 });
             expect(block.getContainer()).toBe(container);
             expect(block.getIndex()).toBe(999);
         });
 
         it('can be attached to a new parent', () => {
             const containerOld: Pricker.AbstractContainer<typeof Block> =
-                    jasmine.createSpyObj('AbstractContainer', ['notify']),
-                containerNew: Pricker.AbstractContainer<typeof Block> =
-                    jasmine.createSpyObj('AbstractContainer', ['notify']),
-                block = new Block(
-                    createTestRow(),
-                    {'container': containerOld, 'index': 999},
-                );
+                jasmine.createSpyObj('AbstractContainer', ['notify']);
+            const containerNew: Pricker.AbstractContainer<typeof Block> =
+                jasmine.createSpyObj('AbstractContainer', ['notify']);
+            block = new Block(
+                testRow,
+                {'container': containerOld, 'index': 999},
+            );
 
             block.setOwnership({'container': containerNew, 'index': 998});
             expect(block.getContainer()).toBe(containerNew);
@@ -157,39 +141,28 @@ function testAbstractBlockImplementation(
 
         it('can be detached from a parent', () => {
             const container: Pricker.AbstractContainer<typeof Block> =
-                    jasmine.createSpyObj('AbstractContainer', ['notify']),
-                block = new Block(
-                    createTestRow(),
-                    {'container': container, 'index': 999},
-                );
-
+                jasmine.createSpyObj('AbstractContainer', ['notify']);
+            block.setOwnership({ 'container': container, 'index': 999 });
             block.clearOwnership();
             expect(block.getContainer()).toBeUndefined();
             expect(block.getIndex()).toBeUndefined();
         });
 
         it('calls a visitor in order to traverse rows', () => {
-            const block = new Block(createTestRow('123')),
-                visitor = new Pricker.Visitor.Counter();
-
-            spyOn(visitor, 'visit').and.callThrough();
+            const visitor = new Pricker.Visitor.Counter();
+            spyOn(visitor, 'visit');
             block.accept(visitor);
-
-            expect(visitor.visit).toHaveBeenCalledTimes(visitor.getCount());
+            expect(visitor.visit).toHaveBeenCalled();
         });
 
         it('returns this when receiving a visitor', () => {
-            const block = new Block(createTestRow()),
-                visitor = new Pricker.Visitor.Counter();
-
+            const visitor = new Pricker.Visitor.Counter();
             expect(block.accept(visitor)).toBe(block);
         });
 
         it('can call multiple visitors', () => {
-            const block = new Block(createTestRow()),
-                visitor1 = new Pricker.Visitor.Counter(),
-                visitor2 = new Pricker.Visitor.Counter();
-
+            const visitor1 = new Pricker.Visitor.Counter();
+            const visitor2 = new Pricker.Visitor.Counter();
             block.accept(visitor1, visitor2);
             expect(visitor1.getCount()).toBeGreaterThan(0);
             expect(visitor2.getCount()).toBeGreaterThan(0);
@@ -197,11 +170,10 @@ function testAbstractBlockImplementation(
         });
 
         it('estimates the number of rows correctly', () => {
-            const block = new Block(createTestRow());
             expect(block.estimateRows()).toBe(expectedRows);
         });
 
-        testPrintableMixinImplementation(() => new Block(createTestRow()));
+        testPrintableMixinImplementation(() => new Block(testRow));
 
     });
 

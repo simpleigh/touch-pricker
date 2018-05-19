@@ -5,17 +5,23 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="AbstractContainer.ts" />
 /// <reference path="AbstractSix.ts" />
 /// <reference path="Call.ts" />
 /// <reference path="Row.ts" />
+/// <reference path="SerialContainer.ts" />
+/// <reference path="SixType.ts" />
 
 namespace Pricker {
 
     /**
      * A course, being a set of sixes
      */
-    export class Course extends AbstractContainer<AbstractSix> {
+    export class Course extends SerialContainer<AbstractSix> {
+
+        /**
+         * Type of the first six
+         */
+        private _firstSixType: SixType = SixType.Slow;
 
         /* PrintableMixin methods *********************************************/
 
@@ -24,7 +30,7 @@ namespace Pricker {
          */
         public readonly templatePath: string = 'Course';
 
-        /* AbstractContainer methods ******************************************/
+        /* SerialContainer methods ********************************************/
 
         /**
          * Returns the default length of new containers of this type
@@ -44,7 +50,7 @@ namespace Pricker {
          * @param index       index of block in container
          */
         protected createBlock(initialRow: Row, index: number): AbstractSix {
-            return index % 2
+            return ((this._firstSixType || SixType.Slow) + index) % 2
                 ? new Slow(initialRow, {'container': this, 'index': index})
                 : new Quick(initialRow, {'container': this, 'index': index});
         }
@@ -62,6 +68,11 @@ namespace Pricker {
         /* Course methods *****************************************************/
 
         /**
+         * Returns the course end
+         */
+        public getEnd: () => Row = this.getLast;
+
+        /**
          * Read access to the sixes
          */
         public getSixes: () => AbstractSix[] = this.getBlocks;
@@ -70,6 +81,46 @@ namespace Pricker {
          * Read access to a six
          */
         public getSix: (index: number) => AbstractSix = this.getBlock;
+
+        /**
+         * Read access to the type of the first six
+         */
+        public getFirstSixType(): SixType {
+            return this._firstSixType;
+        }
+
+        /**
+         * Write access to the type of the first six
+         */
+        public setFirstSixType(type: SixType): this {
+            if (this._firstSixType === type) {
+                return this;  // nothing to do
+            }
+
+            this._firstSixType = type;
+
+            // Create a new array of sixes with the correct parity
+            let initialRow = this._initialRow;
+            const newSixes: AbstractSix[] = [];
+            for (let index = 1; index <= this.getLength(); index += 1) {
+                const block = this.createBlock(initialRow, index);
+                block.setCall(
+                    this.getSix(index).getCall(),
+                    false,  // Avoid multiple updates...
+                );
+                newSixes.push(block);
+                initialRow = newSixes[index - 1].getLast();
+            }
+
+            this._blocks = newSixes;
+
+            // ... and trigger one at the end
+            if (newSixes.length) {
+                this.getSix(1).setCall(this.getSix(1).getCall());
+            }
+
+            return this;
+        }
 
         /**
          * Resets the course to be the default length
@@ -111,6 +162,7 @@ namespace Pricker {
         public clone(): Course {
             const cloned: Course = new Course(this._initialRow);
             cloned.setLength(this.getLength());
+            cloned.setFirstSixType(this.getFirstSixType());
 
             // Copy across all the calls
             for (let index = 1; index <= this.getLength(); index += 1) {

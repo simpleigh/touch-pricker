@@ -5,10 +5,11 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../AbstractSix/mbd.spec.ts" />
+namespace Pricker {
 
-describe('mbd template for Slow six', () => {
-
-    testMbdAbstractSixTemplate(Pricker.Slow, 'slow');
-
-});
+    /**
+     * Types of six
+     * @enum {number}
+     */
+    export enum SixType { Slow = 0, Quick }
+}

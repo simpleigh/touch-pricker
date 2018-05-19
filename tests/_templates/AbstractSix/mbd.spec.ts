@@ -10,12 +10,19 @@
 /**
  * Tests the template behaves like the parent version
  * @param Six   six to test
- * @param type  six type
  */
 // tslint:disable-next-line:variable-name
-function testMbdAbstractSixTemplate(Six, type: string) {
+function testMbdAbstractSixTemplate(Six) {
 
     describe('is derived from mbd template for AbstractSix and', () => {
+        let six;
+
+        let type: string;
+
+        beforeEach(() => {
+            six = createTestSix(1);
+            type = Pricker.SixType[six.type].toLowerCase();
+        });
 
         function createTestSix(index: number): typeof Six {
             const container: Pricker.AbstractContainer<typeof Six> =
@@ -28,7 +35,6 @@ function testMbdAbstractSixTemplate(Six, type: string) {
         }
 
         it('renders a six correctly', () => {
-            const six = createTestSix(1);
             expect(six.print('mbd')).toBe(
                 '<span class="">'
                     + Pricker.stringFromRow(six.getEnd())
@@ -40,7 +46,6 @@ function testMbdAbstractSixTemplate(Six, type: string) {
         });
 
         it('displays bobbed sixes correctly', () => {
-            const six = createTestSix(1);
             six.setCall(Pricker.Call.Bob);
             expect(six.print('mbd')).toBe(
                 '<span class="">'
@@ -53,7 +58,6 @@ function testMbdAbstractSixTemplate(Six, type: string) {
         });
 
         it('displays singled sixes correctly', () => {
-            const six = createTestSix(1);
             six.setCall(Pricker.Call.Single);
             expect(six.print('mbd')).toBe(
                 '<span class="">'
@@ -66,7 +70,7 @@ function testMbdAbstractSixTemplate(Six, type: string) {
         });
 
         it('displays the index correctly', () => {
-            const six = createTestSix(999);
+            six = createTestSix(999);
             expect(six.print('mbd')).toBe(
                 '<span class="">'
                     + Pricker.stringFromRow(six.getEnd())
@@ -78,8 +82,7 @@ function testMbdAbstractSixTemplate(Six, type: string) {
         });
 
         it('highlights sixes based on a music directory', () => {
-            const six = createTestSix(1),
-                music = new Pricker.BlockDirectory();
+            const music = new Pricker.BlockDirectory();
 
             music.add(2, 1);
 
@@ -94,8 +97,7 @@ function testMbdAbstractSixTemplate(Six, type: string) {
         });
 
         it('highlights sixes based on a falseness directory', () => {
-            const six = createTestSix(1),
-                falseness = new Pricker.BlockDirectory();
+            const falseness = new Pricker.BlockDirectory();
 
             falseness.add(2, 1);
 
@@ -112,8 +114,7 @@ function testMbdAbstractSixTemplate(Six, type: string) {
         });
 
         it('gives priority to falseness over music', () => {
-            const six = createTestSix(1),
-                falseness = new Pricker.BlockDirectory(),
+            const falseness = new Pricker.BlockDirectory(),
                 music = new Pricker.BlockDirectory();
 
             falseness.add(2, 1);
@@ -134,7 +135,6 @@ function testMbdAbstractSixTemplate(Six, type: string) {
         });
 
         it('can underline a sixend', () => {
-            const six = createTestSix(1);
             expect(six.print('mbd', {'underline': true})).toBe(
                 '<span class=""><u>'
                     + Pricker.stringFromRow(six.getEnd())
@@ -146,10 +146,9 @@ function testMbdAbstractSixTemplate(Six, type: string) {
         });
 
         it('can display a six head as well as a six end', () => {
-            const six = createTestSix(1);
             expect(six.print('mbd', {'showSixHeads': true})).toBe(
                 '<span class="">'
-                    + Pricker.stringFromRow(six.getStartRow())
+                    + Pricker.stringFromRow(six.getHead())
                     + '</span>'
                     + '&nbsp;&nbsp;<span class="' + type
                     + 'Six" onclick="pricker.c(1)">'
@@ -163,3 +162,11 @@ function testMbdAbstractSixTemplate(Six, type: string) {
     });
 
 }
+
+describe('mbd template for Quick six', () => {
+    testMbdAbstractSixTemplate(Pricker.Quick);
+});
+
+describe('mbd template for Slow six', () => {
+    testMbdAbstractSixTemplate(Pricker.Slow);
+});

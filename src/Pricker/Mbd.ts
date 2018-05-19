@@ -8,10 +8,12 @@
 /// <reference path="Abstract.ts" />
 /// <reference path="../BlockDirectory.ts" />
 /// <reference path="../Course.ts" />
+/// <reference path="../Dom/showHide.ts" />
 /// <reference path="../Notifiable.ts" />
 /// <reference path="../PrintableMixin.ts" />
 /// <reference path="../rowFromString.ts" />
 /// <reference path="../Row.ts" />
+/// <reference path="../SixType.ts" />
 /// <reference path="../Stage.ts" />
 /// <reference path="../stringFromRow.ts" />
 /// <reference path="../Touch.ts" />
@@ -72,6 +74,11 @@ namespace Pricker {
              * Whether we're showing six heads
              */
             private _showSixHeads: boolean = false;
+
+            /**
+             * Whether we're showing advanced options
+             */
+            private _showAdvancedOptions: boolean = false;
 
             /**
              * Course selected in touch view
@@ -168,17 +175,21 @@ namespace Pricker {
                 this._extraSixes = new Course(this._initialRow);
                 this._extraSixes.setLength(8);
                 this._touch = new Touch(
-                    this._initialRow,
+                    rowFromString('', this._stage),
                     {'container': this, 'index': Block.Touch},
                 );
                 this._musicScheme = new Music.MbdScheme(this._stage);
 
-                this.redraw();
+                // Call notify() to clear out state from the previous touch
+                this.notify(Block.Touch); // calls redraw()
+                this.redrawTouch();
             }
 
             private redraw(): void {
                 const newCourse = this._course.clone();
 
+                const lastSix = this._course.getSix(this._course.getLength());
+                this._extraSixes.setFirstSixType((lastSix.type + 1) % 2);
                 this._extraSixes.setInitialRow(this._course.getEnd());
                 this.getEl('sixends').innerHTML = this._course.print('mbd', {
                     'falseness': this._falseness,
@@ -191,11 +202,21 @@ namespace Pricker {
                 this.getEl('calling').innerHTML = this._course.print('html');
 
                 newCourse.setInitialRow(this._initialRow);
+                newCourse.setFirstSixType(SixType.Slow);
                 this.getEl('callingFromRounds').innerHTML =
                     newCourse.print('html');
 
                 this.getEl<HTMLInputElement>('initialRow').value =
                     stringFromRow(this._course.getInitialRow());
+
+                this.getEl<HTMLSelectElement>('firstSix').value =
+                    this._course.getFirstSixType().toString();
+
+                if (this._showAdvancedOptions) {
+                    Dom.show(this.getEl('firstSixBlock'));
+                } else {
+                    Dom.hide(this.getEl('firstSixBlock'));
+                }
 
                 this.getEl<HTMLInputElement>('courseLength').value =
                     this._course.getLength().toString();
@@ -207,7 +228,10 @@ namespace Pricker {
                     this.getEl('savedCalling').innerText = 'None';
                 }
 
-                // Proof and number of rows
+                this.resize();
+            }
+
+            private redrawTouch(): void {
                 this.getEl('proofResult').innerText = this._proofText || '';
                 if (this._rowCount) {
                     this.getEl('numRows').innerText =
@@ -217,7 +241,17 @@ namespace Pricker {
                         this._touch.estimateRows() + ' changes';
                 }
 
-                // Touch display
+                this.getEl<HTMLSelectElement>('rowIndex').value =
+                    this._touch.getStart().getRowIndex().toString();
+                this.getEl<HTMLSelectElement>('sixType').value =
+                    this._touch.getStart().getSixType().toString();
+
+                if (this._showAdvancedOptions) {
+                    Dom.show(this.getEl('startBlock'));
+                } else {
+                    Dom.hide(this.getEl('startBlock'));
+                }
+
                 this.getEl('courses').outerHTML =
                     '<select id="courses"'
                         + ' onclick="pricker.onSelectCourse()"'
@@ -254,13 +288,17 @@ namespace Pricker {
                 }
 
                 this._course.setInitialRow(initialRow);
-                this._extraSixes.setInitialRow(this._course.getEnd());
                 this.redraw();
             }
 
             public onResetInitialRow(): void {
                 this._course.setInitialRow(this._initialRow);
-                this._extraSixes.setInitialRow(this._course.getEnd());
+                this.redraw();
+            }
+
+            public onFirstSix(): void {
+                const input = this.getEl<HTMLSelectElement>('firstSix').value;
+                this._course.setFirstSixType(parseInt(input));
                 this.redraw();
             }
 
@@ -270,7 +308,7 @@ namespace Pricker {
                     length = parseInt(input);
 
                 if (length) {
-                    this._course.safeSetLength(length - (length % 2));
+                    this._course.safeSetLength(length);
                 }
             }
 
@@ -304,6 +342,18 @@ namespace Pricker {
                 this.redraw();
             }
 
+            public onRowIndex() {
+                const input = this.getEl<HTMLSelectElement>('rowIndex').value;
+                this._touch.getStart().setRowIndex(parseInt(input));
+                this.redrawTouch();
+            }
+
+            public onSixType() {
+                const input = this.getEl<HTMLSelectElement>('sixType').value;
+                this._touch.getStart().setSixType(parseInt(input));
+                this.redrawTouch();
+            }
+
             public onSelectCourse() {
                 const input = this.getEl<HTMLSelectElement>('courses').value;
                 this._selectedIndex = parseInt(input);
@@ -318,12 +368,15 @@ namespace Pricker {
                 );
 
                 if (this.getEl<HTMLInputElement>('rolling').checked) {
-                    this._course.setInitialRow(
-                        this._touch.getCourse(this._selectedIndex).getEnd(),
-                    );
+                    const course = this._touch.getCourse(this._selectedIndex);
+                    const sixType = course.getSix(course.getLength()).type;
+                    this._course.setFirstSixType((sixType + 1) % 2);
+                    this._course.setInitialRow(course.getEnd());
                     this._course.resetLength();
                     this._course.resetCalls();
                 }
+
+                this.redrawTouch();
             }
 
             public onPasteCourse(): void {
@@ -335,9 +388,12 @@ namespace Pricker {
                     );
 
                     if (this.getEl<HTMLInputElement>('rolling').checked) {
-                        this._course.setInitialRow(
-                            this._touch.getCourse(this._selectedIndex).getEnd(),
+                        const course = this._touch.getCourse(
+                            this._selectedIndex,
                         );
+                        const sixType = course.getSix(course.getLength()).type;
+                        this._course.setFirstSixType((sixType + 1) % 2);
+                        this._course.setInitialRow(course.getEnd());
                         this._selectedIndex = Math.min(
                             this._selectedIndex + 1,
                             this._touch.getLength(),
@@ -345,6 +401,8 @@ namespace Pricker {
                         this._course.resetLength();
                         this._course.resetCalls();
                     }
+
+                    this.redrawTouch();
                 }
             }
 
@@ -375,6 +433,7 @@ namespace Pricker {
                         this._touch.getLength(),
                     );
                     this.redraw();
+                    this.redrawTouch();
                 }
             }
 
@@ -401,15 +460,22 @@ namespace Pricker {
                     'index': Block.Touch,
                 });
 
-                this.redraw();
+                // Call notify() to clear out state from the previous touch
+                this.notify(Block.Touch); // calls redraw()
+                this.redrawTouch();
             }
 
             public onSaveTouch() {
-                this.getEl('loadSaveTextarea').innerText =
+                this.getEl<HTMLTextAreaElement>('loadSaveTextarea').value =
                     this._touch.print('text');
             }
 
             public onGenerateSiril(): void {
+                // Make sure we have the count of rows before generating
+                if (!this._rowCount) {
+                    this.onProve();
+                }
+
                 this.getEl('sirilTextarea').innerText =
                     this._touch.print('siril', {'touchRows': this._rowCount});
             }
@@ -426,6 +492,14 @@ namespace Pricker {
                 const element = this.getEl<HTMLInputElement>('showSixHeads');
                 this._showSixHeads = element.checked;
                 this.redraw();
+            }
+
+            public onShowAdvancedOptions(): void {
+                const element =
+                    this.getEl<HTMLInputElement>('showAdvancedOptions');
+                this._showAdvancedOptions = element.checked;
+                this.redraw();
+                this.redrawTouch();
             }
 
             public onProve(): boolean {
@@ -447,6 +521,7 @@ namespace Pricker {
                 }
 
                 this.redraw();
+                this.redrawTouch();
                 return proof.isTrue();
             }
 

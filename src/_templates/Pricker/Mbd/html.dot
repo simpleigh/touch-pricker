@@ -18,7 +18,7 @@
     <div id="tab_loadSave" onclick="pricker.onTab('loadSave')" class="tab">Load/Save</div>
     <div id="tab_siril"    onclick="pricker.onTab('siril')"    class="tab">Siril</div>
     <div id="tab_music"    onclick="pricker.onTab('music')"    class="tab">Music</div>
-	<div id="tab_view"     onclick="pricker.onTab('view')"     class="tab">View</div>
+    <div id="tab_view"     onclick="pricker.onTab('view')"     class="tab">View</div>
   </div>
 
   <div id="pages">
@@ -43,6 +43,13 @@
         <button onclick="pricker.onSetInitialRow()">Set</button>
         <button onclick="pricker.onResetInitialRow()">Reset</button>
         </form>
+      </div>
+      <div id="firstSixBlock">
+        <label for="firstSix">First six:</label>
+        <select id="firstSix" onchange="pricker.onFirstSix()">
+          <option value="{{= Pricker.SixType.Slow }}">Slow</option>
+          <option value="{{= Pricker.SixType.Quick }}">Quick</option>
+        </select>
       </div>
       <div>
         <form onsubmit="return false">
@@ -87,8 +94,14 @@
     </div>
 
     <div class="page" id="page_view">
-      <input type="checkbox" id="showSixHeads" onclick="pricker.onShowSixHeads()"/>
-      <label for="showSixHeads">Show six heads</label>
+      <div>
+        <input type="checkbox" id="showSixHeads" onclick="pricker.onShowSixHeads()" />
+        <label for="showSixHeads">Show six heads</label>
+      </div>
+      <div>
+        <input type="checkbox" id="showAdvancedOptions" onclick="pricker.onShowAdvancedOptions()" />
+        <label for="showAdvancedOptions">Show advanced options</label>
+      </div>
     </div>
 
   </div>
@@ -101,24 +114,44 @@
     <span id="proofResult"></span>
   </div>
   <div id="numRows"></div>
-  <label>
-    <input id="rolling" type="checkbox" />
-    Rolling course entry
-  </label>
-  <form onsubmit="return false">
-    <button onclick="pricker.onInsertCourse()">Insert</button>
-    <button onclick="pricker.onPasteCourse()">Paste</button>
-    <button onclick="pricker.onCopyCourse()">Copy</button>
-    <button onclick="pricker.onCutCourse()">Cut</button>
-    <button onclick="pricker.onDeleteCourse()">Delete</button>
-  </form>
-  <select id="courses">
-  </select>
-  <form onsubmit="return false">
-    <button onclick="pricker.onInsertCourse()">Insert</button>
-    <button onclick="pricker.onPasteCourse()">Paste</button>
-    <button onclick="pricker.onCopyCourse()">Copy</button>
-    <button onclick="pricker.onCutCourse()">Cut</button>
-    <button onclick="pricker.onDeleteCourse()">Delete</button>
-  </form>
+  <div>
+    <label>
+      <input id="rolling" type="checkbox" />
+      Rolling course entry
+    </label>
+  </div>
+  <div id="startBlock">
+    Start with rounds as the
+    <select id="rowIndex" onchange="pricker.onRowIndex()">
+      <option value="1">first</option>
+      <option value="2">second</option>
+      <option value="3">third</option>
+      <option value="4">fourth</option>
+      <option value="5">fifth</option>
+      <option value="6">sixth</option>
+    </select>
+    row of a
+    <select id="sixType" onchange="pricker.onSixType()">
+      <option value="{{= Pricker.SixType.Quick }}">quick</option>
+      <option value="{{= Pricker.SixType.Slow }}">slow</option>
+    </select>
+    six.
+  </div>
+  <div>
+    <form onsubmit="return false">
+      <button onclick="pricker.onInsertCourse()">Insert</button>
+      <button onclick="pricker.onPasteCourse()">Paste</button>
+      <button onclick="pricker.onCopyCourse()">Copy</button>
+      <button onclick="pricker.onCutCourse()">Cut</button>
+      <button onclick="pricker.onDeleteCourse()">Delete</button>
+    </form>
+    <select id="courses"></select>
+    <form onsubmit="return false">
+      <button onclick="pricker.onInsertCourse()">Insert</button>
+      <button onclick="pricker.onPasteCourse()">Paste</button>
+      <button onclick="pricker.onCopyCourse()">Copy</button>
+      <button onclick="pricker.onCutCourse()">Cut</button>
+      <button onclick="pricker.onDeleteCourse()">Delete</button>
+    </form>
+  </div>
 </div>
