@@ -165,6 +165,53 @@ namespace Pricker {
             return this;
         }
 
+        /**
+         * Sets the row index and six type from a string representation
+         */
+        public setFromString(input: string): this {
+            let rowIndex: number | null = null;
+            let sixType: SixType | null = null;
+
+            const rowIndexPatterns: { [key: string]: number } = {
+                'first':  1, '1st': 1, '1': 1,
+                'second': 2, '2nd': 2, '2': 2,
+                'third':  3, '3rd': 3, '3': 3,
+                'fourth': 4, '4th': 4, '4': 4,
+                'fifth':  5, '5th': 5, '5': 5,
+                'sixth':  6, '6th': 6, '6': 6,
+            };
+
+            for (const pattern in rowIndexPatterns) {
+                if (!pattern) { continue; }  // IE8 trailing comma
+
+                const regex = new RegExp(pattern, 'i');
+                if (regex.test(input)) {
+                    rowIndex = rowIndexPatterns[pattern];
+                }
+            }
+
+            if (/slow/i.test(input)) {
+                sixType = SixType.Slow;
+            }
+            if (/quick/i.test(input)) {
+                sixType = SixType.Quick;
+            }
+
+            if (rowIndex === null) {
+                throw new Error('Could not determine row index');
+            }
+            if (sixType === null) {
+                throw new Error('Could not determine six type');
+            }
+
+            this._rowIndex = rowIndex;
+            this._sixType = sixType;
+            this.calculate();
+            this.notifyContainer();
+
+            return this;
+        }
+
     }
 
 }

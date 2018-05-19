@@ -215,6 +215,15 @@ describe('Touch class', () => {
                 + '2314567890E  1 s10 s13 22\n',
         ));
 
+        it('a touch with a start', testImport(
+            '321547698E0\n'
+                + '3765421E098  1 s10 s13 22\n'
+                + 'Start from rounds as the third row of a slow six.\n',
+            '321547698E0\n'
+                + '3765421E098  1 s10 s13 22\n'
+                + 'Start from rounds as the third row of a slow six.\n',
+        ));
+
         it('a touch with no lines', () => {
             expect(() => {
                 Pricker.Touch.fromString('');

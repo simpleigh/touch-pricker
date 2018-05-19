@@ -214,6 +214,61 @@ describe('Start class', () => {
         },
     ));
 
+    describe('can set the row index and six type from strings:', () => {
+
+        const testLoad = (
+            description: string,
+            input: string,
+        ) => it(description, () => {
+            start.setFromString(input);
+            expect(start.getRowIndex()).toBe(3);
+            expect(start.getSixType()).toBe(Pricker.SixType.Slow);
+        });
+
+        testLoad(
+            'an ordinary string',
+            'Start with rounds as the third row of a slow six',
+        );
+
+        testLoad(
+            'a string with a numeric ordinal',
+            'Start with rounds as the 3rd row of a slow six',
+        );
+
+        testLoad(
+            'a string with a bare number',
+            'Start with rounds as row 3 of a slow six',
+        );
+
+        testLoad(
+            'a string with extra content',
+            'Start at backstroke with rounds as the third row of a slow six',
+        );
+
+        testLoad(
+            'a string with much less content',
+            'Start 3 slow',
+        );
+
+        testLoad(
+            'a string with the number and six type reversed',
+            'Start in a slow six at the third row',
+        );
+
+        it('a string with the row index missing', () => {
+            expect(() => start.setFromString('Start slow')).toThrow();
+        });
+
+        it('a string with the six type missing', () => {
+            expect(() => start.setFromString('Start third')).toThrow();
+        });
+
+        it('returns this when setting the start', () => {
+            expect(start.setFromString('Start slow third')).toBe(start);
+        });
+
+    });
+
     testAbstractBlockImplementation(
         Pricker.Start,
         (fixture: Pricker.Start) => { fixture.setRowIndex(2); },

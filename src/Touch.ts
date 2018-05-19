@@ -132,7 +132,8 @@ namespace Pricker {
             let i: number,
                 line: string,
                 course: Course,
-                touch: Touch | undefined;
+                touch: Touch | undefined,
+                start: string | undefined;
 
             // Process each input line, making text substitutions
             for (i = 0; i < lines.length; i += 1) {
@@ -146,6 +147,12 @@ namespace Pricker {
 
                 // Skip this line if it's blank
                 if (/^\s*$/.test(line)) {
+                    continue;
+                }
+
+                // Store start definitions for later processing
+                if (/start/i.test(line)) {
+                    start = line;
                     continue;
                 }
 
@@ -165,6 +172,10 @@ namespace Pricker {
 
             if (!touch) {
                 throw new Error('No input lines');
+            }
+
+            if (start) {
+                touch.getStart().setFromString(start);
             }
 
             return touch;
