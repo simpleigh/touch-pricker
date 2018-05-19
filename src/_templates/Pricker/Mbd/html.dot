@@ -18,7 +18,7 @@
     <div id="tab_loadSave" onclick="pricker.onTab('loadSave')" class="tab">Load/Save</div>
     <div id="tab_siril"    onclick="pricker.onTab('siril')"    class="tab">Siril</div>
     <div id="tab_music"    onclick="pricker.onTab('music')"    class="tab">Music</div>
-	<div id="tab_view"     onclick="pricker.onTab('view')"     class="tab">View</div>
+    <div id="tab_view"     onclick="pricker.onTab('view')"     class="tab">View</div>
   </div>
 
   <div id="pages">
@@ -108,24 +108,27 @@
     <span id="proofResult"></span>
   </div>
   <div id="numRows"></div>
-  <label>
-    <input id="rolling" type="checkbox" />
-    Rolling course entry
-  </label>
-  <form onsubmit="return false">
-    <button onclick="pricker.onInsertCourse()">Insert</button>
-    <button onclick="pricker.onPasteCourse()">Paste</button>
-    <button onclick="pricker.onCopyCourse()">Copy</button>
-    <button onclick="pricker.onCutCourse()">Cut</button>
-    <button onclick="pricker.onDeleteCourse()">Delete</button>
-  </form>
-  <select id="courses">
-  </select>
-  <form onsubmit="return false">
-    <button onclick="pricker.onInsertCourse()">Insert</button>
-    <button onclick="pricker.onPasteCourse()">Paste</button>
-    <button onclick="pricker.onCopyCourse()">Copy</button>
-    <button onclick="pricker.onCutCourse()">Cut</button>
-    <button onclick="pricker.onDeleteCourse()">Delete</button>
-  </form>
+  <div>
+    <label>
+      <input id="rolling" type="checkbox" />
+      Rolling course entry
+    </label>
+  </div>
+  <div>
+    <form onsubmit="return false">
+      <button onclick="pricker.onInsertCourse()">Insert</button>
+      <button onclick="pricker.onPasteCourse()">Paste</button>
+      <button onclick="pricker.onCopyCourse()">Copy</button>
+      <button onclick="pricker.onCutCourse()">Cut</button>
+      <button onclick="pricker.onDeleteCourse()">Delete</button>
+    </form>
+    <select id="courses"></select>
+    <form onsubmit="return false">
+      <button onclick="pricker.onInsertCourse()">Insert</button>
+      <button onclick="pricker.onPasteCourse()">Paste</button>
+      <button onclick="pricker.onCopyCourse()">Copy</button>
+      <button onclick="pricker.onCutCourse()">Cut</button>
+      <button onclick="pricker.onDeleteCourse()">Delete</button>
+    </form>
+  </div>
 </div>
