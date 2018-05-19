@@ -8,6 +8,7 @@
 /// <reference path="Abstract.ts" />
 /// <reference path="../BlockDirectory.ts" />
 /// <reference path="../Course.ts" />
+/// <reference path="../Dom/showHide.ts" />
 /// <reference path="../Notifiable.ts" />
 /// <reference path="../PrintableMixin.ts" />
 /// <reference path="../rowFromString.ts" />
@@ -73,6 +74,11 @@ namespace Pricker {
              * Whether we're showing six heads
              */
             private _showSixHeads: boolean = false;
+
+            /**
+             * Whether we're showing advanced options
+             */
+            private _showAdvancedOptions: boolean = false;
 
             /**
              * Course selected in touch view
@@ -206,6 +212,12 @@ namespace Pricker {
                 this.getEl<HTMLSelectElement>('firstSix').value =
                     this._course.getFirstSixType().toString();
 
+                if (this._showAdvancedOptions) {
+                    Dom.show(this.getEl('firstSixBlock'));
+                } else {
+                    Dom.hide(this.getEl('firstSixBlock'));
+                }
+
                 this.getEl<HTMLInputElement>('courseLength').value =
                     this._course.getLength().toString();
 
@@ -233,6 +245,12 @@ namespace Pricker {
                     this._touch.getStart().getRowIndex().toString();
                 this.getEl<HTMLSelectElement>('sixType').value =
                     this._touch.getStart().getSixType().toString();
+
+                if (this._showAdvancedOptions) {
+                    Dom.show(this.getEl('startBlock'));
+                } else {
+                    Dom.hide(this.getEl('startBlock'));
+                }
 
                 this.getEl('courses').outerHTML =
                     '<select id="courses"'
@@ -474,6 +492,14 @@ namespace Pricker {
                 const element = this.getEl<HTMLInputElement>('showSixHeads');
                 this._showSixHeads = element.checked;
                 this.redraw();
+            }
+
+            public onShowAdvancedOptions(): void {
+                const element =
+                    this.getEl<HTMLInputElement>('showAdvancedOptions');
+                this._showAdvancedOptions = element.checked;
+                this.redraw();
+                this.redrawTouch();
             }
 
             public onProve(): boolean {

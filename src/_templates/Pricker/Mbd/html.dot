@@ -44,7 +44,7 @@
         <button onclick="pricker.onResetInitialRow()">Reset</button>
         </form>
       </div>
-      <div>
+      <div id="firstSixBlock">
         <label for="firstSix">First six:</label>
         <select id="firstSix" onchange="pricker.onFirstSix()">
           <option value="{{= Pricker.SixType.Slow }}">Slow</option>
@@ -94,8 +94,14 @@
     </div>
 
     <div class="page" id="page_view">
-      <input type="checkbox" id="showSixHeads" onclick="pricker.onShowSixHeads()"/>
-      <label for="showSixHeads">Show six heads</label>
+      <div>
+        <input type="checkbox" id="showSixHeads" onclick="pricker.onShowSixHeads()" />
+        <label for="showSixHeads">Show six heads</label>
+      </div>
+      <div>
+        <input type="checkbox" id="showAdvancedOptions" onclick="pricker.onShowAdvancedOptions()" />
+        <label for="showAdvancedOptions">Show advanced options</label>
+      </div>
     </div>
 
   </div>
@@ -114,7 +120,7 @@
       Rolling course entry
     </label>
   </div>
-  <div>
+  <div id="startBlock">
     Start with rounds as the
     <select id="rowIndex" onchange="pricker.onRowIndex()">
       <option value="1">first</option>
