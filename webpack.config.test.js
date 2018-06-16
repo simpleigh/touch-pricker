@@ -25,6 +25,7 @@ module.exports = {
         ],
     },
     output: {
+        devtoolModuleFilenameTemplate: 'webpack://pricker/[resourcePath]',
         filename: 'touch-pricker.spec.js',
         path: path.resolve(__dirname, 'dist'),
     },
