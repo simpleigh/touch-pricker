@@ -40,6 +40,6 @@ module.exports = {
         new BannerPlugin({ banner, raw: true }),
     ],
     resolve: {
-        extensions: ['.dot', '.ts'],
+        extensions: ['.dot', '.js', '.ts'],
     },
 };
