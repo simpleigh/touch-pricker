@@ -5,11 +5,10 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-namespace Pricker {
+/**
+ * Types of six
+ * @enum {number}
+ */
+enum SixType { Slow = 0, Quick }
 
-    /**
-     * Types of six
-     * @enum {number}
-     */
-    export enum SixType { Slow = 0, Quick }
-}
+export default SixType;

@@ -5,14 +5,13 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-namespace Pricker {
+/**
+ * Bell number
+ *
+ * n.b. Bell numbers are 1-indexed, i.e.:
+ *   treble =  1
+ *   eleven = 11
+ */
+type Bell = number;
 
-    /**
-     * Bell number
-     *
-     * n.b. Bell numbers are 1-indexed, i.e.:
-     *   treble =  1
-     *   eleven = 11
-     */
-    export type Bell = number;
-}
+export default Bell;

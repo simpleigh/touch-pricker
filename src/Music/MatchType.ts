@@ -5,19 +5,10 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-namespace Pricker {
+/**
+ * Types of music matching
+ * @enum {number}
+ */
+enum MatchType {Back = -1, Row, Front}
 
-    /**
-     * Music classes to analyse rows
-     */
-    export namespace Music {
-
-        /**
-         * Types of music matching
-         * @enum {number}
-         */
-        export enum MatchType {Back = -1, Row, Front}
-
-    }
-
-}
+export default MatchType;

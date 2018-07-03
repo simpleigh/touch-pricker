@@ -5,50 +5,41 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="AbstractScheme.ts" />
-/// <reference path="MatcherInterface" />
+import AbstractScheme from './AbstractScheme';
+import MatcherInterface from './MatcherInterface';
 
-namespace Pricker {
+/**
+ * Custom music matching scheme defined at runtime
+ */
+class CustomScheme extends AbstractScheme {
+
+    /* MatcherInterface methods ***************************************/
 
     /**
-     * Music classes to analyse rows
+     * Provides read access to the name
      */
-    export namespace Music {
+    public getName(): string {
+        return 'Custom scheme';
+    }
 
-        /**
-         * Custom music matching scheme defined at runtime
-         */
-        export class CustomScheme extends AbstractScheme {
+    /* AbstractScheme methods *****************************************/
 
-            /* MatcherInterface methods ***************************************/
+    /**
+     * Create matchers for this scheme/stage
+     */
+    protected createMatchers(rounds: string): MatcherInterface[] {
+        return [ ];
+    }
 
-            /**
-             * Provides read access to the name
-             */
-            public getName(): string {
-                return 'Custom scheme';
-            }
+    /* CustomScheme methods *******************************************/
 
-            /* AbstractScheme methods *****************************************/
-
-            /**
-             * Create matchers for this scheme/stage
-             */
-            protected createMatchers(rounds: string): MatcherInterface[] {
-                return [ ];
-            }
-
-            /* CustomScheme methods *******************************************/
-
-            /**
-             * Allows additional matchers to be added
-             */
-            public addMatcher(matcher: MatcherInterface) {
-                this._matchers.push(matcher);
-            }
-
-        }
-
+    /**
+     * Allows additional matchers to be added
+     */
+    public addMatcher(matcher: MatcherInterface) {
+        this._matchers.push(matcher);
     }
 
 }
+
+export default CustomScheme;

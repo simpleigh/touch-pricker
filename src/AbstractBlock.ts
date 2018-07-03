@@ -5,143 +5,141 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="BlockOwnership.ts" />
-/// <reference path="Notifiable.ts" />
-/// <reference path="PrintableMixin.ts"/>
-/// <reference path="Row.ts" />
-/// <reference path="TemplateContext.ts" />
-/// <reference path="Visitor/Abstract.ts" />
+import BlockOwnership from './BlockOwnership';
+import Notifiable from './Notifiable';
+import PrintableMixin from './PrintableMixin';
+import Row from './Row';
+import TemplateContext from './TemplateContext';
+import * as Visitor from './Visitor';
 
-namespace Pricker {
+/**
+ * Abstract class representing blocks of rows
+ *
+ * A block:
+ *  - is initialised from a row
+ *  - provides access to the last row in the block
+ *  - recalculates that row if the initial row is changed
+ *  - provides mechanisms for controlling how the last row is created
+ *  - notifies any parent block whenever those mechanisms are actuated
+ *
+ * Blocks are designed to be aggregated into containers.
+ * Containers notify blocks of changes by setting a new initial row.
+ * Blocks notify containers of changes via a callback (receiveNotification).
+ */
+abstract class AbstractBlock implements PrintableMixin {
 
     /**
-     * Abstract class representing blocks of rows
-     *
-     * A block:
-     *  - is initialised from a row
-     *  - provides access to the last row in the block
-     *  - recalculates that row if the initial row is changed
-     *  - provides mechanisms for controlling how the last row is created
-     *  - notifies any parent block whenever those mechanisms are actuated
-     *
-     * Blocks are designed to be aggregated into containers.
-     * Containers notify blocks of changes by setting a new initial row.
-     * Blocks notify containers of changes via a callback (receiveNotification).
+     * Initial row for the block
      */
-    export abstract class AbstractBlock implements PrintableMixin {
+    protected _initialRow: Row;
 
-        /**
-         * Initial row for the block
-         */
-        protected _initialRow: Row;
-
-        /**
-         * Constructor
-         * @param initialRow  initial row for the block
-         * @param ownership   ownership of this block
-         */
-        constructor(
-            initialRow: Row,
-            protected _ownership?: BlockOwnership,
-        ) {
-            this._initialRow = initialRow.slice();
-        }
-
-        /* PrintableMixin methods *********************************************/
-
-        /**
-         * Renders the object with a template
-         */
-        public print: (t: string, c?: TemplateContext) => string;
-
-        /**
-         * Path for this class' templates
-         */
-        public readonly templatePath: string = 'AbstractBlock';
-
-        /* AbstractBlock methods **********************************************/
-
-        /**
-         * Does any calculation needed by the block
-         */
-        protected abstract calculate(): void;
-
-        /**
-         * Read access to the initial row
-         */
-        public getInitialRow(): Row {
-            return this._initialRow.slice();
-        }
-
-        /**
-         * Write access to the initial row
-         */
-        public setInitialRow(initialRow: Row): this {
-            this._initialRow = initialRow.slice();
-            this.calculate();
-            return this;
-        }
-
-        /**
-         * Returns the last row in the block
-         * e.g. a lead head or a six end (for Stedman)
-         */
-        public abstract getLast(): Row;
-
-        /**
-         * Updates references to the parent container
-         */
-        public setOwnership(ownership: BlockOwnership): AbstractBlock {
-            this._ownership = ownership;
-            return this;
-        }
-
-        /**
-         * Allows public access to the container
-         */
-        public getContainer(): Notifiable | undefined {
-            return this._ownership ? this._ownership.container : undefined;
-        }
-
-        /**
-         * Allows public access to the index
-         */
-        public getIndex(): number | undefined {
-            return this._ownership ? this._ownership.index : undefined;
-        }
-
-        /**
-         * Clears references to the parent container
-         */
-        public clearOwnership(): AbstractBlock {
-            this._ownership = undefined;
-            return this;
-        }
-
-        /**
-         * Notifies the parent container
-         *
-         * Derived classes should call this whenever the last row changes.
-         */
-        protected notifyContainer(): void {
-            if (this._ownership) {
-                this._ownership.container.notify(this._ownership.index);
-            }
-        }
-
-        /**
-         * Receives a visitor that will be called to process each row
-         */
-        public abstract accept(...visitors: Visitor.AbstractVisitor[]): this;
-
-        /**
-         * Estimates the number of rows in the block
-         * The estimate doesn't take into account coming round part-way through
-         */
-        public abstract estimateRows(): number;
-
+    /**
+     * Constructor
+     * @param initialRow  initial row for the block
+     * @param ownership   ownership of this block
+     */
+    constructor(
+        initialRow: Row,
+        protected _ownership?: BlockOwnership,
+    ) {
+        this._initialRow = initialRow.slice();
     }
 
-    PrintableMixin.makePrintable(AbstractBlock);
+    /* PrintableMixin methods *********************************************/
+
+    /**
+     * Renders the object with a template
+     */
+    public print: (t: string, c?: TemplateContext) => string;
+
+    /**
+     * Path for this class' templates
+     */
+    public readonly templatePath: string = 'AbstractBlock';
+
+    /* AbstractBlock methods **********************************************/
+
+    /**
+     * Does any calculation needed by the block
+     */
+    protected abstract calculate(): void;
+
+    /**
+     * Read access to the initial row
+     */
+    public getInitialRow(): Row {
+        return this._initialRow.slice();
+    }
+
+    /**
+     * Write access to the initial row
+     */
+    public setInitialRow(initialRow: Row): this {
+        this._initialRow = initialRow.slice();
+        this.calculate();
+        return this;
+    }
+
+    /**
+     * Returns the last row in the block
+     * e.g. a lead head or a six end (for Stedman)
+     */
+    public abstract getLast(): Row;
+
+    /**
+     * Updates references to the parent container
+     */
+    public setOwnership(ownership: BlockOwnership): AbstractBlock {
+        this._ownership = ownership;
+        return this;
+    }
+
+    /**
+     * Allows public access to the container
+     */
+    public getContainer(): Notifiable | undefined {
+        return this._ownership ? this._ownership.container : undefined;
+    }
+
+    /**
+     * Allows public access to the index
+     */
+    public getIndex(): number | undefined {
+        return this._ownership ? this._ownership.index : undefined;
+    }
+
+    /**
+     * Clears references to the parent container
+     */
+    public clearOwnership(): AbstractBlock {
+        this._ownership = undefined;
+        return this;
+    }
+
+    /**
+     * Notifies the parent container
+     *
+     * Derived classes should call this whenever the last row changes.
+     */
+    protected notifyContainer(): void {
+        if (this._ownership) {
+            this._ownership.container.notify(this._ownership.index);
+        }
+    }
+
+    /**
+     * Receives a visitor that will be called to process each row
+     */
+    public abstract accept(...visitors: Visitor.AbstractVisitor[]): this;
+
+    /**
+     * Estimates the number of rows in the block
+     * The estimate doesn't take into account coming round part-way through
+     */
+    public abstract estimateRows(): number;
 
 }
+
+PrintableMixin.makePrintable(AbstractBlock);
+
+export default AbstractBlock;

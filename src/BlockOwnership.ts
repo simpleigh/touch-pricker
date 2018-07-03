@@ -5,32 +5,30 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="Notifiable.ts" />
+import Notifiable from './Notifiable';
 
-namespace Pricker {
+/**
+ * Ownership of a block
+ *
+ * [[AbstractBlock]] objects can be collected together within an
+ * [[AbstractContainer]].
+ * Each block stores a reference to its container along with a numeric index
+ * representing its position within that container.
+ */
+interface BlockOwnership {
 
     /**
-     * Ownership of a block
-     *
-     * [[AbstractBlock]] objects can be collected together within an
-     * [[AbstractContainer]].
-     * Each block stores a reference to its container along with a numeric index
-     * representing its position within that container.
+     * Container of the block.
      */
-    export interface BlockOwnership {
+    container: Notifiable;
 
-        /**
-         * Container of the block.
-         */
-        container: Notifiable;
-
-        /**
-         * Index within the container.
-         * Indices start counting at one and increase to the length of the
-         * container.
-         */
-        index: number;
-
-    }
+    /**
+     * Index within the container.
+     * Indices start counting at one and increase to the length of the
+     * container.
+     */
+    index: number;
 
 }
+
+export default BlockOwnership;

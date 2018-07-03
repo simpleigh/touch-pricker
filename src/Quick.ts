@@ -5,68 +5,66 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="AbstractSix.ts" />
-/// <reference path="Changes.ts" />
-/// <reference path="SixType" />
-/// <reference path="Visitor/Abstract.ts" />
+import AbstractSix from './AbstractSix';
+import * as Changes from './Changes';
+import SixType from './SixType';
+import * as Visitor from './Visitor';
 
-namespace Pricker {
+/**
+ * A quick six
+ */
+class Quick extends AbstractSix {
 
     /**
-     * A quick six
+     * Type of the six
      */
-    export class Quick extends AbstractSix {
+    public readonly type = SixType.Quick;
 
-        /**
-         * Type of the six
-         */
-        public readonly type = SixType.Quick;
+    /**
+     * Notation (excluding call)
+     */
+    public static readonly notation = ['1', '3', '1', '3', '1'];
+    public readonly notation = Quick.notation;
 
-        /**
-         * Notation (excluding call)
-         */
-        public static readonly notation = ['1', '3', '1', '3', '1'];
-        public readonly notation = Quick.notation;
+    /* AbstractBlock methods **********************************************/
 
-        /* AbstractBlock methods **********************************************/
+    /**
+     * Receives a visitor that will be called to process each row
+     */
+    public accept(...visitors: Visitor.AbstractVisitor[]): this {
+        const row = this.getInitialRow();
 
-        /**
-         * Receives a visitor that will be called to process each row
-         */
-        public accept(...visitors: Visitor.AbstractVisitor[]): this {
-            const row = this.getInitialRow();
+        for (const visitor of visitors) {
+            Changes.permuteCall(row, this._call);
+            visitor.visit(row, this);
 
-            for (const visitor of visitors) {
-                Changes.permuteCall(row, this._call);
-                visitor.visit(row, this);
+            Changes.permute1(row);
+            visitor.visit(row, this);
 
-                Changes.permute1(row);
-                visitor.visit(row, this);
+            Changes.permute3(row);
+            visitor.visit(row, this);
 
-                Changes.permute3(row);
-                visitor.visit(row, this);
+            Changes.permute1(row);
+            visitor.visit(row, this);
 
-                Changes.permute1(row);
-                visitor.visit(row, this);
+            Changes.permute3(row);
+            visitor.visit(row, this);
 
-                Changes.permute3(row);
-                visitor.visit(row, this);
-
-                visitor.visit(this._end, this);
-            }
-
-            return this;
+            visitor.visit(this._end, this);
         }
 
-        /* AbstractSix methods ************************************************/
+        return this;
+    }
 
-        /**
-         * Transposes the front three bells depending upon the type of six
-         */
-        protected applySixTransposition(): void {
-            Changes.permute3(this._end);
-        }
+    /* AbstractSix methods ************************************************/
 
+    /**
+     * Transposes the front three bells depending upon the type of six
+     */
+    protected applySixTransposition(): void {
+        Changes.permute3(this._end);
     }
 
 }
+
+export default Quick;

@@ -5,31 +5,22 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-namespace Pricker {
+function injectIframeData(
+    iframe: HTMLIFrameElement,
+    content: string = '',
+    globals: { [key: string]: any } = { },
+) {
+    const theDoc = (iframe.contentWindow as Window).document;
+    theDoc.open();
 
-    /**
-     * DOM helper utilities
-     */
-    export namespace Dom {
-
-        export function injectIframeData(
-            iframe: HTMLIFrameElement,
-            content: string = '',
-            globals: { [key: string]: any } = { },
-        ) {
-            const theDoc = (iframe.contentWindow as Window).document;
-            theDoc.open();
-
-            for (const key in globals) {
-                if (globals.hasOwnProperty(key)) {
-                    (iframe.contentWindow as any)[key] = globals[key];
-                }
-            }
-
-            theDoc.write(content);
-            theDoc.close();
+    for (const key in globals) {
+        if (globals.hasOwnProperty(key)) {
+            (iframe.contentWindow as any)[key] = globals[key];
         }
-
     }
 
+    theDoc.write(content);
+    theDoc.close();
 }
+
+export default injectIframeData;

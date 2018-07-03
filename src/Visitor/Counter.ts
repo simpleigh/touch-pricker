@@ -5,51 +5,42 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../AbstractSix.ts" />
-/// <reference path="../Row.ts" />
-/// <reference path="Abstract.ts" />
+import AbstractSix from '../AbstractSix';
+import Row from '../Row';
+import AbstractVisitor from './Abstract';
 
-namespace Pricker {
+/**
+ * Simple visitor that counts rows
+ *
+ * Accumulates a count of rows that is incremented by each call to
+ * [[visit]].
+ * This visitor allows the count of rows in a touch because rows are not
+ * processed after rounds has been reached.
+ */
+class Counter extends AbstractVisitor {
 
     /**
-     * Visitor classes to analyse blocks
+     * Count of rows that have been visited.
      */
-    export namespace Visitor {
+    private _count: number = 0;
 
-        /**
-         * Simple visitor that counts rows
-         *
-         * Accumulates a count of rows that is incremented by each call to
-         * [[visit]].
-         * This visitor allows the count of rows in a touch because rows are not
-         * processed after rounds has been reached.
-         */
-        export class Counter extends AbstractVisitor {
+    /**
+     * Reports the count of rows by providing public access to
+     * [[_count]].
+     */
+    public getCount(): number {
+        return this._count;
+    }
 
-            /**
-             * Count of rows that have been visited.
-             */
-            private _count: number = 0;
+    /* AbstractVisitor methods ****************************************/
 
-            /**
-             * Reports the count of rows by providing public access to
-             * [[_count]].
-             */
-            public getCount(): number {
-                return this._count;
-            }
-
-            /* AbstractVisitor methods ****************************************/
-
-            /**
-             * Receives a row for processing.
-             */
-            protected visitImplementation(row: Row, six?: AbstractSix): void {
-                this._count += 1;
-            }
-
-        }
-
+    /**
+     * Receives a row for processing.
+     */
+    protected visitImplementation(row: Row, six?: AbstractSix): void {
+        this._count += 1;
     }
 
 }
+
+export default Counter;

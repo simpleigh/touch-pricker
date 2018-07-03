@@ -6,12 +6,8 @@
  */
 
 /**
- * Template context
- *
- * Dictionary of context data
+ * Prickers
  */
-interface TemplateContext {
-    [index: string]: any;
-}
 
-export default TemplateContext;
+export { default as AbstractPricker } from './Abstract';
+export { default as Mbd } from './Mbd';
