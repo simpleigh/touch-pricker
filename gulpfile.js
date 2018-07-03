@@ -20,8 +20,6 @@ const webpack = require('webpack');
 
 gulp.task('default', ['test']);
 
-const tsProject = plugins.typescript.createProject('tsconfig.json');
-
 gulp.task('build', () => {
     const dev = gulp.src('src/index.ts')
         .pipe(gulpWebpack(require('./config/webpack.dev'), webpack));
@@ -67,15 +65,6 @@ gulp.task('test-browsers', ['build', 'build-tests'], (done) => {
 gulp.task('watch', ['default'], () => {
     gulp.watch(['src/**/*.ts', 'src/_templates/**/*.dot'], ['default']);
     gulp.watch('tests/**/*.ts', ['test']);
-});
-
-gulp.task('docs', () => {
-    tsProject.src()
-        .pipe(plugins.typedoc({
-            out: 'docs/',
-            name: 'Free Touch Pricker',
-            mode: 'file',
-        }));
 });
 
 gulp.task('clean', () => {

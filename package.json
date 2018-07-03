@@ -19,6 +19,7 @@
   ],
   "scripts": {
     "build": "gulp",
+    "doc": "typedoc --name \"Free Touch Pricker\" --out docs src",
     "lint": "tslint '{src,tests}/**/*.ts'",
     "pretest": "gulp build-tests",
     "test": "karma start --single-run --browsers PhantomJS",
@@ -33,7 +34,6 @@
     "gulp-load-plugins": "^1.5.0",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-tslint": "^8.1.3",
-    "gulp-typedoc": "^2.2.0",
     "gulp-typescript": "^4.0.2",
     "jasmine-core": "^2.8.0",
     "karma": "^2.0.2",
