@@ -5,9 +5,11 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import PrintableMixin from '../PrintableMixin';
 import rowFromString from '../rowFromString';
 import Stage from '../Stage';
 import stringFromRow from '../stringFromRow';
+import TemplateContext from '../TemplateContext';
 import MatcherInterface from './MatcherInterface';
 
 /**

@@ -7,7 +7,7 @@
 
 import AbstractSix from '../AbstractSix';
 import BlockDirectory from '../BlockDirectory';
-import * as Music from '../Music';
+import { MatcherInterface } from '../Music';
 import Row from '../Row';
 import stringFromRow from '../stringFromRow';
 import AbstractVisitor from './Abstract';
@@ -31,7 +31,7 @@ class Music extends AbstractVisitor {
      * Creates the visitor, providing the matcher that should be used.
      * @param _matcher Matcher to be used.
      */
-    constructor(protected _matcher: Music.MatcherInterface) {
+    constructor(protected _matcher: MatcherInterface) {
         super();
     }
 
@@ -39,7 +39,7 @@ class Music extends AbstractVisitor {
      * Reports on musical content of a touch by providing public access
      * to [[_matcher]].
      */
-    public getMatcher(): Music.MatcherInterface {
+    public getMatcher(): MatcherInterface {
         return this._matcher;
     }
 

@@ -16,6 +16,7 @@ import rowFromString from '../rowFromString';
 import SixType from '../SixType';
 import Stage from '../Stage';
 import stringFromRow from '../stringFromRow';
+import TemplateContext from '../TemplateContext';
 import Touch from '../Touch';
 import * as Visitor from '../Visitor';
 import AbstractPricker from './Abstract';

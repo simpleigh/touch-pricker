@@ -6,8 +6,6 @@
  */
 
 import * as Dom from '../Dom';
-import Stage from '../Stage';
-import Templates from '../Templates';
 
 abstract class AbstractPricker {
 

@@ -5,6 +5,7 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import AbstractSix from '../AbstractSix';
 import Row from '../Row';
 import rowFromString from '../rowFromString';
 import stringFromRow from '../stringFromRow';

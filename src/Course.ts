@@ -7,9 +7,11 @@
 
 import AbstractSix from './AbstractSix';
 import Call from './Call';
+import Quick from './Quick';
 import Row from './Row';
 import SerialContainer from './SerialContainer';
 import SixType from './SixType';
+import Slow from './Slow';
 
 /**
  * A course, being a set of sixes

@@ -9,6 +9,7 @@
 
 import Stage from '../Stage';
 import AbstractScheme from './AbstractScheme';
+import MatcherInterface from './MatcherInterface';
 import MatchType from './MatchType';
 import Pattern from './Pattern';
 import PatternGroup from './PatternGroup';

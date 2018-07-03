@@ -6,6 +6,7 @@
  */
 
 import TemplateContext from './TemplateContext';
+import Templates from './Templates';
 
 /**
  * Mixin that provides print functionality via templates

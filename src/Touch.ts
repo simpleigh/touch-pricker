@@ -5,10 +5,11 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import * as Changes from './Changes';
+import BlockOwnership from './BlockOwnership';
 import Course from './Course';
 import RandomAccessContainer from './RandomAccessContainer';
 import Row from './Row';
+import rowFromString from './rowFromString';
 import Stage from './Stage';
 import Start from './Start';
 import * as Visitor from './Visitor';

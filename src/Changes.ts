@@ -83,10 +83,10 @@ export function permuteSingle(row: Row): void {
  */
 export function permuteCall(row: Row, call: Call): void {
     if (call === Call.Plain) {
-        Changes.permuteN(row);
+        permuteN(row);
     } else if (call === Call.Bob) {
-        Changes.permuteBob(row);
+        permuteBob(row);
     } else if (call === Call.Single) {
-        Changes.permuteSingle(row);
+        permuteSingle(row);
     }
 }

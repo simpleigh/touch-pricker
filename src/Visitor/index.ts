@@ -9,9 +9,9 @@
  * Visitor classes to analyse blocks
  */
 
-export { AbstractVisitor } from './Abstract';
-export { Console } from './Console';
-export { Counter } from './Counter';
-export { Music } from './Music';
-export { Proof } from './Proof';
-export { StringArray } from './StringArray';
+export { default as AbstractVisitor } from './Abstract';
+export { default as Console } from './Console';
+export { default as Counter } from './Counter';
+export { default as Music } from './Music';
+export { default as Proof } from './Proof';
+export { default as StringArray } from './StringArray';
