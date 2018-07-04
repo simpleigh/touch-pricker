@@ -5,18 +5,24 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../functions.ts" />
-/// <reference path="AbstractVisitor.spec.ts" />
+import { createTestRow } from '../testFunctions.spec';
+import { testAbstractVisitorImplementation } from './AbstractVisitor.spec';
+import ConsoleVisitor from './Console';
 
 describe('Console visitor', () => {
 
     const consoleBackup = console;
 
+    // Simple record of state (count of calls)
+    let state: number;
+
     beforeEach(() => {
+        state = 0;
+
         // Replace window.console in case it doesn't behave as expected (IE8)
         // tslint:disable-next-line:no-object-literal-type-assertion
         console = { } as Console;
-        console.log = () => { /* NOOP */ };
+        console.log = () => { state = state + 1; };
         spyOn(console, 'log');
     });
 
@@ -25,18 +31,14 @@ describe('Console visitor', () => {
     });
 
     it('logs to the console when it visits a row', () => {
-        const visitor = new Pricker.Visitor.Console();
+        const visitor = new ConsoleVisitor();
         visitor.visit(createTestRow());
         expect(console.log).toHaveBeenCalledWith('2314567890E');
     });
 
     testAbstractVisitorImplementation(
-        () => new Pricker.Visitor.Console(),
-        (visitor: Pricker.Visitor.Console): string[] => {
-            // Use string literal as TypeScript doesn't know about the property
-            // tslint:disable-next-line:no-string-literal
-            return console.log['calls'].allArgs();
-        },
+        () => new ConsoleVisitor(),
+        (visitor) => state,
     );
 
 });

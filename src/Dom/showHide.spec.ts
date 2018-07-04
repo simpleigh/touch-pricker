@@ -5,11 +5,13 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import { hide, show } from './showHide';
+
 describe('hide DOM utility', () => {
 
     it('hides an element', () => {
         const element = { 'style': { 'display': '', 'visibility': '' } };
-        Pricker.Dom.hide(element as HTMLElement);
+        hide(element as HTMLElement);
         expect(element.style.display).toBe('none');
         expect(element.style.visibility).toBe('hidden');
     });
@@ -20,7 +22,7 @@ describe('show DOM utility', () => {
 
     it('shows an element', () => {
         const element = { 'style': { 'display': '', 'visibility': '' } };
-        Pricker.Dom.show(element as HTMLElement);
+        show(element as HTMLElement);
         expect(element.style.display).toBe('block');
         expect(element.style.visibility).toBe('visible');
     });

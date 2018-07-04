@@ -9,7 +9,7 @@
  * Visitor classes to analyse blocks
  */
 
-export { default as AbstractVisitor } from './Abstract';
+export { default as AbstractVisitor } from './AbstractVisitor';
 export { default as Console } from './Console';
 export { default as Counter } from './Counter';
 export { default as Music } from './Music';

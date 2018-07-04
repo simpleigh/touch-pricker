@@ -5,31 +5,34 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="functions.ts" />
+import BlockDirectory from './BlockDirectory';
+import Course from './Course';
+import { createTestRow } from './testFunctions.spec';
+import Touch from './Touch';
 
 describe('BlockDirectory class', () => {
 
     const testRow = createTestRow();
 
-    let directory: Pricker.BlockDirectory;
+    let directory: BlockDirectory;
 
-    let touch: Pricker.Touch;
+    let touch: Touch;
 
     beforeEach(() => {
-        directory = new Pricker.BlockDirectory();
-        touch = new Pricker.Touch(testRow);
-        touch.insertBlock(1, new Pricker.Course(testRow));
-        touch.insertBlock(2, new Pricker.Course(testRow));
+        directory = new BlockDirectory();
+        touch = new Touch(testRow);
+        touch.insertBlock(1, new Course(testRow));
+        touch.insertBlock(2, new Course(testRow));
     });
 
     it('can compute the ownership of a six', () => {
         const six = touch.getCourse(1).getSix(3);
-        expect(Pricker.BlockDirectory.getIndices(six)).toEqual([1, 3]);
+        expect(BlockDirectory.getIndices(six)).toEqual([1, 3]);
     });
 
     it('can compute the ownership of a course', () => {
         const course = touch.getCourse(1);
-        expect(Pricker.BlockDirectory.getIndices(course)).toEqual([1]);
+        expect(BlockDirectory.getIndices(course)).toEqual([1]);
     });
 
     it('starts out with no sixes in the index', () => {
@@ -88,7 +91,7 @@ describe('BlockDirectory class', () => {
     });
 
     it('throws an exception for an unowned block', () => {
-        expect(() => { Pricker.BlockDirectory.getIndices(touch); }).toThrow();
+        expect(() => { BlockDirectory.getIndices(touch); }).toThrow();
         expect(() => { directory.add(touch); }).toThrow();
         expect(() => { directory.contains(touch); }).toThrow();
     });

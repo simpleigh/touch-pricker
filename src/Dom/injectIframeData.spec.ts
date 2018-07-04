@@ -5,6 +5,8 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import injectIframeData from './injectIframeData';
+
 describe('injectIframeData DOM utility', () => {
 
     let contentDocument: jasmine.SpyObj<HTMLDocument>;
@@ -20,22 +22,22 @@ describe('injectIframeData DOM utility', () => {
     });
 
     it('opens the document for writing', () => {
-        Pricker.Dom.injectIframeData(iframe);
+        injectIframeData(iframe);
         expect(contentDocument.open).toHaveBeenCalled();
     });
 
     it('passes global variables to the child window', () => {
-        Pricker.Dom.injectIframeData(iframe, '', { 'key': 'value' });
+        injectIframeData(iframe, '', { 'key': 'value' });
         expect(iframe.contentWindow.key).toBe('value');
     });
 
     it('writes the content into the document', () => {
-        Pricker.Dom.injectIframeData(iframe, 'content');
+        injectIframeData(iframe, 'content');
         expect(contentDocument.write).toHaveBeenCalledWith('content');
     });
 
     it('closes the document after use', () => {
-        Pricker.Dom.injectIframeData(iframe);
+        injectIframeData(iframe);
         expect(contentDocument.close).toHaveBeenCalled();
     });
 

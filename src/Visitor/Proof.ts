@@ -9,7 +9,7 @@ import AbstractSix from '../AbstractSix';
 import BlockDirectory from '../BlockDirectory';
 import Row from '../Row';
 import stringFromRow from '../stringFromRow';
-import AbstractVisitor from './Abstract';
+import AbstractVisitor from './AbstractVisitor';
 
 /**
  * Visitor for proving touches

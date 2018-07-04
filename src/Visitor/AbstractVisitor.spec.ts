@@ -5,22 +5,23 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../functions.ts" />
+import { createTestRow } from '../testFunctions.spec';
+import AbstractVisitor from './AbstractVisitor';
 
 /**
  * Tests that a visitor behaves as an AbstractVisitor
  * @param createFn   fn to create visitor under test
  * @param getState   fn that returns the visitor's state
  */
-function testAbstractVisitorImplementation(
+export const testAbstractVisitorImplementation = (
     // tslint:disable-next-line:variable-name
-    createFn: () => Pricker.Visitor.AbstractVisitor,
-    getState: (visitor: Pricker.Visitor.AbstractVisitor) => any,
-) {
+    createFn: () => AbstractVisitor,
+    getState: (visitor: AbstractVisitor) => any,
+) => {
 
     describe('is derived from AbstractVisitor and', () => {
 
-        let visitor: Pricker.Visitor.AbstractVisitor;
+        let visitor: AbstractVisitor;
 
         beforeEach(() => { visitor = createFn(); });
 
@@ -51,4 +52,4 @@ function testAbstractVisitorImplementation(
 
     });
 
-}
+};

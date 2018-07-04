@@ -7,7 +7,7 @@
 
 import AbstractSix from '../AbstractSix';
 import Row from '../Row';
-import AbstractVisitor from './Abstract';
+import AbstractVisitor from './AbstractVisitor';
 
 /**
  * Simple visitor that counts rows

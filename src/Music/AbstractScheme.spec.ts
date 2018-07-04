@@ -5,8 +5,9 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../PrintableMixin.spec.ts" />
-/// <reference path="MatcherInterface.spec.ts" />
+import Stage from '../Stage';
+import AbstractScheme from './AbstractScheme';
+import { testMatcherInterface } from './MatcherInterface.spec';
 
 /**
  * Tests that a scheme behaves as an AbstractScheme
@@ -14,11 +15,11 @@
  * @param schemeName  expected name of the scheme
  * @param testCases   array of tests: [stage, row, matches, output]
  */
-function testAbstractSchemeImplementation(
-    createFn: (stage?: Pricker.Stage) => Pricker.Music.AbstractScheme,
+export const testAbstractSchemeImplementation = (
+    createFn: (stage?: Stage) => AbstractScheme,
     schemeName: string,
-    testCases: Array<[Pricker.Stage, string, number, string]>,
-) {
+    testCases: Array<[Stage, string, number, string]>,
+) => {
 
     describe('is derived from AbstractScheme and', () => {
 
@@ -27,9 +28,9 @@ function testAbstractSchemeImplementation(
         });
 
         it('ignores changes to the returned matchers array', () => {
-            const scheme = createFn(),
-                matchers = scheme.getMatchers(),
-                length = matchers.length;
+            const scheme = createFn();
+            const matchers = scheme.getMatchers();
+            const length = matchers.length;
 
             matchers.slice(1);
             expect(scheme.getMatchers().length).toBe(length);
@@ -38,11 +39,11 @@ function testAbstractSchemeImplementation(
         it('matches music correctly', () => {
             for (const testCase of testCases) {
                 if (!testCase) { continue; }  // IE8 trailing comma
-                const stage: Pricker.Stage = testCase[0],
-                    rowString: string = testCase[1],
-                    matches: number = testCase[2],
-                    output: string = testCase[3],
-                    scheme = createFn(stage);
+                const stage: Stage = testCase[0];
+                const rowString: string = testCase[1];
+                const matches: number = testCase[2];
+                const output: string = testCase[3];
+                const scheme = createFn(stage);
 
                 scheme.match(rowString);
                 expect(scheme.getMatchCount()).toBe(matches);
@@ -54,4 +55,4 @@ function testAbstractSchemeImplementation(
 
     });
 
-}
+};

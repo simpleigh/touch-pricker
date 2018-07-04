@@ -5,21 +5,22 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../functions.ts" />
+import { testPrintableMixinImplementation } from '../PrintableMixin.spec';
+import MatcherInterface from './MatcherInterface';
 
 /**
  * Tests that a matcher behaves appropriately
  * @param createFn     function to create the matcher under test
  * @param matcherName  expected name of the matcher
  */
-function testMatcherInterface(
-    createFn: () => Pricker.Music.MatcherInterface,
+export const testMatcherInterface = (
+    createFn: () => MatcherInterface,
     matcherName: string = 'test',
-) {
+) => {
 
     describe('implements MatcherInterface and', () => {
 
-        let matcher: Pricker.Music.MatcherInterface;
+        let matcher: MatcherInterface;
 
         beforeEach(() => { matcher = createFn(); });
 
@@ -52,4 +53,4 @@ function testMatcherInterface(
 
     });
 
-}
+};

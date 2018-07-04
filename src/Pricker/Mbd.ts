@@ -16,18 +16,16 @@ import rowFromString from '../rowFromString';
 import SixType from '../SixType';
 import Stage from '../Stage';
 import stringFromRow from '../stringFromRow';
-import TemplateContext from '../TemplateContext';
 import Touch from '../Touch';
 import * as Visitor from '../Visitor';
-import AbstractPricker from './Abstract';
+import AbstractPricker from './AbstractPricker';
 
 enum Block {Course, Touch}
 
 /**
  * An MBD pricker
  */
-class Mbd extends AbstractPricker
-    implements Notifiable, PrintableMixin {
+class Mbd extends AbstractPricker implements Notifiable {
 
     /**
      * Stage we're pricking on
@@ -124,11 +122,6 @@ class Mbd extends AbstractPricker
     }
 
     /* PrintableMixin methods *************************************************/
-
-    /**
-     * Renders the object with a template
-     */
-    public print: (t: string, c?: TemplateContext) => string;
 
     /**
      * Path for this class' templates

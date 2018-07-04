@@ -7,14 +7,14 @@
 
 /* tslint:disable:max-line-length */
 
-/// <reference path="AbstractScheme.spec.ts" />
+import S from '../Stage';
+import { testAbstractSchemeImplementation } from './AbstractScheme.spec';
+import MbdScheme from './MbdScheme';
 
 describe('Mbd music scheme', () => {
 
-    const S = Pricker.Stage;
-
     testAbstractSchemeImplementation(
-        (stage: Pricker.Stage = Pricker.Stage.Cinques) => new Pricker.Music.MbdScheme(stage),
+        (stage: S = S.Cinques) => new MbdScheme(stage),
         'MBD scheme',
         [
             // 567890E

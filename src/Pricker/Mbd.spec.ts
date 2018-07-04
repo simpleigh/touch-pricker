@@ -5,12 +5,11 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="AbstractPricker.spec.ts" />
+import { testAbstractPrickerImplementation } from './AbstractPricker.spec';
+import Mbd from './Mbd';
 
 describe('Mbd Pricker class', () => {
 
-    testAbstractPrickerImplementation(
-        Pricker.Pricker.Mbd,
-    );
+    testAbstractPrickerImplementation(Mbd);
 
 });

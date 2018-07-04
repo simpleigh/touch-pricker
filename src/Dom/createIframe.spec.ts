@@ -5,6 +5,8 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import createIframe from './createIframe';
+
 describe('createIframe DOM utility', () => {
 
     let mockIframe: any;
@@ -19,23 +21,23 @@ describe('createIframe DOM utility', () => {
     });
 
     it('creates an iframe', () => {
-        expect(Pricker.Dom.createIframe().tagName).toBe('IFRAME');
+        expect(createIframe().tagName).toBe('IFRAME');
     });
 
     it('creates an iframe from the parent document', () => {
-        const iframe = Pricker.Dom.createIframe(parentDocument);
+        const iframe = createIframe(parentDocument);
         expect(parentDocument.createElement).toHaveBeenCalledWith('iframe');
         expect(iframe).toBe(mockIframe);
     });
 
     it('ensures the created iframe has no border', () => {
-        Pricker.Dom.createIframe(parentDocument);
+        createIframe(parentDocument);
         expect(mockIframe.frameBorder).toBe('0');
         expect(mockIframe.style.border).toBe('none');
     });
 
     it('disables scrolling on the created iframe', () => {
-        Pricker.Dom.createIframe(parentDocument);
+        createIframe(parentDocument);
         expect(mockIframe.scrolling).toBe('no');
     });
 

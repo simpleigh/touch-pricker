@@ -6,8 +6,10 @@
  */
 
 import * as Dom from '../Dom';
+import PrintableMixin from '../PrintableMixin';
+import TemplateContext from '../TemplateContext';
 
-abstract class AbstractPricker {
+abstract class AbstractPricker implements PrintableMixin {
 
     /**
      * Constructor
@@ -17,6 +19,20 @@ abstract class AbstractPricker {
     ) {
         // NOOP
     }
+
+    /* PrintableMixin methods *************************************************/
+
+    /**
+     * Renders the object with a template
+     */
+    public print: (t: string, c?: TemplateContext) => string;
+
+    /**
+     * Path for this class' templates
+     */
+    public abstract readonly templatePath: string;
+
+    /* AbstractPricker methods ************************************************/
 
     /**
      * Event handler for window.onload

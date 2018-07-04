@@ -8,7 +8,7 @@
 import AbstractSix from '../AbstractSix';
 import Row from '../Row';
 import stringFromRow from '../stringFromRow';
-import AbstractVisitor from './Abstract';
+import AbstractVisitor from './AbstractVisitor';
 
 /**
  * Simple visitor that accumulates rows into an array of strings

@@ -5,13 +5,15 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="AbstractVisitor.spec.ts" />
+import { createTestRow } from '../testFunctions.spec';
+import { testAbstractVisitorImplementation } from './AbstractVisitor.spec';
+import StringArray from './StringArray';
 
 describe('StringArray visitor', () => {
 
-    let visitor: Pricker.Visitor.StringArray;
+    let visitor: StringArray;
 
-    beforeEach(() => { visitor = new Pricker.Visitor.StringArray(); });
+    beforeEach(() => { visitor = new StringArray(); });
 
     it('has a list of strings that starts empty', () => {
         expect(visitor.getStrings()).toEqual([ ]);
@@ -31,8 +33,8 @@ describe('StringArray visitor', () => {
     });
 
     testAbstractVisitorImplementation(
-        () => new Pricker.Visitor.StringArray(),
-        (testVisitor: Pricker.Visitor.StringArray) => testVisitor.getStrings(),
+        () => new StringArray(),
+        (testVisitor) => (testVisitor as StringArray).getStrings(),
     );
 
 });

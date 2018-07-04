@@ -5,19 +5,21 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-function testMetricImplementation(
+import { getHeight, getWidth } from './metrics';
+
+const testMetricImplementation = (
     metricFunction: (element: HTMLElement) => number,
     elementMetric: string,
     firstMargin: string,
     secondMargin: string,
-) {
+) => {
     let element: any;
 
-    function setupMetrics(
+    const setupMetrics = (
         elementMetricValue: number,
         firstMarginValue: string,
         secondMarginValue: string,
-    ) {
+    ) => {
         element = {
             [elementMetric]: elementMetricValue,
             'currentStyle': {
@@ -26,7 +28,7 @@ function testMetricImplementation(
             },
         };
         spyOn(window, 'getComputedStyle').and.returnValue(element.currentStyle);
-    }
+    };
 
     it('adds one to the total', () => {
         setupMetrics(0, 'auto', 'auto');
@@ -63,17 +65,17 @@ function testMetricImplementation(
         window.getComputedStyle = getComputedStyleBackup;
     });
 
-}
+};
 
 describe('getWidth DOM utility', () => testMetricImplementation(
-    Pricker.Dom.getWidth,
+    getWidth,
     'offsetWidth',
     'marginLeft',
     'marginRight',
 ));
 
 describe('getHeight DOM utility', () => testMetricImplementation(
-    Pricker.Dom.getHeight,
+    getHeight,
     'offsetHeight',
     'marginTop',
     'marginBottom',

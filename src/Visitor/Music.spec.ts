@@ -5,8 +5,13 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../functions.ts" />
-/// <reference path="AbstractVisitor.spec.ts" />
+import Course from '../Course';
+import MbdScheme from '../Music/MbdScheme';
+import Stage from '../Stage';
+import { createTestRow } from '../testFunctions.spec';
+import Touch from '../Touch';
+import { testAbstractVisitorImplementation } from './AbstractVisitor.spec';
+import Music from './Music';
 
 describe('Music visitor', () => {
 
@@ -14,19 +19,19 @@ describe('Music visitor', () => {
 
     let matcher: any;
 
-    let visitor: Pricker.Visitor.Music;
+    let visitor: Music;
 
-    let touch: Pricker.Touch;
+    let touch: Touch;
 
     beforeAll(() => {
-        touch = new Pricker.Touch(testRow);
-        touch.insertBlock(1, new Pricker.Course(testRow));
-        touch.insertBlock(2, new Pricker.Course(testRow));
+        touch = new Touch(testRow);
+        touch.insertBlock(1, new Course(testRow));
+        touch.insertBlock(2, new Course(testRow));
     });
 
     beforeEach(() => {
         matcher = jasmine.createSpyObj('MatcherInterface', ['match']);
-        visitor = new Pricker.Visitor.Music(matcher);
+        visitor = new Music(matcher);
     });
 
     it('allows access to the provided matcher', () => {
@@ -46,26 +51,21 @@ describe('Music visitor', () => {
         matcher.match.and.returnValue(true);
 
         visitor.visit(testRow, touch.getCourse(1).getSix(3));
-        expect(
-            visitor.getDirectory().contains(touch.getCourse(1).getSix(3)),
-        ).toBe(true);
+        expect(visitor.getDirectory().contains(touch.getCourse(1).getSix(3)))
+            .toBe(true);
     });
 
     it('does not add unmatched blocks to the directory', () => {
         matcher.match.and.returnValue(false);
 
         visitor.visit(testRow, touch.getCourse(1).getSix(3));
-        expect(
-            visitor.getDirectory().contains(touch.getCourse(1).getSix(3)),
-        ).toBe(false);
+        expect(visitor.getDirectory().contains(touch.getCourse(1).getSix(3)))
+            .toBe(false);
     });
 
     testAbstractVisitorImplementation(
-        () => new Pricker.Visitor.Music(
-            new Pricker.Music.MbdScheme(Pricker.Stage.Cinques),
-        ),
-        (testVisitor: Pricker.Visitor.Music) =>
-            testVisitor.getMatcher().getMatchCount(),
+        () => new Music(new MbdScheme(Stage.Cinques)),
+        (testVisitor) => (testVisitor as Music).getMatcher().getMatchCount(),
     );
 
 });

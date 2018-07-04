@@ -10,7 +10,7 @@ import BlockDirectory from '../BlockDirectory';
 import { MatcherInterface } from '../Music';
 import Row from '../Row';
 import stringFromRow from '../stringFromRow';
-import AbstractVisitor from './Abstract';
+import AbstractVisitor from './AbstractVisitor';
 
 /**
  * Visitor for music analysis

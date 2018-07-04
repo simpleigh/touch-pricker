@@ -5,25 +5,28 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../functions.ts" />
-/// <reference path="AbstractVisitor.spec.ts" />
+import Course from '../Course';
+import { createTestRow } from '../testFunctions.spec';
+import Touch from '../Touch';
+import { testAbstractVisitorImplementation } from './AbstractVisitor.spec';
+import Proof from './Proof';
 
 describe('Proof visitor', () => {
 
     const testRow = createTestRow();
 
-    let visitor: Pricker.Visitor.Proof;
+    let visitor: Proof;
 
-    let touch: Pricker.Touch;
+    let touch: Touch;
 
     beforeAll(() => {
-        touch = new Pricker.Touch(testRow);
-        touch.insertBlock(1, new Pricker.Course(testRow));
-        touch.insertBlock(2, new Pricker.Course(testRow));
+        touch = new Touch(testRow);
+        touch.insertBlock(1, new Course(testRow));
+        touch.insertBlock(2, new Course(testRow));
     });
 
     beforeEach(() => {
-        visitor = new Pricker.Visitor.Proof();
+        visitor = new Proof();
     });
 
     it('has a dictionary of row counts that starts empty', () => {
@@ -38,12 +41,10 @@ describe('Proof visitor', () => {
         visitor.visit(row2);
         visitor.visit(row2);
 
-        expect(visitor.getRowCounts()).toEqual(
-            {
-                '2314567890E': 1,
-                '3241658709E': 2,
-            },
-        );
+        expect(visitor.getRowCounts()).toEqual({
+            '2314567890E': 1,
+            '3241658709E': 2,
+        });
     });
 
     it('ignores changes to the result', () => {
@@ -79,23 +80,21 @@ describe('Proof visitor', () => {
         visitor.visit(testRow);
         visitor.visit(testRow, touch.getCourse(1).getSix(3));
 
-        expect(
-            visitor.getDirectory().contains(touch.getCourse(1).getSix(3)),
-        ).toBe(true);
+        expect(visitor.getDirectory().contains(touch.getCourse(1).getSix(3)))
+            .toBe(true);
     });
 
     it('adds old blocks now found to be false to the directory', () => {
         visitor.visit(testRow, touch.getCourse(1).getSix(3));
         visitor.visit(testRow);
 
-        expect(
-            visitor.getDirectory().contains(touch.getCourse(1).getSix(3)),
-        ).toBe(true);
+        expect(visitor.getDirectory().contains(touch.getCourse(1).getSix(3)))
+            .toBe(true);
     });
 
     testAbstractVisitorImplementation(
-        () => new Pricker.Visitor.Proof(),
-        (testVisitor: Pricker.Visitor.Proof) => testVisitor.getRowCounts(),
+        () => new Proof(),
+        (testVisitor) => (testVisitor as Proof).getRowCounts(),
     );
 
 });
