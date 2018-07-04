@@ -2,9 +2,9 @@ const merge = require('webpack-merge');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const banner = require('./webpack.banner');
-const common = require('./webpack.common');
+const base = require('./webpack.base');
 
-module.exports = merge(common, {
+module.exports = merge(base, {
     devtool: 'source-map',
     mode: 'production',
     output: { filename: 'touch-pricker.min.js' },

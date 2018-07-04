@@ -22,10 +22,10 @@ gulp.task('default', ['test']);
 
 gulp.task('build', () => {
     const dev = gulp.src('src/index.ts')
-        .pipe(gulpWebpack(require('./config/webpack.dev'), webpack));
+        .pipe(gulpWebpack(require('./config/webpack.config.dev'), webpack));
 
     const prod = gulp.src('src/index.ts')
-        .pipe(gulpWebpack(require('./config/webpack.prod'), webpack));
+        .pipe(gulpWebpack(require('./config/webpack.config.prod'), webpack));
 
     return merge([dev, prod])
         .pipe(gulp.dest('dist/'));

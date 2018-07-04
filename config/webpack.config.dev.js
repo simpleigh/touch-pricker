@@ -1,8 +1,8 @@
 const merge = require('webpack-merge');
 
 const banner = require('./webpack.banner');
-const common = require('./webpack.common');
+const base = require('./webpack.base');
 
-module.exports = merge(common, {
+module.exports = merge(base, {
     output: { filename: 'touch-pricker.js' },
 }, banner);
