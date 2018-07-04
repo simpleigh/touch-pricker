@@ -32,8 +32,7 @@ export function getHeight(element: HTMLElement) {
 function getMetric(element: HTMLElement, metric: string): number {
     let metricText: string;
     if (window.getComputedStyle) {
-        metricText =
-            (getComputedStyle(element) as any)[metric];
+        metricText = (getComputedStyle(element) as any)[metric];
     } else {
         metricText = (element as any).currentStyle[metric];
     }

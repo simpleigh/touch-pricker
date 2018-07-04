@@ -17,7 +17,7 @@ import AbstractContainer from './AbstractContainer';
 abstract class RandomAccessContainer<Block extends AbstractBlock>
     extends AbstractContainer<Block> {
 
-    /* RandomAccessContainer methods **************************************/
+    /* RandomAccessContainer methods ******************************************/
 
     /**
      * Inserts a course at the specified index

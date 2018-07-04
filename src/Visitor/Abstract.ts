@@ -79,10 +79,7 @@ abstract class AbstractVisitor {
      * Underlying visitor implementation (to be overridden by derived
      * classes).
      */
-    protected abstract visitImplementation(
-        row: Row,
-        six?: AbstractSix,
-    ): void;
+    protected abstract visitImplementation(row: Row, six?: AbstractSix): void;
 
 }
 

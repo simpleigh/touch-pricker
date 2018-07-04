@@ -38,14 +38,11 @@ abstract class AbstractBlock implements PrintableMixin {
      * @param initialRow  initial row for the block
      * @param ownership   ownership of this block
      */
-    constructor(
-        initialRow: Row,
-        protected _ownership?: BlockOwnership,
-    ) {
+    constructor(initialRow: Row, protected _ownership?: BlockOwnership) {
         this._initialRow = initialRow.slice();
     }
 
-    /* PrintableMixin methods *********************************************/
+    /* PrintableMixin methods *************************************************/
 
     /**
      * Renders the object with a template
@@ -57,7 +54,7 @@ abstract class AbstractBlock implements PrintableMixin {
      */
     public readonly templatePath: string = 'AbstractBlock';
 
-    /* AbstractBlock methods **********************************************/
+    /* AbstractBlock methods **************************************************/
 
     /**
      * Does any calculation needed by the block

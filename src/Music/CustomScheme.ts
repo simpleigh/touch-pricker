@@ -13,7 +13,7 @@ import MatcherInterface from './MatcherInterface';
  */
 class CustomScheme extends AbstractScheme {
 
-    /* MatcherInterface methods ***************************************/
+    /* MatcherInterface methods ***********************************************/
 
     /**
      * Provides read access to the name
@@ -22,7 +22,7 @@ class CustomScheme extends AbstractScheme {
         return 'Custom scheme';
     }
 
-    /* AbstractScheme methods *****************************************/
+    /* AbstractScheme methods *************************************************/
 
     /**
      * Create matchers for this scheme/stage
@@ -31,7 +31,7 @@ class CustomScheme extends AbstractScheme {
         return [ ];
     }
 
-    /* CustomScheme methods *******************************************/
+    /* CustomScheme methods ***************************************************/
 
     /**
      * Allows additional matchers to be added

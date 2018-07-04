@@ -32,7 +32,7 @@ class Counter extends AbstractVisitor {
         return this._count;
     }
 
-    /* AbstractVisitor methods ****************************************/
+    /* AbstractVisitor methods ************************************************/
 
     /**
      * Receives a row for processing.

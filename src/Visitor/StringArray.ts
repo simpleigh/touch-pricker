@@ -31,7 +31,7 @@ class StringArray extends AbstractVisitor {
         return this._strings.slice();
     }
 
-    /* AbstractVisitor methods ****************************************/
+    /* AbstractVisitor methods ************************************************/
 
     /**
      * Receives a row for processing.

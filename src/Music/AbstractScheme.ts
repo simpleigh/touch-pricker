@@ -31,7 +31,7 @@ abstract class AbstractScheme implements MatcherInterface {
         );
     }
 
-    /* MatcherInterface methods ***************************************/
+    /* MatcherInterface methods ***********************************************/
 
     /**
      * Matches a row string
@@ -69,7 +69,7 @@ abstract class AbstractScheme implements MatcherInterface {
         return matches;
     }
 
-    /* PrintableMixin methods *****************************************/
+    /* PrintableMixin methods *************************************************/
 
     /**
      * Renders the object with a template
@@ -81,14 +81,12 @@ abstract class AbstractScheme implements MatcherInterface {
      */
     public readonly templatePath: string = 'Music.AbstractScheme';
 
-    /* AbstractScheme methods *****************************************/
+    /* AbstractScheme methods *************************************************/
 
     /**
      * Create matchers for this scheme/stage
      */
-    protected abstract createMatchers(
-        rounds: string,
-    ): MatcherInterface[];
+    protected abstract createMatchers(rounds: string): MatcherInterface[];
 
     /**
      * Provides read access to the matchers

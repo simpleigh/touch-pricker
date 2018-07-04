@@ -23,14 +23,14 @@ class Course extends SerialContainer<AbstractSix> {
      */
     private _firstSixType: SixType = SixType.Slow;
 
-    /* PrintableMixin methods *********************************************/
+    /* PrintableMixin methods *************************************************/
 
     /**
      * Path for this class' templates
      */
     public readonly templatePath: string = 'Course';
 
-    /* SerialContainer methods ********************************************/
+    /* SerialContainer methods ************************************************/
 
     /**
      * Returns the default length of new containers of this type
@@ -65,7 +65,7 @@ class Course extends SerialContainer<AbstractSix> {
      */
     protected readonly maxLength: number = 60;
 
-    /* Course methods *****************************************************/
+    /* Course methods *********************************************************/
 
     /**
      * Returns the course end

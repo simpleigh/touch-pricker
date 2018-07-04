@@ -19,7 +19,7 @@ import PatternGroup from './PatternGroup';
  */
 class MbdScheme extends AbstractScheme {
 
-    /* MatcherInterface methods ***************************************/
+    /* MatcherInterface methods ***********************************************/
 
     /**
      * Provides read access to the name
@@ -28,7 +28,7 @@ class MbdScheme extends AbstractScheme {
         return 'MBD scheme';
     }
 
-    /* AbstractScheme methods *****************************************/
+    /* AbstractScheme methods *************************************************/
 
     /**
      * Create matchers for this scheme/stage

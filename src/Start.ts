@@ -40,10 +40,7 @@ class Start extends AbstractBlock {
     /**
      * Constructor
      */
-    constructor(
-        initialRow: Row,
-        protected _ownership?: BlockOwnership,
-    ) {
+    constructor(initialRow: Row, protected _ownership?: BlockOwnership) {
         super(initialRow, _ownership);
 
         this._rowIndex = 4;
@@ -51,14 +48,14 @@ class Start extends AbstractBlock {
         this.calculate();
     }
 
-    /* PrintableMixin methods *********************************************/
+    /* PrintableMixin methods *************************************************/
 
     /**
      * Path for this class' templates
      */
     public readonly templatePath: string = 'Start';
 
-    /* AbstractBlock methods **********************************************/
+    /* AbstractBlock methods **************************************************/
 
     /**
      * Does any calculation needed by the block
@@ -120,7 +117,7 @@ class Start extends AbstractBlock {
         return this._rows.length;
     }
 
-    /* Start methods ******************************************************/
+    /* Start methods **********************************************************/
 
     /**
      * Provides read access to the row index

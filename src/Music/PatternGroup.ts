@@ -34,7 +34,7 @@ class PatternGroup implements MatcherInterface {
         this._patterns = patterns.slice();
     }
 
-    /* MatcherInterface methods ***************************************/
+    /* MatcherInterface methods ***********************************************/
 
     /**
      * Matches a row string
@@ -74,7 +74,7 @@ class PatternGroup implements MatcherInterface {
         return this.getSubmatchCount();
     }
 
-    /* PrintableMixin methods *****************************************/
+    /* PrintableMixin methods *************************************************/
 
     /**
      * Renders the object with a template
@@ -86,7 +86,7 @@ class PatternGroup implements MatcherInterface {
      */
     public readonly templatePath: string = 'Music.PatternGroup';
 
-    /* PatternGroup methods *******************************************/
+    /* PatternGroup methods ***************************************************/
 
     /**
      * Provides read access to the patterns

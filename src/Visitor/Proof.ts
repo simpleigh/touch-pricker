@@ -80,7 +80,7 @@ class Proof extends AbstractVisitor {
         return this._isTrue;
     }
 
-    /* AbstractVisitor methods ****************************************/
+    /* AbstractVisitor methods ************************************************/
 
     /**
      * Receives a row for processing.

@@ -24,15 +24,12 @@ abstract class SerialContainer<Block extends AbstractBlock>
      *
      * Extends the AbstractBlock container to create contained blocks.
      */
-    constructor(
-        initialRow: Row,
-        protected _ownership?: BlockOwnership,
-    ) {
+    constructor(initialRow: Row, protected _ownership?: BlockOwnership) {
         super(initialRow, _ownership);
         this.extend(this.getDefaultLength(initialRow));
     }
 
-    /* SerialContainer methods ********************************************/
+    /* SerialContainer methods ************************************************/
 
     /**
      * Extends the container by adding the specified number of blocks

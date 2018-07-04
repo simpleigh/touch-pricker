@@ -29,18 +29,12 @@ class Touch extends RandomAccessContainer<Course> {
      *
      * Extends the AbstractBlock container to set up the start.
      */
-    constructor(
-        initialRow: Row,
-        protected _ownership?: BlockOwnership,
-    ) {
+    constructor(initialRow: Row, protected _ownership?: BlockOwnership) {
         super(initialRow, _ownership);
-        this._start = new Start(
-            initialRow,
-            { 'container': this, 'index': 0 },
-        );
+        this._start = new Start(initialRow, { 'container': this, 'index': 0 });
     }
 
-    /* AbstractBlock methods **********************************************/
+    /* AbstractBlock methods **************************************************/
 
     /**
      * Receives a visitor that will be called to process each row
@@ -61,22 +55,19 @@ class Touch extends RandomAccessContainer<Course> {
         return this._start.estimateRows() + super.estimateRows();
     }
 
-    /* PrintableMixin methods *********************************************/
+    /* PrintableMixin methods *************************************************/
 
     /**
      * Path for this class' templates
      */
     public readonly templatePath: string = 'Touch';
 
-    /* AbstractContainer methods ******************************************/
+    /* AbstractContainer methods **********************************************/
 
     /**
      * Propagates data from a previous block to a current block
      */
-    protected propagateCurrentBlock(
-        previous: Course,
-        current: Course,
-    ): void {
+    protected propagateCurrentBlock(previous: Course, current: Course): void {
         const sixType = previous.getSix(previous.getLength()).type;
         current.setInitialRow(previous.getLast());
         current.setFirstSixType((sixType + 1) % 2);
@@ -92,7 +83,7 @@ class Touch extends RandomAccessContainer<Course> {
         first.setFirstSixType((sixType + 1) % 2);
     }
 
-    /* Touch methods ******************************************************/
+    /* Touch methods **********************************************************/
 
     /**
      * Read access to the courses

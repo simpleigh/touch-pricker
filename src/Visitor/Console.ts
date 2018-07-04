@@ -19,7 +19,7 @@ import AbstractVisitor from './Abstract';
  */
 class Console extends AbstractVisitor {
 
-    /* AbstractVisitor methods ****************************************/
+    /* AbstractVisitor methods ************************************************/
 
     /**
      * Receives a row for processing.

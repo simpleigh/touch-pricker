@@ -104,7 +104,7 @@ class Mbd extends AbstractPricker
      */
     private _music: BlockDirectory | undefined;
 
-    /* Notifiable methods *********************************************/
+    /* Notifiable methods *****************************************************/
 
     /**
      * Receives a notification from a block that has changed
@@ -123,7 +123,7 @@ class Mbd extends AbstractPricker
         this.redraw();
     }
 
-    /* PrintableMixin methods *****************************************/
+    /* PrintableMixin methods *************************************************/
 
     /**
      * Renders the object with a template
@@ -135,7 +135,7 @@ class Mbd extends AbstractPricker
      */
     public readonly templatePath: string = 'Pricker.Mbd';
 
-    /* Pricker methods ************************************************/
+    /* Pricker methods ********************************************************/
 
     public onLoad(): void {
         let option: HTMLOptionElement;
@@ -146,15 +146,13 @@ class Mbd extends AbstractPricker
             option.innerText = Stage[i];
             this.getEl('stage').appendChild(option);
         }
-        this.getEl<HTMLSelectElement>('stage').value =
-            Stage.Cinques.toString();
+        this.getEl<HTMLSelectElement>('stage').value = Stage.Cinques.toString();
 
         this.onStage();
     }
 
     public onStage(): void {
-        this._stage =
-            parseInt(this.getEl<HTMLSelectElement>('stage').value);
+        this._stage = parseInt(this.getEl<HTMLSelectElement>('stage').value);
         this._initialRow = rowFromString('231', this._stage);
 
         this._course = new Course(
@@ -192,8 +190,7 @@ class Mbd extends AbstractPricker
 
         newCourse.setInitialRow(this._initialRow);
         newCourse.setFirstSixType(SixType.Slow);
-        this.getEl('callingFromRounds').innerHTML =
-            newCourse.print('html');
+        this.getEl('callingFromRounds').innerHTML = newCourse.print('html');
 
         this.getEl<HTMLInputElement>('initialRow').value =
             stringFromRow(this._course.getInitialRow());
@@ -292,8 +289,7 @@ class Mbd extends AbstractPricker
     }
 
     public onSetLength(): void {
-        const input =
-                this.getEl<HTMLInputElement>('courseLength').value,
+        const input = this.getEl<HTMLInputElement>('courseLength').value,
             length = parseInt(input);
 
         if (length) {
@@ -351,10 +347,7 @@ class Mbd extends AbstractPricker
     public onInsertCourse(): void {
         this._selectedIndex += 1;
 
-        this._touch.insertCourse(
-            this._selectedIndex,
-            this._course.clone(),
-        );
+        this._touch.insertCourse(this._selectedIndex, this._course.clone());
 
         if (this.getEl<HTMLInputElement>('rolling').checked) {
             const course = this._touch.getCourse(this._selectedIndex);
@@ -371,15 +364,10 @@ class Mbd extends AbstractPricker
     public onPasteCourse(): void {
         if (this._selectedIndex) {
             this._touch.deleteCourse(this._selectedIndex);
-            this._touch.insertCourse(
-                this._selectedIndex,
-                this._course.clone(),
-            );
+            this._touch.insertCourse(this._selectedIndex, this._course.clone());
 
             if (this.getEl<HTMLInputElement>('rolling').checked) {
-                const course = this._touch.getCourse(
-                    this._selectedIndex,
-                );
+                const course = this._touch.getCourse(this._selectedIndex);
                 const sixType = course.getSix(course.getLength()).type;
                 this._course.setFirstSixType((sixType + 1) % 2);
                 this._course.setInitialRow(course.getEnd());
@@ -397,8 +385,7 @@ class Mbd extends AbstractPricker
 
     public onCopyCourse(): void {
         if (this._selectedIndex) {
-            this._course =
-                this._touch.getCourse(this._selectedIndex).clone();
+            this._course = this._touch.getCourse(this._selectedIndex).clone();
             this._course.setOwnership({
                 'container': this,
                 'index': Block.Course,
@@ -427,8 +414,7 @@ class Mbd extends AbstractPricker
     }
 
     public onLoadTouch() {
-        const input =
-            this.getEl<HTMLTextAreaElement>('loadSaveTextarea').value;
+        const input = this.getEl<HTMLTextAreaElement>('loadSaveTextarea').value;
         let newTouch: Touch;
 
         try {
@@ -439,15 +425,11 @@ class Mbd extends AbstractPricker
         }
 
         this._stage = newTouch.getInitialRow().length;
-        this.getEl<HTMLSelectElement>('stage').value =
-            this._stage.toString();
+        this.getEl<HTMLSelectElement>('stage').value = this._stage.toString();
         this.onStage();
 
         this._touch = newTouch;
-        this._touch.setOwnership({
-            'container': this,
-            'index': Block.Touch,
-        });
+        this._touch.setOwnership({ 'container': this, 'index': Block.Touch });
 
         // Call notify() to clear out state from the previous touch
         this.notify(Block.Touch); // calls redraw()
@@ -484,8 +466,7 @@ class Mbd extends AbstractPricker
     }
 
     public onShowAdvancedOptions(): void {
-        const element =
-            this.getEl<HTMLInputElement>('showAdvancedOptions');
+        const element = this.getEl<HTMLInputElement>('showAdvancedOptions');
         this._showAdvancedOptions = element.checked;
         this.redraw();
         this.redrawTouch();

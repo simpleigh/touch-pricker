@@ -70,10 +70,7 @@ abstract class PrintableMixin {
      * using the `templateName` of `'template.dot'` assuming a
      * [[templatePath]] of `'Class'`.
      */
-    public print(
-        templateName: string,
-        context: TemplateContext = { },
-    ): string {
+    public print(templateName: string, context: TemplateContext = { }): string {
         templateName = this.templatePath + '.' + templateName;
         return Templates[templateName]({...context, 'object': this});
     }

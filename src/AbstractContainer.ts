@@ -28,7 +28,7 @@ abstract class AbstractContainer<Block extends AbstractBlock>
      */
     protected _blocks: Block[] = [ ];
 
-    /* AbstractBlock methods **********************************************/
+    /* AbstractBlock methods **************************************************/
 
     /**
      * Does any calculation needed by the block
@@ -74,7 +74,7 @@ abstract class AbstractContainer<Block extends AbstractBlock>
         return rows;
     }
 
-    /* Notifiable methods *************************************************/
+    /* Notifiable methods *****************************************************/
 
     /**
      * Receives a notification from a block that has changed
@@ -85,7 +85,7 @@ abstract class AbstractContainer<Block extends AbstractBlock>
         this.notifyContainer();
     }
 
-    /* AbstractContainer methods ******************************************/
+    /* AbstractContainer methods **********************************************/
 
     /**
      * Propagates data between blocks within the container

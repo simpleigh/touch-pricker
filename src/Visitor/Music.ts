@@ -51,7 +51,7 @@ class Music extends AbstractVisitor {
         return this._directory;
     }
 
-    /* AbstractVisitor methods ****************************************/
+    /* AbstractVisitor methods ************************************************/
 
     /**
      * Receives a row for processing.

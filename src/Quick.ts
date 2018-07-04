@@ -26,7 +26,7 @@ class Quick extends AbstractSix {
     public static readonly notation = ['1', '3', '1', '3', '1'];
     public readonly notation = Quick.notation;
 
-    /* AbstractBlock methods **********************************************/
+    /* AbstractBlock methods **************************************************/
 
     /**
      * Receives a visitor that will be called to process each row
@@ -56,7 +56,7 @@ class Quick extends AbstractSix {
         return this;
     }
 
-    /* AbstractSix methods ************************************************/
+    /* AbstractSix methods ****************************************************/
 
     /**
      * Transposes the front three bells depending upon the type of six

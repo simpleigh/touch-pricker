@@ -40,22 +40,19 @@ abstract class AbstractSix extends AbstractBlock {
     /**
      * Constructor
      */
-    constructor(
-        initialRow: Row,
-        protected _ownership?: BlockOwnership,
-    ) {
+    constructor(initialRow: Row, protected _ownership?: BlockOwnership) {
         super(initialRow, _ownership);
         this.calculate();
     }
 
-    /* PrintableMixin methods *********************************************/
+    /* PrintableMixin methods *************************************************/
 
     /**
      * Path for this class' templates
      */
     public readonly templatePath: string = 'AbstractSix';
 
-    /* AbstractBlock methods **********************************************/
+    /* AbstractBlock methods **************************************************/
 
     /**
      * Does any calculation needed by the block
@@ -81,7 +78,7 @@ abstract class AbstractSix extends AbstractBlock {
         return 6;
     }
 
-    /* AbstractSix methods ************************************************/
+    /* AbstractSix methods ****************************************************/
 
     /**
      * Returns the six head

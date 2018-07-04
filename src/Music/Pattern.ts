@@ -34,7 +34,7 @@ class Pattern implements MatcherInterface {
         // NOOP
     }
 
-    /* MatcherInterface methods ***************************************/
+    /* MatcherInterface methods ***********************************************/
 
     /**
      * Matches a row string
@@ -71,7 +71,7 @@ class Pattern implements MatcherInterface {
         return this._matchCount;
     }
 
-    /* PrintableMixin methods******************************************/
+    /* PrintableMixin methods**************************************************/
 
     /**
      * Renders the object with a template
@@ -83,7 +83,7 @@ class Pattern implements MatcherInterface {
      */
     public readonly templatePath: string = 'Music.Pattern';
 
-    /* Pattern methods ************************************************/
+    /* Pattern methods ********************************************************/
 
     /**
      * Determines whether this is a wildcard match
