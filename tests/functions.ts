@@ -5,8 +5,6 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../dist/touch-pricker.d.ts" />
-
 /**
  * Helper functions for testing
  */

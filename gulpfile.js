@@ -32,13 +32,9 @@ gulp.task('build', () => {
 });
 
 gulp.task('build-tests', ['build'], () => {
-    const specs = gulp.src(['tests/**/*.ts'])
+    const tsResult = gulp.src(['tests/**/*.ts'])
         .pipe(plugins.tslint({formatter: 'verbose'}))
-        .pipe(plugins.tslint.report({summarizeFailureOutput: true}));
-
-    const declarations = gulp.src('dist/touch-pricker.d.ts');
-
-    const tsResult = merge([specs, declarations])
+        .pipe(plugins.tslint.report({summarizeFailureOutput: true}))
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.typescript({
             outFile: 'dist/tests.js'
