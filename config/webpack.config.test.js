@@ -1,10 +1,10 @@
 const merge = require('webpack-merge');
-const path = require('path');
 
+const paths = require('./paths');
 const banner = require('./webpack.banner');
 const base = require('./webpack.base');
 
 module.exports = merge(base, {
-    entry: path.resolve(__dirname, '..', 'tests', 'index.spec.js'),
+    entry: paths.testsEntryFile,
     output: { filename: 'touch-pricker.spec.js' },
 }, banner);

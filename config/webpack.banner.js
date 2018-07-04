@@ -1,11 +1,9 @@
 const BannerPlugin = require('webpack').BannerPlugin;
 const fs = require('fs');
-const path = require('path');
 
-const banner = fs.readFileSync(
-    path.resolve(__dirname, '..', 'banner.js'),
-    'utf8'
-);
+const paths = require('./paths');
+
+const banner = fs.readFileSync(paths.bannerFile, 'utf8');
 
 module.exports = {
     plugins: [

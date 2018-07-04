@@ -1,8 +1,8 @@
-const path = require('path');
+const paths = require('./paths');
 
 module.exports = {
     devtool: 'inline-source-map',
-    entry: path.resolve(__dirname, '..', 'src', 'index.ts'),
+    entry: paths.srcEntryFile,
     mode: 'development',
     module: {
         rules: [
@@ -35,7 +35,7 @@ module.exports = {
     output: {
         library: 'Pricker',
         libraryTarget: 'umd',
-        path: path.resolve(__dirname, '..', 'dist'),
+        path: paths.distDir,
         umdNamedDefine: true,
     },
     resolve: {
