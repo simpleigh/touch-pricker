@@ -12,6 +12,9 @@ module.exports = {
             {
                 test: /\.ts$/,
                 loader: 'ts-loader',
+                options: {
+                    onlyCompileBundledFiles: true,
+                },
             },
             {
                 enforce: 'pre',
