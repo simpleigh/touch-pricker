@@ -5,15 +5,22 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+const webpackConfig = require('./config/webpack.config.test');
+
 module.exports = (config) => {
     config.set({
         autoWatch: false,
         browsers: ['Chrome', 'Edge', 'Firefox', 'IE', 'PhantomJS'],
         files: [
+            'tests/index.spec.js',
             'dist/touch-pricker.js',
             'dist/tests.js'
         ],
         frameworks: ['jasmine'],
-        singleRun: true
+        preprocessors: {
+            'tests/index.spec.js': ['webpack', 'sourcemap'],
+        },
+        singleRun: true,
+        webpack: webpackConfig,
     });
 };

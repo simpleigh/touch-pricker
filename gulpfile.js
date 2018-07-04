@@ -31,18 +31,21 @@ gulp.task('build', () => {
         .pipe(gulp.dest('dist/'));
 });
 
-gulp.task('build-tests', ['build'], () => {
+gulp.task('build-tests', () => {
     const tsResult = gulp.src(['tests/**/*.ts'])
         .pipe(plugins.tslint({formatter: 'verbose'}))
         .pipe(plugins.tslint.report({summarizeFailureOutput: true}))
         .pipe(plugins.sourcemaps.init())
-        .pipe(plugins.typescript({
-            outFile: 'dist/tests.js'
-        }));
+        .pipe(plugins.typescript({ outFile: 'tests.js' }));
 
-    return tsResult.js
-        .pipe(plugins.sourcemaps.write())
-        .pipe(gulp.dest('.'));
+    const oldTests = tsResult.js
+        .pipe(plugins.sourcemaps.write());
+
+    const newTests = gulp.src('tests/index.spec.js')
+        .pipe(gulpWebpack(require('./config/webpack.config.test'), webpack));
+
+    return merge([oldTests, newTests])
+        .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('test', ['build', 'build-tests'], (done) => {
