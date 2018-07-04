@@ -1,11 +1,4 @@
-const BannerPlugin = require('webpack').BannerPlugin;
-const fs = require('fs');
 const path = require('path');
-
-const banner = fs.readFileSync(
-    path.resolve(__dirname, '..', 'banner.js'),
-    'utf8'
-);
 
 module.exports = {
     entry: path.resolve(__dirname, '..', 'src', 'index.ts'),
@@ -38,10 +31,8 @@ module.exports = {
         library: 'Pricker',
         libraryTarget: 'umd',
         path: path.resolve(__dirname, '..', 'dist'),
+        umdNamedDefine: true,
     },
-    plugins: [
-        new BannerPlugin({ banner, raw: true }),
-    ],
     resolve: {
         extensions: ['.dot', '.js', '.ts'],
     },
