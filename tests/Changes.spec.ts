@@ -94,24 +94,33 @@ describe('Changes:', () => {
     describe('permuteCall function', () => {
 
         it('can apply plain transpositions', () => {
-            const row = createTestRow();
-            spyOn(Pricker.Changes, 'permuteN');
-            Pricker.Changes.permuteCall(row, Pricker.Call.Plain);
-            expect(Pricker.Changes.permuteN).toHaveBeenCalledWith(row);
+            const calledRow = createTestRow();
+            const expectedRow = createTestRow();
+
+            Pricker.Changes.permuteCall(calledRow, Pricker.Call.Plain);
+            Pricker.Changes.permuteN(expectedRow);
+
+            expect(calledRow).toEqual(expectedRow);
         });
 
         it('can apply bob transpositions', () => {
-            const row = createTestRow();
-            spyOn(Pricker.Changes, 'permuteBob');
-            Pricker.Changes.permuteCall(row, Pricker.Call.Bob);
-            expect(Pricker.Changes.permuteBob).toHaveBeenCalledWith(row);
+            const calledRow = createTestRow();
+            const expectedRow = createTestRow();
+
+            Pricker.Changes.permuteCall(calledRow, Pricker.Call.Bob);
+            Pricker.Changes.permuteBob(expectedRow);
+
+            expect(calledRow).toEqual(expectedRow);
         });
 
         it('can apply single transpositions', () => {
-            const row = createTestRow();
-            spyOn(Pricker.Changes, 'permuteSingle');
-            Pricker.Changes.permuteCall(row, Pricker.Call.Single);
-            expect(Pricker.Changes.permuteSingle).toHaveBeenCalledWith(row);
+            const calledRow = createTestRow();
+            const expectedRow = createTestRow();
+
+            Pricker.Changes.permuteCall(calledRow, Pricker.Call.Single);
+            Pricker.Changes.permuteSingle(expectedRow);
+
+            expect(calledRow).toEqual(expectedRow);
         });
 
     });
