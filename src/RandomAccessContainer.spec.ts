@@ -1,3 +1,4 @@
+
 /**
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
@@ -5,33 +6,38 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="functions.ts" />
-/// <reference path="AbstractContainer.spec.ts" />
+import AbstractBlock from './AbstractBlock';
+import { testAbstractContainerImplementation } from './AbstractContainer.spec';
+import BlockOwnership from './BlockOwnership';
+import { permuteN } from './Changes';
+import RandomAccessContainer from './RandomAccessContainer';
+import Row from './Row';
+import { createTestRow } from './testFunctions.spec';
+
+type TestContainer = RandomAccessContainer<AbstractBlock>;
 
 /**
  * Tests that a container behaves as a RandomAccessContainer
- * @param Container     container under test
+ * @param factory       creates an instance of the object under test
  * @param testBlocks    array containing three potential child blocks
+ * @param firstBlockInitialRowFn
  * @param expectedRows  rows in a new Cinques container
  */
-function testRandomAccessContainerImplementation(
-    // tslint:disable-next-line:variable-name
-    Container,
-    testBlocks: Pricker.AbstractBlock[],
-    firstBlockInitialRowFn:
-        (container: Pricker.RandomAccessContainer<Pricker.AbstractBlock>) =>
-            Pricker.Row,
+export const testRandomAccessContainerImplementation = (
+    factory: (initialRow: Row, _ownership?: BlockOwnership) => TestContainer,
+    testBlocks: AbstractBlock[],
+    firstBlockInitialRowFn: (container: TestContainer) => Row,
     expectedRows: number,
-) {
+) => {
 
     describe('is derived from RandomAccessContainer and', () => {
 
         const testRow = createTestRow();
 
-        let container: typeof Container;
+        let container: TestContainer;
 
         beforeEach(() => {
-            container = new Container(testRow);
+            container = factory(testRow);
         });
 
         const checkPropagation = () => {
@@ -50,7 +56,7 @@ function testRandomAccessContainerImplementation(
                 .toEqual(container.getBlock(container.getLength()).getLast());
         };
 
-        const checkBlock = (index: number, testBlock: Pricker.AbstractBlock) =>
+        const checkBlock = (index: number, testBlock: AbstractBlock) =>
             expect(container.getBlock(index).print('text'))
                 .toBe(testBlock.print('text'));
 
@@ -76,7 +82,7 @@ function testRandomAccessContainerImplementation(
         it('ignores the initial row when inserting a new block', () => {
             // Set container initial row different from block initial row
             const initialRow = testBlocks[0].getInitialRow();
-            Pricker.Changes.permuteN(initialRow);
+            permuteN(initialRow);
             container.setInitialRow(initialRow);
 
             // Container initial row should be unaffected when inserting
@@ -148,8 +154,8 @@ function testRandomAccessContainerImplementation(
             expect(testBlocks[1].getIndex()).toBeUndefined();
         });
 
-        const createFn: () => typeof Container = () => {
-            const testContainer = new Container(createTestRow());
+        const fixtureFactory: () => TestContainer = () => {
+            const testContainer = factory(createTestRow());
             testContainer.insertBlock(1, testBlocks[0]);  // [0]
             testContainer.insertBlock(2, testBlocks[1]);  // [0, 1]
             testContainer.insertBlock(3, testBlocks[2]);  // [0, 1, 2]
@@ -157,12 +163,12 @@ function testRandomAccessContainerImplementation(
         };
 
         testAbstractContainerImplementation(
-            Container,
-            createFn,
+            factory,
+            fixtureFactory,
             3,
             expectedRows,
         );
 
     });
 
-}
+};

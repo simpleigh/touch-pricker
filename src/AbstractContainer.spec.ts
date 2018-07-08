@@ -5,42 +5,47 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="functions.ts" />
-/// <reference path="AbstractBlock.spec.ts" />
+import AbstractBlock from './AbstractBlock';
+import { testAbstractBlockImplementation } from './AbstractBlock.spec';
+import AbstractContainer from './AbstractContainer';
+import BlockOwnership from './BlockOwnership';
+import Row from './Row';
+import { createTestRow } from './testFunctions.spec';
+
+type TestContainer = AbstractContainer<AbstractBlock>;
 
 /**
  * Tests that a container behaves as an AbstractContainer
- * @param Container       container under test
- * @param createFn        function to create a test fixture of >= three blocks
+ * @param factory         creates an instance of the object under test
+ * @param fixtureFactory  function to create a test fixture of >= three blocks
  * @param expectedLength  blocks in the test fixture
  * @param expectedRows    rows in a new Cinques container
  */
-function testAbstractContainerImplementation(
-    // tslint:disable-next-line:variable-name
-    Container,
-    createFn: () => typeof Container,
+export const testAbstractContainerImplementation = (
+    factory: (initialRow: Row, _ownership?: BlockOwnership) => TestContainer,
+    fixtureFactory: () => TestContainer,
     expectedLength: number,
     expectedRows: number,
-) {
+) => {
 
     describe('is derived from AbstractContainer and', () => {
 
-        let container: typeof Container;
+        let container: TestContainer;
 
         beforeEach(() => {
-            container = createFn();
+            container = fixtureFactory();
         });
 
         it('starts as a round block (last row equal to initial row)', () => {
             const initialRow = createTestRow();
-            container = new Container(initialRow);
+            container = factory(initialRow);
             expect(container.getLast()).toEqual(initialRow);
         });
 
         it('keeps the last row in sync with the initial row', () => {
             const initialRow = createTestRow();
             const newRow = createTestRow('123');
-            container = new Container(initialRow);
+            container = factory(initialRow);
 
             container.setInitialRow(newRow);
             expect(container.getLast()).not.toEqual(initialRow);
@@ -107,7 +112,7 @@ function testAbstractContainerImplementation(
         });
 
         it('notifies the parent container on notify', () => {
-            const parent: Pricker.AbstractContainer<typeof Container> =
+            const parent: TestContainer =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
             container.setOwnership({ 'container': parent, 'index': 999 });
 
@@ -118,11 +123,13 @@ function testAbstractContainerImplementation(
         });
 
         testAbstractBlockImplementation(
-            Container,
-            (block: typeof Container) => block.notify(),
+            factory,
+            (block) => {
+                (block as TestContainer).notify(0);
+            },
             expectedRows,
         );
 
     });
 
-}
+};

@@ -11,10 +11,10 @@ import Templates from './Templates';
 
 /**
  * Tests that an object correctly implements PrintableMixin
- * @param createFn  create the object under test
+ * @param factory  creates an instance of the object under test
  */
 export const testPrintableMixinImplementation = (
-    createFn: () => PrintableMixin,
+    factory: () => PrintableMixin,
 ) => {
 
     describe('implements PrintableMixin and', () => {
@@ -23,7 +23,7 @@ export const testPrintableMixinImplementation = (
             testTemplateSpy: jasmine.Spy;
 
         beforeEach(() => {
-            object = createFn();
+            object = factory();
             testTemplateSpy = jasmine.createSpy('test');
             Templates[object.templatePath + '.test'] = testTemplateSpy;
         });

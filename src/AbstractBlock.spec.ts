@@ -5,30 +5,34 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="functions.ts" />
-/// <reference path="PrintableMixin.spec.ts" />
+import AbstractBlock from './AbstractBlock';
+import AbstractContainer from './AbstractContainer';
+import BlockOwnership from './BlockOwnership';
+import { testPrintableMixinImplementation } from './PrintableMixin.spec';
+import Row from './Row';
+import { createTestRow } from './testFunctions.spec';
+import { Counter } from './Visitor';
 
 /**
  * Tests that a block behaves as an AbstractBlock
- * @param Block                block under test
+ * @param factory              creates an instance of the object under test
  * @param triggerNotification  make block notify parent
  * @param expectedRows         number of rows expected in this block
  */
-function testAbstractBlockImplementation(
-    // tslint:disable-next-line:variable-name
-    Block,
-    triggerNotification: (block: Pricker.AbstractBlock) => void,
+export const testAbstractBlockImplementation = (
+    factory: (initialRow: Row, _ownership?: BlockOwnership) => AbstractBlock,
+    triggerNotification: (block: AbstractBlock) => void,
     expectedRows: number,
-) {
+) => {
 
     describe('is derived from AbstractBlock and', () => {
 
         const testRow = createTestRow();
 
-        let block: typeof Block;
+        let block: AbstractBlock;
 
         beforeEach(() => {
-            block = new Block(testRow);
+            block = factory(testRow);
         });
 
         it('stores the initial row', () => {
@@ -47,7 +51,7 @@ function testAbstractBlockImplementation(
 
         it('ignores changes to the original initial row', () => {
             const initialRow = createTestRow();
-            block = new Block(initialRow);
+            block = factory(initialRow);
 
             initialRow[3] = 999;  // Mutate the initial row
             expect(initialRow).not.toEqual(testRow);
@@ -101,7 +105,7 @@ function testAbstractBlockImplementation(
         });
 
         it('notifies the parent container', () => {
-            const container: Pricker.AbstractContainer<typeof Block> =
+            const container: AbstractContainer<AbstractBlock> =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
             block.setOwnership({ 'container': container, 'index': 999 });
             triggerNotification(block);
@@ -109,7 +113,7 @@ function testAbstractBlockImplementation(
         });
 
         it('does not notify when the initial row changes', () => {
-            const container: Pricker.AbstractContainer<typeof Block> =
+            const container: AbstractContainer<AbstractBlock> =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
             block.setOwnership({ 'container': container, 'index': 999 });
             block.setInitialRow(testRow);
@@ -117,7 +121,7 @@ function testAbstractBlockImplementation(
         });
 
         it('allows access to parent information', () => {
-            const container: Pricker.AbstractContainer<typeof Block> =
+            const container: AbstractContainer<AbstractBlock> =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
             block.setOwnership({ 'container': container, 'index': 999 });
             expect(block.getContainer()).toBe(container);
@@ -125,14 +129,11 @@ function testAbstractBlockImplementation(
         });
 
         it('can be attached to a new parent', () => {
-            const containerOld: Pricker.AbstractContainer<typeof Block> =
+            const containerOld: AbstractContainer<AbstractBlock> =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
-            const containerNew: Pricker.AbstractContainer<typeof Block> =
+            const containerNew: AbstractContainer<AbstractBlock> =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
-            block = new Block(
-                testRow,
-                {'container': containerOld, 'index': 999},
-            );
+            block = factory(testRow, {'container': containerOld, 'index': 999});
 
             block.setOwnership({'container': containerNew, 'index': 998});
             expect(block.getContainer()).toBe(containerNew);
@@ -140,7 +141,7 @@ function testAbstractBlockImplementation(
         });
 
         it('can be detached from a parent', () => {
-            const container: Pricker.AbstractContainer<typeof Block> =
+            const container: AbstractContainer<AbstractBlock> =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
             block.setOwnership({ 'container': container, 'index': 999 });
             block.clearOwnership();
@@ -149,20 +150,20 @@ function testAbstractBlockImplementation(
         });
 
         it('calls a visitor in order to traverse rows', () => {
-            const visitor = new Pricker.Visitor.Counter();
+            const visitor = new Counter();
             spyOn(visitor, 'visit');
             block.accept(visitor);
             expect(visitor.visit).toHaveBeenCalled();
         });
 
         it('returns this when receiving a visitor', () => {
-            const visitor = new Pricker.Visitor.Counter();
+            const visitor = new Counter();
             expect(block.accept(visitor)).toBe(block);
         });
 
         it('can call multiple visitors', () => {
-            const visitor1 = new Pricker.Visitor.Counter();
-            const visitor2 = new Pricker.Visitor.Counter();
+            const visitor1 = new Counter();
+            const visitor2 = new Counter();
             block.accept(visitor1, visitor2);
             expect(visitor1.getCount()).toBeGreaterThan(0);
             expect(visitor2.getCount()).toBeGreaterThan(0);
@@ -173,8 +174,8 @@ function testAbstractBlockImplementation(
             expect(block.estimateRows()).toBe(expectedRows);
         });
 
-        testPrintableMixinImplementation(() => new Block(testRow));
+        testPrintableMixinImplementation(() => factory(testRow));
 
     });
 
-}
+};

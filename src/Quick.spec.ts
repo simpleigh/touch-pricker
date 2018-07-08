@@ -5,14 +5,16 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="AbstractSix.spec.ts" />
+import { testSixImplementation } from './AbstractSix.spec';
+import C from './Call';
+import Quick from './Quick';
+import SixType from './SixType';
+import S from './Stage';
 
 describe('Quick six class', () => {
-    const S = Pricker.Stage,
-        C = Pricker.Call;
 
     testSixImplementation(
-        Pricker.Quick,
+        (initialRow, _ownership) => new Quick(initialRow, _ownership),
         [
             ['3426175',         '3467251',         S.Triples,   C.Plain],
             ['342618597',       '346829175',       S.Caters,    C.Plain],
@@ -38,7 +40,7 @@ describe('Quick six class', () => {
                 '4126375',
                 '1423657',
                 '1246375',
-                Pricker.Stage.Triples,
+                S.Triples,
             ],
             [
                 '214365879',
@@ -47,7 +49,7 @@ describe('Quick six class', () => {
                 '412638597',
                 '142365879',
                 '124638597',
-                Pricker.Stage.Caters,
+                S.Caters,
             ],
             [
                 '2143658709E',
@@ -56,7 +58,7 @@ describe('Quick six class', () => {
                 '412638507E9',
                 '1423658709E',
                 '124638507E9',
-                Pricker.Stage.Cinques,
+                S.Cinques,
             ],
             [
                 '2143658709TEA',
@@ -65,7 +67,7 @@ describe('Quick six class', () => {
                 '412638507T9AE',
                 '1423658709TEA',
                 '124638507T9AE',
-                Pricker.Stage.Sextuples,
+                S.Sextuples,
             ],
             [
                 '2143658709TEBAC',
@@ -74,10 +76,10 @@ describe('Quick six class', () => {
                 '412638507T9BECA',
                 '1423658709TEBAC',
                 '124638507T9BECA',
-                Pricker.Stage.Septuples,
+                S.Septuples,
             ],
         ],
-        Pricker.SixType.Quick,
+        SixType.Quick,
         ['1', '3', '1', '3', '1'],
     );
 

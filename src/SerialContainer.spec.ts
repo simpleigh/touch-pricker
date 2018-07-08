@@ -5,42 +5,49 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="functions.ts" />
-/// <reference path="AbstractContainer.spec.ts" />
+import AbstractBlock from './AbstractBlock';
+import AbstractContainer from './AbstractContainer';
+import { testAbstractContainerImplementation } from './AbstractContainer.spec';
+import BlockOwnership from './BlockOwnership';
+import Row from './Row';
+import SerialContainer from './SerialContainer';
+import Stage from './Stage';
+import { createTestRow } from './testFunctions.spec';
+
+type TestContainer = SerialContainer<AbstractBlock>;
 
 /**
  * Tests that a container behaves as a SerialContainer
- * @param Container        container under test
+ * @param factory          creates an instance of the object under test
  * @param lengthTestCases  expected lengths and rows for each stage
  * @param lengthBounds     limits on container length
  * @param expectedLength   blocks in a new Cinques container
  * @param expectedRows     rows in a new Cinques container
  */
-function testSerialContainerImplementation(
-    // tslint:disable-next-line:variable-name
-    Container,
-    lengthTestCases: Array<[Pricker.Stage, number, number]>,
+export const testSerialContainerImplementation = (
+    factory: (initialRow: Row, _ownership?: BlockOwnership) => TestContainer,
+    lengthTestCases: Array<[Stage, number, number]>,
     lengthBounds: [number, number],
     expectedLength: number,
     expectedRows: number,
-) {
+) => {
 
     describe('is derived from SerialContainer and', () => {
 
         const testRow = createTestRow();
 
-        let container: typeof Container = new Container(testRow);
+        let container: TestContainer = factory(testRow);
 
         const length = container.getLength();
 
         beforeEach(() => {
-            container = new Container(testRow);
+            container = factory(testRow);
         });
 
         it('starts out the correct length', () => {
             for (const testCase of lengthTestCases) {
                 if (!testCase) { continue; }  // IE8 trailing comma
-                container = new Container(createTestRow('231', testCase[0]));
+                container = factory(createTestRow('231', testCase[0]));
                 expect(container.getLength()).toBe(testCase[1]);
             }
         });
@@ -88,7 +95,7 @@ function testSerialContainerImplementation(
         });
 
         it('notifies the parent container for length increase', () => {
-            const parent: Pricker.AbstractContainer<typeof Container> =
+            const parent: AbstractContainer<TestContainer> =
                     jasmine.createSpyObj('AbstractContainer', ['notify']);
             container.setOwnership({ 'container': parent, 'index': 999 });
 
@@ -99,7 +106,7 @@ function testSerialContainerImplementation(
         });
 
         it('notifies the parent container for length decrease', () => {
-            const parent: Pricker.AbstractContainer<typeof Container> =
+            const parent: AbstractContainer<TestContainer> =
                     jasmine.createSpyObj('AbstractContainer', ['notify']);
             container.setOwnership({ 'container': parent, 'index': 999 });
 
@@ -112,7 +119,7 @@ function testSerialContainerImplementation(
         it('estimates the number of rows correctly', () => {
             for (const testCase of lengthTestCases) {
                 if (!testCase) { continue; }  // IE8 trailing comma
-                container = new Container(createTestRow('231', testCase[0]));
+                container = factory(createTestRow('231', testCase[0]));
                 expect(container.estimateRows()).toBe(testCase[2]);
             }
         });
@@ -126,12 +133,12 @@ function testSerialContainerImplementation(
         });
 
         testAbstractContainerImplementation(
-            Container,
-            () => new Container(testRow),
+            factory,
+            () => factory(testRow),
             expectedLength,
             expectedRows,
         );
 
     });
 
-}
+};

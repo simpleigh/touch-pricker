@@ -5,14 +5,16 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="AbstractSix.spec.ts" />
+import { testSixImplementation } from './AbstractSix.spec';
+import C from './Call';
+import SixType from './SixType';
+import Slow from './Slow';
+import S from './Stage';
 
 describe('Slow six class', () => {
-    const S = Pricker.Stage,
-        C = Pricker.Call;
 
     testSixImplementation(
-        Pricker.Slow,
+        (initialRow, _ownership) => new Slow(initialRow, _ownership),
         [
             ['2314567',         '3426175',         S.Triples,   C.Plain],
             ['231456789',       '342618597',       S.Caters,    C.Plain],
@@ -77,7 +79,7 @@ describe('Slow six class', () => {
                 S.Septuples,
             ],
         ],
-        Pricker.SixType.Slow,
+        SixType.Slow,
         ['3', '1', '3', '1', '3'],
     );
 

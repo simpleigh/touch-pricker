@@ -5,17 +5,23 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="functions.ts" />
-/// <reference path="SerialContainer.spec.ts" />
+import Call from './Call';
+import Course from './Course';
+import { testSerialContainerImplementation } from './SerialContainer.spec';
+import SixType from './SixType';
+import Stage from './Stage';
+import stringFromRow from './stringFromRow';
+import { createTestRow } from './testFunctions.spec';
+import { StringArray } from './Visitor';
 
 describe('Course class', () => {
 
     const testRow = createTestRow();
 
-    let course;
+    let course: Course;
 
     beforeEach(() => {
-        course = new Pricker.Course(testRow);
+        course = new Course(testRow);
     });
 
     it('exposes getLast as getEnd', () => {
@@ -31,34 +37,34 @@ describe('Course class', () => {
     });
 
     it('starts out with a slow six by default', () => {
-        expect(course.getFirstSixType()).toBe(Pricker.SixType.Slow);
-        expect(course.getBlock(1).type).toBe(Pricker.SixType.Slow);
+        expect(course.getFirstSixType()).toBe(SixType.Slow);
+        expect(course.getBlock(1).type).toBe(SixType.Slow);
     });
 
     it('alternates six types throughout', () => {
         for (let index = 1; index <= 22; index += 1) {
             if (index % 2) {
-                expect(course.getBlock(index).type).toBe(Pricker.SixType.Slow);
+                expect(course.getBlock(index).type).toBe(SixType.Slow);
             } else {
-                expect(course.getBlock(index).type).toBe(Pricker.SixType.Quick);
+                expect(course.getBlock(index).type).toBe(SixType.Quick);
             }
         }
     });
 
     it('can change the parity of its sixes', () => {
-        course.setFirstSixType(Pricker.SixType.Quick);
-        expect(course.getFirstSixType()).toBe(Pricker.SixType.Quick);
+        course.setFirstSixType(SixType.Quick);
+        expect(course.getFirstSixType()).toBe(SixType.Quick);
         for (let index = 1; index <= 22; index += 1) {
             if (index % 2) {
-                expect(course.getBlock(index).type).toBe(Pricker.SixType.Quick);
+                expect(course.getBlock(index).type).toBe(SixType.Quick);
             } else {
-                expect(course.getBlock(index).type).toBe(Pricker.SixType.Slow);
+                expect(course.getBlock(index).type).toBe(SixType.Slow);
             }
         }
     });
 
     it('calculates sixes correctly', () => {
-        course = Pricker.Course.fromString(testRow, '2314567890E 1 s10 s13 22');
+        course = Course.fromString(testRow, '2314567890E 1 s10 s13 22');
         const expectedSixEnds: string[] = [
             '',  // blank entry so indices line up
             '3426185970E',
@@ -86,21 +92,21 @@ describe('Course class', () => {
         ];
 
         for (let index = 1; index <= 22; index += 1) {
-            expect(Pricker.stringFromRow(course.getBlock(index).getEnd()))
+            expect(stringFromRow(course.getBlock(index).getEnd()))
                 .toBe(expectedSixEnds[index]);
         }
     });
 
     it('recalculates when the parity is changed', () => {
         course.setLength(2);
-        course.setFirstSixType(Pricker.SixType.Quick);
+        course.setFirstSixType(SixType.Quick);
         expect(course.getSix(1).getEnd()).toEqual(createTestRow('234618507E9'));
         expect(course.getSix(2).getEnd()).toEqual(createTestRow('3628401E597'));
     });
 
     it('maintains the parity when adding sixes to the course', () => {
         course.setLength(2);
-        course.setFirstSixType(Pricker.SixType.Quick);
+        course.setFirstSixType(SixType.Quick);
 
         course.setLength(4);
         expect(course.getSix(3).getEnd()).toEqual(createTestRow('36802E49175'));
@@ -109,12 +115,12 @@ describe('Course class', () => {
 
     it('maintains calls correctly when the parity is changed', () => {
         course.setLength(4);
-        course.getSix(2).setCall(Pricker.Call.Single);
-        course.getSix(3).setCall(Pricker.Call.Bob);
+        course.getSix(2).setCall(Call.Single);
+        course.getSix(3).setCall(Call.Bob);
 
-        course.setFirstSixType(Pricker.SixType.Quick);
-        expect(course.getSix(2).getCall()).toBe(Pricker.Call.Single);
-        expect(course.getSix(3).getCall()).toBe(Pricker.Call.Bob);
+        course.setFirstSixType(SixType.Quick);
+        expect(course.getSix(2).getCall()).toBe(Call.Single);
+        expect(course.getSix(3).getCall()).toBe(Call.Bob);
 
         expect(course.getSix(1).getEnd()).toEqual(createTestRow('234618507E9'));
         expect(course.getSix(2).getEnd()).toEqual(createTestRow('3628401759E'));
@@ -135,7 +141,7 @@ describe('Course class', () => {
     it('can be reset to a plain course', () => {
         course.getSix(5).toggleCall();
         course.resetCalls();
-        expect(course.getSix(5).getCall()).toBe(Pricker.Call.Plain);
+        expect(course.getSix(5).getCall()).toBe(Call.Plain);
     });
 
     it('returns this when resetting the calls', () => {
@@ -160,7 +166,7 @@ describe('Course class', () => {
 
     it('can be cloned', () => {
         course.setLength(20);
-        course.setFirstSixType(Pricker.SixType.Quick);
+        course.setFirstSixType(SixType.Quick);
         course.getSix(5).toggleCall();
 
         const cloned = course.clone();
@@ -185,16 +191,16 @@ describe('Course class', () => {
     });
 
     it('generates the correct rows when visited', () => {
-        let visitor: Pricker.Visitor.StringArray;
+        let visitor: StringArray;
         let strings: string[] = [ ];
 
         for (let index = 1; index <= course.getLength(); index += 1) {
-            visitor = new Pricker.Visitor.StringArray();
+            visitor = new StringArray();
             course.getSix(index).accept(visitor);
             strings = strings.concat(visitor.getStrings());
         }
 
-        visitor = new Pricker.Visitor.StringArray();
+        visitor = new StringArray();
         course.accept(visitor);
 
         expect(visitor.getStrings()).toEqual(strings);
@@ -203,7 +209,7 @@ describe('Course class', () => {
     describe('can create courses from strings:', () => {
 
         const testImport = (input: string, output: string) => () => {
-            const imported = Pricker.Course.fromString(testRow, input);
+            const imported = Course.fromString(testRow, input);
             expect(imported.print('text')).toBe(output);
         };
 
@@ -274,19 +280,19 @@ describe('Course class', () => {
 
         it('a broken course (that raises an error)', () => {
             expect(() => {
-                Pricker.Course.fromString(createTestRow(), 'garbage');
+                Course.fromString(createTestRow(), 'garbage');
             }).toThrowError('Cannot import course');
         });
     });
 
     testSerialContainerImplementation(
-        Pricker.Course,
+        (initialRow, _ownership) => new Course(initialRow, _ownership),
         [
-            [Pricker.Stage.Triples, 14, 84],
-            [Pricker.Stage.Caters, 18, 108],
-            [Pricker.Stage.Cinques, 22, 132],
-            [Pricker.Stage.Sextuples, 26, 156],
-            [Pricker.Stage.Septuples, 30, 180],
+            [Stage.Triples, 14, 84],
+            [Stage.Caters, 18, 108],
+            [Stage.Cinques, 22, 132],
+            [Stage.Sextuples, 26, 156],
+            [Stage.Septuples, 30, 180],
         ],
         [2, 60],
         22,

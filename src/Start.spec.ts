@@ -7,37 +7,29 @@
 
 /* tslint:disable:max-line-length */
 
-/// <reference path="functions.ts" />
-/// <reference path="AbstractBlock.spec.ts" />
-
-const START_CASES: Array<[number, Pricker.SixType]> = [
-    [1, Pricker.SixType.Quick],
-    [2, Pricker.SixType.Quick],
-    [3, Pricker.SixType.Quick],
-    [4, Pricker.SixType.Quick],
-    [5, Pricker.SixType.Quick],
-    [6, Pricker.SixType.Quick],
-    [1, Pricker.SixType.Slow],
-    [2, Pricker.SixType.Slow],
-    [3, Pricker.SixType.Slow],
-    [4, Pricker.SixType.Slow],
-    [5, Pricker.SixType.Slow],
-    [6, Pricker.SixType.Slow],
-];
+import { testAbstractBlockImplementation } from './AbstractBlock.spec';
+import BlockOwnership from './BlockOwnership';
+import Row from './Row';
+import rowFromString from './rowFromString';
+import SixType from './SixType';
+import S from './Stage';
+import Start from './Start';
+import { createTestRow } from './testFunctions.spec';
+import { StringArray } from './Visitor';
 
 describe('Start class', () => {
 
     const testRow = createTestRow();
 
-    let start;
+    let start: Start;
 
     beforeEach(() => {
-        start = new Pricker.Start(testRow);
+        start = new Start(testRow);
     });
 
     it('defaults to a standard start', () => {
         expect(start.getRowIndex()).toBe(4);
-        expect(start.getSixType()).toBe(Pricker.SixType.Quick);
+        expect(start.getSixType()).toBe(SixType.Quick);
     });
 
     it('allows the row index to be set', () => {
@@ -61,105 +53,103 @@ describe('Start class', () => {
     });
 
     it('allows the six type to be set', () => {
-        start.setSixType(Pricker.SixType.Slow);
-        expect(start.getSixType()).toBe(Pricker.SixType.Slow);
+        start.setSixType(SixType.Slow);
+        expect(start.getSixType()).toBe(SixType.Slow);
     });
 
     it('allows the six type to be reset', () => {
-        start.setSixType(Pricker.SixType.Slow);
+        start.setSixType(SixType.Slow);
         start.setSixType();
-        expect(start.getSixType()).toBe(Pricker.SixType.Quick);
+        expect(start.getSixType()).toBe(SixType.Quick);
     });
 
     it('returns this when setting the six type', () => {
-        expect(start.setSixType(Pricker.SixType.Slow)).toBe(start);
+        expect(start.setSixType(SixType.Slow)).toBe(start);
     });
 
-    type TestCase = [Pricker.Stage, string[]];
+    type TestCase = [S, string[]];
 
-    type StartPosition = [number, Pricker.SixType, TestCase[]];
-
-    const S = Pricker.Stage;
+    type StartPosition = [number, SixType, TestCase[]];
 
     const startPositions: StartPosition[] = [
-        [1, Pricker.SixType.Quick, [
+        [1, SixType.Quick, [
             [S.Triples,   ['1325476',         '3124567',         '3215476',         '2314567',         '2135476']],
             [S.Caters,    ['132547698',       '312456789',       '321547698',       '231456789',       '213547698']],
             [S.Cinques,   ['132547698E0',     '3124567890E',     '321547698E0',     '2314567890E',     '213547698E0']],
             [S.Sextuples, ['132547698E0AT',   '3124567890ETA',   '321547698E0AT',   '2314567890ETA',   '213547698E0AT']],
             [S.Septuples, ['132547698E0ATCB', '3124567890ETABC', '321547698E0ATCB', '2314567890ETABC', '213547698E0ATCB']],
         ]],
-        [2, Pricker.SixType.Quick, [
+        [2, SixType.Quick, [
             [S.Triples,   ['2135476',         '2314567',         '3215476',         '3124567']],
             [S.Caters,    ['213547698',       '231456789',       '321547698',       '312456789']],
             [S.Cinques,   ['213547698E0',     '2314567890E',     '321547698E0',     '3124567890E']],
             [S.Sextuples, ['213547698E0AT',   '2314567890ETA',   '321547698E0AT',   '3124567890ETA']],
             [S.Septuples, ['213547698E0ATCB', '2314567890ETABC', '321547698E0ATCB', '3124567890ETABC']],
         ]],
-        [3, Pricker.SixType.Quick, [
+        [3, SixType.Quick, [
             [S.Triples,   ['1325476',         '3124567',         '3215476']],
             [S.Caters,    ['132547698',       '312456789',       '321547698']],
             [S.Cinques,   ['132547698E0',     '3124567890E',     '321547698E0']],
             [S.Sextuples, ['132547698E0AT',   '3124567890ETA',   '321547698E0AT']],
             [S.Septuples, ['132547698E0ATCB', '3124567890ETABC', '321547698E0ATCB']],
         ]],
-        [4, Pricker.SixType.Quick, [
+        [4, SixType.Quick, [
             [S.Triples,   ['2135476',         '2314567']],
             [S.Caters,    ['213547698',       '231456789']],
             [S.Cinques,   ['213547698E0',     '2314567890E']],
             [S.Sextuples, ['213547698E0AT',   '2314567890ETA']],
             [S.Septuples, ['213547698E0ATCB', '2314567890ETABC']],
         ]],
-        [5, Pricker.SixType.Quick, [
+        [5, SixType.Quick, [
             [S.Triples,   ['1325476']],
             [S.Caters,    ['132547698']],
             [S.Cinques,   ['132547698E0']],
             [S.Sextuples, ['132547698E0AT']],
             [S.Septuples, ['132547698E0ATCB']],
         ]],
-        [6, Pricker.SixType.Quick, [
+        [6, SixType.Quick, [
             [S.Triples,   []],
             [S.Caters,    []],
             [S.Cinques,   []],
             [S.Sextuples, []],
             [S.Septuples, []],
         ]],
-        [1, Pricker.SixType.Slow, [
+        [1, SixType.Slow, [
             [S.Triples,   ['2135476',         '2314567',         '3215476',         '3124567',         '1325476']],
             [S.Caters,    ['213547698',       '231456789',       '321547698',       '312456789',       '132547698']],
             [S.Cinques,   ['213547698E0',     '2314567890E',     '321547698E0',     '3124567890E',     '132547698E0']],
             [S.Sextuples, ['213547698E0AT',   '2314567890ETA',   '321547698E0AT',   '3124567890ETA',   '132547698E0AT']],
             [S.Septuples, ['213547698E0ATCB', '2314567890ETABC', '321547698E0ATCB', '3124567890ETABC', '132547698E0ATCB']],
         ]],
-        [2, Pricker.SixType.Slow, [
+        [2, SixType.Slow, [
             [S.Triples,   ['1325476',         '3124567',         '3215476',         '2314567']],
             [S.Caters,    ['132547698',       '312456789',       '321547698',       '231456789']],
             [S.Cinques,   ['132547698E0',     '3124567890E',     '321547698E0',     '2314567890E']],
             [S.Sextuples, ['132547698E0AT',   '3124567890ETA',   '321547698E0AT',   '2314567890ETA']],
             [S.Septuples, ['132547698E0ATCB', '3124567890ETABC', '321547698E0ATCB', '2314567890ETABC']],
         ]],
-        [3, Pricker.SixType.Slow, [
+        [3, SixType.Slow, [
             [S.Triples,   ['2135476',         '2314567',         '3215476']],
             [S.Caters,    ['213547698',       '231456789',       '321547698']],
             [S.Cinques,   ['213547698E0',     '2314567890E',     '321547698E0']],
             [S.Sextuples, ['213547698E0AT',   '2314567890ETA',   '321547698E0AT']],
             [S.Septuples, ['213547698E0ATCB', '2314567890ETABC', '321547698E0ATCB']],
         ]],
-        [4, Pricker.SixType.Slow, [
+        [4, SixType.Slow, [
             [S.Triples,   ['1325476',         '3124567']],
             [S.Caters,    ['132547698',       '312456789']],
             [S.Cinques,   ['132547698E0',     '3124567890E']],
             [S.Sextuples, ['132547698E0AT',   '3124567890ETA']],
             [S.Septuples, ['132547698E0ATCB', '3124567890ETABC']],
         ]],
-        [5, Pricker.SixType.Slow, [
+        [5, SixType.Slow, [
             [S.Triples,   ['2135476']],
             [S.Caters,    ['213547698']],
             [S.Cinques,   ['213547698E0']],
             [S.Sextuples, ['213547698E0AT']],
             [S.Septuples, ['213547698E0ATCB']],
         ]],
-        [6, Pricker.SixType.Slow, [
+        [6, SixType.Slow, [
             [S.Triples,   []],
             [S.Caters,    []],
             [S.Cinques,   []],
@@ -168,7 +158,7 @@ describe('Start class', () => {
         ]],
     ];
 
-    const runTestCases = (testFn) => () => {
+    const runTestCases = (testFn: (fixture: Start, rows: string[]) => void) => () => {
         for (const startPosition of startPositions) {
             if (!startPosition) { continue; }  // IE8 trailing comma
             const rowIndex = startPosition[0];
@@ -179,7 +169,7 @@ describe('Start class', () => {
                 if (!testCase) { continue; }  // IE8 trailing comma
                 const stage = testCase[0];
                 const rows = testCase[1];
-                const fixture = new Pricker.Start(createTestRow('123', stage));
+                const fixture = new Start(createTestRow('123', stage));
 
                 fixture.setRowIndex(rowIndex);
                 fixture.setSixType(sixType);
@@ -189,29 +179,29 @@ describe('Start class', () => {
     };
 
     it('computes the last row correctly', runTestCases(
-        (fixture: Pricker.Start, rows: string[]) => {
+        (fixture: Start, rows: string[]) => {
             const last = fixture.getLast();
             const stage = last.length;
 
             if (rows.length) {
                 const expected = rows[rows.length - 1];
-                expect(last).toEqual(Pricker.rowFromString(expected, stage));
+                expect(last).toEqual(rowFromString(expected, stage));
             } else {
-                expect(last).toEqual(Pricker.rowFromString('123', stage));
+                expect(last).toEqual(rowFromString('123', stage));
             }
         },
     ));
 
     it('computes the rows correctly', runTestCases(
-        (fixture: Pricker.Start, rows: string[]) => {
-            const visitor = new Pricker.Visitor.StringArray();
+        (fixture: Start, rows: string[]) => {
+            const visitor = new StringArray();
             fixture.accept(visitor);
             expect(visitor.getStrings()).toEqual(rows);
         },
     ));
 
     it('computes the length correctly', runTestCases(
-        (fixture: Pricker.Start, rows: string[]) => {
+        (fixture: Start, rows: string[]) => {
             expect(fixture.estimateRows()).toBe(rows.length);
         },
     ));
@@ -224,7 +214,7 @@ describe('Start class', () => {
         ) => it(description, () => {
             start.setFromString(input);
             expect(start.getRowIndex()).toBe(3);
-            expect(start.getSixType()).toBe(Pricker.SixType.Slow);
+            expect(start.getSixType()).toBe(SixType.Slow);
         });
 
         testLoad(
@@ -272,8 +262,9 @@ describe('Start class', () => {
     });
 
     testAbstractBlockImplementation(
-        Pricker.Start,
-        (fixture: Pricker.Start) => { fixture.setRowIndex(2); },
+        (initialRow: Row, _ownership?: BlockOwnership) =>
+            new Start(initialRow, _ownership),
+        (fixture) => { (fixture as Start).setRowIndex(2); },
         2,
     );
 
