@@ -5,12 +5,13 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../../functions.ts" />
+import Course from '../../Course';
+import { createTestRow } from '../../testFunctions.spec';
 
 describe('siril template for Course', () => {
 
     it('renders a course correctly', () => {
-        const course = Pricker.Course.fromString(createTestRow(), 's2 3 (4)');
+        const course = Course.fromString(createTestRow(), 's2 3 (4)');
         expect(course.print('siril')).toBe(
             'plain, slow, single, quick, bob, slow, plain, quick, "@  '
                 + course.print('text', {'courseEnd': false})
@@ -47,7 +48,7 @@ describe('siril template for Course', () => {
     ];
 
     it('stops rendering based on the remaining rows in the touch', () => {
-        const course = Pricker.Course.fromString(createTestRow(), 's2 3 (4)');
+        const course = Course.fromString(createTestRow(), 's2 3 (4)');
         for (let i: number = 1; i < EXPECTED_OUTPUTS.length; i += 1) {
             if (!EXPECTED_OUTPUTS[i]) { continue; }  // IE8 trailing comma
             expect(course.print('siril', {'touchRows': i})).toBe(

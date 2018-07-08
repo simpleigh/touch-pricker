@@ -5,23 +5,31 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../../functions.ts" />
+import AbstractSix from '../../AbstractSix';
+import BlockOwnership from '../../BlockOwnership';
+import Call from '../../Call';
+import Quick from '../../Quick';
+import Row from '../../Row';
+import SixType from '../../SixType';
+import Slow from '../../Slow';
+import { createTestRow } from '../../testFunctions.spec';
 
 /**
  * Tests the template behaves like the parent version
  * @param Six       six to test
  */
-// tslint:disable-next-line:variable-name
-function testSirilAbstractSixTemplate(Six) {
+const testSirilAbstractSixTemplate = (
+    factory: (initialRow: Row, _ownership?: BlockOwnership) => AbstractSix,
+) => () => {
 
     describe('is a siril template', () => {
-        let six;
+        let six: AbstractSix;
 
         let type: string;
 
         beforeEach(() => {
-            six = new Six(createTestRow());
-            type = Pricker.SixType[six.type].toLowerCase();
+            six = factory(createTestRow());
+            type = SixType[six.type].toLowerCase();
         });
 
         it('renders a six correctly', () => {
@@ -29,12 +37,12 @@ function testSirilAbstractSixTemplate(Six) {
         });
 
         it('renders a bobbed six', () => {
-            six.setCall(Pricker.Call.Bob);
+            six.setCall(Call.Bob);
             expect(six.print('siril')).toBe('bob, ' + type + ', ');
         });
 
         it('renders a singled six', () => {
-            six.setCall(Pricker.Call.Single);
+            six.setCall(Call.Single);
             expect(six.print('siril')).toBe('single, ' + type + ', ');
         });
 
@@ -59,12 +67,12 @@ function testSirilAbstractSixTemplate(Six) {
 
     });
 
-}
+};
 
-describe('siril template for Quick six', () => {
-    testSirilAbstractSixTemplate(Pricker.Quick);
-});
+describe('siril template for Quick six', testSirilAbstractSixTemplate(
+    (initialRow, _ownership) => new Quick(initialRow, _ownership),
+));
 
-describe('siril template for Slow six', () => {
-    testSirilAbstractSixTemplate(Pricker.Slow);
-});
+describe('siril template for Slow six', testSirilAbstractSixTemplate(
+    (initialRow, _ownership) => new Slow(initialRow, _ownership),
+));

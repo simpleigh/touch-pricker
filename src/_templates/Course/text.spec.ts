@@ -5,17 +5,15 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../../functions.ts" />
+import Course from '../../Course';
+import { createTestRow } from '../../testFunctions.spec';
 
 describe('text template for Course', () => {
 
-    function testRendering(input) {
-        return () => {
-            expect(
-                Pricker.Course.fromString(createTestRow(), input).print('text'),
-            ).toBe(input);
-        };
-    }
+    const testRendering = (input: string) => () => {
+        expect(Course.fromString(createTestRow(), input).print('text'))
+            .toBe(input);
+    };
 
     it('renders a course correctly', testRendering(
         '480735692E1  s2 3  (4 sixes)',
@@ -30,12 +28,12 @@ describe('text template for Course', () => {
     ));
 
     it('allows the line ending to be customised', () => {
-        const course = new Pricker.Course(createTestRow());
+        const course = new Course(createTestRow());
         expect(course.print('text', {'end': '#'})).toBe('2314567890E  p#');
     });
 
     it('can render without the course end', () => {
-        const course = Pricker.Course.fromString(createTestRow(), 's2 3 (4)');
+        const course = Course.fromString(createTestRow(), 's2 3 (4)');
         expect(course.print('text', {'courseEnd': false}))
             .toBe('s2 3  (4 sixes)');
     });

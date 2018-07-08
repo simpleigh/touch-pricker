@@ -5,12 +5,15 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import { CustomScheme } from '../../../Music';
+import Stage from '../../../Stage';
+
 describe('text template for AbstractScheme music class', () => {
 
-    let scheme: Pricker.Music.CustomScheme;
+    let scheme: CustomScheme;
 
     beforeEach(() => {
-        scheme = new Pricker.Music.CustomScheme(Pricker.Stage.Cinques);
+        scheme = new CustomScheme(Stage.Cinques);
     });
 
     it('displays nothing when nothing matches', () => {

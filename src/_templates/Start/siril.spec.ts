@@ -5,16 +5,18 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../../functions.ts" />
+import SixType from '../../SixType';
+import Start from '../../Start';
+import { createTestRow } from '../../testFunctions.spec';
 
 describe('siril template for Start', () => {
 
     const initialRow = createTestRow();
 
-    type StartPosition = [Pricker.SixType, string[]];
+    type StartPosition = [SixType, string[]];
 
     const startPositions: StartPosition[] = [
-        [Pricker.SixType.Quick, [
+        [SixType.Quick, [
             '', // Aligns array indices with rowIndex
             '+1.3.1.3.1',
             '+3.1.3.1',
@@ -23,7 +25,7 @@ describe('siril template for Start', () => {
             '+1',
             '+',
         ]],
-        [Pricker.SixType.Slow, [
+        [SixType.Slow, [
             '', // Aligns array indices with rowIndex
             '+3.1.3.1.3',
             '+1.3.1.3',
@@ -41,7 +43,7 @@ describe('siril template for Start', () => {
             const expected = startPosition[1][rowIndex];
 
             it(`prints correctly "${expected}"`, () => {
-                const start = new Pricker.Start(initialRow);
+                const start = new Start(initialRow);
                 start.setRowIndex(rowIndex);
                 start.setSixType(sixType);
                 expect(start.print('siril')).toBe(expected);

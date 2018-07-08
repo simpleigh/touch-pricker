@@ -5,16 +5,18 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../../functions.ts" />
+import SixType from '../../SixType';
+import Start from '../../Start';
+import { createTestRow } from '../../testFunctions.spec';
 
 describe('text template for Start', () => {
 
     const initialRow = createTestRow();
 
-    type StartPosition = [Pricker.SixType, string[]];
+    type StartPosition = [SixType, string[]];
 
     const startPositions: StartPosition[] = [
-        [Pricker.SixType.Quick, [
+        [SixType.Quick, [
             '', // Aligns array indices with rowIndex
             'Start from rounds as the first row of a quick six.',
             'Start from rounds as the second row of a quick six.',
@@ -23,7 +25,7 @@ describe('text template for Start', () => {
             'Start from rounds as the fifth row of a quick six.',
             'Start from rounds as the last row of a quick six.',
         ]],
-        [Pricker.SixType.Slow, [
+        [SixType.Slow, [
             '', // Aligns array indices with rowIndex
             'Start from rounds as the first row of a slow six.',
             'Start from rounds as the second row of a slow six.',
@@ -42,7 +44,7 @@ describe('text template for Start', () => {
             const trimmed = expected.substring(21, expected.length - 1);
 
             it(`prints correctly for ${trimmed}`, () => {
-                const start = new Pricker.Start(initialRow);
+                const start = new Start(initialRow);
                 start.setRowIndex(rowIndex);
                 start.setSixType(sixType);
                 expect(start.print('text')).toBe(expected);

@@ -5,33 +5,33 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../../../functions.ts" />
+import { MatchType, Pattern } from '../../../Music';
 
 describe('text template for Pattern music class', () => {
 
     it('displays nothing when nothing matches', () => {
-        const pattern = new Pricker.Music.Pattern('90E');
+        const pattern = new Pattern('90E');
         expect(pattern.print('text')).toBe('');
     });
 
     it('displays a single match', () => {
-        const pattern = new Pricker.Music.Pattern('90E');
+        const pattern = new Pattern('90E');
         pattern.match('2314567890E');
         expect(pattern.print('text')).toBe('1 90E\n');
     });
 
     it('displays multiple matches', () => {
-        const pattern = new Pricker.Music.Pattern('90E');
+        const pattern = new Pattern('90E');
         pattern.match('2314567890E');
         pattern.match('2314567890E');
         expect(pattern.print('text')).toBe('2 90E\n');
     });
 
     it('suppresses counts for a single named row match', () => {
-        const pattern = new Pricker.Music.Pattern(
+        const pattern = new Pattern(
                 '2314567890E',
                 'Standard start sixend',
-                Pricker.Music.MatchType.Row,
+                MatchType.Row,
             );
 
         pattern.match('2314567890E');
@@ -39,10 +39,10 @@ describe('text template for Pattern music class', () => {
     });
 
     it('displays counts anyway for multiple named row matches', () => {
-        const pattern = new Pricker.Music.Pattern(
+        const pattern = new Pattern(
                 '2314567890E',
                 'Standard start sixend',
-                Pricker.Music.MatchType.Row,
+                MatchType.Row,
             );
 
         pattern.match('2314567890E');
@@ -51,13 +51,13 @@ describe('text template for Pattern music class', () => {
     });
 
     it('allows the line ending to be customised', () => {
-        const pattern = new Pricker.Music.Pattern('90E');
+        const pattern = new Pattern('90E');
         pattern.match('2314567890E');
         expect(pattern.print('text', {'end': '#'})).toBe('1 90E#');
     });
 
     it('allows the line ending to be removed', () => {
-        const pattern = new Pricker.Music.Pattern('90E');
+        const pattern = new Pattern('90E');
         pattern.match('2314567890E');
         expect(pattern.print('text', {'end': ''})).toBe('1 90E');
     });

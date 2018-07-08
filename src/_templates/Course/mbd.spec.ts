@@ -5,12 +5,14 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../../functions.ts" />
+import Course from '../../Course';
+import stringFromRow from '../../stringFromRow';
+import { createTestRow } from '../../testFunctions.spec';
 
 describe('mbd template for Course', () => {
 
     it('renders a course correctly', () => {
-        const course = Pricker.Course.fromString(createTestRow(), 's2 3 (4)');
+        const course = Course.fromString(createTestRow(), 's2 3 (4)');
         expect(course.print('mbd')).toBe(''
             + '<u>2314567890E</u><br />'
             + course.getSix(1).print('mbd')
@@ -21,7 +23,7 @@ describe('mbd template for Course', () => {
     });
 
     it('can print extra sixes after the pricker', () => {
-        const course = new Pricker.Course(createTestRow()),
+        const course = new Course(createTestRow()),
             extraSixes = course.clone();
 
         course.setLength(2);
@@ -32,16 +34,16 @@ describe('mbd template for Course', () => {
             + course.getSix(1).print('mbd')
             + course.getSix(2).print('mbd', {'underline': true})
             + '<span class="extraSix">'
-            + Pricker.stringFromRow(extraSixes.getSix(1).getEnd())
+            + stringFromRow(extraSixes.getSix(1).getEnd())
             + '</span><br />'
             + '<span class="extraSix">'
-            + Pricker.stringFromRow(extraSixes.getSix(2).getEnd())
+            + stringFromRow(extraSixes.getSix(2).getEnd())
             + '</span><br />',
         );
     });
 
     it('can display a six head as well as a six end', () => {
-        const course = new Pricker.Course(createTestRow()),
+        const course = new Course(createTestRow()),
             extraSixes = course.clone();
 
         course.setLength(2);
@@ -58,14 +60,14 @@ describe('mbd template for Course', () => {
                 'underline': true,
             })
             + '<span class="extraSix">'
-            + Pricker.stringFromRow(extraSixes.getSix(1).getHead())
+            + stringFromRow(extraSixes.getSix(1).getHead())
             + '<br /><u>'
-            + Pricker.stringFromRow(extraSixes.getSix(1).getEnd())
+            + stringFromRow(extraSixes.getSix(1).getEnd())
             + '</u></span><br />'
             + '<span class="extraSix">'
-            + Pricker.stringFromRow(extraSixes.getSix(2).getHead())
+            + stringFromRow(extraSixes.getSix(2).getHead())
             + '<br /><u>'
-            + Pricker.stringFromRow(extraSixes.getSix(2).getEnd())
+            + stringFromRow(extraSixes.getSix(2).getEnd())
             + '</u></span><br />',
         );
     });

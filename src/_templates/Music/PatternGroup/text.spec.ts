@@ -5,19 +5,19 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../../../functions.ts" />
+import { Pattern, PatternGroup } from '../../../Music';
 
 describe('text template for PatternGroup music class', () => {
 
     it('displays nothing when nothing matches', () => {
-        const group = new Pricker.Music.PatternGroup('group', [ ]);
+        const group = new PatternGroup('group', [ ]);
         expect(group.print('text')).toBe('');
     });
 
     it('displays one match correctly', () => {
-        const group = new Pricker.Music.PatternGroup(
+        const group = new PatternGroup(
                     'group',
-                    [new Pricker.Music.Pattern('90E')],
+                    [new Pattern('90E')],
                 );
 
         group.match('2314567890E');
@@ -25,9 +25,9 @@ describe('text template for PatternGroup music class', () => {
     });
 
     it('displays multiple matches correctly', () => {
-        const group = new Pricker.Music.PatternGroup('group', [
-                    new Pricker.Music.Pattern('90E'),
-                    new Pricker.Music.Pattern('890E'),
+        const group = new PatternGroup('group', [
+                    new Pattern('90E'),
+                    new Pattern('890E'),
                 ]);
 
         group.match('2314567890E');
@@ -35,9 +35,9 @@ describe('text template for PatternGroup music class', () => {
     });
 
     it('ignores unmatched patterns', () => {
-        const group = new Pricker.Music.PatternGroup('group', [
-                    new Pricker.Music.Pattern('90E'),
-                    new Pricker.Music.Pattern('09E'),
+        const group = new PatternGroup('group', [
+                    new Pattern('90E'),
+                    new Pattern('09E'),
                 ]);
 
         group.match('2314567890E');
@@ -45,10 +45,10 @@ describe('text template for PatternGroup music class', () => {
     });
 
     it('hides pattern counts if only the parent pattern matches', () => {
-        const group = new Pricker.Music.PatternGroup(
+        const group = new PatternGroup(
                     'group',
-                    [new Pricker.Music.Pattern('1234567890E')], // fail
-                    new Pricker.Music.Pattern('2314567890E'), // pass
+                    [new Pattern('1234567890E')], // fail
+                    new Pattern('2314567890E'), // pass
                 );
 
         group.match('2314567890E');
