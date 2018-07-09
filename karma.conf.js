@@ -14,7 +14,6 @@ module.exports = (config) => {
         files: [
             'tests/index.spec.js',
             'dist/touch-pricker.js',
-            'dist/tests.js'
         ],
         frameworks: ['jasmine'],
         preprocessors: {

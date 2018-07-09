@@ -14,7 +14,6 @@ const gulp = require('gulp');
 const karma = require('karma');
 const merge = require('merge2');
 const path = require('path');
-const plugins = require('gulp-load-plugins')();
 const gulpWebpack = require('webpack-stream');
 const webpack = require('webpack');
 
@@ -31,31 +30,20 @@ gulp.task('build', () => {
         .pipe(gulp.dest('dist/'));
 });
 
-gulp.task('build-tests', () => {
-    const tsResult = gulp.src(['tests/**/*.ts'])
-        .pipe(plugins.tslint({formatter: 'verbose'}))
-        .pipe(plugins.tslint.report({summarizeFailureOutput: true}))
-        .pipe(plugins.sourcemaps.init())
-        .pipe(plugins.typescript({ outFile: 'tests.js' }));
+gulp.task('build-tests', () =>
+    gulp.src('tests/index.spec.js')
+        .pipe(gulpWebpack(require('./config/webpack.config.test'), webpack))
+        .pipe(gulp.dest('dist/'))
+);
 
-    const oldTests = tsResult.js
-        .pipe(plugins.sourcemaps.write());
-
-    const newTests = gulp.src('tests/index.spec.js')
-        .pipe(gulpWebpack(require('./config/webpack.config.test'), webpack));
-
-    return merge([oldTests, newTests])
-        .pipe(gulp.dest('dist/'));
-});
-
-gulp.task('test', ['build', 'build-tests'], (done) => {
+gulp.task('test', ['build'], (done) => {
     new karma.Server({
         configFile: path.join(__dirname, 'karma.conf.js'),
         browsers: ['PhantomJS']
     }, done).start();
 });
 
-gulp.task('test-browsers', ['build', 'build-tests'], (done) => {
+gulp.task('test-browsers', ['build'], (done) => {
     new karma.Server({
         configFile: path.join(__dirname, 'karma.conf.js')
     }, done).start();
