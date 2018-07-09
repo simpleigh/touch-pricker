@@ -9,7 +9,6 @@
 
 'use strict';
 
-const del = require('del');
 const gulp = require('gulp');
 const karma = require('karma');
 const merge = require('merge2');
@@ -52,8 +51,4 @@ gulp.task('test-browsers', ['build'], (done) => {
 gulp.task('watch', ['default'], () => {
     gulp.watch(['src/**/*.ts', 'src/_templates/**/*.dot'], ['default']);
     gulp.watch('tests/**/*.ts', ['test']);
-});
-
-gulp.task('clean', () => {
-    del('dist');
 });

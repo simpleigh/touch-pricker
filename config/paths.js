@@ -33,8 +33,14 @@ module.exports = {
     srcDir,
     testsDir,
 
-    // Paths to particular resources
+    // Paths to source resources
     bannerFile: path.join(rootDir, 'banner.js'),
     srcEntryFile: path.join(srcDir, 'index.ts'),
     testsEntryFile: path.join(testsDir, 'index.spec.js'),
+
+    // Paths to target resources
+    devDistFile: path.join(distDir, 'touch-pricker.js'),
+    prodDistFile: path.join(distDir, 'touch-pricker.min.js'),
+    prodMapFile: path.join(distDir, 'touch-pricker.min.js.map'),
+    testDistFile: path.join(distDir, 'touch-pricker.spec.js'),
 };

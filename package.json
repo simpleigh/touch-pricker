@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@types/jasmine": "^2.8.6",
-    "del": "^3.0.0",
+    "clean-webpack-plugin": "^0.1.19",
     "dot": "^1.1.2",
     "dotjs-loader": "^0.1.0",
     "gulp": "^3.9.1",
