@@ -10,9 +10,7 @@
 'use strict';
 
 const gulp = require('gulp');
-const karma = require('karma');
 const merge = require('merge2');
-const path = require('path');
 const gulpWebpack = require('webpack-stream');
 const webpack = require('webpack');
 
@@ -27,8 +25,4 @@ gulp.task('build', () => {
 
     return merge([dev, prod])
         .pipe(gulp.dest('dist/'));
-});
-
-gulp.task('watch', ['default'], () => {
-    gulp.watch(['src/**/*.ts', 'src/_templates/**/*.dot'], ['default']);
 });

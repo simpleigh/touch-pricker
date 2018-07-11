@@ -6,6 +6,11 @@ const banner = require('./webpack.banner');
 const base = require('./webpack.base');
 
 module.exports = merge(base, {
+    devServer: {
+        openPage: 'examples/test.html',
+        publicPath: '/dist/',
+        watchContentBase: true,
+    },
     output: { filename: 'touch-pricker.js' },
     plugins: [
         new CleanWebpackPlugin(
