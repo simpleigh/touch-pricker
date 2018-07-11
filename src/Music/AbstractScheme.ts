@@ -5,107 +5,98 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../rowFromString.ts" />
-/// <reference path="../Stage.ts" />
-/// <reference path="../stringFromRow.ts" />
-/// <reference path="MatcherInterface.ts" />
+import PrintableMixin from '../PrintableMixin';
+import rowFromString from '../rowFromString';
+import Stage from '../Stage';
+import stringFromRow from '../stringFromRow';
+import TemplateContext from '../TemplateContext';
+import MatcherInterface from './MatcherInterface';
 
-namespace Pricker {
+/**
+ * Abstract music matching scheme
+ */
+abstract class AbstractScheme implements MatcherInterface {
 
     /**
-     * Music classes to analyse rows
+     * Matchers for this scheme
      */
-    export namespace Music {
+    protected _matchers: MatcherInterface[];
 
-        /**
-         * Abstract music matching scheme
-         */
-        export abstract class AbstractScheme implements MatcherInterface {
+    /**
+     * Constructor
+     */
+    constructor(protected _stage: Stage) {
+        this._matchers = this.createMatchers(
+            stringFromRow(rowFromString('', _stage)),  // rounds
+        );
+    }
 
-            /**
-             * Matchers for this scheme
-             */
-            protected _matchers: MatcherInterface[];
+    /* MatcherInterface methods ***********************************************/
 
-            /**
-             * Constructor
-             */
-            constructor(protected _stage: Stage) {
-                this._matchers = this.createMatchers(
-                    stringFromRow(rowFromString('', _stage)),  // rounds
-                );
-            }
+    /**
+     * Matches a row string
+     */
+    public match(row: string): boolean {
+        let result: boolean = false;
 
-            /* MatcherInterface methods ***************************************/
-
-            /**
-             * Matches a row string
-             */
-            public match(row: string): boolean {
-                let result: boolean = false;
-
-                for (const matcher of this._matchers) {
-                    if (!matcher) { continue; }  // IE8 trailing comma
-                    // Call matcher.match explicitly...
-                    const rowResult: boolean = matcher.match(row);
-                    // ... not in here, or || will short-circuit it
-                    result = result || rowResult;
-                }
-
-                return result;
-            }
-
-            /**
-             * Provides read access to the name
-             */
-            public abstract getName(): string;
-
-            /**
-             * Provides read access to the count of matches
-             */
-            public getMatchCount(): number {
-                let matches: number = 0;
-
-                for (const matcher of this._matchers) {
-                    if (!matcher) { continue; }  // IE8 trailing comma
-                    matches += matcher.getMatchCount();
-                }
-
-                return matches;
-            }
-
-            /* PrintableMixin methods *****************************************/
-
-            /**
-             * Renders the object with a template
-             */
-            public print: (t: string, c?: TemplateContext) => string;
-
-            /**
-             * Path for this class' templates
-             */
-            public readonly templatePath: string = 'Music.AbstractScheme';
-
-            /* AbstractScheme methods *****************************************/
-
-            /**
-             * Create matchers for this scheme/stage
-             */
-            protected abstract createMatchers(
-                rounds: string,
-            ): MatcherInterface[];
-
-            /**
-             * Provides read access to the matchers
-             */
-            public getMatchers(): MatcherInterface[] {
-                return this._matchers.slice();
-            }
-
+        for (const matcher of this._matchers) {
+            if (!matcher) { continue; }  // IE8 trailing comma
+            // Call matcher.match explicitly...
+            const rowResult: boolean = matcher.match(row);
+            // ... not in here, or || will short-circuit it
+            result = result || rowResult;
         }
 
-        PrintableMixin.makePrintable(AbstractScheme);
+        return result;
+    }
 
+    /**
+     * Provides read access to the name
+     */
+    public abstract getName(): string;
+
+    /**
+     * Provides read access to the count of matches
+     */
+    public getMatchCount(): number {
+        let matches: number = 0;
+
+        for (const matcher of this._matchers) {
+            if (!matcher) { continue; }  // IE8 trailing comma
+            matches += matcher.getMatchCount();
+        }
+
+        return matches;
+    }
+
+    /* PrintableMixin methods *************************************************/
+
+    /**
+     * Renders the object with a template
+     */
+    public print: (t: string, c?: TemplateContext) => string;
+
+    /**
+     * Path for this class' templates
+     */
+    public readonly templatePath: string = 'Music.AbstractScheme';
+
+    /* AbstractScheme methods *************************************************/
+
+    /**
+     * Create matchers for this scheme/stage
+     */
+    protected abstract createMatchers(rounds: string): MatcherInterface[];
+
+    /**
+     * Provides read access to the matchers
+     */
+    public getMatchers(): MatcherInterface[] {
+        return this._matchers.slice();
     }
 
 }
+
+PrintableMixin.makePrintable(AbstractScheme);
+
+export default AbstractScheme;

@@ -5,50 +5,41 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../AbstractSix.ts" />
-/// <reference path="../Row.ts" />
-/// <reference path="../stringFromRow.ts" />
-/// <reference path="Abstract.ts" />
+import AbstractSix from '../AbstractSix';
+import Row from '../Row';
+import stringFromRow from '../stringFromRow';
+import AbstractVisitor from './AbstractVisitor';
 
-namespace Pricker {
+/**
+ * Simple visitor that accumulates rows into an array of strings
+ *
+ * Converts each visited row to a string and stores it.
+ * The visitor accumulates rows from a touch in the order they're rung.
+ */
+class StringArray extends AbstractVisitor {
 
     /**
-     * Visitor classes to analyse blocks
+     * Array of string representations of rows that have been visited.
      */
-    export namespace Visitor {
+    private _strings: string[] = [ ];
 
-        /**
-         * Simple visitor that accumulates rows into an array of strings
-         *
-         * Converts each visited row to a string and stores it.
-         * The visitor accumulates rows from a touch in the order they're rung.
-         */
-        export class StringArray extends AbstractVisitor {
+    /**
+     * Reports the rows that have been visited by providing public
+     * access to [[_strings]].
+     */
+    public getStrings(): string[] {
+        return this._strings.slice();
+    }
 
-            /**
-             * Array of string representations of rows that have been visited.
-             */
-            private _strings: string[] = [ ];
+    /* AbstractVisitor methods ************************************************/
 
-            /**
-             * Reports the rows that have been visited by providing public
-             * access to [[_strings]].
-             */
-            public getStrings(): string[] {
-                return this._strings.slice();
-            }
-
-            /* AbstractVisitor methods ****************************************/
-
-            /**
-             * Receives a row for processing.
-             */
-            protected visitImplementation(row: Row, six?: AbstractSix): void {
-                this._strings.push(stringFromRow(row));
-            }
-
-        }
-
+    /**
+     * Receives a row for processing.
+     */
+    protected visitImplementation(row: Row, six?: AbstractSix): void {
+        this._strings.push(stringFromRow(row));
     }
 
 }
+
+export default StringArray;

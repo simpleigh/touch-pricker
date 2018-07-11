@@ -5,30 +5,21 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-namespace Pricker {
+/**
+ * Creates an iframe for pricker rendering
+ * @param parentDocument - document object to use (inject for testing)
+ */
+function createIframe(
+    parentDocument: HTMLDocument = document,
+): HTMLIFrameElement {
+    const iframe = parentDocument.createElement('iframe');
 
-    /**
-     * DOM helper utilities
-     */
-    export namespace Dom {
+    iframe.frameBorder = '0';
+    iframe.scrolling = 'no';
+    iframe.src = 'about:blank';
+    iframe.style.border = 'none';
 
-        /**
-         * Creates an iframe for pricker rendering
-         * @param parentDocument - document object to use (inject for testing)
-         */
-        export function createIframe(
-            parentDocument: HTMLDocument = document,
-        ): HTMLIFrameElement {
-            const iframe = parentDocument.createElement('iframe');
-
-            iframe.frameBorder = '0';
-            iframe.scrolling = 'no';
-            iframe.src = 'about:blank';
-            iframe.style.border = 'none';
-
-            return iframe;
-        }
-
-    }
-
+    return iframe;
 }
+
+export default createIframe;

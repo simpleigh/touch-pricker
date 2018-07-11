@@ -5,19 +5,17 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-namespace Pricker {
+/**
+ * Interface for options passed to create()
+ */
+interface Options {
 
     /**
-     * Interface for options passed to create()
+     * Whether to package the pricker in an iframe.
+     * @default true
      */
-    export interface Options {
-
-        /**
-         * Whether to package the pricker in an iframe.
-         * @default true
-         */
-        iframe?: boolean;
-
-    }
+    iframe?: boolean;
 
 }
+
+export default Options;

@@ -5,12 +5,11 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="Bell.ts" />
+import Bell from './Bell';
 
-namespace Pricker {
+/**
+ * A row (permutation of bells)
+ */
+type Row = Bell[];
 
-    /**
-     * A row (permutation of bells)
-     */
-    export type Row = Bell[];
-}
+export default Row;

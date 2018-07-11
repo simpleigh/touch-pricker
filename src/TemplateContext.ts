@@ -5,14 +5,13 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-namespace Pricker {
-
-    /**
-     * Template context
-     *
-     * Dictionary of context data
-     */
-    export interface TemplateContext {
-        [index: string]: any;
-    }
+/**
+ * Template context
+ *
+ * Dictionary of context data
+ */
+interface TemplateContext {
+    [index: string]: any;
 }
+
+export default TemplateContext;

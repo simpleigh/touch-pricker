@@ -5,37 +5,28 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="../PrintableMixin" />
+import PrintableMixin from '../PrintableMixin';
 
-namespace Pricker {
+/**
+ * Interface supported by classes that can match a row for music
+ */
+interface MatcherInterface extends PrintableMixin {
 
     /**
-     * Music classes to analyse rows
+     * Matches a row string
      */
-    export namespace Music {
+    match(row: string): boolean;
 
-        /**
-         * Interface supported by classes that can match a row for music
-         */
-        export interface MatcherInterface extends PrintableMixin {
+    /**
+     * Provides read access to the name
+     */
+    getName(): string;
 
-            /**
-             * Matches a row string
-             */
-            match(row: string): boolean;
-
-            /**
-             * Provides read access to the name
-             */
-            getName(): string;
-
-            /**
-             * Provides read access to the count of matches
-             */
-            getMatchCount(): number;
-
-        }
-
-    }
+    /**
+     * Provides read access to the count of matches
+     */
+    getMatchCount(): number;
 
 }
+
+export default MatcherInterface;

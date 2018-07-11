@@ -5,22 +5,20 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="Row.ts" />
+import Row from './Row';
 
-namespace Pricker {
+/**
+ * Converts a [[Row]] into a string.
+ */
+function stringFromRow(row: Row): string {
+    const bellSymbols = ' 1234567890ETABC',
+        bellCharacters: string[] = [ ];
 
-    /**
-     * Converts a [[Row]] into a string.
-     */
-    export function stringFromRow(row: Row): string {
-        const bellSymbols = ' 1234567890ETABC',
-            bellCharacters: string[] = [ ];
-
-        for (const bell of row) {
-            bellCharacters.push(bellSymbols.charAt(bell));
-        }
-
-        return bellCharacters.join('');
+    for (const bell of row) {
+        bellCharacters.push(bellSymbols.charAt(bell));
     }
 
+    return bellCharacters.join('');
 }
+
+export default stringFromRow;

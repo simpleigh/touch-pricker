@@ -5,11 +5,10 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-namespace Pricker {
+/**
+ * Types of call
+ * @enum {number}
+ */
+enum Call {Plain = 0, Bob, Single}
 
-    /**
-     * Types of call
-     * @enum {number}
-     */
-    export enum Call {Plain = 0, Bob, Single}
-}
+export default Call;
