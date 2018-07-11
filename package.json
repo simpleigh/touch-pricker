@@ -24,8 +24,9 @@
     "build:test": "webpack --config config/webpack.config.test.js",
     "doc": "typedoc --name \"Free Touch Pricker\" --out docs src",
     "lint": "tslint '{src,tests}/**/*.ts'",
-    "pretest": "yarn run build:dev",
-    "test": "karma start --single-run --browsers PhantomJS",
+    "pretest": "yarn build:dev",
+    "test": "karma start --browsers PhantomJS",
+    "test:browsers": "karma start --single-run",
     "watch": "gulp watch"
   },
   "devDependencies": {

@@ -7,9 +7,11 @@
 
 const webpackConfig = require('./config/webpack.config.test');
 
+const singleRun = !!process.env.CI;
+
 module.exports = (config) => {
     config.set({
-        autoWatch: false,
+        autoWatch: true,
         browsers: ['Chrome', 'Edge', 'Firefox', 'IE', 'PhantomJS'],
         files: [
             'tests/index.spec.js',
@@ -19,7 +21,7 @@ module.exports = (config) => {
         preprocessors: {
             'tests/index.spec.js': ['webpack', 'sourcemap'],
         },
-        singleRun: true,
+        singleRun,
         webpack: webpackConfig,
     });
 };

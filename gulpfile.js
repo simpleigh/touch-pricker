@@ -29,26 +29,6 @@ gulp.task('build', () => {
         .pipe(gulp.dest('dist/'));
 });
 
-gulp.task('build-tests', () =>
-    gulp.src('tests/index.spec.js')
-        .pipe(gulpWebpack(require('./config/webpack.config.test'), webpack))
-        .pipe(gulp.dest('dist/'))
-);
-
-gulp.task('test', ['build'], (done) => {
-    new karma.Server({
-        configFile: path.join(__dirname, 'karma.conf.js'),
-        browsers: ['PhantomJS']
-    }, done).start();
-});
-
-gulp.task('test-browsers', ['build'], (done) => {
-    new karma.Server({
-        configFile: path.join(__dirname, 'karma.conf.js')
-    }, done).start();
-});
-
 gulp.task('watch', ['default'], () => {
     gulp.watch(['src/**/*.ts', 'src/_templates/**/*.dot'], ['default']);
-    gulp.watch('tests/**/*.ts', ['test']);
 });
