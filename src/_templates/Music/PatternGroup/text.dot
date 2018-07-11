@@ -24,7 +24,6 @@
 
 		{{ var first = true; }}
 		{{~ context.object.getPatterns() :pattern }}
-			{{ if (!pattern) { continue; } /* IE8 trailing comma */ }}
 			{{? pattern.getMatchCount() > 0 }}
 				{{? !first }}, {{?}}
 				{{= pattern.print('text', {'end': ''}) }}

@@ -175,11 +175,11 @@ class Start extends AbstractBlock {
         };
 
         for (const pattern in rowIndexPatterns) {
-            if (!pattern) { continue; }  // IE8 trailing comma
-
-            const regex = new RegExp(pattern, 'i');
-            if (regex.test(input)) {
-                rowIndex = rowIndexPatterns[pattern];
+            if (rowIndexPatterns.hasOwnProperty(pattern)) {
+                const regex = new RegExp(pattern, 'i');
+                if (regex.test(input)) {
+                    rowIndex = rowIndexPatterns[pattern];
+                }
             }
         }
 

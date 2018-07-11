@@ -31,7 +31,6 @@ export const testSixImplementation = (
 
     const runTestCases = (testFunction: TestFunction) => () => {
         for (const testCase of testCases) {
-            if (!testCase) { continue; }  // IE8 trailing comma
             testFunction(
                 createTestRow(testCase[0], testCase[2]),  // Previous sixend
                 createTestRow(testCase[1], testCase[2]),  // Expected sixend
@@ -125,7 +124,6 @@ export const testSixImplementation = (
             strings: string[];
 
         for (const rowTest of rowTests) {
-            if (!rowTest) { continue; }  // IE8 trailing comma
             const expectedRow: any[] = rowTest.slice(0, 6);  // Six test rows
             initialRow = createTestRow('', rowTest[6]);      // ... and stage
             six = factory(initialRow);

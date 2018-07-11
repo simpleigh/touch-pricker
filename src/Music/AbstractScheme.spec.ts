@@ -38,7 +38,6 @@ export const testAbstractSchemeImplementation = (
 
         it('matches music correctly', () => {
             for (const testCase of testCases) {
-                if (!testCase) { continue; }  // IE8 trailing comma
                 const stage: Stage = testCase[0];
                 const rowString: string = testCase[1];
                 const matches: number = testCase[2];

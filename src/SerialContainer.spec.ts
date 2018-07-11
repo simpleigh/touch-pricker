@@ -46,7 +46,6 @@ export const testSerialContainerImplementation = (
 
         it('starts out the correct length', () => {
             for (const testCase of lengthTestCases) {
-                if (!testCase) { continue; }  // IE8 trailing comma
                 container = factory(createTestRow('231', testCase[0]));
                 expect(container.getLength()).toBe(testCase[1]);
             }
@@ -118,7 +117,6 @@ export const testSerialContainerImplementation = (
 
         it('estimates the number of rows correctly', () => {
             for (const testCase of lengthTestCases) {
-                if (!testCase) { continue; }  // IE8 trailing comma
                 container = factory(createTestRow('231', testCase[0]));
                 expect(container.estimateRows()).toBe(testCase[2]);
             }

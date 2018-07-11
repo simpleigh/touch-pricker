@@ -11,23 +11,12 @@ import ConsoleVisitor from './Console';
 
 describe('Console visitor', () => {
 
-    const consoleBackup = console;
-
     // Simple record of state (count of calls)
     let state: number;
 
     beforeEach(() => {
         state = 0;
-
-        // Replace window.console in case it doesn't behave as expected (IE8)
-        // tslint:disable-next-line:no-object-literal-type-assertion
-        console = { } as Console;
-        console.log = () => { state = state + 1; };
-        spyOn(console, 'log');
-    });
-
-    afterEach(() => {
-        console = consoleBackup;
+        spyOn(window.console, 'log');
     });
 
     it('logs to the console when it visits a row', () => {

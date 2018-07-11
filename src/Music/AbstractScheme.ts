@@ -40,7 +40,6 @@ abstract class AbstractScheme implements MatcherInterface {
         let result: boolean = false;
 
         for (const matcher of this._matchers) {
-            if (!matcher) { continue; }  // IE8 trailing comma
             // Call matcher.match explicitly...
             const rowResult: boolean = matcher.match(row);
             // ... not in here, or || will short-circuit it
@@ -62,7 +61,6 @@ abstract class AbstractScheme implements MatcherInterface {
         let matches: number = 0;
 
         for (const matcher of this._matchers) {
-            if (!matcher) { continue; }  // IE8 trailing comma
             matches += matcher.getMatchCount();
         }
 

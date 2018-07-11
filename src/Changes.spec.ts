@@ -17,7 +17,6 @@ const createChangeTests = (
     testCases: Array<[string, Stage]>,
 ) => () => it('applies the permutation correctly', () => {
     for (const testCase of testCases) {
-        if (!testCase) { continue; }  // IE8 trailing comma
         const expected = testCase[0];
         const stage = testCase[1];
         const row = createTestRow('', stage);

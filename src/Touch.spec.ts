@@ -102,7 +102,6 @@ describe('Touch class', () => {
 
     const runStartCases = (testFunction: TestFunction) => () => {
         for (const testCase of START_CASES) {
-            if (!testCase) { continue; }  // IE8 trailing comma
             testFunction(
                 testCase[0],  // row index
                 testCase[1],  // six type
