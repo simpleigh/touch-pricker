@@ -26,6 +26,7 @@
     "lint": "tslint '{src,tests}/**/*.ts'",
     "pretest": "yarn build:dev",
     "start": "webpack-dev-server --config config/webpack.config.dev.js --open",
+    "start:tests": "webpack-dev-server --config config/webpack.config.test.js --open",
     "test": "karma start --browsers PhantomJS",
     "test:browsers": "karma start --single-run",
     "watch": "gulp watch"
