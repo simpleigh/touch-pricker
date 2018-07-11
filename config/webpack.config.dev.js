@@ -8,8 +8,9 @@ const base = require('./webpack.base');
 module.exports = merge(base, {
     output: { filename: 'touch-pricker.js' },
     plugins: [
-        new CleanWebpackPlugin([
-            paths.devDistFile,
-        ], { root: paths.rootDir }),
+        new CleanWebpackPlugin(
+            [paths.devDistFile],
+            { root: paths.rootDir }
+        ),
     ],
 }, banner);

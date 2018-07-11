@@ -11,10 +11,10 @@ module.exports = merge(base, {
     mode: 'production',
     output: { filename: 'touch-pricker.min.js' },
     plugins: [
-        new CleanWebpackPlugin([
-            paths.prodDistFile,
-            paths.prodMapFile,
-        ], { root: paths.rootDir }),
+        new CleanWebpackPlugin(
+            [paths.prodDistFile, paths.prodMapFile],
+            { root: paths.rootDir }
+        ),
         new UglifyJSPlugin({
             parallel: true,
             sourceMap: true,
