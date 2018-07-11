@@ -7,7 +7,7 @@ const base = require('./webpack.base');
 
 module.exports = merge(base, {
     devServer: {
-        openPage: 'examples/test.html',
+        openPage: 'examples/mbd.html',
         publicPath: '/dist/',
         watchContentBase: true,
     },
