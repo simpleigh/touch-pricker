@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import Call from '../Call';
+import { Call } from '../stedman';
 import Bell from './Bell';
 import Row from './Row';
 

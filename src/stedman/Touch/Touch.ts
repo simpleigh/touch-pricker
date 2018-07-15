@@ -5,12 +5,12 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { BlockOwnership, RandomAccessContainer } from '../blocks';
+import { BlockOwnership, RandomAccessContainer } from '../../blocks';
+import { Row, rowFromString, Stage } from '../../rows';
+import * as Templates from '../../templates';
+import * as Visitor from '../../Visitor';
 import Course from '../Course';
-import { Row, rowFromString, Stage } from '../rows';
 import Start from '../Start';
-import * as Templates from '../templates';
-import * as Visitor from '../Visitor';
 import select from './select.dot';
 import siril from './siril.dot';
 import text from './text.dot';

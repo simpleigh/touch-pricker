@@ -6,10 +6,10 @@
  */
 
 import Touch from '.';
-import { BlockDirectory } from '../blocks';
+import { BlockDirectory } from '../../blocks';
+import { stringFromRow } from '../../rows';
+import { createTestRow } from '../../testFunctions.spec';
 import Course from '../Course';
-import { stringFromRow } from '../rows';
-import { createTestRow } from '../testFunctions.spec';
 
 describe('select template for Touch', () => {
 

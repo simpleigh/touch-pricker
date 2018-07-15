@@ -5,30 +5,30 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import { Changes } from '../rows';
+import * as Templates from '../templates';
+import * as Visitor from '../Visitor';
 import AbstractSix from './AbstractSix';
 import mbd from './AbstractSix/mbd.dot';
 import siril from './AbstractSix/siril.dot';
 import Call from './Call';
-import { Changes } from './rows';
 import SixType from './SixType';
-import * as Templates from './templates';
-import * as Visitor from './Visitor';
 
 /**
- * A quick six
+ * A slow six
  */
-@Templates.makePrintable({ mbd, siril }, { Call, 'type': 'quick' })
-class Quick extends AbstractSix {
+@Templates.makePrintable({ mbd, siril }, { Call, 'type': 'slow' })
+class Slow extends AbstractSix {
 
     /**
      * Type of the six
      */
-    public readonly type = SixType.Quick;
+    public readonly type = SixType.Slow;
 
     /**
      * Notation (excluding call)
      */
-    public readonly notation = ['1', '3', '1', '3', '1'];
+    public readonly notation = ['3', '1', '3', '1', '3'];
 
     /* AbstractBlock methods **************************************************/
 
@@ -42,9 +42,6 @@ class Quick extends AbstractSix {
             Changes.permuteCall(row, this._call);
             visitor.visit(row, this);
 
-            Changes.permute1(row);
-            visitor.visit(row, this);
-
             Changes.permute3(row);
             visitor.visit(row, this);
 
@@ -52,6 +49,9 @@ class Quick extends AbstractSix {
             visitor.visit(row, this);
 
             Changes.permute3(row);
+            visitor.visit(row, this);
+
+            Changes.permute1(row);
             visitor.visit(row, this);
 
             visitor.visit(this._end, this);
@@ -66,9 +66,9 @@ class Quick extends AbstractSix {
      * Transposes the front three bells depending upon the type of six
      */
     protected applySixTransposition(): void {
-        Changes.permute3(this._end);
+        Changes.permute1(this._end);
     }
 
 }
 
-export default Quick;
+export default Slow;

@@ -6,8 +6,8 @@
  */
 
 import Start from '.';
+import { createTestRow } from '../../testFunctions.spec';
 import SixType from '../SixType';
-import { createTestRow } from '../testFunctions.spec';
 
 describe('text template for Start', () => {
 

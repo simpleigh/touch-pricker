@@ -1,4 +1,3 @@
-import AbstractSix from './AbstractSix';
 import {
     AbstractBlock,
     AbstractContainer,
@@ -8,14 +7,11 @@ import {
     RandomAccessContainer,
     SerialContainer,
 } from './blocks';
-import Call from './Call';
-import Course from './Course';
 import create from './create';
 import * as Dom from './Dom';
 import * as Music from './Music';
 import Options from './Options';
 import * as Pricker from './Pricker';
-import Quick from './Quick';
 import {
     Bell,
     Changes,
@@ -24,10 +20,16 @@ import {
     Stage,
     stringFromRow,
 } from './rows';
-import SixType from './SixType';
-import Slow from './Slow';
-import Start from './Start';
-import Touch from './Touch';
+import {
+    AbstractSix,
+    Call,
+    Course,
+    Quick,
+    SixType,
+    Slow,
+    Start,
+    Touch,
+} from './stedman';
 import * as Visitor from './Visitor';
 
 export {

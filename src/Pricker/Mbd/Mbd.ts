@@ -6,13 +6,11 @@
  */
 
 import { BlockDirectory, Notifiable } from '../../blocks';
-import Course from '../../Course';
 import * as Dom from '../../Dom';
 import * as Music from '../../Music';
 import { Row, rowFromString, Stage, stringFromRow } from '../../rows';
-import SixType from '../../SixType';
+import { Course, SixType, Touch } from '../../stedman';
 import * as Templates from '../../templates';
-import Touch from '../../Touch';
 import * as Visitor from '../../Visitor';
 import AbstractPricker from '../AbstractPricker';
 import css from './css.dot';

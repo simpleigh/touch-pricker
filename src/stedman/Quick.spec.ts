@@ -5,10 +5,10 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import { Stage as S } from '../rows';
 import { testSixImplementation } from './AbstractSix/AbstractSix.spec';
 import C from './Call';
 import Quick from './Quick';
-import { Stage as S } from './rows';
 import SixType from './SixType';
 
 describe('Quick six class', () => {

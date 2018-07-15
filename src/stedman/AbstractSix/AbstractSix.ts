@@ -5,11 +5,11 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { AbstractBlock, BlockOwnership } from '../blocks';
+import { AbstractBlock, BlockOwnership } from '../../blocks';
+import { Changes, Row } from '../../rows';
+import * as Templates from '../../templates';
 import Call from '../Call';
-import { Changes, Row } from '../rows';
 import SixType from '../SixType';
-import * as Templates from '../templates';
 
 /**
  * Base class for sixes

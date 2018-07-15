@@ -6,13 +6,17 @@
  */
 
 import AbstractSix from '.';
-import { AbstractContainer, BlockDirectory, BlockOwnership } from '../blocks';
+import {
+    AbstractContainer,
+    BlockDirectory,
+    BlockOwnership,
+} from '../../blocks';
+import { Row, stringFromRow } from '../../rows';
+import { createTestRow } from '../../testFunctions.spec';
 import Call from '../Call';
 import Quick from '../Quick';
-import { Row, stringFromRow } from '../rows';
 import SixType from '../SixType';
 import Slow from '../Slow';
-import { createTestRow } from '../testFunctions.spec';
 
 /**
  * Tests the template behaves like the parent version

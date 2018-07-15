@@ -5,9 +5,8 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import Course from '../Course';
+import { Course, Touch } from '../stedman';
 import { createTestRow } from '../testFunctions.spec';
-import Touch from '../Touch';
 import BlockDirectory from './BlockDirectory';
 
 describe('BlockDirectory class', () => {

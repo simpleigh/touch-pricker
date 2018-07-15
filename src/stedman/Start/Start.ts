@@ -5,11 +5,11 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { AbstractBlock, BlockOwnership } from '../blocks';
-import { Changes, Row } from '../rows';
+import { AbstractBlock, BlockOwnership } from '../../blocks';
+import { Changes, Row } from '../../rows';
+import * as Templates from '../../templates';
+import * as Visitor from '../../Visitor';
 import SixType from '../SixType';
-import * as Templates from '../templates';
-import * as Visitor from '../Visitor';
 import siril from './siril.dot';
 import text from './text.dot';
 

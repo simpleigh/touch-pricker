@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import AbstractSix from '../AbstractSix';
 import { Row, rowFromString, stringFromRow } from '../rows';
+import { AbstractSix } from '../stedman';
 
 /**
  * Visitor classes to analyse blocks

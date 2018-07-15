@@ -5,11 +5,10 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import Course from '../Course';
 import MbdScheme from '../Music/MbdScheme';
 import { Stage } from '../rows';
+import { Course, Touch } from '../stedman';
 import { createTestRow } from '../testFunctions.spec';
-import Touch from '../Touch';
 import { testAbstractVisitorImplementation } from './AbstractVisitor.spec';
 import Music from './Music';
 

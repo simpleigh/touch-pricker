@@ -5,14 +5,14 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import { SerialContainer } from '../../blocks';
+import { Row } from '../../rows';
+import * as Templates from '../../templates';
 import AbstractSix from '../AbstractSix';
-import { SerialContainer } from '../blocks';
 import Call from '../Call';
 import Quick from '../Quick';
-import { Row } from '../rows';
 import SixType from '../SixType';
 import Slow from '../Slow';
-import * as Templates from '../templates';
 import html from './html.dot';
 import mbd from './mbd.dot';
 import siril from './siril.dot';

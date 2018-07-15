@@ -8,11 +8,11 @@
 import Touch from '.';
 import {
     testRandomAccessContainerImplementation,
-} from '../blocks/RandomAccessContainer.spec';
+} from '../../blocks/RandomAccessContainer.spec';
+import { createTestRow } from '../../testFunctions.spec';
+import { StringArray } from '../../Visitor';
 import Course from '../Course';
 import SixType from '../SixType';
-import { createTestRow } from '../testFunctions.spec';
-import { StringArray } from '../Visitor';
 
 const START_CASES: Array<[number, SixType]> = [
     [1, SixType.Quick],

@@ -8,12 +8,14 @@
 /* tslint:disable:max-line-length */
 
 import Start from '.';
-import { BlockOwnership } from '../blocks';
-import { testAbstractBlockImplementation } from '../blocks/AbstractBlock.spec';
-import { Row, rowFromString, Stage as S } from '../rows';
+import { BlockOwnership } from '../../blocks';
+import {
+    testAbstractBlockImplementation,
+} from '../../blocks/AbstractBlock.spec';
+import { Row, rowFromString, Stage as S } from '../../rows';
+import { createTestRow } from '../../testFunctions.spec';
+import { StringArray } from '../../Visitor';
 import SixType from '../SixType';
-import { createTestRow } from '../testFunctions.spec';
-import { StringArray } from '../Visitor';
 
 describe('Start class', () => {
 

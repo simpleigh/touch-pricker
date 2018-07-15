@@ -5,9 +5,9 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import AbstractSix from '../AbstractSix';
 import { BlockDirectory } from '../blocks';
 import { Row, stringFromRow } from '../rows';
+import { AbstractSix } from '../stedman';
 import AbstractVisitor from './AbstractVisitor';
 
 /**
