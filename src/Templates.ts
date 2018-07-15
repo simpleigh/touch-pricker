@@ -5,8 +5,6 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import create from './_templates/create.dot';
-
 import TemplateContext from './TemplateContext';
 
 /**
@@ -18,7 +16,6 @@ import TemplateContext from './TemplateContext';
 const Templates: {
     [index: string]: (data: TemplateContext) => string,
 } = {
-    'create': create,
 };
 
 export default Templates;

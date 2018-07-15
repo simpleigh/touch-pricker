@@ -5,10 +5,10 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import * as Dom from './Dom';
-import Options from './Options';
-import * as Pricker from './Pricker';
-import Templates from './Templates';
+import * as Dom from '../Dom';
+import Options from '../Options';
+import * as Pricker from '../Pricker';
+import html from './html.dot';
 
 /**
  * Factory function to create a pricker
@@ -16,11 +16,11 @@ import Templates from './Templates';
  * @param options - pricker options
  * @param parentDocument - document to use to create pricker (for testing)
  */
-function create(
+const create = (
     elementId: string,
     options: Options = { },
     parentDocument: HTMLDocument = document,
-): Pricker.Mbd {
+): Pricker.Mbd => {
     let pricker: Pricker.Mbd;
 
     const element = parentDocument.getElementById(elementId);
@@ -32,11 +32,7 @@ function create(
         const iframe = Dom.createIframe(parentDocument);
         element.appendChild(iframe);
         pricker = new Pricker.Mbd(iframe);
-        Dom.injectIframeData(
-            iframe,
-            Templates.create({'pricker': pricker}),
-            { pricker },
-        );
+        Dom.injectIframeData(iframe, html({ pricker }), { pricker });
     } else {
         pricker = new Pricker.Mbd();
         Dom.createAndAppendStyle(parentDocument, pricker.print('css'));
@@ -49,6 +45,6 @@ function create(
     }
 
     return pricker;
-}
+};
 
 export default create;
