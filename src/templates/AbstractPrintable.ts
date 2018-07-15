@@ -5,6 +5,7 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import stringFromRow from '../stringFromRow';
 import { Context, Printable, Templates } from './types';
 
 /**
@@ -19,8 +20,10 @@ abstract class AbstractPrintable implements Printable {
      */
     public print(name: string, context: Context = { }): string {
         return this.templates[name]({
+            ...this.extraContext,
             ...context,
             'object': this,
+            stringFromRow,
         });
     }
 
@@ -28,6 +31,11 @@ abstract class AbstractPrintable implements Printable {
      * Collection of templates used by a particular class.
      */
     public abstract readonly templates: Templates;
+
+    /**
+     * Extra context provided at compile time.
+     */
+    public abstract readonly extraContext: Context;
 
 }
 

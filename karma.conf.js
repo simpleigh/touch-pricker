@@ -13,10 +13,7 @@ module.exports = (config) => {
     config.set({
         autoWatch: true,
         browsers: ['Chrome', 'Edge', 'Firefox', 'IE', 'PhantomJS'],
-        files: [
-            'tests/index.spec.js',
-            'dist/touch-pricker.js',
-        ],
+        files: ['tests/index.spec.js'],
         frameworks: ['jasmine'],
         preprocessors: {
             'tests/index.spec.js': ['webpack', 'sourcemap'],

@@ -38,6 +38,9 @@
  *    @Templates.makePrintable({ text })
  *    class Banana {
  *        // ...
+ *
+ * [[makePrintable]] also takes an additional parameter allowing extra default
+ * context to be included when rendering the template.
  */
 
 export { default as makePrintable } from './makePrintable';

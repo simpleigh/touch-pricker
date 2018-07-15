@@ -11,10 +11,10 @@
  */
 
 {{ var rowMap = ['', 'first', 'second', 'third', 'fourth', 'fifth', 'last']; }}
+{{ var typeMap = ['slow', 'quick']; }}
 
 {{?
-	context.object.getRowIndex() === 4 &&
-		context.object.getSixType() === Pricker.SixType.Quick
+	context.object.getRowIndex() === 4 && context.object.getSixType() === 1
 }}
 
 	/* No output for standard start */
@@ -27,7 +27,7 @@
 	 /* single space */
 	row of a
 	 /* single space */
-	{{= Pricker.SixType[context.object.getSixType()].toLowerCase() }}
+	{{= typeMap[context.object.getSixType()] }}
 	 /* single space */
 	six.
 

@@ -8,6 +8,7 @@
 import AbstractSix from './AbstractSix';
 import mbd from './AbstractSix/mbd.dot';
 import siril from './AbstractSix/siril.dot';
+import Call from './Call';
 import * as Changes from './Changes';
 import SixType from './SixType';
 import * as Templates from './templates';
@@ -16,7 +17,7 @@ import * as Visitor from './Visitor';
 /**
  * A quick six
  */
-@Templates.makePrintable({ mbd, siril })
+@Templates.makePrintable({ mbd, siril }, { Call, 'type': 'quick' })
 class Quick extends AbstractSix {
 
     /**
@@ -27,8 +28,7 @@ class Quick extends AbstractSix {
     /**
      * Notation (excluding call)
      */
-    public static readonly notation = ['1', '3', '1', '3', '1'];
-    public readonly notation = Quick.notation;
+    public readonly notation = ['1', '3', '1', '3', '1'];
 
     /* AbstractBlock methods **************************************************/
 

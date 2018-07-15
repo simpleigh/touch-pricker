@@ -11,6 +11,7 @@
  * 2314567890E  p
  * @param {string}   end        line ending
  * @param {boolean}  courseEnd  whether to print the course end
+ * @param {enum}     Call       enum for calls
  */
 
 {{
@@ -22,7 +23,7 @@
 }}
 
 {{? context.courseEnd }}
-	{{= Pricker.stringFromRow(context.object.getEnd()) }}
+	{{= context.stringFromRow(context.object.getEnd()) }}
 	 /* single space */
 	 /* single space */
 {{?}}
@@ -30,7 +31,7 @@
 {{~ context.object.getSixes() :six }}
 	{{? six.getCall() }}
 		{{ calls.push(
-			((six.getCall() === Pricker.Call.Single) ? 's' : '')
+			((six.getCall() === context.Call.Single) ? 's' : '')
 				+ six.getIndex()
 		); }}
 	{{?}}

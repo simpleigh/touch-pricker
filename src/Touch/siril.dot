@@ -12,8 +12,8 @@
 
 {{
 	var courseNames = [ ],
-		rounds = Pricker.stringFromRow(
-			Pricker.rowFromString('', context.object.getInitialRow().length)
+		rounds = context.stringFromRow(
+			context.rowFromString('', context.object.getInitialRow().length)
 		);
 
 	context.touchRows = context.touchRows || Infinity;
@@ -26,7 +26,7 @@
 {{= '\n' }}
 
 /* Output touch as comments */
-// {{= Pricker.stringFromRow(context.object.getInitialRow()) }}{{= '\n' }}
+// {{= context.stringFromRow(context.object.getInitialRow()) }}{{= '\n' }}
 {{~ context.object.getCourses() :course }}
 	// {{= course.print('text') }}{{= '\n' }}
 {{~}}

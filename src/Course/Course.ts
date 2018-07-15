@@ -21,7 +21,7 @@ import text from './text.dot';
 /**
  * A course, being a set of sixes
  */
-@Templates.makePrintable({ html, mbd, siril, text })
+@Templates.makePrintable({ html, mbd, siril, text }, { Call })
 class Course
     extends SerialContainer<AbstractSix>
     implements Templates.Interface {

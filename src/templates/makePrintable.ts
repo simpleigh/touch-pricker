@@ -6,16 +6,20 @@
  */
 
 import AbstractPrintable from './AbstractPrintable';
-import { Templates } from './types';
+import { Context, Templates } from './types';
 
 /**
  * Decorator that makes a class printable.
  * Takes an object containing all the templates for a class and binds it to that
  * class, filling in the implementation of `print`.
  */
-const makePrintable = (templates: Templates) => (cls: any) => {
+const makePrintable = (
+    templates: Templates,
+    extraContext: Context = { },
+) => (cls: any) => {
     cls.prototype.print = AbstractPrintable.prototype.print;
     cls.prototype.templates = templates;
+    cls.prototype.extraContext = extraContext;
 };
 
 export default makePrintable;

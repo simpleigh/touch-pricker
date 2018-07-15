@@ -7,11 +7,12 @@
 
 /**
  * Renders a six as HTML for MBD-style pricker
- * @param {BlockDirectory}  falseness    directory to lookup falseness
- * @param {BlockDirectory}  music        directory to lookup music
- * @param {number}          courseIndex  index number of the course
- * @param {boolean}         underline    whether to underline the sixend
+ * @param {BlockDirectory}  falseness     directory to lookup falseness
+ * @param {BlockDirectory}  music         directory to lookup music
+ * @param {number}          courseIndex   index number of the course
+ * @param {boolean}         underline     whether to underline the sixend
  * @param {boolean}         showSixHeads  show six heads as well as six ends
+ * @param {enum}            Call          enum for calls
  */
 
 {{? context.underline !== true }}
@@ -42,14 +43,14 @@
 <span class="{{= className }}">
 
 	{{? context.showSixHeads }}
-		{{= Pricker.stringFromRow(context.object.getHead()) }}
+		{{= context.stringFromRow(context.object.getHead()) }}
 	{{??}}
 
 		{{? context.underline }}
 			<u>
 		{{?}}
 
-			{{= Pricker.stringFromRow(context.object.getEnd()) }}
+			{{= context.stringFromRow(context.object.getEnd()) }}
 
 		{{? context.underline }}
 			</u>
@@ -65,15 +66,15 @@
 /* Call */
 
 <span
- class="{{= Pricker.SixType[context.object.type].toLowerCase() }}Six"
+ class="{{= context.type }}Six"
  onclick="pricker.c({{= context.object.getIndex() }})"
 >
 	&nbsp;
-	{{? context.object.getCall() === Pricker.Call.Plain }}
+	{{? context.object.getCall() === context.Call.Plain }}
 		&nbsp;
-	{{?? context.object.getCall() === Pricker.Call.Bob }}
+	{{?? context.object.getCall() === context.Call.Bob }}
 		-
-	{{?? context.object.getCall() === Pricker.Call.Single }}
+	{{?? context.object.getCall() === context.Call.Single }}
 		s
 	{{?}}
 	&nbsp;
@@ -94,7 +95,7 @@
 {{? context.showSixHeads }}
 	<span class="{{= className }}">
 		<u>
-			{{= Pricker.stringFromRow(context.object.getEnd()) }}
+			{{= context.stringFromRow(context.object.getEnd()) }}
 		</u>
 	</span>
 

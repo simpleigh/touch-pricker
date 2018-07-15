@@ -21,7 +21,7 @@
 }}
 
 <option value="0">
-	{{= Pricker.stringFromRow(context.object.getStart().getLast()) }}
+	{{= context.stringFromRow(context.object.getStart().getLast()) }}
 </option>
 
 {{~ context.object.getCourses() :course }}

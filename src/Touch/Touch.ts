@@ -21,7 +21,7 @@ import text from './text.dot';
 /**
  * A touch, being a set of courses
  */
-@Templates.makePrintable({ select, siril, text })
+@Templates.makePrintable({ select, siril, text }, { rowFromString })
 class Touch
     extends RandomAccessContainer<Course>
     implements Templates.Interface {

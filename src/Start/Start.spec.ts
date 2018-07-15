@@ -67,89 +67,91 @@ describe('Start class', () => {
         expect(start.setSixType(SixType.Slow)).toBe(start);
     });
 
+    type Notation = string[];
+
     type TestCase = [S, string[]];
 
-    type StartPosition = [number, SixType, TestCase[]];
+    type StartPosition = [number, SixType, Notation, TestCase[]];
 
     const startPositions: StartPosition[] = [
-        [1, SixType.Quick, [
+        [1, SixType.Quick, ['1', '3', '1', '3', '1'], [
             [S.Triples,   ['1325476',         '3124567',         '3215476',         '2314567',         '2135476']],
             [S.Caters,    ['132547698',       '312456789',       '321547698',       '231456789',       '213547698']],
             [S.Cinques,   ['132547698E0',     '3124567890E',     '321547698E0',     '2314567890E',     '213547698E0']],
             [S.Sextuples, ['132547698E0AT',   '3124567890ETA',   '321547698E0AT',   '2314567890ETA',   '213547698E0AT']],
             [S.Septuples, ['132547698E0ATCB', '3124567890ETABC', '321547698E0ATCB', '2314567890ETABC', '213547698E0ATCB']],
         ]],
-        [2, SixType.Quick, [
+        [2, SixType.Quick, ['3', '1', '3', '1'], [
             [S.Triples,   ['2135476',         '2314567',         '3215476',         '3124567']],
             [S.Caters,    ['213547698',       '231456789',       '321547698',       '312456789']],
             [S.Cinques,   ['213547698E0',     '2314567890E',     '321547698E0',     '3124567890E']],
             [S.Sextuples, ['213547698E0AT',   '2314567890ETA',   '321547698E0AT',   '3124567890ETA']],
             [S.Septuples, ['213547698E0ATCB', '2314567890ETABC', '321547698E0ATCB', '3124567890ETABC']],
         ]],
-        [3, SixType.Quick, [
+        [3, SixType.Quick, ['1', '3', '1'], [
             [S.Triples,   ['1325476',         '3124567',         '3215476']],
             [S.Caters,    ['132547698',       '312456789',       '321547698']],
             [S.Cinques,   ['132547698E0',     '3124567890E',     '321547698E0']],
             [S.Sextuples, ['132547698E0AT',   '3124567890ETA',   '321547698E0AT']],
             [S.Septuples, ['132547698E0ATCB', '3124567890ETABC', '321547698E0ATCB']],
         ]],
-        [4, SixType.Quick, [
+        [4, SixType.Quick, ['3', '1'], [
             [S.Triples,   ['2135476',         '2314567']],
             [S.Caters,    ['213547698',       '231456789']],
             [S.Cinques,   ['213547698E0',     '2314567890E']],
             [S.Sextuples, ['213547698E0AT',   '2314567890ETA']],
             [S.Septuples, ['213547698E0ATCB', '2314567890ETABC']],
         ]],
-        [5, SixType.Quick, [
+        [5, SixType.Quick, ['1'], [
             [S.Triples,   ['1325476']],
             [S.Caters,    ['132547698']],
             [S.Cinques,   ['132547698E0']],
             [S.Sextuples, ['132547698E0AT']],
             [S.Septuples, ['132547698E0ATCB']],
         ]],
-        [6, SixType.Quick, [
+        [6, SixType.Quick, [], [
             [S.Triples,   []],
             [S.Caters,    []],
             [S.Cinques,   []],
             [S.Sextuples, []],
             [S.Septuples, []],
         ]],
-        [1, SixType.Slow, [
+        [1, SixType.Slow, ['3', '1', '3', '1', '3'], [
             [S.Triples,   ['2135476',         '2314567',         '3215476',         '3124567',         '1325476']],
             [S.Caters,    ['213547698',       '231456789',       '321547698',       '312456789',       '132547698']],
             [S.Cinques,   ['213547698E0',     '2314567890E',     '321547698E0',     '3124567890E',     '132547698E0']],
             [S.Sextuples, ['213547698E0AT',   '2314567890ETA',   '321547698E0AT',   '3124567890ETA',   '132547698E0AT']],
             [S.Septuples, ['213547698E0ATCB', '2314567890ETABC', '321547698E0ATCB', '3124567890ETABC', '132547698E0ATCB']],
         ]],
-        [2, SixType.Slow, [
+        [2, SixType.Slow, ['1', '3', '1', '3'], [
             [S.Triples,   ['1325476',         '3124567',         '3215476',         '2314567']],
             [S.Caters,    ['132547698',       '312456789',       '321547698',       '231456789']],
             [S.Cinques,   ['132547698E0',     '3124567890E',     '321547698E0',     '2314567890E']],
             [S.Sextuples, ['132547698E0AT',   '3124567890ETA',   '321547698E0AT',   '2314567890ETA']],
             [S.Septuples, ['132547698E0ATCB', '3124567890ETABC', '321547698E0ATCB', '2314567890ETABC']],
         ]],
-        [3, SixType.Slow, [
+        [3, SixType.Slow, ['3', '1', '3'], [
             [S.Triples,   ['2135476',         '2314567',         '3215476']],
             [S.Caters,    ['213547698',       '231456789',       '321547698']],
             [S.Cinques,   ['213547698E0',     '2314567890E',     '321547698E0']],
             [S.Sextuples, ['213547698E0AT',   '2314567890ETA',   '321547698E0AT']],
             [S.Septuples, ['213547698E0ATCB', '2314567890ETABC', '321547698E0ATCB']],
         ]],
-        [4, SixType.Slow, [
+        [4, SixType.Slow, ['1', '3'], [
             [S.Triples,   ['1325476',         '3124567']],
             [S.Caters,    ['132547698',       '312456789']],
             [S.Cinques,   ['132547698E0',     '3124567890E']],
             [S.Sextuples, ['132547698E0AT',   '3124567890ETA']],
             [S.Septuples, ['132547698E0ATCB', '3124567890ETABC']],
         ]],
-        [5, SixType.Slow, [
+        [5, SixType.Slow, ['3'], [
             [S.Triples,   ['2135476']],
             [S.Caters,    ['213547698']],
             [S.Cinques,   ['213547698E0']],
             [S.Sextuples, ['213547698E0AT']],
             [S.Septuples, ['213547698E0ATCB']],
         ]],
-        [6, SixType.Slow, [
+        [6, SixType.Slow, [], [
             [S.Triples,   []],
             [S.Caters,    []],
             [S.Cinques,   []],
@@ -162,7 +164,7 @@ describe('Start class', () => {
         for (const startPosition of startPositions) {
             const rowIndex = startPosition[0];
             const sixType = startPosition[1];
-            const testCases = startPosition[2];
+            const testCases = startPosition[3];
 
             for (const testCase of testCases) {
                 const stage = testCase[0];
@@ -175,6 +177,19 @@ describe('Start class', () => {
             }
         }
     };
+
+    it('computes the notation correctly', () => {
+        for (const startPosition of startPositions) {
+            const rowIndex = startPosition[0];
+            const sixType = startPosition[1];
+            const notation = startPosition[2];
+
+            const fixture = new Start(createTestRow());
+            fixture.setRowIndex(rowIndex);
+            fixture.setSixType(sixType);
+            expect(fixture.getNotation()).toEqual(notation);
+        }
+    });
 
     it('computes the last row correctly', runTestCases(
         (fixture: Start, rows: string[]) => {

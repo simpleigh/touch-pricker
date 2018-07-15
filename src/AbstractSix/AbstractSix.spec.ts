@@ -48,8 +48,6 @@ export const testSixImplementation = (
     it('has the expected notation', () => {
         const six = factory(createTestRow('231'));
         expect(six.notation).toEqual(notation);
-        // TODO: restore following assertion
-        // expect(Six.notation).toEqual(notation);
     });
 
     it('calculates the last row correctly', runTestCases(

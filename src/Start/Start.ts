@@ -211,6 +211,15 @@ class Start extends AbstractBlock implements Templates.Interface {
         return this;
     }
 
+    /**
+     * Returns place notation for the start
+     */
+    public getNotation(): string[] {
+        const begin = this._rowIndex + this._sixType - 1;
+        const end = this._sixType ? undefined : -1;
+        return ['3', '1', '3', '1', '3', '1'].slice(begin, end);
+    }
+
 }
 
 export default Start;

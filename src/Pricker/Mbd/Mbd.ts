@@ -27,7 +27,7 @@ enum Block {Course, Touch}
 /**
  * An MBD pricker
  */
-@Templates.makePrintable({ css, html })
+@Templates.makePrintable({ css, html }, { SixType })
 class Mbd extends AbstractPricker implements Notifiable {
 
     /**

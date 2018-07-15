@@ -24,7 +24,6 @@
     "build:test": "webpack --config config/webpack.config.test.js",
     "doc": "node_modules/.bin/typedoc src/index.ts",
     "lint": "tslint 'src/**/*.ts'",
-    "pretest": "yarn build:dev",
     "start": "webpack-dev-server --config config/webpack.config.dev.js --open",
     "start:tests": "webpack-dev-server --config config/webpack.config.test.js --open",
     "test": "karma start --browsers PhantomJS",

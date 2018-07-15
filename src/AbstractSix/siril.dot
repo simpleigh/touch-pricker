@@ -8,17 +8,18 @@
 /**
  * Renders a six for consumption by siril-based provers
  * @param {number}   touchRows  rows remaining in the touch
+ * @param {enum}     Call       enum for calls
  */
 
 {{
 	context.touchRows = context.touchRows || Infinity;
 }}
 
-{{? context.object.getCall() === Pricker.Call.Plain }}
+{{? context.object.getCall() === context.Call.Plain }}
 	plain
-{{?? context.object.getCall() === Pricker.Call.Bob }}
+{{?? context.object.getCall() === context.Call.Bob }}
 	bob
-{{?? context.object.getCall() === Pricker.Call.Single }}
+{{?? context.object.getCall() === context.Call.Single }}
 	single
 {{?}}
 ,
@@ -26,7 +27,7 @@
 
 {{? context.touchRows > 1}}
 	{{? context.touchRows >= 6 }}
-		{{= Pricker.SixType[context.object.type].toLowerCase() }}
+		{{= context.type }}
 	{{??}}
 		+
 		{{= context.object.notation.slice(0, context.touchRows - 1).join('.') }}
