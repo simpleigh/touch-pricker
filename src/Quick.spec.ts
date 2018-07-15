@@ -8,8 +8,8 @@
 import { testSixImplementation } from './AbstractSix/AbstractSix.spec';
 import C from './Call';
 import Quick from './Quick';
+import { Stage as S } from './rows';
 import SixType from './SixType';
-import S from './Stage';
 
 describe('Quick six class', () => {
 

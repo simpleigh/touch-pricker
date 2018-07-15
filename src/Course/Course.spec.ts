@@ -7,10 +7,9 @@
 
 import Course from '.';
 import Call from '../Call';
+import { Stage, stringFromRow } from '../rows';
 import { testSerialContainerImplementation } from '../SerialContainer.spec';
 import SixType from '../SixType';
-import Stage from '../Stage';
-import stringFromRow from '../stringFromRow';
 import { createTestRow } from '../testFunctions.spec';
 import { StringArray } from '../Visitor';
 

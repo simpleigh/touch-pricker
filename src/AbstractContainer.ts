@@ -7,7 +7,7 @@
 
 import AbstractBlock from './AbstractBlock';
 import Notifiable from './Notifiable';
-import Row from './Row';
+import { Row } from './rows';
 import * as Visitor from './Visitor';
 
 /**

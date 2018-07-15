@@ -8,9 +8,7 @@
 import BlockOwnership from '../BlockOwnership';
 import Course from '../Course';
 import RandomAccessContainer from '../RandomAccessContainer';
-import Row from '../Row';
-import rowFromString from '../rowFromString';
-import Stage from '../Stage';
+import { Row, rowFromString, Stage } from '../rows';
 import Start from '../Start';
 import * as Templates from '../templates';
 import * as Visitor from '../Visitor';

@@ -10,10 +10,8 @@
 import Start from '.';
 import { testAbstractBlockImplementation } from '../AbstractBlock.spec';
 import BlockOwnership from '../BlockOwnership';
-import Row from '../Row';
-import rowFromString from '../rowFromString';
+import { Row, rowFromString, Stage as S } from '../rows';
 import SixType from '../SixType';
-import S from '../Stage';
 import { createTestRow } from '../testFunctions.spec';
 import { StringArray } from '../Visitor';
 

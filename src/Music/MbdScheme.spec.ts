@@ -7,7 +7,7 @@
 
 /* tslint:disable:max-line-length */
 
-import S from '../Stage';
+import { Stage as S } from '../rows';
 import {
     testAbstractSchemeImplementation,
 } from './AbstractScheme/AbstractScheme.spec';

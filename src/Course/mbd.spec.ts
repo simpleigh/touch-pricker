@@ -6,7 +6,7 @@
  */
 
 import Course from '.';
-import stringFromRow from '../stringFromRow';
+import { stringFromRow } from '../rows';
 import { createTestRow } from '../testFunctions.spec';
 
 describe('mbd template for Course', () => {

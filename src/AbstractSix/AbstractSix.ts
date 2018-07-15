@@ -8,8 +8,7 @@
 import AbstractBlock from '../AbstractBlock';
 import BlockOwnership from '../BlockOwnership';
 import Call from '../Call';
-import * as Changes from '../Changes';
-import Row from '../Row';
+import { Changes, Row } from '../rows';
 import SixType from '../SixType';
 import * as Templates from '../templates';
 

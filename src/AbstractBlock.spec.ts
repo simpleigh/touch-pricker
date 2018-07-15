@@ -8,7 +8,7 @@
 import AbstractBlock from './AbstractBlock';
 import AbstractContainer from './AbstractContainer';
 import BlockOwnership from './BlockOwnership';
-import Row from './Row';
+import { Row } from './rows';
 import { createTestRow } from './testFunctions.spec';
 import { Counter } from './Visitor';
 

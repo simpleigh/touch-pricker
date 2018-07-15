@@ -9,9 +9,8 @@
 import AbstractBlock from './AbstractBlock';
 import { testAbstractContainerImplementation } from './AbstractContainer.spec';
 import BlockOwnership from './BlockOwnership';
-import { permuteN } from './Changes';
 import RandomAccessContainer from './RandomAccessContainer';
-import Row from './Row';
+import { Changes, Row } from './rows';
 import { createTestRow } from './testFunctions.spec';
 
 type TestContainer = RandomAccessContainer<AbstractBlock>;
@@ -81,7 +80,7 @@ export const testRandomAccessContainerImplementation = (
         it('ignores the initial row when inserting a new block', () => {
             // Set container initial row different from block initial row
             const initialRow = testBlocks[0].getInitialRow();
-            permuteN(initialRow);
+            Changes.permuteN(initialRow);
             container.setInitialRow(initialRow);
 
             // Container initial row should be unaffected when inserting

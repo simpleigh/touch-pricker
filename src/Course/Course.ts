@@ -8,7 +8,7 @@
 import AbstractSix from '../AbstractSix';
 import Call from '../Call';
 import Quick from '../Quick';
-import Row from '../Row';
+import { Row } from '../rows';
 import SerialContainer from '../SerialContainer';
 import SixType from '../SixType';
 import Slow from '../Slow';

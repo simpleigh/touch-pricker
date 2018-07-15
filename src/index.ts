@@ -1,11 +1,9 @@
 import AbstractBlock from './AbstractBlock';
 import AbstractContainer from './AbstractContainer';
 import AbstractSix from './AbstractSix';
-import Bell from './Bell';
 import BlockDirectory from './BlockDirectory';
 import BlockOwnership from './BlockOwnership';
 import Call from './Call';
-import * as Changes from './Changes';
 import Course from './Course';
 import create from './create';
 import * as Dom from './Dom';
@@ -15,14 +13,18 @@ import Options from './Options';
 import * as Pricker from './Pricker';
 import Quick from './Quick';
 import RandomAccessContainer from './RandomAccessContainer';
-import Row from './Row';
-import rowFromString from './rowFromString';
+import {
+    Bell,
+    Changes,
+    Row,
+    rowFromString,
+    Stage,
+    stringFromRow,
+} from './rows';
 import SerialContainer from './SerialContainer';
 import SixType from './SixType';
 import Slow from './Slow';
-import Stage from './Stage';
 import Start from './Start';
-import stringFromRow from './stringFromRow';
 import Touch from './Touch';
 import * as Visitor from './Visitor';
 

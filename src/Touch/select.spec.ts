@@ -8,7 +8,7 @@
 import Touch from '.';
 import BlockDirectory from '../BlockDirectory';
 import Course from '../Course';
-import stringFromRow from '../stringFromRow';
+import { stringFromRow } from '../rows';
 import { createTestRow } from '../testFunctions.spec';
 
 describe('select template for Touch', () => {

@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import Call from '../Call';
 import Bell from './Bell';
-import Call from './Call';
 import Row from './Row';
 
 /**

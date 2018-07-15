@@ -6,7 +6,7 @@
  */
 
 import { CustomScheme } from '..';
-import Stage from '../../Stage';
+import { Stage } from '../../rows';
 
 describe('text template for AbstractScheme music class', () => {
 

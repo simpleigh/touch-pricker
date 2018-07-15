@@ -6,7 +6,7 @@
  */
 
 import AbstractSix from '../AbstractSix';
-import Row from '../Row';
+import { Row } from '../rows';
 import AbstractVisitor from './AbstractVisitor';
 
 /**

@@ -9,9 +9,8 @@ import AbstractBlock from './AbstractBlock';
 import AbstractContainer from './AbstractContainer';
 import { testAbstractContainerImplementation } from './AbstractContainer.spec';
 import BlockOwnership from './BlockOwnership';
-import Row from './Row';
+import { Row, Stage } from './rows';
 import SerialContainer from './SerialContainer';
-import Stage from './Stage';
 import { createTestRow } from './testFunctions.spec';
 
 type TestContainer = SerialContainer<AbstractBlock>;

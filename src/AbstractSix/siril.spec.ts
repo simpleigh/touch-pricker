@@ -9,7 +9,7 @@ import AbstractSix from '.';
 import BlockOwnership from '../BlockOwnership';
 import Call from '../Call';
 import Quick from '../Quick';
-import Row from '../Row';
+import { Row } from '../rows';
 import SixType from '../SixType';
 import Slow from '../Slow';
 import { createTestRow } from '../testFunctions.spec';

@@ -7,9 +7,9 @@
 
 import { testSixImplementation } from './AbstractSix/AbstractSix.spec';
 import C from './Call';
+import { Stage as S } from './rows';
 import SixType from './SixType';
 import Slow from './Slow';
-import S from './Stage';
 
 describe('Slow six class', () => {
 

@@ -7,7 +7,7 @@
 
 /* tslint:disable:max-line-length */
 
-import Stage from '../Stage';
+import { Stage } from '../rows';
 import AbstractScheme from './AbstractScheme';
 import MatcherInterface from './MatcherInterface';
 import MatchType from './MatchType';

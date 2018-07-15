@@ -8,7 +8,7 @@
 import AbstractBlock from './AbstractBlock';
 import AbstractContainer from './AbstractContainer';
 import BlockOwnership from './BlockOwnership';
-import Row from './Row';
+import { Row } from './rows';
 
 /**
  * Abstract container that manages a series of child blocks

@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import Stage from '../Stage';
+import { Stage } from '../rows';
 import {
     testAbstractSchemeImplementation,
 } from './AbstractScheme/AbstractScheme.spec';

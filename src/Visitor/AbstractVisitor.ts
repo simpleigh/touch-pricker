@@ -6,9 +6,7 @@
  */
 
 import AbstractSix from '../AbstractSix';
-import Row from '../Row';
-import rowFromString from '../rowFromString';
-import stringFromRow from '../stringFromRow';
+import { Row, rowFromString, stringFromRow } from '../rows';
 
 /**
  * Visitor classes to analyse blocks

@@ -5,9 +5,7 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import rowFromString from '../../rowFromString';
-import Stage from '../../Stage';
-import stringFromRow from '../../stringFromRow';
+import { rowFromString, Stage, stringFromRow } from '../../rows';
 import * as Templates from '../../templates';
 import MatcherInterface from '../MatcherInterface';
 import text from './text.dot';

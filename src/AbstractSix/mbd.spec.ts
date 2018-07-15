@@ -11,10 +11,9 @@ import BlockDirectory from '../BlockDirectory';
 import BlockOwnership from '../BlockOwnership';
 import Call from '../Call';
 import Quick from '../Quick';
-import Row from '../Row';
+import { Row, stringFromRow } from '../rows';
 import SixType from '../SixType';
 import Slow from '../Slow';
-import stringFromRow from '../stringFromRow';
 import { createTestRow } from '../testFunctions.spec';
 
 /**

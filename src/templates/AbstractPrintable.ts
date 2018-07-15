@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import stringFromRow from '../stringFromRow';
+import { stringFromRow } from '../rows';
 import { Context, Printable, Templates } from './types';
 
 /**

@@ -9,7 +9,7 @@ import AbstractSix from './AbstractSix';
 import mbd from './AbstractSix/mbd.dot';
 import siril from './AbstractSix/siril.dot';
 import Call from './Call';
-import * as Changes from './Changes';
+import { Changes } from './rows';
 import SixType from './SixType';
 import * as Templates from './templates';
 import * as Visitor from './Visitor';

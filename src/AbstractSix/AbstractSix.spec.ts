@@ -10,11 +10,8 @@ import { testAbstractBlockImplementation } from '../AbstractBlock.spec';
 import AbstractContainer from '../AbstractContainer';
 import BlockOwnership from '../BlockOwnership';
 import Call from '../Call';
-import { permuteCall } from '../Changes';
-import Row from '../Row';
+import { Changes, Row, Stage, stringFromRow } from '../rows';
 import SixType from '../SixType';
-import Stage from '../Stage';
-import stringFromRow from '../stringFromRow';
 import { createTestRow } from '../testFunctions.spec';
 import { StringArray } from '../Visitor';
 
@@ -109,7 +106,7 @@ export const testSixImplementation = (
         (previous, expected, stage, call) => {
             const six = factory(previous),
                 row = previous.slice();
-            permuteCall(row, call);
+            Changes.permuteCall(row, call);
             six.setCall(call);
             expect(six.getHead()).toEqual(row);
         },

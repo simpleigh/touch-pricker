@@ -7,7 +7,7 @@
 
 import Course from '../Course';
 import MbdScheme from '../Music/MbdScheme';
-import Stage from '../Stage';
+import { Stage } from '../rows';
 import { createTestRow } from '../testFunctions.spec';
 import Touch from '../Touch';
 import { testAbstractVisitorImplementation } from './AbstractVisitor.spec';

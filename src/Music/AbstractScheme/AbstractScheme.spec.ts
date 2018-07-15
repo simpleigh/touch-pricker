@@ -6,7 +6,7 @@
  */
 
 import AbstractScheme from '.';
-import Stage from '../../Stage';
+import { Stage } from '../../rows';
 import { testMatcherInterface } from '../MatcherInterface.spec';
 
 /**
