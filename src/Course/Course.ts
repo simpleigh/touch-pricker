@@ -12,7 +12,7 @@ import Row from '../Row';
 import SerialContainer from '../SerialContainer';
 import SixType from '../SixType';
 import Slow from '../Slow';
-import * as Templates from '../templates/index';
+import * as Templates from '../templates';
 import html from './html.dot';
 import mbd from './mbd.dot';
 import siril from './siril.dot';

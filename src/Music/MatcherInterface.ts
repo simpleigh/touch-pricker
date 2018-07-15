@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import * as Templates from '../templates/index';
+import * as Templates from '../templates';
 
 /**
  * Interface supported by classes that can match a row for music

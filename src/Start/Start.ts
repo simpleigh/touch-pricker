@@ -10,7 +10,7 @@ import BlockOwnership from '../BlockOwnership';
 import * as Changes from '../Changes';
 import Row from '../Row';
 import SixType from '../SixType';
-import * as Templates from '../templates/index';
+import * as Templates from '../templates';
 import * as Visitor from '../Visitor';
 import siril from './siril.dot';
 import text from './text.dot';

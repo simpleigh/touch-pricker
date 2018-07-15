@@ -8,7 +8,7 @@
 import rowFromString from '../../rowFromString';
 import Stage from '../../Stage';
 import stringFromRow from '../../stringFromRow';
-import * as Templates from '../../templates/index';
+import * as Templates from '../../templates';
 import MatcherInterface from '../MatcherInterface';
 import text from './text.dot';
 

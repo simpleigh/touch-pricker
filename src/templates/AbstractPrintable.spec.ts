@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import * as Templates from './index';
+import * as Templates from '.';
 import { Context } from './types';
 
 describe('Printable implementation', () => {

@@ -12,7 +12,7 @@ import Row from '../Row';
 import rowFromString from '../rowFromString';
 import Stage from '../Stage';
 import Start from '../Start';
-import * as Templates from '../templates/index';
+import * as Templates from '../templates';
 import * as Visitor from '../Visitor';
 import select from './select.dot';
 import siril from './siril.dot';

@@ -10,7 +10,7 @@ import mbd from './AbstractSix/mbd.dot';
 import siril from './AbstractSix/siril.dot';
 import * as Changes from './Changes';
 import SixType from './SixType';
-import * as Templates from './templates/index';
+import * as Templates from './templates';
 import * as Visitor from './Visitor';
 
 /**

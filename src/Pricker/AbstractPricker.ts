@@ -6,7 +6,7 @@
  */
 
 import * as Dom from '../Dom';
-import * as Templates from '../templates/index';
+import * as Templates from '../templates';
 
 abstract class AbstractPricker implements Templates.Interface {
 

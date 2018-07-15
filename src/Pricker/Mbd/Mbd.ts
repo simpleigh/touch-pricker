@@ -15,7 +15,7 @@ import rowFromString from '../../rowFromString';
 import SixType from '../../SixType';
 import Stage from '../../Stage';
 import stringFromRow from '../../stringFromRow';
-import * as Templates from '../../templates/index';
+import * as Templates from '../../templates';
 import Touch from '../../Touch';
 import * as Visitor from '../../Visitor';
 import AbstractPricker from '../AbstractPricker';

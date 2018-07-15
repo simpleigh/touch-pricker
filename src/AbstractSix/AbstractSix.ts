@@ -11,7 +11,7 @@ import Call from '../Call';
 import * as Changes from '../Changes';
 import Row from '../Row';
 import SixType from '../SixType';
-import * as Templates from '../templates/index';
+import * as Templates from '../templates';
 
 /**
  * Base class for sixes

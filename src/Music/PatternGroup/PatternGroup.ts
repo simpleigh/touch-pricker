@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import * as Templates from '../../templates/index';
+import * as Templates from '../../templates';
 import MatcherInterface from '../MatcherInterface';
 import Pattern from '../Pattern';
 import text from './text.dot';

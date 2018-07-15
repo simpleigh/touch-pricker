@@ -7,8 +7,8 @@
 
 // tslint:disable:max-classes-per-file
 
+import * as Templates from '.';
 import AbstractPrintable from './AbstractPrintable';
-import * as Templates from './index';
 import { Templates as TemplateProperty } from './types';
 
 describe('makePrintable decorator', () => {
