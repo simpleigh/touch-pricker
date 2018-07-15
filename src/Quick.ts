@@ -8,6 +8,7 @@
 import AbstractSix from './AbstractSix';
 import mbd from './AbstractSix/mbd.dot';
 import siril from './AbstractSix/siril.dot';
+import Call from './Call';
 import * as Changes from './Changes';
 import SixType from './SixType';
 import * as Templates from './templates';
@@ -16,7 +17,7 @@ import * as Visitor from './Visitor';
 /**
  * A quick six
  */
-@Templates.makePrintable({ mbd, siril }, { 'type': 'quick' })
+@Templates.makePrintable({ mbd, siril }, { Call, 'type': 'quick' })
 class Quick extends AbstractSix {
 
     /**

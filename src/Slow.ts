@@ -8,6 +8,7 @@
 import AbstractSix from './AbstractSix';
 import mbd from './AbstractSix/mbd.dot';
 import siril from './AbstractSix/siril.dot';
+import Call from './Call';
 import * as Changes from './Changes';
 import SixType from './SixType';
 import * as Templates from './templates';
@@ -16,7 +17,7 @@ import * as Visitor from './Visitor';
 /**
  * A slow six
  */
-@Templates.makePrintable({ mbd, siril }, { 'type': 'slow' })
+@Templates.makePrintable({ mbd, siril }, { Call, 'type': 'slow' })
 class Slow extends AbstractSix {
 
     /**
