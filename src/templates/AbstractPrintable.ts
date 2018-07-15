@@ -19,6 +19,7 @@ abstract class AbstractPrintable implements Printable {
      */
     public print(name: string, context: Context = { }): string {
         return this.templates[name]({
+            ...this.extraContext,
             ...context,
             'object': this,
         });
@@ -28,6 +29,11 @@ abstract class AbstractPrintable implements Printable {
      * Collection of templates used by a particular class.
      */
     public abstract readonly templates: Templates;
+
+    /**
+     * Extra context provided at compile time.
+     */
+    public abstract readonly extraContext: Context;
 
 }
 

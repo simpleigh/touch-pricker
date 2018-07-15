@@ -26,7 +26,7 @@
 
 {{? context.touchRows > 1}}
 	{{? context.touchRows >= 6 }}
-		{{= Pricker.SixType[context.object.type].toLowerCase() }}
+		{{= context.type }}
 	{{??}}
 		+
 		{{= context.object.notation.slice(0, context.touchRows - 1).join('.') }}

@@ -9,7 +9,7 @@
 
 import * as Templates from '.';
 import AbstractPrintable from './AbstractPrintable';
-import { Templates as TemplateProperty } from './types';
+import { Context, Templates as TemplateProperty } from './types';
 
 describe('makePrintable decorator', () => {
     it('binds the print function to the class', () => {
@@ -35,5 +35,17 @@ describe('makePrintable decorator', () => {
         }
 
         expect(Test.prototype.templates).toBe(templates);
+    });
+
+    it('binds extra context to the class', () => {
+        const extraContext = { };
+
+        @Templates.makePrintable({ }, extraContext)
+        class Test implements Templates.Interface {
+            public print: Templates.Print;
+            public extraContext: Context;
+        }
+
+        expect(Test.prototype.extraContext).toBe(extraContext);
     });
 });

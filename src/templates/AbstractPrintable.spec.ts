@@ -15,7 +15,7 @@ describe('Printable implementation', () => {
         'templateTwo': jasmine.createSpy().and.returnValue('two'),
     };
 
-    @Templates.makePrintable(templates)
+    @Templates.makePrintable(templates, { 'compile': 'compile-time context' })
     class Printable implements Templates.Interface {
         public print: Templates.Print;
     }
@@ -27,6 +27,9 @@ describe('Printable implementation', () => {
         templates.templateTwo.calls.reset();
         printable = new Printable();
     });
+
+    const getLastContext = () =>
+        templates.templateOne.calls.mostRecent().args[0];
 
     it('calls the correct template', () => {
         printable.print('templateOne');
@@ -40,14 +43,27 @@ describe('Printable implementation', () => {
 
     it('passes itself to templates', () => {
         printable.print('templateOne');
-        expect(templates.templateOne)
-            .toHaveBeenCalledWith({ 'object': printable });
+        expect(getLastContext().object).toBe(printable);
     });
 
-    it('passes additional context to templates', () => {
-        printable.print('templateOne', { 'test': 'value' });
-        expect(templates.templateOne)
-            .toHaveBeenCalledWith({ 'object': printable, 'test': 'value' });
+    it('passes compile-time context to templates', () => {
+        printable.print('templateOne');
+        expect(getLastContext().compile).toBe('compile-time context');
+    });
+
+    it('passes run-time context to templates', () => {
+        printable.print('templateOne', { 'run': 'run-time context' });
+        expect(getLastContext().run).toBe('run-time context');
+    });
+
+    it('overrides compile-time context with run-time context', () => {
+        printable.print('templateOne', { 'compile': 'run-time context' });
+        expect(getLastContext().compile).toBe('run-time context');
+    });
+
+    it('never overrides the object itself', () => {
+        printable.print('templateOne', { 'object': 'run-time context' });
+        expect(getLastContext().object).toBe(printable);
     });
 
     it('leaves the passed context unchanged', () => {

@@ -65,7 +65,7 @@
 /* Call */
 
 <span
- class="{{= Pricker.SixType[context.object.type].toLowerCase() }}Six"
+ class="{{= context.type }}Six"
  onclick="pricker.c({{= context.object.getIndex() }})"
 >
 	&nbsp;

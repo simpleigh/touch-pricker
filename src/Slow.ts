@@ -16,7 +16,7 @@ import * as Visitor from './Visitor';
 /**
  * A slow six
  */
-@Templates.makePrintable({ mbd, siril })
+@Templates.makePrintable({ mbd, siril }, { 'type': 'slow' })
 class Slow extends AbstractSix {
 
     /**

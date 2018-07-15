@@ -16,7 +16,7 @@ import * as Visitor from './Visitor';
 /**
  * A quick six
  */
-@Templates.makePrintable({ mbd, siril })
+@Templates.makePrintable({ mbd, siril }, { 'type': 'quick' })
 class Quick extends AbstractSix {
 
     /**
