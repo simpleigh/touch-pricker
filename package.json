@@ -23,13 +23,12 @@
     "build:prod": "webpack --config config/webpack.config.prod.js",
     "build:test": "webpack --config config/webpack.config.test.js",
     "doc": "typedoc --name \"Free Touch Pricker\" --out docs src",
-    "lint": "tslint '{src,tests}/**/*.ts'",
+    "lint": "tslint 'src/**/*.ts'",
     "pretest": "yarn build:dev",
     "start": "webpack-dev-server --config config/webpack.config.dev.js --open",
     "start:tests": "webpack-dev-server --config config/webpack.config.test.js --open",
     "test": "karma start --browsers PhantomJS",
-    "test:browsers": "karma start --single-run",
-    "watch": "gulp watch"
+    "test:browsers": "karma start --single-run"
   },
   "devDependencies": {
     "@types/jasmine": "^2.8.6",

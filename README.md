@@ -51,7 +51,7 @@ const thePricker = Pricker.create('pricker'); // ID of mount element
 Download the source file of your choice from the `dist` directory of this repository:
 
 * development - `touch-pricker.js`
-* production - `touch-pricker.min.js`
+* production - `touch-pricker.min.js` and `touch-pricker.min.js.map`
 
 Host the file locally and add to scripts:
 
@@ -109,30 +109,23 @@ but makes debugging more difficult.
 
 2. Install [`yarn`](https://yarnpkg.com/).
 
-### Quickstart: build and run tests
+### Quickstart: build
 
 ```bash
 nvm install
 yarn install
-bin/gulp
+yarn build
 ```
-
-### Available gulp targets
-
-* `build` - builds source code
-* `build-tests` - builds testcases (depends on `build`)
-* `docs` - builds [TypeDoc](http://typedoc.org/) documentation
-* `test` - runs unit tests under PhantomJS (default)
-* `test-browsers` - runs unit tests under various browsers (see `karma.conf.js`)
-* `watch` - rebuild whenever changes are made
 
 ### Yarn / `npm` scripts
 
-* `build` - as above
-* `lint` - calls `tslint` in isolation
-* `test` - as above
-* `watch` - as above
-
-### To test in a browser window
-
-Build tests (`bin/gulp build-tests`) then load up `/jasmine.html`.
+* `build` - compiles all sources, `dev`, `prod` and `test`
+* `build:dev` - compiles the development bundle
+* `build:prod` - compiles the production bundle
+* `build:test` - compiles the test bundle
+* `doc` - builds documentation
+* `lint` - lints all sources
+* **`start`** - opens examples in a browser window and watches for changes
+* **`start:tests`** - runs tests in a browser window and watches for changes
+* **`test`** - runs tests in PhantomJS and watches for changes
+* `test:browsers` - runs tests in multiple browsers
