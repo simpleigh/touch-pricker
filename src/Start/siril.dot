@@ -9,7 +9,5 @@
  * Renders a start for consumption by siril-based provers
  */
 
-{{ var Six = [Pricker.Slow, Pricker.Quick][context.object.getSixType()]; }}
-
 +
-{{= Six.notation.slice(context.object.getRowIndex() - 1).join('.') }}
+{{= context.object.getNotation().join('.') }}

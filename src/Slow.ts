@@ -27,8 +27,7 @@ class Slow extends AbstractSix {
     /**
      * Notation (excluding call)
      */
-    public static readonly notation = ['3', '1', '3', '1', '3'];
-    public readonly notation = Slow.notation;
+    public readonly notation = ['3', '1', '3', '1', '3'];
 
     /* AbstractBlock methods **************************************************/
 

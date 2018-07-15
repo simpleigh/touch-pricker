@@ -27,8 +27,7 @@ class Quick extends AbstractSix {
     /**
      * Notation (excluding call)
      */
-    public static readonly notation = ['1', '3', '1', '3', '1'];
-    public readonly notation = Quick.notation;
+    public readonly notation = ['1', '3', '1', '3', '1'];
 
     /* AbstractBlock methods **************************************************/
 
