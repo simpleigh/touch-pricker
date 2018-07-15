@@ -11,7 +11,7 @@ import create from './create';
 import * as Dom from './dom';
 import * as Music from './music';
 import Options from './Options';
-import * as Pricker from './Pricker';
+import * as Prickers from './prickers';
 import {
     Bell,
     Changes,
@@ -47,7 +47,7 @@ export {
     Music,
     Notifiable,
     Options,
-    Pricker,
+    Prickers,
     Quick,
     RandomAccessContainer,
     Row,

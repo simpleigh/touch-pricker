@@ -7,8 +7,7 @@
 
 import create from '.';
 import * as Dom from '../dom';
-import AbstractPricker from '../Pricker/AbstractPricker';
-import Mbd from '../Pricker/Mbd';
+import { AbstractPricker, Mbd } from '../prickers';
 import html from './html.dot';
 
 describe('create function', () => {
