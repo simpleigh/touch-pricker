@@ -43,4 +43,5 @@ module.exports = {
     prodDistFile: path.join(distDir, 'touch-pricker.min.js'),
     prodMapFile: path.join(distDir, 'touch-pricker.min.js.map'),
     testDistFile: path.join(distDir, 'touch-pricker.spec.js'),
+    docsPath: path.join(rootDir, 'docs'),
 };

@@ -1,5 +1,6 @@
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const TypedocWebpackPlugin = require('typedoc-webpack-plugin');
 const merge = require('webpack-merge');
 
 const paths = require('./paths');
@@ -23,6 +24,10 @@ module.exports = merge(base, {
                     comments: false,
                 }
             },
+        }),
+        new TypedocWebpackPlugin({
+            name: 'Free Touch Pricker',
+            out: paths.docsPath,
         }),
     ],
 }, banner);
