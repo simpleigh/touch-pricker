@@ -1,11 +1,10 @@
-import * as Printable from '../index';
+import * as Templates from '../index';
 import text from './text.dot';
 
-@Printable.makePrintable({ text })
-class Decorated implements Printable.Interface {
+@Templates.makePrintable({ text })
+class Decorated implements Templates.Interface {
     public getData: () => string = () => 'test data';
-    public print: Printable.Print;
-    public templates: Printable.Templates;
+    public print: Templates.Print;
 }
 
 export default Decorated;

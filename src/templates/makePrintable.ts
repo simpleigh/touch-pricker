@@ -1,17 +1,18 @@
-import PrintableInterface from './PrintableInterface';
-import { Context, Templates } from './types';
+/**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
+ */
 
-abstract class AbstractPrintable implements PrintableInterface {
-    public print(name: string, context: Context = { }): string {
-        return this.templates[name]({
-            ...context,
-            'object': this,
-        });
-    }
+import AbstractPrintable from './AbstractPrintable';
+import { Templates } from './types';
 
-    public abstract readonly templates: Templates;
-}
-
+/**
+ * Decorator that makes a class printable.
+ * Takes an object containing all the templates for a class and binds it to that
+ * class, filling in the implementation of `print`.
+ */
 const makePrintable = (templates: Templates) => (cls: any) => {
     cls.prototype.print = AbstractPrintable.prototype.print;
     cls.prototype.templates = templates;
