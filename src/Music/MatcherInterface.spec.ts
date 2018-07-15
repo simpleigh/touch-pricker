@@ -5,7 +5,6 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { testPrintableMixinImplementation } from '../PrintableMixin.spec';
 import MatcherInterface from './MatcherInterface';
 
 /**
@@ -48,8 +47,6 @@ export const testMatcherInterface = (
             matcher.match('2314567890E');
             expect(matcher.getMatchCount()).toBe(2);
         });
-
-        testPrintableMixinImplementation(createFn);
 
     });
 

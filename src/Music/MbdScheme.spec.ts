@@ -8,7 +8,9 @@
 /* tslint:disable:max-line-length */
 
 import S from '../Stage';
-import { testAbstractSchemeImplementation } from './AbstractScheme.spec';
+import {
+    testAbstractSchemeImplementation,
+} from './AbstractScheme/AbstractScheme.spec';
 import MbdScheme from './MbdScheme';
 
 describe('Mbd music scheme', () => {

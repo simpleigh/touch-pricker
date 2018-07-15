@@ -6,10 +6,9 @@
  */
 
 import * as Dom from '../Dom';
-import PrintableMixin from '../PrintableMixin';
-import TemplateContext from '../TemplateContext';
+import * as Templates from '../templates/index';
 
-abstract class AbstractPricker implements PrintableMixin {
+abstract class AbstractPricker implements Templates.Interface {
 
     /**
      * Constructor
@@ -20,17 +19,9 @@ abstract class AbstractPricker implements PrintableMixin {
         // NOOP
     }
 
-    /* PrintableMixin methods *************************************************/
+    /* templating *************************************************************/
 
-    /**
-     * Renders the object with a template
-     */
-    public print: (t: string, c?: TemplateContext) => string;
-
-    /**
-     * Path for this class' templates
-     */
-    public abstract readonly templatePath: string;
+    public print: Templates.Print;
 
     /* AbstractPricker methods ************************************************/
 
