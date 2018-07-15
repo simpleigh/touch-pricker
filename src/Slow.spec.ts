@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { testSixImplementation } from './AbstractSix.spec';
+import { testSixImplementation } from './AbstractSix/AbstractSix.spec';
 import C from './Call';
 import SixType from './SixType';
 import Slow from './Slow';

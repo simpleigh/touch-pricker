@@ -6,7 +6,9 @@
  */
 
 import Stage from '../Stage';
-import { testAbstractSchemeImplementation } from './AbstractScheme.spec';
+import {
+    testAbstractSchemeImplementation,
+} from './AbstractScheme/AbstractScheme.spec';
 import CustomScheme from './CustomScheme';
 import Pattern from './Pattern';
 

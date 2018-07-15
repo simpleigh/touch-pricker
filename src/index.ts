@@ -13,7 +13,6 @@ import * as Music from './Music';
 import Notifiable from './Notifiable';
 import Options from './Options';
 import * as Pricker from './Pricker';
-import PrintableMixin from './PrintableMixin';
 import Quick from './Quick';
 import RandomAccessContainer from './RandomAccessContainer';
 import Row from './Row';
@@ -24,8 +23,6 @@ import Slow from './Slow';
 import Stage from './Stage';
 import Start from './Start';
 import stringFromRow from './stringFromRow';
-import TemplateContext from './TemplateContext';
-import Templates from './Templates';
 import Touch from './Touch';
 import * as Visitor from './Visitor';
 
@@ -45,7 +42,6 @@ export {
     Notifiable,
     Options,
     Pricker,
-    PrintableMixin,
     Quick,
     RandomAccessContainer,
     Row,
@@ -56,8 +52,6 @@ export {
     Stage,
     Start,
     stringFromRow,
-    TemplateContext,
-    Templates,
     Touch,
     Visitor,
 };

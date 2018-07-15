@@ -8,7 +8,6 @@
 import AbstractBlock from './AbstractBlock';
 import AbstractContainer from './AbstractContainer';
 import BlockOwnership from './BlockOwnership';
-import { testPrintableMixinImplementation } from './PrintableMixin.spec';
 import Row from './Row';
 import { createTestRow } from './testFunctions.spec';
 import { Counter } from './Visitor';
@@ -173,8 +172,6 @@ export const testAbstractBlockImplementation = (
         it('estimates the number of rows correctly', () => {
             expect(block.estimateRows()).toBe(expectedRows);
         });
-
-        testPrintableMixinImplementation(() => factory(testRow));
 
     });
 

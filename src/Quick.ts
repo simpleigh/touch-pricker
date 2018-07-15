@@ -6,13 +6,17 @@
  */
 
 import AbstractSix from './AbstractSix';
+import mbd from './AbstractSix/mbd.dot';
+import siril from './AbstractSix/siril.dot';
 import * as Changes from './Changes';
 import SixType from './SixType';
+import * as Templates from './templates';
 import * as Visitor from './Visitor';
 
 /**
  * A quick six
  */
+@Templates.makePrintable({ mbd, siril })
 class Quick extends AbstractSix {
 
     /**

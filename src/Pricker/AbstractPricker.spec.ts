@@ -5,8 +5,7 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { testPrintableMixinImplementation } from '../PrintableMixin.spec';
-import Templates from '../Templates';
+import matchers from '../templates/matchers';
 import AbstractPricker from './AbstractPricker';
 
 /**
@@ -20,19 +19,23 @@ export const testAbstractPrickerImplementation = (
 
     describe('is derived from AbstractPricker and', () => {
 
+        const pricker = new TestPricker();
+
+        beforeEach(() => {
+            jasmine.addMatchers(matchers);
+        });
+
+        it('is printable', () => {
+            expect(pricker).toBePrintable();
+        });
+
         it('has a template for printing CSS', () => {
-            const pricker = new TestPricker();
-            const templateName = pricker.templatePath + '.css';
-            expect(Templates[templateName]).toBeDefined();
+            expect(pricker).toHaveTemplate('css');
         });
 
         it('has a template for printing HTML', () => {
-            const pricker = new TestPricker();
-            const templateName = pricker.templatePath + '.html';
-            expect(Templates[templateName]).toBeDefined();
+            expect(pricker).toHaveTemplate('html');
         });
-
-        testPrintableMixinImplementation(() => new TestPricker());
 
     });
 

@@ -7,9 +7,7 @@
 
 import BlockOwnership from './BlockOwnership';
 import Notifiable from './Notifiable';
-import PrintableMixin from './PrintableMixin';
 import Row from './Row';
-import TemplateContext from './TemplateContext';
 import * as Visitor from './Visitor';
 
 /**
@@ -26,7 +24,7 @@ import * as Visitor from './Visitor';
  * Containers notify blocks of changes by setting a new initial row.
  * Blocks notify containers of changes via a callback (receiveNotification).
  */
-abstract class AbstractBlock implements PrintableMixin {
+abstract class AbstractBlock {
 
     /**
      * Initial row for the block
@@ -41,18 +39,6 @@ abstract class AbstractBlock implements PrintableMixin {
     constructor(initialRow: Row, protected _ownership?: BlockOwnership) {
         this._initialRow = initialRow.slice();
     }
-
-    /* PrintableMixin methods *************************************************/
-
-    /**
-     * Renders the object with a template
-     */
-    public print: (t: string, c?: TemplateContext) => string;
-
-    /**
-     * Path for this class' templates
-     */
-    public readonly templatePath: string = 'AbstractBlock';
 
     /* AbstractBlock methods **************************************************/
 
@@ -136,7 +122,5 @@ abstract class AbstractBlock implements PrintableMixin {
     public abstract estimateRows(): number;
 
 }
-
-PrintableMixin.makePrintable(AbstractBlock);
 
 export default AbstractBlock;

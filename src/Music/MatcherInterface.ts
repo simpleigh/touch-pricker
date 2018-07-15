@@ -5,12 +5,12 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import PrintableMixin from '../PrintableMixin';
+import * as Templates from '../templates';
 
 /**
  * Interface supported by classes that can match a row for music
  */
-interface MatcherInterface extends PrintableMixin {
+interface MatcherInterface extends Templates.Interface {
 
     /**
      * Matches a row string
