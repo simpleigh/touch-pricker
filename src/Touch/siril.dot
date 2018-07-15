@@ -12,7 +12,7 @@
 
 {{
 	var courseNames = [ ],
-		rounds = Pricker.stringFromRow(
+		rounds = context.stringFromRow(
 			Pricker.rowFromString('', context.object.getInitialRow().length)
 		);
 
@@ -26,7 +26,7 @@
 {{= '\n' }}
 
 /* Output touch as comments */
-// {{= Pricker.stringFromRow(context.object.getInitialRow()) }}{{= '\n' }}
+// {{= context.stringFromRow(context.object.getInitialRow()) }}{{= '\n' }}
 {{~ context.object.getCourses() :course }}
 	// {{= course.print('text') }}{{= '\n' }}
 {{~}}

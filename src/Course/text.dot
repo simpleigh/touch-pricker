@@ -23,7 +23,7 @@
 }}
 
 {{? context.courseEnd }}
-	{{= Pricker.stringFromRow(context.object.getEnd()) }}
+	{{= context.stringFromRow(context.object.getEnd()) }}
 	 /* single space */
 	 /* single space */
 {{?}}

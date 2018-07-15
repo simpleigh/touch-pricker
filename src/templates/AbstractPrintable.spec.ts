@@ -6,6 +6,7 @@
  */
 
 import * as Templates from '.';
+import stringFromRow from '../stringFromRow';
 import { Context } from './types';
 
 describe('Printable implementation', () => {
@@ -46,6 +47,11 @@ describe('Printable implementation', () => {
         expect(getLastContext().object).toBe(printable);
     });
 
+    it('passes stringFromRow to templates', () => {
+        printable.print('templateOne');
+        expect(getLastContext().stringFromRow).toBe(stringFromRow);
+    });
+
     it('passes compile-time context to templates', () => {
         printable.print('templateOne');
         expect(getLastContext().compile).toBe('compile-time context');
@@ -64,6 +70,11 @@ describe('Printable implementation', () => {
     it('never overrides the object itself', () => {
         printable.print('templateOne', { 'object': 'run-time context' });
         expect(getLastContext().object).toBe(printable);
+    });
+
+    it('never overrides stringFromRow', () => {
+        printable.print('templateOne', { 'stringFromRow': 'not a function' });
+        expect(getLastContext().stringFromRow).toBe(stringFromRow);
     });
 
     it('leaves the passed context unchanged', () => {

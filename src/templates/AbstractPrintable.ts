@@ -5,6 +5,7 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import stringFromRow from '../stringFromRow';
 import { Context, Printable, Templates } from './types';
 
 /**
@@ -22,6 +23,7 @@ abstract class AbstractPrintable implements Printable {
             ...this.extraContext,
             ...context,
             'object': this,
+            stringFromRow,
         });
     }
 

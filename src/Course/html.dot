@@ -9,5 +9,5 @@
  * Renders a single course with the initial row underlined before it
  */
 
-<u>{{= Pricker.stringFromRow(context.object.getInitialRow()) }}</u><br />
+<u>{{= context.stringFromRow(context.object.getInitialRow()) }}</u><br />
 {{= context.object.print('text') }}

@@ -14,7 +14,7 @@
  * @param {boolean}         showSixHeads  show six heads as well as six ends
  */
 
-<u>{{= Pricker.stringFromRow(context.object.getInitialRow()) }}</u><br />
+<u>{{= context.stringFromRow(context.object.getInitialRow()) }}</u><br />
 
 {{~ context.object.getSixes() :six }}
 	{{? six.getIndex() === context.object.getLength() }}
@@ -27,13 +27,13 @@
 	{{~ context.extraSixes.getSixes() :six }}
 		<span class="extraSix">
 			{{? context.showSixHeads }}
-				{{= Pricker.stringFromRow(six.getHead()) }}
+				{{= context.stringFromRow(six.getHead()) }}
 				<br />
 				<u>
-					{{= Pricker.stringFromRow(six.getEnd()) }}
+					{{= context.stringFromRow(six.getEnd()) }}
 				</u>
 			{{??}}
-				{{= Pricker.stringFromRow(six.getEnd()) }}
+				{{= context.stringFromRow(six.getEnd()) }}
 			{{?}}
 		</span><br />
 	{{~}}
