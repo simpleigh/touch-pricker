@@ -57,8 +57,7 @@ export const testRandomAccessContainerImplementation = (
         };
 
         const checkBlock = (index: number, testBlock: AbstractBlock) =>
-            expect(container.getBlock(index).print('text'))
-                .toBe(testBlock.print('text'));
+            expect(container.getBlock(index)).toBe(testBlock);
 
         const checkOwnership = () => {
             for (let index = 1; index <= container.getLength(); index += 1) {
