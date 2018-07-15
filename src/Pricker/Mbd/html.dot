@@ -7,6 +7,7 @@
 
 /**
  * HTML for MBD-style pricker
+ * @param {enum}  SixType  enum for types of six
  */
 
 <div id="sixends"></div>
@@ -47,8 +48,8 @@
       <div id="firstSixBlock">
         <label for="firstSix">First six:</label>
         <select id="firstSix" onchange="pricker.onFirstSix()">
-          <option value="{{= Pricker.SixType.Slow }}">Slow</option>
-          <option value="{{= Pricker.SixType.Quick }}">Quick</option>
+          <option value="{{= context.SixType.Slow }}">Slow</option>
+          <option value="{{= context.SixType.Quick }}">Quick</option>
         </select>
       </div>
       <div>
@@ -132,8 +133,8 @@
     </select>
     row of a
     <select id="sixType" onchange="pricker.onSixType()">
-      <option value="{{= Pricker.SixType.Quick }}">quick</option>
-      <option value="{{= Pricker.SixType.Slow }}">slow</option>
+      <option value="{{= context.SixType.Quick }}">quick</option>
+      <option value="{{= context.SixType.Slow }}">slow</option>
     </select>
     six.
   </div>
