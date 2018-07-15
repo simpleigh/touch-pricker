@@ -7,7 +7,7 @@
 
 import { Changes } from '../rows';
 import * as Templates from '../templates';
-import * as Visitor from '../Visitor';
+import { AbstractVisitor } from '../visitors';
 import AbstractSix from './AbstractSix';
 import mbd from './AbstractSix/mbd.dot';
 import siril from './AbstractSix/siril.dot';
@@ -35,7 +35,7 @@ class Quick extends AbstractSix {
     /**
      * Receives a visitor that will be called to process each row
      */
-    public accept(...visitors: Visitor.AbstractVisitor[]): this {
+    public accept(...visitors: AbstractVisitor[]): this {
         const row = this.getInitialRow();
 
         for (const visitor of visitors) {

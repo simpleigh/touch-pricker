@@ -14,7 +14,7 @@ import {
 } from '../../blocks/AbstractBlock.spec';
 import { Row, rowFromString, Stage as S } from '../../rows';
 import { createTestRow } from '../../testFunctions.spec';
-import { StringArray } from '../../Visitor';
+import { StringArray } from '../../visitors';
 import SixType from '../SixType';
 
 describe('Start class', () => {

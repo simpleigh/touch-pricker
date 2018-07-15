@@ -6,7 +6,7 @@
  */
 
 import { Row } from '../rows';
-import * as Visitor from '../Visitor';
+import { AbstractVisitor } from '../visitors';
 import AbstractBlock from './AbstractBlock';
 import Notifiable from './Notifiable';
 
@@ -53,7 +53,7 @@ abstract class AbstractContainer<Block extends AbstractBlock>
     /**
      * Receives a visitor that will be called to process each row
      */
-    public accept(...visitors: Visitor.AbstractVisitor[]): this {
+    public accept(...visitors: AbstractVisitor[]): this {
         for (const block of this._blocks) {
             for (const visitor of visitors) {
                 block.accept(visitor);

@@ -10,7 +10,7 @@ import {
     testRandomAccessContainerImplementation,
 } from '../../blocks/RandomAccessContainer.spec';
 import { createTestRow } from '../../testFunctions.spec';
-import { StringArray } from '../../Visitor';
+import { StringArray } from '../../visitors';
 import Course from '../Course';
 import SixType from '../SixType';
 

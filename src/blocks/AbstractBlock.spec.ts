@@ -7,7 +7,7 @@
 
 import { Row } from '../rows';
 import { createTestRow } from '../testFunctions.spec';
-import { Counter } from '../Visitor';
+import { Counter } from '../visitors';
 import AbstractBlock from './AbstractBlock';
 import AbstractContainer from './AbstractContainer';
 import BlockOwnership from './BlockOwnership';

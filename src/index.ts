@@ -30,7 +30,7 @@ import {
     Start,
     Touch,
 } from './stedman';
-import * as Visitor from './Visitor';
+import * as Visitors from './visitors';
 
 export {
     AbstractBlock,
@@ -59,5 +59,5 @@ export {
     Start,
     stringFromRow,
     Touch,
-    Visitor,
+    Visitors,
 };

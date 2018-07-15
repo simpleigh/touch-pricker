@@ -11,7 +11,7 @@ import {
 } from '../../blocks/SerialContainer.spec';
 import { Stage, stringFromRow } from '../../rows';
 import { createTestRow } from '../../testFunctions.spec';
-import { StringArray } from '../../Visitor';
+import { StringArray } from '../../visitors';
 import Call from '../Call';
 import SixType from '../SixType';
 

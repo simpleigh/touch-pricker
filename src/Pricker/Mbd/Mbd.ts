@@ -11,7 +11,7 @@ import * as Music from '../../Music';
 import { Row, rowFromString, Stage, stringFromRow } from '../../rows';
 import { Course, SixType, Touch } from '../../stedman';
 import * as Templates from '../../templates';
-import * as Visitor from '../../Visitor';
+import * as Visitors from '../../visitors';
 import AbstractPricker from '../AbstractPricker';
 import css from './css.dot';
 import html from './html.dot';
@@ -435,7 +435,7 @@ class Mbd extends AbstractPricker implements Notifiable {
     }
 
     public onAnalyseMusic(): void {
-        const visitor = new Visitor.Music(this._musicScheme);
+        const visitor = new Visitors.Music(this._musicScheme);
         this._touch.accept(visitor);
         this.getEl('musicTextarea').innerText =
             visitor.getMatcher().print('text');
@@ -456,8 +456,8 @@ class Mbd extends AbstractPricker implements Notifiable {
     }
 
     public onProve(): boolean {
-        const proof = new Visitor.Proof(),
-            counter = new Visitor.Counter();
+        const proof = new Visitors.Proof(),
+            counter = new Visitors.Counter();
 
         this._touch.accept(proof, counter);
         this._rowCount = counter.getCount();

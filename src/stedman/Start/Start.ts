@@ -8,7 +8,7 @@
 import { AbstractBlock, BlockOwnership } from '../../blocks';
 import { Changes, Row } from '../../rows';
 import * as Templates from '../../templates';
-import * as Visitor from '../../Visitor';
+import { AbstractVisitor } from '../../visitors';
 import SixType from '../SixType';
 import siril from './siril.dot';
 import text from './text.dot';
@@ -103,7 +103,7 @@ class Start extends AbstractBlock implements Templates.Interface {
     /**
      * Receives a visitor that will be called to process each row
      */
-    public accept(...visitors: Visitor.AbstractVisitor[]): this {
+    public accept(...visitors: AbstractVisitor[]): this {
         for (const visitor of visitors) {
             for (const row of this._rows) {
                 visitor.visit(row);

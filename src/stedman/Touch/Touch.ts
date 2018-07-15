@@ -8,7 +8,7 @@
 import { BlockOwnership, RandomAccessContainer } from '../../blocks';
 import { Row, rowFromString, Stage } from '../../rows';
 import * as Templates from '../../templates';
-import * as Visitor from '../../Visitor';
+import { AbstractVisitor } from '../../visitors';
 import Course from '../Course';
 import Start from '../Start';
 import select from './select.dot';
@@ -43,7 +43,7 @@ class Touch
     /**
      * Receives a visitor that will be called to process each row
      */
-    public accept(...visitors: Visitor.AbstractVisitor[]): this {
+    public accept(...visitors: AbstractVisitor[]): this {
         for (const visitor of visitors) {
             this._start.accept(visitor);
         }
