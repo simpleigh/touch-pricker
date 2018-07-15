@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import * as Dom from '../Dom';
+import { getHeight, getWidth } from '../dom';
 import * as Templates from '../templates';
 
 abstract class AbstractPricker implements Templates.Interface {
@@ -50,8 +50,8 @@ abstract class AbstractPricker implements Templates.Interface {
         // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < elements.length; i = i + 1) {
             const element = elements[i] as HTMLElement;
-            width = width + Dom.getWidth(element);
-            height = Math.max(height, Dom.getHeight(element));
+            width = width + getWidth(element);
+            height = Math.max(height, getHeight(element));
         }
 
         this._iframe.width = width + 'px';

@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import * as Dom from '../Dom';
+import { createAndAppendStyle, createIframe, injectIframeData } from '../dom';
 import Options from '../Options';
 import * as Pricker from '../Pricker';
 import html from './html.dot';
@@ -29,13 +29,13 @@ const create = (
     }
 
     if (options.iframe || options.iframe === undefined) {
-        const iframe = Dom.createIframe(parentDocument);
+        const iframe = createIframe(parentDocument);
         element.appendChild(iframe);
         pricker = new Pricker.Mbd(iframe);
-        Dom.injectIframeData(iframe, html({ pricker }), { pricker });
+        injectIframeData(iframe, html({ pricker }), { pricker });
     } else {
         pricker = new Pricker.Mbd();
-        Dom.createAndAppendStyle(parentDocument, pricker.print('css'));
+        createAndAppendStyle(parentDocument, pricker.print('css'));
         element.innerHTML = pricker.print('html');
         (window as any).pricker = pricker;
         if (parentDocument === document) {

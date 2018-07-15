@@ -6,7 +6,7 @@
  */
 
 import create from '.';
-import * as Dom from '../Dom';
+import * as Dom from '../dom';
 import AbstractPricker from '../Pricker/AbstractPricker';
 import Mbd from '../Pricker/Mbd';
 import html from './html.dot';

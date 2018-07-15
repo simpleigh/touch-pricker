@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import MbdScheme from '../Music/MbdScheme';
+import { MbdScheme } from '../music';
 import { Stage } from '../rows';
 import { Course, Touch } from '../stedman';
 import { createTestRow } from '../testFunctions.spec';

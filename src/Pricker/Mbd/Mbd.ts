@@ -6,8 +6,8 @@
  */
 
 import { BlockDirectory, Notifiable } from '../../blocks';
-import * as Dom from '../../Dom';
-import * as Music from '../../Music';
+import { hide, show } from '../../dom';
+import { MbdScheme } from '../../music';
 import { Row, rowFromString, Stage, stringFromRow } from '../../rows';
 import { Course, SixType, Touch } from '../../stedman';
 import * as Templates from '../../templates';
@@ -92,7 +92,7 @@ class Mbd extends AbstractPricker implements Notifiable {
     /**
      * Music scheme in use
      */
-    private _musicScheme: Music.MbdScheme;
+    private _musicScheme: MbdScheme;
 
     /**
      * Directory of musical sixes
@@ -148,7 +148,7 @@ class Mbd extends AbstractPricker implements Notifiable {
             rowFromString('', this._stage),
             {'container': this, 'index': Block.Touch},
         );
-        this._musicScheme = new Music.MbdScheme(this._stage);
+        this._musicScheme = new MbdScheme(this._stage);
 
         // Call notify() to clear out state from the previous touch
         this.notify(Block.Touch); // calls redraw()
@@ -182,9 +182,9 @@ class Mbd extends AbstractPricker implements Notifiable {
             this._course.getFirstSixType().toString();
 
         if (this._showAdvancedOptions) {
-            Dom.show(this.getEl('firstSixBlock'));
+            show(this.getEl('firstSixBlock'));
         } else {
-            Dom.hide(this.getEl('firstSixBlock'));
+            hide(this.getEl('firstSixBlock'));
         }
 
         this.getEl<HTMLInputElement>('courseLength').value =
@@ -216,9 +216,9 @@ class Mbd extends AbstractPricker implements Notifiable {
             this._touch.getStart().getSixType().toString();
 
         if (this._showAdvancedOptions) {
-            Dom.show(this.getEl('startBlock'));
+            show(this.getEl('startBlock'));
         } else {
-            Dom.hide(this.getEl('startBlock'));
+            hide(this.getEl('startBlock'));
         }
 
         this.getEl('courses').outerHTML =

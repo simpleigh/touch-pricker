@@ -8,8 +8,8 @@ import {
     SerialContainer,
 } from './blocks';
 import create from './create';
-import * as Dom from './Dom';
-import * as Music from './Music';
+import * as Dom from './dom';
+import * as Music from './music';
 import Options from './Options';
 import * as Pricker from './Pricker';
 import {
