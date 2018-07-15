@@ -13,7 +13,7 @@
 {{
 	var courseNames = [ ],
 		rounds = context.stringFromRow(
-			Pricker.rowFromString('', context.object.getInitialRow().length)
+			context.rowFromString('', context.object.getInitialRow().length)
 		);
 
 	context.touchRows = context.touchRows || Infinity;
