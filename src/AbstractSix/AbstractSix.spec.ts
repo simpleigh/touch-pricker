@@ -6,9 +6,8 @@
  */
 
 import AbstractSix from '.';
-import { testAbstractBlockImplementation } from '../AbstractBlock.spec';
-import AbstractContainer from '../AbstractContainer';
-import BlockOwnership from '../BlockOwnership';
+import { AbstractContainer, BlockOwnership } from '../blocks';
+import { testAbstractBlockImplementation } from '../blocks/AbstractBlock.spec';
 import Call from '../Call';
 import { Changes, Row, Stage, stringFromRow } from '../rows';
 import SixType from '../SixType';

@@ -5,8 +5,7 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import AbstractBlock from '../AbstractBlock';
-import BlockOwnership from '../BlockOwnership';
+import { AbstractBlock, BlockOwnership } from '../blocks';
 import { Changes, Row } from '../rows';
 import SixType from '../SixType';
 import * as Templates from '../templates';

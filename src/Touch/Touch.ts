@@ -5,9 +5,8 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import BlockOwnership from '../BlockOwnership';
+import { BlockOwnership, RandomAccessContainer } from '../blocks';
 import Course from '../Course';
-import RandomAccessContainer from '../RandomAccessContainer';
 import { Row, rowFromString, Stage } from '../rows';
 import Start from '../Start';
 import * as Templates from '../templates';

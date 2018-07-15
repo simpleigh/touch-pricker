@@ -8,8 +8,8 @@
 /* tslint:disable:max-line-length */
 
 import Start from '.';
-import { testAbstractBlockImplementation } from '../AbstractBlock.spec';
-import BlockOwnership from '../BlockOwnership';
+import { BlockOwnership } from '../blocks';
+import { testAbstractBlockImplementation } from '../blocks/AbstractBlock.spec';
 import { Row, rowFromString, Stage as S } from '../rows';
 import SixType from '../SixType';
 import { createTestRow } from '../testFunctions.spec';

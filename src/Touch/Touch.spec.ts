@@ -6,10 +6,10 @@
  */
 
 import Touch from '.';
-import Course from '../Course';
 import {
     testRandomAccessContainerImplementation,
-} from '../RandomAccessContainer.spec';
+} from '../blocks/RandomAccessContainer.spec';
+import Course from '../Course';
 import SixType from '../SixType';
 import { createTestRow } from '../testFunctions.spec';
 import { StringArray } from '../Visitor';

@@ -5,12 +5,12 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import { Row } from '../rows';
+import { createTestRow } from '../testFunctions.spec';
 import AbstractBlock from './AbstractBlock';
 import { testAbstractBlockImplementation } from './AbstractBlock.spec';
 import AbstractContainer from './AbstractContainer';
 import BlockOwnership from './BlockOwnership';
-import { Row } from './rows';
-import { createTestRow } from './testFunctions.spec';
 
 type TestContainer = AbstractContainer<AbstractBlock>;
 

@@ -5,11 +5,10 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import BlockDirectory from '../../BlockDirectory';
+import { BlockDirectory, Notifiable } from '../../blocks';
 import Course from '../../Course';
 import * as Dom from '../../Dom';
 import * as Music from '../../Music';
-import Notifiable from '../../Notifiable';
 import { Row, rowFromString, Stage, stringFromRow } from '../../rows';
 import SixType from '../../SixType';
 import * as Templates from '../../templates';

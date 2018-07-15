@@ -5,10 +5,10 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import { Row } from '../rows';
+import * as Visitor from '../Visitor';
 import AbstractBlock from './AbstractBlock';
 import Notifiable from './Notifiable';
-import { Row } from './rows';
-import * as Visitor from './Visitor';
 
 /**
  * Abstract class representing containers for blocks of rows

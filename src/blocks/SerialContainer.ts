@@ -5,10 +5,10 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import { Row } from '../rows';
 import AbstractBlock from './AbstractBlock';
 import AbstractContainer from './AbstractContainer';
 import BlockOwnership from './BlockOwnership';
-import { Row } from './rows';
 
 /**
  * Abstract container that manages a series of child blocks

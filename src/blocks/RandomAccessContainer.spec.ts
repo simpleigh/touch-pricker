@@ -6,12 +6,12 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import { Changes, Row } from '../rows';
+import { createTestRow } from '../testFunctions.spec';
 import AbstractBlock from './AbstractBlock';
 import { testAbstractContainerImplementation } from './AbstractContainer.spec';
 import BlockOwnership from './BlockOwnership';
 import RandomAccessContainer from './RandomAccessContainer';
-import { Changes, Row } from './rows';
-import { createTestRow } from './testFunctions.spec';
 
 type TestContainer = RandomAccessContainer<AbstractBlock>;
 

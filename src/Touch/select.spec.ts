@@ -6,7 +6,7 @@
  */
 
 import Touch from '.';
-import BlockDirectory from '../BlockDirectory';
+import { BlockDirectory } from '../blocks';
 import Course from '../Course';
 import { stringFromRow } from '../rows';
 import { createTestRow } from '../testFunctions.spec';

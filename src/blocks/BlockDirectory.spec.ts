@@ -5,10 +5,10 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import Course from '../Course';
+import { createTestRow } from '../testFunctions.spec';
+import Touch from '../Touch';
 import BlockDirectory from './BlockDirectory';
-import Course from './Course';
-import { createTestRow } from './testFunctions.spec';
-import Touch from './Touch';
 
 describe('BlockDirectory class', () => {
 

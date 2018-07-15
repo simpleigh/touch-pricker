@@ -6,7 +6,7 @@
  */
 
 import AbstractSix from '.';
-import BlockOwnership from '../BlockOwnership';
+import { BlockOwnership } from '../blocks';
 import Call from '../Call';
 import Quick from '../Quick';
 import { Row } from '../rows';

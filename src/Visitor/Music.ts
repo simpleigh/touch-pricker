@@ -6,7 +6,7 @@
  */
 
 import AbstractSix from '../AbstractSix';
-import BlockDirectory from '../BlockDirectory';
+import { BlockDirectory } from '../blocks';
 import { MatcherInterface } from '../Music';
 import { Row, stringFromRow } from '../rows';
 import AbstractVisitor from './AbstractVisitor';

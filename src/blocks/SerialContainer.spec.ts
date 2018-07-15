@@ -5,13 +5,13 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import { Row, Stage } from '../rows';
+import { createTestRow } from '../testFunctions.spec';
 import AbstractBlock from './AbstractBlock';
 import AbstractContainer from './AbstractContainer';
 import { testAbstractContainerImplementation } from './AbstractContainer.spec';
 import BlockOwnership from './BlockOwnership';
-import { Row, Stage } from './rows';
 import SerialContainer from './SerialContainer';
-import { createTestRow } from './testFunctions.spec';
 
 type TestContainer = SerialContainer<AbstractBlock>;
 

@@ -5,10 +5,10 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import { Row } from '../rows';
+import * as Visitor from '../Visitor';
 import BlockOwnership from './BlockOwnership';
 import Notifiable from './Notifiable';
-import { Row } from './rows';
-import * as Visitor from './Visitor';
 
 /**
  * Abstract class representing blocks of rows

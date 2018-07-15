@@ -6,10 +6,10 @@
  */
 
 import AbstractSix from '../AbstractSix';
+import { SerialContainer } from '../blocks';
 import Call from '../Call';
 import Quick from '../Quick';
 import { Row } from '../rows';
-import SerialContainer from '../SerialContainer';
 import SixType from '../SixType';
 import Slow from '../Slow';
 import * as Templates from '../templates';
