@@ -5,8 +5,11 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import * as Changes from './Changes';
+
 export { default as AbstractSix } from './AbstractSix';
 export { default as Call } from './Call';
+export { Changes };
 export { default as Course } from './Course';
 export { default as Quick } from './Quick';
 export { default as SixType } from './SixType';

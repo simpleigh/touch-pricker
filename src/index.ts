@@ -14,7 +14,6 @@ import Options from './Options';
 import * as Prickers from './prickers';
 import {
     Bell,
-    Changes,
     Row,
     rowFromString,
     Stage,
@@ -23,6 +22,7 @@ import {
 import {
     AbstractSix,
     Call,
+    Changes,
     Course,
     Quick,
     SixType,

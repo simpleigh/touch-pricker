@@ -5,12 +5,10 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { Call } from '../stedman';
+import { Row, Stage, stringFromRow } from '../rows';
 import { createTestRow } from '../testFunctions.spec';
+import Call from './Call';
 import * as Changes from './Changes';
-import Row from './Row';
-import Stage from './Stage';
-import stringFromRow from './stringFromRow';
 
 const createChangeTests = (
     testFn: (row: Row) => void,

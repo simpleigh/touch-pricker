@@ -10,10 +10,11 @@ import { AbstractContainer, BlockOwnership } from '../../blocks';
 import {
     testAbstractBlockImplementation,
 } from '../../blocks/AbstractBlock.spec';
-import { Changes, Row, Stage, stringFromRow } from '../../rows';
+import { Row, Stage, stringFromRow } from '../../rows';
 import { createTestRow } from '../../testFunctions.spec';
 import { StringArray } from '../../visitors';
 import Call from '../Call';
+import * as Changes from '../Changes';
 import SixType from '../SixType';
 
 export const testSixImplementation = (

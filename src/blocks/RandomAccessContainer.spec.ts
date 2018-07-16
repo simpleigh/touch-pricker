@@ -6,7 +6,8 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { Changes, Row } from '../rows';
+import { Row } from '../rows';
+import { Changes } from '../stedman';
 import { createTestRow } from '../testFunctions.spec';
 import AbstractBlock from './AbstractBlock';
 import { testAbstractContainerImplementation } from './AbstractContainer.spec';
