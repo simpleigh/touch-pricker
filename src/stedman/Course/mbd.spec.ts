@@ -23,8 +23,8 @@ describe('mbd template for Course', () => {
     });
 
     it('can print extra sixes after the pricker', () => {
-        const course = new Course(createTestRow()),
-            extraSixes = course.clone();
+        const course = new Course(createTestRow());
+        const extraSixes = course.clone();
 
         course.setLength(2);
         extraSixes.setLength(2);
@@ -43,8 +43,8 @@ describe('mbd template for Course', () => {
     });
 
     it('can display a six head as well as a six end', () => {
-        const course = new Course(createTestRow()),
-            extraSixes = course.clone();
+        const course = new Course(createTestRow());
+        const extraSixes = course.clone();
 
         course.setLength(2);
         extraSixes.setLength(2);

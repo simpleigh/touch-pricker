@@ -11,8 +11,8 @@ import Row from './Row';
  * Converts a [[Row]] into a string.
  */
 const stringFromRow = (row: Row): string => {
-    const bellSymbols = ' 1234567890ETABC',
-        bellCharacters: string[] = [ ];
+    const bellSymbols = ' 1234567890ETABC';
+    const bellCharacters: string[] = [ ];
 
     for (const bell of row) {
         bellCharacters.push(bellSymbols.charAt(bell));

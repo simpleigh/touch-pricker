@@ -26,8 +26,8 @@ class BlockDirectory {
     public add(...indices: number[]): this;
 
     public add(param: any, ...indices: number[]): this {
-        let directory: any,
-            finalIndex: number | undefined;
+        let directory: any;
+        let finalIndex: number | undefined;
 
         if (typeof param === 'object') {
             indices = BlockDirectory.getIndices(param);
@@ -83,8 +83,8 @@ class BlockDirectory {
      */
     public static getIndices(block: AbstractBlock): number[] {
         const ownershipArray: number[] = [ ];
-        let container: Notifiable | undefined,
-            index: number | undefined;
+        let container: Notifiable | undefined;
+        let index: number | undefined;
 
         index = block.getIndex();
         container = block.getContainer();

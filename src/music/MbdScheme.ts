@@ -35,8 +35,8 @@ class MbdScheme extends AbstractScheme {
      */
     protected createMatchers(rounds: string): MatcherInterface[] {
         const matchers: MatcherInterface[] = [ ];
-        let pattern: string,
-            patternArray: Pattern[];
+        let pattern: string;
+        let patternArray: Pattern[];
 
         // 567890E
         pattern = rounds.slice(4 - this._stage);

@@ -272,8 +272,8 @@ class Mbd extends AbstractPricker implements Notifiable {
     }
 
     public onSetLength(): void {
-        const input = this.getEl<HTMLInputElement>('courseLength').value,
-            length = parseInt(input);
+        const input = this.getEl<HTMLInputElement>('courseLength').value;
+        const length = parseInt(input);
 
         if (length) {
             this._course.safeSetLength(length);
@@ -456,8 +456,8 @@ class Mbd extends AbstractPricker implements Notifiable {
     }
 
     public onProve(): boolean {
-        const proof = new Visitors.Proof(),
-            counter = new Visitors.Counter();
+        const proof = new Visitors.Proof();
+        const counter = new Visitors.Counter();
 
         this._touch.accept(proof, counter);
         this._rowCount = counter.getCount();
@@ -479,10 +479,10 @@ class Mbd extends AbstractPricker implements Notifiable {
     }
 
     public onTab(pageId: string): void {
-        const tabs = this.getEl('tabs').children,
-            tab = this.getEl('tab_' + pageId),
-            pages = this.getEl('pages').children,
-            page = this.getEl('page_' + pageId);
+        const tabs = this.getEl('tabs').children;
+        const tab = this.getEl('tab_' + pageId);
+        const pages = this.getEl('pages').children;
+        const page = this.getEl('page_' + pageId);
 
         // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < tabs.length; i += 1) {

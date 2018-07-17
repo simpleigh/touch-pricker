@@ -187,24 +187,24 @@ class Course
      * Creates a new course from a string representation
      */
     public static fromString(initialRow: Row, input: string): Course {
-        const course: Course = new Course(initialRow),
-            patCourseEnd: string = '[0-9a-z]{3,15}',
-            patCall: string = '(?:\\d{1,2}|\\d{1,2}s|s\\d{1,2})',
-            patSep: string = '[\\s.,]+',
-            patCalling: string = patCall + '(?:' + patSep + patCall + ')*',
-            patSixes: string = '\\((\\d{1,2})[^\\d\\)]*\\)',
-            patAll: string = ''
-                + '^\\s*'
-                + '(?:' + patCourseEnd + '\\s+)?'
-                + '(' + patCalling + '|p)'  // group 1
-                + '(?:\\s+' + patSixes + ')?'  // group 2 in here
-                + '\\s*$',
-            rxAll: RegExp = new RegExp(patAll, 'i'),
-            matches: null | string[] = rxAll.exec(input);
+        const course: Course = new Course(initialRow);
+        const patCourseEnd: string = '[0-9a-z]{3,15}';
+        const patCall: string = '(?:\\d{1,2}|\\d{1,2}s|s\\d{1,2})';
+        const patSep: string = '[\\s.,]+';
+        const patCalling: string = patCall + '(?:' + patSep + patCall + ')*';
+        const patSixes: string = '\\((\\d{1,2})[^\\d\\)]*\\)';
+        const patAll: string = ''
+            + '^\\s*'
+            + '(?:' + patCourseEnd + '\\s+)?'
+            + '(' + patCalling + '|p)'  // group 1
+            + '(?:\\s+' + patSixes + ')?'  // group 2 in here
+            + '\\s*$';
+        const rxAll: RegExp = new RegExp(patAll, 'i');
+        const matches: null | string[] = rxAll.exec(input);
 
-        let calls: string[],
-            i: number,
-            call: string;
+        let calls: string[];
+        let i: number;
+        let call: string;
 
         if (!matches) {
             throw new Error('Cannot import course');

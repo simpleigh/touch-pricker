@@ -48,7 +48,7 @@ describe('Proof visitor', () => {
 
     it('ignores changes to the result', () => {
         const getRowCounts: { [index: string]: number } =
-                visitor.getRowCounts();
+            visitor.getRowCounts();
 
         getRowCounts['2314567890E'] = 5;  // Mutate the getRows result
 

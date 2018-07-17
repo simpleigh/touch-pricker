@@ -126,8 +126,8 @@ const testMbdAbstractSixTemplate = (
         });
 
         it('gives priority to falseness over music', () => {
-            const falseness = new BlockDirectory(),
-                music = new BlockDirectory();
+            const falseness = new BlockDirectory();
+            const music = new BlockDirectory();
 
             falseness.add(2, 1);
             music.add(2, 1);

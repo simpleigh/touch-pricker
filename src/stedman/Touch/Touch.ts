@@ -120,11 +120,11 @@ class Touch
     public static fromString(input: string): Touch {
         const lines: string[] = input.split('\n');
 
-        let i: number,
-            line: string,
-            course: Course,
-            touch: Touch | undefined,
-            start: string | undefined;
+        let i: number;
+        let line: string;
+        let course: Course;
+        let touch: Touch | undefined;
+        let start: string | undefined;
 
         // Process each input line, making text substitutions
         for (i = 0; i < lines.length; i += 1) {

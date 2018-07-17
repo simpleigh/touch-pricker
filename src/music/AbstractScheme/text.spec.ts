@@ -21,8 +21,8 @@ describe('text template for AbstractScheme music class', () => {
     });
 
     it('displays matches by calling contained matchers', () => {
-        const pattern1 = jasmine.createSpyObj('Pattern', ['print']),
-            pattern2 = jasmine.createSpyObj('Pattern', ['print']);
+        const pattern1 = jasmine.createSpyObj('Pattern', ['print']);
+        const pattern2 = jasmine.createSpyObj('Pattern', ['print']);
 
         pattern1.print.and.returnValue('test1');
         pattern2.print.and.returnValue('test2');
