@@ -27,12 +27,15 @@ import Stage from './Stage';
  * ```
  */
 const rowFromString = (input: string, stage: Stage): Row => {
+    // tslint:disable:object-literal-sort-keys
     const bellSymbolsMap: { [index: string]: number } = {
-                '1': 1, '2': 2, '3': 3, '4': 4, '5': 5,
-                '6': 6, '7': 7, '8': 8, '9': 9, '0': 10,
-                'E': 11, 'T': 12, 'A': 13, 'B': 14, 'C': 15,
-            },
-        bellsSeen: boolean[] = [ ],
+            '1': 1, '2': 2, '3': 3, '4': 4, '5': 5,
+            '6': 6, '7': 7, '8': 8, '9': 9, '0': 10,
+            'E': 11, 'T': 12, 'A': 13, 'B': 14, 'C': 15,
+        };
+    // tslint:enable:object-literal-sort-keys
+
+    const bellsSeen: boolean[] = [ ],
         output: Row = [ ];
 
     let bellNumber: Bell,

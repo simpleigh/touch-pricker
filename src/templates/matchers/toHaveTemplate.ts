@@ -25,8 +25,8 @@ const toHaveTemplate: jasmine.CustomMatcherFactory =
             }
 
             return {
-                'pass': true,
                 'message': `Expected object not to have ${expected} template`,
+                'pass': true,
             };
         },
     });

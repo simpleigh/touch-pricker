@@ -162,10 +162,10 @@ class Mbd extends AbstractPricker implements Notifiable {
         this._extraSixes.setFirstSixType((lastSix.type + 1) % 2);
         this._extraSixes.setInitialRow(this._course.getEnd());
         this.getEl('sixends').innerHTML = this._course.print('mbd', {
-            'falseness': this._falseness,
-            'music': this._music,
             'courseIndex': this._copiedIndex,
             'extraSixes': this._extraSixes,
+            'falseness': this._falseness,
+            'music': this._music,
             'showSixHeads': this._showSixHeads,
         });
 
@@ -226,10 +226,10 @@ class Mbd extends AbstractPricker implements Notifiable {
                 + ' onclick="pricker.onSelectCourse()"'
                 + ' ondblclick="pricker.onCopyCourse()">'
                 + this._touch.print('select', {
-                    'touchRows': this._rowCount,
-                    'styleUnreached': 'color:gray',
                     'falseness': this._falseness,
                     'styleFalse': 'color:red',
+                    'styleUnreached': 'color:gray',
+                    'touchRows': this._rowCount,
                 })
                 + '</select>';
         this.getEl<HTMLSelectElement>('courses').size = Math.max(

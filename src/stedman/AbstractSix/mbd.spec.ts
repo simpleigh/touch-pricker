@@ -133,9 +133,9 @@ const testMbdAbstractSixTemplate = (
             music.add(2, 1);
 
             expect(six.print('mbd', {
+                'courseIndex': 2,
                 'falseness': falseness,
                 'music': music,
-                'courseIndex': 2,
             })).toBe(
                 '<span class="falseBlock">'
                     + stringFromRow(six.getEnd())

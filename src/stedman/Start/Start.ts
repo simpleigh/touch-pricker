@@ -170,6 +170,7 @@ class Start extends AbstractBlock implements Templates.Interface {
         let rowIndex: number | null = null;
         let sixType: SixType | null = null;
 
+        // tslint:disable:object-literal-sort-keys
         const rowIndexPatterns: { [key: string]: number } = {
             'first':  1, '1st': 1, '1': 1,
             'second': 2, '2nd': 2, '2': 2,
@@ -178,6 +179,7 @@ class Start extends AbstractBlock implements Templates.Interface {
             'fifth':  5, '5th': 5, '5': 5,
             'sixth':  6, '6th': 6, '6': 6,
         };
+        // tslint:enable:object-literal-sort-keys
 
         for (const pattern in rowIndexPatterns) {
             if (rowIndexPatterns.hasOwnProperty(pattern)) {

@@ -42,8 +42,8 @@ const toBePrintable: jasmine.CustomMatcherFactory = () => ({
         }
 
         return {
-            'pass': true,
             'message': 'Expected object not to be printable',
+            'pass': true,
         };
     },
 });
