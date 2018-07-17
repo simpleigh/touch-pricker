@@ -33,8 +33,16 @@ export const testAbstractPrickerImplementation = (
             expect(pricker).toHaveTemplate('css');
         });
 
+        it('prints as CSS without error', () => {
+            expect(pricker.print('css').length).toBeGreaterThanOrEqual(1);
+        });
+
         it('has a template for printing HTML', () => {
             expect(pricker).toHaveTemplate('html');
+        });
+
+        it('prints as HTML without error', () => {
+            expect(pricker.print('html').length).toBeGreaterThanOrEqual(1);
         });
 
     });
