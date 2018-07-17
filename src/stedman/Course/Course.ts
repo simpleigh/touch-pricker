@@ -188,11 +188,11 @@ class Course
      */
     public static fromString(initialRow: Row, input: string): Course {
         const course: Course = new Course(initialRow);
-        const patCourseEnd: string = '[0-9a-z]{3,15}';
-        const patCall: string = '(?:\\d{1,2}|\\d{1,2}s|s\\d{1,2})';
-        const patSep: string = '[\\s.,]+';
+        const patCourseEnd = '[0-9a-z]{3,15}';
+        const patCall = '(?:\\d{1,2}|\\d{1,2}s|s\\d{1,2})';
+        const patSep = '[\\s.,]+';
         const patCalling: string = patCall + '(?:' + patSep + patCall + ')*';
-        const patSixes: string = '\\((\\d{1,2})[^\\d\\)]*\\)';
+        const patSixes = '\\((\\d{1,2})[^\\d\\)]*\\)';
         const patAll: string = ''
             + '^\\s*'
             + '(?:' + patCourseEnd + '\\s+)?'

@@ -35,8 +35,8 @@ describe('BlockDirectory class', () => {
     });
 
     it('starts out with no sixes in the index', () => {
-        for (let courseIndex: number = 1; courseIndex <= 2; courseIndex += 1) {
-            for (let sixIndex: number = 1; sixIndex <= 22; sixIndex += 1) {
+        for (let courseIndex = 1; courseIndex <= 2; courseIndex += 1) {
+            for (let sixIndex = 1; sixIndex <= 22; sixIndex += 1) {
                 expect(directory.contains(
                     touch.getCourse(courseIndex).getSix(sixIndex),
                 )).toBe(false);
@@ -45,7 +45,7 @@ describe('BlockDirectory class', () => {
     });
 
     it('starts out with no courses in the index', () => {
-        for (let courseIndex: number = 1; courseIndex <= 2; courseIndex += 1) {
+        for (let courseIndex = 1; courseIndex <= 2; courseIndex += 1) {
             expect(directory.contains(touch.getCourse(courseIndex)))
                 .toBe(false);
         }

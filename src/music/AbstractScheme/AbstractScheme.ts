@@ -36,7 +36,7 @@ abstract class AbstractScheme implements MatcherInterface {
      * Matches a row string
      */
     public match(row: string): boolean {
-        let result: boolean = false;
+        let result = false;
 
         for (const matcher of this._matchers) {
             // Call matcher.match explicitly...
@@ -57,7 +57,7 @@ abstract class AbstractScheme implements MatcherInterface {
      * Provides read access to the count of matches
      */
     public getMatchCount(): number {
-        let matches: number = 0;
+        let matches = 0;
 
         for (const matcher of this._matchers) {
             matches += matcher.getMatchCount();

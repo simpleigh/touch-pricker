@@ -7,6 +7,7 @@
         ],
         "max-line-length": [true, 80],
         "member-ordering": false,
+        "no-inferrable-types": [true, "ignore-params", "ignore-properties"],
         "only-arrow-functions": [true],
         "quotemark": [
             true,

@@ -18,7 +18,7 @@ describe('Counter visitor', () => {
 
     it('increments the count when it visits a row', () => {
         const visitor = new Counter();
-        for (let i: number = 1; i < 5; i += 1) {
+        for (let i = 1; i < 5; i += 1) {
             visitor.visit(createTestRow());
             expect(visitor.getCount()).toBe(i);
         }

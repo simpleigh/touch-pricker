@@ -56,7 +56,7 @@ const testSirilAbstractSixTemplate = (
         });
 
         it('renders place notation for lengths in between', () => {
-            for (let touchRows: number = 2; touchRows <= 5; touchRows += 1) {
+            for (let touchRows = 2; touchRows <= 5; touchRows += 1) {
                 expect(six.print('siril', { touchRows })).toBe(
                     'plain, +'
                         + six.notation.slice(0, touchRows - 1).join('.')
