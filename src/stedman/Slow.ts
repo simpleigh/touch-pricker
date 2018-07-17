@@ -23,12 +23,12 @@ class Slow extends AbstractSix {
     /**
      * Type of the six
      */
-    public readonly type = SixType.Slow;
+    public readonly type: SixType = SixType.Slow;
 
     /**
      * Notation (excluding call)
      */
-    public readonly notation = ['3', '1', '3', '1', '3'];
+    public readonly notation: string[] = ['3', '1', '3', '1', '3'];
 
     /* AbstractBlock methods **************************************************/
 

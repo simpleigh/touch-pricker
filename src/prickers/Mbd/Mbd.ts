@@ -303,19 +303,19 @@ class Mbd extends AbstractPricker implements Notifiable {
         this.redraw();
     }
 
-    public onRowIndex() {
+    public onRowIndex(): void {
         const input = this.getEl<HTMLSelectElement>('rowIndex').value;
         this._touch.getStart().setRowIndex(parseInt(input));
         this.redrawTouch();
     }
 
-    public onSixType() {
+    public onSixType(): void {
         const input = this.getEl<HTMLSelectElement>('sixType').value;
         this._touch.getStart().setSixType(parseInt(input));
         this.redrawTouch();
     }
 
-    public onSelectCourse() {
+    public onSelectCourse(): void {
         const input = this.getEl<HTMLSelectElement>('courses').value;
         this._selectedIndex = parseInt(input);
     }
@@ -386,7 +386,7 @@ class Mbd extends AbstractPricker implements Notifiable {
         }
     }
 
-    public onLoadTouch() {
+    public onLoadTouch(): void {
         const input = this.getEl<HTMLTextAreaElement>('loadSaveTextarea').value;
         let newTouch: Touch;
 
@@ -409,7 +409,7 @@ class Mbd extends AbstractPricker implements Notifiable {
         this.redrawTouch();
     }
 
-    public onSaveTouch() {
+    public onSaveTouch(): void {
         this.getEl<HTMLTextAreaElement>('loadSaveTextarea').value =
             this._touch.print('text');
     }

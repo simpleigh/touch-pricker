@@ -15,6 +15,13 @@
             "avoid-escape"
         ],
         "radix": false,
+        "typedef": [
+            true,
+            "call-signature",
+            "parameter",
+            "property-declaration",
+            "member-variable-declaration"
+        ],
         "variable-name": [
             true,
             "ban-keywords",

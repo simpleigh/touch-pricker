@@ -36,7 +36,7 @@ class CustomScheme extends AbstractScheme {
     /**
      * Allows additional matchers to be added
      */
-    public addMatcher(matcher: MatcherInterface) {
+    public addMatcher(matcher: MatcherInterface): void {
         this._matchers.push(matcher);
     }
 
