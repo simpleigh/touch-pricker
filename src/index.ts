@@ -1,30 +1,36 @@
-import AbstractBlock from './AbstractBlock';
-import AbstractContainer from './AbstractContainer';
-import AbstractSix from './AbstractSix';
-import Bell from './Bell';
-import BlockDirectory from './BlockDirectory';
-import BlockOwnership from './BlockOwnership';
-import Call from './Call';
-import * as Changes from './Changes';
-import Course from './Course';
+import {
+    AbstractBlock,
+    AbstractContainer,
+    BlockDirectory,
+    BlockOwnership,
+    Notifiable,
+    RandomAccessContainer,
+    SerialContainer,
+} from './blocks';
 import create from './create';
-import * as Dom from './Dom';
-import * as Music from './Music';
-import Notifiable from './Notifiable';
+import * as Dom from './dom';
+import * as Music from './music';
 import Options from './Options';
-import * as Pricker from './Pricker';
-import Quick from './Quick';
-import RandomAccessContainer from './RandomAccessContainer';
-import Row from './Row';
-import rowFromString from './rowFromString';
-import SerialContainer from './SerialContainer';
-import SixType from './SixType';
-import Slow from './Slow';
-import Stage from './Stage';
-import Start from './Start';
-import stringFromRow from './stringFromRow';
-import Touch from './Touch';
-import * as Visitor from './Visitor';
+import * as Prickers from './prickers';
+import {
+    Bell,
+    Row,
+    rowFromString,
+    Stage,
+    stringFromRow,
+} from './rows';
+import {
+    AbstractSix,
+    Call,
+    Changes,
+    Course,
+    Quick,
+    SixType,
+    Slow,
+    Start,
+    Touch,
+} from './stedman';
+import * as Visitors from './visitors';
 
 export {
     AbstractBlock,
@@ -41,7 +47,7 @@ export {
     Music,
     Notifiable,
     Options,
-    Pricker,
+    Prickers,
     Quick,
     RandomAccessContainer,
     Row,
@@ -53,5 +59,5 @@ export {
     Start,
     stringFromRow,
     Touch,
-    Visitor,
+    Visitors,
 };

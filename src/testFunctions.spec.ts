@@ -5,9 +5,7 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import Row from './Row';
-import rowFromString from './rowFromString';
-import Stage from './Stage';
+import { Row, rowFromString, Stage } from './rows';
 
 /**
  * Helper functions for testing

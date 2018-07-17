@@ -5,9 +5,9 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import * as Dom from '../Dom';
+import { createAndAppendStyle, createIframe, injectIframeData } from '../dom';
 import Options from '../Options';
-import * as Pricker from '../Pricker';
+import { Mbd } from '../prickers';
 import html from './html.dot';
 
 /**
@@ -20,8 +20,8 @@ const create = (
     elementId: string,
     options: Options = { },
     parentDocument: HTMLDocument = document,
-): Pricker.Mbd => {
-    let pricker: Pricker.Mbd;
+): Mbd => {
+    let pricker: Mbd;
 
     const element = parentDocument.getElementById(elementId);
     if (!element) {
@@ -29,13 +29,13 @@ const create = (
     }
 
     if (options.iframe || options.iframe === undefined) {
-        const iframe = Dom.createIframe(parentDocument);
+        const iframe = createIframe(parentDocument);
         element.appendChild(iframe);
-        pricker = new Pricker.Mbd(iframe);
-        Dom.injectIframeData(iframe, html({ pricker }), { pricker });
+        pricker = new Mbd(iframe);
+        injectIframeData(iframe, html({ pricker }), { pricker });
     } else {
-        pricker = new Pricker.Mbd();
-        Dom.createAndAppendStyle(parentDocument, pricker.print('css'));
+        pricker = new Mbd();
+        createAndAppendStyle(parentDocument, pricker.print('css'));
         element.innerHTML = pricker.print('html');
         (window as any).pricker = pricker;
         if (parentDocument === document) {
