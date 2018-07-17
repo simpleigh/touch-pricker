@@ -151,7 +151,7 @@ describe('Course class', () => {
 
     it('only calls notify once when resetting the calls', () => {
         const container = jasmine.createSpyObj('Notifiable', ['notify']);
-        course.setOwnership({ 'container': container, 'index': 1 });
+        course.setOwnership({ container, index: 1 });
         course.resetCalls();
         expect(container.notify).toHaveBeenCalledTimes(1);
     });

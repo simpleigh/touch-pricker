@@ -29,10 +29,10 @@ describe('text template for Pattern music class', () => {
 
     it('suppresses counts for a single named row match', () => {
         const pattern = new Pattern(
-                '2314567890E',
-                'Standard start sixend',
-                MatchType.Row,
-            );
+            '2314567890E',
+            'Standard start sixend',
+            MatchType.Row,
+        );
 
         pattern.match('2314567890E');
         expect(pattern.print('text')).toBe('Standard start sixend\n');
@@ -40,10 +40,10 @@ describe('text template for Pattern music class', () => {
 
     it('displays counts anyway for multiple named row matches', () => {
         const pattern = new Pattern(
-                '2314567890E',
-                'Standard start sixend',
-                MatchType.Row,
-            );
+            '2314567890E',
+            'Standard start sixend',
+            MatchType.Row,
+        );
 
         pattern.match('2314567890E');
         pattern.match('2314567890E');
@@ -53,13 +53,13 @@ describe('text template for Pattern music class', () => {
     it('allows the line ending to be customised', () => {
         const pattern = new Pattern('90E');
         pattern.match('2314567890E');
-        expect(pattern.print('text', {'end': '#'})).toBe('1 90E#');
+        expect(pattern.print('text', { end: '#' })).toBe('1 90E#');
     });
 
     it('allows the line ending to be removed', () => {
         const pattern = new Pattern('90E');
         pattern.match('2314567890E');
-        expect(pattern.print('text', {'end': ''})).toBe('1 90E');
+        expect(pattern.print('text', { end: '' })).toBe('1 90E');
     });
 
 });

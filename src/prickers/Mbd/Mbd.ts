@@ -140,13 +140,13 @@ class Mbd extends AbstractPricker implements Notifiable {
 
         this._course = new Course(
             this._initialRow,
-            {'container': this, 'index': Block.Course},
+            { container: this, index: Block.Course },
         );
         this._extraSixes = new Course(this._initialRow);
         this._extraSixes.setLength(8);
         this._touch = new Touch(
             rowFromString('', this._stage),
-            {'container': this, 'index': Block.Touch},
+            { container: this, index: Block.Touch },
         );
         this._musicScheme = new MbdScheme(this._stage);
 
@@ -162,11 +162,11 @@ class Mbd extends AbstractPricker implements Notifiable {
         this._extraSixes.setFirstSixType((lastSix.type + 1) % 2);
         this._extraSixes.setInitialRow(this._course.getEnd());
         this.getEl('sixends').innerHTML = this._course.print('mbd', {
-            'falseness': this._falseness,
-            'music': this._music,
-            'courseIndex': this._copiedIndex,
-            'extraSixes': this._extraSixes,
-            'showSixHeads': this._showSixHeads,
+            courseIndex: this._copiedIndex,
+            extraSixes: this._extraSixes,
+            falseness: this._falseness,
+            music: this._music,
+            showSixHeads: this._showSixHeads,
         });
 
         this.getEl('calling').innerHTML = this._course.print('html');
@@ -202,13 +202,9 @@ class Mbd extends AbstractPricker implements Notifiable {
 
     private redrawTouch(): void {
         this.getEl('proofResult').innerText = this._proofText || '';
-        if (this._rowCount) {
-            this.getEl('numRows').innerText =
-                this._rowCount + ' Stedman ' + Stage[this._stage];
-        } else {
-            this.getEl('numRows').innerText =
-                this._touch.estimateRows() + ' changes';
-        }
+        this.getEl('numRows').innerText = this._rowCount
+            ? this._rowCount + ' Stedman ' + Stage[this._stage]
+            : this._touch.estimateRows() + ' changes';
 
         this.getEl<HTMLSelectElement>('rowIndex').value =
             this._touch.getStart().getRowIndex().toString();
@@ -226,10 +222,10 @@ class Mbd extends AbstractPricker implements Notifiable {
                 + ' onclick="pricker.onSelectCourse()"'
                 + ' ondblclick="pricker.onCopyCourse()">'
                 + this._touch.print('select', {
-                    'touchRows': this._rowCount,
-                    'styleUnreached': 'color:gray',
-                    'falseness': this._falseness,
-                    'styleFalse': 'color:red',
+                    falseness: this._falseness,
+                    styleFalse: 'color:red',
+                    styleUnreached: 'color:gray',
+                    touchRows: this._rowCount,
                 })
                 + '</select>';
         this.getEl<HTMLSelectElement>('courses').size = Math.max(
@@ -272,8 +268,8 @@ class Mbd extends AbstractPricker implements Notifiable {
     }
 
     public onSetLength(): void {
-        const input = this.getEl<HTMLInputElement>('courseLength').value,
-            length = parseInt(input);
+        const input = this.getEl<HTMLInputElement>('courseLength').value;
+        const length = parseInt(input);
 
         if (length) {
             this._course.safeSetLength(length);
@@ -302,27 +298,24 @@ class Mbd extends AbstractPricker implements Notifiable {
             this._course = new Course(this._initialRow);
         }
 
-        this._course.setOwnership({
-            'container': this,
-            'index': Block.Course,
-        });
+        this._course.setOwnership({ container: this, index: Block.Course });
 
         this.redraw();
     }
 
-    public onRowIndex() {
+    public onRowIndex(): void {
         const input = this.getEl<HTMLSelectElement>('rowIndex').value;
         this._touch.getStart().setRowIndex(parseInt(input));
         this.redrawTouch();
     }
 
-    public onSixType() {
+    public onSixType(): void {
         const input = this.getEl<HTMLSelectElement>('sixType').value;
         this._touch.getStart().setSixType(parseInt(input));
         this.redrawTouch();
     }
 
-    public onSelectCourse() {
+    public onSelectCourse(): void {
         const input = this.getEl<HTMLSelectElement>('courses').value;
         this._selectedIndex = parseInt(input);
     }
@@ -369,10 +362,7 @@ class Mbd extends AbstractPricker implements Notifiable {
     public onCopyCourse(): void {
         if (this._selectedIndex) {
             this._course = this._touch.getCourse(this._selectedIndex).clone();
-            this._course.setOwnership({
-                'container': this,
-                'index': Block.Course,
-            });
+            this._course.setOwnership({ container: this, index: Block.Course });
 
             this._copiedIndex = this._selectedIndex;
             this.redraw();
@@ -396,7 +386,7 @@ class Mbd extends AbstractPricker implements Notifiable {
         }
     }
 
-    public onLoadTouch() {
+    public onLoadTouch(): void {
         const input = this.getEl<HTMLTextAreaElement>('loadSaveTextarea').value;
         let newTouch: Touch;
 
@@ -412,14 +402,14 @@ class Mbd extends AbstractPricker implements Notifiable {
         this.onStage();
 
         this._touch = newTouch;
-        this._touch.setOwnership({ 'container': this, 'index': Block.Touch });
+        this._touch.setOwnership({ container: this, index: Block.Touch });
 
         // Call notify() to clear out state from the previous touch
         this.notify(Block.Touch); // calls redraw()
         this.redrawTouch();
     }
 
-    public onSaveTouch() {
+    public onSaveTouch(): void {
         this.getEl<HTMLTextAreaElement>('loadSaveTextarea').value =
             this._touch.print('text');
     }
@@ -431,7 +421,7 @@ class Mbd extends AbstractPricker implements Notifiable {
         }
 
         this.getEl('sirilTextarea').innerText =
-            this._touch.print('siril', {'touchRows': this._rowCount});
+            this._touch.print('siril', { touchRows: this._rowCount });
     }
 
     public onAnalyseMusic(): void {
@@ -456,19 +446,17 @@ class Mbd extends AbstractPricker implements Notifiable {
     }
 
     public onProve(): boolean {
-        const proof = new Visitors.Proof(),
-            counter = new Visitors.Counter();
+        const proof = new Visitors.Proof();
+        const counter = new Visitors.Counter();
 
         this._touch.accept(proof, counter);
         this._rowCount = counter.getCount();
         this._falseness = proof.getDirectory();
 
         if (proof.isTrue()) {
-            if (proof.isVisiting()) {
-                this._proofText = "True, but doesn't come round";
-            } else {
-                this._proofText = 'Composition is true';
-            }
+            this._proofText = proof.isVisiting()
+                ? "True, but doesn't come round"
+                : 'Composition is true';
         } else {
             this._proofText = 'Composition is FALSE';
         }
@@ -479,10 +467,10 @@ class Mbd extends AbstractPricker implements Notifiable {
     }
 
     public onTab(pageId: string): void {
-        const tabs = this.getEl('tabs').children,
-            tab = this.getEl('tab_' + pageId),
-            pages = this.getEl('pages').children,
-            page = this.getEl('page_' + pageId);
+        const tabs = this.getEl('tabs').children;
+        const tab = this.getEl('tab_' + pageId);
+        const pages = this.getEl('pages').children;
+        const page = this.getEl('page_' + pageId);
 
         // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < tabs.length; i += 1) {

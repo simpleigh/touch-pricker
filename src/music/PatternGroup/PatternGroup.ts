@@ -41,7 +41,7 @@ class PatternGroup implements MatcherInterface {
      * Matches a row string
      */
     public match(row: string): boolean {
-        let result: boolean = false;
+        let result = false;
 
         for (const pattern of this._patterns) {
             // Call pattern.match explicitly...
@@ -91,7 +91,7 @@ class PatternGroup implements MatcherInterface {
      * Provides read access to the count of matches within patterns
      */
     public getSubmatchCount(): number {
-        let matches: number = 0;
+        let matches = 0;
 
         for (const pattern of this._patterns) {
             matches += pattern.getMatchCount();

@@ -9,9 +9,9 @@
  * Creates an iframe for pricker rendering
  * @param parentDocument - document object to use (inject for testing)
  */
-function createIframe(
+const createIframe = (
     parentDocument: HTMLDocument = document,
-): HTMLIFrameElement {
+): HTMLIFrameElement => {
     const iframe = parentDocument.createElement('iframe');
 
     iframe.frameBorder = '0';
@@ -20,6 +20,6 @@ function createIframe(
     iframe.style.border = 'none';
 
     return iframe;
-}
+};
 
 export default createIframe;

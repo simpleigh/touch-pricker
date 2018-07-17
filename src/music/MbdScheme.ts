@@ -35,8 +35,8 @@ class MbdScheme extends AbstractScheme {
      */
     protected createMatchers(rounds: string): MatcherInterface[] {
         const matchers: MatcherInterface[] = [ ];
-        let pattern: string,
-            patternArray: Pattern[];
+        let pattern: string;
+        let patternArray: Pattern[];
 
         // 567890E
         pattern = rounds.slice(4 - this._stage);
@@ -54,7 +54,7 @@ class MbdScheme extends AbstractScheme {
 
         // Near misses
         patternArray = [ ];
-        for (let i: number = 0; i < this._stage - 1; i += 1) {
+        for (let i = 0; i < this._stage - 1; i += 1) {
             pattern = rounds.slice(0, i)  // 123
                 + rounds.charAt(i + 1)    // 5
                 + rounds.charAt(i)        // 4

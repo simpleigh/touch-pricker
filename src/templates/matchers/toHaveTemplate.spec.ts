@@ -11,7 +11,7 @@ import toHaveTemplate from './toHaveTemplate';
 describe('toHaveTemplate matcher', () => {
     const compare = toHaveTemplate(jasmine.matchersUtil, [ ]).compare;
 
-    @Templates.makePrintable({ 'template': () => '' })
+    @Templates.makePrintable({ template: () => '' })
     class Printable implements Templates.Interface {
         public print: Templates.Print;
     }

@@ -18,7 +18,7 @@ describe('createAndAppendStyle DOM utility', () => {
             'createElement',
         ]);
         parentDocument.createElement.and.returnValue(mockStyle);
-        (parentDocument as any).head = { 'appendChild':  jasmine.createSpy() };
+        (parentDocument as any).head = { appendChild:  jasmine.createSpy() };
     });
 
     it('creates a style element', () => {

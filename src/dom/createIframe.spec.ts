@@ -13,7 +13,7 @@ describe('createIframe DOM utility', () => {
     let parentDocument: jasmine.SpyObj<HTMLDocument>;
 
     beforeEach(() => {
-        mockIframe = { 'style': { } };
+        mockIframe = { style: { } };
         parentDocument = jasmine.createSpyObj('HTMLDocument', [
             'createElement',
         ]);

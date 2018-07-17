@@ -26,17 +26,20 @@ import Stage from './Stage';
  * [2, 3, 1, 4, 5, 6, 7, 8, 9, 0, 11]
  * ```
  */
-function rowFromString(input: string, stage: Stage): Row {
+const rowFromString = (input: string, stage: Stage): Row => {
+    // tslint:disable
     const bellSymbolsMap: { [index: string]: number } = {
-                '1': 1, '2': 2, '3': 3, '4': 4, '5': 5,
-                '6': 6, '7': 7, '8': 8, '9': 9, '0': 10,
-                'E': 11, 'T': 12, 'A': 13, 'B': 14, 'C': 15,
-            },
-        bellsSeen: boolean[] = [ ],
-        output: Row = [ ];
+        '1': 1, '2': 2, '3': 3, '4': 4, '5': 5,
+        '6': 6, '7': 7, '8': 8, '9': 9, '0': 10,
+        'E': 11, 'T': 12, 'A': 13, 'B': 14, 'C': 15,
+    };
+    // tslint:enable
 
-    let bellNumber: Bell,
-        inputIndex: number;
+    const bellsSeen: boolean[] = [ ];
+    const output: Row = [ ];
+
+    let bellNumber: Bell;
+    let inputIndex: number;
 
     input = input.toUpperCase();
 
@@ -76,6 +79,6 @@ function rowFromString(input: string, stage: Stage): Row {
     }
 
     return output;
-}
+};
 
 export default rowFromString;

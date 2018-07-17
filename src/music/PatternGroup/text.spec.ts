@@ -16,9 +16,9 @@ describe('text template for PatternGroup music class', () => {
 
     it('displays one match correctly', () => {
         const group = new PatternGroup(
-                    'group',
-                    [new Pattern('90E')],
-                );
+            'group',
+            [new Pattern('90E')],
+        );
 
         group.match('2314567890E');
         expect(group.print('text')).toBe('1 group (1 90E)\n');
@@ -26,9 +26,9 @@ describe('text template for PatternGroup music class', () => {
 
     it('displays multiple matches correctly', () => {
         const group = new PatternGroup('group', [
-                    new Pattern('90E'),
-                    new Pattern('890E'),
-                ]);
+            new Pattern('90E'),
+            new Pattern('890E'),
+        ]);
 
         group.match('2314567890E');
         expect(group.print('text')).toBe('2 group (1 90E, 1 890E)\n');
@@ -36,9 +36,9 @@ describe('text template for PatternGroup music class', () => {
 
     it('ignores unmatched patterns', () => {
         const group = new PatternGroup('group', [
-                    new Pattern('90E'),
-                    new Pattern('09E'),
-                ]);
+            new Pattern('90E'),
+            new Pattern('09E'),
+        ]);
 
         group.match('2314567890E');
         expect(group.print('text')).toBe('1 group (1 90E)\n');
@@ -46,10 +46,10 @@ describe('text template for PatternGroup music class', () => {
 
     it('hides pattern counts if only the parent pattern matches', () => {
         const group = new PatternGroup(
-                    'group',
-                    [new Pattern('1234567890E')], // fail
-                    new Pattern('2314567890E'), // pass
-                );
+            'group',
+            [new Pattern('1234567890E')], // fail
+            new Pattern('2314567890E'), // pass
+        );
 
         group.match('2314567890E');
         expect(group.print('text')).toBe('1 group\n');

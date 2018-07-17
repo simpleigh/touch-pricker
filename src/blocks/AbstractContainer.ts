@@ -67,7 +67,7 @@ abstract class AbstractContainer<Block extends AbstractBlock>
      * The estimate doesn't take into account coming round part-way through
      */
     public estimateRows(): number {
-        let rows: number = 0;
+        let rows = 0;
         for (const block of this._blocks) {
             rows += block.estimateRows();
         }

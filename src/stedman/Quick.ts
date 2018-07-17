@@ -17,18 +17,18 @@ import SixType from './SixType';
 /**
  * A quick six
  */
-@Templates.makePrintable({ mbd, siril }, { Call, 'type': 'quick' })
+@Templates.makePrintable({ mbd, siril }, { Call, type: 'quick' })
 class Quick extends AbstractSix {
 
     /**
      * Type of the six
      */
-    public readonly type = SixType.Quick;
+    public readonly type: SixType = SixType.Quick;
 
     /**
      * Notation (excluding call)
      */
-    public readonly notation = ['1', '3', '1', '3', '1'];
+    public readonly notation: string[] = ['1', '3', '1', '3', '1'];
 
     /* AbstractBlock methods **************************************************/
 

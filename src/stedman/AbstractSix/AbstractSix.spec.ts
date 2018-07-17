@@ -59,8 +59,8 @@ export const testSixImplementation = (
 
     it('updates when the initial row changes', runTestCases(
         (previous, expected, stage, call) => {
-            const incorrectPrevious: Row = createTestRow('', stage),
-                six = factory(incorrectPrevious);
+            const incorrectPrevious = createTestRow('', stage);
+            const six = factory(incorrectPrevious);
 
             six.setCall(call);
             expect(six.getLast()).not.toEqual(expected);
@@ -92,8 +92,8 @@ export const testSixImplementation = (
 
     it('generates the correct last row when visited', runTestCases(
         (previous, expected, stage, call) => {
-            const six = factory(previous),
-                visitor = new StringArray();
+            const six = factory(previous);
+            const visitor = new StringArray();
             let strings: string[];
 
             six.setCall(call);
@@ -106,8 +106,8 @@ export const testSixImplementation = (
 
     it('computes the six head correctly', runTestCases(
         (previous, expected, stage, call) => {
-            const six = factory(previous),
-                row = previous.slice();
+            const six = factory(previous);
+            const row = previous.slice();
             Changes.permuteCall(row, call);
             six.setCall(call);
             expect(six.getHead()).toEqual(row);
@@ -115,10 +115,10 @@ export const testSixImplementation = (
     ));
 
     it('generates the correct rows when visited', () => {
-        let initialRow: Row,
-            six: AbstractSix,
-            visitor: StringArray,
-            strings: string[];
+        let initialRow: Row;
+        let six: AbstractSix;
+        let visitor: StringArray;
+        let strings: string[];
 
         for (const rowTest of rowTests) {
             const expectedRow: any[] = rowTest.slice(0, 6);  // Six test rows
@@ -135,23 +135,20 @@ export const testSixImplementation = (
 
     describe('is derived from AbstractSix and', () => {
 
-        function createTestSix(
+        const createTestSix = (
             container?: AbstractContainer<AbstractSix>,
             index: number = 999,
-        ): AbstractSix {
+        ): AbstractSix => {
             if (container) {
-                return factory(
-                    createTestRow(),
-                    { 'container': container, 'index': index },
-                );
+                return factory(createTestRow(), { container, index });
             }
             return factory(createTestRow());
-        }
+        };
 
         it('ignores changes to the returned six head', () => {
-            const six = createTestSix(),
-                getHead = six.getHead(),
-                getHeadBackup = getHead.slice();
+            const six = createTestSix();
+            const getHead = six.getHead();
+            const getHeadBackup = getHead.slice();
 
             getHead[3] = 999;  // Mutate the getHead result
             expect(getHead).not.toEqual(getHeadBackup);
@@ -196,37 +193,37 @@ export const testSixImplementation = (
         });
 
         it('can suppress updates when a call is set', () => {
-            const six = createTestSix(),
-                originalLast: Row = six.getLast();
+            const six = createTestSix();
+            const originalLast: Row = six.getLast();
 
             six.setCall(Call.Bob, false);
             expect(six.getLast()).toEqual(originalLast);
         });
 
         it('notifies the parent course when a call is set', () => {
-            const parent = jasmine.createSpyObj('Course', ['notify']),
-                six = createTestSix(parent);
+            const parent = jasmine.createSpyObj('Course', ['notify']);
+            const six = createTestSix(parent);
             six.setCall(Call.Plain);
             expect(parent.notify).toHaveBeenCalledWith(999);
         });
 
         it('notifies the parent course when toggled', () => {
-            const parent = jasmine.createSpyObj('Course', ['notify']),
-                six = createTestSix(parent);
+            const parent = jasmine.createSpyObj('Course', ['notify']);
+            const six = createTestSix(parent);
             six.toggleCall();
             expect(parent.notify).toHaveBeenCalledWith(999);
         });
 
         it('can suppress notification when a call is set', () => {
-            const parent = jasmine.createSpyObj('Course', ['notify']),
-                six = createTestSix(parent);
+            const parent = jasmine.createSpyObj('Course', ['notify']);
+            const six = createTestSix(parent);
             six.setCall(Call.Plain, false);
             expect(parent.notify).not.toHaveBeenCalled();
         });
 
         it('passes itself to visitors', () => {
-            const six = factory(createTestRow('123')),
-                visitor = jasmine.createSpyObj('AbstractVisitor', ['visit']);
+            const six = factory(createTestRow('123'));
+            const visitor = jasmine.createSpyObj('AbstractVisitor', ['visit']);
 
             six.accept(visitor);
             expect(visitor.visit).toHaveBeenCalledTimes(6);

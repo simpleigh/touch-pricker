@@ -22,7 +22,7 @@ abstract class AbstractPrintable implements Printable {
         return this.templates[name]({
             ...this.extraContext,
             ...context,
-            'object': this,
+            object: this,
             stringFromRow,
         });
     }

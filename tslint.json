@@ -7,38 +7,39 @@
         ],
         "max-line-length": [true, 80],
         "member-ordering": false,
-        "no-namespace": false,
-        "no-reference": false,
-        "object-literal-key-quotes": [
-            true,
-            "always"
-        ],
-        "object-literal-sort-keys": false,
-        "one-variable-per-declaration": false,
-        "only-arrow-functions": [true, "allow-named-functions"],
-        "prefer-conditional-expression": false,
+        "no-inferrable-types": [true, "ignore-params", "ignore-properties"],
+        "only-arrow-functions": [true],
         "quotemark": [
             true,
             "single",
             "avoid-escape"
         ],
         "radix": false,
-        "space-before-function-paren": [true, {
-            "anonymous": "always",
-            "asyncArrow": "always",
-            "constructor": "never",
-            "method": "never",
-            "named": "never"
-        }],
-        "trailing-comma": [true, {
-            "multiline": "always",
-            "singleline": "never"
-        }],
+        "typedef": [
+            true,
+            "call-signature",
+            "parameter",
+            "property-declaration",
+            "member-variable-declaration"
+        ],
         "variable-name": [
             true,
             "ban-keywords",
             "check-format",
             "allow-leading-underscore"
+        ],
+        "whitespace": [
+            true,
+            "check-branch",
+            "check-decl",
+            "check-operator",
+            "check-module",
+            "check-separator",
+            "check-type",
+            "check-typecast",
+            "check-preblock",
+            "check-type-operator",
+            "check-rest-spread"
         ]
     }
 }

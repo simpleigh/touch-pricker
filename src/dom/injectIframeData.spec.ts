@@ -18,7 +18,7 @@ describe('injectIframeData DOM utility', () => {
             'write',
             'close',
         ]);
-        iframe = { 'contentWindow': { 'document': contentDocument } };
+        iframe = { contentWindow: { document: contentDocument } };
     });
 
     it('opens the document for writing', () => {
@@ -27,7 +27,7 @@ describe('injectIframeData DOM utility', () => {
     });
 
     it('passes global variables to the child window', () => {
-        injectIframeData(iframe, '', { 'key': 'value' });
+        injectIframeData(iframe, '', { key: 'value' });
         expect(iframe.contentWindow.key).toBe('value');
     });
 

@@ -36,13 +36,12 @@ abstract class SerialContainer<Block extends AbstractBlock>
      * @param blocks  blocks to add
      */
     private extend(blocks: number): this {
-        const oldLength: number = this.getLength(),
-            newLength: number = oldLength + blocks;
+        const oldLength = this.getLength();
+        const newLength = oldLength + blocks;
 
-        let index: number,
-            initialRow: Row = this.getLast();
+        let initialRow = this.getLast();
 
-        for (index = oldLength + 1; index <= newLength; index += 1) {
+        for (let index = oldLength + 1; index <= newLength; index += 1) {
             this._blocks[index - 1] = this.createBlock(initialRow, index);
             initialRow = this._blocks[index - 1].getLast();
         }

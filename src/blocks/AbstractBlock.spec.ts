@@ -106,7 +106,7 @@ export const testAbstractBlockImplementation = (
         it('notifies the parent container', () => {
             const container: AbstractContainer<AbstractBlock> =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
-            block.setOwnership({ 'container': container, 'index': 999 });
+            block.setOwnership({ container, index: 999 });
             triggerNotification(block);
             expect(container.notify).toHaveBeenCalledWith(999);
         });
@@ -114,7 +114,7 @@ export const testAbstractBlockImplementation = (
         it('does not notify when the initial row changes', () => {
             const container: AbstractContainer<AbstractBlock> =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
-            block.setOwnership({ 'container': container, 'index': 999 });
+            block.setOwnership({ container, index: 999 });
             block.setInitialRow(testRow);
             expect(container.notify).not.toHaveBeenCalled();
         });
@@ -122,7 +122,7 @@ export const testAbstractBlockImplementation = (
         it('allows access to parent information', () => {
             const container: AbstractContainer<AbstractBlock> =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
-            block.setOwnership({ 'container': container, 'index': 999 });
+            block.setOwnership({ container, index: 999 });
             expect(block.getContainer()).toBe(container);
             expect(block.getIndex()).toBe(999);
         });
@@ -132,9 +132,9 @@ export const testAbstractBlockImplementation = (
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
             const containerNew: AbstractContainer<AbstractBlock> =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
-            block = factory(testRow, {'container': containerOld, 'index': 999});
+            block = factory(testRow, { container: containerOld, index: 999 });
 
-            block.setOwnership({'container': containerNew, 'index': 998});
+            block.setOwnership({ container: containerNew, index: 998 });
             expect(block.getContainer()).toBe(containerNew);
             expect(block.getIndex()).toBe(998);
         });
@@ -142,7 +142,7 @@ export const testAbstractBlockImplementation = (
         it('can be detached from a parent', () => {
             const container: AbstractContainer<AbstractBlock> =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
-            block.setOwnership({ 'container': container, 'index': 999 });
+            block.setOwnership({ container, index: 999 });
             block.clearOwnership();
             expect(block.getContainer()).toBeUndefined();
             expect(block.getIndex()).toBeUndefined();

@@ -47,17 +47,17 @@ const testSirilAbstractSixTemplate = (
         });
 
         it('renders just the call when only one row is needed', () => {
-            expect(six.print('siril', {'touchRows': 1})).toBe('plain, ');
+            expect(six.print('siril', { touchRows: 1 })).toBe('plain, ');
         });
 
         it('renders the whole six when six rows are needed', () => {
-            expect(six.print('siril', {'touchRows': 6}))
+            expect(six.print('siril', { touchRows: 6 }))
                 .toBe('plain, ' + type + ', ');
         });
 
         it('renders place notation for lengths in between', () => {
-            for (let touchRows: number = 2; touchRows <= 5; touchRows += 1) {
-                expect(six.print('siril', {'touchRows': touchRows})).toBe(
+            for (let touchRows = 2; touchRows <= 5; touchRows += 1) {
+                expect(six.print('siril', { touchRows })).toBe(
                     'plain, +'
                         + six.notation.slice(0, touchRows - 1).join('.')
                         + ', ',
