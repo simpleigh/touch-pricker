@@ -28,10 +28,6 @@
             "method": "never",
             "named": "never"
         }],
-        "trailing-comma": [true, {
-            "multiline": "always",
-            "singleline": "never"
-        }],
         "variable-name": [
             true,
             "ban-keywords",
