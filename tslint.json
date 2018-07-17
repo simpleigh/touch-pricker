@@ -7,8 +7,6 @@
         ],
         "max-line-length": [true, 80],
         "member-ordering": false,
-        "no-namespace": false,
-        "no-reference": false,
         "object-literal-key-quotes": [
             true,
             "always"
