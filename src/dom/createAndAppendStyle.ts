@@ -9,10 +9,10 @@
  * Creates a style element for pricker rendering
  * @param parentDocument - document object to use (inject for testing)
  */
-function createAndAppendStyle(
+const createAndAppendStyle = (
     parentDocument: HTMLDocument = document,
     styles: string = '',
-): HTMLStyleElement {
+): HTMLStyleElement => {
     const style = parentDocument.createElement('style');
     style.type = 'text/css';
     style.innerText = styles;
@@ -20,6 +20,6 @@ function createAndAppendStyle(
     parentDocument.head.appendChild(style);
 
     return style;
-}
+};
 
 export default createAndAppendStyle;

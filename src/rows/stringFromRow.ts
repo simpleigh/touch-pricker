@@ -10,7 +10,7 @@ import Row from './Row';
 /**
  * Converts a [[Row]] into a string.
  */
-function stringFromRow(row: Row): string {
+const stringFromRow = (row: Row): string => {
     const bellSymbols = ' 1234567890ETABC',
         bellCharacters: string[] = [ ];
 
@@ -19,6 +19,6 @@ function stringFromRow(row: Row): string {
     }
 
     return bellCharacters.join('');
-}
+};
 
 export default stringFromRow;

@@ -135,10 +135,10 @@ export const testSixImplementation = (
 
     describe('is derived from AbstractSix and', () => {
 
-        function createTestSix(
+        const createTestSix = (
             container?: AbstractContainer<AbstractSix>,
             index: number = 999,
-        ): AbstractSix {
+        ): AbstractSix => {
             if (container) {
                 return factory(
                     createTestRow(),
@@ -146,7 +146,7 @@ export const testSixImplementation = (
                 );
             }
             return factory(createTestRow());
-        }
+        };
 
         it('ignores changes to the returned six head', () => {
             const six = createTestSix(),

@@ -36,7 +36,7 @@ const testMbdAbstractSixTemplate = (
             type = SixType[six.type].toLowerCase();
         });
 
-        function createTestSix(index: number): AbstractSix {
+        const createTestSix = (index: number): AbstractSix => {
             const container: AbstractContainer<AbstractSix> =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
 
@@ -44,7 +44,7 @@ const testMbdAbstractSixTemplate = (
                 createTestRow(),
                 {'container': container, 'index': index},
             );
-        }
+        };
 
         it('renders a six correctly', () => {
             expect(six.print('mbd')).toBe(

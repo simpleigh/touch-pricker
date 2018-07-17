@@ -8,15 +8,15 @@
 /**
  * Hides a block element
  */
-export function hide(element: HTMLElement): void {
+export const hide = (element: HTMLElement): void => {
     element.style.display = 'none';
     element.style.visibility = 'hidden';
-}
+};
 
 /**
  * Shows a block element
  */
-export function show(element: HTMLElement): void {
+export const show = (element: HTMLElement): void => {
     element.style.display = 'block';
     element.style.visibility = 'visible';
-}
+};

@@ -5,11 +5,11 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-function injectIframeData(
+const injectIframeData = (
     iframe: HTMLIFrameElement,
     content: string = '',
     globals: { [key: string]: any } = { },
-) {
+) => {
     const theDoc = (iframe.contentWindow as Window).document;
     theDoc.open();
 
@@ -21,6 +21,6 @@ function injectIframeData(
 
     theDoc.write(content);
     theDoc.close();
-}
+};
 
 export default injectIframeData;
