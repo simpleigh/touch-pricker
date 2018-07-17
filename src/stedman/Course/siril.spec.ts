@@ -14,7 +14,7 @@ describe('siril template for Course', () => {
         const course = Course.fromString(createTestRow(), 's2 3 (4)');
         expect(course.print('siril')).toBe(
             'plain, slow, single, quick, bob, slow, plain, quick, "@  '
-                + course.print('text', {'courseEnd': false})
+                + course.print('text', { courseEnd: false })
                 + '"\n',
         );
     });
@@ -50,10 +50,8 @@ describe('siril template for Course', () => {
     it('stops rendering based on the remaining rows in the touch', () => {
         const course = Course.fromString(createTestRow(), 's2 3 (4)');
         for (let i: number = 1; i < EXPECTED_OUTPUTS.length; i += 1) {
-            expect(course.print('siril', {'touchRows': i})).toBe(
-                EXPECTED_OUTPUTS[i]
-                    + '"@  s2 3  (4 sixes)"\n',
-            );
+            expect(course.print('siril', { touchRows: i }))
+                .toBe(EXPECTED_OUTPUTS[i] + '"@  s2 3  (4 sixes)"\n');
         }
     });
 

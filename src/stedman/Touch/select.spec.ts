@@ -43,8 +43,8 @@ describe('select template for Touch', () => {
         touch.insertBlock(3, new Course(testRow));
 
         expect(touch.print('select', {
-            'styleUnreached': 'color:gray',
-            'touchRows': 200,
+            styleUnreached: 'color:gray',
+            touchRows: 200,
         })).toBe(
             ''
                 + '<option value="0">'
@@ -67,8 +67,8 @@ describe('select template for Touch', () => {
         falseness.add(1, 3);
 
         expect(touch.print('select', {
-            'falseness': falseness,
-            'styleFalse': 'color:red',
+            falseness,
+            styleFalse: 'color:red',
         })).toBe(
             ''
                 + '<option value="0">'

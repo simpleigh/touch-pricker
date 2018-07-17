@@ -53,13 +53,13 @@ describe('text template for Pattern music class', () => {
     it('allows the line ending to be customised', () => {
         const pattern = new Pattern('90E');
         pattern.match('2314567890E');
-        expect(pattern.print('text', {'end': '#'})).toBe('1 90E#');
+        expect(pattern.print('text', { end: '#' })).toBe('1 90E#');
     });
 
     it('allows the line ending to be removed', () => {
         const pattern = new Pattern('90E');
         pattern.match('2314567890E');
-        expect(pattern.print('text', {'end': ''})).toBe('1 90E');
+        expect(pattern.print('text', { end: '' })).toBe('1 90E');
     });
 
 });

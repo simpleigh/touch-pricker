@@ -29,12 +29,12 @@ describe('text template for Course', () => {
 
     it('allows the line ending to be customised', () => {
         const course = new Course(createTestRow());
-        expect(course.print('text', {'end': '#'})).toBe('2314567890E  p#');
+        expect(course.print('text', { end: '#' })).toBe('2314567890E  p#');
     });
 
     it('can render without the course end', () => {
         const course = Course.fromString(createTestRow(), 's2 3 (4)');
-        expect(course.print('text', {'courseEnd': false}))
+        expect(course.print('text', { courseEnd: false }))
             .toBe('s2 3  (4 sixes)');
     });
 

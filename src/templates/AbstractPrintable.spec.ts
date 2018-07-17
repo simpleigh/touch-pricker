@@ -12,11 +12,11 @@ import { Context } from './types';
 describe('Printable implementation', () => {
 
     const templates = {
-        'templateOne': jasmine.createSpy().and.returnValue('one'),
-        'templateTwo': jasmine.createSpy().and.returnValue('two'),
+        templateOne: jasmine.createSpy().and.returnValue('one'),
+        templateTwo: jasmine.createSpy().and.returnValue('two'),
     };
 
-    @Templates.makePrintable(templates, { 'compile': 'compile-time context' })
+    @Templates.makePrintable(templates, { compile: 'compile-time context' })
     class Printable implements Templates.Interface {
         public print: Templates.Print;
     }
@@ -58,22 +58,22 @@ describe('Printable implementation', () => {
     });
 
     it('passes run-time context to templates', () => {
-        printable.print('templateOne', { 'run': 'run-time context' });
+        printable.print('templateOne', { run: 'run-time context' });
         expect(getLastContext().run).toBe('run-time context');
     });
 
     it('overrides compile-time context with run-time context', () => {
-        printable.print('templateOne', { 'compile': 'run-time context' });
+        printable.print('templateOne', { compile: 'run-time context' });
         expect(getLastContext().compile).toBe('run-time context');
     });
 
     it('never overrides the object itself', () => {
-        printable.print('templateOne', { 'object': 'run-time context' });
+        printable.print('templateOne', { object: 'run-time context' });
         expect(getLastContext().object).toBe(printable);
     });
 
     it('never overrides stringFromRow', () => {
-        printable.print('templateOne', { 'stringFromRow': 'not a function' });
+        printable.print('templateOne', { stringFromRow: 'not a function' });
         expect(getLastContext().stringFromRow).toBe(stringFromRow);
     });
 

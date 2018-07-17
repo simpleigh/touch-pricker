@@ -49,7 +49,7 @@ abstract class RandomAccessContainer<Block extends AbstractBlock>
      */
     private fixupOwnership(index: number): void {
         for (let i: number = index; i <= this.getLength(); i += 1) {
-            this.getBlock(i).setOwnership({'container': this, 'index': i});
+            this.getBlock(i).setOwnership({ container: this, index: i });
         }
     }
 

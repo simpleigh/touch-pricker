@@ -56,8 +56,8 @@ class Course
      */
     protected createBlock(initialRow: Row, index: number): AbstractSix {
         return ((this._firstSixType || SixType.Slow) + index) % 2
-            ? new Slow(initialRow, {'container': this, 'index': index})
-            : new Quick(initialRow, {'container': this, 'index': index});
+            ? new Slow(initialRow, { container: this, index })
+            : new Quick(initialRow, { container: this, index });
     }
 
     /**

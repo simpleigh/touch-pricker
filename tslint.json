@@ -7,10 +7,6 @@
         ],
         "max-line-length": [true, 80],
         "member-ordering": false,
-        "object-literal-key-quotes": [
-            true,
-            "always"
-        ],
         "only-arrow-functions": [true],
         "quotemark": [
             true,

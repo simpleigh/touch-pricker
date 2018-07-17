@@ -18,7 +18,7 @@ describe('mbd template for Course', () => {
             + course.getSix(1).print('mbd')
             + course.getSix(2).print('mbd')
             + course.getSix(3).print('mbd')
-            + course.getSix(4).print('mbd', {'underline': true}),
+            + course.getSix(4).print('mbd', { underline: true }),
         );
     });
 
@@ -29,10 +29,10 @@ describe('mbd template for Course', () => {
         course.setLength(2);
         extraSixes.setLength(2);
 
-        expect(course.print('mbd', {'extraSixes': extraSixes})).toBe(''
+        expect(course.print('mbd', { extraSixes })).toBe(''
             + '<u>2314567890E</u><br />'
             + course.getSix(1).print('mbd')
-            + course.getSix(2).print('mbd', {'underline': true})
+            + course.getSix(2).print('mbd', { underline: true })
             + '<span class="extraSix">'
             + stringFromRow(extraSixes.getSix(1).getEnd())
             + '</span><br />'
@@ -50,14 +50,14 @@ describe('mbd template for Course', () => {
         extraSixes.setLength(2);
 
         expect(course.print('mbd', {
-            'extraSixes': extraSixes,
-            'showSixHeads': true,
+            extraSixes,
+            showSixHeads: true,
         })).toBe(''
             + '<u>2314567890E</u><br />'
-            + course.getSix(1).print('mbd', {'showSixHeads': true})
+            + course.getSix(1).print('mbd', { showSixHeads: true })
             + course.getSix(2).print('mbd', {
-                'showSixHeads': true,
-                'underline': true,
+                showSixHeads: true,
+                underline: true,
             })
             + '<span class="extraSix">'
             + stringFromRow(extraSixes.getSix(1).getHead())

@@ -40,10 +40,7 @@ const testMbdAbstractSixTemplate = (
             const container: AbstractContainer<AbstractSix> =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
 
-            return factory(
-                createTestRow(),
-                {'container': container, 'index': index},
-            );
+            return factory(createTestRow(), { container, index });
         };
 
         it('renders a six correctly', () => {
@@ -98,7 +95,7 @@ const testMbdAbstractSixTemplate = (
 
             music.add(2, 1);
 
-            expect(six.print('mbd', {'music': music, 'courseIndex': 2})).toBe(
+            expect(six.print('mbd', { music, courseIndex: 2 })).toBe(
                 '<span class="musicalBlock">'
                     + stringFromRow(six.getEnd())
                     + '</span>'
@@ -114,7 +111,7 @@ const testMbdAbstractSixTemplate = (
             falseness.add(2, 1);
 
             expect(
-                six.print('mbd', {'falseness': falseness, 'courseIndex': 2}),
+                six.print('mbd', { falseness, courseIndex: 2 }),
             ).toBe(
                 '<span class="falseBlock">'
                     + stringFromRow(six.getEnd())
@@ -133,9 +130,9 @@ const testMbdAbstractSixTemplate = (
             music.add(2, 1);
 
             expect(six.print('mbd', {
-                'courseIndex': 2,
-                'falseness': falseness,
-                'music': music,
+                courseIndex: 2,
+                falseness,
+                music,
             })).toBe(
                 '<span class="falseBlock">'
                     + stringFromRow(six.getEnd())
@@ -147,7 +144,7 @@ const testMbdAbstractSixTemplate = (
         });
 
         it('can underline a sixend', () => {
-            expect(six.print('mbd', {'underline': true})).toBe(
+            expect(six.print('mbd', { underline: true })).toBe(
                 '<span class=""><u>'
                     + stringFromRow(six.getEnd())
                     + '</u></span>'
@@ -158,7 +155,7 @@ const testMbdAbstractSixTemplate = (
         });
 
         it('can display a six head as well as a six end', () => {
-            expect(six.print('mbd', {'showSixHeads': true})).toBe(
+            expect(six.print('mbd', { showSixHeads: true })).toBe(
                 '<span class="">'
                     + stringFromRow(six.getHead())
                     + '</span>'

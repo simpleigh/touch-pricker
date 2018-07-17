@@ -35,7 +35,7 @@ class Touch
      */
     constructor(initialRow: Row, protected _ownership?: BlockOwnership) {
         super(initialRow, _ownership);
-        this._start = new Start(initialRow, { 'container': this, 'index': 0 });
+        this._start = new Start(initialRow, { container: this, index: 0 });
     }
 
     /* AbstractBlock methods **************************************************/

@@ -6,8 +6,8 @@
  */
 
 const toBePrintable: jasmine.CustomMatcherFactory = () => ({
-    'compare': (actual: any) => {
-        const result: jasmine.CustomMatcherResult = { 'pass': false };
+    compare: (actual: any) => {
+        const result: jasmine.CustomMatcherResult = { pass: false };
 
         if (typeof actual !== 'object') {
             result.message = 'Expected an object';
@@ -42,8 +42,8 @@ const toBePrintable: jasmine.CustomMatcherFactory = () => ({
         }
 
         return {
-            'message': 'Expected object not to be printable',
-            'pass': true,
+            message: 'Expected object not to be printable',
+            pass: true,
         };
     },
 });

@@ -71,7 +71,7 @@ describe('create function', () => {
         let pricker: Mbd;
 
         beforeEach(() => {
-            pricker = create('element', { 'iframe': false }, parentDocument);
+            pricker = create('element', { iframe: false }, parentDocument);
         });
 
         it('creates the pricker', () => {

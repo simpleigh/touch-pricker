@@ -140,13 +140,13 @@ class Mbd extends AbstractPricker implements Notifiable {
 
         this._course = new Course(
             this._initialRow,
-            {'container': this, 'index': Block.Course},
+            { container: this, index: Block.Course },
         );
         this._extraSixes = new Course(this._initialRow);
         this._extraSixes.setLength(8);
         this._touch = new Touch(
             rowFromString('', this._stage),
-            {'container': this, 'index': Block.Touch},
+            { container: this, index: Block.Touch },
         );
         this._musicScheme = new MbdScheme(this._stage);
 
@@ -162,11 +162,11 @@ class Mbd extends AbstractPricker implements Notifiable {
         this._extraSixes.setFirstSixType((lastSix.type + 1) % 2);
         this._extraSixes.setInitialRow(this._course.getEnd());
         this.getEl('sixends').innerHTML = this._course.print('mbd', {
-            'courseIndex': this._copiedIndex,
-            'extraSixes': this._extraSixes,
-            'falseness': this._falseness,
-            'music': this._music,
-            'showSixHeads': this._showSixHeads,
+            courseIndex: this._copiedIndex,
+            extraSixes: this._extraSixes,
+            falseness: this._falseness,
+            music: this._music,
+            showSixHeads: this._showSixHeads,
         });
 
         this.getEl('calling').innerHTML = this._course.print('html');
@@ -222,10 +222,10 @@ class Mbd extends AbstractPricker implements Notifiable {
                 + ' onclick="pricker.onSelectCourse()"'
                 + ' ondblclick="pricker.onCopyCourse()">'
                 + this._touch.print('select', {
-                    'falseness': this._falseness,
-                    'styleFalse': 'color:red',
-                    'styleUnreached': 'color:gray',
-                    'touchRows': this._rowCount,
+                    falseness: this._falseness,
+                    styleFalse: 'color:red',
+                    styleUnreached: 'color:gray',
+                    touchRows: this._rowCount,
                 })
                 + '</select>';
         this.getEl<HTMLSelectElement>('courses').size = Math.max(
@@ -298,10 +298,7 @@ class Mbd extends AbstractPricker implements Notifiable {
             this._course = new Course(this._initialRow);
         }
 
-        this._course.setOwnership({
-            'container': this,
-            'index': Block.Course,
-        });
+        this._course.setOwnership({ container: this, index: Block.Course });
 
         this.redraw();
     }
@@ -365,10 +362,7 @@ class Mbd extends AbstractPricker implements Notifiable {
     public onCopyCourse(): void {
         if (this._selectedIndex) {
             this._course = this._touch.getCourse(this._selectedIndex).clone();
-            this._course.setOwnership({
-                'container': this,
-                'index': Block.Course,
-            });
+            this._course.setOwnership({ container: this, index: Block.Course });
 
             this._copiedIndex = this._selectedIndex;
             this.redraw();
@@ -408,7 +402,7 @@ class Mbd extends AbstractPricker implements Notifiable {
         this.onStage();
 
         this._touch = newTouch;
-        this._touch.setOwnership({ 'container': this, 'index': Block.Touch });
+        this._touch.setOwnership({ container: this, index: Block.Touch });
 
         // Call notify() to clear out state from the previous touch
         this.notify(Block.Touch); // calls redraw()
@@ -427,7 +421,7 @@ class Mbd extends AbstractPricker implements Notifiable {
         }
 
         this.getEl('sirilTextarea').innerText =
-            this._touch.print('siril', {'touchRows': this._rowCount});
+            this._touch.print('siril', { touchRows: this._rowCount });
     }
 
     public onAnalyseMusic(): void {

@@ -16,35 +16,35 @@ describe('toBePrintable matcher', () => {
     });
 
     it('fails for objects without a print property', () => {
-        const actual = { 'templates': { } };
+        const actual = { templates: { } };
         expect(compare(actual).pass).toBe(false);
     });
 
     it('fails for objects where print is not callable', () => {
         const actual = {
-            'print': 'string',
-            'templates': { },
+            print: 'string',
+            templates: { },
         };
         expect(compare(actual).pass).toBe(false);
     });
 
     it('fails for objects without a templates property', () => {
-        const actual = { 'print': () => '' };
+        const actual = { print: () => '' };
         expect(compare(actual).pass).toBe(false);
     });
 
     it('fails for objects where templates is not an object', () => {
         const actual = {
-            'print': () => '',
-            'templates': 'string',
+            print: () => '',
+            templates: 'string',
         };
         expect(compare(actual).pass).toBe(false);
     });
 
     it('fails for objects where a template is not a function', () => {
         const actual = {
-            'print': () => '',
-            'templates': { 'template': 'string' },
+            print: () => '',
+            templates: { template: 'string' },
         };
         expect(compare(actual).pass).toBe(false);
     });

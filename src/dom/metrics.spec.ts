@@ -22,7 +22,7 @@ const testMetricImplementation = (
     ) => {
         element = {
             [elementMetric]: elementMetricValue,
-            'currentStyle': {
+            currentStyle: {
                 [firstMargin]: firstMarginValue,
                 [secondMargin]: secondMarginValue,
             },

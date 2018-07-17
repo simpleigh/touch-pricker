@@ -17,7 +17,7 @@ import SixType from './SixType';
 /**
  * A slow six
  */
-@Templates.makePrintable({ mbd, siril }, { Call, 'type': 'slow' })
+@Templates.makePrintable({ mbd, siril }, { Call, type: 'slow' })
 class Slow extends AbstractSix {
 
     /**

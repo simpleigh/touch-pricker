@@ -10,7 +10,7 @@ import { hide, show } from './showHide';
 describe('hide DOM utility', () => {
 
     it('hides an element', () => {
-        const element = { 'style': { 'display': '', 'visibility': '' } };
+        const element = { style: { display: '', visibility: '' } };
         hide(element as HTMLElement);
         expect(element.style.display).toBe('none');
         expect(element.style.visibility).toBe('hidden');
@@ -21,7 +21,7 @@ describe('hide DOM utility', () => {
 describe('show DOM utility', () => {
 
     it('shows an element', () => {
-        const element = { 'style': { 'display': '', 'visibility': '' } };
+        const element = { style: { display: '', visibility: '' } };
         show(element as HTMLElement);
         expect(element.style.display).toBe('block');
         expect(element.style.visibility).toBe('visible');

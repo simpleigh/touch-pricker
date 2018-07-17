@@ -9,8 +9,8 @@ import toBePrintable from './toBePrintable';
 
 const toHaveTemplate: jasmine.CustomMatcherFactory =
     (util, customEqualityTesters) => ({
-        'compare': (actual: any, expected: string) => {
-            const result: jasmine.CustomMatcherResult = { 'pass': false };
+        compare: (actual: any, expected: string) => {
+            const result: jasmine.CustomMatcherResult = { pass: false };
 
             const { compare } = toBePrintable(util, customEqualityTesters);
             const { message, pass } = compare(actual);
@@ -25,8 +25,8 @@ const toHaveTemplate: jasmine.CustomMatcherFactory =
             }
 
             return {
-                'message': `Expected object not to have ${expected} template`,
-                'pass': true,
+                message: `Expected object not to have ${expected} template`,
+                pass: true,
             };
         },
     });

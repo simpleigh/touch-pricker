@@ -140,10 +140,7 @@ export const testSixImplementation = (
             index: number = 999,
         ): AbstractSix => {
             if (container) {
-                return factory(
-                    createTestRow(),
-                    { 'container': container, 'index': index },
-                );
+                return factory(createTestRow(), { container, index });
             }
             return factory(createTestRow());
         };
