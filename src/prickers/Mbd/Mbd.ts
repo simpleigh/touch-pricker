@@ -202,13 +202,9 @@ class Mbd extends AbstractPricker implements Notifiable {
 
     private redrawTouch(): void {
         this.getEl('proofResult').innerText = this._proofText || '';
-        if (this._rowCount) {
-            this.getEl('numRows').innerText =
-                this._rowCount + ' Stedman ' + Stage[this._stage];
-        } else {
-            this.getEl('numRows').innerText =
-                this._touch.estimateRows() + ' changes';
-        }
+        this.getEl('numRows').innerText = this._rowCount
+            ? this._rowCount + ' Stedman ' + Stage[this._stage]
+            : this._touch.estimateRows() + ' changes';
 
         this.getEl<HTMLSelectElement>('rowIndex').value =
             this._touch.getStart().getRowIndex().toString();
@@ -464,11 +460,9 @@ class Mbd extends AbstractPricker implements Notifiable {
         this._falseness = proof.getDirectory();
 
         if (proof.isTrue()) {
-            if (proof.isVisiting()) {
-                this._proofText = "True, but doesn't come round";
-            } else {
-                this._proofText = 'Composition is true';
-            }
+            this._proofText = proof.isVisiting()
+                ? "True, but doesn't come round"
+                : 'Composition is true';
         } else {
             this._proofText = 'Composition is FALSE';
         }

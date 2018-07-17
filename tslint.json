@@ -12,7 +12,6 @@
             "always"
         ],
         "only-arrow-functions": [true],
-        "prefer-conditional-expression": false,
         "quotemark": [
             true,
             "single",
