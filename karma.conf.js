@@ -16,7 +16,7 @@ module.exports = (config) => {
         files: ['tests/index.spec.js'],
         frameworks: ['jasmine'],
         preprocessors: {
-            'tests/index.spec.js': ['webpack', 'sourcemap'],
+            'tests/index.spec.js': ['webpack'],
         },
         singleRun,
         webpack: webpackConfig,
