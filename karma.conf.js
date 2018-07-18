@@ -5,6 +5,7 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+const paths = require('./config/paths');
 const webpackConfig = require('./config/webpack.config.test');
 
 const singleRun = !!process.env.CI;
@@ -13,10 +14,10 @@ module.exports = (config) => {
     config.set({
         autoWatch: true,
         browsers: ['Chrome', 'Edge', 'Firefox', 'IE', 'PhantomJS'],
-        files: ['tests/index.spec.js'],
+        files: [paths.testsEntryFile],
         frameworks: ['jasmine'],
         preprocessors: {
-            'tests/index.spec.js': ['webpack'],
+            [paths.testsEntryFile]: ['webpack'],
         },
         singleRun,
         webpack: webpackConfig,
