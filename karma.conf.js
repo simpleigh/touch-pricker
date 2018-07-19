@@ -14,11 +14,18 @@ module.exports = (config) => {
     config.set({
         autoWatch: true,
         browsers: ['Chrome', 'Edge', 'Firefox', 'IE', 'PhantomJS'],
+        coverageIstanbulReporter: {
+            combineBrowserReports: true,
+            dir: paths.coveragePath,
+            fixWebpackSourcePaths: true,
+            reports: ['html', 'lcovonly', 'text-summary'],
+        },
         files: [paths.testsEntryFile],
         frameworks: ['jasmine'],
         preprocessors: {
             [paths.testsEntryFile]: ['webpack'],
         },
+        reporters: ['progress', 'coverage-istanbul'],
         singleRun,
         webpack: webpackConfig,
     });
