@@ -27,7 +27,13 @@
     <div class="page page-selected" id="page_pricking">
       <div>
         <label for="stage">Number of bells:</label>
-        <select id="stage" onchange="pricker.onStage()"></select>
+        <select id="stage" onchange="pricker.onStage()">
+          <option value="{{= context.Stage.Triples }}">Triples</option>
+          <option value="{{= context.Stage.Caters }}">Caters</option>
+          <option selected value="{{= context.Stage.Cinques }}">Cinques</option>
+          <option value="{{= context.Stage.Sextuples }}">Sextuples</option>
+          <option value="{{= context.Stage.Septuples }}">Septuples</option>
+        </select>
       </div>
       <div>
         Course from rounds:

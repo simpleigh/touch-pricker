@@ -21,7 +21,7 @@ enum Block {Course, Touch}
 /**
  * An MBD pricker
  */
-@Templates.makePrintable({ css, html }, { SixType })
+@Templates.makePrintable({ css, html }, { SixType, Stage })
 class Mbd extends AbstractPricker implements Notifiable {
 
     /**
@@ -121,16 +121,6 @@ class Mbd extends AbstractPricker implements Notifiable {
     /* Pricker methods ********************************************************/
 
     public onLoad(): void {
-        let option: HTMLOptionElement;
-
-        for (let i = Stage.Triples; i <= Stage.Septuples; i += 2) {
-            option = document.createElement('option');
-            option.value = i.toString();
-            option.innerText = Stage[i];
-            this.getEl('stage').appendChild(option);
-        }
-        this.getEl<HTMLSelectElement>('stage').value = Stage.Cinques.toString();
-
         this.onStage();
     }
 
