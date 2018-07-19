@@ -1,17 +1,14 @@
 import {
     AbstractBlock,
-    AbstractContainer,
     BlockDirectory,
     BlockOwnership,
     Notifiable,
     RandomAccessContainer,
     SerialContainer,
 } from './blocks';
-import create from './create';
-import * as Dom from './dom';
 import * as Music from './music';
 import Options from './Options';
-import * as Prickers from './prickers';
+import create from './prickers';
 import {
     Bell,
     Row,
@@ -34,7 +31,6 @@ import * as Visitors from './visitors';
 
 export {
     AbstractBlock,
-    AbstractContainer,
     AbstractSix,
     Bell,
     BlockDirectory,
@@ -43,11 +39,9 @@ export {
     Changes,
     Course,
     create,
-    Dom,
     Music,
     Notifiable,
     Options,
-    Prickers,
     Quick,
     RandomAccessContainer,
     Row,

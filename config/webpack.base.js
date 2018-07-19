@@ -39,6 +39,6 @@ module.exports = {
         umdNamedDefine: true,
     },
     resolve: {
-        extensions: ['.dot', '.js', '.ts'],
+        extensions: ['.js', '.ts'],
     },
 };

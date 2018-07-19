@@ -6,7 +6,6 @@
  */
 
 export { default as AbstractBlock } from './AbstractBlock';
-export { default as AbstractContainer } from './AbstractContainer';
 export { default as BlockDirectory } from './BlockDirectory';
 export { default as BlockOwnership } from './BlockOwnership';
 export { default as Notifiable } from './Notifiable';
