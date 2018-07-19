@@ -8,8 +8,6 @@
 const paths = require('./config/paths');
 const webpackConfig = require('./config/webpack.config.test');
 
-const singleRun = !!process.env.CI;
-
 module.exports = (config) => {
     config.set({
         autoWatch: true,
@@ -26,7 +24,6 @@ module.exports = (config) => {
             [paths.testsEntryFile]: ['webpack'],
         },
         reporters: ['progress', 'coverage-istanbul'],
-        singleRun,
         webpack: webpackConfig,
     });
 };

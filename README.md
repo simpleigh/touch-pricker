@@ -1,6 +1,7 @@
 # touch-pricker
 
 [![Build Status](https://travis-ci.org/simpleigh/touch-pricker.svg?branch=master)](https://travis-ci.org/simpleigh/touch-pricker)
+[![Codecov](https://img.shields.io/codecov/c/github/simpleigh/touch-pricker.svg)](https://codecov.io/gh/simpleigh/touch-pricker)
 
 Free Touch Pricker
 
