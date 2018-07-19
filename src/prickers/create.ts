@@ -7,8 +7,8 @@
 
 import { createAndAppendStyle, createIframe, injectIframeData } from '../dom';
 import Options from '../Options';
-import { Mbd } from '../prickers';
-import html from './html.dot';
+import template from './create.dot';
+import Mbd from './Mbd';
 
 /**
  * Factory function to create a pricker
@@ -32,7 +32,7 @@ const create = (
         const iframe = createIframe(parentDocument);
         element.appendChild(iframe);
         pricker = new Mbd(iframe);
-        injectIframeData(iframe, html({ pricker }), { pricker });
+        injectIframeData(iframe, template({ pricker }), { pricker });
     } else {
         pricker = new Mbd();
         createAndAppendStyle(parentDocument, pricker.print('css'));

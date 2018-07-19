@@ -6,11 +6,10 @@ import {
     RandomAccessContainer,
     SerialContainer,
 } from './blocks';
-import create from './create';
 import * as Dom from './dom';
 import * as Music from './music';
 import Options from './Options';
-import * as Prickers from './prickers';
+import create from './prickers';
 import {
     Bell,
     Row,
@@ -45,7 +44,6 @@ export {
     Music,
     Notifiable,
     Options,
-    Prickers,
     Quick,
     RandomAccessContainer,
     Row,

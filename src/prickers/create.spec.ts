@@ -5,10 +5,11 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import create from '.';
 import * as Dom from '../dom';
-import { AbstractPricker, Mbd } from '../prickers';
-import html from './html.dot';
+import AbstractPricker from './AbstractPricker';
+import create from './create';
+import template from './create.dot';
+import Mbd from './Mbd';
 
 describe('create function', () => {
 
@@ -59,7 +60,7 @@ describe('create function', () => {
         it('injects data into the iframe', () => {
             expect(Dom.injectIframeData).toHaveBeenCalledWith(
                 iframe,
-                html({ pricker }),
+                template({ pricker }),
                 { pricker },
             );
         });

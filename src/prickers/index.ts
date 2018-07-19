@@ -9,5 +9,4 @@
  * Prickers
  */
 
-export { default as AbstractPricker } from './AbstractPricker';
-export { default as Mbd } from './Mbd';
+export { default } from './create';
