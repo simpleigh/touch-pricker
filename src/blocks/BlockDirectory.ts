@@ -27,7 +27,6 @@ class BlockDirectory {
 
     public add(param: any, ...indices: number[]): this {
         let directory: any;
-        let finalIndex: number | undefined;
 
         if (typeof param === 'object') {
             indices = BlockDirectory.getIndices(param);
@@ -35,11 +34,10 @@ class BlockDirectory {
             indices.unshift(param);
         }
 
-        finalIndex = indices.pop();
-        if (!finalIndex) {
-            throw new Error('Bad ownership: must have at least one index');
-        }
+        // We must have at least one index or getIndices() would have thrown
+        const finalIndex = indices.pop() as number;
 
+        // Use indices to build a tree
         directory = this._directory;
         for (const index of indices) {
             if (!directory[index]) {
