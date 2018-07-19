@@ -6,7 +6,6 @@ import {
     RandomAccessContainer,
     SerialContainer,
 } from './blocks';
-import * as Dom from './dom';
 import * as Music from './music';
 import Options from './Options';
 import create from './prickers';
@@ -40,7 +39,6 @@ export {
     Changes,
     Course,
     create,
-    Dom,
     Music,
     Notifiable,
     Options,
