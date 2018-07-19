@@ -7,13 +7,13 @@
 
 import AbstractSix from '.';
 import {
-    AbstractContainer,
     BlockDirectory,
     BlockOwnership,
 } from '../../blocks';
 import { Row, stringFromRow } from '../../rows';
 import { createTestRow } from '../../testFunctions.spec';
 import Call from '../Call';
+import Course from '../Course';
 import Quick from '../Quick';
 import SixType from '../SixType';
 import Slow from '../Slow';
@@ -37,8 +37,8 @@ const testMbdAbstractSixTemplate = (
         });
 
         const createTestSix = (index: number): AbstractSix => {
-            const container: AbstractContainer<AbstractSix> =
-                jasmine.createSpyObj('AbstractContainer', ['notify']);
+            const container: Course =
+                jasmine.createSpyObj('Course', ['notify']);
 
             return factory(createTestRow(), { container, index });
         };

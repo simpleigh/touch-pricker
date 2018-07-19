@@ -6,7 +6,7 @@
  */
 
 import AbstractSix from '.';
-import { AbstractContainer, BlockOwnership } from '../../blocks';
+import { BlockOwnership } from '../../blocks';
 import {
     testAbstractBlockImplementation,
 } from '../../blocks/AbstractBlock.spec';
@@ -15,6 +15,7 @@ import { createTestRow } from '../../testFunctions.spec';
 import { StringArray } from '../../visitors';
 import Call from '../Call';
 import * as Changes from '../Changes';
+import Course from '../Course';
 import SixType from '../SixType';
 
 export const testSixImplementation = (
@@ -136,7 +137,7 @@ export const testSixImplementation = (
     describe('is derived from AbstractSix and', () => {
 
         const createTestSix = (
-            container?: AbstractContainer<AbstractSix>,
+            container?: Course,
             index: number = 999,
         ): AbstractSix => {
             if (container) {

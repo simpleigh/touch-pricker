@@ -1,6 +1,5 @@
 import {
     AbstractBlock,
-    AbstractContainer,
     BlockDirectory,
     BlockOwnership,
     Notifiable,
@@ -34,7 +33,6 @@ import * as Visitors from './visitors';
 
 export {
     AbstractBlock,
-    AbstractContainer,
     AbstractSix,
     Bell,
     BlockDirectory,
