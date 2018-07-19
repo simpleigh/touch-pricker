@@ -11,5 +11,15 @@ module.exports = merge(base, {
         publicPath: '/dist/',
     },
     entry: paths.testsEntryFile,
+    module: {
+        rules: [
+            {
+                enforce: 'post',
+                test: /\.ts$/,
+                exclude: /\.spec\.ts$/,
+                loader: 'istanbul-instrumenter-loader',
+            },
+        ],
+    },
     output: { filename: 'touch-pricker.spec.js' },
 }, banner);
