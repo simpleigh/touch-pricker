@@ -107,7 +107,7 @@ class Mbd extends AbstractPricker implements Notifiable {
      */
     public notify(index: number): void {
         if (index === Block.Course) {
-            this._extraSixes.setInitialRow(this._course.getEnd());
+            this._extraSixes.setInitialRow(this._course.getLast());
             this._copiedIndex = undefined;
         } else if (index === Block.Touch) {
             this._rowCount = undefined;
@@ -148,9 +148,9 @@ class Mbd extends AbstractPricker implements Notifiable {
     private redraw(): void {
         const newCourse = this._course.clone();
 
-        const lastSix = this._course.getSix(this._course.getLength());
+        const lastSix = this._course.getBlock(this._course.getLength());
         this._extraSixes.setFirstSixType((lastSix.type + 1) % 2);
-        this._extraSixes.setInitialRow(this._course.getEnd());
+        this._extraSixes.setInitialRow(this._course.getLast());
         this.getEl('sixends').innerHTML = this._course.print('mbd', {
             courseIndex: this._copiedIndex,
             extraSixes: this._extraSixes,
@@ -229,7 +229,7 @@ class Mbd extends AbstractPricker implements Notifiable {
     }
 
     public c(six: number): void {
-        this._course.getSix(six).toggleCall();
+        this._course.getBlock(six).toggleCall();
     }
 
     public onSetInitialRow(): void {
@@ -313,13 +313,13 @@ class Mbd extends AbstractPricker implements Notifiable {
     public onInsertCourse(): void {
         this._selectedIndex += 1;
 
-        this._touch.insertCourse(this._selectedIndex, this._course.clone());
+        this._touch.insertBlock(this._selectedIndex, this._course.clone());
 
         if (this.getEl<HTMLInputElement>('rolling').checked) {
-            const course = this._touch.getCourse(this._selectedIndex);
-            const sixType = course.getSix(course.getLength()).type;
+            const course = this._touch.getBlock(this._selectedIndex);
+            const sixType = course.getBlock(course.getLength()).type;
             this._course.setFirstSixType((sixType + 1) % 2);
-            this._course.setInitialRow(course.getEnd());
+            this._course.setInitialRow(course.getLast());
             this._course.resetLength();
             this._course.resetCalls();
         }
@@ -329,14 +329,14 @@ class Mbd extends AbstractPricker implements Notifiable {
 
     public onPasteCourse(): void {
         if (this._selectedIndex) {
-            this._touch.deleteCourse(this._selectedIndex);
-            this._touch.insertCourse(this._selectedIndex, this._course.clone());
+            this._touch.deleteBlock(this._selectedIndex);
+            this._touch.insertBlock(this._selectedIndex, this._course.clone());
 
             if (this.getEl<HTMLInputElement>('rolling').checked) {
-                const course = this._touch.getCourse(this._selectedIndex);
-                const sixType = course.getSix(course.getLength()).type;
+                const course = this._touch.getBlock(this._selectedIndex);
+                const sixType = course.getBlock(course.getLength()).type;
                 this._course.setFirstSixType((sixType + 1) % 2);
-                this._course.setInitialRow(course.getEnd());
+                this._course.setInitialRow(course.getLast());
                 this._selectedIndex = Math.min(
                     this._selectedIndex + 1,
                     this._touch.getLength(),
@@ -351,7 +351,7 @@ class Mbd extends AbstractPricker implements Notifiable {
 
     public onCopyCourse(): void {
         if (this._selectedIndex) {
-            this._course = this._touch.getCourse(this._selectedIndex).clone();
+            this._course = this._touch.getBlock(this._selectedIndex).clone();
             this._course.setOwnership({ container: this, index: Block.Course });
 
             this._copiedIndex = this._selectedIndex;
@@ -366,7 +366,7 @@ class Mbd extends AbstractPricker implements Notifiable {
 
     public onDeleteCourse(): void {
         if (this._selectedIndex) {
-            this._touch.deleteCourse(this._selectedIndex);
+            this._touch.deleteBlock(this._selectedIndex);
             this._selectedIndex = Math.min(
                 this._selectedIndex,
                 this._touch.getLength(),

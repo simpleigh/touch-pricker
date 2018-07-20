@@ -77,17 +77,17 @@ describe('Proof visitor', () => {
 
     it('adds new blocks found to be false to the directory', () => {
         visitor.visit(testRow);
-        visitor.visit(testRow, touch.getCourse(1).getSix(3));
+        visitor.visit(testRow, touch.getBlock(1).getBlock(3));
 
-        expect(visitor.getDirectory().contains(touch.getCourse(1).getSix(3)))
+        expect(visitor.getDirectory().contains(touch.getBlock(1).getBlock(3)))
             .toBe(true);
     });
 
     it('adds old blocks now found to be false to the directory', () => {
-        visitor.visit(testRow, touch.getCourse(1).getSix(3));
+        visitor.visit(testRow, touch.getBlock(1).getBlock(3));
         visitor.visit(testRow);
 
-        expect(visitor.getDirectory().contains(touch.getCourse(1).getSix(3)))
+        expect(visitor.getDirectory().contains(touch.getBlock(1).getBlock(3)))
             .toBe(true);
     });
 

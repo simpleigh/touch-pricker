@@ -73,21 +73,6 @@ class Course
     /* Course methods *********************************************************/
 
     /**
-     * Returns the course end
-     */
-    public getEnd: () => Row = this.getLast;
-
-    /**
-     * Read access to the sixes
-     */
-    public getSixes: () => AbstractSix[] = this.getBlocks;
-
-    /**
-     * Read access to a six
-     */
-    public getSix: (index: number) => AbstractSix = this.getBlock;
-
-    /**
      * Read access to the type of the first six
      */
     public getFirstSixType(): SixType {
@@ -110,7 +95,7 @@ class Course
         for (let index = 1; index <= this.getLength(); index += 1) {
             const block = this.createBlock(initialRow, index);
             block.setCall(
-                this.getSix(index).getCall(),
+                this.getBlock(index).getCall(),
                 false,  // Avoid multiple updates...
             );
             newSixes.push(block);
@@ -121,7 +106,7 @@ class Course
 
         // ... and trigger one at the end
         if (newSixes.length) {
-            this.getSix(1).setCall(this.getSix(1).getCall());
+            this.getBlock(1).setCall(this.getBlock(1).getCall());
         }
 
         return this;
@@ -144,7 +129,7 @@ class Course
         }
 
         // ... and trigger one at the end
-        this.getSix(1).setCall(Call.Plain);
+        this.getBlock(1).setCall(Call.Plain);
 
         return this;
     }
@@ -171,14 +156,14 @@ class Course
 
         // Copy across all the calls
         for (let index = 1; index <= this.getLength(); index += 1) {
-            cloned.getSix(index).setCall(
-                this.getSix(index).getCall(),
+            cloned.getBlock(index).setCall(
+                this.getBlock(index).getCall(),
                 false,  // Avoid multiple updates...
             );
         }
 
         // ... and trigger one at the end
-        cloned.getSix(1).setCall(this.getSix(1).getCall());
+        cloned.getBlock(1).setCall(this.getBlock(1).getCall());
 
         return cloned;
     }
@@ -226,12 +211,12 @@ class Course
             call = calls[i];
             if (call.charAt(0) === 's') {
                 call = call.slice(1);
-                course.getSix(parseInt(call)).setCall(Call.Single);
+                course.getBlock(parseInt(call)).setCall(Call.Single);
             } else if (call.slice(-1) === 's') {
                 call = call.slice(0, -1);
-                course.getSix(parseInt(call)).setCall(Call.Single);
+                course.getBlock(parseInt(call)).setCall(Call.Single);
             } else {
-                course.getSix(parseInt(call)).setCall(Call.Bob);
+                course.getBlock(parseInt(call)).setCall(Call.Bob);
             }
         }
         return course;

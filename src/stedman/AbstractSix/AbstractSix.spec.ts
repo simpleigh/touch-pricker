@@ -111,7 +111,7 @@ export const testSixImplementation = (
             const row = previous.slice();
             Changes.permuteCall(row, call);
             six.setCall(call);
-            expect(six.getHead()).toEqual(row);
+            expect(six.getFirst()).toEqual(row);
         },
     ));
 
@@ -148,19 +148,14 @@ export const testSixImplementation = (
 
         it('ignores changes to the returned six head', () => {
             const six = createTestSix();
-            const getHead = six.getHead();
-            const getHeadBackup = getHead.slice();
+            const getFirst = six.getFirst();
+            const getFirstBackup = getFirst.slice();
 
-            getHead[3] = 999;  // Mutate the getHead result
-            expect(getHead).not.toEqual(getHeadBackup);
+            getFirst[3] = 999;  // Mutate the getFirst result
+            expect(getFirst).not.toEqual(getFirstBackup);
 
-            expect(six.getHead()).not.toEqual(getHead);
-            expect(six.getHead()).toEqual(getHeadBackup);
-        });
-
-        it('provides a getEnd method for convenience', () => {
-            const six = createTestSix();
-            expect(six.getEnd()).toEqual(six.getLast());
+            expect(six.getFirst()).not.toEqual(getFirst);
+            expect(six.getFirst()).toEqual(getFirstBackup);
         });
 
         it('starts life as a plain six', () => {

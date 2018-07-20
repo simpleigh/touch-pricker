@@ -43,14 +43,14 @@
 <span class="{{= className }}">
 
 	{{? context.showSixHeads }}
-		{{= context.stringFromRow(context.object.getHead()) }}
+		{{= context.stringFromRow(context.object.getFirst()) }}
 	{{??}}
 
 		{{? context.underline }}
 			<u>
 		{{?}}
 
-			{{= context.stringFromRow(context.object.getEnd()) }}
+			{{= context.stringFromRow(context.object.getLast()) }}
 
 		{{? context.underline }}
 			</u>
@@ -95,7 +95,7 @@
 {{? context.showSixHeads }}
 	<span class="{{= className }}">
 		<u>
-			{{= context.stringFromRow(context.object.getEnd()) }}
+			{{= context.stringFromRow(context.object.getLast()) }}
 		</u>
 	</span>
 

@@ -15,10 +15,10 @@ describe('mbd template for Course', () => {
         const course = Course.fromString(createTestRow(), 's2 3 (4)');
         expect(course.print('mbd')).toBe(''
             + '<u>2314567890E</u><br />'
-            + course.getSix(1).print('mbd')
-            + course.getSix(2).print('mbd')
-            + course.getSix(3).print('mbd')
-            + course.getSix(4).print('mbd', { underline: true }),
+            + course.getBlock(1).print('mbd')
+            + course.getBlock(2).print('mbd')
+            + course.getBlock(3).print('mbd')
+            + course.getBlock(4).print('mbd', { underline: true }),
         );
     });
 
@@ -31,13 +31,13 @@ describe('mbd template for Course', () => {
 
         expect(course.print('mbd', { extraSixes })).toBe(''
             + '<u>2314567890E</u><br />'
-            + course.getSix(1).print('mbd')
-            + course.getSix(2).print('mbd', { underline: true })
+            + course.getBlock(1).print('mbd')
+            + course.getBlock(2).print('mbd', { underline: true })
             + '<span class="extraSix">'
-            + stringFromRow(extraSixes.getSix(1).getEnd())
+            + stringFromRow(extraSixes.getBlock(1).getLast())
             + '</span><br />'
             + '<span class="extraSix">'
-            + stringFromRow(extraSixes.getSix(2).getEnd())
+            + stringFromRow(extraSixes.getBlock(2).getLast())
             + '</span><br />',
         );
     });
@@ -54,20 +54,20 @@ describe('mbd template for Course', () => {
             showSixHeads: true,
         })).toBe(''
             + '<u>2314567890E</u><br />'
-            + course.getSix(1).print('mbd', { showSixHeads: true })
-            + course.getSix(2).print('mbd', {
+            + course.getBlock(1).print('mbd', { showSixHeads: true })
+            + course.getBlock(2).print('mbd', {
                 showSixHeads: true,
                 underline: true,
             })
             + '<span class="extraSix">'
-            + stringFromRow(extraSixes.getSix(1).getHead())
+            + stringFromRow(extraSixes.getBlock(1).getFirst())
             + '<br /><u>'
-            + stringFromRow(extraSixes.getSix(1).getEnd())
+            + stringFromRow(extraSixes.getBlock(1).getLast())
             + '</u></span><br />'
             + '<span class="extraSix">'
-            + stringFromRow(extraSixes.getSix(2).getHead())
+            + stringFromRow(extraSixes.getBlock(2).getFirst())
             + '<br /><u>'
-            + stringFromRow(extraSixes.getSix(2).getEnd())
+            + stringFromRow(extraSixes.getBlock(2).getLast())
             + '</u></span><br />',
         );
     });

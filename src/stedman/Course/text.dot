@@ -23,12 +23,12 @@
 }}
 
 {{? context.courseEnd }}
-	{{= context.stringFromRow(context.object.getEnd()) }}
+	{{= context.stringFromRow(context.object.getLast()) }}
 	 /* single space */
 	 /* single space */
 {{?}}
 
-{{~ context.object.getSixes() :six }}
+{{~ context.object.getBlocks() :six }}
 	{{? six.getCall() }}
 		{{ calls.push(
 			((six.getCall() === context.Call.Single) ? 's' : '')

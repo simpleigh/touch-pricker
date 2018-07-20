@@ -46,7 +46,7 @@ const testMbdAbstractSixTemplate = (
         it('renders a six correctly', () => {
             expect(six.print('mbd')).toBe(
                 '<span class="">'
-                    + stringFromRow(six.getEnd())
+                    + stringFromRow(six.getLast())
                     + '</span>'
                     + '&nbsp;&nbsp;<span class="' + type
                     + 'Six" onclick="pricker.c(1)">'
@@ -58,7 +58,7 @@ const testMbdAbstractSixTemplate = (
             six.setCall(Call.Bob);
             expect(six.print('mbd')).toBe(
                 '<span class="">'
-                    + stringFromRow(six.getEnd())
+                    + stringFromRow(six.getLast())
                     + '</span>'
                     + '&nbsp;&nbsp;<span class="' + type
                     + 'Six" onclick="pricker.c(1)">'
@@ -70,7 +70,7 @@ const testMbdAbstractSixTemplate = (
             six.setCall(Call.Single);
             expect(six.print('mbd')).toBe(
                 '<span class="">'
-                    + stringFromRow(six.getEnd())
+                    + stringFromRow(six.getLast())
                     + '</span>'
                     + '&nbsp;&nbsp;<span class="' + type
                     + 'Six" onclick="pricker.c(1)">'
@@ -82,7 +82,7 @@ const testMbdAbstractSixTemplate = (
             six = createTestSix(999);
             expect(six.print('mbd')).toBe(
                 '<span class="">'
-                    + stringFromRow(six.getEnd())
+                    + stringFromRow(six.getLast())
                     + '</span>'
                     + '&nbsp;&nbsp;<span class="' + type
                     + 'Six" onclick="pricker.c(999)">'
@@ -97,7 +97,7 @@ const testMbdAbstractSixTemplate = (
 
             expect(six.print('mbd', { music, courseIndex: 2 })).toBe(
                 '<span class="musicalBlock">'
-                    + stringFromRow(six.getEnd())
+                    + stringFromRow(six.getLast())
                     + '</span>'
                     + '&nbsp;&nbsp;<span class="' + type
                     + 'Six" onclick="pricker.c(1)">'
@@ -114,7 +114,7 @@ const testMbdAbstractSixTemplate = (
                 six.print('mbd', { falseness, courseIndex: 2 }),
             ).toBe(
                 '<span class="falseBlock">'
-                    + stringFromRow(six.getEnd())
+                    + stringFromRow(six.getLast())
                     + '</span>'
                     + '&nbsp;&nbsp;<span class="' + type
                     + 'Six" onclick="pricker.c(1)">'
@@ -135,7 +135,7 @@ const testMbdAbstractSixTemplate = (
                 music,
             })).toBe(
                 '<span class="falseBlock">'
-                    + stringFromRow(six.getEnd())
+                    + stringFromRow(six.getLast())
                     + '</span>'
                     + '&nbsp;&nbsp;<span class="' + type
                     + 'Six" onclick="pricker.c(1)">'
@@ -146,7 +146,7 @@ const testMbdAbstractSixTemplate = (
         it('can underline a sixend', () => {
             expect(six.print('mbd', { underline: true })).toBe(
                 '<span class=""><u>'
-                    + stringFromRow(six.getEnd())
+                    + stringFromRow(six.getLast())
                     + '</u></span>'
                     + '&nbsp;&nbsp;<span class="' + type
                     + 'Six" onclick="pricker.c(1)">'
@@ -157,13 +157,13 @@ const testMbdAbstractSixTemplate = (
         it('can display a six head as well as a six end', () => {
             expect(six.print('mbd', { showSixHeads: true })).toBe(
                 '<span class="">'
-                    + stringFromRow(six.getHead())
+                    + stringFromRow(six.getFirst())
                     + '</span>'
                     + '&nbsp;&nbsp;<span class="' + type
                     + 'Six" onclick="pricker.c(1)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />'
                     + '<span class=""><u>'
-                    + stringFromRow(six.getEnd())
+                    + stringFromRow(six.getLast())
                     + '</u></span><br />',
             );
         });

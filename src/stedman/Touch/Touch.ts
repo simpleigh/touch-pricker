@@ -69,7 +69,7 @@ class Touch
      * Propagates data from a previous block to a current block
      */
     protected propagateCurrentBlock(previous: Course, current: Course): void {
-        const sixType = previous.getSix(previous.getLength()).type;
+        const sixType = previous.getBlock(previous.getLength()).type;
         current.setInitialRow(previous.getLast());
         current.setFirstSixType((sixType + 1) % 2);
     }
@@ -85,27 +85,6 @@ class Touch
     }
 
     /* Touch methods **********************************************************/
-
-    /**
-     * Read access to the courses
-     */
-    public getCourses: () => Course[] = this.getBlocks;
-
-    /**
-     * Read access to a course
-     */
-    public getCourse: (index: number) => Course = this.getBlock;
-
-    /**
-     * Inserts a course at the specified index
-     */
-    public insertCourse: (index: number, course: Course) => this =
-        this.insertBlock;
-
-    /**
-     * Deletes the course at the specified index
-     */
-    public deleteCourse: (index: number) => Course = this.deleteBlock;
 
     /**
      * Read access to the start
@@ -157,7 +136,7 @@ class Touch
             } else {
                 // Create a course for each remaining line
                 course = Course.fromString(touch.getLast(), line);
-                touch.insertCourse(touch.getLength() + 1, course);
+                touch.insertBlock(touch.getLength() + 1, course);
             }
         }
 

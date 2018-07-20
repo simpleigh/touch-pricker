@@ -49,16 +49,16 @@ describe('Music visitor', () => {
     it('adds matched blocks to the directory', () => {
         matcher.match.and.returnValue(true);
 
-        visitor.visit(testRow, touch.getCourse(1).getSix(3));
-        expect(visitor.getDirectory().contains(touch.getCourse(1).getSix(3)))
+        visitor.visit(testRow, touch.getBlock(1).getBlock(3));
+        expect(visitor.getDirectory().contains(touch.getBlock(1).getBlock(3)))
             .toBe(true);
     });
 
     it('does not add unmatched blocks to the directory', () => {
         matcher.match.and.returnValue(false);
 
-        visitor.visit(testRow, touch.getCourse(1).getSix(3));
-        expect(visitor.getDirectory().contains(touch.getCourse(1).getSix(3)))
+        visitor.visit(testRow, touch.getBlock(1).getBlock(3));
+        expect(visitor.getDirectory().contains(touch.getBlock(1).getBlock(3)))
             .toBe(false);
     });
 

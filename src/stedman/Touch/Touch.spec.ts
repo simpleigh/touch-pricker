@@ -39,22 +39,6 @@ describe('Touch class', () => {
         touch = new Touch(testRow);
     });
 
-    it('exposes getBlocks as getCourses', () => {
-        expect(touch.getCourses).toBe(touch.getBlocks);
-    });
-
-    it('exposes getBlock as getCourse', () => {
-        expect(touch.getCourse).toBe(touch.getBlock);
-    });
-
-    it('exposes insertBlock as insertCourse', () => {
-        expect(touch.insertCourse).toBe(touch.insertBlock);
-    });
-
-    it('exposes deleteBlock as deleteCourse', () => {
-        expect(touch.deleteCourse).toBe(touch.deleteBlock);
-    });
-
     it('generates the correct rows when visited', () => {
         let visitor: StringArray;
         let strings: string[] = ['213547698E0', '2314567890E'];
@@ -77,8 +61,8 @@ describe('Touch class', () => {
         const course2 = new Course(testRow);
         course1.setLength(11);
 
-        touch.insertCourse(1, course1);
-        touch.insertCourse(2, course2);
+        touch.insertBlock(1, course1);
+        touch.insertBlock(2, course2);
         expect(touch.getBlock(2).getFirstSixType()).toBe(SixType.Quick);
     });
 
@@ -87,8 +71,8 @@ describe('Touch class', () => {
         const course2 = new Course(testRow);
         course1.setLength(11);
 
-        touch.insertCourse(1, course2);
-        touch.insertCourse(1, course1);
+        touch.insertBlock(1, course2);
+        touch.insertBlock(1, course1);
         expect(touch.getBlock(2).getFirstSixType()).toBe(SixType.Quick);
     });
 
@@ -109,7 +93,7 @@ describe('Touch class', () => {
 
             // Clear out any course that may have been added
             if (touch.getLength()) {
-                touch.deleteCourse(1);
+                touch.deleteBlock(1);
             }
         }
     };
@@ -120,9 +104,9 @@ describe('Touch class', () => {
             touch.getStart()
                 .setRowIndex(rowIndex)
                 .setSixType(sixType);
-            touch.insertCourse(1, course);
+            touch.insertBlock(1, course);
 
-            expect(touch.getCourse(1).getInitialRow())
+            expect(touch.getBlock(1).getInitialRow())
                 .toEqual(touch.getStart().getLast());
         },
     ));
@@ -130,12 +114,12 @@ describe('Touch class', () => {
     it('propagates when setting the start', runStartCases(
         (rowIndex, sixType) => {
             const course = new Course(testRow);
-            touch.insertCourse(1, course);
+            touch.insertBlock(1, course);
             touch.getStart()
                 .setRowIndex(rowIndex)
                 .setSixType(sixType);
 
-            expect(touch.getCourse(1).getInitialRow())
+            expect(touch.getBlock(1).getInitialRow())
                 .toEqual(touch.getStart().getLast());
         },
     ));

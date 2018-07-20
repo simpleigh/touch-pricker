@@ -82,17 +82,10 @@ abstract class AbstractSix
     /**
      * Returns the six head
      */
-    public getHead(): Row {
+    public getFirst(): Row {
         const start = this._initialRow.slice();
         Changes.permuteCall(start, this._call);
         return start;
-    }
-
-    /**
-     * Returns the six end
-     */
-    public getEnd(): Row {
-        return this.getLast();
     }
 
     /**

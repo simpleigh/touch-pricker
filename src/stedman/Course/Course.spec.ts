@@ -25,18 +25,6 @@ describe('Course class', () => {
         course = new Course(testRow);
     });
 
-    it('exposes getLast as getEnd', () => {
-        expect(course.getEnd).toBe(course.getLast);
-    });
-
-    it('exposes getBlocks as getSixes', () => {
-        expect(course.getSixes).toBe(course.getBlocks);
-    });
-
-    it('exposes getBlock as getSix', () => {
-        expect(course.getSix).toBe(course.getBlock);
-    });
-
     it('starts out with a slow six by default', () => {
         expect(course.getFirstSixType()).toBe(SixType.Slow);
         expect(course.getBlock(1).type).toBe(SixType.Slow);
@@ -93,7 +81,7 @@ describe('Course class', () => {
         ];
 
         for (let index = 1; index <= 22; index += 1) {
-            expect(stringFromRow(course.getBlock(index).getEnd()))
+            expect(stringFromRow(course.getBlock(index).getLast()))
                 .toBe(expectedSixEnds[index]);
         }
     });
@@ -101,8 +89,10 @@ describe('Course class', () => {
     it('recalculates when the parity is changed', () => {
         course.setLength(2);
         course.setFirstSixType(SixType.Quick);
-        expect(course.getSix(1).getEnd()).toEqual(createTestRow('234618507E9'));
-        expect(course.getSix(2).getEnd()).toEqual(createTestRow('3628401E597'));
+        expect(course.getBlock(1).getLast())
+            .toEqual(createTestRow('234618507E9'));
+        expect(course.getBlock(2).getLast())
+            .toEqual(createTestRow('3628401E597'));
     });
 
     it('maintains the parity when adding sixes to the course', () => {
@@ -110,23 +100,29 @@ describe('Course class', () => {
         course.setFirstSixType(SixType.Quick);
 
         course.setLength(4);
-        expect(course.getSix(3).getEnd()).toEqual(createTestRow('36802E49175'));
-        expect(course.getSix(4).getEnd()).toEqual(createTestRow('603E8927451'));
+        expect(course.getBlock(3).getLast())
+            .toEqual(createTestRow('36802E49175'));
+        expect(course.getBlock(4).getLast())
+            .toEqual(createTestRow('603E8927451'));
     });
 
     it('maintains calls correctly when the parity is changed', () => {
         course.setLength(4);
-        course.getSix(2).setCall(Call.Single);
-        course.getSix(3).setCall(Call.Bob);
+        course.getBlock(2).setCall(Call.Single);
+        course.getBlock(3).setCall(Call.Bob);
 
         course.setFirstSixType(SixType.Quick);
-        expect(course.getSix(2).getCall()).toBe(Call.Single);
-        expect(course.getSix(3).getCall()).toBe(Call.Bob);
+        expect(course.getBlock(2).getCall()).toBe(Call.Single);
+        expect(course.getBlock(3).getCall()).toBe(Call.Bob);
 
-        expect(course.getSix(1).getEnd()).toEqual(createTestRow('234618507E9'));
-        expect(course.getSix(2).getEnd()).toEqual(createTestRow('3628401759E'));
-        expect(course.getSix(3).getEnd()).toEqual(createTestRow('3680274519E'));
-        expect(course.getSix(4).getEnd()).toEqual(createTestRow('603785294E1'));
+        expect(course.getBlock(1).getLast())
+            .toEqual(createTestRow('234618507E9'));
+        expect(course.getBlock(2).getLast())
+            .toEqual(createTestRow('3628401759E'));
+        expect(course.getBlock(3).getLast())
+            .toEqual(createTestRow('3680274519E'));
+        expect(course.getBlock(4).getLast())
+            .toEqual(createTestRow('603785294E1'));
     });
 
     it('can be reset to the default length', () => {
@@ -140,9 +136,9 @@ describe('Course class', () => {
     });
 
     it('can be reset to a plain course', () => {
-        course.getSix(5).toggleCall();
+        course.getBlock(5).toggleCall();
         course.resetCalls();
-        expect(course.getSix(5).getCall()).toBe(Call.Plain);
+        expect(course.getBlock(5).getCall()).toBe(Call.Plain);
     });
 
     it('returns this when resetting the calls', () => {
@@ -161,14 +157,14 @@ describe('Course class', () => {
     });
 
     it('knows when it is not a plain course', () => {
-        course.getSix(5).toggleCall();
+        course.getBlock(5).toggleCall();
         expect(course.isPlain()).toBe(false);
     });
 
     it('can be cloned', () => {
         course.setLength(20);
         course.setFirstSixType(SixType.Quick);
-        course.getSix(5).toggleCall();
+        course.getBlock(5).toggleCall();
 
         const cloned = course.clone();
         expect(cloned.getLength()).toBe(course.getLength());
@@ -182,7 +178,7 @@ describe('Course class', () => {
         const cloned = course.clone();
 
         cloned.setLength(20);
-        cloned.getSix(5).toggleCall();
+        cloned.getBlock(5).toggleCall();
 
         expect(cloned.getLength()).not.toBe(course.getLength());
         expect(cloned.getLast()).not.toEqual(course.getLast());
@@ -197,7 +193,7 @@ describe('Course class', () => {
 
         for (let index = 1; index <= course.getLength(); index += 1) {
             visitor = new StringArray();
-            course.getSix(index).accept(visitor);
+            course.getBlock(index).accept(visitor);
             strings = strings.concat(visitor.getStrings());
         }
 

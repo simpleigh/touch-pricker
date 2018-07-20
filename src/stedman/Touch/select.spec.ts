@@ -28,10 +28,10 @@ describe('select template for Touch', () => {
                 + stringFromRow(touch.getStart().getLast())
                 + '</option>'
                 + '<option value="1">'
-                + touch.getCourse(1).print('text')
+                + touch.getBlock(1).print('text')
                 + '</option>'
                 + '<option value="2">'
-                + touch.getCourse(2).print('text')
+                + touch.getBlock(2).print('text')
                 + '</option>',
         );
     });
