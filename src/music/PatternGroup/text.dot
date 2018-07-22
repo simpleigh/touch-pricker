@@ -26,7 +26,7 @@
 		{{~ context.object.patterns :pattern }}
 			{{? pattern.matchCount > 0 }}
 				{{? !first }}, {{?}}
-				{{= pattern.print('text', {'end': ''}) }}
+				{{= pattern.print('text', { end: '' }) }}
 				{{ first = false; }}
 			{{?}}
 		{{~}}

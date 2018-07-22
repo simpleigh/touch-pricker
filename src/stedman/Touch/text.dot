@@ -13,7 +13,7 @@
 
 {{= context.stringFromRow(context.object.start.getLast()) }}{{= '\n' }}
 {{~ context.object.blocks :course }}
-	{{= course.print('text', {'end': '\n'}) }}
+	{{= course.print('text', { end: '\n' }) }}
 {{~}}
 
 {{? start }}

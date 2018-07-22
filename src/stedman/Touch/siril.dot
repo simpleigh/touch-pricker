@@ -54,7 +54,7 @@ strt = {{= context.object.start.print('siril') }}{{= '\n' }}
 {{~ context.object.blocks :course:index }}
 	course{{= index + 1 }} =
 	 /* single space */
-	{{= course.print('siril', {'touchRows': context.touchRows}) }}
+	{{= course.print('siril', { touchRows: context.touchRows }) }}
 	{{ courseNames.push('course' + (index + 1)); }}
 
 	{{ context.touchRows -= course.estimateRows(); }}
