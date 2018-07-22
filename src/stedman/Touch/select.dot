@@ -15,7 +15,7 @@
 
 {{
 	context.touchRows = context.touchRows || Infinity;
-	context.touchRows -= 2;  /* TODO magic number */
+	context.touchRows -= context.object.start.estimateRows();
 	context.styleUnreached = context.styleUnreached || '';
 	context.styleFalse = context.styleFalse || '';
 }}

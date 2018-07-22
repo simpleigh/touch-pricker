@@ -44,7 +44,7 @@ describe('select template for Touch', () => {
 
         expect(touch.print('select', {
             styleUnreached: 'color:gray',
-            touchRows: 200,
+            touchRows: 266, // Two courses plus a standard start
         })).toBe(
             ''
                 + '<option value="0">'
