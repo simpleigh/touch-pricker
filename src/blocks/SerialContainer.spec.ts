@@ -114,6 +114,30 @@ export const testSerialContainerImplementation = (
             expect(parent.notify).toHaveBeenCalledTimes(1);
         });
 
+        it('can be reset to the default length', () => {
+            for (const testCase of lengthTestCases) {
+                container = factory(createTestRow('231', testCase[0]));
+                container.setLength(container.length - 1);
+                container.resetLength();
+                expect(container.length).toBe(testCase[1]);
+            }
+        });
+
+        it('returns this when resetting the length', () => {
+            expect(container.resetLength()).toBe(container);
+        });
+
+        it('notifies the parent container when resetting the length', () => {
+            const parent: AbstractContainer<TestContainer> =
+                    jasmine.createSpyObj('AbstractContainer', ['notify']);
+            container.ownership = { container: parent, index: 999 };
+
+            container.resetLength();
+            expect(parent.notify).toHaveBeenCalled();
+            expect(parent.notify).toHaveBeenCalledWith(999);
+            expect(parent.notify).toHaveBeenCalledTimes(1);
+        });
+
         it('estimates the number of rows correctly', () => {
             for (const testCase of lengthTestCases) {
                 container = factory(createTestRow('231', testCase[0]));

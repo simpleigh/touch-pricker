@@ -97,6 +97,14 @@ abstract class SerialContainer<Block extends AbstractBlock>
     }
 
     /**
+     * Resets the course to be the default length
+     */
+    public resetLength(): this {
+        this.setLength(this.getDefaultLength(this._initialRow));
+        return this;
+    }
+
+    /**
      * Lower limit on length for the particular concrete class
      */
     protected readonly abstract minLength: number;

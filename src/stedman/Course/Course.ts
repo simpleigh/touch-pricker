@@ -113,14 +113,6 @@ class Course
     }
 
     /**
-     * Resets the course to be the default length
-     */
-    public resetLength(): this {
-        this.setLength(this.getDefaultLength(this._initialRow));
-        return this;
-    }
-
-    /**
      * Makes the course into a plain course
      */
     public resetCalls(): this {

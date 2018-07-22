@@ -125,16 +125,6 @@ describe('Course class', () => {
             .toEqual(createTestRow('603785294E1'));
     });
 
-    it('can be reset to the default length', () => {
-        course.setLength(20);
-        course.resetLength();
-        expect(course.length).toBe(22);
-    });
-
-    it('returns this when resetting the length', () => {
-        expect(course.resetLength()).toBe(course);
-    });
-
     it('can be reset to a plain course', () => {
         course.getBlock(5).toggleCall();
         course.resetCalls();
