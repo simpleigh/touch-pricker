@@ -16,7 +16,7 @@ import AbstractPricker from '../AbstractPricker';
 import css from './css.dot';
 import html from './html.dot';
 
-enum Block {Course, Touch}
+enum Block { Course, Touch }
 
 /**
  * An MBD pricker

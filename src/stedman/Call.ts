@@ -9,6 +9,6 @@
  * Types of call
  * @enum {number}
  */
-enum Call {Plain = 0, Bob, Single}
+enum Call { Plain = 0, Bob, Single }
 
 export default Call;

@@ -25,7 +25,7 @@
 ,
  /* single space */
 
-{{? context.touchRows > 1}}
+{{? context.touchRows > 1 }}
 	{{? context.touchRows >= 6 }}
 		{{= context.type }}
 	{{??}}
