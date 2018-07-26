@@ -90,11 +90,6 @@ class Mbd extends AbstractPricker implements Notifiable {
     private _falseness: BlockDirectory | undefined;
 
     /**
-     * Music scheme in use
-     */
-    private _musicScheme: MbdScheme;
-
-    /**
      * Directory of musical sixes
      */
     private _music: BlockDirectory | undefined;
@@ -138,7 +133,6 @@ class Mbd extends AbstractPricker implements Notifiable {
             rowFromString('', this._stage),
             { container: this, index: Block.Touch },
         );
-        this._musicScheme = new MbdScheme(this._stage);
 
         // Call notify() to clear out state from the previous touch
         this.notify(Block.Touch); // calls redraw()
@@ -415,7 +409,8 @@ class Mbd extends AbstractPricker implements Notifiable {
     }
 
     public onAnalyseMusic(): void {
-        const visitor = new Visitors.Music(this._musicScheme);
+        const scheme = new MbdScheme(this._stage);
+        const visitor = new Visitors.Music(scheme);
         this._touch.accept(visitor);
         this.getEl('musicTextarea').innerText =
             visitor.getMatcher().print('text');
