@@ -16,7 +16,7 @@
 
 <u>{{= context.stringFromRow(context.object.initialRow) }}</u><br />
 
-{{~ context.object.getBlocks() :six }}
+{{~ context.object.blocks :six }}
 	{{? six.index === context.object.length }}
 		{{ context.underline = true }}
 	{{?}}
@@ -24,7 +24,7 @@
 {{~}}
 
 {{? context.extraSixes }}
-	{{~ context.extraSixes.getBlocks() :six }}
+	{{~ context.extraSixes.blocks :six }}
 		<span class="extraSix">
 			{{? context.showSixHeads }}
 				{{= context.stringFromRow(six.getFirst()) }}

@@ -27,7 +27,7 @@
 
 /* Output touch as comments */
 // {{= context.stringFromRow(context.object.initialRow) }}{{= '\n' }}
-{{~ context.object.getBlocks() :course }}
+{{~ context.object.blocks :course }}
 	// {{= course.print('text') }}{{= '\n' }}
 {{~}}
 {{= '\n' }}
@@ -51,7 +51,7 @@ strt = {{= context.object.getStart().print('siril') }}{{= '\n' }}
 {{= '\n' }}
 
 /* Course definitions */
-{{~ context.object.getBlocks() :course:index }}
+{{~ context.object.blocks :course:index }}
 	course{{= index + 1 }} =
 	 /* single space */
 	{{= course.print('siril', {'touchRows': context.touchRows}) }}

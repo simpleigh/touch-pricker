@@ -130,11 +130,8 @@ abstract class AbstractContainer<Block extends AbstractBlock>
 
     /**
      * Read access to the blocks
-     *
-     * Derived classes should provide public access via a more
-     * suitably-named method
      */
-    public getBlocks(): Block[] {
+    get blocks(): Block[] {
         return this._blocks.slice();
     }
 

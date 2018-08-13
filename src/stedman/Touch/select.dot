@@ -24,7 +24,7 @@
 	{{= context.stringFromRow(context.object.getStart().getLast()) }}
 </option>
 
-{{~ context.object.getBlocks() :course }}
+{{~ context.object.blocks :course }}
 	<option
 		 value="{{= course.index }}"
 		{{? context.touchRows <= 0 }}

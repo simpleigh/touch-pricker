@@ -57,19 +57,19 @@ export const testAbstractContainerImplementation = (
         });
 
         it('grants access to all the blocks', () => {
-            expect(container.getBlocks().length).toBe(container.length);
+            expect(container.blocks.length).toBe(container.length);
         });
 
         it('ignores changes to the returned blocks array', () => {
-            const blocks = container.getBlocks();
+            const blocks = container.blocks;
             blocks.pop();
             expect(container.length).toBe(expectedLength);
         });
 
         it('grants access to a contained block', () => {
-            expect(container.getBlock(1)).toBe(container.getBlocks()[0]);
+            expect(container.getBlock(1)).toBe(container.blocks[0]);
             expect(container.getBlock(expectedLength))
-                .toBe(container.getBlocks()[expectedLength - 1]);
+                .toBe(container.blocks[expectedLength - 1]);
         });
 
         it('throws an exception for out-of-bounds blocks', () => {

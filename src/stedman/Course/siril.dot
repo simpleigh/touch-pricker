@@ -14,7 +14,7 @@
 	context.touchRows = context.touchRows || Infinity;
 }}
 
-{{~ context.object.getBlocks() :six }}
+{{~ context.object.blocks :six }}
 	{{= six.print('siril', {'touchRows': context.touchRows}) }}
 
 	{{ context.touchRows -= six.estimateRows(); }}

@@ -28,7 +28,7 @@
 	 /* single space */
 {{?}}
 
-{{~ context.object.getBlocks() :six }}
+{{~ context.object.blocks :six }}
 	{{? six.getCall() }}
 		{{ calls.push(
 			((six.getCall() === context.Call.Single) ? 's' : '')
