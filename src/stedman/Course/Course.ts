@@ -92,7 +92,7 @@ class Course
         // Create a new array of sixes with the correct parity
         let initialRow = this._initialRow;
         const newSixes: AbstractSix[] = [];
-        for (let index = 1; index <= this.getLength(); index += 1) {
+        for (let index = 1; index <= this.length; index += 1) {
             const block = this.createBlock(initialRow, index);
             block.setCall(
                 this.getBlock(index).getCall(),
@@ -151,11 +151,11 @@ class Course
      */
     public clone(): Course {
         const cloned: Course = new Course(this._initialRow);
-        cloned.setLength(this.getLength());
+        cloned.setLength(this.length);
         cloned.setFirstSixType(this.getFirstSixType());
 
         // Copy across all the calls
-        for (let index = 1; index <= this.getLength(); index += 1) {
+        for (let index = 1; index <= this.length; index += 1) {
             cloned.getBlock(index).setCall(
                 this.getBlock(index).getCall(),
                 false,  // Avoid multiple updates...

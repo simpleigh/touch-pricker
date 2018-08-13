@@ -48,7 +48,7 @@ abstract class RandomAccessContainer<Block extends AbstractBlock>
      * Helper to fixup ownership of blocks
      */
     private fixupOwnership(index: number): void {
-        for (let i: number = index; i <= this.getLength(); i += 1) {
+        for (let i: number = index; i <= this.length; i += 1) {
             this.getBlock(i).ownership = { container: this, index: i };
         }
     }

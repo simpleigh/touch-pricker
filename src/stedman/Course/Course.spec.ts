@@ -128,7 +128,7 @@ describe('Course class', () => {
     it('can be reset to the default length', () => {
         course.setLength(20);
         course.resetLength();
-        expect(course.getLength()).toBe(22);
+        expect(course.length).toBe(22);
     });
 
     it('returns this when resetting the length', () => {
@@ -167,23 +167,23 @@ describe('Course class', () => {
         course.getBlock(5).toggleCall();
 
         const cloned = course.clone();
-        expect(cloned.getLength()).toBe(course.getLength());
+        expect(cloned.length).toBe(course.length);
         expect(cloned.getFirstSixType()).toBe(course.getFirstSixType());
         expect(cloned.getLast()).toEqual(course.getLast());
     });
 
     it('ignores changes to the cloned course', () => {
-        const getLengthBackup = course.getLength();
+        const lengthBackup = course.length;
         const getLastBackup = course.getLast();
         const cloned = course.clone();
 
         cloned.setLength(20);
         cloned.getBlock(5).toggleCall();
 
-        expect(cloned.getLength()).not.toBe(course.getLength());
+        expect(cloned.length).not.toBe(course.length);
         expect(cloned.getLast()).not.toEqual(course.getLast());
 
-        expect(course.getLength()).toBe(getLengthBackup);
+        expect(course.length).toBe(lengthBackup);
         expect(course.getLast()).toEqual(getLastBackup);
     });
 
@@ -191,7 +191,7 @@ describe('Course class', () => {
         let visitor: StringArray;
         let strings: string[] = [ ];
 
-        for (let index = 1; index <= course.getLength(); index += 1) {
+        for (let index = 1; index <= course.length; index += 1) {
             visitor = new StringArray();
             course.getBlock(index).accept(visitor);
             strings = strings.concat(visitor.getStrings());

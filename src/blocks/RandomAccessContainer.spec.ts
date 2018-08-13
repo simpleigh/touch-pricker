@@ -46,21 +46,21 @@ export const testRandomAccessContainerImplementation = (
                 .toEqual(firstBlockInitialRowFn(container));
 
             // All blocks connected to the previous one
-            for (let index = 2; index <= container.getLength(); index += 1) {
+            for (let index = 2; index <= container.length; index += 1) {
                 expect(container.getBlock(index).initialRow)
                     .toEqual(container.getBlock(index - 1).getLast());
             }
 
             // Container last row matches last block last row
             expect(container.getLast())
-                .toEqual(container.getBlock(container.getLength()).getLast());
+                .toEqual(container.getBlock(container.length).getLast());
         };
 
         const checkBlock = (index: number, testBlock: AbstractBlock) =>
             expect(container.getBlock(index)).toBe(testBlock);
 
         const checkOwnership = () => {
-            for (let index = 1; index <= container.getLength(); index += 1) {
+            for (let index = 1; index <= container.length; index += 1) {
                 expect(container.getBlock(index).container)
                     .toBe(container);
                 expect(container.getBlock(index).index).toBe(index);
@@ -68,12 +68,12 @@ export const testRandomAccessContainerImplementation = (
         };
 
         it('starts out empty', () => {
-            expect(container.getLength()).toBe(0);
+            expect(container.length).toBe(0);
         });
 
         it('can insert a new block', () => {
             container.insertBlock(1, testBlocks[0]);
-            expect(container.getLength()).toBe(1);
+            expect(container.length).toBe(1);
             checkPropagation();
             checkBlock(1, testBlocks[0]);
         });
@@ -93,7 +93,7 @@ export const testRandomAccessContainerImplementation = (
         it('can insert a second block', () => {
             container.insertBlock(1, testBlocks[0]);  // [0]
             container.insertBlock(2, testBlocks[1]);  // [0, 1]
-            expect(container.getLength()).toBe(2);
+            expect(container.length).toBe(2);
             checkPropagation();
             checkBlock(1, testBlocks[0]);
             checkBlock(2, testBlocks[1]);
@@ -102,7 +102,7 @@ export const testRandomAccessContainerImplementation = (
         it('can insert a block at the beginning', () => {
             container.insertBlock(1, testBlocks[1]);  // [1]
             container.insertBlock(1, testBlocks[0]);  // [0, 1]
-            expect(container.getLength()).toBe(2);
+            expect(container.length).toBe(2);
             checkPropagation();
             checkBlock(1, testBlocks[0]);
             checkBlock(2, testBlocks[1]);
@@ -128,7 +128,7 @@ export const testRandomAccessContainerImplementation = (
             container.insertBlock(1, testBlocks[0]);  // [0]
             container.insertBlock(2, testBlocks[1]);  // [0, 1]
             container.deleteBlock(2);                 // [0]
-            expect(container.getLength()).toBe(1);
+            expect(container.length).toBe(1);
             checkPropagation();
             checkBlock(1, testBlocks[0]);
         });
@@ -138,7 +138,7 @@ export const testRandomAccessContainerImplementation = (
             container.insertBlock(2, testBlocks[1]);  // [0, 1]
             container.insertBlock(3, testBlocks[2]);  // [0, 1, 2]
             container.deleteBlock(2);                 // [0, 2]
-            expect(container.getLength()).toBe(2);
+            expect(container.length).toBe(2);
             checkPropagation();
             checkBlock(1, testBlocks[0]);
             checkBlock(2, testBlocks[2]);

@@ -92,7 +92,7 @@ describe('Touch class', () => {
             );
 
             // Clear out any course that may have been added
-            if (touch.getLength()) {
+            if (touch.length) {
                 touch.deleteBlock(1);
             }
         }

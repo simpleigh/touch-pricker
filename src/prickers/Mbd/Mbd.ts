@@ -142,7 +142,7 @@ class Mbd extends AbstractPricker implements Notifiable {
     private redraw(): void {
         const newCourse = this._course.clone();
 
-        const lastSix = this._course.getBlock(this._course.getLength());
+        const lastSix = this._course.getBlock(this._course.length);
         this._extraSixes.setFirstSixType((lastSix.type + 1) % 2);
         this._extraSixes.initialRow = this._course.getLast();
         this.getEl('sixends').innerHTML = this._course.print('mbd', {
@@ -172,7 +172,7 @@ class Mbd extends AbstractPricker implements Notifiable {
         }
 
         this.getEl<HTMLInputElement>('courseLength').value =
-            this._course.getLength().toString();
+            this._course.length.toString();
 
         if (this._savedCourse) {
             this.getEl('savedCalling').innerHTML =
@@ -213,7 +213,7 @@ class Mbd extends AbstractPricker implements Notifiable {
                 })
                 + '</select>';
         this.getEl<HTMLSelectElement>('courses').size = Math.max(
-            this._touch.getLength() + 1,
+            this._touch.length + 1,
             2,
         );
         this.getEl<HTMLSelectElement>('courses').value =
@@ -311,7 +311,7 @@ class Mbd extends AbstractPricker implements Notifiable {
 
         if (this.getEl<HTMLInputElement>('rolling').checked) {
             const course = this._touch.getBlock(this._selectedIndex);
-            const sixType = course.getBlock(course.getLength()).type;
+            const sixType = course.getBlock(course.length).type;
             this._course.setFirstSixType((sixType + 1) % 2);
             this._course.initialRow = course.getLast();
             this._course.resetLength();
@@ -328,12 +328,12 @@ class Mbd extends AbstractPricker implements Notifiable {
 
             if (this.getEl<HTMLInputElement>('rolling').checked) {
                 const course = this._touch.getBlock(this._selectedIndex);
-                const sixType = course.getBlock(course.getLength()).type;
+                const sixType = course.getBlock(course.length).type;
                 this._course.setFirstSixType((sixType + 1) % 2);
                 this._course.initialRow = course.getLast();
                 this._selectedIndex = Math.min(
                     this._selectedIndex + 1,
-                    this._touch.getLength(),
+                    this._touch.length,
                 );
                 this._course.resetLength();
                 this._course.resetCalls();
@@ -363,7 +363,7 @@ class Mbd extends AbstractPricker implements Notifiable {
             this._touch.deleteBlock(this._selectedIndex);
             this._selectedIndex = Math.min(
                 this._selectedIndex,
-                this._touch.getLength(),
+                this._touch.length,
             );
             this.redraw();
             this.redrawTouch();

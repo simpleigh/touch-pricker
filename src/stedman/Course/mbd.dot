@@ -17,7 +17,7 @@
 <u>{{= context.stringFromRow(context.object.initialRow) }}</u><br />
 
 {{~ context.object.getBlocks() :six }}
-	{{? six.index === context.object.getLength() }}
+	{{? six.index === context.object.length }}
 		{{ context.underline = true }}
 	{{?}}
 	{{= six.print('mbd', context) }}

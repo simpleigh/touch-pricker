@@ -43,10 +43,10 @@
 	p
 {{?}}
 
-{{? context.object.getLength() !== context.object.initialRow.length * 2 }}
+{{? context.object.length !== context.object.initialRow.length * 2 }}
 	 /* single space */
 	 /* single space */
-	({{= context.object.getLength() }} sixes)
+	({{= context.object.length }} sixes)
 {{?}}
 
 {{= context.end }}

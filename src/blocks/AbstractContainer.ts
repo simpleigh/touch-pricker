@@ -93,12 +93,12 @@ abstract class AbstractContainer<Block extends AbstractBlock>
      */
     private propagateBlocks(index: number = 0): void {
         // Handle first block
-        if (!index && this.getLength()) {
+        if (!index && this.length) {
             this.propagateFirstBlock(this._blocks[0]);
             index = 1;
         }
 
-        for (; index < this.getLength(); index += 1) {
+        for (; index < this.length; index += 1) {
             this.propagateCurrentBlock(
                 this._blocks[index - 1],
                 this._blocks[index],
@@ -124,7 +124,7 @@ abstract class AbstractContainer<Block extends AbstractBlock>
     /**
      * Read access to the length
      */
-    public getLength(): number {
+    get length(): number {
         return this._blocks.length;
     }
 
@@ -145,7 +145,7 @@ abstract class AbstractContainer<Block extends AbstractBlock>
      * suitably-named method
      */
     public getBlock(index: number): Block {
-        if (index < 1 || index > this.getLength()) {
+        if (index < 1 || index > this.length) {
             throw new Error('Block index out of range');
         }
         return this._blocks[index - 1];

@@ -37,7 +37,7 @@ export const testSerialContainerImplementation = (
 
         let container: TestContainer = factory(testRow);
 
-        const length = container.getLength();
+        const length = container.length;
 
         beforeEach(() => {
             container = factory(testRow);
@@ -46,13 +46,13 @@ export const testSerialContainerImplementation = (
         it('starts out the correct length', () => {
             for (const testCase of lengthTestCases) {
                 container = factory(createTestRow('231', testCase[0]));
-                expect(container.getLength()).toBe(testCase[1]);
+                expect(container.length).toBe(testCase[1]);
             }
         });
 
         it('allows the length to be increased', () => {
             container.setLength(length + 1);
-            expect(container.getLength()).toBe(length + 1);
+            expect(container.length).toBe(length + 1);
         });
 
         it('recalculates last row when increasing length', () => {
@@ -64,7 +64,7 @@ export const testSerialContainerImplementation = (
 
         it('allows the length to be decreased', () => {
             container.setLength(length - 1);
-            expect(container.getLength()).toBe(length - 1);
+            expect(container.length).toBe(length - 1);
         });
 
         it('recalculates last row when decreasing length', () => {
@@ -87,9 +87,9 @@ export const testSerialContainerImplementation = (
         it('provides a way to set lengths without exceptions', () => {
             const [minimum, maximum] = lengthBounds;
             container.safeSetLength(minimum - 1);
-            expect(container.getLength()).toBe(minimum);
+            expect(container.length).toBe(minimum);
             container.safeSetLength(maximum + 1);
-            expect(container.getLength()).toBe(maximum);
+            expect(container.length).toBe(maximum);
         });
 
         it('notifies the parent container for length increase', () => {

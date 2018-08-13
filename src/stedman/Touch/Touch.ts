@@ -69,7 +69,7 @@ class Touch
      * Propagates data from a previous block to a current block
      */
     protected propagateCurrentBlock(previous: Course, current: Course): void {
-        const sixType = previous.getBlock(previous.getLength()).type;
+        const sixType = previous.getBlock(previous.length).type;
         current.initialRow = previous.getLast();
         current.setFirstSixType((sixType + 1) % 2);
     }
@@ -136,7 +136,7 @@ class Touch
             } else {
                 // Create a course for each remaining line
                 course = Course.fromString(touch.getLast(), line);
-                touch.insertBlock(touch.getLength() + 1, course);
+                touch.insertBlock(touch.length + 1, course);
             }
         }
 

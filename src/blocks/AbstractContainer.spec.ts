@@ -53,17 +53,17 @@ export const testAbstractContainerImplementation = (
         });
 
         it('contains the expected number of blocks', () => {
-            expect(container.getLength()).toBe(expectedLength);
+            expect(container.length).toBe(expectedLength);
         });
 
         it('grants access to all the blocks', () => {
-            expect(container.getBlocks().length).toBe(container.getLength());
+            expect(container.getBlocks().length).toBe(container.length);
         });
 
         it('ignores changes to the returned blocks array', () => {
             const blocks = container.getBlocks();
             blocks.pop();
-            expect(container.getLength()).toBe(expectedLength);
+            expect(container.length).toBe(expectedLength);
         });
 
         it('grants access to a contained block', () => {
