@@ -71,22 +71,21 @@ abstract class AbstractBlock {
     /**
      * Updates references to the parent container
      */
-    public setOwnership(ownership: BlockOwnership): AbstractBlock {
+    set ownership(ownership: BlockOwnership) {
         this._ownership = ownership;
-        return this;
     }
 
     /**
      * Allows public access to the container
      */
-    public getContainer(): Notifiable | undefined {
+    get container(): Notifiable | undefined {
         return this._ownership ? this._ownership.container : undefined;
     }
 
     /**
      * Allows public access to the index
      */
-    public getIndex(): number | undefined {
+    get index(): number | undefined {
         return this._ownership ? this._ownership.index : undefined;
     }
 

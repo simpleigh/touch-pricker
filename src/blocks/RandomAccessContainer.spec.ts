@@ -61,9 +61,9 @@ export const testRandomAccessContainerImplementation = (
 
         const checkOwnership = () => {
             for (let index = 1; index <= container.getLength(); index += 1) {
-                expect(container.getBlock(index).getContainer())
+                expect(container.getBlock(index).container)
                     .toBe(container);
-                expect(container.getBlock(index).getIndex()).toBe(index);
+                expect(container.getBlock(index).index).toBe(index);
             }
         };
 
@@ -149,8 +149,8 @@ export const testRandomAccessContainerImplementation = (
             container.insertBlock(2, testBlocks[1]);  // [0, 1]
             container.deleteBlock(2);                 // [0]
             checkOwnership();
-            expect(testBlocks[1].getContainer()).toBeUndefined();
-            expect(testBlocks[1].getIndex()).toBeUndefined();
+            expect(testBlocks[1].container).toBeUndefined();
+            expect(testBlocks[1].index).toBeUndefined();
         });
 
         const fixtureFactory: () => TestContainer = () => {

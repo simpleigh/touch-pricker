@@ -282,7 +282,7 @@ class Mbd extends AbstractPricker implements Notifiable {
             this._course = new Course(this._initialRow);
         }
 
-        this._course.setOwnership({ container: this, index: Block.Course });
+        this._course.ownership = { container: this, index: Block.Course };
 
         this.redraw();
     }
@@ -346,7 +346,7 @@ class Mbd extends AbstractPricker implements Notifiable {
     public onCopyCourse(): void {
         if (this._selectedIndex) {
             this._course = this._touch.getBlock(this._selectedIndex).clone();
-            this._course.setOwnership({ container: this, index: Block.Course });
+            this._course.ownership = { container: this, index: Block.Course };
 
             this._copiedIndex = this._selectedIndex;
             this.redraw();
@@ -386,7 +386,7 @@ class Mbd extends AbstractPricker implements Notifiable {
         this.onStage();
 
         this._touch = newTouch;
-        this._touch.setOwnership({ container: this, index: Block.Touch });
+        this._touch.ownership = { container: this, index: Block.Touch };
 
         // Call notify() to clear out state from the previous touch
         this.notify(Block.Touch); // calls redraw()

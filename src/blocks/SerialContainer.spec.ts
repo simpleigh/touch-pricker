@@ -95,7 +95,7 @@ export const testSerialContainerImplementation = (
         it('notifies the parent container for length increase', () => {
             const parent: AbstractContainer<TestContainer> =
                     jasmine.createSpyObj('AbstractContainer', ['notify']);
-            container.setOwnership({ container: parent, index: 999 });
+            container.ownership = { container: parent, index: 999 };
 
             container.setLength(length + 1);
             expect(parent.notify).toHaveBeenCalled();
@@ -106,7 +106,7 @@ export const testSerialContainerImplementation = (
         it('notifies the parent container for length decrease', () => {
             const parent: AbstractContainer<TestContainer> =
                     jasmine.createSpyObj('AbstractContainer', ['notify']);
-            container.setOwnership({ container: parent, index: 999 });
+            container.ownership = { container: parent, index: 999 };
 
             container.setLength(length - 1);
             expect(parent.notify).toHaveBeenCalled();

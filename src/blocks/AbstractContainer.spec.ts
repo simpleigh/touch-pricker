@@ -117,7 +117,7 @@ export const testAbstractContainerImplementation = (
         it('notifies the parent container on notify', () => {
             const parent: TestContainer =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
-            container.setOwnership({ container: parent, index: 999 });
+            container.ownership = { container: parent, index: 999 };
 
             container.notify(2);
             expect(parent.notify).toHaveBeenCalled();

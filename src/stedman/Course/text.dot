@@ -32,7 +32,7 @@
 	{{? six.getCall() }}
 		{{ calls.push(
 			((six.getCall() === context.Call.Single) ? 's' : '')
-				+ six.getIndex()
+				+ six.index
 		); }}
 	{{?}}
 {{~}}
