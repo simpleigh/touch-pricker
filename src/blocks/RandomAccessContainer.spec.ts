@@ -42,12 +42,12 @@ export const testRandomAccessContainerImplementation = (
 
         const checkPropagation = () => {
             // First block initial row OK
-            expect(container.getBlock(1).getInitialRow())
+            expect(container.getBlock(1).initialRow)
                 .toEqual(firstBlockInitialRowFn(container));
 
             // All blocks connected to the previous one
             for (let index = 2; index <= container.getLength(); index += 1) {
-                expect(container.getBlock(index).getInitialRow())
+                expect(container.getBlock(index).initialRow)
                     .toEqual(container.getBlock(index - 1).getLast());
             }
 
@@ -80,13 +80,13 @@ export const testRandomAccessContainerImplementation = (
 
         it('ignores the initial row when inserting a new block', () => {
             // Set container initial row different from block initial row
-            const initialRow = testBlocks[0].getInitialRow();
+            const initialRow = testBlocks[0].initialRow;
             Changes.permuteN(initialRow);
-            container.setInitialRow(initialRow);
+            container.initialRow = initialRow;
 
             // Container initial row should be unaffected when inserting
             container.insertBlock(1, testBlocks[0]);
-            expect(container.getInitialRow()).toEqual(initialRow);
+            expect(container.initialRow).toEqual(initialRow);
             checkPropagation();
         });
 

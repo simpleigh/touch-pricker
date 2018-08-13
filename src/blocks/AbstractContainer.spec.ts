@@ -47,7 +47,7 @@ export const testAbstractContainerImplementation = (
             const newRow = createTestRow('123');
             container = factory(initialRow);
 
-            container.setInitialRow(newRow);
+            container.initialRow = newRow;
             expect(container.getLast()).not.toEqual(initialRow);
             expect(container.getLast()).toEqual(newRow);
         });
@@ -82,33 +82,36 @@ export const testAbstractContainerImplementation = (
                 .toEqual(container.getBlock(expectedLength).getLast());
         });
 
+        const getSpy = (index: number) =>
+            spyOnProperty(container.getBlock(index), 'initialRow', 'set');
+
         it('recalculates blocks when the initial row changes', () => {
             const newRow = createTestRow('123');
-            spyOn(container.getBlock(1), 'setInitialRow');
-            spyOn(container.getBlock(2), 'setInitialRow');
-            spyOn(container.getBlock(3), 'setInitialRow');
+            const spy1 = getSpy(1);
+            const spy2 = getSpy(2);
+            const spy3 = getSpy(3);
 
-            container.setInitialRow(newRow);
-            expect(container.getBlock(1).setInitialRow).toHaveBeenCalled();
-            expect(container.getBlock(2).setInitialRow).toHaveBeenCalled();
-            expect(container.getBlock(3).setInitialRow).toHaveBeenCalled();
+            container.initialRow = newRow;
+            expect(spy1).toHaveBeenCalled();
+            expect(spy2).toHaveBeenCalled();
+            expect(spy3).toHaveBeenCalled();
         });
 
         it('recalculates blocks when notified of changes', () => {
-            spyOn(container.getBlock(1), 'setInitialRow');
-            spyOn(container.getBlock(2), 'setInitialRow');
-            spyOn(container.getBlock(3), 'setInitialRow');
+            const spy1 = getSpy(1);
+            const spy2 = getSpy(2);
+            const spy3 = getSpy(3);
 
             container.notify(2);
 
             // Block before the notification is ignored
-            expect(container.getBlock(1).setInitialRow).not.toHaveBeenCalled();
+            expect(spy1).not.toHaveBeenCalled();
 
             // Notifying block also ignored (it knows anyway)
-            expect(container.getBlock(2).setInitialRow).not.toHaveBeenCalled();
+            expect(spy2).not.toHaveBeenCalled();
 
             // Block after the notification is updated
-            expect(container.getBlock(3).setInitialRow).toHaveBeenCalled();
+            expect(spy3).toHaveBeenCalled();
         });
 
         it('notifies the parent container on notify', () => {

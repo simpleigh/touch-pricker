@@ -102,7 +102,7 @@ class Mbd extends AbstractPricker implements Notifiable {
      */
     public notify(index: number): void {
         if (index === Block.Course) {
-            this._extraSixes.setInitialRow(this._course.getLast());
+            this._extraSixes.initialRow = this._course.getLast();
             this._copiedIndex = undefined;
         } else if (index === Block.Touch) {
             this._rowCount = undefined;
@@ -144,7 +144,7 @@ class Mbd extends AbstractPricker implements Notifiable {
 
         const lastSix = this._course.getBlock(this._course.getLength());
         this._extraSixes.setFirstSixType((lastSix.type + 1) % 2);
-        this._extraSixes.setInitialRow(this._course.getLast());
+        this._extraSixes.initialRow = this._course.getLast();
         this.getEl('sixends').innerHTML = this._course.print('mbd', {
             courseIndex: this._copiedIndex,
             extraSixes: this._extraSixes,
@@ -155,12 +155,12 @@ class Mbd extends AbstractPricker implements Notifiable {
 
         this.getEl('calling').innerHTML = this._course.print('html');
 
-        newCourse.setInitialRow(this._initialRow);
+        newCourse.initialRow = this._initialRow;
         newCourse.setFirstSixType(SixType.Slow);
         this.getEl('callingFromRounds').innerHTML = newCourse.print('html');
 
         this.getEl<HTMLInputElement>('initialRow').value =
-            stringFromRow(this._course.getInitialRow());
+            stringFromRow(this._course.initialRow);
 
         this.getEl<HTMLSelectElement>('firstSix').value =
             this._course.getFirstSixType().toString();
@@ -236,12 +236,12 @@ class Mbd extends AbstractPricker implements Notifiable {
             return;
         }
 
-        this._course.setInitialRow(initialRow);
+        this._course.initialRow = initialRow;
         this.redraw();
     }
 
     public onResetInitialRow(): void {
-        this._course.setInitialRow(this._initialRow);
+        this._course.initialRow = this._initialRow;
         this.redraw();
     }
 
@@ -270,14 +270,14 @@ class Mbd extends AbstractPricker implements Notifiable {
 
     public onSaveCalling(): void {
         this._savedCourse = this._course.clone();
-        this._savedCourse.setInitialRow(this._initialRow);
+        this._savedCourse.initialRow = this._initialRow;
         this.redraw();
     }
 
     public onLoadCalling(): void {
         if (this._savedCourse) {
             this._course = this._savedCourse.clone();
-            this._course.setInitialRow(this._initialRow);
+            this._course.initialRow = this._initialRow;
         } else {
             this._course = new Course(this._initialRow);
         }
@@ -313,7 +313,7 @@ class Mbd extends AbstractPricker implements Notifiable {
             const course = this._touch.getBlock(this._selectedIndex);
             const sixType = course.getBlock(course.getLength()).type;
             this._course.setFirstSixType((sixType + 1) % 2);
-            this._course.setInitialRow(course.getLast());
+            this._course.initialRow = course.getLast();
             this._course.resetLength();
             this._course.resetCalls();
         }
@@ -330,7 +330,7 @@ class Mbd extends AbstractPricker implements Notifiable {
                 const course = this._touch.getBlock(this._selectedIndex);
                 const sixType = course.getBlock(course.getLength()).type;
                 this._course.setFirstSixType((sixType + 1) % 2);
-                this._course.setInitialRow(course.getLast());
+                this._course.initialRow = course.getLast();
                 this._selectedIndex = Math.min(
                     this._selectedIndex + 1,
                     this._touch.getLength(),
@@ -381,7 +381,7 @@ class Mbd extends AbstractPricker implements Notifiable {
             return;
         }
 
-        this._stage = newTouch.getInitialRow().length;
+        this._stage = newTouch.initialRow.length;
         this.getEl<HTMLSelectElement>('stage').value = this._stage.toString();
         this.onStage();
 

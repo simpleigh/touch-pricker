@@ -66,7 +66,7 @@ export const testSixImplementation = (
             six.setCall(call);
             expect(six.getLast()).not.toEqual(expected);
 
-            six.setInitialRow(previous);
+            six.initialRow = previous;
             expect(six.getLast()).toEqual(expected);
         },
     ));

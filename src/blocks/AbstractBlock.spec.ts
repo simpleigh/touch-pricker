@@ -35,17 +35,13 @@ export const testAbstractBlockImplementation = (
         });
 
         it('stores the initial row', () => {
-            expect(block.getInitialRow()).toEqual(testRow);
+            expect(block.initialRow).toEqual(testRow);
         });
 
         it('allows the initial row to be changed', () => {
             const newRow = createTestRow('2143658709E');
-            block.setInitialRow(newRow);
-            expect(block.getInitialRow()).toEqual(newRow);
-        });
-
-        it('returns this when changing the initial row', () => {
-            expect(block.setInitialRow(testRow)).toBe(block);
+            block.initialRow = newRow;
+            expect(block.initialRow).toEqual(newRow);
         });
 
         it('ignores changes to the original initial row', () => {
@@ -55,36 +51,36 @@ export const testAbstractBlockImplementation = (
             initialRow[3] = 999;  // Mutate the initial row
             expect(initialRow).not.toEqual(testRow);
 
-            expect(block.getInitialRow()).not.toEqual(initialRow);
-            expect(block.getInitialRow()).toEqual(testRow);
+            expect(block.initialRow).not.toEqual(initialRow);
+            expect(block.initialRow).toEqual(testRow);
         });
 
-        it('ignores changes to the getInitialRow result', () => {
-            const getInitialRow = block.getInitialRow();
-            const getInitialRowBackup = block.getInitialRow().slice();
+        it('ignores changes to the initialRow result', () => {
+            const initialRow = block.initialRow;
+            const initialRowBackup = block.initialRow.slice();
 
-            getInitialRow[3] = 999;  // Mutate the getInitialRow result
-            expect(getInitialRow).not.toEqual(getInitialRowBackup);
+            initialRow[3] = 999;  // Mutate the initialRow result
+            expect(initialRow).not.toEqual(initialRowBackup);
 
-            expect(block.getInitialRow()).not.toEqual(getInitialRow);
-            expect(block.getInitialRow()).toEqual(getInitialRowBackup);
+            expect(block.initialRow).not.toEqual(initialRow);
+            expect(block.initialRow).toEqual(initialRowBackup);
         });
 
-        it('ignores changes to the setInitialRow argument', () => {
-            const setInitialRow = createTestRow('2143658709E');
-            const setInitialRowBackup = setInitialRow.slice();
+        it('ignores changes to the new initialRow argument', () => {
+            const initialRow = createTestRow('2143658709E');
+            const initialRowBackup = initialRow.slice();
 
-            block.setInitialRow(setInitialRow);
-            setInitialRow[3] = 999;  // Mutate the setInitialRow argument
-            expect(setInitialRow).not.toEqual(setInitialRowBackup);
+            block.initialRow = initialRow;
+            initialRow[3] = 999;  // Mutate the initialRow argument
+            expect(initialRow).not.toEqual(initialRowBackup);
 
-            expect(block.getInitialRow()).not.toEqual(setInitialRow);
-            expect(block.getInitialRow()).toEqual(setInitialRowBackup);
+            expect(block.initialRow).not.toEqual(initialRow);
+            expect(block.initialRow).toEqual(initialRowBackup);
         });
 
         it('updates when the initial row changes', () => {
             const lastRow = block.getLast();
-            block.setInitialRow(createTestRow('2143658709E'));
+            block.initialRow = createTestRow('2143658709E');
             expect(block.getLast()).not.toEqual(lastRow);
         });
 
@@ -115,7 +111,7 @@ export const testAbstractBlockImplementation = (
             const container: AbstractContainer<AbstractBlock> =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
             block.setOwnership({ container, index: 999 });
-            block.setInitialRow(testRow);
+            block.initialRow = testRow;
             expect(container.notify).not.toHaveBeenCalled();
         });
 

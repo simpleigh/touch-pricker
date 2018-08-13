@@ -50,17 +50,16 @@ abstract class AbstractBlock {
     /**
      * Read access to the initial row
      */
-    public getInitialRow(): Row {
+    get initialRow(): Row {
         return this._initialRow.slice();
     }
 
     /**
      * Write access to the initial row
      */
-    public setInitialRow(initialRow: Row): this {
+    set initialRow(initialRow: Row) {
         this._initialRow = initialRow.slice();
         this.calculate();
-        return this;
     }
 
     /**

@@ -18,7 +18,7 @@ describe('BlockDirectory class', () => {
 
     class Lead extends AbstractBlock {
         protected calculate(): void { /* NOOP */ }
-        public getLast(): Row { return this.getInitialRow(); }
+        public getLast(): Row { return this.initialRow; }
         public accept(): this { return this; }
         public estimateRows(): number { return 0; }
     }

@@ -13,7 +13,7 @@
 {{
 	var courseNames = [ ],
 		rounds = context.stringFromRow(
-			context.rowFromString('', context.object.getInitialRow().length)
+			context.rowFromString('', context.object.initialRow.length)
 		);
 
 	context.touchRows = context.touchRows || Infinity;
@@ -26,14 +26,14 @@
 {{= '\n' }}
 
 /* Output touch as comments */
-// {{= context.stringFromRow(context.object.getInitialRow()) }}{{= '\n' }}
+// {{= context.stringFromRow(context.object.initialRow) }}{{= '\n' }}
 {{~ context.object.getBlocks() :course }}
 	// {{= course.print('text') }}{{= '\n' }}
 {{~}}
 {{= '\n' }}
 
 /* Number of bells */
-{{= context.object.getInitialRow().length }} bells{{= '\n' }}
+{{= context.object.initialRow.length }} bells{{= '\n' }}
 {{= '\n' }}
 
 /* MicroSIRIL will prove the first symbol in the file, so define it */

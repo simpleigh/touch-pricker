@@ -70,7 +70,7 @@ class Touch
      */
     protected propagateCurrentBlock(previous: Course, current: Course): void {
         const sixType = previous.getBlock(previous.getLength()).type;
-        current.setInitialRow(previous.getLast());
+        current.initialRow = previous.getLast();
         current.setFirstSixType((sixType + 1) % 2);
     }
 
@@ -80,7 +80,7 @@ class Touch
      */
     protected propagateFirstBlock(first: Course): void {
         const sixType = this._start.getSixType();
-        first.setInitialRow(this._start.getLast());
+        first.initialRow = this._start.getLast();
         first.setFirstSixType((sixType + 1) % 2);
     }
 

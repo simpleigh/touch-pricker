@@ -110,7 +110,7 @@ abstract class AbstractContainer<Block extends AbstractBlock>
      * Propagates data from a previous block to a current block
      */
     protected propagateCurrentBlock(previous: Block, current: Block): void {
-        current.setInitialRow(previous.getLast());
+        current.initialRow = previous.getLast();
     }
 
     /**
@@ -118,7 +118,7 @@ abstract class AbstractContainer<Block extends AbstractBlock>
      * Handled as a special case to allow for e.g. Stedman starts
      */
     protected propagateFirstBlock(first: Block): void {
-        first.setInitialRow(this._initialRow);
+        first.initialRow = this._initialRow;
     }
 
     /**

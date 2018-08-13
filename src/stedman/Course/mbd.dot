@@ -14,7 +14,7 @@
  * @param {boolean}         showSixHeads  show six heads as well as six ends
  */
 
-<u>{{= context.stringFromRow(context.object.getInitialRow()) }}</u><br />
+<u>{{= context.stringFromRow(context.object.initialRow) }}</u><br />
 
 {{~ context.object.getBlocks() :six }}
 	{{? six.getIndex() === context.object.getLength() }}

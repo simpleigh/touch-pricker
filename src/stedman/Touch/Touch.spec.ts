@@ -106,7 +106,7 @@ describe('Touch class', () => {
                 .setSixType(sixType);
             touch.insertBlock(1, course);
 
-            expect(touch.getBlock(1).getInitialRow())
+            expect(touch.getBlock(1).initialRow)
                 .toEqual(touch.getStart().getLast());
         },
     ));
@@ -119,7 +119,7 @@ describe('Touch class', () => {
                 .setRowIndex(rowIndex)
                 .setSixType(sixType);
 
-            expect(touch.getBlock(1).getInitialRow())
+            expect(touch.getBlock(1).initialRow)
                 .toEqual(touch.getStart().getLast());
         },
     ));
