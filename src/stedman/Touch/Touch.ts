@@ -89,7 +89,7 @@ class Touch
     /**
      * Read access to the start
      */
-    public getStart(): Start {
+    get start(): Start {
         return this._start;
     }
 
@@ -145,7 +145,7 @@ class Touch
         }
 
         if (start) {
-            touch.getStart().setFromString(start);
+            touch.start.setFromString(start);
         }
 
         return touch;

@@ -21,7 +21,7 @@
 }}
 
 <option value="0">
-	{{= context.stringFromRow(context.object.getStart().getLast()) }}
+	{{= context.stringFromRow(context.object.start.getLast()) }}
 </option>
 
 {{~ context.object.blocks :course }}

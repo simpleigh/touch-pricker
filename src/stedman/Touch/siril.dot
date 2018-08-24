@@ -17,7 +17,7 @@
 		);
 
 	context.touchRows = context.touchRows || Infinity;
-	context.touchRows -= context.object.getStart().estimateRows();
+	context.touchRows -= context.object.start.estimateRows();
 }}
 
 /* Header */
@@ -47,7 +47,7 @@ plain = +{{= rounds.slice(-1) }}{{= '\n' }}
 bob = +{{= rounds.slice(-3, -2) }}{{= '\n' }}
 single = +{{= rounds.slice(-3) }}{{= '\n' }}
 /* Can't use the name "start": it's processed separately by gsiril */
-strt = {{= context.object.getStart().print('siril') }}{{= '\n' }}
+strt = {{= context.object.start.print('siril') }}{{= '\n' }}
 {{= '\n' }}
 
 /* Course definitions */

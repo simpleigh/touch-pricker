@@ -76,7 +76,7 @@ describe('Touch class', () => {
     });
 
     it('allows access to the start', () => {
-        const start = touch.getStart();
+        const start = touch.start;
         expect(start.rowIndex).toBe(4);
         expect(start.sixType).toBe(SixType.Quick);
     });
@@ -100,12 +100,12 @@ describe('Touch class', () => {
     it('propagates when adding courses', runStartCases(
         (rowIndex, sixType) => {
             const course = new Course(testRow);
-            touch.getStart().rowIndex = rowIndex;
-            touch.getStart().sixType = sixType;
+            touch.start.rowIndex = rowIndex;
+            touch.start.sixType = sixType;
             touch.insertBlock(1, course);
 
             expect(touch.getBlock(1).initialRow)
-                .toEqual(touch.getStart().getLast());
+                .toEqual(touch.start.getLast());
         },
     ));
 
@@ -113,11 +113,11 @@ describe('Touch class', () => {
         (rowIndex, sixType) => {
             const course = new Course(testRow);
             touch.insertBlock(1, course);
-            touch.getStart().rowIndex = rowIndex;
-            touch.getStart().sixType = sixType;
+            touch.start.rowIndex = rowIndex;
+            touch.start.sixType = sixType;
 
             expect(touch.getBlock(1).initialRow)
-                .toEqual(touch.getStart().getLast());
+                .toEqual(touch.start.getLast());
         },
     ));
 
@@ -126,9 +126,9 @@ describe('Touch class', () => {
             const startVisitor = new StringArray();
             const touchVisitor = new StringArray();
 
-            touch.getStart().rowIndex = rowIndex;
-            touch.getStart().sixType = sixType;
-            touch.getStart().accept(startVisitor);
+            touch.start.rowIndex = rowIndex;
+            touch.start.sixType = sixType;
+            touch.start.accept(startVisitor);
             touch.accept(touchVisitor);
 
             expect(touchVisitor.strings).toEqual(startVisitor.strings);
@@ -137,9 +137,9 @@ describe('Touch class', () => {
 
     it('includes the start in the estimate of rows', runStartCases(
         (rowIndex, sixType) => {
-            touch.getStart().rowIndex = rowIndex;
-            touch.getStart().sixType = sixType;
-            expect(touch.estimateRows()).toBe(touch.getStart().estimateRows());
+            touch.start.rowIndex = rowIndex;
+            touch.start.sixType = sixType;
+            expect(touch.estimateRows()).toBe(touch.start.estimateRows());
         },
     ));
 
@@ -256,7 +256,7 @@ describe('Touch class', () => {
                 '2314567890E  12 14 s16 17 18 19  (20 sixes)',
             ),
         ],
-        (container) => (container as Touch).getStart().getLast(),
+        (container) => (container as Touch).start.getLast(),
         2,
     );
 

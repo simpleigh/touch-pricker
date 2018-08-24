@@ -25,7 +25,7 @@ describe('select template for Touch', () => {
         expect(touch.print('select')).toBe(
             ''
                 + '<option value="0">'
-                + stringFromRow(touch.getStart().getLast())
+                + stringFromRow(touch.start.getLast())
                 + '</option>'
                 + '<option value="1">'
                 + touch.getBlock(1).print('text')

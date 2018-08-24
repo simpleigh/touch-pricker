@@ -9,9 +9,9 @@
  * Renders a touch as text
  */
 
-{{ var start = context.object.getStart().print('text'); }}
+{{ var start = context.object.start.print('text'); }}
 
-{{= context.stringFromRow(context.object.getStart().getLast()) }}{{= '\n' }}
+{{= context.stringFromRow(context.object.start.getLast()) }}{{= '\n' }}
 {{~ context.object.blocks :course }}
 	{{= course.print('text', {'end': '\n'}) }}
 {{~}}
