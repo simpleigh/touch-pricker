@@ -75,7 +75,7 @@ class Course
     /**
      * Read access to the type of the first six
      */
-    public getFirstSixType(): SixType {
+    get firstSixType(): SixType {
         return this._firstSixType;
     }
 
@@ -152,7 +152,7 @@ class Course
     public clone(): Course {
         const cloned: Course = new Course(this._initialRow);
         cloned.setLength(this.length);
-        cloned.setFirstSixType(this.getFirstSixType());
+        cloned.setFirstSixType(this.firstSixType);
 
         // Copy across all the calls
         for (let index = 1; index <= this.length; index += 1) {

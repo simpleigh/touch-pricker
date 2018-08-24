@@ -163,7 +163,7 @@ class Mbd extends AbstractPricker implements Notifiable {
             stringFromRow(this._course.initialRow);
 
         this.getEl<HTMLSelectElement>('firstSix').value =
-            this._course.getFirstSixType().toString();
+            this._course.firstSixType.toString();
 
         if (this._showAdvancedOptions) {
             show(this.getEl('firstSixBlock'));

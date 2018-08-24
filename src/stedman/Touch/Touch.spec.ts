@@ -62,7 +62,7 @@ describe('Touch class', () => {
 
         touch.insertBlock(1, course1);
         touch.insertBlock(2, course2);
-        expect(touch.getBlock(2).getFirstSixType()).toBe(SixType.Quick);
+        expect(touch.getBlock(2).firstSixType).toBe(SixType.Quick);
     });
 
     it('sets the type of six when inserting a course at the beginning', () => {
@@ -72,7 +72,7 @@ describe('Touch class', () => {
 
         touch.insertBlock(1, course2);
         touch.insertBlock(1, course1);
-        expect(touch.getBlock(2).getFirstSixType()).toBe(SixType.Quick);
+        expect(touch.getBlock(2).firstSixType).toBe(SixType.Quick);
     });
 
     it('allows access to the start', () => {

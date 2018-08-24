@@ -26,7 +26,7 @@ describe('Course class', () => {
     });
 
     it('starts out with a slow six by default', () => {
-        expect(course.getFirstSixType()).toBe(SixType.Slow);
+        expect(course.firstSixType).toBe(SixType.Slow);
         expect(course.getBlock(1).type).toBe(SixType.Slow);
     });
 
@@ -42,7 +42,7 @@ describe('Course class', () => {
 
     it('can change the parity of its sixes', () => {
         course.setFirstSixType(SixType.Quick);
-        expect(course.getFirstSixType()).toBe(SixType.Quick);
+        expect(course.firstSixType).toBe(SixType.Quick);
         for (let index = 1; index <= 22; index += 1) {
             if (index % 2) {
                 expect(course.getBlock(index).type).toBe(SixType.Quick);
@@ -168,7 +168,7 @@ describe('Course class', () => {
 
         const cloned = course.clone();
         expect(cloned.length).toBe(course.length);
-        expect(cloned.getFirstSixType()).toBe(course.getFirstSixType());
+        expect(cloned.firstSixType).toBe(course.firstSixType);
         expect(cloned.getLast()).toEqual(course.getLast());
     });
 
