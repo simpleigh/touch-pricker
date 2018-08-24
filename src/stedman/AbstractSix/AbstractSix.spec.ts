@@ -151,26 +151,26 @@ export const testSixImplementation = (
         });
 
         it('starts life as a plain six', () => {
-            expect(createTestSix().getCall()).toBe(Call.Plain);
+            expect(createTestSix().call).toBe(Call.Plain);
         });
 
         it('lets the call be set', () => {
             const six = createTestSix();
             six.setCall(Call.Bob);
-            expect(six.getCall()).toBe(Call.Bob);
+            expect(six.call).toBe(Call.Bob);
         });
 
         it('rotates between calls when toggled', () => {
             const six = createTestSix();
 
             six.toggleCall();
-            expect(six.getCall()).toBe(Call.Bob);
+            expect(six.call).toBe(Call.Bob);
 
             six.toggleCall();
-            expect(six.getCall()).toBe(Call.Single);
+            expect(six.call).toBe(Call.Single);
 
             six.toggleCall();
-            expect(six.getCall()).toBe(Call.Plain);
+            expect(six.call).toBe(Call.Plain);
         });
 
         it('returns the new call when toggled', () => {

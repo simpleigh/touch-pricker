@@ -70,11 +70,11 @@
  onclick="pricker.c({{= context.object.index }})"
 >
 	&nbsp;
-	{{? context.object.getCall() === context.Call.Plain }}
+	{{? context.object.call === context.Call.Plain }}
 		&nbsp;
-	{{?? context.object.getCall() === context.Call.Bob }}
+	{{?? context.object.call === context.Call.Bob }}
 		-
-	{{?? context.object.getCall() === context.Call.Single }}
+	{{?? context.object.call === context.Call.Single }}
 		s
 	{{?}}
 	&nbsp;

@@ -91,7 +91,7 @@ abstract class AbstractSix
     /**
      * Read access to the call
      */
-    public getCall(): Call {
+    get call(): Call {
         return this._call;
     }
 

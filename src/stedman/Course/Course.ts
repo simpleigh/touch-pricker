@@ -95,7 +95,7 @@ class Course
         for (let index = 1; index <= this.length; index += 1) {
             const block = this.createBlock(initialRow, index);
             block.setCall(
-                this.getBlock(index).getCall(),
+                this.getBlock(index).call,
                 false,  // Avoid multiple updates...
             );
             newSixes.push(block);
@@ -106,7 +106,7 @@ class Course
 
         // ... and trigger one at the end
         if (newSixes.length) {
-            this.getBlock(1).setCall(this.getBlock(1).getCall());
+            this.getBlock(1).setCall(this.getBlock(1).call);
         }
 
         return this;
@@ -139,7 +139,7 @@ class Course
      */
     public isPlain(): boolean {
         for (const six of this._blocks) {
-            if (six.getCall()) {
+            if (six.call) {
                 return false;
             }
         }
@@ -157,13 +157,13 @@ class Course
         // Copy across all the calls
         for (let index = 1; index <= this.length; index += 1) {
             cloned.getBlock(index).setCall(
-                this.getBlock(index).getCall(),
+                this.getBlock(index).call,
                 false,  // Avoid multiple updates...
             );
         }
 
         // ... and trigger one at the end
-        cloned.getBlock(1).setCall(this.getBlock(1).getCall());
+        cloned.getBlock(1).setCall(this.getBlock(1).call);
 
         return cloned;
     }

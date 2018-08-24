@@ -112,8 +112,8 @@ describe('Course class', () => {
         course.getBlock(3).setCall(Call.Bob);
 
         course.setFirstSixType(SixType.Quick);
-        expect(course.getBlock(2).getCall()).toBe(Call.Single);
-        expect(course.getBlock(3).getCall()).toBe(Call.Bob);
+        expect(course.getBlock(2).call).toBe(Call.Single);
+        expect(course.getBlock(3).call).toBe(Call.Bob);
 
         expect(course.getBlock(1).getLast())
             .toEqual(createTestRow('234618507E9'));
@@ -138,7 +138,7 @@ describe('Course class', () => {
     it('can be reset to a plain course', () => {
         course.getBlock(5).toggleCall();
         course.resetCalls();
-        expect(course.getBlock(5).getCall()).toBe(Call.Plain);
+        expect(course.getBlock(5).call).toBe(Call.Plain);
     });
 
     it('returns this when resetting the calls', () => {

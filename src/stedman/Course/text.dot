@@ -29,9 +29,9 @@
 {{?}}
 
 {{~ context.object.blocks :six }}
-	{{? six.getCall() }}
+	{{? six.call }}
 		{{ calls.push(
-			((six.getCall() === context.Call.Single) ? 's' : '')
+			((six.call === context.Call.Single) ? 's' : '')
 				+ six.index
 		); }}
 	{{?}}

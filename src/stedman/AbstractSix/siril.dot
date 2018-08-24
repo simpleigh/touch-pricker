@@ -15,11 +15,11 @@
 	context.touchRows = context.touchRows || Infinity;
 }}
 
-{{? context.object.getCall() === context.Call.Plain }}
+{{? context.object.call === context.Call.Plain }}
 	plain
-{{?? context.object.getCall() === context.Call.Bob }}
+{{?? context.object.call === context.Call.Bob }}
 	bob
-{{?? context.object.getCall() === context.Call.Single }}
+{{?? context.object.call === context.Call.Single }}
 	single
 {{?}}
 ,
