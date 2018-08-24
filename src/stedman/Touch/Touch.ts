@@ -79,7 +79,7 @@ class Touch
      * Handled as a special case to allow for e.g. Stedman starts
      */
     protected propagateFirstBlock(first: Course): void {
-        const sixType = this._start.getSixType();
+        const sixType = this._start.sixType;
         first.initialRow = this._start.getLast();
         first.setFirstSixType((sixType + 1) % 2);
     }

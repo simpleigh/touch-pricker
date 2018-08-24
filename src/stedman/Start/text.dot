@@ -14,7 +14,7 @@
 {{ var typeMap = ['slow', 'quick']; }}
 
 {{?
-	context.object.getRowIndex() === 4 && context.object.getSixType() === 1
+	context.object.rowIndex === 4 && context.object.sixType === 1
 }}
 
 	/* No output for standard start */
@@ -23,11 +23,11 @@
 
 	Start from rounds as the
 	 /* single space */
-	{{= rowMap[context.object.getRowIndex()] }}
+	{{= rowMap[context.object.rowIndex] }}
 	 /* single space */
 	row of a
 	 /* single space */
-	{{= typeMap[context.object.getSixType()] }}
+	{{= typeMap[context.object.sixType] }}
 	 /* single space */
 	six.
 

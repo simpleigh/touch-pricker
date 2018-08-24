@@ -44,8 +44,8 @@ describe('text template for Start', () => {
 
             it(`prints correctly for ${trimmed}`, () => {
                 const start = new Start(initialRow);
-                start.setRowIndex(rowIndex);
-                start.setSixType(sixType);
+                start.rowIndex = rowIndex;
+                start.sixType = sixType;
                 expect(start.print('text')).toBe(expected);
             });
         }

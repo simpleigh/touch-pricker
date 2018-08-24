@@ -24,9 +24,8 @@ describe('text template for Touch', () => {
             + '3124567890E  1 s10 s13 s15 22\n';
         const touch = Touch.fromString(text);
 
-        touch.getStart()
-            .setRowIndex(2)
-            .setSixType(SixType.Quick);
+        touch.getStart().rowIndex = 2;
+        touch.getStart().sixType = SixType.Quick;
 
         const expected = text + touch.getStart().print('text') + '\n';
         expect(touch.print('text')).toBe(expected);

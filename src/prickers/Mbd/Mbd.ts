@@ -191,9 +191,9 @@ class Mbd extends AbstractPricker implements Notifiable {
             : this._touch.estimateRows() + ' changes';
 
         this.getEl<HTMLSelectElement>('rowIndex').value =
-            this._touch.getStart().getRowIndex().toString();
+            this._touch.getStart().rowIndex.toString();
         this.getEl<HTMLSelectElement>('sixType').value =
-            this._touch.getStart().getSixType().toString();
+            this._touch.getStart().sixType.toString();
 
         if (this._showAdvancedOptions) {
             show(this.getEl('startBlock'));
@@ -289,13 +289,13 @@ class Mbd extends AbstractPricker implements Notifiable {
 
     public onRowIndex(): void {
         const input = this.getEl<HTMLSelectElement>('rowIndex').value;
-        this._touch.getStart().setRowIndex(parseInt(input));
+        this._touch.getStart().rowIndex = parseInt(input);
         this.redrawTouch();
     }
 
     public onSixType(): void {
         const input = this.getEl<HTMLSelectElement>('sixType').value;
-        this._touch.getStart().setSixType(parseInt(input));
+        this._touch.getStart().sixType = parseInt(input);
         this.redrawTouch();
     }
 
