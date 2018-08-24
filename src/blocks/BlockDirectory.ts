@@ -105,7 +105,7 @@ class BlockDirectory {
     /**
      * Checks whether the index is empty
      */
-    public isEmpty(): boolean {
+    get empty(): boolean {
         return !this._directory.length;
     }
 

@@ -132,12 +132,12 @@ describe('BlockDirectory class', () => {
     });
 
     it('knows when it is empty', () => {
-        expect(directory.isEmpty()).toBe(true);
+        expect(directory.empty).toBe(true);
     });
 
     it('knows when it is not empty', () => {
         directory.add(touch.getBlock(1).getBlock(3));
-        expect(directory.isEmpty()).toBe(false);
+        expect(directory.empty).toBe(false);
     });
 
     it('throws an exception for an unowned block', () => {

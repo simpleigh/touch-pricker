@@ -43,7 +43,7 @@ describe('Music visitor', () => {
     });
 
     it('builds up an directory that starts out empty', () => {
-        expect(visitor.getDirectory().isEmpty()).toBe(true);
+        expect(visitor.getDirectory().empty).toBe(true);
     });
 
     it('adds matched blocks to the directory', () => {

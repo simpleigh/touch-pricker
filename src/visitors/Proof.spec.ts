@@ -72,7 +72,7 @@ describe('Proof visitor', () => {
     });
 
     it('builds up a directory that starts out empty', () => {
-        expect(visitor.getDirectory().isEmpty()).toBe(true);
+        expect(visitor.getDirectory().empty).toBe(true);
     });
 
     it('adds new blocks found to be false to the directory', () => {
