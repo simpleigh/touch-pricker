@@ -34,7 +34,7 @@ describe('Music visitor', () => {
     });
 
     it('allows access to the provided matcher', () => {
-        expect(visitor.getMatcher()).toBe(matcher);
+        expect(visitor.matcher).toBe(matcher);
     });
 
     it('matches rows using the provided matcher', () => {
@@ -43,14 +43,14 @@ describe('Music visitor', () => {
     });
 
     it('builds up an directory that starts out empty', () => {
-        expect(visitor.getDirectory().empty).toBe(true);
+        expect(visitor.directory.empty).toBe(true);
     });
 
     it('adds matched blocks to the directory', () => {
         matcher.match.and.returnValue(true);
 
         visitor.visit(testRow, touch.getBlock(1).getBlock(3));
-        expect(visitor.getDirectory().contains(touch.getBlock(1).getBlock(3)))
+        expect(visitor.directory.contains(touch.getBlock(1).getBlock(3)))
             .toBe(true);
     });
 
@@ -58,13 +58,13 @@ describe('Music visitor', () => {
         matcher.match.and.returnValue(false);
 
         visitor.visit(testRow, touch.getBlock(1).getBlock(3));
-        expect(visitor.getDirectory().contains(touch.getBlock(1).getBlock(3)))
+        expect(visitor.directory.contains(touch.getBlock(1).getBlock(3)))
             .toBe(false);
     });
 
     testAbstractVisitorImplementation(
         () => new Music(new MbdScheme(Stage.Cinques)),
-        (testVisitor) => (testVisitor as Music).getMatcher().getMatchCount(),
+        (testVisitor) => (testVisitor as Music).matcher.getMatchCount(),
     );
 
 });

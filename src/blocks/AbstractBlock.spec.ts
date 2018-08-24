@@ -160,9 +160,9 @@ export const testAbstractBlockImplementation = (
             const visitor1 = new Counter();
             const visitor2 = new Counter();
             block.accept(visitor1, visitor2);
-            expect(visitor1.getCount()).toBeGreaterThan(0);
-            expect(visitor2.getCount()).toBeGreaterThan(0);
-            expect(visitor1.getCount()).toEqual(visitor2.getCount());
+            expect(visitor1.count).toBeGreaterThan(0);
+            expect(visitor2.count).toBeGreaterThan(0);
+            expect(visitor1.count).toEqual(visitor2.count);
         });
 
         it('estimates the number of rows correctly', () => {

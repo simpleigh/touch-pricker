@@ -40,20 +40,19 @@ describe('Touch class', () => {
     });
 
     it('generates the correct rows when visited', () => {
-        let visitor: StringArray;
         let strings: string[] = ['213547698E0', '2314567890E'];
         touch.insertBlock(1, new Course(testRow));
         touch.insertBlock(2, new Course(testRow));
 
-        visitor = new StringArray();
-        touch.getBlock(1).accept(visitor);
-        touch.getBlock(2).accept(visitor);
-        strings = strings.concat(visitor.getStrings());
+        const blockVisitor = new StringArray();
+        touch.getBlock(1).accept(blockVisitor);
+        touch.getBlock(2).accept(blockVisitor);
+        strings = strings.concat(blockVisitor.strings);
 
-        visitor = new StringArray();
-        touch.accept(visitor);
+        const touchVisitor = new StringArray();
+        touch.accept(touchVisitor);
 
-        expect(visitor.getStrings()).toEqual(strings);
+        expect(touchVisitor.strings).toEqual(strings);
     });
 
     it('sets the type of six when inserting a course at the end', () => {
@@ -135,8 +134,7 @@ describe('Touch class', () => {
                 .accept(startVisitor);
             touch.accept(touchVisitor);
 
-            expect(touchVisitor.getStrings())
-                .toEqual(startVisitor.getStrings());
+            expect(touchVisitor.strings).toEqual(startVisitor.strings);
         },
     ));
 

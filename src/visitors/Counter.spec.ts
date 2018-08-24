@@ -13,20 +13,20 @@ describe('Counter visitor', () => {
 
     it('has a count that starts from zero', () => {
         const visitor = new Counter();
-        expect(visitor.getCount()).toBe(0);
+        expect(visitor.count).toBe(0);
     });
 
     it('increments the count when it visits a row', () => {
         const visitor = new Counter();
         for (let i = 1; i < 5; i += 1) {
             visitor.visit(createTestRow());
-            expect(visitor.getCount()).toBe(i);
+            expect(visitor.count).toBe(i);
         }
     });
 
     testAbstractVisitorImplementation(
         () => new Counter(),
-        (visitor) => (visitor as Counter).getCount(),
+        (visitor) => (visitor as Counter).count,
     );
 
 });

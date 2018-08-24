@@ -38,7 +38,7 @@ class Music extends AbstractVisitor {
      * Reports on musical content of a touch by providing public access
      * to [[_matcher]].
      */
-    public getMatcher(): MatcherInterface {
+    get matcher(): MatcherInterface {
         return this._matcher;
     }
 
@@ -46,7 +46,7 @@ class Music extends AbstractVisitor {
      * Reports where music is found within a touch by providing public
      * access to [[_directory]].
      */
-    public getDirectory(): BlockDirectory {
+    get directory(): BlockDirectory {
         return this._directory;
     }
 

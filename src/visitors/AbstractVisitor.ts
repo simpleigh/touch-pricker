@@ -69,7 +69,7 @@ abstract class AbstractVisitor {
      * Reports whether rows are still being processed by providing
      * public access to [[_visiting]].
      */
-    public isVisiting(): boolean {
+    get visiting(): boolean {
         return this._visiting;
     }
 

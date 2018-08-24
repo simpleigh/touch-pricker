@@ -95,13 +95,11 @@ export const testSixImplementation = (
         (previous, expected, stage, call) => {
             const six = factory(previous);
             const visitor = new StringArray();
-            let strings: string[];
 
             six.setCall(call);
             six.accept(visitor);
-            strings = visitor.getStrings();
 
-            expect(strings[5]).toEqual(stringFromRow(expected));
+            expect(visitor.strings[5]).toEqual(stringFromRow(expected));
         },
     ));
 
@@ -116,21 +114,15 @@ export const testSixImplementation = (
     ));
 
     it('generates the correct rows when visited', () => {
-        let initialRow: Row;
-        let six: AbstractSix;
-        let visitor: StringArray;
-        let strings: string[];
-
         for (const rowTest of rowTests) {
             const expectedRow: any[] = rowTest.slice(0, 6);  // Six test rows
-            initialRow = createTestRow('', rowTest[6]);      // ... and stage
-            six = factory(initialRow);
-            visitor = new StringArray();
+            const initialRow = createTestRow('', rowTest[6]); // ... and stage
+            const six = factory(initialRow);
+            const visitor = new StringArray();
 
             six.accept(visitor);
-            strings = visitor.getStrings();
 
-            expect(strings).toEqual(expectedRow);
+            expect(visitor.strings).toEqual(expectedRow);
         }
     });
 

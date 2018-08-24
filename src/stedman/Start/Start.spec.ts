@@ -209,7 +209,7 @@ describe('Start class', () => {
         (fixture: Start, rows: string[]) => {
             const visitor = new StringArray();
             fixture.accept(visitor);
-            expect(visitor.getStrings()).toEqual(rows);
+            expect(visitor.strings).toEqual(rows);
         },
     ));
 

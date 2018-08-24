@@ -26,7 +26,7 @@ class StringArray extends AbstractVisitor {
      * Reports the rows that have been visited by providing public
      * access to [[_strings]].
      */
-    public getStrings(): string[] {
+    get strings(): string[] {
         return this._strings.slice();
     }
 

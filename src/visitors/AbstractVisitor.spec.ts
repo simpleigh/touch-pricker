@@ -30,13 +30,13 @@ export const testAbstractVisitorImplementation = (
         });
 
         it('starts out processing rows', () => {
-            expect(visitor.isVisiting()).toBe(true);
+            expect(visitor.visiting).toBe(true);
         });
 
         it('stops processing rows after rounds is reached', () => {
             visitor.visit(createTestRow());
             visitor.visit(createTestRow('123'));
-            expect(visitor.isVisiting()).toBe(false);
+            expect(visitor.visiting).toBe(false);
         });
 
         it('stops changing its state when not processing', () => {

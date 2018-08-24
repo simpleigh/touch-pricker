@@ -188,19 +188,18 @@ describe('Course class', () => {
     });
 
     it('generates the correct rows when visited', () => {
-        let visitor: StringArray;
         let strings: string[] = [ ];
 
         for (let index = 1; index <= course.length; index += 1) {
-            visitor = new StringArray();
-            course.getBlock(index).accept(visitor);
-            strings = strings.concat(visitor.getStrings());
+            const blockVisitor = new StringArray();
+            course.getBlock(index).accept(blockVisitor);
+            strings = strings.concat(blockVisitor.strings);
         }
 
-        visitor = new StringArray();
-        course.accept(visitor);
+        const courseVisitor = new StringArray();
+        course.accept(courseVisitor);
 
-        expect(visitor.getStrings()).toEqual(strings);
+        expect(courseVisitor.strings).toEqual(strings);
     });
 
     describe('can create courses from strings:', () => {

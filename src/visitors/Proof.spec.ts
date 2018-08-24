@@ -57,29 +57,29 @@ describe('Proof visitor', () => {
     });
 
     it('starts out true', () => {
-        expect(visitor.isTrue()).toBe(true);
+        expect(visitor.true).toBe(true);
     });
 
     it('remains true when rows are visited', () => {
         visitor.visit(testRow);
-        expect(visitor.isTrue()).toBe(true);
+        expect(visitor.true).toBe(true);
     });
 
     it('becomes false when a row is repeated', () => {
         visitor.visit(testRow);
         visitor.visit(testRow);
-        expect(visitor.isTrue()).toBe(false);
+        expect(visitor.true).toBe(false);
     });
 
     it('builds up a directory that starts out empty', () => {
-        expect(visitor.getDirectory().empty).toBe(true);
+        expect(visitor.directory.empty).toBe(true);
     });
 
     it('adds new blocks found to be false to the directory', () => {
         visitor.visit(testRow);
         visitor.visit(testRow, touch.getBlock(1).getBlock(3));
 
-        expect(visitor.getDirectory().contains(touch.getBlock(1).getBlock(3)))
+        expect(visitor.directory.contains(touch.getBlock(1).getBlock(3)))
             .toBe(true);
     });
 
@@ -87,7 +87,7 @@ describe('Proof visitor', () => {
         visitor.visit(testRow, touch.getBlock(1).getBlock(3));
         visitor.visit(testRow);
 
-        expect(visitor.getDirectory().contains(touch.getBlock(1).getBlock(3)))
+        expect(visitor.directory.contains(touch.getBlock(1).getBlock(3)))
             .toBe(true);
     });
 

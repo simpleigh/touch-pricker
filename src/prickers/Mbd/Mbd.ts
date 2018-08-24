@@ -412,9 +412,8 @@ class Mbd extends AbstractPricker implements Notifiable {
         const scheme = new MbdScheme(this._stage);
         const visitor = new Visitors.Music(scheme);
         this._touch.accept(visitor);
-        this.getEl('musicTextarea').innerText =
-            visitor.getMatcher().print('text');
-        this._music = visitor.getDirectory();
+        this.getEl('musicTextarea').innerText = visitor.matcher.print('text');
+        this._music = visitor.directory;
     }
 
     public onShowSixHeads(): void {
@@ -435,11 +434,11 @@ class Mbd extends AbstractPricker implements Notifiable {
         const counter = new Visitors.Counter();
 
         this._touch.accept(proof, counter);
-        this._rowCount = counter.getCount();
-        this._falseness = proof.getDirectory();
+        this._rowCount = counter.count;
+        this._falseness = proof.directory;
 
-        if (proof.isTrue()) {
-            this._proofText = proof.isVisiting()
+        if (proof.true) {
+            this._proofText = proof.visiting
                 ? "True, but doesn't come round"
                 : 'Composition is true';
         } else {
@@ -448,7 +447,7 @@ class Mbd extends AbstractPricker implements Notifiable {
 
         this.redraw();
         this.redrawTouch();
-        return proof.isTrue();
+        return proof.true;
     }
 
     public onTab(pageId: string): void {

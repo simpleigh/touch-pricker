@@ -28,7 +28,7 @@ class Counter extends AbstractVisitor {
      * Reports the count of rows by providing public access to
      * [[_count]].
      */
-    public getCount(): number {
+    get count(): number {
         return this._count;
     }
 
