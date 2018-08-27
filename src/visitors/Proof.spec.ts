@@ -57,18 +57,18 @@ describe('Proof visitor', () => {
     });
 
     it('starts out true', () => {
-        expect(visitor.true).toBe(true);
+        expect(visitor.isTrue).toBe(true);
     });
 
     it('remains true when rows are visited', () => {
         visitor.visit(testRow);
-        expect(visitor.true).toBe(true);
+        expect(visitor.isTrue).toBe(true);
     });
 
     it('becomes false when a row is repeated', () => {
         visitor.visit(testRow);
         visitor.visit(testRow);
-        expect(visitor.true).toBe(false);
+        expect(visitor.isTrue).toBe(false);
     });
 
     it('builds up a directory that starts out empty', () => {

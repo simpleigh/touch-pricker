@@ -75,7 +75,7 @@ class Proof extends AbstractVisitor {
      * Reports whether a touch is true by providing public access to
      * [[_isTrue]].
      */
-    get true(): boolean {
+    get isTrue(): boolean {
         return this._isTrue;
     }
 

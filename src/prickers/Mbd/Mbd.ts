@@ -437,7 +437,7 @@ class Mbd extends AbstractPricker implements Notifiable {
         this._rowCount = counter.count;
         this._falseness = proof.directory;
 
-        if (proof.true) {
+        if (proof.isTrue) {
             this._proofText = proof.visiting
                 ? "True, but doesn't come round"
                 : 'Composition is true';
@@ -447,7 +447,7 @@ class Mbd extends AbstractPricker implements Notifiable {
 
         this.redraw();
         this.redrawTouch();
-        return proof.true;
+        return proof.isTrue;
     }
 
     public onTab(pageId: string): void {
