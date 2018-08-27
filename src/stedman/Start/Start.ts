@@ -127,14 +127,14 @@ class Start extends AbstractBlock implements Templates.Interface {
     /**
      * Provides read access to the row index
      */
-    public getRowIndex(): number {
+    get rowIndex(): number {
         return this._rowIndex;
     }
 
     /**
      * Provides write access to the row index
      */
-    public setRowIndex(rowIndex: number = 4): Start {
+    set rowIndex(rowIndex: number) {
         if (rowIndex < 1 || rowIndex > 6) {
             throw new Error('Row index out of range');
         }
@@ -142,25 +142,23 @@ class Start extends AbstractBlock implements Templates.Interface {
 
         this.calculate();
         this.notifyContainer();
-        return this;
     }
 
     /**
      * Provides read access to the six type
      */
-    public getSixType(): SixType {
+    get sixType(): SixType {
         return this._sixType;
     }
 
     /**
      * Provides write access to the six type
      */
-    public setSixType(sixType: SixType = SixType.Quick): Start {
+    set sixType(sixType: SixType) {
         this._sixType = sixType;
 
         this.calculate();
         this.notifyContainer();
-        return this;
     }
 
     /**
@@ -215,7 +213,7 @@ class Start extends AbstractBlock implements Templates.Interface {
     /**
      * Returns place notation for the start
      */
-    public getNotation(): string[] {
+    get notation(): string[] {
         const begin = this._rowIndex + this._sixType - 1;
         const end = this._sixType ? undefined : -1;
         return ['3', '1', '3', '1', '3', '1'].slice(begin, end);

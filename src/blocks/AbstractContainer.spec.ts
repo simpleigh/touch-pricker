@@ -47,29 +47,29 @@ export const testAbstractContainerImplementation = (
             const newRow = createTestRow('123');
             container = factory(initialRow);
 
-            container.setInitialRow(newRow);
+            container.initialRow = newRow;
             expect(container.getLast()).not.toEqual(initialRow);
             expect(container.getLast()).toEqual(newRow);
         });
 
         it('contains the expected number of blocks', () => {
-            expect(container.getLength()).toBe(expectedLength);
+            expect(container.length).toBe(expectedLength);
         });
 
         it('grants access to all the blocks', () => {
-            expect(container.getBlocks().length).toBe(container.getLength());
+            expect(container.blocks.length).toBe(container.length);
         });
 
         it('ignores changes to the returned blocks array', () => {
-            const blocks = container.getBlocks();
+            const blocks = container.blocks;
             blocks.pop();
-            expect(container.getLength()).toBe(expectedLength);
+            expect(container.length).toBe(expectedLength);
         });
 
         it('grants access to a contained block', () => {
-            expect(container.getBlock(1)).toBe(container.getBlocks()[0]);
+            expect(container.getBlock(1)).toBe(container.blocks[0]);
             expect(container.getBlock(expectedLength))
-                .toBe(container.getBlocks()[expectedLength - 1]);
+                .toBe(container.blocks[expectedLength - 1]);
         });
 
         it('throws an exception for out-of-bounds blocks', () => {
@@ -82,39 +82,42 @@ export const testAbstractContainerImplementation = (
                 .toEqual(container.getBlock(expectedLength).getLast());
         });
 
+        const getSpy = (index: number) =>
+            spyOnProperty(container.getBlock(index), 'initialRow', 'set');
+
         it('recalculates blocks when the initial row changes', () => {
             const newRow = createTestRow('123');
-            spyOn(container.getBlock(1), 'setInitialRow');
-            spyOn(container.getBlock(2), 'setInitialRow');
-            spyOn(container.getBlock(3), 'setInitialRow');
+            const spy1 = getSpy(1);
+            const spy2 = getSpy(2);
+            const spy3 = getSpy(3);
 
-            container.setInitialRow(newRow);
-            expect(container.getBlock(1).setInitialRow).toHaveBeenCalled();
-            expect(container.getBlock(2).setInitialRow).toHaveBeenCalled();
-            expect(container.getBlock(3).setInitialRow).toHaveBeenCalled();
+            container.initialRow = newRow;
+            expect(spy1).toHaveBeenCalled();
+            expect(spy2).toHaveBeenCalled();
+            expect(spy3).toHaveBeenCalled();
         });
 
         it('recalculates blocks when notified of changes', () => {
-            spyOn(container.getBlock(1), 'setInitialRow');
-            spyOn(container.getBlock(2), 'setInitialRow');
-            spyOn(container.getBlock(3), 'setInitialRow');
+            const spy1 = getSpy(1);
+            const spy2 = getSpy(2);
+            const spy3 = getSpy(3);
 
             container.notify(2);
 
             // Block before the notification is ignored
-            expect(container.getBlock(1).setInitialRow).not.toHaveBeenCalled();
+            expect(spy1).not.toHaveBeenCalled();
 
             // Notifying block also ignored (it knows anyway)
-            expect(container.getBlock(2).setInitialRow).not.toHaveBeenCalled();
+            expect(spy2).not.toHaveBeenCalled();
 
             // Block after the notification is updated
-            expect(container.getBlock(3).setInitialRow).toHaveBeenCalled();
+            expect(spy3).toHaveBeenCalled();
         });
 
         it('notifies the parent container on notify', () => {
             const parent: TestContainer =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
-            container.setOwnership({ container: parent, index: 999 });
+            container.ownership = { container: parent, index: 999 };
 
             container.notify(2);
             expect(parent.notify).toHaveBeenCalled();

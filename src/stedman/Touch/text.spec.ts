@@ -24,11 +24,10 @@ describe('text template for Touch', () => {
             + '3124567890E  1 s10 s13 s15 22\n';
         const touch = Touch.fromString(text);
 
-        touch.getStart()
-            .setRowIndex(2)
-            .setSixType(SixType.Quick);
+        touch.start.rowIndex = 2;
+        touch.start.sixType = SixType.Quick;
 
-        const expected = text + touch.getStart().print('text') + '\n';
+        const expected = text + touch.start.print('text') + '\n';
         expect(touch.print('text')).toBe(expected);
     });
 

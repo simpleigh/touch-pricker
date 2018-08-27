@@ -43,8 +43,8 @@ describe('siril template for Start', () => {
 
             it(`prints correctly "${expected}"`, () => {
                 const start = new Start(initialRow);
-                start.setRowIndex(rowIndex);
-                start.setSixType(sixType);
+                start.rowIndex = rowIndex;
+                start.sixType = sixType;
                 expect(start.print('siril')).toBe(expected);
             });
         }

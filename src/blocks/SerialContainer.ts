@@ -36,7 +36,7 @@ abstract class SerialContainer<Block extends AbstractBlock>
      * @param blocks  blocks to add
      */
     private extend(blocks: number): this {
-        const oldLength = this.getLength();
+        const oldLength = this.length;
         const newLength = oldLength + blocks;
 
         let initialRow = this.getLast();
@@ -76,8 +76,8 @@ abstract class SerialContainer<Block extends AbstractBlock>
             throw new Error('Length out of range');
         }
 
-        if (length > this.getLength()) {
-            this.extend(length - this.getLength());
+        if (length > this.length) {
+            this.extend(length - this.length);
         } else {
             this._blocks = this._blocks.slice(0, length);
         }

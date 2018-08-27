@@ -93,12 +93,12 @@ abstract class AbstractContainer<Block extends AbstractBlock>
      */
     private propagateBlocks(index: number = 0): void {
         // Handle first block
-        if (!index && this.getLength()) {
+        if (!index && this.length) {
             this.propagateFirstBlock(this._blocks[0]);
             index = 1;
         }
 
-        for (; index < this.getLength(); index += 1) {
+        for (; index < this.length; index += 1) {
             this.propagateCurrentBlock(
                 this._blocks[index - 1],
                 this._blocks[index],
@@ -110,7 +110,7 @@ abstract class AbstractContainer<Block extends AbstractBlock>
      * Propagates data from a previous block to a current block
      */
     protected propagateCurrentBlock(previous: Block, current: Block): void {
-        current.setInitialRow(previous.getLast());
+        current.initialRow = previous.getLast();
     }
 
     /**
@@ -118,23 +118,20 @@ abstract class AbstractContainer<Block extends AbstractBlock>
      * Handled as a special case to allow for e.g. Stedman starts
      */
     protected propagateFirstBlock(first: Block): void {
-        first.setInitialRow(this._initialRow);
+        first.initialRow = this._initialRow;
     }
 
     /**
      * Read access to the length
      */
-    public getLength(): number {
+    get length(): number {
         return this._blocks.length;
     }
 
     /**
      * Read access to the blocks
-     *
-     * Derived classes should provide public access via a more
-     * suitably-named method
      */
-    public getBlocks(): Block[] {
+    get blocks(): Block[] {
         return this._blocks.slice();
     }
 
@@ -145,7 +142,7 @@ abstract class AbstractContainer<Block extends AbstractBlock>
      * suitably-named method
      */
     public getBlock(index: number): Block {
-        if (index < 1 || index > this.getLength()) {
+        if (index < 1 || index > this.length) {
             throw new Error('Block index out of range');
         }
         return this._blocks[index - 1];

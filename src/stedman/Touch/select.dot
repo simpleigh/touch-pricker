@@ -21,12 +21,12 @@
 }}
 
 <option value="0">
-	{{= context.stringFromRow(context.object.getStart().getLast()) }}
+	{{= context.stringFromRow(context.object.start.getLast()) }}
 </option>
 
-{{~ context.object.getBlocks() :course }}
+{{~ context.object.blocks :course }}
 	<option
-		 value="{{= course.getIndex() }}"
+		 value="{{= course.index }}"
 		{{? context.touchRows <= 0 }}
 			 /* single space */
 			style="{{= context.styleUnreached }}"

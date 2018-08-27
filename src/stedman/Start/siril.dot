@@ -10,4 +10,4 @@
  */
 
 +
-{{= context.object.getNotation().join('.') }}
+{{= context.object.notation.join('.') }}

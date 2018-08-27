@@ -26,7 +26,7 @@ describe('Course class', () => {
     });
 
     it('starts out with a slow six by default', () => {
-        expect(course.getFirstSixType()).toBe(SixType.Slow);
+        expect(course.firstSixType).toBe(SixType.Slow);
         expect(course.getBlock(1).type).toBe(SixType.Slow);
     });
 
@@ -42,7 +42,7 @@ describe('Course class', () => {
 
     it('can change the parity of its sixes', () => {
         course.setFirstSixType(SixType.Quick);
-        expect(course.getFirstSixType()).toBe(SixType.Quick);
+        expect(course.firstSixType).toBe(SixType.Quick);
         for (let index = 1; index <= 22; index += 1) {
             if (index % 2) {
                 expect(course.getBlock(index).type).toBe(SixType.Quick);
@@ -112,8 +112,8 @@ describe('Course class', () => {
         course.getBlock(3).setCall(Call.Bob);
 
         course.setFirstSixType(SixType.Quick);
-        expect(course.getBlock(2).getCall()).toBe(Call.Single);
-        expect(course.getBlock(3).getCall()).toBe(Call.Bob);
+        expect(course.getBlock(2).call).toBe(Call.Single);
+        expect(course.getBlock(3).call).toBe(Call.Bob);
 
         expect(course.getBlock(1).getLast())
             .toEqual(createTestRow('234618507E9'));
@@ -128,7 +128,7 @@ describe('Course class', () => {
     it('can be reset to the default length', () => {
         course.setLength(20);
         course.resetLength();
-        expect(course.getLength()).toBe(22);
+        expect(course.length).toBe(22);
     });
 
     it('returns this when resetting the length', () => {
@@ -138,7 +138,7 @@ describe('Course class', () => {
     it('can be reset to a plain course', () => {
         course.getBlock(5).toggleCall();
         course.resetCalls();
-        expect(course.getBlock(5).getCall()).toBe(Call.Plain);
+        expect(course.getBlock(5).call).toBe(Call.Plain);
     });
 
     it('returns this when resetting the calls', () => {
@@ -147,7 +147,7 @@ describe('Course class', () => {
 
     it('only calls notify once when resetting the calls', () => {
         const container = jasmine.createSpyObj('Notifiable', ['notify']);
-        course.setOwnership({ container, index: 1 });
+        course.ownership = { container, index: 1 };
         course.resetCalls();
         expect(container.notify).toHaveBeenCalledTimes(1);
     });
@@ -167,40 +167,39 @@ describe('Course class', () => {
         course.getBlock(5).toggleCall();
 
         const cloned = course.clone();
-        expect(cloned.getLength()).toBe(course.getLength());
-        expect(cloned.getFirstSixType()).toBe(course.getFirstSixType());
+        expect(cloned.length).toBe(course.length);
+        expect(cloned.firstSixType).toBe(course.firstSixType);
         expect(cloned.getLast()).toEqual(course.getLast());
     });
 
     it('ignores changes to the cloned course', () => {
-        const getLengthBackup = course.getLength();
+        const lengthBackup = course.length;
         const getLastBackup = course.getLast();
         const cloned = course.clone();
 
         cloned.setLength(20);
         cloned.getBlock(5).toggleCall();
 
-        expect(cloned.getLength()).not.toBe(course.getLength());
+        expect(cloned.length).not.toBe(course.length);
         expect(cloned.getLast()).not.toEqual(course.getLast());
 
-        expect(course.getLength()).toBe(getLengthBackup);
+        expect(course.length).toBe(lengthBackup);
         expect(course.getLast()).toEqual(getLastBackup);
     });
 
     it('generates the correct rows when visited', () => {
-        let visitor: StringArray;
         let strings: string[] = [ ];
 
-        for (let index = 1; index <= course.getLength(); index += 1) {
-            visitor = new StringArray();
-            course.getBlock(index).accept(visitor);
-            strings = strings.concat(visitor.getStrings());
+        for (let index = 1; index <= course.length; index += 1) {
+            const blockVisitor = new StringArray();
+            course.getBlock(index).accept(blockVisitor);
+            strings = strings.concat(blockVisitor.strings);
         }
 
-        visitor = new StringArray();
-        course.accept(visitor);
+        const courseVisitor = new StringArray();
+        course.accept(courseVisitor);
 
-        expect(visitor.getStrings()).toEqual(strings);
+        expect(courseVisitor.strings).toEqual(strings);
     });
 
     describe('can create courses from strings:', () => {

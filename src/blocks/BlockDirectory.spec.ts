@@ -18,7 +18,7 @@ describe('BlockDirectory class', () => {
 
     class Lead extends AbstractBlock {
         protected calculate(): void { /* NOOP */ }
-        public getLast(): Row { return this.getInitialRow(); }
+        public getLast(): Row { return this.initialRow; }
         public accept(): this { return this; }
         public estimateRows(): number { return 0; }
     }
@@ -132,12 +132,12 @@ describe('BlockDirectory class', () => {
     });
 
     it('knows when it is empty', () => {
-        expect(directory.isEmpty()).toBe(true);
+        expect(directory.empty).toBe(true);
     });
 
     it('knows when it is not empty', () => {
         directory.add(touch.getBlock(1).getBlock(3));
-        expect(directory.isEmpty()).toBe(false);
+        expect(directory.empty).toBe(false);
     });
 
     it('throws an exception for an unowned block', () => {

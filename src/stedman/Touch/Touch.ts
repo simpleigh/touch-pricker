@@ -69,8 +69,8 @@ class Touch
      * Propagates data from a previous block to a current block
      */
     protected propagateCurrentBlock(previous: Course, current: Course): void {
-        const sixType = previous.getBlock(previous.getLength()).type;
-        current.setInitialRow(previous.getLast());
+        const sixType = previous.getBlock(previous.length).type;
+        current.initialRow = previous.getLast();
         current.setFirstSixType((sixType + 1) % 2);
     }
 
@@ -79,8 +79,8 @@ class Touch
      * Handled as a special case to allow for e.g. Stedman starts
      */
     protected propagateFirstBlock(first: Course): void {
-        const sixType = this._start.getSixType();
-        first.setInitialRow(this._start.getLast());
+        const sixType = this._start.sixType;
+        first.initialRow = this._start.getLast();
         first.setFirstSixType((sixType + 1) % 2);
     }
 
@@ -89,7 +89,7 @@ class Touch
     /**
      * Read access to the start
      */
-    public getStart(): Start {
+    get start(): Start {
         return this._start;
     }
 
@@ -136,7 +136,7 @@ class Touch
             } else {
                 // Create a course for each remaining line
                 course = Course.fromString(touch.getLast(), line);
-                touch.insertBlock(touch.getLength() + 1, course);
+                touch.insertBlock(touch.length + 1, course);
             }
         }
 
@@ -145,7 +145,7 @@ class Touch
         }
 
         if (start) {
-            touch.getStart().setFromString(start);
+            touch.start.setFromString(start);
         }
 
         return touch;

@@ -91,12 +91,19 @@ abstract class AbstractSix
     /**
      * Read access to the call
      */
-    public getCall(): Call {
+    get call(): Call {
         return this._call;
     }
 
     /**
      * Write access to the call
+     */
+    set call(call: Call) {
+        this.setCall(call);
+    }
+
+    /**
+     * Write access to the call, with the ability to suppress updates
      */
     public setCall(call: Call, update: boolean = true): AbstractSix {
         this._call = call;

@@ -66,7 +66,7 @@ export const testSixImplementation = (
             six.setCall(call);
             expect(six.getLast()).not.toEqual(expected);
 
-            six.setInitialRow(previous);
+            six.initialRow = previous;
             expect(six.getLast()).toEqual(expected);
         },
     ));
@@ -95,13 +95,11 @@ export const testSixImplementation = (
         (previous, expected, stage, call) => {
             const six = factory(previous);
             const visitor = new StringArray();
-            let strings: string[];
 
             six.setCall(call);
             six.accept(visitor);
-            strings = visitor.getStrings();
 
-            expect(strings[5]).toEqual(stringFromRow(expected));
+            expect(visitor.strings[5]).toEqual(stringFromRow(expected));
         },
     ));
 
@@ -116,21 +114,15 @@ export const testSixImplementation = (
     ));
 
     it('generates the correct rows when visited', () => {
-        let initialRow: Row;
-        let six: AbstractSix;
-        let visitor: StringArray;
-        let strings: string[];
-
         for (const rowTest of rowTests) {
             const expectedRow: any[] = rowTest.slice(0, 6);  // Six test rows
-            initialRow = createTestRow('', rowTest[6]);      // ... and stage
-            six = factory(initialRow);
-            visitor = new StringArray();
+            const initialRow = createTestRow('', rowTest[6]); // ... and stage
+            const six = factory(initialRow);
+            const visitor = new StringArray();
 
             six.accept(visitor);
-            strings = visitor.getStrings();
 
-            expect(strings).toEqual(expectedRow);
+            expect(visitor.strings).toEqual(expectedRow);
         }
     });
 
@@ -159,26 +151,32 @@ export const testSixImplementation = (
         });
 
         it('starts life as a plain six', () => {
-            expect(createTestSix().getCall()).toBe(Call.Plain);
+            expect(createTestSix().call).toBe(Call.Plain);
         });
 
-        it('lets the call be set', () => {
+        it('lets the call be set using the property', () => {
+            const six = createTestSix();
+            six.call = Call.Bob;
+            expect(six.call).toBe(Call.Bob);
+        });
+
+        it('lets the call be set using a method', () => {
             const six = createTestSix();
             six.setCall(Call.Bob);
-            expect(six.getCall()).toBe(Call.Bob);
+            expect(six.call).toBe(Call.Bob);
         });
 
         it('rotates between calls when toggled', () => {
             const six = createTestSix();
 
             six.toggleCall();
-            expect(six.getCall()).toBe(Call.Bob);
+            expect(six.call).toBe(Call.Bob);
 
             six.toggleCall();
-            expect(six.getCall()).toBe(Call.Single);
+            expect(six.call).toBe(Call.Single);
 
             six.toggleCall();
-            expect(six.getCall()).toBe(Call.Plain);
+            expect(six.call).toBe(Call.Plain);
         });
 
         it('returns the new call when toggled', () => {

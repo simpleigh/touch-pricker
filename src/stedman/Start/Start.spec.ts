@@ -28,43 +28,23 @@ describe('Start class', () => {
     });
 
     it('defaults to a standard start', () => {
-        expect(start.getRowIndex()).toBe(4);
-        expect(start.getSixType()).toBe(SixType.Quick);
+        expect(start.rowIndex).toBe(4);
+        expect(start.sixType).toBe(SixType.Quick);
     });
 
     it('allows the row index to be set', () => {
-        start.setRowIndex(3);
-        expect(start.getRowIndex()).toBe(3);
-    });
-
-    it('allows the row index to be reset', () => {
-        start.setRowIndex(3);
-        start.setRowIndex();
-        expect(start.getRowIndex()).toBe(4);
-    });
-
-    it('returns this when setting the row index', () => {
-        expect(start.setRowIndex(3)).toBe(start);
+        start.rowIndex = 3;
+        expect(start.rowIndex).toBe(3);
     });
 
     it('throws an exception if the row index is out of range', () => {
-        expect(() => start.setRowIndex(0)).toThrow();
-        expect(() => start.setRowIndex(7)).toThrow();
+        expect(() => { start.rowIndex = 0; }).toThrow();
+        expect(() => { start.rowIndex = 7; }).toThrow();
     });
 
     it('allows the six type to be set', () => {
-        start.setSixType(SixType.Slow);
-        expect(start.getSixType()).toBe(SixType.Slow);
-    });
-
-    it('allows the six type to be reset', () => {
-        start.setSixType(SixType.Slow);
-        start.setSixType();
-        expect(start.getSixType()).toBe(SixType.Quick);
-    });
-
-    it('returns this when setting the six type', () => {
-        expect(start.setSixType(SixType.Slow)).toBe(start);
+        start.sixType = SixType.Slow;
+        expect(start.sixType).toBe(SixType.Slow);
     });
 
     type Notation = string[];
@@ -171,8 +151,8 @@ describe('Start class', () => {
                 const rows = testCase[1];
                 const fixture = new Start(createTestRow('123', stage));
 
-                fixture.setRowIndex(rowIndex);
-                fixture.setSixType(sixType);
+                fixture.rowIndex = rowIndex;
+                fixture.sixType = sixType;
                 testFn(fixture, rows);
             }
         }
@@ -185,9 +165,9 @@ describe('Start class', () => {
             const notation = startPosition[2];
 
             const fixture = new Start(createTestRow());
-            fixture.setRowIndex(rowIndex);
-            fixture.setSixType(sixType);
-            expect(fixture.getNotation()).toEqual(notation);
+            fixture.rowIndex = rowIndex;
+            fixture.sixType = sixType;
+            expect(fixture.notation).toEqual(notation);
         }
     });
 
@@ -209,7 +189,7 @@ describe('Start class', () => {
         (fixture: Start, rows: string[]) => {
             const visitor = new StringArray();
             fixture.accept(visitor);
-            expect(visitor.getStrings()).toEqual(rows);
+            expect(visitor.strings).toEqual(rows);
         },
     ));
 
@@ -226,8 +206,8 @@ describe('Start class', () => {
             input: string,
         ) => it(description, () => {
             start.setFromString(input);
-            expect(start.getRowIndex()).toBe(3);
-            expect(start.getSixType()).toBe(SixType.Slow);
+            expect(start.rowIndex).toBe(3);
+            expect(start.sixType).toBe(SixType.Slow);
         });
 
         testLoad(
@@ -277,7 +257,7 @@ describe('Start class', () => {
     testAbstractBlockImplementation(
         (initialRow: Row, _ownership?: BlockOwnership) =>
             new Start(initialRow, _ownership),
-        (fixture) => { (fixture as Start).setRowIndex(2); },
+        (fixture) => { (fixture as Start).rowIndex = 2; },
         2,
     );
 

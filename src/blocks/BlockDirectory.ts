@@ -84,8 +84,8 @@ class BlockDirectory {
         let container: Notifiable | undefined;
         let index: number | undefined;
 
-        index = block.getIndex();
-        container = block.getContainer();
+        index = block.index;
+        container = block.container;
         if (!container) {
             throw new Error('Bad ownership: block has no container');
         }
@@ -95,8 +95,8 @@ class BlockDirectory {
                 throw new Error('Bad ownership: container but no index');
             }
             ownershipArray.unshift(index);
-            index = container.getIndex();
-            container = container.getContainer();
+            index = container.index;
+            container = container.container;
         }
 
         return ownershipArray;
@@ -105,7 +105,7 @@ class BlockDirectory {
     /**
      * Checks whether the index is empty
      */
-    public isEmpty(): boolean {
+    get empty(): boolean {
         return !this._directory.length;
     }
 

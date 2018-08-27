@@ -36,7 +36,7 @@ class Slow extends AbstractSix {
      * Receives a visitor that will be called to process each row
      */
     public accept(...visitors: AbstractVisitor[]): this {
-        const row = this.getInitialRow();
+        const row = this.initialRow;
 
         for (const visitor of visitors) {
             Changes.permuteCall(row, this._call);

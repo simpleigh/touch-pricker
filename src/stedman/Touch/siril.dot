@@ -13,11 +13,11 @@
 {{
 	var courseNames = [ ],
 		rounds = context.stringFromRow(
-			context.rowFromString('', context.object.getInitialRow().length)
+			context.rowFromString('', context.object.initialRow.length)
 		);
 
 	context.touchRows = context.touchRows || Infinity;
-	context.touchRows -= context.object.getStart().estimateRows();
+	context.touchRows -= context.object.start.estimateRows();
 }}
 
 /* Header */
@@ -26,14 +26,14 @@
 {{= '\n' }}
 
 /* Output touch as comments */
-// {{= context.stringFromRow(context.object.getInitialRow()) }}{{= '\n' }}
-{{~ context.object.getBlocks() :course }}
+// {{= context.stringFromRow(context.object.initialRow) }}{{= '\n' }}
+{{~ context.object.blocks :course }}
 	// {{= course.print('text') }}{{= '\n' }}
 {{~}}
 {{= '\n' }}
 
 /* Number of bells */
-{{= context.object.getInitialRow().length }} bells{{= '\n' }}
+{{= context.object.initialRow.length }} bells{{= '\n' }}
 {{= '\n' }}
 
 /* MicroSIRIL will prove the first symbol in the file, so define it */
@@ -47,11 +47,11 @@ plain = +{{= rounds.slice(-1) }}{{= '\n' }}
 bob = +{{= rounds.slice(-3, -2) }}{{= '\n' }}
 single = +{{= rounds.slice(-3) }}{{= '\n' }}
 /* Can't use the name "start": it's processed separately by gsiril */
-strt = {{= context.object.getStart().print('siril') }}{{= '\n' }}
+strt = {{= context.object.start.print('siril') }}{{= '\n' }}
 {{= '\n' }}
 
 /* Course definitions */
-{{~ context.object.getBlocks() :course:index }}
+{{~ context.object.blocks :course:index }}
 	course{{= index + 1 }} =
 	 /* single space */
 	{{= course.print('siril', {'touchRows': context.touchRows}) }}

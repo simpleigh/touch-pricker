@@ -28,11 +28,11 @@
 	 /* single space */
 {{?}}
 
-{{~ context.object.getBlocks() :six }}
-	{{? six.getCall() }}
+{{~ context.object.blocks :six }}
+	{{? six.call }}
 		{{ calls.push(
-			((six.getCall() === context.Call.Single) ? 's' : '')
-				+ six.getIndex()
+			((six.call === context.Call.Single) ? 's' : '')
+				+ six.index
 		); }}
 	{{?}}
 {{~}}
@@ -43,10 +43,10 @@
 	p
 {{?}}
 
-{{? context.object.getLength() !== context.object.getInitialRow().length * 2 }}
+{{? context.object.length !== context.object.initialRow.length * 2 }}
 	 /* single space */
 	 /* single space */
-	({{= context.object.getLength() }} sixes)
+	({{= context.object.length }} sixes)
 {{?}}
 
 {{= context.end }}
