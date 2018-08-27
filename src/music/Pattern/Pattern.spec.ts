@@ -6,7 +6,7 @@
  */
 
 import Pattern from '.';
-import { testMatcherInterface } from '../MatcherInterface.spec';
+import { testAbstractMatcherImplementation } from '../AbstractMatcher.spec';
 import MatchType from '../MatchType';
 
 describe('Pattern music class', () => {
@@ -50,6 +50,6 @@ describe('Pattern music class', () => {
         expect(pattern.isWildcardMatch()).toBe(true);
     });
 
-    testMatcherInterface(() => new Pattern('2314567890E', 'test'));
+    testAbstractMatcherImplementation(() => new Pattern('2314567890E', 'test'));
 
 });

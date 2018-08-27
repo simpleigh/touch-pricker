@@ -5,15 +5,15 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import AbstractMatcher from './AbstractMatcher';
 import AbstractScheme from './AbstractScheme';
-import MatcherInterface from './MatcherInterface';
 
 /**
  * Custom music matching scheme defined at runtime
  */
 class CustomScheme extends AbstractScheme {
 
-    /* MatcherInterface methods ***********************************************/
+    /* AbstractMatcher methods ************************************************/
 
     /**
      * Provides read access to the name
@@ -27,7 +27,7 @@ class CustomScheme extends AbstractScheme {
     /**
      * Create matchers for this scheme/stage
      */
-    protected createMatchers(rounds: string): MatcherInterface[] {
+    protected createMatchers(rounds: string): AbstractMatcher[] {
         return [ ];
     }
 
@@ -36,7 +36,7 @@ class CustomScheme extends AbstractScheme {
     /**
      * Allows additional matchers to be added
      */
-    public addMatcher(matcher: MatcherInterface): void {
+    public addMatcher(matcher: AbstractMatcher): void {
         this._matchers.push(matcher);
     }
 

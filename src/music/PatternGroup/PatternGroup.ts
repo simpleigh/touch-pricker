@@ -6,7 +6,7 @@
  */
 
 import * as Templates from '../../templates';
-import MatcherInterface from '../MatcherInterface';
+import AbstractMatcher from '../AbstractMatcher';
 import Pattern from '../Pattern';
 import text from './text.dot';
 
@@ -14,7 +14,7 @@ import text from './text.dot';
  * Group of similar patterns to match related rows
  */
 @Templates.makePrintable({ text })
-class PatternGroup implements MatcherInterface {
+class PatternGroup extends AbstractMatcher {
 
     /**
      * Patterns in this group
@@ -32,10 +32,11 @@ class PatternGroup implements MatcherInterface {
         patterns: Pattern[],
         protected _parentPattern?: Pattern,
     ) {
+        super();
         this._patterns = patterns.slice();
     }
 
-    /* MatcherInterface methods ***********************************************/
+    /* AbstractMatcher methods ************************************************/
 
     /**
      * Matches a row string
@@ -73,10 +74,6 @@ class PatternGroup implements MatcherInterface {
         }
         return this.getSubmatchCount();
     }
-
-    /* templating *************************************************************/
-
-    public print: Templates.Print;
 
     /* PatternGroup methods ***************************************************/
 

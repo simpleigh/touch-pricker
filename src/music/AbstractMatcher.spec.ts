@@ -5,21 +5,21 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import MatcherInterface from './MatcherInterface';
+import AbstractMatcher from './AbstractMatcher';
 
 /**
  * Tests that a matcher behaves appropriately
  * @param createFn     function to create the matcher under test
  * @param matcherName  expected name of the matcher
  */
-export const testMatcherInterface = (
-    createFn: () => MatcherInterface,
+export const testAbstractMatcherImplementation = (
+    createFn: () => AbstractMatcher,
     matcherName: string = 'test',
 ) => {
 
-    describe('implements MatcherInterface and', () => {
+    describe('is derived from AbstractMatcher and', () => {
 
-        let matcher: MatcherInterface;
+        let matcher: AbstractMatcher;
 
         beforeEach(() => { matcher = createFn(); });
 

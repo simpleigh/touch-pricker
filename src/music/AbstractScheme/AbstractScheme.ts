@@ -7,30 +7,31 @@
 
 import { rowFromString, Stage, stringFromRow } from '../../rows';
 import * as Templates from '../../templates';
-import MatcherInterface from '../MatcherInterface';
+import AbstractMatcher from '../AbstractMatcher';
 import text from './text.dot';
 
 /**
  * Abstract music matching scheme
  */
 @Templates.makePrintable({ text })
-abstract class AbstractScheme implements MatcherInterface {
+abstract class AbstractScheme extends AbstractMatcher {
 
     /**
      * Matchers for this scheme
      */
-    protected _matchers: MatcherInterface[];
+    protected _matchers: AbstractMatcher[];
 
     /**
      * Constructor
      */
     constructor(protected _stage: Stage) {
+        super();
         this._matchers = this.createMatchers(
             stringFromRow(rowFromString('', _stage)),  // rounds
         );
     }
 
-    /* MatcherInterface methods ***********************************************/
+    /* AbstractMatcher methods ************************************************/
 
     /**
      * Matches a row string
@@ -66,21 +67,17 @@ abstract class AbstractScheme implements MatcherInterface {
         return matches;
     }
 
-    /* templating *************************************************************/
-
-    public print: Templates.Print;
-
     /* AbstractScheme methods *************************************************/
 
     /**
      * Create matchers for this scheme/stage
      */
-    protected abstract createMatchers(rounds: string): MatcherInterface[];
+    protected abstract createMatchers(rounds: string): AbstractMatcher[];
 
     /**
      * Provides read access to the matchers
      */
-    public getMatchers(): MatcherInterface[] {
+    public getMatchers(): AbstractMatcher[] {
         return this._matchers.slice();
     }
 

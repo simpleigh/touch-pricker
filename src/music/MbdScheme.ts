@@ -8,8 +8,8 @@
 /* tslint:disable:max-line-length */
 
 import { Stage } from '../rows';
+import AbstractMatcher from './AbstractMatcher';
 import AbstractScheme from './AbstractScheme';
-import MatcherInterface from './MatcherInterface';
 import MatchType from './MatchType';
 import Pattern from './Pattern';
 import PatternGroup from './PatternGroup';
@@ -19,7 +19,7 @@ import PatternGroup from './PatternGroup';
  */
 class MbdScheme extends AbstractScheme {
 
-    /* MatcherInterface methods ***********************************************/
+    /* AbstractMatcher methods ************************************************/
 
     /**
      * Provides read access to the name
@@ -33,8 +33,8 @@ class MbdScheme extends AbstractScheme {
     /**
      * Create matchers for this scheme/stage
      */
-    protected createMatchers(rounds: string): MatcherInterface[] {
-        const matchers: MatcherInterface[] = [ ];
+    protected createMatchers(rounds: string): AbstractMatcher[] {
+        const matchers: AbstractMatcher[] = [ ];
         let pattern: string;
         let patternArray: Pattern[];
 

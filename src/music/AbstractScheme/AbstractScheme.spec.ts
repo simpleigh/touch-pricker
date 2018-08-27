@@ -7,7 +7,7 @@
 
 import AbstractScheme from '.';
 import { Stage } from '../../rows';
-import { testMatcherInterface } from '../MatcherInterface.spec';
+import { testAbstractMatcherImplementation } from '../AbstractMatcher.spec';
 
 /**
  * Tests that a scheme behaves as an AbstractScheme
@@ -50,7 +50,7 @@ export const testAbstractSchemeImplementation = (
             }
         });
 
-        testMatcherInterface(createFn, schemeName);
+        testAbstractMatcherImplementation(createFn, schemeName);
 
     });
 

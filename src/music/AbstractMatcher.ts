@@ -10,23 +10,29 @@ import * as Templates from '../templates';
 /**
  * Interface supported by classes that can match a row for music
  */
-interface MatcherInterface extends Templates.Interface {
+abstract class AbstractMatcher implements Templates.Interface {
+
+    /* templating *************************************************************/
+
+    public print: Templates.Print;
+
+    /* AbstractMatcher methods ************************************************/
 
     /**
      * Matches a row string
      */
-    match(row: string): boolean;
+    public abstract match(row: string): boolean;
 
     /**
      * Provides read access to the name
      */
-    getName(): string;
+    public abstract getName(): string;
 
     /**
      * Provides read access to the count of matches
      */
-    getMatchCount(): number;
+    public abstract getMatchCount(): number;
 
 }
 
-export default MatcherInterface;
+export default AbstractMatcher;

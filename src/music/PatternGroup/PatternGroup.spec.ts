@@ -6,7 +6,7 @@
  */
 
 import PatternGroup from '.';
-import { testMatcherInterface } from '../MatcherInterface.spec';
+import { testAbstractMatcherImplementation } from '../AbstractMatcher.spec';
 import Pattern from '../Pattern';
 
 describe('PatternGroup music class', () => {
@@ -81,7 +81,7 @@ describe('PatternGroup music class', () => {
         expect(group.getSubmatchCount()).toBe(0);
     });
 
-    testMatcherInterface(() => new PatternGroup(
+    testAbstractMatcherImplementation(() => new PatternGroup(
         'test',
         [new Pattern('2314567890E')],
     ));

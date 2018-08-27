@@ -6,7 +6,7 @@
  */
 
 import * as Templates from '../../templates';
-import MatcherInterface from '../MatcherInterface';
+import AbstractMatcher from '../AbstractMatcher';
 import MatchType from '../MatchType';
 import text from './text.dot';
 
@@ -14,7 +14,7 @@ import text from './text.dot';
  * Pattern that can be used to match rows
  */
 @Templates.makePrintable({ text })
-class Pattern implements MatcherInterface {
+class Pattern extends AbstractMatcher {
 
     /**
      * Count of matches
@@ -32,10 +32,10 @@ class Pattern implements MatcherInterface {
         protected _name?: string,
         protected _type: MatchType = MatchType.Back,
     ) {
-        // NOOP
+        super();
     }
 
-    /* MatcherInterface methods ***********************************************/
+    /* AbstractMatcher methods ************************************************/
 
     /**
      * Matches a row string
@@ -71,10 +71,6 @@ class Pattern implements MatcherInterface {
     public getMatchCount(): number {
         return this._matchCount;
     }
-
-    /* templating *************************************************************/
-
-    public print: Templates.Print;
 
     /* Pattern methods ********************************************************/
 
