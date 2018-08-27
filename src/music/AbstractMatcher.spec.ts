@@ -5,6 +5,7 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import matchers from '../templates/matchers';
 import AbstractMatcher from './AbstractMatcher';
 
 /**
@@ -21,7 +22,10 @@ export const testAbstractMatcherImplementation = (
 
         let matcher: AbstractMatcher;
 
-        beforeEach(() => { matcher = createFn(); });
+        beforeEach(() => {
+            jasmine.addMatchers(matchers);
+            matcher = createFn();
+        });
 
         it('can match a row', () => {
             expect(matcher.match('2314567890E')).toBe(true);
@@ -46,6 +50,10 @@ export const testAbstractMatcherImplementation = (
 
             matcher.match('2314567890E');
             expect(matcher.getMatchCount()).toBe(2);
+        });
+
+        it('is printable', () => {
+            expect(matcher).toBePrintable();
         });
 
     });
