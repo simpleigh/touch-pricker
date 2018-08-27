@@ -154,7 +154,13 @@ export const testSixImplementation = (
             expect(createTestSix().call).toBe(Call.Plain);
         });
 
-        it('lets the call be set', () => {
+        it('lets the call be set using the property', () => {
+            const six = createTestSix();
+            six.call = Call.Bob;
+            expect(six.call).toBe(Call.Bob);
+        });
+
+        it('lets the call be set using a method', () => {
             const six = createTestSix();
             six.setCall(Call.Bob);
             expect(six.call).toBe(Call.Bob);
