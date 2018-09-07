@@ -56,6 +56,10 @@ export const testAbstractMatcherImplementation = (
             expect(matcher).toBePrintable();
         });
 
+        it('is printable as text', () => {
+            expect(matcher).toHaveTemplate('text');
+        });
+
     });
 
 };
