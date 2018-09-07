@@ -7,33 +7,64 @@
 
 import { rowFromString, Stage, stringFromRow } from '../../rows';
 import * as Templates from '../../templates';
-import MatcherInterface from '../MatcherInterface';
+import AbstractMatcher from '../AbstractMatcher';
 import text from './text.dot';
 
 /**
- * Abstract music matching scheme
+ * Base for music matching schemes.
+ *
+ * A scheme assembles other [[AbstractMatcher]]s (usually [[Pattern]]s and
+ * [[PatternGroup]]s) together to perform a single analysis of a touch.
+ * Schemes should be applicable to multiple [[Stage]]s.
+ *
+ * Derived classes should implement `createMatchers` in order to set up an array
+ * of matchers for use when checking row strings.
+ *
+ * ```
+ * class MyScheme extends AbstractScheme {
+ *   public readonly name: string = 'My music scheme';
+ *
+ *   protected createMatchers(rounds: string): AbstractMatcher[] {
+ *     return [
+ *       new Pattern(
+ *         rounds.split('').reverse().join(''), // reverses rounds
+ *         'Backrounds',
+ *         MatchType.Row,
+ *       ),
+ *       // more patterns or pattern groups
+ *     ];
+ *   }
+ * }
+ * ```
+ *
+ * Once constructed, the base class manages:
+ *
+ *   * passing test row strings to all provided matchers
+ *   * aggregating match counts from matchers
+ *   * printing the music report
  */
 @Templates.makePrintable({ text })
-abstract class AbstractScheme implements MatcherInterface {
+abstract class AbstractScheme extends AbstractMatcher {
 
     /**
-     * Matchers for this scheme
+     * Matchers for this scheme.
      */
-    protected _matchers: MatcherInterface[];
+    protected _matchers: AbstractMatcher[];
 
     /**
-     * Constructor
+     * Constructor.
      */
     constructor(protected _stage: Stage) {
+        super();
         this._matchers = this.createMatchers(
             stringFromRow(rowFromString('', _stage)),  // rounds
         );
     }
 
-    /* MatcherInterface methods ***********************************************/
+    /* AbstractMatcher methods ************************************************/
 
     /**
-     * Matches a row string
+     * Matches a row string.
      */
     public match(row: string): boolean {
         let result = false;
@@ -49,38 +80,31 @@ abstract class AbstractScheme implements MatcherInterface {
     }
 
     /**
-     * Provides read access to the name
+     * Provides read access to the count of matches.
      */
-    public abstract getName(): string;
-
-    /**
-     * Provides read access to the count of matches
-     */
-    public getMatchCount(): number {
+    get matchCount(): number {
         let matches = 0;
 
         for (const matcher of this._matchers) {
-            matches += matcher.getMatchCount();
+            matches += matcher.matchCount;
         }
 
         return matches;
     }
 
-    /* templating *************************************************************/
-
-    public print: Templates.Print;
-
     /* AbstractScheme methods *************************************************/
 
     /**
-     * Create matchers for this scheme/stage
+     * Create matchers for this scheme/stage.
+     * Derived classes should implement this to set up [[_matchers]] when the
+     * object is constructed.
      */
-    protected abstract createMatchers(rounds: string): MatcherInterface[];
+    protected abstract createMatchers(rounds: string): AbstractMatcher[];
 
     /**
-     * Provides read access to the matchers
+     * Provides read access to the matchers.
      */
-    public getMatchers(): MatcherInterface[] {
+    get matchers(): AbstractMatcher[] {
         return this._matchers.slice();
     }
 

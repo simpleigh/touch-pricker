@@ -5,23 +5,27 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import MatcherInterface from './MatcherInterface';
+import matchers from '../templates/matchers';
+import AbstractMatcher from './AbstractMatcher';
 
 /**
  * Tests that a matcher behaves appropriately
  * @param createFn     function to create the matcher under test
  * @param matcherName  expected name of the matcher
  */
-export const testMatcherInterface = (
-    createFn: () => MatcherInterface,
+export const testAbstractMatcherImplementation = (
+    createFn: () => AbstractMatcher,
     matcherName: string = 'test',
 ) => {
 
-    describe('implements MatcherInterface and', () => {
+    describe('is derived from AbstractMatcher and', () => {
 
-        let matcher: MatcherInterface;
+        let matcher: AbstractMatcher;
 
-        beforeEach(() => { matcher = createFn(); });
+        beforeEach(() => {
+            jasmine.addMatchers(matchers);
+            matcher = createFn();
+        });
 
         it('can match a row', () => {
             expect(matcher.match('2314567890E')).toBe(true);
@@ -33,19 +37,27 @@ export const testMatcherInterface = (
         });
 
         it('provides read access to the matcher name', () => {
-            expect(matcher.getName()).toBe(matcherName);
+            expect(matcher.name).toBe(matcherName);
         });
 
         it('starts out with no matches', () => {
-            expect(matcher.getMatchCount()).toBe(0);
+            expect(matcher.matchCount).toBe(0);
         });
 
         it('increments the match count for each match', () => {
             matcher.match('2314567890E');
-            expect(matcher.getMatchCount()).toBe(1);
+            expect(matcher.matchCount).toBe(1);
 
             matcher.match('2314567890E');
-            expect(matcher.getMatchCount()).toBe(2);
+            expect(matcher.matchCount).toBe(2);
+        });
+
+        it('is printable', () => {
+            expect(matcher).toBePrintable();
+        });
+
+        it('is printable as text', () => {
+            expect(matcher).toHaveTemplate('text');
         });
 
     });

@@ -6,14 +6,14 @@
  */
 
 import Pattern from '.';
-import { testMatcherInterface } from '../MatcherInterface.spec';
+import { testAbstractMatcherImplementation } from '../AbstractMatcher.spec';
 import MatchType from '../MatchType';
 
 describe('Pattern music class', () => {
 
     it('uses the pattern as the name by default', () => {
         const pattern = new Pattern('231');
-        expect(pattern.getName()).toBe('231');
+        expect(pattern.name).toBe('231');
     });
 
     it('can match the start of a row', () => {
@@ -33,7 +33,7 @@ describe('Pattern music class', () => {
 
     it('knows if it is a wildcard match', () => {
         const pattern = new Pattern('657890E', '65 rollup', MatchType.Back);
-        expect(pattern.isWildcardMatch()).toBe(true);
+        expect(pattern.isWildcardMatch).toBe(true);
     });
 
     it('knows if it is not a wildcard match', () => {
@@ -42,14 +42,14 @@ describe('Pattern music class', () => {
             'Standard start sixend',
             MatchType.Row,
         );
-        expect(pattern.isWildcardMatch()).toBe(false);
+        expect(pattern.isWildcardMatch).toBe(false);
     });
 
     it('is therefore a wildcard match by default', () => {
         const pattern = new Pattern('231');
-        expect(pattern.isWildcardMatch()).toBe(true);
+        expect(pattern.isWildcardMatch).toBe(true);
     });
 
-    testMatcherInterface(() => new Pattern('2314567890E', 'test'));
+    testAbstractMatcherImplementation(() => new Pattern('2314567890E', 'test'));
 
 });

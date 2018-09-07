@@ -6,7 +6,7 @@
  */
 
 import { BlockDirectory } from '../blocks';
-import { MatcherInterface } from '../music';
+import { AbstractMatcher } from '../music';
 import { Row, stringFromRow } from '../rows';
 import { AbstractSix } from '../stedman';
 import AbstractVisitor from './AbstractVisitor';
@@ -14,7 +14,7 @@ import AbstractVisitor from './AbstractVisitor';
 /**
  * Visitor for music analysis
  *
- * Matches rows using a music matcher ([[MatcherInterface]]) that can
+ * Matches rows using a music matcher ([[AbstractMatcher]]) that can
  * report on the musical content of a touch.
  * This visitor also accumulates a [[BlockDirectory]] referencing
  * each block containing a musical row.
@@ -30,7 +30,7 @@ class Music extends AbstractVisitor {
      * Creates the visitor, providing the matcher that should be used.
      * @param _matcher Matcher to be used.
      */
-    constructor(protected _matcher: MatcherInterface) {
+    constructor(protected _matcher: AbstractMatcher) {
         super();
     }
 
@@ -38,7 +38,7 @@ class Music extends AbstractVisitor {
      * Reports on musical content of a touch by providing public access
      * to [[_matcher]].
      */
-    get matcher(): MatcherInterface {
+    get matcher(): AbstractMatcher {
         return this._matcher;
     }
 

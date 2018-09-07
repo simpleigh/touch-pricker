@@ -9,22 +9,22 @@
  * Renders a PatternGroup as text
  */
 
-{{? context.object.getMatchCount() > 0 }}
+{{? context.object.matchCount > 0 }}
 
-	{{= context.object.getMatchCount() }}
+	{{= context.object.matchCount }}
 
 	 /* single space */
 
-	{{= context.object.getName() }}
+	{{= context.object.name }}
 
-	{{? context.object.getSubmatchCount() > 0 }}
+	{{? context.object.submatchCount > 0 }}
 
 		 /* single space */
 		(
 
 		{{ var first = true; }}
-		{{~ context.object.getPatterns() :pattern }}
-			{{? pattern.getMatchCount() > 0 }}
+		{{~ context.object.patterns :pattern }}
+			{{? pattern.matchCount > 0 }}
 				{{? !first }}, {{?}}
 				{{= pattern.print('text', {'end': ''}) }}
 				{{ first = false; }}

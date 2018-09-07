@@ -9,7 +9,7 @@
  * Renders an AbstractScheme as text
  */
 
-{{~ context.object.getMatchers() :matcher }}
+{{~ context.object.matchers :matcher }}
 
 	{{= matcher.print('text') }}
 

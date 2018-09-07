@@ -5,38 +5,53 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import AbstractMatcher from './AbstractMatcher';
 import AbstractScheme from './AbstractScheme';
-import MatcherInterface from './MatcherInterface';
 
 /**
- * Custom music matching scheme defined at runtime
+ * Custom music matching scheme with matchers defined at runtime.
+ *
+ * Music schemes usually assemble their [[AbstractMatcher]]s when constructed.
+ * This scheme allows matchers to be provided dynamically before matching.
+ *
+ * ```
+ * const scheme = new CustomScheme(Stage.Major);
+ * scheme.addMatcher(new Pattern('87654321', 'Backrounds'));
+ * scheme.addMatcher(new Pattern('5678'));
+ * scheme.match('43125678'); // true (matches)
+ * scheme.match('13245678'); // true
+ * scheme.match('87654321'); // true
+ * scheme.matchCount;        // 3
+ *
+ * scheme.print('text');
+ * // Backrounds
+ * // 2 5678s
+ * ```
  */
 class CustomScheme extends AbstractScheme {
 
-    /* MatcherInterface methods ***********************************************/
+    /* AbstractMatcher methods ************************************************/
 
     /**
-     * Provides read access to the name
+     * Provides read access to the name.
      */
-    public getName(): string {
-        return 'Custom scheme';
-    }
+    public readonly name: string = 'Custom scheme';
 
     /* AbstractScheme methods *************************************************/
 
     /**
-     * Create matchers for this scheme/stage
+     * Create matchers for this scheme/stage.
      */
-    protected createMatchers(rounds: string): MatcherInterface[] {
+    protected createMatchers(rounds: string): AbstractMatcher[] {
         return [ ];
     }
 
     /* CustomScheme methods ***************************************************/
 
     /**
-     * Allows additional matchers to be added
+     * Add a matcher for use when analysing music.
      */
-    public addMatcher(matcher: MatcherInterface): void {
+    public addMatcher(matcher: AbstractMatcher): void {
         this._matchers.push(matcher);
     }
 
