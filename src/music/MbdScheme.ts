@@ -15,21 +15,21 @@ import Pattern from './Pattern';
 import PatternGroup from './PatternGroup';
 
 /**
- * MBD-style music matching scheme
+ * MBD-style music matching scheme.
  */
 class MbdScheme extends AbstractScheme {
 
     /* AbstractMatcher methods ************************************************/
 
     /**
-     * Provides read access to the name
+     * Provides read access to the name..
      */
     public readonly name: string = 'MBD scheme';
 
     /* AbstractScheme methods *************************************************/
 
     /**
-     * Create matchers for this scheme/stage
+     * Create matchers for this scheme/stage.
      */
     protected createMatchers(rounds: string): AbstractMatcher[] {
         const matchers: AbstractMatcher[] = [ ];

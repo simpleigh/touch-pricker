@@ -11,21 +11,55 @@ import MatchType from '../MatchType';
 import text from './text.dot';
 
 /**
- * Pattern that can be used to match rows
+ * Simple [[AbstractMatcher]] that uses a pattern to match rows.
+ *
+ * A string pattern is compared directly against provided rows.
+ * By default the pattern is compared against the bells at the back of the
+ * change, e.g.:
+ *
+ * ```
+ * const pat = new Pattern('5678');
+ * pat.match('43125678'); // true (matches)
+ * pat.match('43126578'); // false (doesn't match)
+ * pat.isWildcardMatch;   // true
+ * pat.matchCount;        // 1
+ * pat.print('text');     // '1 5678'
+ * ```
+ *
+ * It's also possible to check the bells at the front of the change:
+ *
+ * ```
+ * const pat = new Pattern('8765', '8765 off the front', MatchType.Front);
+ * pat.match('87654321'); // true
+ * pat.isWildcardMatch;   // true
+ * pat.print('text');     // '1 8765 off the front'
+ * ```
+ *
+ * ... or check an entire row:
+ *
+ * ```
+ * const pat = new Pattern('13572468', 'Queens', MatchType.Row);
+ * pat.match('13572468'); // true
+ * pat.isWildcardMatch;   // false
+ * pat.print('text');     // 'Queens'
+ * ```
+ *
+ * If no pattern name is provided then the pattern itself will be used when
+ * printing results.
  */
 @Templates.makePrintable({ text })
 class Pattern extends AbstractMatcher {
 
     /**
-     * Count of matches
+     * Count of matches.
      */
     protected _matchCount: number = 0;
 
     /**
-     * Constructor
-     * @param pattern  string to match
-     * @param name     name of this pattern
-     * @param type     type of match
+     * Constructor.
+     * @param _pattern  String to match.
+     * @param _name     Name to use when printing results.
+     * @param _type     Type of match.
      */
     constructor(
         protected _pattern: string,
@@ -38,7 +72,7 @@ class Pattern extends AbstractMatcher {
     /* AbstractMatcher methods ************************************************/
 
     /**
-     * Matches a row string
+     * Matches a row string.
      */
     public match(row: string): boolean {
         if (this._type === MatchType.Back) {
@@ -56,14 +90,14 @@ class Pattern extends AbstractMatcher {
     }
 
     /**
-     * Provides read access to the name
+     * Provides read access to the name.
      */
     get name(): string {
         return this._name || this._pattern;
     }
 
     /**
-     * Provides read access to the count of matches
+     * Provides read access to the count of matches.
      */
     get matchCount(): number {
         return this._matchCount;
@@ -72,7 +106,7 @@ class Pattern extends AbstractMatcher {
     /* Pattern methods ********************************************************/
 
     /**
-     * Determines whether this is a wildcard match
+     * Whether this is a wildcard match.
      */
     get isWildcardMatch(): boolean {
         return this._type !== MatchType.Row;
