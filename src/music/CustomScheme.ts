@@ -18,9 +18,7 @@ class CustomScheme extends AbstractScheme {
     /**
      * Provides read access to the name
      */
-    public getName(): string {
-        return 'Custom scheme';
-    }
+    public readonly name: string = 'Custom scheme';
 
     /* AbstractScheme methods *************************************************/
 

@@ -50,18 +50,13 @@ abstract class AbstractScheme extends AbstractMatcher {
     }
 
     /**
-     * Provides read access to the name
-     */
-    public abstract getName(): string;
-
-    /**
      * Provides read access to the count of matches
      */
-    public getMatchCount(): number {
+    get matchCount(): number {
         let matches = 0;
 
         for (const matcher of this._matchers) {
-            matches += matcher.getMatchCount();
+            matches += matcher.matchCount;
         }
 
         return matches;
@@ -77,7 +72,7 @@ abstract class AbstractScheme extends AbstractMatcher {
     /**
      * Provides read access to the matchers
      */
-    public getMatchers(): AbstractMatcher[] {
+    get matchers(): AbstractMatcher[] {
         return this._matchers.slice();
     }
 

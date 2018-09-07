@@ -28,7 +28,7 @@ describe('PatternGroup music class', () => {
         ]);
 
         group.match('2314567890E');
-        expect(group.getMatchCount()).toBe(2);
+        expect(group.matchCount).toBe(2);
     });
 
     it('ignores changes to the original patterns', () => {
@@ -39,24 +39,24 @@ describe('PatternGroup music class', () => {
         patterns.push(new Pattern('2314567890E'));
 
         // ... but it shouldn't be added to the group
-        expect(group.getPatterns().length).toBe(0);
+        expect(group.patterns.length).toBe(0);
     });
 
     it('provides access to the patterns', () => {
         const patterns: Pattern[] = [new Pattern('2314567890E')];
         const group = new PatternGroup('test', patterns);
 
-        expect(group.getPatterns()).toEqual(patterns);
+        expect(group.patterns).toEqual(patterns);
     });
 
     it('ignores changes to the returned pattern array', () => {
         const patterns: Pattern[] = [new Pattern('2314567890E')];
         const group = new PatternGroup('test', patterns);
 
-        expect(group.getPatterns()).not.toBe(patterns);
+        expect(group.patterns).not.toBe(patterns);
 
         patterns.pop();
-        expect(group.getPatterns()).not.toEqual(patterns);
+        expect(group.patterns).not.toEqual(patterns);
     });
 
     it('can override the match count with a parent pattern', () => {
@@ -67,7 +67,7 @@ describe('PatternGroup music class', () => {
         );
 
         group.match('2314567890E');
-        expect(group.getMatchCount()).toBe(1);
+        expect(group.matchCount).toBe(1);
     });
 
     it('still allows access to the subpattern match count', () => {
@@ -78,7 +78,7 @@ describe('PatternGroup music class', () => {
         );
 
         group.match('2314567890E');
-        expect(group.getSubmatchCount()).toBe(0);
+        expect(group.submatchCount).toBe(0);
     });
 
     testAbstractMatcherImplementation(() => new PatternGroup(

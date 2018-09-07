@@ -58,17 +58,14 @@ class Pattern extends AbstractMatcher {
     /**
      * Provides read access to the name
      */
-    public getName(): string {
-        if (this._name === undefined) {
-            return this._pattern;
-        }
-        return this._name;
+    get name(): string {
+        return this._name || this._pattern;
     }
 
     /**
      * Provides read access to the count of matches
      */
-    public getMatchCount(): number {
+    get matchCount(): number {
         return this._matchCount;
     }
 
@@ -77,7 +74,7 @@ class Pattern extends AbstractMatcher {
     /**
      * Determines whether this is a wildcard match
      */
-    public isWildcardMatch(): boolean {
+    get isWildcardMatch(): boolean {
         return this._type !== MatchType.Row;
     }
 

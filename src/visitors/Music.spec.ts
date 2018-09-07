@@ -64,7 +64,7 @@ describe('Music visitor', () => {
 
     testAbstractVisitorImplementation(
         () => new Music(new MbdScheme(Stage.Cinques)),
-        (testVisitor) => (testVisitor as Music).matcher.getMatchCount(),
+        (testVisitor) => (testVisitor as Music).matcher.matchCount,
     );
 
 });

@@ -24,9 +24,7 @@ class MbdScheme extends AbstractScheme {
     /**
      * Provides read access to the name
      */
-    public getName(): string {
-        return 'MBD scheme';
-    }
+    public readonly name: string = 'MBD scheme';
 
     /* AbstractScheme methods *************************************************/
 

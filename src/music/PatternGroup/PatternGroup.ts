@@ -61,18 +61,18 @@ class PatternGroup extends AbstractMatcher {
     /**
      * Provides read access to the name
      */
-    public getName(): string {
+    get name(): string {
         return this._name;
     }
 
     /**
      * Provides read access to the count of matches
      */
-    public getMatchCount(): number {
+    get matchCount(): number {
         if (this._parentPattern) {
-            return this._parentPattern.getMatchCount();
+            return this._parentPattern.matchCount;
         }
-        return this.getSubmatchCount();
+        return this.submatchCount;
     }
 
     /* PatternGroup methods ***************************************************/
@@ -80,18 +80,18 @@ class PatternGroup extends AbstractMatcher {
     /**
      * Provides read access to the patterns
      */
-    public getPatterns(): Pattern[] {
+    get patterns(): Pattern[] {
         return this._patterns.slice();
     }
 
     /**
      * Provides read access to the count of matches within patterns
      */
-    public getSubmatchCount(): number {
+    get submatchCount(): number {
         let matches = 0;
 
         for (const pattern of this._patterns) {
-            matches += pattern.getMatchCount();
+            matches += pattern.matchCount;
         }
 
         return matches;

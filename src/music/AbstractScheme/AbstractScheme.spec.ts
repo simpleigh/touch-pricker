@@ -24,16 +24,16 @@ export const testAbstractSchemeImplementation = (
     describe('is derived from AbstractScheme and', () => {
 
         it('provides access to the matchers', () => {
-            expect(createFn().getMatchers().length).toBeGreaterThan(0);
+            expect(createFn().matchers.length).toBeGreaterThan(0);
         });
 
         it('ignores changes to the returned matchers array', () => {
             const scheme = createFn();
-            const matchers = scheme.getMatchers();
+            const matchers = scheme.matchers;
             const length = matchers.length;
 
             matchers.slice(1);
-            expect(scheme.getMatchers().length).toBe(length);
+            expect(scheme.matchers.length).toBe(length);
         });
 
         it('matches music correctly', () => {
@@ -45,7 +45,7 @@ export const testAbstractSchemeImplementation = (
                 const scheme = createFn(stage);
 
                 scheme.match(rowString);
-                expect(scheme.getMatchCount()).toBe(matches);
+                expect(scheme.matchCount).toBe(matches);
                 expect(scheme.print('text')).toBe(output);
             }
         });

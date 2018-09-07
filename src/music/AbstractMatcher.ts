@@ -26,12 +26,12 @@ abstract class AbstractMatcher implements Templates.Interface {
     /**
      * Provides read access to the name
      */
-    public abstract getName(): string;
+    abstract get name(): string;
 
     /**
      * Provides read access to the count of matches
      */
-    public abstract getMatchCount(): number;
+    abstract get matchCount(): number;
 
 }
 

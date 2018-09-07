@@ -37,19 +37,19 @@ export const testAbstractMatcherImplementation = (
         });
 
         it('provides read access to the matcher name', () => {
-            expect(matcher.getName()).toBe(matcherName);
+            expect(matcher.name).toBe(matcherName);
         });
 
         it('starts out with no matches', () => {
-            expect(matcher.getMatchCount()).toBe(0);
+            expect(matcher.matchCount).toBe(0);
         });
 
         it('increments the match count for each match', () => {
             matcher.match('2314567890E');
-            expect(matcher.getMatchCount()).toBe(1);
+            expect(matcher.matchCount).toBe(1);
 
             matcher.match('2314567890E');
-            expect(matcher.getMatchCount()).toBe(2);
+            expect(matcher.matchCount).toBe(2);
         });
 
         it('is printable', () => {
