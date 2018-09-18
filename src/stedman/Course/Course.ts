@@ -10,9 +10,8 @@ import { Row } from '../../rows';
 import * as Templates from '../../templates';
 import AbstractSix from '../AbstractSix';
 import Call from '../Call';
-import Quick from '../Quick';
 import SixType from '../SixType';
-import Slow from '../Slow';
+import { AbstractStrategy, Stedman } from '../strategies';
 import html from './html.dot';
 import mbd from './mbd.dot';
 import siril from './siril.dot';
@@ -31,6 +30,11 @@ class Course
      */
     private _firstSixType: SixType = SixType.Slow;
 
+    /**
+     * Strategy for generating rows
+     */
+    private _strategy: AbstractStrategy = new Stedman();
+
     /* templating *************************************************************/
 
     public print: Templates.Print;
@@ -43,7 +47,7 @@ class Course
      * Derived classes should override this method if required.
      */
     protected getDefaultLength(initialRow: Row): number {
-        return initialRow.length * 2;
+        return this._strategy.getCourseLength(initialRow);
     }
 
     /**
@@ -55,14 +59,7 @@ class Course
      * @param index       index of block in container
      */
     protected createBlock(initialRow: Row, index: number): AbstractSix {
-        const offset = {
-            [SixType.Slow]: 0,
-            [SixType.Quick]: 1,
-        }[this._firstSixType || SixType.Slow];
-
-        return (offset + index) % 2
-            ? new Slow(initialRow, { container: this, index })
-            : new Quick(initialRow, { container: this, index });
+        return this._strategy.createSix(initialRow, this, index);
     }
 
     /* Course methods *********************************************************/

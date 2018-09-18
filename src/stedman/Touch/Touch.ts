@@ -10,8 +10,8 @@ import { Row, rowFromString, Stage } from '../../rows';
 import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
 import Course from '../Course';
-import SixType from '../SixType';
 import Start from '../Start';
+import { AbstractStrategy, Stedman } from '../strategies';
 import select from './select.dot';
 import siril from './siril.dot';
 import text from './text.dot';
@@ -28,6 +28,11 @@ class Touch
      * Start for this touch
      */
     private _start: Start;
+
+    /**
+     * Strategy for generating rows
+     */
+    private _strategy: AbstractStrategy = new Stedman();
 
     /**
      * Constructor
@@ -72,9 +77,7 @@ class Touch
     protected propagateCurrentBlock(previous: Course, current: Course): void {
         const sixType = previous.getBlock(previous.length).type;
         current.initialRow = previous.getLast();
-        current.setFirstSixType(
-            sixType === SixType.Slow ? SixType.Quick : SixType.Slow,
-        );
+        current.setFirstSixType(this._strategy.getNextSixType(sixType));
     }
 
     /**
@@ -84,9 +87,7 @@ class Touch
     protected propagateFirstBlock(first: Course): void {
         const sixType = this._start.sixType;
         first.initialRow = this._start.getLast();
-        first.setFirstSixType(
-            sixType === SixType.Slow ? SixType.Quick : SixType.Slow,
-        );
+        first.setFirstSixType(this._strategy.getNextSixType(sixType));
     }
 
     /* Touch methods **********************************************************/
