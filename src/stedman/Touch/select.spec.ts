@@ -8,8 +8,7 @@
 import Touch from '.';
 import { BlockDirectory } from '../../blocks';
 import { stringFromRow } from '../../rows';
-import { createTestRow } from '../../testFunctions.spec';
-import Course from '../Course';
+import { createTestCourse, createTestRow } from '../../testFunctions.spec';
 
 describe('select template for Touch', () => {
 
@@ -38,9 +37,9 @@ describe('select template for Touch', () => {
 
     it('applies a style for unreachable courses', () => {
         const touch = new Touch(testRow);
-        touch.insertBlock(1, new Course(testRow));
-        touch.insertBlock(2, new Course(testRow));
-        touch.insertBlock(3, new Course(testRow));
+        touch.insertBlock(1, createTestCourse(testRow));
+        touch.insertBlock(2, createTestCourse(testRow));
+        touch.insertBlock(3, createTestCourse(testRow));
 
         expect(touch.print('select', {
             styleUnreached: 'color:gray',
@@ -62,8 +61,8 @@ describe('select template for Touch', () => {
         const touch = new Touch(testRow);
         const falseness = new BlockDirectory();
 
-        touch.insertBlock(1, new Course(testRow));
-        touch.insertBlock(2, new Course(testRow));
+        touch.insertBlock(1, createTestCourse(testRow));
+        touch.insertBlock(2, createTestCourse(testRow));
         falseness.add(1, 3);
 
         expect(touch.print('select', {

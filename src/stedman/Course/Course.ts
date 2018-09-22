@@ -60,16 +60,6 @@ class Course
             : new Quick(initialRow, { container: this, index });
     }
 
-    /**
-     * Lower limit on length for the particular concrete class
-     */
-    protected readonly minLength: number = 2;
-
-    /**
-     * Upper limit on length for the particular concrete class
-     */
-    protected readonly maxLength: number = 60;
-
     /* Course methods *********************************************************/
 
     /**
@@ -190,6 +180,8 @@ class Course
         // Second group matches length of course
         if (matches[2]) {
             course.setLength(parseInt(matches[2]));
+        } else {
+            course.resetLength();
         }
 
         // If this is a plain course then our job is done

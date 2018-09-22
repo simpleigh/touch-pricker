@@ -19,14 +19,12 @@ type TestContainer = SerialContainer<AbstractBlock>;
  * Tests that a container behaves as a SerialContainer
  * @param factory          creates an instance of the object under test
  * @param lengthTestCases  expected lengths and rows for each stage
- * @param lengthBounds     limits on container length
  * @param expectedLength   blocks in a new Cinques container
  * @param expectedRows     rows in a new Cinques container
  */
 export const testSerialContainerImplementation = (
     factory: (initialRow: Row, _ownership?: BlockOwnership) => TestContainer,
     lengthTestCases: Array<[Stage, number, number]>,
-    lengthBounds: [number, number],
     expectedLength: number,
     expectedRows: number,
 ) => {
@@ -35,19 +33,43 @@ export const testSerialContainerImplementation = (
 
         const testRow = createTestRow();
 
-        let container: TestContainer = factory(testRow);
+        let container: TestContainer = factory(testRow).resetLength();
 
         const length = container.length;
 
         beforeEach(() => {
             container = factory(testRow);
+            container.resetLength();
         });
 
-        it('starts out the correct length', () => {
+        it('starts out empty', () => {
             for (const testCase of lengthTestCases) {
                 container = factory(createTestRow('231', testCase[0]));
+                expect(container.length).toBe(0);
+            }
+        });
+
+        it('can be reset to the default length', () => {
+            for (const testCase of lengthTestCases) {
+                container = factory(createTestRow('231', testCase[0]));
+                container.resetLength();
                 expect(container.length).toBe(testCase[1]);
             }
+        });
+
+        it('returns this when resetting the length', () => {
+            expect(container.resetLength()).toBe(container);
+        });
+
+        it('notifies the parent container when resetting the length', () => {
+            const parent: AbstractContainer<TestContainer> =
+                    jasmine.createSpyObj('AbstractContainer', ['notify']);
+            container.ownership = { container: parent, index: 999 };
+
+            container.resetLength();
+            expect(parent.notify).toHaveBeenCalled();
+            expect(parent.notify).toHaveBeenCalledWith(999);
+            expect(parent.notify).toHaveBeenCalledTimes(1);
         });
 
         it('allows the length to be increased', () => {
@@ -79,17 +101,7 @@ export const testSerialContainerImplementation = (
         });
 
         it('throws an exception when setting invalid lengths', () => {
-            const [minimum, maximum] = lengthBounds;
-            expect(() => container.setLength(minimum - 1)).toThrow();
-            expect(() => container.setLength(maximum + 1)).toThrow();
-        });
-
-        it('provides a way to set lengths without exceptions', () => {
-            const [minimum, maximum] = lengthBounds;
-            container.safeSetLength(minimum - 1);
-            expect(container.length).toBe(minimum);
-            container.safeSetLength(maximum + 1);
-            expect(container.length).toBe(maximum);
+            expect(() => container.setLength(-1)).toThrow();
         });
 
         it('notifies the parent container for length increase', () => {
@@ -114,33 +126,10 @@ export const testSerialContainerImplementation = (
             expect(parent.notify).toHaveBeenCalledTimes(1);
         });
 
-        it('can be reset to the default length', () => {
-            for (const testCase of lengthTestCases) {
-                container = factory(createTestRow('231', testCase[0]));
-                container.setLength(container.length - 1);
-                container.resetLength();
-                expect(container.length).toBe(testCase[1]);
-            }
-        });
-
-        it('returns this when resetting the length', () => {
-            expect(container.resetLength()).toBe(container);
-        });
-
-        it('notifies the parent container when resetting the length', () => {
-            const parent: AbstractContainer<TestContainer> =
-                    jasmine.createSpyObj('AbstractContainer', ['notify']);
-            container.ownership = { container: parent, index: 999 };
-
-            container.resetLength();
-            expect(parent.notify).toHaveBeenCalled();
-            expect(parent.notify).toHaveBeenCalledWith(999);
-            expect(parent.notify).toHaveBeenCalledTimes(1);
-        });
-
         it('estimates the number of rows correctly', () => {
             for (const testCase of lengthTestCases) {
                 container = factory(createTestRow('231', testCase[0]));
+                container.resetLength();
                 expect(container.estimateRows()).toBe(testCase[2]);
             }
         });
@@ -153,9 +142,15 @@ export const testSerialContainerImplementation = (
             expect(container.estimateRows()).toBeLessThan(originalRows);
         });
 
+        const defaultLengthFactory = (factoryRow: Row) => {
+            const result = factory(factoryRow);
+            result.resetLength();
+            return result;
+        };
+
         testAbstractContainerImplementation(
-            factory,
-            () => factory(testRow),
+            defaultLengthFactory,
+            () => defaultLengthFactory(testRow),
             expectedLength,
             expectedRows,
         );

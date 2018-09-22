@@ -6,7 +6,7 @@
  */
 
 import Course from '.';
-import { createTestRow } from '../../testFunctions.spec';
+import { createTestCourse, createTestRow } from '../../testFunctions.spec';
 
 describe('text template for Course', () => {
 
@@ -28,8 +28,8 @@ describe('text template for Course', () => {
     ));
 
     it('allows the line ending to be customised', () => {
-        const course = new Course(createTestRow());
-        expect(course.print('text', { end: '#' })).toBe('2314567890E  p#');
+        expect(createTestCourse().print('text', { end: '#' }))
+            .toBe('2314567890E  p#');
     });
 
     it('can render without the course end', () => {

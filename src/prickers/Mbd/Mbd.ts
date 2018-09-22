@@ -128,7 +128,10 @@ class Mbd extends AbstractPricker implements Notifiable {
             { container: this, index: Block.Course },
         );
         this._extraSixes = new Course(this._initialRow);
+
+        this._course.resetLength();
         this._extraSixes.setLength(8);
+
         this._touch = new Touch(
             rowFromString('', this._stage),
             { container: this, index: Block.Touch },
@@ -253,10 +256,12 @@ class Mbd extends AbstractPricker implements Notifiable {
 
     public onSetLength(): void {
         const input = this.getEl<HTMLInputElement>('courseLength').value;
-        const length = parseInt(input);
+        let length = parseInt(input);
 
         if (length) {
-            this._course.safeSetLength(length);
+            length = Math.max(2, length);
+            length = Math.min(60, length);
+            this._course.setLength(length);
         }
     }
 
@@ -280,6 +285,7 @@ class Mbd extends AbstractPricker implements Notifiable {
             this._course.initialRow = this._initialRow;
         } else {
             this._course = new Course(this._initialRow);
+            this._course.resetLength();
         }
 
         this._course.ownership = { container: this, index: Block.Course };

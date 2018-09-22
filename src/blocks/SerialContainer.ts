@@ -8,7 +8,6 @@
 import { Row } from '../rows';
 import AbstractBlock from './AbstractBlock';
 import AbstractContainer from './AbstractContainer';
-import BlockOwnership from './BlockOwnership';
 
 /**
  * Abstract container that manages a series of child blocks
@@ -18,16 +17,6 @@ import BlockOwnership from './BlockOwnership';
  */
 abstract class SerialContainer<Block extends AbstractBlock>
     extends AbstractContainer<Block> {
-
-    /**
-     * Constructor
-     *
-     * Extends the AbstractBlock container to create contained blocks.
-     */
-    constructor(initialRow: Row, protected _ownership?: BlockOwnership) {
-        super(initialRow, _ownership);
-        this.extend(this.getDefaultLength(initialRow));
-    }
 
     /* SerialContainer methods ************************************************/
 
@@ -72,8 +61,8 @@ abstract class SerialContainer<Block extends AbstractBlock>
      * Write access to the length
      */
     public setLength(length: number): this {
-        if ((length < this.minLength) || (length > this.maxLength)) {
-            throw new Error('Length out of range');
+        if (length < 0) {
+            throw new Error('Length must be > 0');
         }
 
         if (length > this.length) {
@@ -88,31 +77,12 @@ abstract class SerialContainer<Block extends AbstractBlock>
     }
 
     /**
-     * Write access to the length: ignores out-of-range values
-     */
-    public safeSetLength(length: number): this {
-        length = Math.max(length, this.minLength);
-        length = Math.min(length, this.maxLength);
-        return this.setLength(length);
-    }
-
-    /**
      * Resets the course to be the default length
      */
     public resetLength(): this {
         this.setLength(this.getDefaultLength(this._initialRow));
         return this;
     }
-
-    /**
-     * Lower limit on length for the particular concrete class
-     */
-    protected readonly abstract minLength: number;
-
-    /**
-     * Upper limit on length for the particular concrete class
-     */
-    protected readonly abstract maxLength: number;
 
 }
 

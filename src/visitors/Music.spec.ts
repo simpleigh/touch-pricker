@@ -7,8 +7,8 @@
 
 import { MbdScheme } from '../music';
 import { Stage } from '../rows';
-import { Course, Touch } from '../stedman';
-import { createTestRow } from '../testFunctions.spec';
+import { Touch } from '../stedman';
+import { createTestCourse, createTestRow } from '../testFunctions.spec';
 import { testAbstractVisitorImplementation } from './AbstractVisitor.spec';
 import Music from './Music';
 
@@ -24,8 +24,8 @@ describe('Music visitor', () => {
 
     beforeAll(() => {
         touch = new Touch(testRow);
-        touch.insertBlock(1, new Course(testRow));
-        touch.insertBlock(2, new Course(testRow));
+        touch.insertBlock(1, createTestCourse());
+        touch.insertBlock(2, createTestCourse());
     });
 
     beforeEach(() => {

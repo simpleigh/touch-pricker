@@ -30,8 +30,6 @@ describe('BlockDirectory class', () => {
         protected getDefaultLength(initialRow: Row): number {
             return initialRow.length - 1;
         }
-        protected readonly minLength: number = 1;
-        protected readonly maxLength: number = 40;
     }
 
     class Touch extends RandomAccessContainer<Course> { }
@@ -44,9 +42,15 @@ describe('BlockDirectory class', () => {
 
     beforeEach(() => {
         directory = new BlockDirectory();
+
+        const course1 = new Course(testRow);
+        const course2 = new Course(testRow);
+        course1.resetLength();
+        course2.resetLength();
+
         touch = new Touch(testRow);
-        touch.insertBlock(1, new Course(testRow));
-        touch.insertBlock(2, new Course(testRow));
+        touch.insertBlock(1, course1);
+        touch.insertBlock(2, course2);
     });
 
     it('can compute the ownership of a lead', () => {

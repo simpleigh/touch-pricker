@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { Course, Touch } from '../stedman';
-import { createTestRow } from '../testFunctions.spec';
+import { Touch } from '../stedman';
+import { createTestCourse, createTestRow } from '../testFunctions.spec';
 import { testAbstractVisitorImplementation } from './AbstractVisitor.spec';
 import Proof from './Proof';
 
@@ -20,8 +20,8 @@ describe('Proof visitor', () => {
 
     beforeAll(() => {
         touch = new Touch(testRow);
-        touch.insertBlock(1, new Course(testRow));
-        touch.insertBlock(2, new Course(testRow));
+        touch.insertBlock(1, createTestCourse());
+        touch.insertBlock(2, createTestCourse());
     });
 
     beforeEach(() => {

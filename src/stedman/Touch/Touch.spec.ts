@@ -9,7 +9,7 @@ import Touch from '.';
 import {
     testRandomAccessContainerImplementation,
 } from '../../blocks/RandomAccessContainer.spec';
-import { createTestRow } from '../../testFunctions.spec';
+import { createTestCourse, createTestRow } from '../../testFunctions.spec';
 import { StringArray } from '../../visitors';
 import Course from '../Course';
 import SixType from '../SixType';
@@ -41,8 +41,8 @@ describe('Touch class', () => {
 
     it('generates the correct rows when visited', () => {
         let strings: string[] = ['213547698E0', '2314567890E'];
-        touch.insertBlock(1, new Course(testRow));
-        touch.insertBlock(2, new Course(testRow));
+        touch.insertBlock(1, createTestCourse());
+        touch.insertBlock(2, createTestCourse());
 
         const blockVisitor = new StringArray();
         touch.getBlock(1).accept(blockVisitor);
@@ -59,6 +59,7 @@ describe('Touch class', () => {
         const course1 = new Course(testRow);
         const course2 = new Course(testRow);
         course1.setLength(11);
+        course2.resetLength();
 
         touch.insertBlock(1, course1);
         touch.insertBlock(2, course2);
@@ -69,6 +70,7 @@ describe('Touch class', () => {
         const course1 = new Course(testRow);
         const course2 = new Course(testRow);
         course1.setLength(11);
+        course2.resetLength();
 
         touch.insertBlock(1, course2);
         touch.insertBlock(1, course1);
@@ -99,10 +101,9 @@ describe('Touch class', () => {
 
     it('propagates when adding courses', runStartCases(
         (rowIndex, sixType) => {
-            const course = new Course(testRow);
             touch.start.rowIndex = rowIndex;
             touch.start.sixType = sixType;
-            touch.insertBlock(1, course);
+            touch.insertBlock(1, createTestCourse());
 
             expect(touch.getBlock(1).initialRow)
                 .toEqual(touch.start.getLast());
@@ -111,8 +112,7 @@ describe('Touch class', () => {
 
     it('propagates when setting the start', runStartCases(
         (rowIndex, sixType) => {
-            const course = new Course(testRow);
-            touch.insertBlock(1, course);
+            touch.insertBlock(1, createTestCourse());
             touch.start.rowIndex = rowIndex;
             touch.start.sixType = sixType;
 

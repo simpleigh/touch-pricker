@@ -10,7 +10,7 @@ import {
     testSerialContainerImplementation,
 } from '../../blocks/SerialContainer.spec';
 import { Stage, stringFromRow } from '../../rows';
-import { createTestRow } from '../../testFunctions.spec';
+import { createTestCourse, createTestRow } from '../../testFunctions.spec';
 import { StringArray } from '../../visitors';
 import Call from '../Call';
 import SixType from '../SixType';
@@ -22,7 +22,7 @@ describe('Course class', () => {
     let course: Course;
 
     beforeEach(() => {
-        course = new Course(testRow);
+        course = createTestCourse(testRow);
     });
 
     it('starts out with a slow six by default', () => {
@@ -280,7 +280,6 @@ describe('Course class', () => {
             [Stage.Sextuples, 26, 156],
             [Stage.Septuples, 30, 180],
         ],
-        [2, 60],
         22,
         132,
     );
