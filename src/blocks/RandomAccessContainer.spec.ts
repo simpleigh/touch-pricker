@@ -7,7 +7,6 @@
  */
 
 import { Row } from '../rows';
-import { Changes } from '../stedman';
 import { createTestRow } from '../testFunctions.spec';
 import AbstractBlock from './AbstractBlock';
 import { testAbstractContainerImplementation } from './AbstractContainer.spec';
@@ -80,8 +79,9 @@ export const testRandomAccessContainerImplementation = (
 
         it('ignores the initial row when inserting a new block', () => {
             // Set container initial row different from block initial row
-            const initialRow = testBlocks[0].initialRow;
-            Changes.permuteN(initialRow);
+            let initialRow = testBlocks[0].initialRow;
+            const [a, b, ...rest] = initialRow;
+            initialRow = [b, a, ...rest];
             container.initialRow = initialRow;
 
             // Container initial row should be unaffected when inserting
