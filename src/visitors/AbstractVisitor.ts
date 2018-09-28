@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import { AbstractBlock } from '../blocks';
 import { Row, rowFromString, stringFromRow } from '../rows';
-import { AbstractSix } from '../stedman';
 
 /**
  * Visitor classes to analyse blocks
@@ -51,13 +51,13 @@ abstract class AbstractVisitor {
      * If we're still visiting (i.e. rounds hasn't been reached) then
      * we pass that row to derived classes for processing.
      */
-    public visit(row: Row, six?: AbstractSix): this {
+    public visit(row: Row, block?: AbstractBlock): this {
         if (!this._rounds) {
             this._rounds = stringFromRow(rowFromString('', row.length));
         }
 
         if (this._visiting) {
-            this.visitImplementation(row, six);
+            this.visitImplementation(row, block);
             if (stringFromRow(row) === this._rounds) {
                 this._visiting = false;
             }
@@ -77,7 +77,10 @@ abstract class AbstractVisitor {
      * Underlying visitor implementation (to be overridden by derived
      * classes).
      */
-    protected abstract visitImplementation(row: Row, six?: AbstractSix): void;
+    protected abstract visitImplementation(
+        row: Row,
+        block?: AbstractBlock,
+    ): void;
 
 }
 

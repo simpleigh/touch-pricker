@@ -5,10 +5,9 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { BlockDirectory } from '../blocks';
+import { AbstractBlock, BlockDirectory } from '../blocks';
 import { AbstractMatcher } from '../music';
 import { Row, stringFromRow } from '../rows';
-import { AbstractSix } from '../stedman';
 import AbstractVisitor from './AbstractVisitor';
 
 /**
@@ -55,10 +54,10 @@ class Music extends AbstractVisitor {
     /**
      * Receives a row for processing.
      */
-    protected visitImplementation(row: Row, six?: AbstractSix): void {
+    protected visitImplementation(row: Row, block?: AbstractBlock): void {
         const matches = this._matcher.match(stringFromRow(row));
-        if (matches && six) {
-            this._directory.add(six);
+        if (matches && block) {
+            this._directory.add(block);
         }
     }
 

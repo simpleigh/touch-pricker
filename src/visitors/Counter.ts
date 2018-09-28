@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import { AbstractBlock } from '../blocks';
 import { Row } from '../rows';
-import { AbstractSix } from '../stedman';
 import AbstractVisitor from './AbstractVisitor';
 
 /**
@@ -37,7 +37,7 @@ class Counter extends AbstractVisitor {
     /**
      * Receives a row for processing.
      */
-    protected visitImplementation(row: Row, six?: AbstractSix): void {
+    protected visitImplementation(row: Row, block?: AbstractBlock): void {
         this._count += 1;
     }
 

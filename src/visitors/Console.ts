@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import { AbstractBlock } from '../blocks';
 import { Row, stringFromRow } from '../rows';
-import { AbstractSix } from '../stedman';
 import AbstractVisitor from './AbstractVisitor';
 
 /**
@@ -23,7 +23,7 @@ class Console extends AbstractVisitor {
     /**
      * Receives a row for processing.
      */
-    protected visitImplementation(row: Row, six?: AbstractSix): void {
+    protected visitImplementation(row: Row, block?: AbstractBlock): void {
         /* tslint:disable-next-line:no-console */
         console.log(stringFromRow(row));
     }

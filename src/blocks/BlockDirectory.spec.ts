@@ -5,34 +5,12 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-// tslint:disable:max-classes-per-file
-
-import { Row, Stage } from '../rows';
+import { Course, Touch } from '../../tests/blocks';
+import { Stage } from '../rows';
 import { createTestRow } from '../testFunctions.spec';
-import AbstractBlock from './AbstractBlock';
 import BlockDirectory from './BlockDirectory';
-import RandomAccessContainer from './RandomAccessContainer';
-import SerialContainer from './SerialContainer';
 
 describe('BlockDirectory class', () => {
-
-    class Lead extends AbstractBlock {
-        protected calculate(): void { /* NOOP */ }
-        public getLast(): Row { return this.initialRow; }
-        public accept(): this { return this; }
-        public estimateRows(): number { return 0; }
-    }
-
-    class Course extends SerialContainer<Lead> {
-        protected createBlock(initialRow: Row, index: number): Lead {
-            return new Lead(initialRow, { container: this, index });
-        }
-        protected getDefaultLength(initialRow: Row): number {
-            return initialRow.length - 1;
-        }
-    }
-
-    class Touch extends RandomAccessContainer<Course> { }
 
     const testRow = createTestRow('', Stage.Triples);
 

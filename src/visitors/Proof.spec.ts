@@ -5,14 +5,20 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { Touch } from '../stedman';
-import { createTestCourse, createTestRow } from '../testFunctions.spec';
+import { Course, Touch } from '../../tests/blocks';
+import { createTestRow } from '../testFunctions.spec';
 import { testAbstractVisitorImplementation } from './AbstractVisitor.spec';
 import Proof from './Proof';
 
 describe('Proof visitor', () => {
 
     const testRow = createTestRow();
+
+    const createTestCourse = (): Course => {
+        const course = new Course(testRow);
+        course.resetLength();
+        return course;
+    };
 
     let visitor: Proof;
 

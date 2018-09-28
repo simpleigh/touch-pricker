@@ -5,9 +5,8 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { BlockDirectory } from '../blocks';
+import { AbstractBlock, BlockDirectory } from '../blocks';
 import { Row, stringFromRow } from '../rows';
-import { AbstractSix } from '../stedman';
 import AbstractVisitor from './AbstractVisitor';
 
 /**
@@ -29,7 +28,7 @@ class Proof extends AbstractVisitor {
      * row.
      */
     private _rowCounts:
-        { [index: string]: Array<AbstractSix | undefined> } = { };
+        { [index: string]: Array<AbstractBlock | undefined> } = { };
 
     /**
      * Directory of false blocks.
@@ -84,7 +83,7 @@ class Proof extends AbstractVisitor {
     /**
      * Receives a row for processing.
      */
-    protected visitImplementation(row: Row, six?: AbstractSix): void {
+    protected visitImplementation(row: Row, block?: AbstractBlock): void {
         const rowString: string = stringFromRow(row);
 
         if (rowString in this._rowCounts) {
@@ -93,21 +92,21 @@ class Proof extends AbstractVisitor {
             if (this._rowCounts[rowString].length === 1) {
                 // First time this row has run false
                 // need to add the previous block to the directory
-                const previousSix = this._rowCounts[rowString][0];
-                if (previousSix) {
-                    this._directory.add(previousSix);
+                const previousBlock = this._rowCounts[rowString][0];
+                if (previousBlock) {
+                    this._directory.add(previousBlock);
                 }
             }
 
             this._isTrue = false;
-            if (six) {
-                this._directory.add(six);
+            if (block) {
+                this._directory.add(block);
             }
-            this._rowCounts[rowString].push(six);
+            this._rowCounts[rowString].push(block);
 
         } else {
             // Not seen - i.e. true
-            this._rowCounts[rowString] = [six];
+            this._rowCounts[rowString] = [block];
         }
     }
 

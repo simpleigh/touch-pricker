@@ -5,16 +5,22 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
+import { Course, Touch } from '../../tests/blocks';
 import { MbdScheme } from '../music';
 import { Stage } from '../rows';
-import { Touch } from '../stedman';
-import { createTestCourse, createTestRow } from '../testFunctions.spec';
+import { createTestRow } from '../testFunctions.spec';
 import { testAbstractVisitorImplementation } from './AbstractVisitor.spec';
 import Music from './Music';
 
 describe('Music visitor', () => {
 
     const testRow = createTestRow();
+
+    const createTestCourse = (): Course => {
+        const course = new Course(testRow);
+        course.resetLength();
+        return course;
+    };
 
     let matcher: any;
 
