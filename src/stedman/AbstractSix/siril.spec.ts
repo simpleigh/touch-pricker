@@ -11,7 +11,6 @@ import { Row } from '../../rows';
 import { createTestRow } from '../../testFunctions.spec';
 import Call from '../Call';
 import Quick from '../Quick';
-import SixType from '../SixType';
 import Slow from '../Slow';
 
 /**
@@ -25,25 +24,22 @@ const testSirilAbstractSixTemplate = (
     describe('is a siril template', () => {
         let six: AbstractSix;
 
-        let type: string;
-
         beforeEach(() => {
             six = factory(createTestRow());
-            type = SixType[six.type].toLowerCase();
         });
 
         it('renders a six correctly', () => {
-            expect(six.print('siril')).toBe('plain, ' + type + ', ');
+            expect(six.print('siril')).toBe('plain, ' + six.type + ', ');
         });
 
         it('renders a bobbed six', () => {
             six.setCall(Call.Bob);
-            expect(six.print('siril')).toBe('bob, ' + type + ', ');
+            expect(six.print('siril')).toBe('bob, ' + six.type + ', ');
         });
 
         it('renders a singled six', () => {
             six.setCall(Call.Single);
-            expect(six.print('siril')).toBe('single, ' + type + ', ');
+            expect(six.print('siril')).toBe('single, ' + six.type + ', ');
         });
 
         it('renders just the call when only one row is needed', () => {
@@ -52,7 +48,7 @@ const testSirilAbstractSixTemplate = (
 
         it('renders the whole six when six rows are needed', () => {
             expect(six.print('siril', { touchRows: 6 }))
-                .toBe('plain, ' + type + ', ');
+                .toBe('plain, ' + six.type + ', ');
         });
 
         it('renders place notation for lengths in between', () => {

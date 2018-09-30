@@ -74,19 +74,12 @@ class Start extends AbstractBlock implements Templates.Interface {
             return;
         }
 
-        // Figure out what sort of change to apply
-        let change = (this._rowIndex + this._sixType) % 2
-            ? Changes.permute1
-            : Changes.permute3;
-
-        for (let i = this._rowIndex; i < 6; i += 1) {
-            // Swap the change
-            change = change === Changes.permute1
-                ? Changes.permute3
-                : Changes.permute1;
-
-            // Apply it and store
-            change(row);
+        for (const notation of this.notation) {
+            if (notation === '1') {
+                Changes.permute1(row);
+            } else {
+                Changes.permute3(row);
+            }
             this._rows.push(row.slice());
         }
 
@@ -214,9 +207,11 @@ class Start extends AbstractBlock implements Templates.Interface {
      * Returns place notation for the start
      */
     get notation(): string[] {
-        const begin = this._rowIndex + this._sixType - 1;
-        const end = this._sixType ? undefined : -1;
-        return ['3', '1', '3', '1', '3', '1'].slice(begin, end);
+        const sixNotation = {
+            [SixType.Slow]: ['3', '1', '3', '1', '3'],
+            [SixType.Quick]: ['1', '3', '1', '3', '1'],
+        }[this._sixType];
+        return sixNotation.slice(this._rowIndex - 1);
     }
 
 }

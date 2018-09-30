@@ -15,7 +15,6 @@ import { createTestRow } from '../../testFunctions.spec';
 import Call from '../Call';
 import Course from '../Course';
 import Quick from '../Quick';
-import SixType from '../SixType';
 import Slow from '../Slow';
 
 /**
@@ -29,11 +28,8 @@ const testMbdAbstractSixTemplate = (
     describe('is derived from mbd template for AbstractSix and', () => {
         let six: AbstractSix;
 
-        let type: string;
-
         beforeEach(() => {
             six = createTestSix(1);
-            type = SixType[six.type].toLowerCase();
         });
 
         const createTestSix = (index: number): AbstractSix => {
@@ -48,7 +44,7 @@ const testMbdAbstractSixTemplate = (
                 '<span class="">'
                     + stringFromRow(six.getLast())
                     + '</span>'
-                    + '&nbsp;&nbsp;<span class="' + type
+                    + '&nbsp;&nbsp;<span class="' + six.type
                     + 'Six" onclick="pricker.c(1)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
@@ -60,7 +56,7 @@ const testMbdAbstractSixTemplate = (
                 '<span class="">'
                     + stringFromRow(six.getLast())
                     + '</span>'
-                    + '&nbsp;&nbsp;<span class="' + type
+                    + '&nbsp;&nbsp;<span class="' + six.type
                     + 'Six" onclick="pricker.c(1)">'
                     + '&nbsp;-&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
@@ -72,7 +68,7 @@ const testMbdAbstractSixTemplate = (
                 '<span class="">'
                     + stringFromRow(six.getLast())
                     + '</span>'
-                    + '&nbsp;&nbsp;<span class="' + type
+                    + '&nbsp;&nbsp;<span class="' + six.type
                     + 'Six" onclick="pricker.c(1)">'
                     + '&nbsp;s&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
@@ -84,7 +80,7 @@ const testMbdAbstractSixTemplate = (
                 '<span class="">'
                     + stringFromRow(six.getLast())
                     + '</span>'
-                    + '&nbsp;&nbsp;<span class="' + type
+                    + '&nbsp;&nbsp;<span class="' + six.type
                     + 'Six" onclick="pricker.c(999)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;999<br />',
             );
@@ -99,7 +95,7 @@ const testMbdAbstractSixTemplate = (
                 '<span class="musicalBlock">'
                     + stringFromRow(six.getLast())
                     + '</span>'
-                    + '&nbsp;&nbsp;<span class="' + type
+                    + '&nbsp;&nbsp;<span class="' + six.type
                     + 'Six" onclick="pricker.c(1)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
@@ -116,7 +112,7 @@ const testMbdAbstractSixTemplate = (
                 '<span class="falseBlock">'
                     + stringFromRow(six.getLast())
                     + '</span>'
-                    + '&nbsp;&nbsp;<span class="' + type
+                    + '&nbsp;&nbsp;<span class="' + six.type
                     + 'Six" onclick="pricker.c(1)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
@@ -137,7 +133,7 @@ const testMbdAbstractSixTemplate = (
                 '<span class="falseBlock">'
                     + stringFromRow(six.getLast())
                     + '</span>'
-                    + '&nbsp;&nbsp;<span class="' + type
+                    + '&nbsp;&nbsp;<span class="' + six.type
                     + 'Six" onclick="pricker.c(1)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
@@ -148,7 +144,7 @@ const testMbdAbstractSixTemplate = (
                 '<span class=""><u>'
                     + stringFromRow(six.getLast())
                     + '</u></span>'
-                    + '&nbsp;&nbsp;<span class="' + type
+                    + '&nbsp;&nbsp;<span class="' + six.type
                     + 'Six" onclick="pricker.c(1)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
@@ -159,7 +155,7 @@ const testMbdAbstractSixTemplate = (
                 '<span class="">'
                     + stringFromRow(six.getFirst())
                     + '</span>'
-                    + '&nbsp;&nbsp;<span class="' + type
+                    + '&nbsp;&nbsp;<span class="' + six.type
                     + 'Six" onclick="pricker.c(1)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />'
                     + '<span class=""><u>'

@@ -17,7 +17,7 @@ import SixType from './SixType';
 /**
  * A quick six
  */
-@Templates.makePrintable({ mbd, siril }, { Call, type: 'quick' })
+@Templates.makePrintable({ mbd, siril }, { Call })
 class Quick extends AbstractSix {
 
     /**

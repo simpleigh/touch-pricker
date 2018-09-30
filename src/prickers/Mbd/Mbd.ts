@@ -21,7 +21,7 @@ enum Block { Course, Touch }
 /**
  * An MBD pricker
  */
-@Templates.makePrintable({ css, html }, { SixType, Stage })
+@Templates.makePrintable({ css, html }, { Stage })
 class Mbd extends AbstractPricker implements Notifiable {
 
     /**
@@ -146,7 +146,9 @@ class Mbd extends AbstractPricker implements Notifiable {
         const newCourse = this._course.clone();
 
         const lastSix = this._course.getBlock(this._course.length);
-        this._extraSixes.setFirstSixType((lastSix.type + 1) % 2);
+        this._extraSixes.setFirstSixType(
+            lastSix.type === SixType.Slow ? SixType.Quick : SixType.Slow,
+        );
         this._extraSixes.initialRow = this._course.getLast();
         this.getEl('sixends').innerHTML = this._course.print('mbd', {
             courseIndex: this._copiedIndex,
@@ -166,7 +168,7 @@ class Mbd extends AbstractPricker implements Notifiable {
             stringFromRow(this._course.initialRow);
 
         this.getEl<HTMLSelectElement>('firstSix').value =
-            this._course.firstSixType.toString();
+            this._course.firstSixType;
 
         if (this._showAdvancedOptions) {
             show(this.getEl('firstSixBlock'));
@@ -250,7 +252,7 @@ class Mbd extends AbstractPricker implements Notifiable {
 
     public onFirstSix(): void {
         const input = this.getEl<HTMLSelectElement>('firstSix').value;
-        this._course.setFirstSixType(parseInt(input));
+        this._course.setFirstSixType(input as SixType);
         this.redraw();
     }
 
@@ -301,7 +303,7 @@ class Mbd extends AbstractPricker implements Notifiable {
 
     public onSixType(): void {
         const input = this.getEl<HTMLSelectElement>('sixType').value;
-        this._touch.start.sixType = parseInt(input);
+        this._touch.start.sixType = input as SixType;
         this.redrawTouch();
     }
 
@@ -318,7 +320,9 @@ class Mbd extends AbstractPricker implements Notifiable {
         if (this.getEl<HTMLInputElement>('rolling').checked) {
             const course = this._touch.getBlock(this._selectedIndex);
             const sixType = course.getBlock(course.length).type;
-            this._course.setFirstSixType((sixType + 1) % 2);
+            this._course.setFirstSixType(
+                sixType === SixType.Slow ? SixType.Quick : SixType.Slow,
+            );
             this._course.initialRow = course.getLast();
             this._course.resetLength();
             this._course.resetCalls();
@@ -335,7 +339,9 @@ class Mbd extends AbstractPricker implements Notifiable {
             if (this.getEl<HTMLInputElement>('rolling').checked) {
                 const course = this._touch.getBlock(this._selectedIndex);
                 const sixType = course.getBlock(course.length).type;
-                this._course.setFirstSixType((sixType + 1) % 2);
+                this._course.setFirstSixType(
+                    sixType === SixType.Slow ? SixType.Quick : SixType.Slow,
+                );
                 this._course.initialRow = course.getLast();
                 this._selectedIndex = Math.min(
                     this._selectedIndex + 1,

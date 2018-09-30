@@ -15,8 +15,8 @@ describe('SixType enum', () => {
     });
 
     it('maps quick and slow sixes to appropriate values', () => {
-        expect(SixType.Slow).toBe(0);
-        expect(SixType.Quick).toBe(1);
+        expect(SixType.Slow).toBe('slow');
+        expect(SixType.Quick).toBe('quick');
     });
 
 });

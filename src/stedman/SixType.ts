@@ -9,6 +9,9 @@
  * Types of six
  * @enum {number}
  */
-enum SixType { Slow = 0, Quick }
+enum SixType {
+    Slow = 'slow',
+    Quick = 'quick',
+}
 
 export default SixType;

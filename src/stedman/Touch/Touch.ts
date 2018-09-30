@@ -10,6 +10,7 @@ import { Row, rowFromString, Stage } from '../../rows';
 import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
 import Course from '../Course';
+import SixType from '../SixType';
 import Start from '../Start';
 import select from './select.dot';
 import siril from './siril.dot';
@@ -71,7 +72,9 @@ class Touch
     protected propagateCurrentBlock(previous: Course, current: Course): void {
         const sixType = previous.getBlock(previous.length).type;
         current.initialRow = previous.getLast();
-        current.setFirstSixType((sixType + 1) % 2);
+        current.setFirstSixType(
+            sixType === SixType.Slow ? SixType.Quick : SixType.Slow,
+        );
     }
 
     /**
@@ -81,7 +84,9 @@ class Touch
     protected propagateFirstBlock(first: Course): void {
         const sixType = this._start.sixType;
         first.initialRow = this._start.getLast();
-        first.setFirstSixType((sixType + 1) % 2);
+        first.setFirstSixType(
+            sixType === SixType.Slow ? SixType.Quick : SixType.Slow,
+        );
     }
 
     /* Touch methods **********************************************************/

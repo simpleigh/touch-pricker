@@ -55,7 +55,12 @@ class Course
      * @param index       index of block in container
      */
     protected createBlock(initialRow: Row, index: number): AbstractSix {
-        return ((this._firstSixType || SixType.Slow) + index) % 2
+        const offset = {
+            [SixType.Slow]: 0,
+            [SixType.Quick]: 1,
+        }[this._firstSixType || SixType.Slow];
+
+        return (offset + index) % 2
             ? new Slow(initialRow, { container: this, index })
             : new Quick(initialRow, { container: this, index });
     }
