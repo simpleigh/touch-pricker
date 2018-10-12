@@ -202,10 +202,11 @@ class Start extends AbstractBlock implements Templates.Interface {
      * Returns place notation for the start
      */
     get notation(): string[] {
-        const sixNotation = {
+        const types: { [type in SixType]?: string[] } = {
             [SixType.Slow]: ['3', '1', '3', '1', '3'],
             [SixType.Quick]: ['1', '3', '1', '3', '1'],
-        }[this._sixType];
+        };
+        const sixNotation = types[this._sixType] as string[];
         return sixNotation.slice(this._rowIndex - 1);
     }
 

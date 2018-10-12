@@ -39,11 +39,11 @@ class Erin extends AbstractStrategy {
     }
 
     /**
-     * Computes the type of the next six in a touch
+     * Mapping from each valid six type to its successor
      */
-    public getNextSixType(sixType: SixType): SixType {
-        return SixType.Slow;
-    }
+    protected readonly sixTypeProgression: { [from in SixType]?: SixType } = {
+        [SixType.Slow]: SixType.Slow,
+    };
 
 }
 

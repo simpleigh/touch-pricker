@@ -9,14 +9,14 @@ import SixType from './SixType';
 
 describe('SixType enum', () => {
 
-    it('can represent quick sixes and slow sixes', () => {
-        expect(SixType.Slow).toBeDefined();
-        expect(SixType.Quick).toBeDefined();
-    });
+    const testValue = (name: string, value: SixType) =>
+        it(`can represent ${name} sixes`, () => {
+            expect(value).toBeDefined();
+            expect(value).toBe(name);
+        });
 
-    it('maps quick and slow sixes to appropriate values', () => {
-        expect(SixType.Slow).toBe('slow');
-        expect(SixType.Quick).toBe('quick');
-    });
+    testValue('slow', SixType.Slow);
+    testValue('quick', SixType.Quick);
+    testValue('invalid', SixType.Invalid);
 
 });

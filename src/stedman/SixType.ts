@@ -12,6 +12,7 @@
 enum SixType {
     Slow = 'slow',
     Quick = 'quick',
+    Invalid = 'invalid',
 }
 
 export default SixType;

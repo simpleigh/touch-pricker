@@ -22,7 +22,6 @@ describe('Erin strategy', () => {
         ],
         [
             [SixType.Slow, SixType.Slow],
-            [SixType.Quick, SixType.Slow],
         ],
     );
 });

@@ -10,6 +10,7 @@ import { hide, show } from '../../dom';
 import { MbdScheme } from '../../music';
 import { Row, rowFromString, Stage, stringFromRow } from '../../rows';
 import { Course, SixType, Touch } from '../../stedman';
+import { AbstractStrategy, Stedman } from '../../stedman/strategies';
 import * as Templates from '../../templates';
 import * as Visitors from '../../visitors';
 import AbstractPricker from '../AbstractPricker';
@@ -23,6 +24,11 @@ enum Block { Course, Touch }
  */
 @Templates.makePrintable({ css, html }, { Stage })
 class Mbd extends AbstractPricker implements Notifiable {
+
+    /**
+     * Strategy for generating rows
+     */
+    private _strategy: AbstractStrategy = new Stedman();
 
     /**
      * Stage we're pricking on
@@ -147,7 +153,7 @@ class Mbd extends AbstractPricker implements Notifiable {
 
         const lastSix = this._course.getBlock(this._course.length);
         this._extraSixes.setFirstSixType(
-            lastSix.type === SixType.Slow ? SixType.Quick : SixType.Slow,
+            this._strategy.getNextSixType(lastSix.type),
         );
         this._extraSixes.initialRow = this._course.getLast();
         this.getEl('sixends').innerHTML = this._course.print('mbd', {
@@ -321,7 +327,7 @@ class Mbd extends AbstractPricker implements Notifiable {
             const course = this._touch.getBlock(this._selectedIndex);
             const sixType = course.getBlock(course.length).type;
             this._course.setFirstSixType(
-                sixType === SixType.Slow ? SixType.Quick : SixType.Slow,
+                this._strategy.getNextSixType(sixType),
             );
             this._course.initialRow = course.getLast();
             this._course.resetLength();
@@ -340,7 +346,7 @@ class Mbd extends AbstractPricker implements Notifiable {
                 const course = this._touch.getBlock(this._selectedIndex);
                 const sixType = course.getBlock(course.length).type;
                 this._course.setFirstSixType(
-                    sixType === SixType.Slow ? SixType.Quick : SixType.Slow,
+                    this._strategy.getNextSixType(sixType),
                 );
                 this._course.initialRow = course.getLast();
                 this._selectedIndex = Math.min(

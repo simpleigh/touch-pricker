@@ -33,9 +33,28 @@ abstract class AbstractStrategy {
     ): AbstractSix;
 
     /**
+     * Mapping from each valid six type to its successor
+     */
+    protected abstract readonly sixTypeProgression: {
+        [from in SixType]?: SixType;
+    };
+
+    /**
+     * Checks whether a six type is valid for this strategy
+     */
+    public checkSixType(sixType: SixType): void {
+        if (!this.sixTypeProgression[sixType]) {
+            throw new Error(`"${sixType}" sixes not allowed for this strategy`);
+        }
+    }
+
+    /**
      * Computes the type of the next six in a touch
      */
-    public abstract getNextSixType(sixType: SixType): SixType;
+    public getNextSixType(sixType: SixType): SixType {
+        this.checkSixType(sixType);
+        return this.sixTypeProgression[sixType] as SixType;
+    }
 
 }
 

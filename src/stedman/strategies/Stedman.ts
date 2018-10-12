@@ -36,10 +36,11 @@ class Stedman extends AbstractStrategy {
         course: Course,
         index: number,
     ): AbstractSix {
-        const offset = {
+        const offsets: { [type in SixType]?: number } = {
             [SixType.Slow]: 0,
             [SixType.Quick]: 1,
-        }[course.firstSixType];
+        };
+        const offset = offsets[course.firstSixType] as number;
 
         return (offset + index) % 2
             ? new Slow(initialRow, { container: course, index })
@@ -47,11 +48,12 @@ class Stedman extends AbstractStrategy {
     }
 
     /**
-     * Computes the type of the next six in a touch
+     * Mapping from each valid six type to its successor
      */
-    public getNextSixType(sixType: SixType): SixType {
-        return sixType === SixType.Slow ? SixType.Quick : SixType.Slow;
-    }
+    protected readonly sixTypeProgression: { [from in SixType]?: SixType } = {
+        [SixType.Slow]: SixType.Quick,
+        [SixType.Quick]: SixType.Slow,
+    };
 
 }
 

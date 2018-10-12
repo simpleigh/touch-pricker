@@ -75,6 +75,8 @@ class Course
      * Write access to the type of the first six
      */
     public setFirstSixType(type: SixType): this {
+        this._strategy.checkSixType(type);
+
         if (this._firstSixType === type) {
             return this;  // nothing to do
         }
