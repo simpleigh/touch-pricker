@@ -55,11 +55,6 @@ class Start extends AbstractBlock implements Templates.Interface {
 
     public print: Templates.Print;
 
-    /**
-     * Path for this class' templates
-     */
-    public readonly templatePath: string = 'Start';
-
     /* AbstractBlock methods **************************************************/
 
     /**
