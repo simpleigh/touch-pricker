@@ -160,19 +160,18 @@ class Course
      */
     public static fromString(initialRow: Row, input: string): Course {
         const course = new Course(initialRow);
-        const patCourseEnd = '[0-9a-z]{3,15}';
-        const patCall = '(?:\\d{1,2}|\\d{1,2}s|s\\d{1,2})';
-        const patSep = '[\\s.,]+';
-        const patCalling = patCall + '(?:' + patSep + patCall + ')*';
-        const patSixes = '\\((\\d{1,2})[^\\d\\)]*\\)';
-        const patAll = ''
+        const courseEnd = '[0-9a-z]{3,15}';
+        const separator = '[\\s.,]+';
+        const six = '(?:\\d{1,2}|\\d{1,2}s|s\\d{1,2})'; // 5 or 5s or s5
+        const sixes = `${six}(?:${separator}${six})*`;
+        const numSixes = '\\((\\d{1,2})[^\\d\\)]*\\)'; // (5 <anything>)
+        const line = ''
             + '^\\s*'
-            + '(?:' + patCourseEnd + '\\s+)?'
-            + '(' + patCalling + '|p)'  // group 1
-            + '(?:\\s+' + patSixes + ')?'  // group 2 in here
+            + `(?:${courseEnd}\\s+)?`
+            + `(${sixes}|p)`  // group 1
+            + `(?:\\s+${numSixes})?`  // group 2 in here
             + '\\s*$';
-        const rxAll = new RegExp(patAll, 'i');
-        const matches = rxAll.exec(input);
+        const matches = new RegExp(line, 'i').exec(input);
 
         let calls: string[];
         let i: number;
@@ -195,7 +194,7 @@ class Course
         }
 
         // Otherwise split up the calling and process
-        calls = matches[1].split(new RegExp(patSep));
+        calls = matches[1].split(new RegExp(separator));
         for (i = 0; i < calls.length; i += 1) {
             call = calls[i];
             if (call.charAt(0) === 's') {
