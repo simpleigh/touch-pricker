@@ -30,16 +30,15 @@ class Touch
     private _start: Start;
 
     /**
-     * Strategy for generating rows
-     */
-    private _strategy: AbstractStrategy = new Stedman();
-
-    /**
      * Constructor
      *
-     * Extends the AbstractBlock container to set up the start.
+     * Extends the AbstractBlock container to set up the start and strategy.
      */
-    constructor(initialRow: Row, protected _ownership?: BlockOwnership) {
+    constructor(
+        initialRow: Row,
+        protected _ownership?: BlockOwnership,
+        private _strategy: AbstractStrategy = new Stedman(),
+    ) {
         super(initialRow, _ownership);
         this._start = new Start(initialRow, { container: this, index: 0 });
     }
@@ -102,7 +101,10 @@ class Touch
     /**
      * Creates a new touch from a string representation
      */
-    public static fromString(input: string): Touch {
+    public static fromString(
+        input: string,
+        strategy: AbstractStrategy = new Stedman(),
+    ): Touch {
         const lines: string[] = input.split('\n');
 
         let i: number;
@@ -138,10 +140,14 @@ class Touch
                 if (!Stage[line.length]) {
                     throw new Error('Cannot recognise stage');
                 }
-                touch = new Touch(rowFromString('123', line.length));
+                touch = new Touch(
+                    rowFromString('123', line.length),
+                    undefined,
+                    strategy,
+                );
             } else {
                 // Create a course for each remaining line
-                course = Course.fromString(touch.getLast(), line);
+                course = Course.fromString(touch.getLast(), line, strategy);
                 touch.insertBlock(touch.length + 1, course);
             }
         }

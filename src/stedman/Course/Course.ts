@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { SerialContainer } from '../../blocks';
+import { BlockOwnership, SerialContainer } from '../../blocks';
 import { Row } from '../../rows';
 import * as Templates from '../../templates';
 import AbstractSix from '../AbstractSix';
@@ -31,9 +31,17 @@ class Course
     private _firstSixType: SixType = SixType.Slow;
 
     /**
-     * Strategy for generating rows
+     * Constructor
+     *
+     * Extends the AbstractBlock container to set up the strategy.
      */
-    private _strategy: AbstractStrategy = new Stedman();
+    constructor(
+        initialRow: Row,
+        protected _ownership?: BlockOwnership,
+        private _strategy: AbstractStrategy = new Stedman(),
+    ) {
+        super(initialRow, _ownership);
+    }
 
     /* templating *************************************************************/
 
@@ -136,7 +144,11 @@ class Course
      * Clones the course
      */
     public clone(): Course {
-        const cloned: Course = new Course(this._initialRow);
+        const cloned = new Course(
+            this._initialRow,
+            undefined,
+            this._strategy,
+        );
         cloned.setLength(this.length);
         cloned.setFirstSixType(this.firstSixType);
 
@@ -157,8 +169,12 @@ class Course
     /**
      * Creates a new course from a string representation
      */
-    public static fromString(initialRow: Row, input: string): Course {
-        const course: Course = new Course(initialRow);
+    public static fromString(
+        initialRow: Row,
+        input: string,
+        strategy: AbstractStrategy = new Stedman(),
+    ): Course {
+        const course: Course = new Course(initialRow, undefined, strategy);
         const patCourseEnd = '[0-9a-z]{3,15}';
         const patCall = '(?:\\d{1,2}|\\d{1,2}s|s\\d{1,2})';
         const patSep = '[\\s.,]+';

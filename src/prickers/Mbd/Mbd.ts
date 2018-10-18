@@ -10,7 +10,7 @@ import { hide, show } from '../../dom';
 import { MbdScheme } from '../../music';
 import { Row, rowFromString, Stage, stringFromRow } from '../../rows';
 import { Course, SixType, Touch } from '../../stedman';
-import { AbstractStrategy, Stedman } from '../../stedman/strategies';
+import { AbstractStrategy, Erin, Stedman } from '../../stedman/strategies';
 import * as Templates from '../../templates';
 import * as Visitors from '../../visitors';
 import AbstractPricker from '../AbstractPricker';
@@ -125,15 +125,34 @@ class Mbd extends AbstractPricker implements Notifiable {
         this.onStage();
     }
 
+    public onMethod(): void {
+        const method = this.getEl<HTMLSelectElement>('method').value;
+        const strategyMap: { [method: string]: AbstractStrategy } = {
+            erin: new Erin(),
+            stedman: new Stedman(),
+        };
+        this._strategy = strategyMap[method];
+        this.boot();
+    }
+
     public onStage(): void {
         this._stage = parseInt(this.getEl<HTMLSelectElement>('stage').value);
+        this.boot();
+    }
+
+    private boot(): void {
         this._initialRow = rowFromString('231', this._stage);
 
         this._course = new Course(
             this._initialRow,
             { container: this, index: Block.Course },
+            this._strategy,
         );
-        this._extraSixes = new Course(this._initialRow);
+        this._extraSixes = new Course(
+            this._initialRow,
+            undefined,
+            this._strategy,
+        );
 
         this._course.resetLength();
         this._extraSixes.setLength(8);
@@ -141,6 +160,7 @@ class Mbd extends AbstractPricker implements Notifiable {
         this._touch = new Touch(
             rowFromString('', this._stage),
             { container: this, index: Block.Touch },
+            this._strategy,
         );
 
         // Call notify() to clear out state from the previous touch
@@ -292,7 +312,11 @@ class Mbd extends AbstractPricker implements Notifiable {
             this._course = this._savedCourse.clone();
             this._course.initialRow = this._initialRow;
         } else {
-            this._course = new Course(this._initialRow);
+            this._course = new Course(
+                this._initialRow,
+                undefined,
+                this._strategy,
+            );
             this._course.resetLength();
         }
 
@@ -393,7 +417,7 @@ class Mbd extends AbstractPricker implements Notifiable {
         let newTouch: Touch;
 
         try {
-            newTouch = Touch.fromString(input);
+            newTouch = Touch.fromString(input, this._strategy);
         } catch (e) {
             // Ignore
             return;
