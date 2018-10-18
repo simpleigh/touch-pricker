@@ -34,7 +34,7 @@ abstract class RandomAccessContainer<Block extends AbstractBlock>
      * Deletes the course at the specified index
      */
     public deleteBlock(index: number): Block {
-        const block: Block = this.getBlock(index);
+        const block = this.getBlock(index);
 
         this._blocks.splice(index - 1, 1);
         block.clearOwnership();

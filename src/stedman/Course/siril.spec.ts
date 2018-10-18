@@ -19,7 +19,7 @@ describe('siril template for Course', () => {
         );
     });
 
-    const EXPECTED_OUTPUTS: string[] = [
+    const EXPECTED_OUTPUTS = [
         '',  // length zero not tested
         'plain, ',
         'plain, +3, ',

@@ -102,7 +102,7 @@ class Touch
      * Creates a new touch from a string representation
      */
     public static fromString(input: string): Touch {
-        const lines: string[] = input.split('\n');
+        const lines = input.split('\n');
 
         let i: number;
         let line: string;

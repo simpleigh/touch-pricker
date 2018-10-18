@@ -84,7 +84,7 @@ class Proof extends AbstractVisitor {
      * Receives a row for processing.
      */
     protected visitImplementation(row: Row, block?: AbstractBlock): void {
-        const rowString: string = stringFromRow(row);
+        const rowString = stringFromRow(row);
 
         if (rowString in this._rowCounts) {
             // Already seen - i.e. false

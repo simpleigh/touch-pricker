@@ -71,7 +71,7 @@ abstract class AbstractScheme extends AbstractMatcher {
 
         for (const matcher of this._matchers) {
             // Call matcher.match explicitly...
-            const rowResult: boolean = matcher.match(row);
+            const rowResult = matcher.match(row);
             // ... not in here, or || will short-circuit it
             result = result || rowResult;
         }

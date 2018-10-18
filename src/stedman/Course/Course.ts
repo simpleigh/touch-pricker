@@ -137,7 +137,7 @@ class Course
      * Clones the course
      */
     public clone(): Course {
-        const cloned: Course = new Course(this._initialRow);
+        const cloned = new Course(this._initialRow);
         cloned.setLength(this.length);
         cloned.setFirstSixType(this.firstSixType);
 
@@ -159,20 +159,20 @@ class Course
      * Creates a new course from a string representation
      */
     public static fromString(initialRow: Row, input: string): Course {
-        const course: Course = new Course(initialRow);
+        const course = new Course(initialRow);
         const patCourseEnd = '[0-9a-z]{3,15}';
         const patCall = '(?:\\d{1,2}|\\d{1,2}s|s\\d{1,2})';
         const patSep = '[\\s.,]+';
-        const patCalling: string = patCall + '(?:' + patSep + patCall + ')*';
+        const patCalling = patCall + '(?:' + patSep + patCall + ')*';
         const patSixes = '\\((\\d{1,2})[^\\d\\)]*\\)';
-        const patAll: string = ''
+        const patAll = ''
             + '^\\s*'
             + '(?:' + patCourseEnd + '\\s+)?'
             + '(' + patCalling + '|p)'  // group 1
             + '(?:\\s+' + patSixes + ')?'  // group 2 in here
             + '\\s*$';
-        const rxAll: RegExp = new RegExp(patAll, 'i');
-        const matches: null | string[] = rxAll.exec(input);
+        const rxAll = new RegExp(patAll, 'i');
+        const matches = rxAll.exec(input);
 
         let calls: string[];
         let i: number;

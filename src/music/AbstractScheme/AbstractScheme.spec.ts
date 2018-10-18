@@ -38,10 +38,10 @@ export const testAbstractSchemeImplementation = (
 
         it('matches music correctly', () => {
             for (const testCase of testCases) {
-                const stage: Stage = testCase[0];
-                const rowString: string = testCase[1];
-                const matches: number = testCase[2];
-                const output: string = testCase[3];
+                const stage = testCase[0];
+                const rowString = testCase[1];
+                const matches = testCase[2];
+                const output = testCase[3];
                 const scheme = createFn(stage);
 
                 scheme.match(rowString);

@@ -54,7 +54,7 @@ describe('Course class', () => {
 
     it('calculates sixes correctly', () => {
         course = Course.fromString(testRow, '2314567890E 1 s10 s13 22');
-        const expectedSixEnds: string[] = [
+        const expectedSixEnds = [
             '',  // blank entry so indices line up
             '3426185970E',
             '346829105E7',
