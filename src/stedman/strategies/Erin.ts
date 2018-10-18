@@ -9,6 +9,7 @@ import { Row } from '../../rows';
 import AbstractSix from '../AbstractSix';
 import Course from '../Course';
 import SixType from '../SixType';
+import SixTypeMap from '../SixTypeMap';
 import Slow from '../Slow';
 import AbstractStrategy from './AbstractStrategy';
 
@@ -41,7 +42,7 @@ class Erin extends AbstractStrategy {
     /**
      * Mapping from each valid six type to its successor
      */
-    protected readonly sixTypeProgression: { [from in SixType]?: SixType } = {
+    protected readonly sixTypeProgression: SixTypeMap<SixType> = {
         [SixType.Slow]: SixType.Slow,
     };
 

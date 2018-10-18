@@ -10,6 +10,7 @@ import AbstractSix from '../AbstractSix';
 import Course from '../Course';
 import Quick from '../Quick';
 import SixType from '../SixType';
+import SixTypeMap from '../SixTypeMap';
 import Slow from '../Slow';
 import AbstractStrategy from './AbstractStrategy';
 
@@ -36,11 +37,11 @@ class Stedman extends AbstractStrategy {
         course: Course,
         index: number,
     ): AbstractSix {
-        const offsets: { [type in SixType]?: number } = {
+        const offsets: SixTypeMap<number> = {
             [SixType.Slow]: 0,
             [SixType.Quick]: 1,
         };
-        const offset = offsets[course.firstSixType] as number;
+        const offset = offsets[course.firstSixType]!;
 
         return (offset + index) % 2
             ? new Slow(initialRow, { container: course, index })
@@ -50,7 +51,7 @@ class Stedman extends AbstractStrategy {
     /**
      * Mapping from each valid six type to its successor
      */
-    protected readonly sixTypeProgression: { [from in SixType]?: SixType } = {
+    protected readonly sixTypeProgression: SixTypeMap<SixType> = {
         [SixType.Slow]: SixType.Quick,
         [SixType.Quick]: SixType.Slow,
     };

@@ -9,6 +9,7 @@ import { Row } from '../../rows';
 import AbstractSix from '../AbstractSix';
 import Course from '../Course';
 import SixType from '../SixType';
+import SixTypeMap from '../SixTypeMap';
 
 /**
  * Strategies for assembling Stedman-style compositions
@@ -35,9 +36,7 @@ abstract class AbstractStrategy {
     /**
      * Mapping from each valid six type to its successor
      */
-    protected abstract readonly sixTypeProgression: {
-        [from in SixType]?: SixType;
-    };
+    protected abstract readonly sixTypeProgression: SixTypeMap<SixType>;
 
     /**
      * Checks whether a six type is valid for this strategy
@@ -53,7 +52,7 @@ abstract class AbstractStrategy {
      */
     public getNextSixType(sixType: SixType): SixType {
         this.checkSixType(sixType);
-        return this.sixTypeProgression[sixType] as SixType;
+        return this.sixTypeProgression[sixType]!;
     }
 
 }

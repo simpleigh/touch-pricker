@@ -11,6 +11,7 @@ import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
 import * as Changes from '../Changes';
 import SixType from '../SixType';
+import SixTypeMap from '../SixTypeMap';
 import siril from './siril.dot';
 import text from './text.dot';
 
@@ -202,11 +203,11 @@ class Start extends AbstractBlock implements Templates.Interface {
      * Returns place notation for the start
      */
     get notation(): string[] {
-        const types: { [type in SixType]?: string[] } = {
+        const types: SixTypeMap<string[]> = {
             [SixType.Slow]: ['3', '1', '3', '1', '3'],
             [SixType.Quick]: ['1', '3', '1', '3', '1'],
         };
-        const sixNotation = types[this._sixType] as string[];
+        const sixNotation = types[this._sixType]!;
         return sixNotation.slice(this._rowIndex - 1);
     }
 
