@@ -46,6 +46,16 @@ class Erin extends AbstractStrategy {
         [SixType.Slow]: SixType.Slow,
     };
 
+    /**
+     * Index of rounds within six for standard start
+     */
+    public readonly defaultStartRowIndex: number = 6;
+
+    /**
+     * Type of six for standard start
+     */
+    public readonly defaultStartSixType: SixType = SixType.Slow;
+
 }
 
 export default Erin;

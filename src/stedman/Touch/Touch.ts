@@ -40,7 +40,11 @@ class Touch
         private _strategy: AbstractStrategy = new Stedman(),
     ) {
         super(initialRow, _ownership);
-        this._start = new Start(initialRow, { container: this, index: 0 });
+        this._start = new Start(
+            initialRow,
+            { container: this, index: 0 },
+            this._strategy,
+        );
     }
 
     /* AbstractBlock methods **************************************************/

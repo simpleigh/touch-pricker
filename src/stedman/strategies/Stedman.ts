@@ -56,6 +56,16 @@ class Stedman extends AbstractStrategy {
         [SixType.Quick]: SixType.Slow,
     };
 
+    /**
+     * Index of rounds within six for standard start
+     */
+    public readonly defaultStartRowIndex: number = 4;
+
+    /**
+     * Type of six for standard start
+     */
+    public readonly defaultStartSixType: SixType = SixType.Quick;
+
 }
 
 export default Stedman;

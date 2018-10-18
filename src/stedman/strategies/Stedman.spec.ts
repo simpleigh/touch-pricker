@@ -24,5 +24,6 @@ describe('Stedman strategy', () => {
             [SixType.Slow, SixType.Quick],
             [SixType.Quick, SixType.Slow],
         ],
+        [4, SixType.Quick],
     );
 });

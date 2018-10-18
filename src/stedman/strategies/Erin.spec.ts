@@ -23,5 +23,6 @@ describe('Erin strategy', () => {
         [
             [SixType.Slow, SixType.Slow],
         ],
+        [6, SixType.Slow],
     );
 });

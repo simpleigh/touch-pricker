@@ -55,6 +55,16 @@ abstract class AbstractStrategy {
         return this.sixTypeProgression[sixType]!;
     }
 
+    /**
+     * Index of rounds within six for standard start
+     */
+    public abstract readonly defaultStartRowIndex: number;
+
+    /**
+     * Type of six for standard start
+     */
+    public abstract readonly defaultStartSixType: SixType;
+
 }
 
 export default AbstractStrategy;

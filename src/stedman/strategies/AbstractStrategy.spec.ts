@@ -18,6 +18,7 @@ export const testAbstractStrategyImplementation = (
     factory: () => AbstractStrategy,
     lengthTestCases: Array<[Stage, number]>,
     progressionTestCases: Array<[SixType, SixType]>,
+    [defaultStartRowIndex, defaultStartSixType]: [number, SixType],
 ) => {
 
     const initialRow = createTestRow();
@@ -111,6 +112,19 @@ export const testAbstractStrategyImplementation = (
 
     it('throws when trying to compute the successor of an invalid six', () => {
         expect(() => factory().getNextSixType(SixType.Invalid)).toThrow();
+    });
+
+    it(`starts on row ${defaultStartRowIndex} of a six by default`, () => {
+        expect(factory().defaultStartRowIndex).toBe(defaultStartRowIndex);
+    });
+
+    it(`starts with a ${defaultStartSixType} six by default`, () => {
+        expect(factory().defaultStartSixType).toBe(defaultStartSixType);
+    });
+
+    it('starts with a valid six by default', () => {
+        const strategy = factory();
+        expect(() => strategy.checkSixType(defaultStartSixType)).not.toThrow();
     });
 
 };

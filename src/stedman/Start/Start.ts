@@ -12,6 +12,7 @@ import { AbstractVisitor } from '../../visitors';
 import * as Changes from '../Changes';
 import SixType from '../SixType';
 import SixTypeMap from '../SixTypeMap';
+import { AbstractStrategy, Stedman } from '../strategies';
 import siril from './siril.dot';
 import text from './text.dot';
 
@@ -44,11 +45,15 @@ class Start extends AbstractBlock implements Templates.Interface {
     /**
      * Constructor
      */
-    constructor(initialRow: Row, protected _ownership?: BlockOwnership) {
+    constructor(
+        initialRow: Row,
+        protected _ownership?: BlockOwnership,
+        private _strategy: AbstractStrategy = new Stedman(),
+    ) {
         super(initialRow, _ownership);
 
-        this._rowIndex = 4;
-        this._sixType = SixType.Quick;
+        this._rowIndex = this._strategy.defaultStartRowIndex;
+        this._sixType = this._strategy.defaultStartSixType;
         this.calculate();
     }
 
@@ -144,6 +149,7 @@ class Start extends AbstractBlock implements Templates.Interface {
      * Provides write access to the six type
      */
     set sixType(sixType: SixType) {
+        this._strategy.checkSixType(sixType);
         this._sixType = sixType;
 
         this.calculate();
