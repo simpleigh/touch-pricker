@@ -11,10 +11,13 @@ import * as Templates from '../../templates';
 import Call from '../Call';
 import * as Changes from '../Changes';
 import SixType from '../SixType';
+import mbd from './mbd.dot';
+import siril from './siril.dot';
 
 /**
  * Base class for sixes
  */
+@Templates.makePrintable({ mbd, siril }, { Call })
 abstract class AbstractSix
     extends AbstractBlock
     implements Templates.Interface {
