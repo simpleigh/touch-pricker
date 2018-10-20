@@ -163,6 +163,10 @@ class Mbd extends AbstractPricker implements Notifiable {
             this._strategy,
         );
 
+        this._savedCourse = undefined;
+        this._selectedIndex = 0;
+        this._copiedIndex = undefined;
+
         // Call notify() to clear out state from the previous touch
         this.notify(Block.Touch); // calls redraw()
         this.redrawTouch();

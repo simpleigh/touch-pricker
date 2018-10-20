@@ -83,7 +83,7 @@ class PatternGroup extends AbstractMatcher {
 
         for (const pattern of this._patterns) {
             // Call pattern.match explicitly...
-            const rowResult: boolean = pattern.match(row);
+            const rowResult = pattern.match(row);
             // ... not in here, or || will short-circuit it
             result = result || rowResult;
         }

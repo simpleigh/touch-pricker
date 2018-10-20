@@ -109,7 +109,7 @@ class Touch
         input: string,
         strategy: AbstractStrategy = new Stedman(),
     ): Touch {
-        const lines: string[] = input.split('\n');
+        const lines = input.split('\n');
 
         let i: number;
         let line: string;
