@@ -190,7 +190,10 @@ class Mbd extends AbstractPricker implements Notifiable {
         this.getEl<HTMLSelectElement>('firstSix').value =
             this._course.firstSixType;
 
-        if (this._showAdvancedOptions) {
+        if (
+            this._showAdvancedOptions
+                && this._strategy.getSixTypes().length > 1
+        ) {
             show(this.getEl('firstSixBlock'));
         } else {
             hide(this.getEl('firstSixBlock'));
@@ -224,6 +227,11 @@ class Mbd extends AbstractPricker implements Notifiable {
             show(this.getEl('startBlock'));
         } else {
             hide(this.getEl('startBlock'));
+        }
+        if (this._strategy.getSixTypes().length > 1) {
+            show(this.getEl('sixType'));
+        } else {
+            hide(this.getEl('sixType'));
         }
 
         this.getEl('courses').outerHTML =
