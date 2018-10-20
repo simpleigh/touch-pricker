@@ -33,7 +33,7 @@ class Mbd extends AbstractPricker implements Notifiable {
     /**
      * Stage we're pricking on
      */
-    private _stage: Stage;
+    private _stage: Stage = Stage.Cinques;
 
     /**
      * Cache of the initial row for this stage
@@ -122,25 +122,10 @@ class Mbd extends AbstractPricker implements Notifiable {
     /* Pricker methods ********************************************************/
 
     public onLoad(): void {
-        this.onStage();
+        this.reboot();
     }
 
-    public onMethod(): void {
-        const method = this.getEl<HTMLSelectElement>('method').value;
-        const strategyMap: { [method: string]: AbstractStrategy } = {
-            erin: new Erin(),
-            stedman: new Stedman(),
-        };
-        this._strategy = strategyMap[method];
-        this.boot();
-    }
-
-    public onStage(): void {
-        this._stage = parseInt(this.getEl<HTMLSelectElement>('stage').value);
-        this.boot();
-    }
-
-    private boot(): void {
+    private reboot(): void {
         this._initialRow = rowFromString('231', this._stage);
 
         this._course = new Course(
@@ -259,6 +244,21 @@ class Mbd extends AbstractPricker implements Notifiable {
 
     public c(six: number): void {
         this._course.getBlock(six).toggleCall();
+    }
+
+    public onMethod(): void {
+        const method = this.getEl<HTMLSelectElement>('method').value;
+        const strategyMap: { [method: string]: AbstractStrategy } = {
+            erin: new Erin(),
+            stedman: new Stedman(),
+        };
+        this._strategy = strategyMap[method];
+        this.reboot();
+    }
+
+    public onStage(): void {
+        this._stage = parseInt(this.getEl<HTMLSelectElement>('stage').value);
+        this.reboot();
     }
 
     public onSetInitialRow(): void {
