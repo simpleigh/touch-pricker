@@ -59,10 +59,7 @@
       </div>
       <div id="firstSixBlock">
         <label for="firstSix">First six:</label>
-        <select id="firstSix" onchange="pricker.onFirstSix()">
-          <option value="slow">Slow</option>
-          <option value="quick">Quick</option>
-        </select>
+        <select id="firstSix" onchange="pricker.onFirstSix()"></select>
       </div>
       <div>
         <form onsubmit="return false">
@@ -144,10 +141,7 @@
       <option value="6">sixth</option>
     </select>
     row of a
-    <select id="sixType" onchange="pricker.onSixType()">
-      <option value="quick">quick</option>
-      <option value="slow">slow</option>
-    </select>
+    <select id="sixType" onchange="pricker.onSixType()"></select>
     six.
   </div>
   <div>

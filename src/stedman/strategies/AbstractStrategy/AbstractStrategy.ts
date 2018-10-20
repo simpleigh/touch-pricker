@@ -5,16 +5,23 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { Row } from '../../rows';
-import AbstractSix from '../AbstractSix';
-import Course from '../Course';
-import SixType from '../SixType';
-import SixTypeMap from '../SixTypeMap';
+import { Row } from '../../../rows';
+import * as Templates from '../../../templates';
+import AbstractSix from '../../AbstractSix';
+import Course from '../../Course';
+import SixType from '../../SixType';
+import SixTypeMap from '../../SixTypeMap';
+import select from './select.dot';
 
 /**
  * Strategies for assembling Stedman-style compositions
  */
-abstract class AbstractStrategy {
+@Templates.makePrintable({ select })
+abstract class AbstractStrategy implements Templates.Interface {
+
+    /* templating *************************************************************/
+
+    public print: Templates.Print;
 
     /**
      * Method name for this strategy
@@ -42,6 +49,13 @@ abstract class AbstractStrategy {
      * Mapping from each valid six type to its successor
      */
     protected abstract readonly sixTypeProgression: SixTypeMap<SixType>;
+
+    /**
+     * Returns an array of valid six types
+     */
+    public getSixTypes(): SixType[] {
+        return Object.getOwnPropertyNames(this.sixTypeProgression) as SixType[];
+    }
 
     /**
      * Checks whether a six type is valid for this strategy

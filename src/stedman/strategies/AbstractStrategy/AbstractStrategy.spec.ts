@@ -5,10 +5,11 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { Stage } from '../../rows';
-import { createTestRow } from '../../testFunctions.spec';
-import Course from '../Course';
-import SixType from '../SixType';
+import { Stage } from '../../../rows';
+import matchers from '../../../templates/matchers';
+import { createTestRow } from '../../../testFunctions.spec';
+import Course from '../../Course';
+import SixType from '../../SixType';
 import AbstractStrategy from './AbstractStrategy';
 
 /**
@@ -27,6 +28,8 @@ export const testAbstractStrategyImplementation = (
     const testCourse = new Course(initialRow);
 
     beforeEach(() => {
+        jasmine.addMatchers(matchers);
+
         // Sensible default: first input from testcases must be valid
         testCourse.setFirstSixType(progressionTestCases[0][0]);
     });
@@ -97,6 +100,31 @@ export const testAbstractStrategyImplementation = (
             expect(six.type).toBe(type);
             type = strategy.getNextSixType(type);
         }
+    });
+
+    it('provides access to a list of valid six types', () => {
+        const expected: SixType[] = [ ];
+        for (const testCase of progressionTestCases) {
+            expected.push(testCase[0]);
+        }
+        expect(factory().getSixTypes()).toEqual(expected);
+    });
+
+    it('is printable', () => {
+        expect(factory()).toBePrintable();
+    });
+
+    it('has a template for printing six type options', () => {
+        expect(factory()).toHaveTemplate('select');
+    });
+
+    it('renders six type options correctly', () => {
+        let expected = '';
+        for (const testCase of progressionTestCases) {
+            const type = testCase[0];
+            expected = expected + `<option value="${type}">${type}</option>`;
+        }
+        expect(factory().print('select')).toBe(expected);
     });
 
     runProgressionTests((sixType) => {

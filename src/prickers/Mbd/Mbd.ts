@@ -152,6 +152,11 @@ class Mbd extends AbstractPricker implements Notifiable {
         this._selectedIndex = 0;
         this._copiedIndex = undefined;
 
+        this.getEl<HTMLSelectElement>('firstSix').innerHTML =
+            this._strategy.print('select');
+        this.getEl<HTMLSelectElement>('sixType').innerHTML =
+            this._strategy.print('select');
+
         // Call notify() to clear out state from the previous touch
         this.notify(Block.Touch); // calls redraw()
         this.redrawTouch();
