@@ -9,4 +9,5 @@
  * Prickers
  */
 
-export { default } from './create';
+export { default as create } from './create';
+export { default as Options } from './Options';

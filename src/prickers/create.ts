@@ -6,9 +6,9 @@
  */
 
 import { createAndAppendStyle, createIframe, injectIframeData } from '../dom';
-import Options from '../Options';
 import template from './create.dot';
 import Mbd from './Mbd';
+import Options from './Options';
 
 /**
  * Factory function to create a pricker

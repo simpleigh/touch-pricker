@@ -7,8 +7,10 @@ import {
     SerialContainer,
 } from './blocks';
 import * as Music from './music';
-import Options from './Options';
-import create from './prickers';
+import {
+    create,
+    Options,
+} from './prickers';
 import {
     Bell,
     Row,
