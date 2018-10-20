@@ -19,6 +19,11 @@ import AbstractStrategy from './AbstractStrategy';
 class Erin extends AbstractStrategy {
 
     /**
+     * Method name for this strategy
+     */
+    public readonly name: string = 'Erin';
+
+    /**
      * Returns the default length of new courses
      */
     public getCourseLength(initialRow: Row): number {

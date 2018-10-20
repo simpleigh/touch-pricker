@@ -16,6 +16,7 @@ import AbstractStrategy from './AbstractStrategy';
  */
 export const testAbstractStrategyImplementation = (
     factory: () => AbstractStrategy,
+    name: string,
     lengthTestCases: Array<[Stage, number]>,
     progressionTestCases: Array<[SixType, SixType]>,
     [defaultStartRowIndex, defaultStartSixType]: [number, SixType],
@@ -28,6 +29,10 @@ export const testAbstractStrategyImplementation = (
     beforeEach(() => {
         // Sensible default: first input from testcases must be valid
         testCourse.setFirstSixType(progressionTestCases[0][0]);
+    });
+
+    it('provides access to the method name', () => {
+        expect(factory().name).toBe(name);
     });
 
     for (const testCase of lengthTestCases) {

@@ -13,6 +13,7 @@ import Stedman from './Stedman';
 describe('Stedman strategy', () => {
     testAbstractStrategyImplementation(
         () => new Stedman(),
+        'Stedman',
         [
             [Stage.Triples, 14],
             [Stage.Caters, 18],

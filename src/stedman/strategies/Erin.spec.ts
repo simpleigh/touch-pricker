@@ -13,6 +13,7 @@ import Erin from './Erin';
 describe('Erin strategy', () => {
     testAbstractStrategyImplementation(
         () => new Erin(),
+        'Erin',
         [
             [Stage.Triples, 7],
             [Stage.Caters, 9],

@@ -20,6 +20,11 @@ import AbstractStrategy from './AbstractStrategy';
 class Stedman extends AbstractStrategy {
 
     /**
+     * Method name for this strategy
+     */
+    public readonly name: string = 'Stedman';
+
+    /**
      * Returns the default length of new courses
      */
     public getCourseLength(initialRow: Row): number {

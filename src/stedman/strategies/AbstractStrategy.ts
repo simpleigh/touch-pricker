@@ -17,6 +17,11 @@ import SixTypeMap from '../SixTypeMap';
 abstract class AbstractStrategy {
 
     /**
+     * Method name for this strategy
+     */
+    public abstract readonly name: string;
+
+    /**
      * Returns the default length of new courses
      */
     public abstract getCourseLength(initialRow: Row): number;

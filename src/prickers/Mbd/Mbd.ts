@@ -218,8 +218,8 @@ class Mbd extends AbstractPricker implements Notifiable {
     private redrawTouch(): void {
         this.getEl('proofResult').innerText = this._proofText || '';
         this.getEl('numRows').innerText = this._rowCount
-            ? this._rowCount + ' Stedman ' + Stage[this._stage]
-            : this._touch.estimateRows() + ' changes';
+            ? `${this._rowCount} ${this._strategy.name} ${Stage[this._stage]}`
+            : `${this._touch.estimateRows()} changes`;
 
         this.getEl<HTMLSelectElement>('rowIndex').value =
             this._touch.start.rowIndex.toString();
