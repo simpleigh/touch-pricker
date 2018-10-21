@@ -157,6 +157,13 @@ class Start extends AbstractBlock implements Templates.Interface {
     }
 
     /**
+     * Provides read access to the strategy
+     */
+    get strategy(): AbstractStrategy {
+        return this._strategy;
+    }
+
+    /**
      * Sets the row index and six type from a string representation
      */
     public setFromString(input: string): this {
@@ -184,11 +191,15 @@ class Start extends AbstractBlock implements Templates.Interface {
             }
         }
 
-        if (/slow/i.test(input)) {
-            sixType = SixType.Slow;
-        }
-        if (/quick/i.test(input)) {
-            sixType = SixType.Quick;
+        const validTypes = this._strategy.getSixTypes();
+        if (validTypes.length > 1) {
+            for (const testType of validTypes) {
+                if (new RegExp(testType, 'i').test(input)) {
+                    sixType = testType;
+                }
+            }
+        } else {
+            sixType = validTypes[0];
         }
 
         if (rowIndex === null) {
