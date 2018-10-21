@@ -52,6 +52,11 @@ describe('Course class', () => {
         }
     });
 
+    it('copes when changing the parity if its length is zero', () => {
+        course.setLength(0);
+        expect(() => course.setFirstSixType(SixType.Quick)).not.toThrow();
+    });
+
     it('calculates sixes correctly', () => {
         course = Course.fromString(testRow, '2314567890E 1 s10 s13 22');
         const expectedSixEnds = [

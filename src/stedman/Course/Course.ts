@@ -39,8 +39,6 @@ class Course
 
     /**
      * Returns the default length of new containers of this type
-     *
-     * Derived classes should override this method if required.
      */
     protected getDefaultLength(initialRow: Row): number {
         return initialRow.length * 2;
@@ -58,7 +56,7 @@ class Course
         const offset = {
             [SixType.Slow]: 0,
             [SixType.Quick]: 1,
-        }[this._firstSixType || SixType.Slow];
+        }[this._firstSixType];
 
         return (offset + index) % 2
             ? new Slow(initialRow, { container: this, index })
