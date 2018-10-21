@@ -5,19 +5,14 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import * as Templates from '../templates';
 import { AbstractVisitor } from '../visitors';
 import AbstractSix from './AbstractSix';
-import mbd from './AbstractSix/mbd.dot';
-import siril from './AbstractSix/siril.dot';
-import Call from './Call';
 import * as Changes from './Changes';
 import SixType from './SixType';
 
 /**
  * A slow six
  */
-@Templates.makePrintable({ mbd, siril }, { Call })
 class Slow extends AbstractSix {
 
     /**

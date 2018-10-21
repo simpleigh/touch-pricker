@@ -463,7 +463,7 @@ class Mbd extends AbstractPricker implements Notifiable {
             this.onProve();
         }
 
-        this.getEl('sirilTextarea').innerText =
+        this.getEl<HTMLTextAreaElement>('sirilTextarea').value =
             this._touch.print('siril', { touchRows: this._rowCount });
     }
 
@@ -471,7 +471,8 @@ class Mbd extends AbstractPricker implements Notifiable {
         const scheme = new MbdScheme(this._stage);
         const visitor = new Visitors.Music(scheme);
         this._touch.accept(visitor);
-        this.getEl('musicTextarea').innerText = visitor.matcher.print('text');
+        this.getEl<HTMLTextAreaElement>('musicTextarea').value =
+            visitor.matcher.print('text');
         this._music = visitor.directory;
     }
 

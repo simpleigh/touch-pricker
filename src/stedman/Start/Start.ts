@@ -171,6 +171,7 @@ class Start extends AbstractBlock implements Templates.Interface {
             'fourth': 4, '4th': 4, '4': 4,
             'fifth':  5, '5th': 5, '5': 5,
             'sixth':  6, '6th': 6, '6': 6,
+            'last': 6,
         };
         // tslint:enable:object-literal-sort-keys
 

@@ -85,7 +85,7 @@ export const permuteCall = (row: Row, call: Call): void => {
         permuteN(row);
     } else if (call === Call.Bob) {
         permuteBob(row);
-    } else if (call === Call.Single) {
+    } else {
         permuteSingle(row);
     }
 };

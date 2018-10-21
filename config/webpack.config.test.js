@@ -1,3 +1,5 @@
+const path = require('path');
+
 const merge = require('webpack-merge');
 
 const paths = require('./paths');
@@ -16,7 +18,7 @@ module.exports = merge(base, {
             {
                 enforce: 'post',
                 test: /\.ts$/,
-                exclude: /\.spec\.ts$/,
+                exclude: /\.spec\.ts$|tests/,
                 loader: 'istanbul-instrumenter-loader',
             },
         ],

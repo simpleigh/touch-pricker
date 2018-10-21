@@ -11,6 +11,7 @@ import {
     testAbstractBlockImplementation,
 } from '../../blocks/AbstractBlock.spec';
 import { Row, Stage, stringFromRow } from '../../rows';
+import matchers from '../../templates/matchers';
 import { createTestRow } from '../../testFunctions.spec';
 import { StringArray } from '../../visitors';
 import Call from '../Call';
@@ -128,6 +129,10 @@ export const testSixImplementation = (
 
     describe('is derived from AbstractSix and', () => {
 
+        beforeEach(() => {
+            jasmine.addMatchers(matchers);
+        });
+
         const createTestSix = (
             container?: Course,
             index: number = 999,
@@ -224,6 +229,18 @@ export const testSixImplementation = (
             for (let i = 0; i < 6; i += 1) {
                 expect(visitor.visit.calls.argsFor(i)[1]).toBe(six);
             }
+        });
+
+        it('is printable', () => {
+            expect(factory(createTestRow())).toBePrintable();
+        });
+
+        it('has a template for MBD-style prickers', () => {
+            expect(factory(createTestRow())).toHaveTemplate('mbd');
+        });
+
+        it('has a template for Siril output', () => {
+            expect(factory(createTestRow())).toHaveTemplate('siril');
         });
 
         testAbstractBlockImplementation(

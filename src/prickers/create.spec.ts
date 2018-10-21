@@ -42,7 +42,7 @@ describe('create function', () => {
         let pricker: AbstractPricker;
 
         beforeEach(() => {
-            pricker = create('element', { }, parentDocument);
+            pricker = create('element', undefined, parentDocument);
         });
 
         it('creates the pricker with the iframe', () => {

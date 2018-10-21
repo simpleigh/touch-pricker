@@ -51,8 +51,6 @@ class Course
 
     /**
      * Returns the default length of new containers of this type
-     *
-     * Derived classes should override this method if required.
      */
     protected getDefaultLength(initialRow: Row): number {
         return this._strategy.getCourseLength(initialRow);
