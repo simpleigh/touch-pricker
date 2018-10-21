@@ -11,7 +11,6 @@
   "bugs": "https://github.com/simpleigh/touch-pricker/issues",
   "files": [
     "dist",
-    "examples",
     "CHANGELOG.md",
     "COPYING",
     "COPYING.GPL",
@@ -33,6 +32,7 @@
     "@types/jasmine": "2.8.8",
     "clean-webpack-plugin": "0.1.19",
     "codecov": "3.0.4",
+    "copy-webpack-plugin": "^4.5.4",
     "dot": "1.1.2",
     "dotjs-loader": "0.1.0",
     "istanbul-instrumenter-loader": "3.0.1",
