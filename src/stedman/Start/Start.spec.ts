@@ -215,6 +215,27 @@ describe('Start class', () => {
             'Start with rounds as the third row of a slow six',
         );
 
+        it('a string it has printed', () => {
+            for (const startPosition of startPositions) {
+                const rowIndex = startPosition[0];
+                const sixType = startPosition[1];
+
+                start.rowIndex = rowIndex;
+                start.sixType = sixType;
+                const output = start.print('text');
+
+                // Ignore ordinary start (produces no output)
+                if (!output) {
+                    continue;
+                }
+
+                start.setFromString(output);
+
+                expect(start.rowIndex).toBe(rowIndex);
+                expect(start.sixType).toBe(sixType);
+            }
+        });
+
         testLoad(
             'a string with a numeric ordinal',
             'Start with rounds as the 3rd row of a slow six',
