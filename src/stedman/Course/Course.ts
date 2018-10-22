@@ -114,7 +114,9 @@ class Course
         }
 
         // ... and trigger one at the end
-        this.getBlock(1).setCall(Call.Plain);
+        if (this.length) {
+            this.getBlock(1).setCall(Call.Plain);
+        }
 
         return this;
     }
@@ -148,7 +150,9 @@ class Course
         }
 
         // ... and trigger one at the end
-        cloned.getBlock(1).setCall(this.getBlock(1).call);
+        if (cloned.length) {
+            cloned.getBlock(1).setCall(this.getBlock(1).call);
+        }
 
         return cloned;
     }
