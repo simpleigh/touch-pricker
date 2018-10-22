@@ -15,6 +15,7 @@ import { StringArray } from '../../visitors';
 import Call from '../Call';
 import SixType from '../SixType';
 import { AbstractStrategy, Erin, Stedman } from '../strategies';
+import Touch from '../Touch';
 
 describe('Course class', () => {
 
@@ -235,6 +236,11 @@ describe('Course class', () => {
         expect(course.resetCalls()).toBe(course);
     });
 
+    it('copes when resetting a course if the length is zero', () => {
+        course.setLength(0);
+        expect(() => course.resetCalls()).not.toThrow();
+    });
+
     it('only calls notify once when resetting the calls', () => {
         const container = jasmine.createSpyObj('Notifiable', ['notify']);
         course.ownership = { container, index: 1 };
@@ -262,6 +268,11 @@ describe('Course class', () => {
         expect(cloned.getLast()).toEqual(course.getLast());
     });
 
+    it('creates the cloned course without any owner', () => {
+        course.ownership = { container: new Touch(testRow), index: 10 };
+        expect(course.clone().ownership).toBeUndefined();
+    });
+
     it('ignores changes to the cloned course', () => {
         const lengthBackup = course.length;
         const getLastBackup = course.getLast();
@@ -287,6 +298,11 @@ describe('Course class', () => {
         const cloned = course.clone();
         cloned.resetLength();
         expect(strategy.getCourseLength).toHaveBeenCalled();
+    });
+
+    it('copes when cloning a course if the length is zero', () => {
+        course.setLength(0);
+        expect(() => course.clone()).not.toThrow();
     });
 
     it('generates the correct rows when visited', () => {
