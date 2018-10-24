@@ -382,7 +382,7 @@ describe('Course class', () => {
         ));
 
         it('a string with a broken course end', testImport(
-            'abcdefgh  1 s10 s13 22',
+            'abcde  1 s10 s13 22',
             '2314567890E  1 s10 s13 22',
         ));
 
@@ -394,6 +394,16 @@ describe('Course class', () => {
         it('a string without a course end', testImport(
             '1 s10 s13 22',
             '2314567890E  1 s10 s13 22',
+        ));
+
+        it('another string without a course end', testImport(
+            's10 s13 s15 s22',
+            '2314568709E  s10 s13 s15 s22',
+        ));
+
+        it('yet another string without a course end', testImport(
+            '10s s13 s15 s22',
+            '2314568709E  s10 s13 s15 s22',
         ));
 
         it('a course of erin', testImport(

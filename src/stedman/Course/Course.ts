@@ -177,7 +177,7 @@ class Course
         strategy: AbstractStrategy = new Stedman(),
     ): Course {
         const course = new Course(initialRow, undefined, strategy);
-        const courseEnd = '[0-9a-z]{3,15}';
+        const courseEnd = '[0-9a-et]{3,15}';
         const separator = '[\\s.,]+';
         const six = '(?:\\d{1,2}|\\d{1,2}s|s\\d{1,2})'; // 5 or 5s or s5
         const sixes = `${six}(?:${separator}${six})*`;
