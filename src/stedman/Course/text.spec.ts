@@ -6,34 +6,44 @@
  */
 
 import Course from '.';
-import { createTestCourse, createTestRow } from '../../testFunctions.spec';
+import { createTestRow } from '../../testFunctions.spec';
+import { Erin } from '../strategies';
 
 describe('text template for Course', () => {
 
-    const testRendering = (input: string) => () => {
-        expect(Course.fromString(createTestRow(), input).print('text'))
-            .toBe(input);
-    };
+    const initialRow = createTestRow();
 
-    it('renders a course correctly', testRendering(
-        '480735692E1  s2 3  (4 sixes)',
-    ));
+    it('renders a simple Stedman course correctly', () => {
+        const course = Course.fromString(initialRow, '1 s10 s13 22');
+        expect(course.print('text')).toBe('2314567890E  1 s10 s13 22');
+    });
 
-    it('only displays the number of sixes when needed', testRendering(
-        '23145678E90  1',
-    ));
+    it('renders a simple Erin course correctly', () => {
+        const course = Course.fromString(
+            createTestRow('123'),
+            '1 6 7',
+            new Erin(),
+        );
+        expect(course.print('text')).toBe('43215678E90  1 6 7');
+    });
 
-    it('displays "p" when a course has no calls', testRendering(
-        '2314567890E  p',
-    ));
+    it('displays the number of sixes if needed', () => {
+        const course = Course.fromString(initialRow, 's2 3 (4)');
+        expect(course.print('text')).toBe('480735692E1  s2 3  (4 sixes)');
+    });
+
+    it('displays "p" for a plain course', () => {
+        const course = Course.fromString(initialRow, 'p');
+        expect(course.print('text')).toBe('2314567890E  p');
+    });
 
     it('allows the line ending to be customised', () => {
-        expect(createTestCourse().print('text', { end: '#' }))
-            .toBe('2314567890E  p#');
+        const course = Course.fromString(initialRow, 'p');
+        expect(course.print('text', { end: '#' })).toBe('2314567890E  p#');
     });
 
     it('can render without the course end', () => {
-        const course = Course.fromString(createTestRow(), 's2 3 (4)');
+        const course = Course.fromString(initialRow, 's2 3 (4 sixes)');
         expect(course.print('text', { courseEnd: false }))
             .toBe('s2 3  (4 sixes)');
     });

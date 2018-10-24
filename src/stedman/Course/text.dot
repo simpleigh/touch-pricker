@@ -43,7 +43,12 @@
 	p
 {{?}}
 
-{{? context.object.length !== context.object.initialRow.length * 2 }}
+{{
+	var strategy = context.object.strategy;
+	var initialRow = context.object.initialRow;
+}}
+
+{{? context.object.length !== strategy.getCourseLength(initialRow) }}
 	 /* single space */
 	 /* single space */
 	({{= context.object.length }} sixes)

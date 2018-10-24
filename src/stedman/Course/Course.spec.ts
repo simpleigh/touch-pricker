@@ -305,6 +305,12 @@ describe('Course class', () => {
         expect(() => course.clone()).not.toThrow();
     });
 
+    it('provides read access to the strategy', () => {
+        const strategy = new Stedman();
+        course = new Course(testRow, undefined, strategy);
+        expect(course.strategy).toBe(strategy);
+    });
+
     it('generates the correct rows when visited', () => {
         let strings: string[] = [ ];
 
@@ -408,7 +414,7 @@ describe('Course class', () => {
 
         it('a course of erin', testImport(
             '1234567890E  6',
-            '1234567890E  6  (11 sixes)',  // TODO: fix this (row & length)
+            '1234567890E  6',
             new Erin(),
         ));
 

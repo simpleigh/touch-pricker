@@ -169,6 +169,13 @@ class Course
     }
 
     /**
+     * Provides read access to the strategy
+     */
+    get strategy(): AbstractStrategy {
+        return this._strategy;
+    }
+
+    /**
      * Creates a new course from a string representation
      */
     public static fromString(
