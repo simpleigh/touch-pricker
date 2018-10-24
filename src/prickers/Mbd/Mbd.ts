@@ -126,7 +126,13 @@ class Mbd extends AbstractPricker implements Notifiable {
     }
 
     private reboot(): void {
-        this._initialRow = rowFromString('231', this._stage);
+        this._touch = new Touch(
+            rowFromString('', this._stage),
+            { container: this, index: Block.Touch },
+            this._strategy,
+        );
+
+        this._initialRow = this._touch.start.getLast();
 
         this._course = new Course(
             this._initialRow,
@@ -141,12 +147,6 @@ class Mbd extends AbstractPricker implements Notifiable {
 
         this._course.resetLength();
         this._extraSixes.setLength(8);
-
-        this._touch = new Touch(
-            rowFromString('', this._stage),
-            { container: this, index: Block.Touch },
-            this._strategy,
-        );
 
         this._savedCourse = undefined;
         this._selectedIndex = 0;
