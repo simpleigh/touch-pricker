@@ -25,6 +25,13 @@
 
     <div class="page page-selected" id="page_pricking">
       <div>
+        <label for="method">Method:</label>
+        <select id="method" onchange="pricker.onMethod()">
+          <option selected value="stedman">Stedman</option>
+          <option value="erin">Erin</option>
+        </select>
+      </div>
+      <div>
         <label for="stage">Number of bells:</label>
         <select id="stage" onchange="pricker.onStage()">
           <option value="{{= context.Stage.Triples }}">Triples</option>
@@ -52,10 +59,7 @@
       </div>
       <div id="firstSixBlock">
         <label for="firstSix">First six:</label>
-        <select id="firstSix" onchange="pricker.onFirstSix()">
-          <option value="slow">Slow</option>
-          <option value="quick">Quick</option>
-        </select>
+        <select id="firstSix" onchange="pricker.onFirstSix()"></select>
       </div>
       <div>
         <form onsubmit="return false">
@@ -137,10 +141,7 @@
       <option value="6">sixth</option>
     </select>
     row of a
-    <select id="sixType" onchange="pricker.onSixType()">
-      <option value="quick">quick</option>
-      <option value="slow">slow</option>
-    </select>
+    <select id="sixType" onchange="pricker.onSixType()"></select>
     six.
   </div>
   <div>

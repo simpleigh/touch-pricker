@@ -10,7 +10,7 @@ import { Row, rowFromString, Stage } from '../../rows';
 import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
 import Course from '../Course';
-import SixType from '../SixType';
+import { AbstractMethod, Stedman } from '../methods';
 import Start from '../Start';
 import select from './select.dot';
 import siril from './siril.dot';
@@ -32,11 +32,19 @@ class Touch
     /**
      * Constructor
      *
-     * Extends the AbstractBlock container to set up the start.
+     * Extends the AbstractBlock container to set up the start and method.
      */
-    constructor(initialRow: Row, protected _ownership?: BlockOwnership) {
+    constructor(
+        initialRow: Row,
+        protected _ownership?: BlockOwnership,
+        private _method: AbstractMethod = new Stedman(),
+    ) {
         super(initialRow, _ownership);
-        this._start = new Start(initialRow, { container: this, index: 0 });
+        this._start = new Start(
+            initialRow,
+            { container: this, index: 0 },
+            this._method,
+        );
     }
 
     /* AbstractBlock methods **************************************************/
@@ -72,9 +80,7 @@ class Touch
     protected propagateCurrentBlock(previous: Course, current: Course): void {
         const sixType = previous.getBlock(previous.length).type;
         current.initialRow = previous.getLast();
-        current.setFirstSixType(
-            sixType === SixType.Slow ? SixType.Quick : SixType.Slow,
-        );
+        current.setFirstSixType(this._method.getNextSixType(sixType));
     }
 
     /**
@@ -84,9 +90,7 @@ class Touch
     protected propagateFirstBlock(first: Course): void {
         const sixType = this._start.sixType;
         first.initialRow = this._start.getLast();
-        first.setFirstSixType(
-            sixType === SixType.Slow ? SixType.Quick : SixType.Slow,
-        );
+        first.setFirstSixType(this._method.getNextSixType(sixType));
     }
 
     /* Touch methods **********************************************************/
@@ -101,7 +105,10 @@ class Touch
     /**
      * Creates a new touch from a string representation
      */
-    public static fromString(input: string): Touch {
+    public static fromString(
+        input: string,
+        method: AbstractMethod = new Stedman(),
+    ): Touch {
         const lines = input.split('\n');
 
         let i: number;
@@ -137,10 +144,14 @@ class Touch
                 if (!Stage[line.length]) {
                     throw new Error('Cannot recognise stage');
                 }
-                touch = new Touch(rowFromString('123', line.length));
+                touch = new Touch(
+                    rowFromString('123', line.length),
+                    undefined,
+                    method,
+                );
             } else {
                 // Create a course for each remaining line
-                course = Course.fromString(touch.getLast(), line);
+                course = Course.fromString(touch.getLast(), line, method);
                 touch.insertBlock(touch.length + 1, course);
             }
         }

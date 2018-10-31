@@ -10,6 +10,7 @@ import { hide, show } from '../../dom';
 import { MbdScheme } from '../../music';
 import { Row, rowFromString, Stage, stringFromRow } from '../../rows';
 import { Course, SixType, Touch } from '../../stedman';
+import { AbstractMethod, Erin, Stedman } from '../../stedman/methods';
 import * as Templates from '../../templates';
 import * as Visitors from '../../visitors';
 import AbstractPricker from '../AbstractPricker';
@@ -25,9 +26,14 @@ enum Block { Course, Touch }
 class Mbd extends AbstractPricker implements Notifiable {
 
     /**
+     * Method
+     */
+    private _method: AbstractMethod = new Stedman();
+
+    /**
      * Stage we're pricking on
      */
-    private _stage: Stage;
+    private _stage: Stage = Stage.Cinques;
 
     /**
      * Cache of the initial row for this stage
@@ -116,30 +122,40 @@ class Mbd extends AbstractPricker implements Notifiable {
     /* Pricker methods ********************************************************/
 
     public onLoad(): void {
-        this.onStage();
+        this.reboot();
     }
 
-    public onStage(): void {
-        this._stage = parseInt(this.getEl<HTMLSelectElement>('stage').value);
-        this._initialRow = rowFromString('231', this._stage);
+    private reboot(): void {
+        this._touch = new Touch(
+            rowFromString('', this._stage),
+            { container: this, index: Block.Touch },
+            this._method,
+        );
+
+        this._initialRow = this._touch.start.getLast();
 
         this._course = new Course(
             this._initialRow,
             { container: this, index: Block.Course },
+            this._method,
         );
-        this._extraSixes = new Course(this._initialRow);
+        this._extraSixes = new Course(
+            this._initialRow,
+            undefined,
+            this._method,
+        );
 
         this._course.resetLength();
         this._extraSixes.setLength(8);
 
-        this._touch = new Touch(
-            rowFromString('', this._stage),
-            { container: this, index: Block.Touch },
-        );
-
         this._savedCourse = undefined;
         this._selectedIndex = 0;
         this._copiedIndex = undefined;
+
+        this.getEl<HTMLSelectElement>('firstSix').innerHTML =
+            this._method.print('select');
+        this.getEl<HTMLSelectElement>('sixType').innerHTML =
+            this._method.print('select');
 
         // Call notify() to clear out state from the previous touch
         this.notify(Block.Touch); // calls redraw()
@@ -151,7 +167,7 @@ class Mbd extends AbstractPricker implements Notifiable {
 
         const lastSix = this._course.getBlock(this._course.length);
         this._extraSixes.setFirstSixType(
-            lastSix.type === SixType.Slow ? SixType.Quick : SixType.Slow,
+            this._method.getNextSixType(lastSix.type),
         );
         this._extraSixes.initialRow = this._course.getLast();
         this.getEl('sixends').innerHTML = this._course.print('mbd', {
@@ -174,7 +190,10 @@ class Mbd extends AbstractPricker implements Notifiable {
         this.getEl<HTMLSelectElement>('firstSix').value =
             this._course.firstSixType;
 
-        if (this._showAdvancedOptions) {
+        if (
+            this._showAdvancedOptions
+                && this._method.getSixTypes().length > 1
+        ) {
             show(this.getEl('firstSixBlock'));
         } else {
             hide(this.getEl('firstSixBlock'));
@@ -196,8 +215,8 @@ class Mbd extends AbstractPricker implements Notifiable {
     private redrawTouch(): void {
         this.getEl('proofResult').innerText = this._proofText || '';
         this.getEl('numRows').innerText = this._rowCount
-            ? this._rowCount + ' Stedman ' + Stage[this._stage]
-            : this._touch.estimateRows() + ' changes';
+            ? `${this._rowCount} ${this._method.name} ${Stage[this._stage]}`
+            : `${this._touch.estimateRows()} changes`;
 
         this.getEl<HTMLSelectElement>('rowIndex').value =
             this._touch.start.rowIndex.toString();
@@ -208,6 +227,11 @@ class Mbd extends AbstractPricker implements Notifiable {
             show(this.getEl('startBlock'));
         } else {
             hide(this.getEl('startBlock'));
+        }
+        if (this._method.getSixTypes().length > 1) {
+            show(this.getEl('sixType'));
+        } else {
+            hide(this.getEl('sixType'));
         }
 
         this.getEl('courses').outerHTML =
@@ -233,6 +257,21 @@ class Mbd extends AbstractPricker implements Notifiable {
 
     public c(six: number): void {
         this._course.getBlock(six).toggleCall();
+    }
+
+    public onMethod(): void {
+        const method = this.getEl<HTMLSelectElement>('method').value;
+        const methodMap: { [method: string]: AbstractMethod } = {
+            erin: new Erin(),
+            stedman: new Stedman(),
+        };
+        this._method = methodMap[method];
+        this.reboot();
+    }
+
+    public onStage(): void {
+        this._stage = parseInt(this.getEl<HTMLSelectElement>('stage').value);
+        this.reboot();
     }
 
     public onSetInitialRow(): void {
@@ -290,7 +329,11 @@ class Mbd extends AbstractPricker implements Notifiable {
             this._course = this._savedCourse.clone();
             this._course.initialRow = this._initialRow;
         } else {
-            this._course = new Course(this._initialRow);
+            this._course = new Course(
+                this._initialRow,
+                undefined,
+                this._method,
+            );
             this._course.resetLength();
         }
 
@@ -325,7 +368,7 @@ class Mbd extends AbstractPricker implements Notifiable {
             const course = this._touch.getBlock(this._selectedIndex);
             const sixType = course.getBlock(course.length).type;
             this._course.setFirstSixType(
-                sixType === SixType.Slow ? SixType.Quick : SixType.Slow,
+                this._method.getNextSixType(sixType),
             );
             this._course.initialRow = course.getLast();
             this._course.resetLength();
@@ -344,7 +387,7 @@ class Mbd extends AbstractPricker implements Notifiable {
                 const course = this._touch.getBlock(this._selectedIndex);
                 const sixType = course.getBlock(course.length).type;
                 this._course.setFirstSixType(
-                    sixType === SixType.Slow ? SixType.Quick : SixType.Slow,
+                    this._method.getNextSixType(sixType),
                 );
                 this._course.initialRow = course.getLast();
                 this._selectedIndex = Math.min(
@@ -391,7 +434,7 @@ class Mbd extends AbstractPricker implements Notifiable {
         let newTouch: Touch;
 
         try {
-            newTouch = Touch.fromString(input);
+            newTouch = Touch.fromString(input, this._method);
         } catch (e) {
             // Ignore
             return;

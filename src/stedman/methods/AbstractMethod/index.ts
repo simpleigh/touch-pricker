@@ -5,14 +5,4 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-/**
- * Types of six
- * @enum {number}
- */
-enum SixType {
-    Slow = 'slow',
-    Quick = 'quick',
-    Invalid = 'invalid',
-}
-
-export default SixType;
+export { default } from './AbstractMethod';

@@ -10,7 +10,9 @@ import { Row } from '../../rows';
 import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
 import * as Changes from '../Changes';
+import { AbstractMethod, Stedman } from '../methods';
 import SixType from '../SixType';
+import SixTypeMap from '../SixTypeMap';
 import siril from './siril.dot';
 import text from './text.dot';
 
@@ -43,11 +45,15 @@ class Start extends AbstractBlock implements Templates.Interface {
     /**
      * Constructor
      */
-    constructor(initialRow: Row, protected _ownership?: BlockOwnership) {
+    constructor(
+        initialRow: Row,
+        protected _ownership?: BlockOwnership,
+        private _method: AbstractMethod = new Stedman(),
+    ) {
         super(initialRow, _ownership);
 
-        this._rowIndex = 4;
-        this._sixType = SixType.Quick;
+        this._rowIndex = this._method.defaultStartRowIndex;
+        this._sixType = this._method.defaultStartSixType;
         this.calculate();
     }
 
@@ -143,10 +149,18 @@ class Start extends AbstractBlock implements Templates.Interface {
      * Provides write access to the six type
      */
     set sixType(sixType: SixType) {
+        this._method.checkSixType(sixType);
         this._sixType = sixType;
 
         this.calculate();
         this.notifyContainer();
+    }
+
+    /**
+     * Provides read access to the method
+     */
+    get method(): AbstractMethod {
+        return this._method;
     }
 
     /**
@@ -177,11 +191,15 @@ class Start extends AbstractBlock implements Templates.Interface {
             }
         }
 
-        if (/slow/i.test(input)) {
-            sixType = SixType.Slow;
-        }
-        if (/quick/i.test(input)) {
-            sixType = SixType.Quick;
+        const validTypes = this._method.getSixTypes();
+        if (validTypes.length > 1) {
+            for (const testType of validTypes) {
+                if (new RegExp(testType, 'i').test(input)) {
+                    sixType = testType;
+                }
+            }
+        } else {
+            sixType = validTypes[0];
         }
 
         if (rowIndex === null) {
@@ -203,10 +221,11 @@ class Start extends AbstractBlock implements Templates.Interface {
      * Returns place notation for the start
      */
     get notation(): string[] {
-        const sixNotation = {
+        const types: SixTypeMap<string[]> = {
             [SixType.Slow]: ['3', '1', '3', '1', '3'],
             [SixType.Quick]: ['1', '3', '1', '3', '1'],
-        }[this._sixType];
+        };
+        const sixNotation = types[this._sixType]!;
         return sixNotation.slice(this._rowIndex - 1);
     }
 

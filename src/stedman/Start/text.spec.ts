@@ -7,25 +7,35 @@
 
 import Start from '.';
 import { createTestRow } from '../../testFunctions.spec';
+import { AbstractMethod, Erin, Stedman } from '../methods';
 import SixType from '../SixType';
 
 describe('text template for Start', () => {
 
     const initialRow = createTestRow();
 
-    type StartPosition = [SixType, string[]];
+    type StartPosition = [{ new(): AbstractMethod }, SixType, string[]];
 
     const startPositions: StartPosition[] = [
-        [SixType.Quick, [
+        [Erin, SixType.Slow, [
+            '', // Aligns array indices with rowIndex
+            'Start from rounds as the first row of a six.',
+            'Start from rounds as the second row of a six.',
+            'Start from rounds as the third row of a six.',
+            'Start from rounds as the fourth row of a six.',
+            'Start from rounds as the fifth row of a six.',
+            '', // Default start
+        ]],
+        [Stedman, SixType.Quick, [
             '', // Aligns array indices with rowIndex
             'Start from rounds as the first row of a quick six.',
             'Start from rounds as the second row of a quick six.',
             'Start from rounds as the third row of a quick six.',
-            '',
+            '', // Default start
             'Start from rounds as the fifth row of a quick six.',
             'Start from rounds as the last row of a quick six.',
         ]],
-        [SixType.Slow, [
+        [Stedman, SixType.Slow, [
             '', // Aligns array indices with rowIndex
             'Start from rounds as the first row of a slow six.',
             'Start from rounds as the second row of a slow six.',
@@ -37,15 +47,20 @@ describe('text template for Start', () => {
     ];
 
     for (const startPosition of startPositions) {
-        for (let rowIndex = 1; rowIndex <= 6; rowIndex = rowIndex + 1) {
-            const sixType = startPosition[0];
-            const expected = startPosition[1][rowIndex];
-            const trimmed = expected.substring(21, expected.length - 1);
+        const method = new startPosition[0]();
+        const sixType = startPosition[1];
 
-            it(`prints correctly for ${trimmed}`, () => {
-                const start = new Start(initialRow);
+        const start = new Start(initialRow, undefined, method);
+        start.sixType = sixType;
+
+        for (let rowIndex = 1; rowIndex <= 6; rowIndex = rowIndex + 1) {
+            const description = ''
+                + `prints a ${sixType} six start on row ${rowIndex}`
+                + ` for ${method.name} correctly`;
+
+            it(description, () => {
+                const expected = startPosition[2][rowIndex];
                 start.rowIndex = rowIndex;
-                start.sixType = sixType;
                 expect(start.print('text')).toBe(expected);
             });
         }

@@ -6,13 +6,9 @@
  */
 
 /**
- * Types of six
- * @enum {number}
+ * Renders six types as HTML for use within a <select> element
  */
-enum SixType {
-    Slow = 'slow',
-    Quick = 'quick',
-    Invalid = 'invalid',
-}
 
-export default SixType;
+{{~ context.object.getSixTypes() :type }}
+	<option value="{{= type }}">{{= type }}</option>
+{{~}}

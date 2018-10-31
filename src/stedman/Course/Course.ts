@@ -5,14 +5,13 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { SerialContainer } from '../../blocks';
+import { BlockOwnership, SerialContainer } from '../../blocks';
 import { Row } from '../../rows';
 import * as Templates from '../../templates';
 import AbstractSix from '../AbstractSix';
 import Call from '../Call';
-import Quick from '../Quick';
+import { AbstractMethod, Stedman } from '../methods';
 import SixType from '../SixType';
-import Slow from '../Slow';
 import html from './html.dot';
 import mbd from './mbd.dot';
 import siril from './siril.dot';
@@ -31,6 +30,19 @@ class Course
      */
     private _firstSixType: SixType = SixType.Slow;
 
+    /**
+     * Constructor
+     *
+     * Extends the AbstractBlock container to set up the method.
+     */
+    constructor(
+        initialRow: Row,
+        protected _ownership?: BlockOwnership,
+        private _method: AbstractMethod = new Stedman(),
+    ) {
+        super(initialRow, _ownership);
+    }
+
     /* templating *************************************************************/
 
     public print: Templates.Print;
@@ -41,7 +53,7 @@ class Course
      * Returns the default length of new containers of this type
      */
     protected getDefaultLength(initialRow: Row): number {
-        return initialRow.length * 2;
+        return this._method.getCourseLength(initialRow);
     }
 
     /**
@@ -53,14 +65,7 @@ class Course
      * @param index       index of block in container
      */
     protected createBlock(initialRow: Row, index: number): AbstractSix {
-        const offset = {
-            [SixType.Slow]: 0,
-            [SixType.Quick]: 1,
-        }[this._firstSixType];
-
-        return (offset + index) % 2
-            ? new Slow(initialRow, { container: this, index })
-            : new Quick(initialRow, { container: this, index });
+        return this._method.createSix(initialRow, this, index);
     }
 
     /* Course methods *********************************************************/
@@ -76,6 +81,8 @@ class Course
      * Write access to the type of the first six
      */
     public setFirstSixType(type: SixType): this {
+        this._method.checkSixType(type);
+
         if (this._firstSixType === type) {
             return this;  // nothing to do
         }
@@ -137,7 +144,11 @@ class Course
      * Clones the course
      */
     public clone(): Course {
-        const cloned = new Course(this._initialRow);
+        const cloned = new Course(
+            this._initialRow,
+            undefined,
+            this._method,
+        );
         cloned.setLength(this.length);
         cloned.setFirstSixType(this.firstSixType);
 
@@ -158,10 +169,21 @@ class Course
     }
 
     /**
+     * Provides read access to the method
+     */
+    get method(): AbstractMethod {
+        return this._method;
+    }
+
+    /**
      * Creates a new course from a string representation
      */
-    public static fromString(initialRow: Row, input: string): Course {
-        const course = new Course(initialRow);
+    public static fromString(
+        initialRow: Row,
+        input: string,
+        method: AbstractMethod = new Stedman(),
+    ): Course {
+        const course = new Course(initialRow, undefined, method);
         const courseEnd = '[0-9a-et]{3,15}';
         const separator = '[\\s.,]+';
         const six = '(?:\\d{1,2}|\\d{1,2}s|s\\d{1,2})'; // 5 or 5s or s5

@@ -15,6 +15,7 @@ import {
 import { Row, rowFromString, Stage as S } from '../../rows';
 import { createTestRow } from '../../testFunctions.spec';
 import { StringArray } from '../../visitors';
+import { AbstractMethod, Erin, Stedman } from '../methods';
 import SixType from '../SixType';
 
 describe('Start class', () => {
@@ -27,7 +28,14 @@ describe('Start class', () => {
         start = new Start(testRow);
     });
 
-    it('defaults to a standard start', () => {
+    it('defaults to a standard start for Erin', () => {
+        start = new Start(testRow, undefined, new Erin());
+        expect(start.rowIndex).toBe(6);
+        expect(start.sixType).toBe(SixType.Slow);
+    });
+
+    it('defaults to a standard start for Stedman', () => {
+        start = new Start(testRow, undefined, new Stedman());
         expect(start.rowIndex).toBe(4);
         expect(start.sixType).toBe(SixType.Quick);
     });
@@ -45,6 +53,27 @@ describe('Start class', () => {
     it('allows the six type to be set', () => {
         start.sixType = SixType.Slow;
         expect(start.sixType).toBe(SixType.Slow);
+    });
+
+    it('throws an exception if the six type is invalid', () => {
+        expect(() => { start.sixType = SixType.Invalid; }).toThrow();
+    });
+
+    it('checks the six type is valid for the chosen method', () => {
+        const method = new Stedman();
+        spyOn(method, 'checkSixType');
+        start = new Start(testRow, undefined, method);
+
+        start.sixType = SixType.Slow;
+
+        expect(method.checkSixType).toHaveBeenCalled();
+        expect(method.checkSixType).toHaveBeenCalledWith(SixType.Slow);
+    });
+
+    it('provides read access to the method', () => {
+        const method = new Stedman();
+        start = new Start(testRow, undefined, method);
+        expect(start.method).toBe(method);
     });
 
     type Notation = string[];
@@ -201,40 +230,57 @@ describe('Start class', () => {
 
     describe('can set the row index and six type from strings:', () => {
 
+        const validSixTypes: Array<[{ new(): AbstractMethod }, SixType]> = [
+            [Erin, SixType.Slow],
+            [Stedman, SixType.Quick],
+            [Stedman, SixType.Slow],
+        ];
+
+        for (const combination of validSixTypes) {
+            const method = new combination[0]();
+            const sixType = combination[1];
+
+            start = new Start(testRow, undefined, method);
+            start.sixType = sixType;
+
+            for (let rowIndex = 1; rowIndex <= 6; rowIndex = rowIndex + 1) {
+                start.rowIndex = rowIndex;
+                const output = start.print('text');
+
+                // Ignore default start (produces no output)
+                if (!output) {
+                    continue;
+                }
+
+                const description = ''
+                    + `a ${sixType} six start on row ${rowIndex}`
+                    + ` for ${method.name}`;
+
+                it(description, () => {
+                    // Reset start as beforeEach() rule will have overwritten
+                    start = new Start(testRow, undefined, method);
+                    start.setFromString(output);
+                    expect(start.rowIndex).toBe(rowIndex);
+                    expect(start.sixType).toBe(sixType);
+                });
+            }
+        }
+
         const testLoad = (
             description: string,
             input: string,
+            expectedRowIndex: number = 3,
+            expectedSixType: SixType = SixType.Slow,
         ) => it(description, () => {
             start.setFromString(input);
-            expect(start.rowIndex).toBe(3);
-            expect(start.sixType).toBe(SixType.Slow);
+            expect(start.rowIndex).toBe(expectedRowIndex);
+            expect(start.sixType).toBe(expectedSixType);
         });
 
         testLoad(
             'an ordinary string',
             'Start with rounds as the third row of a slow six',
         );
-
-        it('a string it has printed', () => {
-            for (const startPosition of startPositions) {
-                const rowIndex = startPosition[0];
-                const sixType = startPosition[1];
-
-                start.rowIndex = rowIndex;
-                start.sixType = sixType;
-                const output = start.print('text');
-
-                // Ignore ordinary start (produces no output)
-                if (!output) {
-                    continue;
-                }
-
-                start.setFromString(output);
-
-                expect(start.rowIndex).toBe(rowIndex);
-                expect(start.sixType).toBe(sixType);
-            }
-        });
 
         testLoad(
             'a string with a numeric ordinal',
@@ -259,6 +305,18 @@ describe('Start class', () => {
         testLoad(
             'a string with the number and six type reversed',
             'Start in a slow six at the third row',
+        );
+
+        testLoad(
+            'a string with an ordinal number for the last row',
+            'Start with rounds as the sixth row of a slow six',
+            6,
+        );
+
+        testLoad(
+            'a string with the word "last" for the last row',
+            'Start with rounds as the last row of a slow six',
+            6,
         );
 
         it('a string with the row index missing', () => {

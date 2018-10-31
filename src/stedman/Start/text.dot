@@ -13,7 +13,8 @@
 {{ var rowMap = ['', 'first', 'second', 'third', 'fourth', 'fifth', 'last']; }}
 
 {{?
-	context.object.rowIndex === 4 && context.object.sixType === 'quick'
+	context.object.rowIndex === context.object.method.defaultStartRowIndex &&
+		context.object.sixType === context.object.method.defaultStartSixType
 }}
 
 	/* No output for standard start */
@@ -26,8 +27,10 @@
 	 /* single space */
 	row of a
 	 /* single space */
-	{{= context.object.sixType }}
-	 /* single space */
+	{{? context.object.method.getSixTypes().length > 1 }}
+		{{= context.object.sixType }}
+		 /* single space */
+	{{?}}
 	six.
 
 {{?}}

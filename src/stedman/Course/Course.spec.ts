@@ -13,6 +13,7 @@ import { Stage, stringFromRow } from '../../rows';
 import { createTestCourse, createTestRow } from '../../testFunctions.spec';
 import { StringArray } from '../../visitors';
 import Call from '../Call';
+import { AbstractMethod, Erin, Stedman } from '../methods';
 import SixType from '../SixType';
 import Touch from '../Touch';
 
@@ -31,7 +32,40 @@ describe('Course class', () => {
         expect(course.getBlock(1).type).toBe(SixType.Slow);
     });
 
-    it('alternates six types throughout', () => {
+    it('has the right default length for Erin', () => {
+        course = new Course(testRow, undefined, new Erin());
+        course.resetLength();
+        expect(course.length).toBe(11);
+    });
+
+    it('has the right default length for Stedman', () => {
+        course = new Course(testRow, undefined, new Stedman());
+        course.resetLength();
+        expect(course.length).toBe(22);
+    });
+
+    it('calculates the default length for the chosen method', () => {
+        const method = new Stedman();
+        spyOn(method, 'getCourseLength').and.returnValue(18);
+
+        course = new Course(testRow, undefined, method);
+        course.resetLength();
+
+        expect(method.getCourseLength).toHaveBeenCalled();
+        expect(course.length).toBe(18);
+    });
+
+    it('always uses slow sixes for Erin', () => {
+        course = new Course(testRow, undefined, new Erin());
+        course.resetLength();
+        for (let index = 1; index <= 11; index += 1) {
+            expect(course.getBlock(index).type).toBe(SixType.Slow);
+        }
+    });
+
+    it('alternates six types for Stedman', () => {
+        course = new Course(testRow, undefined, new Stedman());
+        course.resetLength();
         for (let index = 1; index <= 22; index += 1) {
             if (index % 2) {
                 expect(course.getBlock(index).type).toBe(SixType.Slow);
@@ -41,7 +75,22 @@ describe('Course class', () => {
         }
     });
 
-    it('can change the parity of its sixes', () => {
+    it('requests new sixes for the chosen method', () => {
+        const method = new Stedman();
+        spyOn(method, 'createSix').and.callThrough();
+        course = new Course(testRow, undefined, method);
+
+        course.setLength(1);
+        expect(method.createSix).toHaveBeenCalled();
+        expect(method.createSix).toHaveBeenCalledWith(testRow, course, 1);
+
+        const lastRow = course.getLast();
+        course.setLength(2);
+        expect(method.createSix).toHaveBeenCalledTimes(2);
+        expect(method.createSix).toHaveBeenCalledWith(lastRow, course, 2);
+    });
+
+    it('can change the parity of its sixes for Stedman', () => {
         course.setFirstSixType(SixType.Quick);
         expect(course.firstSixType).toBe(SixType.Quick);
         for (let index = 1; index <= 22; index += 1) {
@@ -58,8 +107,54 @@ describe('Course class', () => {
         expect(() => course.setFirstSixType(SixType.Quick)).not.toThrow();
     });
 
-    it('calculates sixes correctly', () => {
-        course = Course.fromString(testRow, '2314567890E 1 s10 s13 22');
+    it('throws an exception if the six type is invalid', () => {
+        expect(() => course.setFirstSixType(SixType.Invalid)).toThrow();
+    });
+
+    it('checks the six type is valid for the chosen method', () => {
+        const method = new Stedman();
+        spyOn(method, 'checkSixType');
+        course = new Course(testRow, undefined, method);
+
+        course.setFirstSixType(SixType.Slow);
+
+        expect(method.checkSixType).toHaveBeenCalled();
+        expect(method.checkSixType).toHaveBeenCalledWith(SixType.Slow);
+    });
+
+    it('calculates sixes correctly for Erin', () => {
+        course = Course.fromString(
+            createTestRow('123'),
+            '1234567890E 6',
+            new Erin(),
+        );
+        const expectedSixEnds = [
+            '',  // blank entry so indices line up
+            '241638507E9',
+            '4628103E597',
+            '68402E19375',
+            '806E4927153',
+            '0E896745231',
+            'E9078562431',
+            '97E50283614',
+            '7592E301846',
+            '527391E4068',
+            '23517496E80',
+            '3124567890E',
+        ];
+
+        for (let index = 1; index <= 11; index += 1) {
+            expect(stringFromRow(course.getBlock(index).getLast()))
+                .toBe(expectedSixEnds[index]);
+        }
+    });
+
+    it('calculates sixes correctly for Stedman', () => {
+        course = Course.fromString(
+            testRow,
+            '2314567890E 1 s10 s13 22',
+            new Stedman(),
+        );
         const expectedSixEnds = [
             '',  // blank entry so indices line up
             '3426185970E',
@@ -193,9 +288,26 @@ describe('Course class', () => {
         expect(course.getLast()).toEqual(getLastBackup);
     });
 
+    it('passes the method to the cloned course', () => {
+        const method = new Stedman();
+        spyOn(method, 'getCourseLength').and.callThrough();
+        course = new Course(testRow, undefined, method);
+        expect(method.getCourseLength).not.toHaveBeenCalled();
+
+        const cloned = course.clone();
+        cloned.resetLength();
+        expect(method.getCourseLength).toHaveBeenCalled();
+    });
+
     it('copes when cloning a course if the length is zero', () => {
         course.setLength(0);
         expect(() => course.clone()).not.toThrow();
+    });
+
+    it('provides read access to the method', () => {
+        const method = new Stedman();
+        course = new Course(testRow, undefined, method);
+        expect(course.method).toBe(method);
     });
 
     it('generates the correct rows when visited', () => {
@@ -215,8 +327,12 @@ describe('Course class', () => {
 
     describe('can create courses from strings:', () => {
 
-        const testImport = (input: string, output: string) => () => {
-            const imported = Course.fromString(testRow, input);
+        const testImport = (
+            input: string,
+            output: string,
+            method: AbstractMethod = new Stedman(),
+        ) => () => {
+            const imported = Course.fromString(testRow, input, method);
             expect(imported.print('text')).toBe(output);
         };
 
@@ -293,6 +409,12 @@ describe('Course class', () => {
         it('yet another string without a course end', testImport(
             '10s s13 s15 s22',
             '2314568709E  s10 s13 s15 s22',
+        ));
+
+        it('a course of Erin', testImport(
+            '1234567890E  6',
+            '1234567890E  6',
+            new Erin(),
         ));
 
         it('a broken course (that raises an error)', () => {

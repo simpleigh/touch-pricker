@@ -9,29 +9,17 @@ import Touch from '.';
 import {
     testRandomAccessContainerImplementation,
 } from '../../blocks/RandomAccessContainer.spec';
-import { createTestCourse, createTestRow } from '../../testFunctions.spec';
+import { createTestRow } from '../../testFunctions.spec';
 import { StringArray } from '../../visitors';
 import Course from '../Course';
+import { AbstractMethod, Erin, Stedman } from '../methods';
 import SixType from '../SixType';
-
-const START_CASES: Array<[number, SixType]> = [
-    [1, SixType.Quick],
-    [2, SixType.Quick],
-    [3, SixType.Quick],
-    [4, SixType.Quick],
-    [5, SixType.Quick],
-    [6, SixType.Quick],
-    [1, SixType.Slow],
-    [2, SixType.Slow],
-    [3, SixType.Slow],
-    [4, SixType.Slow],
-    [5, SixType.Slow],
-    [6, SixType.Slow],
-];
 
 describe('Touch class', () => {
 
     const testRow = createTestRow('123');
+
+    const otherRow = createTestRow('4321');
 
     let touch: Touch;
 
@@ -39,114 +27,148 @@ describe('Touch class', () => {
         touch = new Touch(testRow);
     });
 
+    it('allows access to the start for Stedman', () => {
+        touch = new Touch(testRow, undefined, new Stedman());
+        expect(touch.start.rowIndex).toBe(4);
+        expect(touch.start.sixType).toBe(SixType.Quick);
+    });
+
+    it('allows access to the start for Erin', () => {
+        touch = new Touch(testRow, undefined, new Erin());
+        expect(touch.start.rowIndex).toBe(6);
+        expect(touch.start.sixType).toBe(SixType.Slow);
+    });
+
+    it('passes the initial row to the start', () => {
+        touch = new Touch(otherRow);
+        expect(touch.start.initialRow).toEqual(otherRow);
+    });
+
+    it('configures itself as the owner of the start', () => {
+        expect(touch.start.container).toBe(touch);
+    });
+
+    it('passes the method to the start', () => {
+        const method = new Stedman();
+        touch = new Touch(testRow, undefined, method);
+        expect(touch.start.method).toBe(method);
+    });
+
+    it('includes the start when visiting rows', () => {
+        const startVisitor = new StringArray();
+        const touchVisitor = new StringArray();
+
+        touch.start.accept(startVisitor);
+        touch.accept(touchVisitor);
+
+        expect(touchVisitor.strings).toEqual(startVisitor.strings);
+    });
+
     it('generates the correct rows when visited', () => {
-        let strings: string[] = ['213547698E0', '2314567890E'];
-        touch.insertBlock(1, createTestCourse());
-        touch.insertBlock(2, createTestCourse());
+        const course1 = new Course(testRow);
+        const course2 = new Course(testRow);
+        course1.setLength(11);
+        course2.setLength(11);
+        touch.insertBlock(1, course1);
+        touch.insertBlock(2, course2);
 
         const blockVisitor = new StringArray();
+        touch.start.accept(blockVisitor);
         touch.getBlock(1).accept(blockVisitor);
         touch.getBlock(2).accept(blockVisitor);
-        strings = strings.concat(blockVisitor.strings);
 
         const touchVisitor = new StringArray();
         touch.accept(touchVisitor);
 
-        expect(touchVisitor.strings).toEqual(strings);
+        expect(touchVisitor.strings).toEqual(blockVisitor.strings);
     });
 
-    it('sets the type of six when inserting a course at the end', () => {
+    it('includes the start in the estimate of rows', () => {
+        expect(touch.estimateRows()).toBe(touch.start.estimateRows());
+    });
+
+    it('propagates the initialRow for the first block', () => {
+        const course = new Course(otherRow);
+        course.setLength(11);
+        touch.insertBlock(1, course);
+
+        expect(touch.getBlock(1).initialRow).toEqual(touch.start.getLast());
+    });
+
+    it('propagates the initialRow for a second block', () => {
         const course1 = new Course(testRow);
         const course2 = new Course(testRow);
         course1.setLength(11);
-        course2.resetLength();
-
+        course2.setLength(11);
         touch.insertBlock(1, course1);
         touch.insertBlock(2, course2);
-        expect(touch.getBlock(2).firstSixType).toBe(SixType.Quick);
+
+        expect(touch.getBlock(2).initialRow)
+            .toEqual(touch.getBlock(1).getLast());
     });
 
-    it('sets the type of six when inserting a course at the beginning', () => {
+    it('propagates the six type for the first block in Stedman', () => {
+        const course = new Course(otherRow);
+        course.setLength(11);
+        touch.insertBlock(1, course);
+
+        expect(touch.getBlock(1).firstSixType).toBe(SixType.Slow);
+
+        touch.start.sixType = SixType.Slow;
+        expect(touch.getBlock(1).firstSixType).toBe(SixType.Quick);
+    });
+
+    it('propagates the six type for a second block in Stedman', () => {
         const course1 = new Course(testRow);
         const course2 = new Course(testRow);
         course1.setLength(11);
-        course2.resetLength();
-
-        touch.insertBlock(1, course2);
+        course2.setLength(11);
         touch.insertBlock(1, course1);
+        touch.insertBlock(2, course2);
+
         expect(touch.getBlock(2).firstSixType).toBe(SixType.Quick);
+
+        touch.getBlock(1).setLength(12);
+        expect(touch.getBlock(2).firstSixType).toBe(SixType.Slow);
     });
 
-    it('allows access to the start', () => {
-        const start = touch.start;
-        expect(start.rowIndex).toBe(4);
-        expect(start.sixType).toBe(SixType.Quick);
+    it('uses the chosen method to propagate the first block six type', () => {
+        const method = new Stedman();
+        const spy = spyOn(method, 'getNextSixType');
+        spy.and.returnValue(SixType.Quick); // should be slow
+        touch = new Touch(testRow, undefined, method);
+
+        const course = new Course(testRow);
+        course.setLength(11);
+        touch.insertBlock(1, course);
+
+        expect(touch.getBlock(1).firstSixType).toBe(SixType.Quick);
     });
 
-    type TestFunction = (rowIndex: number, sixType: SixType) => void;
+    it('uses the chosen method to propagate the second block six type', () => {
+        const method = new Stedman();
+        const spy = spyOn(method, 'getNextSixType');
+        spy.and.returnValue(SixType.Slow); // should be quick
+        touch = new Touch(testRow, undefined, method);
 
-    const runStartCases = (testFunction: TestFunction) => () => {
-        for (const testCase of START_CASES) {
-            testFunction(
-                testCase[0],  // row index
-                testCase[1],  // six type
-            );
+        const course1 = new Course(testRow);
+        const course2 = new Course(testRow);
+        course1.setLength(11);
+        course2.setLength(11);
+        touch.insertBlock(1, course1);
+        touch.insertBlock(2, course2);
 
-            // Clear out any course that may have been added
-            if (touch.length) {
-                touch.deleteBlock(1);
-            }
-        }
-    };
-
-    it('propagates when adding courses', runStartCases(
-        (rowIndex, sixType) => {
-            touch.start.rowIndex = rowIndex;
-            touch.start.sixType = sixType;
-            touch.insertBlock(1, createTestCourse());
-
-            expect(touch.getBlock(1).initialRow)
-                .toEqual(touch.start.getLast());
-        },
-    ));
-
-    it('propagates when setting the start', runStartCases(
-        (rowIndex, sixType) => {
-            touch.insertBlock(1, createTestCourse());
-            touch.start.rowIndex = rowIndex;
-            touch.start.sixType = sixType;
-
-            expect(touch.getBlock(1).initialRow)
-                .toEqual(touch.start.getLast());
-        },
-    ));
-
-    it('includes the start when visiting rows', runStartCases(
-        (rowIndex, sixType) => {
-            const startVisitor = new StringArray();
-            const touchVisitor = new StringArray();
-
-            touch.start.rowIndex = rowIndex;
-            touch.start.sixType = sixType;
-            touch.start.accept(startVisitor);
-            touch.accept(touchVisitor);
-
-            expect(touchVisitor.strings).toEqual(startVisitor.strings);
-        },
-    ));
-
-    it('includes the start in the estimate of rows', runStartCases(
-        (rowIndex, sixType) => {
-            touch.start.rowIndex = rowIndex;
-            touch.start.sixType = sixType;
-            expect(touch.estimateRows()).toBe(touch.start.estimateRows());
-        },
-    ));
+        expect(touch.getBlock(2).firstSixType).toBe(SixType.Slow);
+    });
 
     describe('can create touches from strings:', () => {
 
-        const testImport = (input: string, output: string) => () => {
-            const imported = Touch.fromString(input);
+        const testImport = (
+            input: string,
+            output: string,
+            method: AbstractMethod = new Stedman(),
+        ) => () => {
+            const imported = Touch.fromString(input, method);
             expect(imported.print('text')).toBe(output);
         };
 
@@ -223,6 +245,16 @@ describe('Touch class', () => {
                 + 'Start from rounds as the third row of a slow six.\n',
         ));
 
+        it('a touch of Erin', testImport(
+            '1234567890E\n'
+                + '4321567890E  6 7\n'
+                + '1234567890E  6 7\n',
+            '1234567890E\n'
+                + '4321567890E  6 7\n'
+                + '1234567890E  6 7\n',
+        new Erin(),
+        ));
+
         it('a touch with no lines', () => {
             expect(() => {
                 Touch.fromString('');
@@ -244,6 +276,20 @@ describe('Touch class', () => {
             }).toThrowError('Cannot import course');
         });
 
+    });
+
+    it('passes the method to all children when creating touches', () => {
+        const method = new Stedman();
+        touch = Touch.fromString(
+            '1234567890E\n'
+                + '4321567890E  6 7\n'
+                + '1234567890E  6 7\n',
+            method,
+        );
+
+        expect(touch.start.method).toBe(method);
+        expect(touch.getBlock(1).method).toBe(method);
+        expect(touch.getBlock(2).method).toBe(method);
     });
 
     testRandomAccessContainerImplementation(

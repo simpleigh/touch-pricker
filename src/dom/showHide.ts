@@ -17,6 +17,6 @@ export const hide = (element: HTMLElement): void => {
  * Shows a block element
  */
 export const show = (element: HTMLElement): void => {
-    element.style.display = 'block';
+    element.style.display = '';
     element.style.visibility = 'visible';
 };
