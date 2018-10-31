@@ -17,9 +17,12 @@ module.exports = merge(base, {
         rules: [
             {
                 enforce: 'post',
-                test: /\.ts$/,
+                test: /\.dot$|\.ts$/,
                 exclude: /\.spec\.ts$|tests/,
                 loader: 'istanbul-instrumenter-loader',
+                options: {
+                    esModules: true,
+                },
             },
         ],
     },
