@@ -292,7 +292,6 @@ describe('Course class', () => {
         const strategy = new Stedman();
         spyOn(strategy, 'getCourseLength').and.callThrough();
         course = new Course(testRow, undefined, strategy);
-        course.setLength(2);  // TODO: shouldn't need this line
         expect(strategy.getCourseLength).not.toHaveBeenCalled();
 
         const cloned = course.clone();
@@ -412,7 +411,7 @@ describe('Course class', () => {
             '2314568709E  s10 s13 s15 s22',
         ));
 
-        it('a course of erin', testImport(
+        it('a course of Erin', testImport(
             '1234567890E  6',
             '1234567890E  6',
             new Erin(),
