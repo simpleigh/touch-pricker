@@ -14,17 +14,17 @@ import SixTypeMap from '../../SixTypeMap';
 import select from './select.dot';
 
 /**
- * Strategies for assembling Stedman-style compositions
+ * Method-specific functionality for Stedman-style compositions
  */
 @Templates.makePrintable({ select })
-abstract class AbstractStrategy implements Templates.Interface {
+abstract class AbstractMethod implements Templates.Interface {
 
     /* templating *************************************************************/
 
     public print: Templates.Print;
 
     /**
-     * Method name for this strategy
+     * Method name
      */
     public abstract readonly name: string;
 
@@ -58,11 +58,11 @@ abstract class AbstractStrategy implements Templates.Interface {
     }
 
     /**
-     * Checks whether a six type is valid for this strategy
+     * Checks whether a six type is valid for this method
      */
     public checkSixType(sixType: SixType): void {
         if (!this.sixTypeProgression[sixType]) {
-            throw new Error(`"${sixType}" sixes not allowed for this strategy`);
+            throw new Error(`"${sixType}" sixes not allowed for this method`);
         }
     }
 
@@ -86,4 +86,4 @@ abstract class AbstractStrategy implements Templates.Interface {
 
 }
 
-export default AbstractStrategy;
+export default AbstractMethod;

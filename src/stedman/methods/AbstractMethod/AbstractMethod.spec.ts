@@ -10,13 +10,13 @@ import matchers from '../../../templates/matchers';
 import { createTestRow } from '../../../testFunctions.spec';
 import Course from '../../Course';
 import SixType from '../../SixType';
-import AbstractStrategy from './AbstractStrategy';
+import AbstractMethod from './AbstractMethod';
 
 /**
- * Tests that a strategy behaves as an AbstractStrategy
+ * Tests that a method behaves as an AbstractMethod
  */
-export const testAbstractStrategyImplementation = (
-    factory: () => AbstractStrategy,
+export const testAbstractMethodImplementation = (
+    factory: () => AbstractMethod,
     name: string,
     lengthTestCases: Array<[Stage, number]>,
     progressionTestCases: Array<[SixType, SixType]>,
@@ -87,16 +87,16 @@ export const testAbstractStrategyImplementation = (
     });
 
     it('can create a course worth of sixes correctly', () => {
-        const strategy = factory();
-        const maxIndex = strategy.getCourseLength(initialRow);
+        const method = factory();
+        const maxIndex = method.getCourseLength(initialRow);
         let type = testCourse.firstSixType;
 
         for (let index = 1; index <= maxIndex; index = index + 1) {
-            const six = strategy.createSix(initialRow, testCourse, index);
+            const six = method.createSix(initialRow, testCourse, index);
             expect(six.container).toBe(testCourse);
             expect(six.index).toBe(index);
             expect(six.type).toBe(type);
-            type = strategy.getNextSixType(type);
+            type = method.getNextSixType(type);
         }
     });
 
@@ -115,8 +115,8 @@ export const testAbstractStrategyImplementation = (
     });
 
     it('starts with a valid six by default', () => {
-        const strategy = factory();
-        expect(() => strategy.checkSixType(defaultStartSixType)).not.toThrow();
+        const method = factory();
+        expect(() => method.checkSixType(defaultStartSixType)).not.toThrow();
     });
 
     runProgressionTests((sixType, expected) => {
@@ -125,7 +125,7 @@ export const testAbstractStrategyImplementation = (
         });
     });
 
-    describe('is derived from AbstractStrategy and', () => {
+    describe('is derived from AbstractMethod and', () => {
 
         beforeEach(() => {
             jasmine.addMatchers(matchers);

@@ -8,26 +8,27 @@
 import { Row } from '../../rows';
 import AbstractSix from '../AbstractSix';
 import Course from '../Course';
+import Quick from '../Quick';
 import SixType from '../SixType';
 import SixTypeMap from '../SixTypeMap';
 import Slow from '../Slow';
-import AbstractStrategy from './AbstractStrategy';
+import AbstractMethod from './AbstractMethod';
 
 /**
- * Strategy for Erin
+ * Stedman-specific functionality
  */
-class Erin extends AbstractStrategy {
+class Stedman extends AbstractMethod {
 
     /**
-     * Method name for this strategy
+     * Method name
      */
-    public readonly name: string = 'Erin';
+    public readonly name: string = 'Stedman';
 
     /**
      * Returns the default length of new courses
      */
     public getCourseLength(initialRow: Row): number {
-        return initialRow.length;
+        return initialRow.length * 2;
     }
 
     /**
@@ -41,26 +42,35 @@ class Erin extends AbstractStrategy {
         course: Course,
         index: number,
     ): AbstractSix {
-        return new Slow(initialRow, { container: course, index });
+        const offsets: SixTypeMap<number> = {
+            [SixType.Slow]: 0,
+            [SixType.Quick]: 1,
+        };
+        const offset = offsets[course.firstSixType]!;
+
+        return (offset + index) % 2
+            ? new Slow(initialRow, { container: course, index })
+            : new Quick(initialRow, { container: course, index });
     }
 
     /**
      * Mapping from each valid six type to its successor
      */
     protected readonly sixTypeProgression: SixTypeMap<SixType> = {
-        [SixType.Slow]: SixType.Slow,
+        [SixType.Slow]: SixType.Quick,
+        [SixType.Quick]: SixType.Slow,
     };
 
     /**
      * Index of rounds within six for standard start
      */
-    public readonly defaultStartRowIndex: number = 6;
+    public readonly defaultStartRowIndex: number = 4;
 
     /**
      * Type of six for standard start
      */
-    public readonly defaultStartSixType: SixType = SixType.Slow;
+    public readonly defaultStartSixType: SixType = SixType.Quick;
 
 }
 
-export default Erin;
+export default Stedman;

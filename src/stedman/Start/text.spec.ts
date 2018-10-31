@@ -7,14 +7,14 @@
 
 import Start from '.';
 import { createTestRow } from '../../testFunctions.spec';
+import { AbstractMethod, Erin, Stedman } from '../methods';
 import SixType from '../SixType';
-import { AbstractStrategy, Erin, Stedman } from '../strategies';
 
 describe('text template for Start', () => {
 
     const initialRow = createTestRow();
 
-    type StartPosition = [{ new(): AbstractStrategy }, SixType, string[]];
+    type StartPosition = [{ new(): AbstractMethod }, SixType, string[]];
 
     const startPositions: StartPosition[] = [
         [Erin, SixType.Slow, [
@@ -47,16 +47,16 @@ describe('text template for Start', () => {
     ];
 
     for (const startPosition of startPositions) {
-        const strategy = new startPosition[0]();
+        const method = new startPosition[0]();
         const sixType = startPosition[1];
 
-        const start = new Start(initialRow, undefined, strategy);
+        const start = new Start(initialRow, undefined, method);
         start.sixType = sixType;
 
         for (let rowIndex = 1; rowIndex <= 6; rowIndex = rowIndex + 1) {
             const description = ''
                 + `prints a ${sixType} six start on row ${rowIndex}`
-                + ` for ${strategy.name} correctly`;
+                + ` for ${method.name} correctly`;
 
             it(description, () => {
                 const expected = startPosition[2][rowIndex];

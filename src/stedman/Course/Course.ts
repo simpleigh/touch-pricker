@@ -10,8 +10,8 @@ import { Row } from '../../rows';
 import * as Templates from '../../templates';
 import AbstractSix from '../AbstractSix';
 import Call from '../Call';
+import { AbstractMethod, Stedman } from '../methods';
 import SixType from '../SixType';
-import { AbstractStrategy, Stedman } from '../strategies';
 import html from './html.dot';
 import mbd from './mbd.dot';
 import siril from './siril.dot';
@@ -33,12 +33,12 @@ class Course
     /**
      * Constructor
      *
-     * Extends the AbstractBlock container to set up the strategy.
+     * Extends the AbstractBlock container to set up the method.
      */
     constructor(
         initialRow: Row,
         protected _ownership?: BlockOwnership,
-        private _strategy: AbstractStrategy = new Stedman(),
+        private _method: AbstractMethod = new Stedman(),
     ) {
         super(initialRow, _ownership);
     }
@@ -53,7 +53,7 @@ class Course
      * Returns the default length of new containers of this type
      */
     protected getDefaultLength(initialRow: Row): number {
-        return this._strategy.getCourseLength(initialRow);
+        return this._method.getCourseLength(initialRow);
     }
 
     /**
@@ -65,7 +65,7 @@ class Course
      * @param index       index of block in container
      */
     protected createBlock(initialRow: Row, index: number): AbstractSix {
-        return this._strategy.createSix(initialRow, this, index);
+        return this._method.createSix(initialRow, this, index);
     }
 
     /* Course methods *********************************************************/
@@ -81,7 +81,7 @@ class Course
      * Write access to the type of the first six
      */
     public setFirstSixType(type: SixType): this {
-        this._strategy.checkSixType(type);
+        this._method.checkSixType(type);
 
         if (this._firstSixType === type) {
             return this;  // nothing to do
@@ -147,7 +147,7 @@ class Course
         const cloned = new Course(
             this._initialRow,
             undefined,
-            this._strategy,
+            this._method,
         );
         cloned.setLength(this.length);
         cloned.setFirstSixType(this.firstSixType);
@@ -169,10 +169,10 @@ class Course
     }
 
     /**
-     * Provides read access to the strategy
+     * Provides read access to the method
      */
-    get strategy(): AbstractStrategy {
-        return this._strategy;
+    get method(): AbstractMethod {
+        return this._method;
     }
 
     /**
@@ -181,9 +181,9 @@ class Course
     public static fromString(
         initialRow: Row,
         input: string,
-        strategy: AbstractStrategy = new Stedman(),
+        method: AbstractMethod = new Stedman(),
     ): Course {
-        const course = new Course(initialRow, undefined, strategy);
+        const course = new Course(initialRow, undefined, method);
         const courseEnd = '[0-9a-et]{3,15}';
         const separator = '[\\s.,]+';
         const six = '(?:\\d{1,2}|\\d{1,2}s|s\\d{1,2})'; // 5 or 5s or s5

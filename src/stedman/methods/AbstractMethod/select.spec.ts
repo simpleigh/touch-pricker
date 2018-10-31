@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import AbstractStrategy from '.';
+import AbstractMethod from '.';
 import SixType from '../../SixType';
 import Erin from '../Erin';
 import Stedman from '../Stedman';
@@ -13,8 +13,8 @@ import Stedman from '../Stedman';
 /**
  * Tests the template behaves like the parent version
  */
-const testSelectAbstractStrategyTemplate = (
-    Strategy: { new(): AbstractStrategy },  // tslint:disable-line
+const testSelectAbstractMethodTemplate = (
+    Method: { new(): AbstractMethod },  // tslint:disable-line
     types: SixType[],
 ) => () => {
 
@@ -25,18 +25,18 @@ const testSelectAbstractStrategyTemplate = (
                 expected = expected +
                     `<option value="${type}">${type}</option>`;
             }
-            expect(new Strategy().print('select')).toBe(expected);
+            expect(new Method().print('select')).toBe(expected);
         });
     });
 
 };
 
-describe('select template for Erin', testSelectAbstractStrategyTemplate(
+describe('select template for Erin', testSelectAbstractMethodTemplate(
     Erin,
     [SixType.Slow],
 ));
 
-describe('select template for Stedman', testSelectAbstractStrategyTemplate(
+describe('select template for Stedman', testSelectAbstractMethodTemplate(
     Stedman,
     [SixType.Slow, SixType.Quick],
 ));

@@ -10,8 +10,8 @@ import { Row, rowFromString, Stage } from '../../rows';
 import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
 import Course from '../Course';
+import { AbstractMethod, Stedman } from '../methods';
 import Start from '../Start';
-import { AbstractStrategy, Stedman } from '../strategies';
 import select from './select.dot';
 import siril from './siril.dot';
 import text from './text.dot';
@@ -32,18 +32,18 @@ class Touch
     /**
      * Constructor
      *
-     * Extends the AbstractBlock container to set up the start and strategy.
+     * Extends the AbstractBlock container to set up the start and method.
      */
     constructor(
         initialRow: Row,
         protected _ownership?: BlockOwnership,
-        private _strategy: AbstractStrategy = new Stedman(),
+        private _method: AbstractMethod = new Stedman(),
     ) {
         super(initialRow, _ownership);
         this._start = new Start(
             initialRow,
             { container: this, index: 0 },
-            this._strategy,
+            this._method,
         );
     }
 
@@ -80,7 +80,7 @@ class Touch
     protected propagateCurrentBlock(previous: Course, current: Course): void {
         const sixType = previous.getBlock(previous.length).type;
         current.initialRow = previous.getLast();
-        current.setFirstSixType(this._strategy.getNextSixType(sixType));
+        current.setFirstSixType(this._method.getNextSixType(sixType));
     }
 
     /**
@@ -90,7 +90,7 @@ class Touch
     protected propagateFirstBlock(first: Course): void {
         const sixType = this._start.sixType;
         first.initialRow = this._start.getLast();
-        first.setFirstSixType(this._strategy.getNextSixType(sixType));
+        first.setFirstSixType(this._method.getNextSixType(sixType));
     }
 
     /* Touch methods **********************************************************/
@@ -107,7 +107,7 @@ class Touch
      */
     public static fromString(
         input: string,
-        strategy: AbstractStrategy = new Stedman(),
+        method: AbstractMethod = new Stedman(),
     ): Touch {
         const lines = input.split('\n');
 
@@ -147,11 +147,11 @@ class Touch
                 touch = new Touch(
                     rowFromString('123', line.length),
                     undefined,
-                    strategy,
+                    method,
                 );
             } else {
                 // Create a course for each remaining line
-                course = Course.fromString(touch.getLast(), line, strategy);
+                course = Course.fromString(touch.getLast(), line, method);
                 touch.insertBlock(touch.length + 1, course);
             }
         }

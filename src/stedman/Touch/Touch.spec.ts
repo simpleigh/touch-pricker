@@ -12,8 +12,8 @@ import {
 import { createTestRow } from '../../testFunctions.spec';
 import { StringArray } from '../../visitors';
 import Course from '../Course';
+import { AbstractMethod, Erin, Stedman } from '../methods';
 import SixType from '../SixType';
-import { AbstractStrategy, Erin, Stedman } from '../strategies';
 
 describe('Touch class', () => {
 
@@ -49,9 +49,9 @@ describe('Touch class', () => {
     });
 
     it('passes the method to the start', () => {
-        const strategy = new Stedman();
-        touch = new Touch(testRow, undefined, strategy);
-        expect(touch.start.strategy).toBe(strategy);
+        const method = new Stedman();
+        touch = new Touch(testRow, undefined, method);
+        expect(touch.start.method).toBe(method);
     });
 
     it('includes the start when visiting rows', () => {
@@ -133,10 +133,10 @@ describe('Touch class', () => {
     });
 
     it('uses the chosen method to propagate the first block six type', () => {
-        const strategy = new Stedman();
-        const spy = spyOn(strategy, 'getNextSixType');
+        const method = new Stedman();
+        const spy = spyOn(method, 'getNextSixType');
         spy.and.returnValue(SixType.Quick); // should be slow
-        touch = new Touch(testRow, undefined, strategy);
+        touch = new Touch(testRow, undefined, method);
 
         const course = new Course(testRow);
         course.setLength(11);
@@ -146,10 +146,10 @@ describe('Touch class', () => {
     });
 
     it('uses the chosen method to propagate the second block six type', () => {
-        const strategy = new Stedman();
-        const spy = spyOn(strategy, 'getNextSixType');
+        const method = new Stedman();
+        const spy = spyOn(method, 'getNextSixType');
         spy.and.returnValue(SixType.Slow); // should be quick
-        touch = new Touch(testRow, undefined, strategy);
+        touch = new Touch(testRow, undefined, method);
 
         const course1 = new Course(testRow);
         const course2 = new Course(testRow);
@@ -166,9 +166,9 @@ describe('Touch class', () => {
         const testImport = (
             input: string,
             output: string,
-            strategy: AbstractStrategy = new Stedman(),
+            method: AbstractMethod = new Stedman(),
         ) => () => {
-            const imported = Touch.fromString(input, strategy);
+            const imported = Touch.fromString(input, method);
             expect(imported.print('text')).toBe(output);
         };
 
@@ -279,17 +279,17 @@ describe('Touch class', () => {
     });
 
     it('passes the method to all children when creating touches', () => {
-        const strategy = new Stedman();
+        const method = new Stedman();
         touch = Touch.fromString(
             '1234567890E\n'
                 + '4321567890E  6 7\n'
                 + '1234567890E  6 7\n',
-            strategy,
+            method,
         );
 
-        expect(touch.start.strategy).toBe(strategy);
-        expect(touch.getBlock(1).strategy).toBe(strategy);
-        expect(touch.getBlock(2).strategy).toBe(strategy);
+        expect(touch.start.method).toBe(method);
+        expect(touch.getBlock(1).method).toBe(method);
+        expect(touch.getBlock(2).method).toBe(method);
     });
 
     testRandomAccessContainerImplementation(

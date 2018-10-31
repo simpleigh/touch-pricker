@@ -15,8 +15,8 @@ import {
 import { Row, rowFromString, Stage as S } from '../../rows';
 import { createTestRow } from '../../testFunctions.spec';
 import { StringArray } from '../../visitors';
+import { AbstractMethod, Erin, Stedman } from '../methods';
 import SixType from '../SixType';
-import { AbstractStrategy, Erin, Stedman } from '../strategies';
 
 describe('Start class', () => {
 
@@ -60,20 +60,20 @@ describe('Start class', () => {
     });
 
     it('checks the six type is valid for the chosen method', () => {
-        const strategy = new Stedman();
-        spyOn(strategy, 'checkSixType');
-        start = new Start(testRow, undefined, strategy);
+        const method = new Stedman();
+        spyOn(method, 'checkSixType');
+        start = new Start(testRow, undefined, method);
 
         start.sixType = SixType.Slow;
 
-        expect(strategy.checkSixType).toHaveBeenCalled();
-        expect(strategy.checkSixType).toHaveBeenCalledWith(SixType.Slow);
+        expect(method.checkSixType).toHaveBeenCalled();
+        expect(method.checkSixType).toHaveBeenCalledWith(SixType.Slow);
     });
 
-    it('provides read access to the strategy', () => {
-        const strategy = new Stedman();
-        start = new Start(testRow, undefined, strategy);
-        expect(start.strategy).toBe(strategy);
+    it('provides read access to the method', () => {
+        const method = new Stedman();
+        start = new Start(testRow, undefined, method);
+        expect(start.method).toBe(method);
     });
 
     type Notation = string[];
@@ -230,17 +230,17 @@ describe('Start class', () => {
 
     describe('can set the row index and six type from strings:', () => {
 
-        const validSixTypes: Array<[{ new(): AbstractStrategy }, SixType]> = [
+        const validSixTypes: Array<[{ new(): AbstractMethod }, SixType]> = [
             [Erin, SixType.Slow],
             [Stedman, SixType.Quick],
             [Stedman, SixType.Slow],
         ];
 
         for (const combination of validSixTypes) {
-            const strategy = new combination[0]();
+            const method = new combination[0]();
             const sixType = combination[1];
 
-            start = new Start(testRow, undefined, strategy);
+            start = new Start(testRow, undefined, method);
             start.sixType = sixType;
 
             for (let rowIndex = 1; rowIndex <= 6; rowIndex = rowIndex + 1) {
@@ -254,11 +254,11 @@ describe('Start class', () => {
 
                 const description = ''
                     + `a ${sixType} six start on row ${rowIndex}`
-                    + ` for ${strategy.name}`;
+                    + ` for ${method.name}`;
 
                 it(description, () => {
                     // Reset start as beforeEach() rule will have overwritten
-                    start = new Start(testRow, undefined, strategy);
+                    start = new Start(testRow, undefined, method);
                     start.setFromString(output);
                     expect(start.rowIndex).toBe(rowIndex);
                     expect(start.sixType).toBe(sixType);

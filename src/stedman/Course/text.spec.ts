@@ -7,7 +7,7 @@
 
 import Course from '.';
 import { createTestRow } from '../../testFunctions.spec';
-import { Erin } from '../strategies';
+import { Erin } from '../methods';
 
 describe('text template for Course', () => {
 

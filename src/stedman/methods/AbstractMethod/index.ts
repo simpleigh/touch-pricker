@@ -5,4 +5,4 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-export { default } from './AbstractStrategy';
+export { default } from './AbstractMethod';

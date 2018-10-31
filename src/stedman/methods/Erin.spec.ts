@@ -8,12 +8,12 @@
 import { Stage } from '../../rows';
 import SixType from '../SixType';
 import {
-    testAbstractStrategyImplementation,
-} from './AbstractStrategy/AbstractStrategy.spec';
+    testAbstractMethodImplementation,
+} from './AbstractMethod/AbstractMethod.spec';
 import Erin from './Erin';
 
-describe('Erin strategy', () => {
-    testAbstractStrategyImplementation(
+describe('Erin method', () => {
+    testAbstractMethodImplementation(
         () => new Erin(),
         'Erin',
         [
