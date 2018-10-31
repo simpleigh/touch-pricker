@@ -16,7 +16,7 @@ import AbstractMethod from './AbstractMethod';
  * Tests that a method behaves as an AbstractMethod
  */
 export const testAbstractMethodImplementation = (
-    factory: () => AbstractMethod,
+    Method: { new(): AbstractMethod },  // tslint:disable-line
     name: string,
     lengthTestCases: Array<[Stage, number]>,
     progressionTestCases: Array<[SixType, SixType]>,
@@ -27,13 +27,15 @@ export const testAbstractMethodImplementation = (
 
     const testCourse = new Course(initialRow);
 
+    const method = new Method();
+
     beforeEach(() => {
         // Sensible default: first input from testcases must be valid
         testCourse.setFirstSixType(progressionTestCases[0][0]);
     });
 
     it('provides access to the method name', () => {
-        expect(factory().name).toBe(name);
+        expect(method.name).toBe(name);
     });
 
     for (const testCase of lengthTestCases) {
@@ -41,7 +43,7 @@ export const testAbstractMethodImplementation = (
         const expected = testCase[1];
         it(`computes the correct length for a ${stage} course`, () => {
             const row = createTestRow('', stage);
-            expect(factory().getCourseLength(row)).toBe(expected);
+            expect(method.getCourseLength(row)).toBe(expected);
         });
     }
 
@@ -58,36 +60,35 @@ export const testAbstractMethodImplementation = (
     runProgressionTests((sixType) => {
         it(`can create a ${sixType} six for the first six`, () => {
             testCourse.setFirstSixType(sixType);
-            const six = factory().createSix(initialRow, testCourse, 1);
+            const six = method.createSix(initialRow, testCourse, 1);
             expect(six.type).toBe(sixType);
         });
     });
 
     it('passes the initial row to created sixes', () => {
-        const six = factory().createSix(initialRow, testCourse, 42);
+        const six = method.createSix(initialRow, testCourse, 42);
         expect(six.initialRow).toEqual(initialRow);
     });
 
     it('passes the course to created sixes', () => {
-        const six = factory().createSix(initialRow, testCourse, 42);
+        const six = method.createSix(initialRow, testCourse, 42);
         expect(six.container).toBe(testCourse);
     });
 
     it('passes the index to created sixes', () => {
-        const six = factory().createSix(initialRow, testCourse, 42);
+        const six = method.createSix(initialRow, testCourse, 42);
         expect(six.index).toBe(42);
     });
 
     runProgressionTests((sixType, expected) => {
         it(`can create a ${expected} six for the second six`, () => {
             testCourse.setFirstSixType(sixType);
-            const six = factory().createSix(initialRow, testCourse, 2);
+            const six = method.createSix(initialRow, testCourse, 2);
             expect(six.type).toBe(expected);
         });
     });
 
     it('can create a course worth of sixes correctly', () => {
-        const method = factory();
         const maxIndex = method.getCourseLength(initialRow);
         let type = testCourse.firstSixType;
 
@@ -102,26 +103,25 @@ export const testAbstractMethodImplementation = (
 
     runProgressionTests((sixType) => {
         it(`knows that a ${sixType} six is valid`, () => {
-            expect(() => factory().checkSixType(sixType)).not.toThrow();
+            expect(() => method.checkSixType(sixType)).not.toThrow();
         });
     });
 
     it(`starts on row ${defaultStartRowIndex} of a six by default`, () => {
-        expect(factory().defaultStartRowIndex).toBe(defaultStartRowIndex);
+        expect(method.defaultStartRowIndex).toBe(defaultStartRowIndex);
     });
 
     it(`starts with a ${defaultStartSixType} six by default`, () => {
-        expect(factory().defaultStartSixType).toBe(defaultStartSixType);
+        expect(method.defaultStartSixType).toBe(defaultStartSixType);
     });
 
     it('starts with a valid six by default', () => {
-        const method = factory();
         expect(() => method.checkSixType(defaultStartSixType)).not.toThrow();
     });
 
     runProgressionTests((sixType, expected) => {
         it(`computes the correct successor for a ${sixType} six`, () => {
-            expect(factory().getNextSixType(sixType)).toBe(expected);
+            expect(method.getNextSixType(sixType)).toBe(expected);
         });
     });
 
@@ -132,19 +132,19 @@ export const testAbstractMethodImplementation = (
         });
 
         it('knows that an invalid six is invalid', () => {
-            expect(() => factory().checkSixType(SixType.Invalid)).toThrow();
+            expect(() => method.checkSixType(SixType.Invalid)).toThrow();
         });
 
         it('throws computing the successor of an invalid six', () => {
-            expect(() => factory().getNextSixType(SixType.Invalid)).toThrow();
+            expect(() => method.getNextSixType(SixType.Invalid)).toThrow();
         });
 
         it('is printable', () => {
-            expect(factory()).toBePrintable();
+            expect(method).toBePrintable();
         });
 
         it('has a template for printing six type options', () => {
-            expect(factory()).toHaveTemplate('select');
+            expect(method).toHaveTemplate('select');
         });
 
     });

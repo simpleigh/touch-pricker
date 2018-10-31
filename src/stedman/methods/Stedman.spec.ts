@@ -14,7 +14,7 @@ import Stedman from './Stedman';
 
 describe('Stedman method', () => {
     testAbstractMethodImplementation(
-        () => new Stedman(),
+        Stedman,
         'Stedman',
         [
             [Stage.Triples, 14],

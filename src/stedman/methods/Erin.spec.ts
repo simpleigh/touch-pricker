@@ -14,7 +14,7 @@ import Erin from './Erin';
 
 describe('Erin method', () => {
     testAbstractMethodImplementation(
-        () => new Erin(),
+        Erin,
         'Erin',
         [
             [Stage.Triples, 7],
