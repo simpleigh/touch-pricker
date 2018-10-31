@@ -15,7 +15,6 @@ import Slow from '../Slow';
 
 /**
  * Tests the template behaves like the parent version
- * @param Six       six to test
  */
 const testSirilAbstractSixTemplate = (
     factory: (initialRow: Row, _ownership?: BlockOwnership) => AbstractSix,

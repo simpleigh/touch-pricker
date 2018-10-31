@@ -28,8 +28,6 @@ export const testAbstractStrategyImplementation = (
     const testCourse = new Course(initialRow);
 
     beforeEach(() => {
-        jasmine.addMatchers(matchers);
-
         // Sensible default: first input from testcases must be valid
         testCourse.setFirstSixType(progressionTestCases[0][0]);
     });
@@ -48,12 +46,12 @@ export const testAbstractStrategyImplementation = (
     }
 
     const runProgressionTests = (
-        test: (sixType: SixType, expected: SixType) => void,
+        testFunction: (sixType: SixType, expected: SixType) => void,
     ) => {
         for (const testCase of progressionTestCases) {
             const sixType = testCase[0];
             const expected = testCase[1];
-            test(sixType, expected);
+            testFunction(sixType, expected);
         }
     };
 
@@ -102,49 +100,10 @@ export const testAbstractStrategyImplementation = (
         }
     });
 
-    it('provides access to a list of valid six types', () => {
-        const expected: SixType[] = [ ];
-        for (const testCase of progressionTestCases) {
-            expected.push(testCase[0]);
-        }
-        expect(factory().getSixTypes()).toEqual(expected);
-    });
-
-    it('is printable', () => {
-        expect(factory()).toBePrintable();
-    });
-
-    it('has a template for printing six type options', () => {
-        expect(factory()).toHaveTemplate('select');
-    });
-
-    it('renders six type options correctly', () => {
-        let expected = '';
-        for (const testCase of progressionTestCases) {
-            const type = testCase[0];
-            expected = expected + `<option value="${type}">${type}</option>`;
-        }
-        expect(factory().print('select')).toBe(expected);
-    });
-
     runProgressionTests((sixType) => {
         it(`knows that a ${sixType} six is valid`, () => {
             expect(() => factory().checkSixType(sixType)).not.toThrow();
         });
-    });
-
-    it('knows that an invalid six is invalid', () => {
-        expect(() => factory().checkSixType(SixType.Invalid)).toThrow();
-    });
-
-    runProgressionTests((sixType, expected) => {
-        it(`computes the correct successor for a ${sixType} six`, () => {
-            expect(factory().getNextSixType(sixType)).toBe(expected);
-        });
-    });
-
-    it('throws when trying to compute the successor of an invalid six', () => {
-        expect(() => factory().getNextSixType(SixType.Invalid)).toThrow();
     });
 
     it(`starts on row ${defaultStartRowIndex} of a six by default`, () => {
@@ -158,6 +117,36 @@ export const testAbstractStrategyImplementation = (
     it('starts with a valid six by default', () => {
         const strategy = factory();
         expect(() => strategy.checkSixType(defaultStartSixType)).not.toThrow();
+    });
+
+    runProgressionTests((sixType, expected) => {
+        it(`computes the correct successor for a ${sixType} six`, () => {
+            expect(factory().getNextSixType(sixType)).toBe(expected);
+        });
+    });
+
+    describe('is derived from AbstractStrategy and', () => {
+
+        beforeEach(() => {
+            jasmine.addMatchers(matchers);
+        });
+
+        it('knows that an invalid six is invalid', () => {
+            expect(() => factory().checkSixType(SixType.Invalid)).toThrow();
+        });
+
+        it('throws computing the successor of an invalid six', () => {
+            expect(() => factory().getNextSixType(SixType.Invalid)).toThrow();
+        });
+
+        it('is printable', () => {
+            expect(factory()).toBePrintable();
+        });
+
+        it('has a template for printing six type options', () => {
+            expect(factory()).toHaveTemplate('select');
+        });
+
     });
 
 };
