@@ -11,6 +11,8 @@ export { default as AbstractSix } from './AbstractSix';
 export { default as Call } from './Call';
 export { Changes };
 export { default as Course } from './Course';
+export { default as JumpDown } from './JumpDown';
+export { default as JumpUp } from './JumpUp';
 export { default as Quick } from './Quick';
 export { default as SixType } from './SixType';
 export { default as Slow } from './Slow';
