@@ -13,7 +13,7 @@ import { Stage, stringFromRow } from '../../rows';
 import { createTestCourse, createTestRow } from '../../testFunctions.spec';
 import { StringArray } from '../../visitors';
 import Call from '../Call';
-import { AbstractMethod, Erin, Stedman } from '../methods';
+import { AbstractMethod, Erin, JumpStedman, Stedman } from '../methods';
 import SixType from '../SixType';
 import Touch from '../Touch';
 
@@ -27,9 +27,32 @@ describe('Course class', () => {
         course = createTestCourse(testRow);
     });
 
-    it('starts out with a slow six by default', () => {
+    it('starts out with a slow six by default for Erin', () => {
+        course = new Course(testRow, undefined, new Erin());
+        course.resetLength();
         expect(course.firstSixType).toBe(SixType.Slow);
         expect(course.getBlock(1).type).toBe(SixType.Slow);
+    });
+
+    it('starts out with a slow six by default for Stedman', () => {
+        course = new Course(testRow, undefined, new Stedman());
+        course.resetLength();
+        expect(course.firstSixType).toBe(SixType.Slow);
+        expect(course.getBlock(1).type).toBe(SixType.Slow);
+    });
+
+    it('starts out with a jump down six by default for Jump Stedman', () => {
+        course = new Course(testRow, undefined, new JumpStedman());
+        course.resetLength();
+        expect(course.firstSixType).toBe(SixType.JumpDown);
+        expect(course.getBlock(1).type).toBe(SixType.JumpDown);
+    });
+
+    it('sets the first six for the chosen method', () => {
+        // tslint:disable-next-line
+        const method = { defaultFirstSix: SixType.JumpUp } as AbstractMethod;
+        course = new Course(testRow, undefined, method);
+        expect(course.firstSixType).toBe(SixType.JumpUp);
     });
 
     it('has the right default length for Erin', () => {
@@ -42,6 +65,12 @@ describe('Course class', () => {
         course = new Course(testRow, undefined, new Stedman());
         course.resetLength();
         expect(course.length).toBe(22);
+    });
+
+    it('has the right default length for Jump Stedman', () => {
+        course = new Course(testRow, undefined, new JumpStedman());
+        course.resetLength();
+        expect(course.length).toBe(44);
     });
 
     it('calculates the default length for the chosen method', () => {

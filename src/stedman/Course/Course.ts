@@ -28,7 +28,7 @@ class Course
     /**
      * Type of the first six
      */
-    private _firstSixType: SixType = SixType.Slow;
+    private _firstSixType: SixType;
 
     /**
      * Constructor
@@ -41,6 +41,7 @@ class Course
         private _method: AbstractMethod = new Stedman(),
     ) {
         super(initialRow, _ownership);
+        this._firstSixType = this._method.defaultFirstSix;
     }
 
     /* templating *************************************************************/

@@ -75,6 +75,11 @@ class JumpStedman extends AbstractMethod {
     };
 
     /**
+     * First six in a standard course
+     */
+    public readonly defaultFirstSix: SixType = SixType.JumpDown;
+
+    /**
      * Index of rounds within six for standard start
      */
     public readonly defaultStartRowIndex: number = 4;

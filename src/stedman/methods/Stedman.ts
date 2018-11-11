@@ -62,6 +62,11 @@ class Stedman extends AbstractMethod {
     };
 
     /**
+     * First six in a standard course
+     */
+    public readonly defaultFirstSix: SixType = SixType.Slow;
+
+    /**
      * Index of rounds within six for standard start
      */
     public readonly defaultStartRowIndex: number = 4;

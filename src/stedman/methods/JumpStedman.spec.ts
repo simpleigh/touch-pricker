@@ -29,6 +29,6 @@ describe('Jump Stedman method', () => {
             [SixType.JumpUp, SixType.Quick],
             [SixType.Quick, SixType.JumpDown],
         ],
-        [4, SixType.Quick],
+        [SixType.JumpDown, 4, SixType.Quick],
     );
 });

@@ -21,7 +21,8 @@ export const testAbstractMethodImplementation = (
     name: string,
     lengthTestCases: Array<[Stage, number]>,
     progressionTestCases: Array<[SixType, SixType]>,
-    [defaultStartRowIndex, defaultStartSixType]: [number, SixType],
+    [defaultFirstSix, defaultStartRowIndex, defaultStartSixType]:
+        [SixType, number, SixType],
 ) => {
 
     const initialRow = createTestRow();
@@ -109,15 +110,23 @@ export const testAbstractMethodImplementation = (
         });
     });
 
+    it(`starts a course with a ${defaultFirstSix} six by default`, () => {
+        expect(method.defaultFirstSix).toBe(defaultFirstSix);
+    });
+
+    it('starts a course with a valid six by default', () => {
+        expect(() => method.checkSixType(defaultFirstSix)).not.toThrow();
+    });
+
     it(`starts on row ${defaultStartRowIndex} of a six by default`, () => {
         expect(method.defaultStartRowIndex).toBe(defaultStartRowIndex);
     });
 
-    it(`starts with a ${defaultStartSixType} six by default`, () => {
+    it(`starts a touch with a ${defaultStartSixType} six by default`, () => {
         expect(method.defaultStartSixType).toBe(defaultStartSixType);
     });
 
-    it('starts with a valid six by default', () => {
+    it('starts a touch with a valid six by default', () => {
         expect(() => method.checkSixType(defaultStartSixType)).not.toThrow();
     });
 
