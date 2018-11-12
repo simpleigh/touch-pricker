@@ -99,14 +99,24 @@
     margin: 5px 0;
 }
 
-.slowSix {
-    background-color: #F0F0F8;
+.call {
     cursor: pointer;
 }
 
-.quickSix {
-    background-color: #E2E2F0;
-    cursor: pointer;
+[class*="slow call"] {
+    background-color: #f0f0f8;
+}
+
+[class*="quick call"] {
+    background-color: #e2e2f0;
+}
+
+[class*="jump up call"] {
+    background-color: #f0e2e2;
+}
+
+[class*="jump down call"] {
+    background-color: #e2f0e2;
 }
 
 .extraSix {

@@ -10,7 +10,12 @@ import { hide, show } from '../../dom';
 import { MbdScheme } from '../../music';
 import { Row, rowFromString, Stage, stringFromRow } from '../../rows';
 import { Course, SixType, Touch } from '../../stedman';
-import { AbstractMethod, Erin, Stedman } from '../../stedman/methods';
+import {
+    AbstractMethod,
+    Erin,
+    JumpStedman,
+    Stedman,
+} from '../../stedman/methods';
 import * as Templates from '../../templates';
 import * as Visitors from '../../visitors';
 import AbstractPricker from '../AbstractPricker';
@@ -263,6 +268,7 @@ class Mbd extends AbstractPricker implements Notifiable {
         const method = this.getEl<HTMLSelectElement>('method').value;
         const methodMap: { [method: string]: AbstractMethod } = {
             erin: new Erin(),
+            jump: new JumpStedman(),
             stedman: new Stedman(),
         };
         this._method = methodMap[method];
