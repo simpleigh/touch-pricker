@@ -12,6 +12,7 @@ import Options from './Options';
 import Pricker from './Pricker';
 import {
     Bell,
+    multiply,
     Row,
     rowFromString,
     Stage,
@@ -24,6 +25,7 @@ export {
     Bell,
     Blocks,
     create,
+    multiply,
     Music,
     Options,
     Pricker,
