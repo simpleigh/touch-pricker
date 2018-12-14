@@ -19,6 +19,7 @@ import {
     stringFromRow,
 } from './rows';
 import * as Stedman from './stedman';
+import * as Tuesday from './tuesday';
 import * as Visitors from './visitors';
 
 export {
@@ -34,5 +35,6 @@ export {
     Stage,
     Stedman,
     stringFromRow,
+    Tuesday,
     Visitors,
 };
