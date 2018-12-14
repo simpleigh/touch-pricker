@@ -30,6 +30,8 @@ describe('bellFromSymbol function', () => {
         ['b', 14],
         ['C', 15],
         ['c', 15],
+        ['D', 16],
+        ['d', 16],
     ];
 
     for (const testCase of testCases) {

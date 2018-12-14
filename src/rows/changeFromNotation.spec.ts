@@ -12,6 +12,27 @@ import Stage from './Stage';
 describe('changeFromNotation function', () => {
     const testCases: Array<[string, Stage, string, string, string]> = [
         [
+            'with "-" for cross',
+            Stage.Major,
+            '-',
+            '21436587',
+            '-',
+        ],
+        [
+            'with "x" for cross',
+            Stage.Major,
+            'x',
+            '21436587',
+            '-',
+        ],
+        [
+            'with "X" for cross',
+            Stage.Major,
+            'X',
+            '21436587',
+            '-',
+        ],
+        [
             'with a place made at the start',
             Stage.Triples,
             '1',

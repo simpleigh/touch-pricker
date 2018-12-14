@@ -46,6 +46,12 @@ const changeFromNotation = (input: string, stage: Stage): Change => {
     // Also accumulate a canonical representation of the notation
     let notation = '';
 
+    // Handle the cross change
+    if (input === '-' || input === 'X') {
+        input = ''; // clear the input so we end up with all swaps
+        notation = '-';
+    }
+
     let currentPlace: Bell = 1;
     for (const inputCharacter of input.split('')) {
         let inputPlace: Bell;
@@ -96,7 +102,7 @@ const changeFromNotation = (input: string, stage: Stage): Change => {
 
     // Add <n> at the end if necessary
     if (currentPlace === stage) {
-        notation = notation + ' 1234567890ETABC'.charAt(stage);
+        notation = notation + ' 1234567890ETABCD'.charAt(stage);
     }
 
     change.toString = () => notation;
