@@ -127,9 +127,8 @@ export const testAbstractContainerImplementation = (
 
         testAbstractBlockImplementation(
             factory,
-            (block) => {
-                (block as TestContainer).notify(0);
-            },
+            [createTestRow(), createTestRow('2143658709E')],
+            (block) => { (block as TestContainer).notify(0); },
             expectedRows,
         );
 

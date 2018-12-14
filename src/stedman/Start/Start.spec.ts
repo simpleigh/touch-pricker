@@ -812,6 +812,7 @@ describe('Start class', () => {
     testAbstractBlockImplementation(
         (initialRow: Row, _ownership?: BlockOwnership) =>
             new Start(initialRow, _ownership),
+        [createTestRow(), createTestRow('2143658709E')],
         (fixture) => { (fixture as Start).rowIndex = 2; },
         2,
     );

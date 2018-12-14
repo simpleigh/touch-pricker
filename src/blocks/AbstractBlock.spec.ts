@@ -6,7 +6,6 @@
  */
 
 import { Row } from '../rows';
-import { createTestRow } from '../testFunctions.spec';
 import { Counter } from '../visitors';
 import AbstractBlock from './AbstractBlock';
 import AbstractContainer from './AbstractContainer';
@@ -15,44 +14,43 @@ import BlockOwnership from './BlockOwnership';
 /**
  * Tests that a block behaves as an AbstractBlock
  * @param factory              creates an instance of the object under test
+ * @param testRows             two suitable test rows
  * @param triggerNotification  make block notify parent
  * @param expectedRows         number of rows expected in this block
  */
 export const testAbstractBlockImplementation = (
     factory: (initialRow: Row, _ownership?: BlockOwnership) => AbstractBlock,
+    testRows: [Row, Row],
     triggerNotification: (block: AbstractBlock) => void,
     expectedRows: number,
 ) => {
 
     describe('is derived from AbstractBlock and', () => {
 
-        const testRow = createTestRow();
-
         let block: AbstractBlock;
 
         beforeEach(() => {
-            block = factory(testRow);
+            block = factory(testRows[0]);
         });
 
         it('stores the initial row', () => {
-            expect(block.initialRow).toEqual(testRow);
+            expect(block.initialRow).toEqual(testRows[0]);
         });
 
         it('allows the initial row to be changed', () => {
-            const newRow = createTestRow('2143658709E');
-            block.initialRow = newRow;
-            expect(block.initialRow).toEqual(newRow);
+            block.initialRow = testRows[1];
+            expect(block.initialRow).toEqual(testRows[1]);
         });
 
         it('ignores changes to the original initial row', () => {
-            const initialRow = createTestRow();
+            const initialRow = testRows[0].slice();
             block = factory(initialRow);
 
             initialRow[3] = 999;  // Mutate the initial row
-            expect(initialRow).not.toEqual(testRow);
+            expect(initialRow).not.toEqual(testRows[0]);
 
             expect(block.initialRow).not.toEqual(initialRow);
-            expect(block.initialRow).toEqual(testRow);
+            expect(block.initialRow).toEqual(testRows[0]);
         });
 
         it('ignores changes to the initialRow result', () => {
@@ -67,25 +65,24 @@ export const testAbstractBlockImplementation = (
         });
 
         it('ignores changes to the new initialRow argument', () => {
-            const initialRow = createTestRow('2143658709E');
-            const initialRowBackup = initialRow.slice();
+            const initialRow = testRows[1].slice();
 
             block.initialRow = initialRow;
             initialRow[3] = 999;  // Mutate the initialRow argument
-            expect(initialRow).not.toEqual(initialRowBackup);
+            expect(initialRow).not.toEqual(testRows[1]);
 
             expect(block.initialRow).not.toEqual(initialRow);
-            expect(block.initialRow).toEqual(initialRowBackup);
+            expect(block.initialRow).toEqual(testRows[1]);
         });
 
         it('updates when the initial row changes', () => {
             const lastRow = block.getLast();
-            block.initialRow = createTestRow('2143658709E');
+            block.initialRow = testRows[1];
             expect(block.getLast()).not.toEqual(lastRow);
         });
 
         it('has a last row on the same stage as it starts', () => {
-            expect(block.getLast().length).toEqual(11);
+            expect(block.getLast().length).toEqual(testRows[0].length);
         });
 
         it('ignores changes to the getLast result', () => {
@@ -111,7 +108,7 @@ export const testAbstractBlockImplementation = (
             const container: AbstractContainer<AbstractBlock> =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
             block.ownership = { container, index: 999 };
-            block.initialRow = testRow;
+            block.initialRow = testRows[1];
             expect(container.notify).not.toHaveBeenCalled();
         });
 
@@ -128,7 +125,10 @@ export const testAbstractBlockImplementation = (
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
             const containerNew: AbstractContainer<AbstractBlock> =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
-            block = factory(testRow, { container: containerOld, index: 999 });
+            block = factory(
+                testRows[0],
+                { container: containerOld, index: 999 },
+            );
 
             block.ownership = { container: containerNew, index: 998 };
             expect(block.container).toBe(containerNew);

@@ -253,6 +253,7 @@ export const testSixImplementation = (
 
         testAbstractBlockImplementation(
             factory,
+            [createTestRow(), createTestRow('2143658709E')],
             (six) => { (six as AbstractSix).toggleCall(); },
             6,
         );
