@@ -20,6 +20,7 @@ import {
 } from './rows';
 import * as Stedman from './stedman';
 import * as Tuesday from './tuesday';
+import Type from './Type';
 import * as Visitors from './visitors';
 
 export {
@@ -36,5 +37,6 @@ export {
     Stedman,
     stringFromRow,
     Tuesday,
+    Type,
     Visitors,
 };

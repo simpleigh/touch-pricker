@@ -10,6 +10,8 @@ import template from './create.dot';
 import * as Dom from './dom';
 import Pricker from './Pricker';
 import { MbdPricker } from './stedman';
+import { Pricker as TuesdayPricker } from './tuesday';
+import Type from './Type';
 
 describe('create function', () => {
 
@@ -92,6 +94,15 @@ describe('create function', () => {
             expect((window as any).pricker).toBe(pricker);
         });
 
+    });
+
+    it('can create a Tuesday pricker instead', () => {
+        const pricker = create(
+            'element',
+            { iframe: false, type: Type.Tuesday },
+            parentDocument,
+        );
+        expect(pricker).toEqual(new TuesdayPricker());
     });
 
 });

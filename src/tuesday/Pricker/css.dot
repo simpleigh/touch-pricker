@@ -1,0 +1,17 @@
+/**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * CSS for Tuesday pricker
+ */
+
+#leadheads {
+    float: left;
+    font-family: "Courier New", "Courier", "monospace";
+    font-size: 12pt;
+    margin-right: 25px;
+}

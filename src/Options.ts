@@ -5,6 +5,8 @@
  * @copyright Copyright 2015-19 Leigh Simpson. All rights reserved.
  */
 
+import Type from './Type';
+
 /**
  * Interface for options passed to create()
  */
@@ -15,6 +17,12 @@ interface Options {
      * @default true
      */
     iframe?: boolean;
+
+    /**
+     * Pricker type
+     * @default 'mbd'
+     */
+    type?: Type;
 
 }
 
