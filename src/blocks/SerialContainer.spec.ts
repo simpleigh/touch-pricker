@@ -18,12 +18,14 @@ type TestContainer = SerialContainer<AbstractBlock>;
 /**
  * Tests that a container behaves as a SerialContainer
  * @param factory          creates an instance of the object under test
+ * @param testRows         two suitable test rows
  * @param lengthTestCases  expected lengths and rows for each stage
  * @param expectedLength   blocks in a new Cinques container
  * @param expectedRows     rows in a new Cinques container
  */
 export const testSerialContainerImplementation = (
     factory: (initialRow: Row, _ownership?: BlockOwnership) => TestContainer,
+    testRows: [Row, Row],
     lengthTestCases: Array<[Stage, number, number]>,
     expectedLength: number,
     expectedRows: number,
@@ -31,27 +33,25 @@ export const testSerialContainerImplementation = (
 
     describe('is derived from SerialContainer and', () => {
 
-        const testRow = createTestRow();
-
-        let container: TestContainer = factory(testRow).resetLength();
+        let container: TestContainer = factory(testRows[0]).resetLength();
 
         const length = container.length;
 
         beforeEach(() => {
-            container = factory(testRow);
+            container = factory(testRows[0]);
             container.resetLength();
         });
 
         it('starts out empty', () => {
             for (const testCase of lengthTestCases) {
-                container = factory(createTestRow('231', testCase[0]));
+                container = factory(createTestRow('', testCase[0]));
                 expect(container.length).toBe(0);
             }
         });
 
         it('can be reset to the default length', () => {
             for (const testCase of lengthTestCases) {
-                container = factory(createTestRow('231', testCase[0]));
+                container = factory(createTestRow('', testCase[0]));
                 container.resetLength();
                 expect(container.length).toBe(testCase[1]);
             }
@@ -79,7 +79,7 @@ export const testSerialContainerImplementation = (
 
         it('recalculates last row when increasing length', () => {
             container.setLength(length + 1);
-            expect(container.getLast()).not.toEqual(testRow);
+            expect(container.getLast()).not.toEqual(testRows[0]);
             expect(container.getLast())
                 .toEqual(container.getBlock(length + 1).getLast());
         });
@@ -91,7 +91,7 @@ export const testSerialContainerImplementation = (
 
         it('recalculates last row when decreasing length', () => {
             container.setLength(length - 1);
-            expect(container.getLast()).not.toEqual(testRow);
+            expect(container.getLast()).not.toEqual(testRows[0]);
             expect(container.getLast())
                 .toEqual(container.getBlock(length - 1).getLast());
         });
@@ -128,7 +128,7 @@ export const testSerialContainerImplementation = (
 
         it('estimates the number of rows correctly', () => {
             for (const testCase of lengthTestCases) {
-                container = factory(createTestRow('231', testCase[0]));
+                container = factory(createTestRow('', testCase[0]));
                 container.resetLength();
                 expect(container.estimateRows()).toBe(testCase[2]);
             }
@@ -150,7 +150,8 @@ export const testSerialContainerImplementation = (
 
         testAbstractContainerImplementation(
             defaultLengthFactory,
-            () => defaultLengthFactory(testRow),
+            testRows,
+            () => defaultLengthFactory(testRows[0]),
             expectedLength,
             expectedRows,
         );

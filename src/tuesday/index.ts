@@ -8,3 +8,4 @@
 export { default as Lead } from './Lead';
 export { default as library } from './library';
 export { default as Method } from './Method';
+export { default as Touch } from './Touch';

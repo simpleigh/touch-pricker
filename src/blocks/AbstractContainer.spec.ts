@@ -6,7 +6,6 @@
  */
 
 import { Row } from '../rows';
-import { createTestRow } from '../testFunctions.spec';
 import AbstractBlock from './AbstractBlock';
 import { testAbstractBlockImplementation } from './AbstractBlock.spec';
 import AbstractContainer from './AbstractContainer';
@@ -17,12 +16,14 @@ type TestContainer = AbstractContainer<AbstractBlock>;
 /**
  * Tests that a container behaves as an AbstractContainer
  * @param factory         creates an instance of the object under test
+ * @param testRows        two suitable test rows
  * @param fixtureFactory  function to create a test fixture of >= three blocks
  * @param expectedLength  blocks in the test fixture
  * @param expectedRows    rows in a new Cinques container
  */
 export const testAbstractContainerImplementation = (
     factory: (initialRow: Row, _ownership?: BlockOwnership) => TestContainer,
+    testRows: [Row, Row],
     fixtureFactory: () => TestContainer,
     expectedLength: number,
     expectedRows: number,
@@ -37,19 +38,15 @@ export const testAbstractContainerImplementation = (
         });
 
         it('starts as a round block (last row equal to initial row)', () => {
-            const initialRow = createTestRow();
-            container = factory(initialRow);
-            expect(container.getLast()).toEqual(initialRow);
+            container = factory(testRows[0]);
+            expect(container.getLast()).toEqual(testRows[0]);
         });
 
         it('keeps the last row in sync with the initial row', () => {
-            const initialRow = createTestRow();
-            const newRow = createTestRow('123');
-            container = factory(initialRow);
-
-            container.initialRow = newRow;
-            expect(container.getLast()).not.toEqual(initialRow);
-            expect(container.getLast()).toEqual(newRow);
+            container = factory(testRows[0]);
+            container.initialRow = testRows[1];
+            expect(container.getLast()).not.toEqual(testRows[0]);
+            expect(container.getLast()).toEqual(testRows[1]);
         });
 
         it('contains the expected number of blocks', () => {
@@ -86,12 +83,11 @@ export const testAbstractContainerImplementation = (
             spyOnProperty(container.getBlock(index), 'initialRow', 'set');
 
         it('recalculates blocks when the initial row changes', () => {
-            const newRow = createTestRow('123');
             const spy1 = getSpy(1);
             const spy2 = getSpy(2);
             const spy3 = getSpy(3);
 
-            container.initialRow = newRow;
+            container.initialRow = testRows[1];
             expect(spy1).toHaveBeenCalled();
             expect(spy2).toHaveBeenCalled();
             expect(spy3).toHaveBeenCalled();
@@ -127,7 +123,7 @@ export const testAbstractContainerImplementation = (
 
         testAbstractBlockImplementation(
             factory,
-            [createTestRow(), createTestRow('2143658709E')],
+            testRows,
             (block) => { (block as TestContainer).notify(0); },
             expectedRows,
         );

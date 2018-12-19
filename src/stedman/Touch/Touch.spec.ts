@@ -316,6 +316,7 @@ describe('Touch class', () => {
 
     testRandomAccessContainerImplementation(
         (initialRow, _ownership) => new Touch(initialRow, _ownership),
+        [createTestRow(), createTestRow('2143658709E')],
         [
             Course.fromString(testRow, '32145678E90  1 s7'),
             Course.fromString(testRow, '23145687E90  s7 s13 s15 s22'),

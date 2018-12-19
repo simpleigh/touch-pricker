@@ -511,6 +511,7 @@ describe('Course class', () => {
 
     testSerialContainerImplementation(
         (initialRow, _ownership) => new Course(initialRow, _ownership),
+        [createTestRow(), createTestRow('2143658709E')],
         [
             [Stage.Triples, 14, 84],
             [Stage.Caters, 18, 108],

@@ -7,7 +7,6 @@
  */
 
 import { Row } from '../rows';
-import { createTestRow } from '../testFunctions.spec';
 import AbstractBlock from './AbstractBlock';
 import { testAbstractContainerImplementation } from './AbstractContainer.spec';
 import BlockOwnership from './BlockOwnership';
@@ -18,12 +17,14 @@ type TestContainer = RandomAccessContainer<AbstractBlock>;
 /**
  * Tests that a container behaves as a RandomAccessContainer
  * @param factory       creates an instance of the object under test
+ * @param testRows      two suitable test rows
  * @param testBlocks    array containing three potential child blocks
  * @param firstBlockInitialRowFn
  * @param expectedRows  rows in a new Cinques container
  */
 export const testRandomAccessContainerImplementation = (
     factory: (initialRow: Row, _ownership?: BlockOwnership) => TestContainer,
+    testRows: [Row, Row],
     testBlocks: AbstractBlock[],
     firstBlockInitialRowFn: (container: TestContainer) => Row,
     expectedRows: number,
@@ -31,12 +32,10 @@ export const testRandomAccessContainerImplementation = (
 
     describe('is derived from RandomAccessContainer and', () => {
 
-        const testRow = createTestRow();
-
         let container: TestContainer;
 
         beforeEach(() => {
-            container = factory(testRow);
+            container = factory(testRows[0]);
         });
 
         const checkPropagation = () => {
@@ -154,7 +153,7 @@ export const testRandomAccessContainerImplementation = (
         });
 
         const fixtureFactory: () => TestContainer = () => {
-            const testContainer = factory(createTestRow());
+            const testContainer = factory(testRows[0]);
             testContainer.insertBlock(1, testBlocks[0]);  // [0]
             testContainer.insertBlock(2, testBlocks[1]);  // [0, 1]
             testContainer.insertBlock(3, testBlocks[2]);  // [0, 1, 2]
@@ -163,6 +162,7 @@ export const testRandomAccessContainerImplementation = (
 
         testAbstractContainerImplementation(
             factory,
+            testRows,
             fixtureFactory,
             3,
             expectedRows,
