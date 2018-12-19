@@ -5,12 +5,14 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { testAbstractBlockImplementation } from '../blocks/AbstractBlock.spec';
-import { multiply, Row, rowFromString, Stage, stringFromRow } from '../rows';
-import { StringArray } from '../visitors';
-import Lead from './Lead';
-import library from './library';
-import Method from './Method';
+import Lead from '.';
+import {
+    testAbstractBlockImplementation,
+} from '../../blocks/AbstractBlock.spec';
+import { multiply, Row, rowFromString, Stage, stringFromRow } from '../../rows';
+import { StringArray } from '../../visitors';
+import library from '../library';
+import Method from '../Method';
 
 describe('Lead', () => {
     const testRow = rowFromString('', Stage.Maximus);

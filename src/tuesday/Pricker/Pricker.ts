@@ -48,7 +48,10 @@ class Pricker extends AbstractPricker implements Notifiable {
     }
 
     private redraw(): void {
-        // NOOP
+        this.getEl<HTMLDivElement>('leadheads').innerHTML =
+            this._touch.print('html');
+
+        this.resize();
     }
 }
 

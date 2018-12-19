@@ -5,18 +5,20 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { AbstractBlock, BlockOwnership } from '../blocks';
-import { multiply, Row, rowFromString, Stage } from '../rows';
-import * as Templates from '../templates';
-import { AbstractVisitor } from '../visitors';
-import library from './library';
-import Method from './Method';
+import { AbstractBlock, BlockOwnership } from '../../blocks';
+import { multiply, Row, rowFromString, Stage } from '../../rows';
+import * as Templates from '../../templates';
+import { AbstractVisitor } from '../../visitors';
+import library from '../library';
+import Method from '../Method';
+import html from './html.dot';
 
 /**
  * Lead for Tuesday touch pricker
  */
-@Templates.makePrintable({ })
+@Templates.makePrintable({ html })
 class Lead extends AbstractBlock implements Templates.Interface {
+
     /**
      * Lead head of the next row
      */

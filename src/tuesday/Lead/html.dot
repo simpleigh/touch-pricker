@@ -1,0 +1,36 @@
+/**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * Renders a lead as HTML for Tuesday night pricker
+ * @param {boolean}  underline  whether to underline the sixend
+ */
+
+{{? context.underline !== true }}
+	{{ context.underline = false; }}
+{{?}}
+
+/* Lead head */
+
+{{? context.underline }}
+	<u>
+{{?}}
+
+	{{= context.stringFromRow(context.object.getLast()) }}
+
+{{? context.underline }}
+	</u>
+{{?}}
+
+&nbsp;&nbsp;
+
+
+/* Index */
+
+{{= context.object.index }}
+
+<br />

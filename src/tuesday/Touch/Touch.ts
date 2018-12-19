@@ -7,12 +7,19 @@
 
 import { SerialContainer } from '../../blocks';
 import { Row } from '../../rows';
+import * as Templates from '../../templates';
 import Lead from '../Lead';
+import html from './html.dot';
 
 /**
  * A touch, being a set of leads
  */
-class Touch extends SerialContainer<Lead> {
+@Templates.makePrintable({ html })
+class Touch extends SerialContainer<Lead> implements Templates.Interface {
+
+    /* templating *************************************************************/
+
+    public print: Templates.Print;
 
     /* SerialContainer methods ************************************************/
 
