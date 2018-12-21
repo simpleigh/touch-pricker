@@ -5,14 +5,12 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import Method from './Method';
+import Entry from './Entry';
 
 /**
- * A very naïve method library
- * For each method we store the rows of the first lead.
- * We can then use these to calculate the rows of an arbitrary lead.
+ * A very simple method library
  */
-const library: { [name in Method]: string[] } = {
+const data: { [name: string]: Entry } = {
     Ariel: [
         '2143658709TE',
         '123468507T9E',
@@ -571,4 +569,4 @@ const library: { [name in Method]: string[] } = {
     ],
 };
 
-export default library;
+export default data;

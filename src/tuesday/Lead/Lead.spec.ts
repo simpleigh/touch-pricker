@@ -12,7 +12,6 @@ import {
 import { multiply, Row, rowFromString, Stage, stringFromRow } from '../../rows';
 import { StringArray } from '../../visitors';
 import library from '../library';
-import Method from '../Method';
 
 describe('Lead', () => {
     const testRow = rowFromString('', Stage.Maximus);
@@ -23,13 +22,13 @@ describe('Lead', () => {
         lead = new Lead(testRow);
     });
 
-    const testMethods: Array<[Method, string]> = [
-        [Method.Bristol, '1795E3T20486'],
-        // [Method.Cambridge, '157392E4T608'],
-        // [Method.Crayford, '18604T2E3957'],
+    const testMethods: Array<[string, string]> = [
+        ['Bristol', '1795E3T20486'],
+        ['Cambridge', '157392E4T608'],
+        ['Crayford', '18604T2E3957'],
     ];
 
-    type TestFunction = (method: Method, leadHead: Row) => void;
+    type TestFunction = (method: string, leadHead: Row) => void;
 
     const runTestCases = (testFunction: TestFunction) => () => {
         for (const testMethod of testMethods) {
@@ -41,7 +40,7 @@ describe('Lead', () => {
     };
 
     it('defaults to Bristol', () => {
-        expect(lead.method).toBe(Method.Bristol);
+        expect(lead.method).toBe('Bristol');
     });
 
     it('knows the first lead head', () => {
@@ -54,8 +53,12 @@ describe('Lead', () => {
     });
 
     it('allows the method to be set', () => {
-        lead.method = Method.Cambridge;
-        expect(lead.method).toBe(Method.Cambridge);
+        lead.method = 'Cambridge';
+        expect(lead.method).toBe('Cambridge');
+    });
+
+    it('throws if an unknown method is set', () => {
+        expect(() => { lead.method = 'not a method'; }).toThrow();
     });
 
     it('computes last rows correctly from rounds', runTestCases(
@@ -76,24 +79,22 @@ describe('Lead', () => {
 
     it('computes the correct rows from rounds when visited', runTestCases(
         (method) => {
+            const expected = library.getRows(method)!.map(stringFromRow);
             const visitor = new StringArray();
             lead.method = method;
             lead.accept(visitor);
-            expect(visitor.strings).toEqual(library[method]);
+            expect(visitor.strings).toEqual(expected);
         },
     ));
 
     it('computes the correct rows from another row when visited', runTestCases(
         (method) => {
-            const expected = library[method].slice();
             const initialRow = rowFromString('TE0987654321', Stage.Maximus);
-            const visitor = new StringArray();
-
-            for (let i = 0; i < expected.length; i = i + 1) {
-                let row = rowFromString(expected[i], Stage.Maximus);
+            const expected = library.getRows(method)!.map((row) => {
                 row = multiply(initialRow, row);
-                expected[i] = stringFromRow(row);
-            }
+                return stringFromRow(row);
+            });
+            const visitor = new StringArray();
 
             lead.initialRow = initialRow;
             lead.method = method;
@@ -105,7 +106,7 @@ describe('Lead', () => {
     it('estimates the numbers of rows correctly', runTestCases(
         (method) => {
             lead.method = method;
-            expect(lead.estimateRows()).toBe(library[method].length);
+            expect(lead.estimateRows()).toBe(library.getRowCount(method)!);
         },
     ));
 
@@ -115,7 +116,7 @@ describe('Lead', () => {
             rowFromString('TE0987654321', Stage.Maximus),
             rowFromString('2143658709TE', Stage.Maximus),
         ],
-        (block) => { (block as Lead).method = Method.Cambridge; },
+        (block) => { (block as Lead).method = 'Cambridge'; },
         48,
     );
 });
