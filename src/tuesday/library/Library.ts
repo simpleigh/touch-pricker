@@ -6,13 +6,27 @@
  */
 
 import { Row, rowFromString, Stage } from '../../rows';
+import * as Templates from '../../templates';
 import data from './data';
 import Entry from './Entry';
+import select from './select.dot';
 
 /**
  * A very simple method library
  */
-class Library {
+@Templates.makePrintable({ select })
+class Library implements Templates.Interface {
+
+    /* templating *************************************************************/
+
+    public print: Templates.Print;
+
+    /**
+     * Returns all the method names in this library
+     */
+    public getNames(): string[] {
+        return Object.getOwnPropertyNames(data);
+    }
 
     /**
      * Returns the rows in the first lead of the method

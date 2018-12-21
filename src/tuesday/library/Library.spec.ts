@@ -42,6 +42,13 @@ describe('method library', () => {
         }
     };
 
+    describe('getNames method', () => {
+        it('returns the expected names', () => {
+            const expected = testCases.map((testCase) => testCase[0]);
+            expect(library.getNames()).toEqual(expected);
+        });
+    });
+
     describe('getRows method', () => {
         it('recognises the expected methods', runTestCases((name) => {
             expect(library.getRows(name)).toBeDefined();

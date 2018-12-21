@@ -53,6 +53,12 @@ class Pricker extends AbstractPricker implements Notifiable {
 
         this.resize();
     }
+
+    public onMethod(index: number): void {
+        const id = `method${index}`;
+        const value = this.getEl<HTMLSelectElement>(id).value;
+        this._touch.getBlock(index).method = value;
+    }
 }
 
 export default Pricker;

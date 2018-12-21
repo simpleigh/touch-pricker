@@ -29,6 +29,18 @@
 &nbsp;&nbsp;
 
 
+/* Method */
+
+<select
+	 id="method{{= context.object.index }}"
+	 onChange="pricker.onMethod({{= context.object.index }})"
+>
+	{{= context.library.print('select', { selected: context.object.method }) }}
+</select>
+
+&nbsp;&nbsp;
+
+
 /* Index */
 
 {{= context.object.index }}

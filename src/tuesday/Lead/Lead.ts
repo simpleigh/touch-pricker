@@ -15,7 +15,7 @@ import html from './html.dot';
 /**
  * Lead for Tuesday touch pricker
  */
-@Templates.makePrintable({ html })
+@Templates.makePrintable({ html }, { library })
 class Lead extends AbstractBlock implements Templates.Interface {
 
     /**
