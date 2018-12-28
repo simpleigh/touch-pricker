@@ -8,8 +8,8 @@
 import AbstractMethod from '.';
 import SixType from '../../SixType';
 import Erin from '../Erin';
-import JumpStedman from '../JumpStedman';
 import Stedman from '../Stedman';
+import StedmanJump from '../StedmanJump';
 
 /**
  * Tests the template behaves like the parent version
@@ -42,7 +42,7 @@ describe('select template for Stedman', testSelectAbstractMethodTemplate(
     [SixType.Slow, SixType.Quick],
 ));
 
-describe('select template for Jump Stedman', testSelectAbstractMethodTemplate(
-    JumpStedman,
-    [SixType.JumpDown, SixType.Slow, SixType.JumpUp, SixType.Quick],
+describe('select template for Stedman Jump', testSelectAbstractMethodTemplate(
+    StedmanJump,
+    [SixType.Cold, SixType.Hot],
 ));

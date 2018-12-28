@@ -13,7 +13,7 @@ import { Stage, stringFromRow } from '../../rows';
 import { createTestCourse, createTestRow } from '../../testFunctions.spec';
 import { StringArray } from '../../visitors';
 import Call from '../Call';
-import { AbstractMethod, Erin, JumpStedman, Stedman } from '../methods';
+import { AbstractMethod, Erin, Stedman, StedmanJump } from '../methods';
 import SixType from '../SixType';
 import Touch from '../Touch';
 
@@ -41,18 +41,18 @@ describe('Course class', () => {
         expect(course.getBlock(1).type).toBe(SixType.Slow);
     });
 
-    it('starts out with a jump down six by default for Jump Stedman', () => {
-        course = new Course(testRow, undefined, new JumpStedman());
+    it('starts out with a cold six by default for Stedman Jump', () => {
+        course = new Course(testRow, undefined, new StedmanJump());
         course.resetLength();
-        expect(course.firstSixType).toBe(SixType.JumpDown);
-        expect(course.getBlock(1).type).toBe(SixType.JumpDown);
+        expect(course.firstSixType).toBe(SixType.Cold);
+        expect(course.getBlock(1).type).toBe(SixType.Cold);
     });
 
     it('sets the first six for the chosen method', () => {
         // tslint:disable-next-line
-        const method = { defaultFirstSix: SixType.JumpUp } as AbstractMethod;
+        const method = { defaultFirstSix: SixType.Cold } as AbstractMethod;
         course = new Course(testRow, undefined, method);
-        expect(course.firstSixType).toBe(SixType.JumpUp);
+        expect(course.firstSixType).toBe(SixType.Cold);
     });
 
     it('has the right default length for Erin', () => {
@@ -67,10 +67,10 @@ describe('Course class', () => {
         expect(course.length).toBe(22);
     });
 
-    it('has the right default length for Jump Stedman', () => {
-        course = new Course(testRow, undefined, new JumpStedman());
+    it('has the right default length for Stedman Jump', () => {
+        course = new Course(testRow, undefined, new StedmanJump());
         course.resetLength();
-        expect(course.length).toBe(44);
+        expect(course.length).toBe(22);
     });
 
     it('calculates the default length for the chosen method', () => {

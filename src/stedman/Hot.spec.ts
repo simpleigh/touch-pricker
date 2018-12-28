@@ -8,13 +8,13 @@
 import { Stage as S } from '../rows';
 import { testSixImplementation } from './AbstractSix/AbstractSix.spec';
 import C from './Call';
-import JumpDown from './JumpDown';
+import Hot from './Hot';
 import SixType from './SixType';
 
-describe('JumpDown six class', () => {
+describe('Hot six class', () => {
 
     testSixImplementation(
-        (initialRow, _ownership) => new JumpDown(initialRow, _ownership),
+        (initialRow, _ownership) => new Hot(initialRow, _ownership),
         [
             ['2314567',         '2436175',         S.Triples,   C.Plain],
             ['231456789',       '243618597',       S.Caters,    C.Plain],
@@ -79,7 +79,7 @@ describe('JumpDown six class', () => {
                 S.Septuples,
             ],
         ],
-        SixType.JumpDown,
+        SixType.Hot,
         [
             '312547698E0',
             '312547698E0',

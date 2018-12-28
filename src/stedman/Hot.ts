@@ -12,14 +12,14 @@ import * as Changes from './Changes';
 import SixType from './SixType';
 
 /**
- * A jump down six
+ * A "Hot" (jump down) six
  */
-class JumpDown extends AbstractSix {
+class Hot extends AbstractSix {
 
     /**
      * Type of the six
      */
-    public readonly type: SixType = SixType.JumpDown;
+    public readonly type: SixType = SixType.Hot;
 
     /**
      * Notation (excluding call)
@@ -72,4 +72,4 @@ class JumpDown extends AbstractSix {
 
 }
 
-export default JumpDown;
+export default Hot;

@@ -13,8 +13,8 @@ import { Course, SixType, Touch } from '../../stedman';
 import {
     AbstractMethod,
     Erin,
-    JumpStedman,
     Stedman,
+    StedmanJump,
 } from '../../stedman/methods';
 import * as Templates from '../../templates';
 import * as Visitors from '../../visitors';
@@ -186,7 +186,7 @@ class Mbd extends AbstractPricker implements Notifiable {
         this.getEl('calling').innerHTML = this._course.print('html');
 
         newCourse.initialRow = this._initialRow;
-        newCourse.setFirstSixType(SixType.Slow);
+        newCourse.setFirstSixType(this._method.defaultFirstSix);
         this.getEl('callingFromRounds').innerHTML = newCourse.print('html');
 
         this.getEl<HTMLInputElement>('initialRow').value =
@@ -268,7 +268,7 @@ class Mbd extends AbstractPricker implements Notifiable {
         const method = this.getEl<HTMLSelectElement>('method').value;
         const methodMap: { [method: string]: AbstractMethod } = {
             erin: new Erin(),
-            jump: new JumpStedman(),
+            jump: new StedmanJump(),
             stedman: new Stedman(),
         };
         this._method = methodMap[method];

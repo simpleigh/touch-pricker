@@ -12,8 +12,8 @@
 enum SixType {
     Slow = 'slow',
     Quick = 'quick',
-    JumpUp = 'jump up',
-    JumpDown = 'jump down',
+    Cold = 'cold',
+    Hot = 'hot',
     Invalid = 'invalid',
 }
 

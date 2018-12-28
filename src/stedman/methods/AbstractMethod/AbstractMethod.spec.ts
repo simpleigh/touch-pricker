@@ -10,7 +10,6 @@ import matchers from '../../../templates/matchers';
 import { createTestRow } from '../../../testFunctions.spec';
 import Course from '../../Course';
 import SixType from '../../SixType';
-import JumpStedman from '../JumpStedman';
 import AbstractMethod from './AbstractMethod';
 
 /**
@@ -27,8 +26,7 @@ export const testAbstractMethodImplementation = (
 
     const initialRow = createTestRow();
 
-    // Test course based on Jump Stedman as this allows all six types
-    const testCourse = new Course(initialRow, undefined, new JumpStedman());
+    const testCourse = new Course(initialRow, undefined, new Method());
 
     const method = new Method();
 
