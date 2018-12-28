@@ -76,11 +76,21 @@ class Start extends AbstractBlock implements Templates.Interface {
         }
 
         for (const notation of this.notation) {
-            if (notation === '1') {
-                Changes.permute1(row);
-            } else {
-                Changes.permute3(row);
+            switch (notation) {
+                case '1':
+                    Changes.permute1(row);
+                    break;
+                case '3':
+                    Changes.permute3(row);
+                    break;
+                case '(13)':
+                    Changes.permuteUp(row);
+                    break;
+                case '(31)':
+                    Changes.permuteDown(row);
+                    break;
             }
+
             this._rows.push(row.slice());
         }
 
@@ -224,6 +234,8 @@ class Start extends AbstractBlock implements Templates.Interface {
         const types: SixTypeMap<string[]> = {
             [SixType.Slow]: ['3', '1', '3', '1', '3'],
             [SixType.Quick]: ['1', '3', '1', '3', '1'],
+            [SixType.Cold]: ['(13)', '(13)', '(13)', '(13)', '(13)'],
+            [SixType.Hot]: ['(31)', '(31)', '(31)', '(31)', '(31)'],
         };
         const sixNotation = types[this._sixType]!;
         return sixNotation.slice(this._rowIndex - 1);

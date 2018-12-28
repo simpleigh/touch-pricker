@@ -15,8 +15,9 @@ import {
 import { Row, rowFromString, Stage as S } from '../../rows';
 import { createTestRow } from '../../testFunctions.spec';
 import { StringArray } from '../../visitors';
-import { AbstractMethod, Erin, Stedman } from '../methods';
+import { AbstractMethod, Erin, Stedman, StedmanJump } from '../methods';
 import SixType from '../SixType';
+import SixTypeMap from '../SixTypeMap';
 
 describe('Start class', () => {
 
@@ -38,6 +39,12 @@ describe('Start class', () => {
         start = new Start(testRow, undefined, new Stedman());
         expect(start.rowIndex).toBe(4);
         expect(start.sixType).toBe(SixType.Quick);
+    });
+
+    it('defaults to a standard start for Stedman Jump', () => {
+        start = new Start(testRow, undefined, new StedmanJump());
+        expect(start.rowIndex).toBe(6);
+        expect(start.sixType).toBe(SixType.Hot);
     });
 
     it('allows the row index to be set', () => {
@@ -167,7 +174,98 @@ describe('Start class', () => {
             [S.Sextuples, []],
             [S.Septuples, []],
         ]],
+        [1, SixType.Cold, ['(13)', '(13)', '(13)', '(13)', '(13)'], [
+            [S.Triples,   ['2315476',         '3124567',         '1235476',         '2314567',         '3125476']],
+            [S.Caters,    ['231547698',       '312456789',       '123547698',       '231456789',       '312547698']],
+            [S.Cinques,   ['231547698E0',     '3124567890E',     '123547698E0',     '2314567890E',     '312547698E0']],
+            [S.Sextuples, ['231547698E0AT',   '3124567890ETA',   '123547698E0AT',   '2314567890ETA',   '312547698E0AT']],
+            [S.Septuples, ['231547698E0ATCB', '3124567890ETABC', '123547698E0ATCB', '2314567890ETABC', '312547698E0ATCB']],
+        ]],
+        [2, SixType.Cold, ['(13)', '(13)', '(13)', '(13)'], [
+            [S.Triples,   ['2315476',         '3124567',         '1235476',         '2314567']],
+            [S.Caters,    ['231547698',       '312456789',       '123547698',       '231456789']],
+            [S.Cinques,   ['231547698E0',     '3124567890E',     '123547698E0',     '2314567890E']],
+            [S.Sextuples, ['231547698E0AT',   '3124567890ETA',   '123547698E0AT',   '2314567890ETA']],
+            [S.Septuples, ['231547698E0ATCB', '3124567890ETABC', '123547698E0ATCB', '2314567890ETABC']],
+        ]],
+        [3, SixType.Cold, ['(13)', '(13)', '(13)'], [
+            [S.Triples,   ['2315476',         '3124567',         '1235476']],
+            [S.Caters,    ['231547698',       '312456789',       '123547698']],
+            [S.Cinques,   ['231547698E0',     '3124567890E',     '123547698E0']],
+            [S.Sextuples, ['231547698E0AT',   '3124567890ETA',   '123547698E0AT']],
+            [S.Septuples, ['231547698E0ATCB', '3124567890ETABC', '123547698E0ATCB']],
+        ]],
+        [4, SixType.Cold, ['(13)', '(13)'], [
+            [S.Triples,   ['2315476',         '3124567']],
+            [S.Caters,    ['231547698',       '312456789']],
+            [S.Cinques,   ['231547698E0',     '3124567890E']],
+            [S.Sextuples, ['231547698E0AT',   '3124567890ETA']],
+            [S.Septuples, ['231547698E0ATCB', '3124567890ETABC']],
+        ]],
+        [5, SixType.Cold, ['(13)'], [
+            [S.Triples,   ['2315476']],
+            [S.Caters,    ['231547698']],
+            [S.Cinques,   ['231547698E0']],
+            [S.Sextuples, ['231547698E0AT']],
+            [S.Septuples, ['231547698E0ATCB']],
+        ]],
+        [6, SixType.Cold, [], [
+            [S.Triples,   []],
+            [S.Caters,    []],
+            [S.Cinques,   []],
+            [S.Sextuples, []],
+            [S.Septuples, []],
+        ]],
+        [1, SixType.Hot, ['(31)', '(31)', '(31)', '(31)', '(31)'], [
+            [S.Triples,   ['3125476',         '2314567',         '1235476',         '3124567',         '2315476']],
+            [S.Caters,    ['312547698',       '231456789',       '123547698',       '312456789',       '231547698']],
+            [S.Cinques,   ['312547698E0',     '2314567890E',     '123547698E0',     '3124567890E',     '231547698E0']],
+            [S.Sextuples, ['312547698E0AT',   '2314567890ETA',   '123547698E0AT',   '3124567890ETA',   '231547698E0AT']],
+            [S.Septuples, ['312547698E0ATCB', '2314567890ETABC', '123547698E0ATCB', '3124567890ETABC', '231547698E0ATCB']],
+        ]],
+        [2, SixType.Hot, ['(31)', '(31)', '(31)', '(31)'], [
+            [S.Triples,   ['3125476',         '2314567',         '1235476',         '3124567']],
+            [S.Caters,    ['312547698',       '231456789',       '123547698',       '312456789']],
+            [S.Cinques,   ['312547698E0',     '2314567890E',     '123547698E0',     '3124567890E']],
+            [S.Sextuples, ['312547698E0AT',   '2314567890ETA',   '123547698E0AT',   '3124567890ETA']],
+            [S.Septuples, ['312547698E0ATCB', '2314567890ETABC', '123547698E0ATCB', '3124567890ETABC']],
+        ]],
+        [3, SixType.Hot, ['(31)', '(31)', '(31)'], [
+            [S.Triples,   ['3125476',         '2314567',         '1235476']],
+            [S.Caters,    ['312547698',       '231456789',       '123547698']],
+            [S.Cinques,   ['312547698E0',     '2314567890E',     '123547698E0']],
+            [S.Sextuples, ['312547698E0AT',   '2314567890ETA',   '123547698E0AT']],
+            [S.Septuples, ['312547698E0ATCB', '2314567890ETABC', '123547698E0ATCB']],
+        ]],
+        [4, SixType.Hot, ['(31)', '(31)'], [
+            [S.Triples,   ['3125476',         '2314567']],
+            [S.Caters,    ['312547698',       '231456789']],
+            [S.Cinques,   ['312547698E0',     '2314567890E']],
+            [S.Sextuples, ['312547698E0AT',   '2314567890ETA']],
+            [S.Septuples, ['312547698E0ATCB', '2314567890ETABC']],
+        ]],
+        [5, SixType.Hot, ['(31)'], [
+            [S.Triples,   ['3125476']],
+            [S.Caters,    ['312547698']],
+            [S.Cinques,   ['312547698E0']],
+            [S.Sextuples, ['312547698E0AT']],
+            [S.Septuples, ['312547698E0ATCB']],
+        ]],
+        [6, SixType.Hot, [], [
+            [S.Triples,   []],
+            [S.Caters,    []],
+            [S.Cinques,   []],
+            [S.Sextuples, []],
+            [S.Septuples, []],
+        ]],
     ];
+
+    const methodMap: SixTypeMap<{ new(): AbstractMethod }> = {
+        [SixType.Slow]: Stedman,
+        [SixType.Quick]: Stedman,
+        [SixType.Cold]: StedmanJump,
+        [SixType.Hot]: StedmanJump,
+    };
 
     const runTestCases = (testFn: (fixture: Start, rows: string[]) => void) => () => {
         for (const startPosition of startPositions) {
@@ -178,7 +276,12 @@ describe('Start class', () => {
             for (const testCase of testCases) {
                 const stage = testCase[0];
                 const rows = testCase[1];
-                const fixture = new Start(createTestRow('123', stage));
+                const method = methodMap[sixType]!;
+                const fixture = new Start(
+                    createTestRow('123', stage),
+                    undefined,
+                    new method(),
+                );
 
                 fixture.rowIndex = rowIndex;
                 fixture.sixType = sixType;
@@ -192,8 +295,13 @@ describe('Start class', () => {
             const rowIndex = startPosition[0];
             const sixType = startPosition[1];
             const notation = startPosition[2];
+            const method = methodMap[sixType]!;
+            const fixture = new Start(
+                createTestRow(),
+                undefined,
+                new method(),
+            );
 
-            const fixture = new Start(createTestRow());
             fixture.rowIndex = rowIndex;
             fixture.sixType = sixType;
             expect(fixture.notation).toEqual(notation);

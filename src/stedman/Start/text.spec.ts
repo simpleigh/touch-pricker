@@ -7,7 +7,7 @@
 
 import Start from '.';
 import { createTestRow } from '../../testFunctions.spec';
-import { AbstractMethod, Erin, Stedman } from '../methods';
+import { AbstractMethod, Erin, Stedman, StedmanJump } from '../methods';
 import SixType from '../SixType';
 
 describe('text template for Start', () => {
@@ -43,6 +43,24 @@ describe('text template for Start', () => {
             'Start from rounds as the fourth row of a slow six.',
             'Start from rounds as the fifth row of a slow six.',
             'Start from rounds as the last row of a slow six.',
+        ]],
+        [StedmanJump, SixType.Cold, [
+            '', // Aligns array indices with rowIndex
+            'Start from rounds as the first row of a cold six.',
+            'Start from rounds as the second row of a cold six.',
+            'Start from rounds as the third row of a cold six.',
+            'Start from rounds as the fourth row of a cold six.',
+            'Start from rounds as the fifth row of a cold six.',
+            'Start from rounds as the last row of a cold six.',
+        ]],
+        [StedmanJump, SixType.Hot, [
+            '', // Aligns array indices with rowIndex
+            'Start from rounds as the first row of a hot six.',
+            'Start from rounds as the second row of a hot six.',
+            'Start from rounds as the third row of a hot six.',
+            'Start from rounds as the fourth row of a hot six.',
+            'Start from rounds as the fifth row of a hot six.',
+            '', // Default start
         ]],
     ];
 
