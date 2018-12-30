@@ -6,18 +6,18 @@
  */
 
 import AbstractSix from '.';
-import { BlockOwnership } from '../../blocks';
+import { BlockOwnership } from '../../../blocks';
 import {
     testAbstractBlockImplementation,
-} from '../../blocks/AbstractBlock.spec';
-import { Row, Stage, stringFromRow } from '../../rows';
-import matchers from '../../templates/matchers';
-import { createTestRow } from '../../testFunctions.spec';
-import { StringArray } from '../../visitors';
-import Call from '../Call';
-import * as Changes from '../Changes';
-import Course from '../Course';
-import SixType from '../SixType';
+} from '../../../blocks/AbstractBlock.spec';
+import { Row, Stage, stringFromRow } from '../../../rows';
+import matchers from '../../../templates/matchers';
+import { createTestRow } from '../../../testFunctions.spec';
+import { StringArray } from '../../../visitors';
+import Call from '../../Call';
+import * as Changes from '../../Changes';
+import Course from '../../Course';
+import SixType from '../../SixType';
 
 export const testSixImplementation = (
     factory: (initialRow: Row, _ownership?: BlockOwnership) => AbstractSix,

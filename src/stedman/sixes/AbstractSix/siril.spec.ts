@@ -6,10 +6,10 @@
  */
 
 import AbstractSix from '.';
-import { BlockOwnership } from '../../blocks';
-import { Row } from '../../rows';
-import { createTestRow } from '../../testFunctions.spec';
-import Call from '../Call';
+import { BlockOwnership } from '../../../blocks';
+import { Row } from '../../../rows';
+import { createTestRow } from '../../../testFunctions.spec';
+import Call from '../../Call';
 import Cold from '../Cold';
 import Hot from '../Hot';
 import Quick from '../Quick';

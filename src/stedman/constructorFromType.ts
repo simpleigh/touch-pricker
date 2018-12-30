@@ -7,13 +7,9 @@
 
 import { BlockOwnership } from '../blocks';
 import { Row } from '../rows';
-import AbstractSix from './AbstractSix';
-import Cold from './Cold';
-import Hot from './Hot';
-import Quick from './Quick';
+import { AbstractSix, Cold, Hot, Quick, Slow } from './sixes';
 import SixType from './SixType';
 import SixTypeMap from './SixTypeMap';
-import Slow from './Slow';
 
 interface SixConstructor {
     new(initialRow: Row, _ownership?: BlockOwnership): AbstractSix;

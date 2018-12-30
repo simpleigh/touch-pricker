@@ -5,11 +5,11 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { rowFromString, stringFromRow } from '../rows';
-import { AbstractVisitor } from '../visitors';
+import { rowFromString, stringFromRow } from '../../rows';
+import { AbstractVisitor } from '../../visitors';
+import * as Changes from '../Changes';
+import SixType from '../SixType';
 import AbstractSix from './AbstractSix';
-import * as Changes from './Changes';
-import SixType from './SixType';
 
 /**
  * A "Hot" (jump down) six

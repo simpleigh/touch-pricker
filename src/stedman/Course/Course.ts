@@ -8,9 +8,9 @@
 import { BlockOwnership, SerialContainer } from '../../blocks';
 import { Row } from '../../rows';
 import * as Templates from '../../templates';
-import AbstractSix from '../AbstractSix';
 import Call from '../Call';
 import { AbstractMethod, Stedman } from '../methods';
+import { AbstractSix } from '../sixes';
 import SixType from '../SixType';
 import html from './html.dot';
 import mbd from './mbd.dot';

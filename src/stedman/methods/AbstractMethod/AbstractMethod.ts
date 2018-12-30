@@ -7,8 +7,8 @@
 
 import { Row } from '../../../rows';
 import * as Templates from '../../../templates';
-import AbstractSix from '../../AbstractSix';
 import Course from '../../Course';
+import { AbstractSix } from '../../sixes';
 import SixType from '../../SixType';
 import SixTypeMap from '../../SixTypeMap';
 import select from './select.dot';

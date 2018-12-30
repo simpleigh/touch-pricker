@@ -9,13 +9,10 @@ import { BlockOwnership, RandomAccessContainer } from '../../blocks';
 import { Row, rowFromString, Stage } from '../../rows';
 import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
-import Cold from '../Cold';
 import constructorFromType from '../constructorFromType';
 import Course from '../Course';
-import Hot from '../Hot';
 import { AbstractMethod, Stedman } from '../methods';
-import Quick from '../Quick';
-import Slow from '../Slow';
+import * as sixes from '../sixes';
 import Start from '../Start';
 import select from './select.dot';
 import siril from './siril.dot';
@@ -26,7 +23,7 @@ import text from './text.dot';
  */
 @Templates.makePrintable(
     { select, siril, text },
-    { constructorFromType, rowFromString, sixes: { Cold, Hot, Quick, Slow } },
+    { constructorFromType, rowFromString, sixes },
 )
 class Touch
     extends RandomAccessContainer<Course>

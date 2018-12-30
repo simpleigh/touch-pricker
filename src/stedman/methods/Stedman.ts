@@ -6,12 +6,10 @@
  */
 
 import { Row } from '../../rows';
-import AbstractSix from '../AbstractSix';
 import Course from '../Course';
-import Quick from '../Quick';
+import { AbstractSix, Quick, Slow } from '../sixes';
 import SixType from '../SixType';
 import SixTypeMap from '../SixTypeMap';
-import Slow from '../Slow';
 import AbstractMethod from './AbstractMethod';
 
 /**

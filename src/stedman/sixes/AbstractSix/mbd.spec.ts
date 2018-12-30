@@ -9,11 +9,11 @@ import AbstractSix from '.';
 import {
     BlockDirectory,
     BlockOwnership,
-} from '../../blocks';
-import { Row, stringFromRow } from '../../rows';
-import { createTestRow } from '../../testFunctions.spec';
-import Call from '../Call';
-import Course from '../Course';
+} from '../../../blocks';
+import { Row, stringFromRow } from '../../../rows';
+import { createTestRow } from '../../../testFunctions.spec';
+import Call from '../../Call';
+import Course from '../../Course';
 import Quick from '../Quick';
 import Slow from '../Slow';
 

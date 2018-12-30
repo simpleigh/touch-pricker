@@ -5,11 +5,11 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { Stage as S } from '../rows';
+import { Stage as S } from '../../rows';
+import C from '../Call';
+import SixType from '../SixType';
 import { testSixImplementation } from './AbstractSix/AbstractSix.spec';
-import C from './Call';
 import Hot from './Hot';
-import SixType from './SixType';
 
 describe('Hot six class', () => {
 

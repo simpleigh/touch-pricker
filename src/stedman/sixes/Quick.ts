@@ -5,25 +5,25 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { AbstractVisitor } from '../visitors';
+import { AbstractVisitor } from '../../visitors';
+import * as Changes from '../Changes';
+import SixType from '../SixType';
 import AbstractSix from './AbstractSix';
-import * as Changes from './Changes';
-import SixType from './SixType';
 
 /**
- * A slow six
+ * A quick six
  */
-class Slow extends AbstractSix {
+class Quick extends AbstractSix {
 
     /**
      * Type of the six
      */
-    public readonly type: SixType = SixType.Slow;
+    public readonly type: SixType = SixType.Quick;
 
     /**
      * Notation (excluding call)
      */
-    public readonly notation: string[] = ['3', '1', '3', '1', '3'];
+    public readonly notation: string[] = ['1', '3', '1', '3', '1'];
 
     /* AbstractBlock methods **************************************************/
 
@@ -37,9 +37,6 @@ class Slow extends AbstractSix {
             Changes.permuteCall(row, this._call);
             visitor.visit(row, this);
 
-            Changes.permute3(row);
-            visitor.visit(row, this);
-
             Changes.permute1(row);
             visitor.visit(row, this);
 
@@ -47,6 +44,9 @@ class Slow extends AbstractSix {
             visitor.visit(row, this);
 
             Changes.permute1(row);
+            visitor.visit(row, this);
+
+            Changes.permute3(row);
             visitor.visit(row, this);
 
             visitor.visit(this._end, this);
@@ -61,9 +61,9 @@ class Slow extends AbstractSix {
      * Transposes the front three bells depending upon the type of six
      */
     protected applySixTransposition(): void {
-        Changes.permute1(this._end);
+        Changes.permute3(this._end);
     }
 
 }
 
-export default Slow;
+export default Quick;

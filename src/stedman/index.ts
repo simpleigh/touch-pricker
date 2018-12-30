@@ -6,15 +6,14 @@
  */
 
 import * as Changes from './Changes';
+import * as methods from './methods';
+import * as sixes from './sixes';
 
-export { default as AbstractSix } from './AbstractSix';
 export { default as Call } from './Call';
 export { Changes };
-export { default as Cold } from './Cold';
 export { default as Course } from './Course';
-export { default as Hot } from './Hot';
-export { default as Quick } from './Quick';
+export { methods };
+export { sixes };
 export { default as SixType } from './SixType';
-export { default as Slow } from './Slow';
 export { default as Start } from './Start';
 export { default as Touch } from './Touch';
