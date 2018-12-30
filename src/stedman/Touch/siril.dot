@@ -40,10 +40,10 @@ composition = touch{{= '\n' }}
 {{= '\n' }}
 
 /* Short blocks */
-slow = +{{= (new context.sixes.Slow(rounds)).notation.join('.') }}{{= '\n' }}
-quick = +{{= (new context.sixes.Quick(rounds)).notation.join('.') }}{{= '\n' }}
-cold = {{= (new context.sixes.Cold(rounds)).notation.join(', ') }}{{= '\n' }}
-hot = {{= (new context.sixes.Hot(rounds)).notation.join(', ') }}{{= '\n' }}
+{{~ context.object.method.getSixTypes() :sixType }}
+	{{ var six = new (context.constructorFromType(sixType))(rounds); }}
+	{{= six.type }} = {{= six.getNotationString() }}{{= '\n' }}
+{{~}}
 plain = +{{= roundsString.slice(-1) }}{{= '\n' }}
 bob = +{{= roundsString.slice(-3, -2) }}{{= '\n' }}
 single = +{{= roundsString.slice(-3) }}{{= '\n' }}

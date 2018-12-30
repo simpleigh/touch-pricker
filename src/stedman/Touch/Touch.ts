@@ -10,6 +10,7 @@ import { Row, rowFromString, Stage } from '../../rows';
 import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
 import Cold from '../Cold';
+import constructorFromType from '../constructorFromType';
 import Course from '../Course';
 import Hot from '../Hot';
 import { AbstractMethod, Stedman } from '../methods';
@@ -25,7 +26,7 @@ import text from './text.dot';
  */
 @Templates.makePrintable(
     { select, siril, text },
-    { rowFromString, sixes: { Cold, Hot, Quick, Slow } },
+    { constructorFromType, rowFromString, sixes: { Cold, Hot, Quick, Slow } },
 )
 class Touch
     extends RandomAccessContainer<Course>
@@ -103,10 +104,17 @@ class Touch
     /* Touch methods **********************************************************/
 
     /**
-     * Read access to the start
+     * Provides read access to the start
      */
     get start(): Start {
         return this._start;
+    }
+
+    /**
+     * Provides read access to the method
+     */
+    get method(): AbstractMethod {
+        return this._method;
     }
 
     /**

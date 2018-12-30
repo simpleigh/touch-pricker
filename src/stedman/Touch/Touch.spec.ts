@@ -167,6 +167,12 @@ describe('Touch class', () => {
         expect(touch.getBlock(2).firstSixType).toBe(SixType.Slow);
     });
 
+    it('provides read access to the method', () => {
+        const method = new Stedman();
+        touch = new Touch(testRow, undefined, method);
+        expect(touch.method).toBe(method);
+    });
+
     describe('can create touches from strings:', () => {
 
         const testImport = (

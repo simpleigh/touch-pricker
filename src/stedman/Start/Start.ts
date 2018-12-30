@@ -9,15 +9,10 @@ import { AbstractBlock, BlockOwnership } from '../../blocks';
 import { Row } from '../../rows';
 import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
-import AbstractSix from '../AbstractSix';
 import * as Changes from '../Changes';
-import Cold from '../Cold';
-import Hot from '../Hot';
+import constructorFromType from '../constructorFromType';
 import { AbstractMethod, Stedman } from '../methods';
-import Quick from '../Quick';
 import SixType from '../SixType';
-import SixTypeMap from '../SixTypeMap';
-import Slow from '../Slow';
 import siril from './siril.dot';
 import text from './text.dot';
 
@@ -231,14 +226,7 @@ class Start extends AbstractBlock implements Templates.Interface {
      * Returns place notation for the start
      */
     get notation(): string[] {
-        const sixClasses: SixTypeMap<{ new(...args: any[]): AbstractSix }> = {
-            [SixType.Slow]: Slow,
-            [SixType.Quick]: Quick,
-            [SixType.Cold]: Cold,
-            [SixType.Hot]: Hot,
-        };
-        const sixClass = sixClasses[this._sixType]!;
-        const six = new sixClass(this._initialRow);
+        const six = new (constructorFromType(this._sixType))(this._initialRow);
         return six.notation.slice(this._rowIndex - 1);
     }
 
