@@ -83,180 +83,520 @@ describe('Start class', () => {
         expect(start.method).toBe(method);
     });
 
-    type Notation = string[];
+    type Stage<Expected> = [S, Expected];
 
-    type TestCase = [S, string[]];
+    type StartPosition<Expected> = [number, SixType, Array<Stage<Expected>>];
 
-    type StartPosition = [number, SixType, Notation, TestCase[]];
-
-    const startPositions: StartPosition[] = [
-        [1, SixType.Quick, ['1', '3', '1', '3', '1'], [
+    const rowTestCases: Array<StartPosition<string[]>> = [
+        [1, SixType.Quick, [
             [S.Triples,   ['1325476',         '3124567',         '3215476',         '2314567',         '2135476']],
             [S.Caters,    ['132547698',       '312456789',       '321547698',       '231456789',       '213547698']],
             [S.Cinques,   ['132547698E0',     '3124567890E',     '321547698E0',     '2314567890E',     '213547698E0']],
             [S.Sextuples, ['132547698E0AT',   '3124567890ETA',   '321547698E0AT',   '2314567890ETA',   '213547698E0AT']],
             [S.Septuples, ['132547698E0ATCB', '3124567890ETABC', '321547698E0ATCB', '2314567890ETABC', '213547698E0ATCB']],
         ]],
-        [2, SixType.Quick, ['3', '1', '3', '1'], [
+        [2, SixType.Quick, [
             [S.Triples,   ['2135476',         '2314567',         '3215476',         '3124567']],
             [S.Caters,    ['213547698',       '231456789',       '321547698',       '312456789']],
             [S.Cinques,   ['213547698E0',     '2314567890E',     '321547698E0',     '3124567890E']],
             [S.Sextuples, ['213547698E0AT',   '2314567890ETA',   '321547698E0AT',   '3124567890ETA']],
             [S.Septuples, ['213547698E0ATCB', '2314567890ETABC', '321547698E0ATCB', '3124567890ETABC']],
         ]],
-        [3, SixType.Quick, ['1', '3', '1'], [
+        [3, SixType.Quick, [
             [S.Triples,   ['1325476',         '3124567',         '3215476']],
             [S.Caters,    ['132547698',       '312456789',       '321547698']],
             [S.Cinques,   ['132547698E0',     '3124567890E',     '321547698E0']],
             [S.Sextuples, ['132547698E0AT',   '3124567890ETA',   '321547698E0AT']],
             [S.Septuples, ['132547698E0ATCB', '3124567890ETABC', '321547698E0ATCB']],
         ]],
-        [4, SixType.Quick, ['3', '1'], [
+        [4, SixType.Quick, [
             [S.Triples,   ['2135476',         '2314567']],
             [S.Caters,    ['213547698',       '231456789']],
             [S.Cinques,   ['213547698E0',     '2314567890E']],
             [S.Sextuples, ['213547698E0AT',   '2314567890ETA']],
             [S.Septuples, ['213547698E0ATCB', '2314567890ETABC']],
         ]],
-        [5, SixType.Quick, ['1'], [
+        [5, SixType.Quick, [
             [S.Triples,   ['1325476']],
             [S.Caters,    ['132547698']],
             [S.Cinques,   ['132547698E0']],
             [S.Sextuples, ['132547698E0AT']],
             [S.Septuples, ['132547698E0ATCB']],
         ]],
-        [6, SixType.Quick, [], [
+        [6, SixType.Quick, [
             [S.Triples,   []],
             [S.Caters,    []],
             [S.Cinques,   []],
             [S.Sextuples, []],
             [S.Septuples, []],
         ]],
-        [1, SixType.Slow, ['3', '1', '3', '1', '3'], [
+        [1, SixType.Slow, [
             [S.Triples,   ['2135476',         '2314567',         '3215476',         '3124567',         '1325476']],
             [S.Caters,    ['213547698',       '231456789',       '321547698',       '312456789',       '132547698']],
             [S.Cinques,   ['213547698E0',     '2314567890E',     '321547698E0',     '3124567890E',     '132547698E0']],
             [S.Sextuples, ['213547698E0AT',   '2314567890ETA',   '321547698E0AT',   '3124567890ETA',   '132547698E0AT']],
             [S.Septuples, ['213547698E0ATCB', '2314567890ETABC', '321547698E0ATCB', '3124567890ETABC', '132547698E0ATCB']],
         ]],
-        [2, SixType.Slow, ['1', '3', '1', '3'], [
+        [2, SixType.Slow, [
             [S.Triples,   ['1325476',         '3124567',         '3215476',         '2314567']],
             [S.Caters,    ['132547698',       '312456789',       '321547698',       '231456789']],
             [S.Cinques,   ['132547698E0',     '3124567890E',     '321547698E0',     '2314567890E']],
             [S.Sextuples, ['132547698E0AT',   '3124567890ETA',   '321547698E0AT',   '2314567890ETA']],
             [S.Septuples, ['132547698E0ATCB', '3124567890ETABC', '321547698E0ATCB', '2314567890ETABC']],
         ]],
-        [3, SixType.Slow, ['3', '1', '3'], [
+        [3, SixType.Slow, [
             [S.Triples,   ['2135476',         '2314567',         '3215476']],
             [S.Caters,    ['213547698',       '231456789',       '321547698']],
             [S.Cinques,   ['213547698E0',     '2314567890E',     '321547698E0']],
             [S.Sextuples, ['213547698E0AT',   '2314567890ETA',   '321547698E0AT']],
             [S.Septuples, ['213547698E0ATCB', '2314567890ETABC', '321547698E0ATCB']],
         ]],
-        [4, SixType.Slow, ['1', '3'], [
+        [4, SixType.Slow, [
             [S.Triples,   ['1325476',         '3124567']],
             [S.Caters,    ['132547698',       '312456789']],
             [S.Cinques,   ['132547698E0',     '3124567890E']],
             [S.Sextuples, ['132547698E0AT',   '3124567890ETA']],
             [S.Septuples, ['132547698E0ATCB', '3124567890ETABC']],
         ]],
-        [5, SixType.Slow, ['3'], [
+        [5, SixType.Slow, [
             [S.Triples,   ['2135476']],
             [S.Caters,    ['213547698']],
             [S.Cinques,   ['213547698E0']],
             [S.Sextuples, ['213547698E0AT']],
             [S.Septuples, ['213547698E0ATCB']],
         ]],
-        [6, SixType.Slow, [], [
+        [6, SixType.Slow, [
             [S.Triples,   []],
             [S.Caters,    []],
             [S.Cinques,   []],
             [S.Sextuples, []],
             [S.Septuples, []],
         ]],
-        [1, SixType.Cold, ['(13)', '(13)', '(13)', '(13)', '(13)'], [
+        [1, SixType.Cold, [
             [S.Triples,   ['2315476',         '3124567',         '1235476',         '2314567',         '3125476']],
             [S.Caters,    ['231547698',       '312456789',       '123547698',       '231456789',       '312547698']],
             [S.Cinques,   ['231547698E0',     '3124567890E',     '123547698E0',     '2314567890E',     '312547698E0']],
             [S.Sextuples, ['231547698E0AT',   '3124567890ETA',   '123547698E0AT',   '2314567890ETA',   '312547698E0AT']],
             [S.Septuples, ['231547698E0ATCB', '3124567890ETABC', '123547698E0ATCB', '2314567890ETABC', '312547698E0ATCB']],
         ]],
-        [2, SixType.Cold, ['(13)', '(13)', '(13)', '(13)'], [
+        [2, SixType.Cold, [
             [S.Triples,   ['2315476',         '3124567',         '1235476',         '2314567']],
             [S.Caters,    ['231547698',       '312456789',       '123547698',       '231456789']],
             [S.Cinques,   ['231547698E0',     '3124567890E',     '123547698E0',     '2314567890E']],
             [S.Sextuples, ['231547698E0AT',   '3124567890ETA',   '123547698E0AT',   '2314567890ETA']],
             [S.Septuples, ['231547698E0ATCB', '3124567890ETABC', '123547698E0ATCB', '2314567890ETABC']],
         ]],
-        [3, SixType.Cold, ['(13)', '(13)', '(13)'], [
+        [3, SixType.Cold, [
             [S.Triples,   ['2315476',         '3124567',         '1235476']],
             [S.Caters,    ['231547698',       '312456789',       '123547698']],
             [S.Cinques,   ['231547698E0',     '3124567890E',     '123547698E0']],
             [S.Sextuples, ['231547698E0AT',   '3124567890ETA',   '123547698E0AT']],
             [S.Septuples, ['231547698E0ATCB', '3124567890ETABC', '123547698E0ATCB']],
         ]],
-        [4, SixType.Cold, ['(13)', '(13)'], [
+        [4, SixType.Cold, [
             [S.Triples,   ['2315476',         '3124567']],
             [S.Caters,    ['231547698',       '312456789']],
             [S.Cinques,   ['231547698E0',     '3124567890E']],
             [S.Sextuples, ['231547698E0AT',   '3124567890ETA']],
             [S.Septuples, ['231547698E0ATCB', '3124567890ETABC']],
         ]],
-        [5, SixType.Cold, ['(13)'], [
+        [5, SixType.Cold, [
             [S.Triples,   ['2315476']],
             [S.Caters,    ['231547698']],
             [S.Cinques,   ['231547698E0']],
             [S.Sextuples, ['231547698E0AT']],
             [S.Septuples, ['231547698E0ATCB']],
         ]],
-        [6, SixType.Cold, [], [
+        [6, SixType.Cold, [
             [S.Triples,   []],
             [S.Caters,    []],
             [S.Cinques,   []],
             [S.Sextuples, []],
             [S.Septuples, []],
         ]],
-        [1, SixType.Hot, ['(31)', '(31)', '(31)', '(31)', '(31)'], [
+        [1, SixType.Hot, [
             [S.Triples,   ['3125476',         '2314567',         '1235476',         '3124567',         '2315476']],
             [S.Caters,    ['312547698',       '231456789',       '123547698',       '312456789',       '231547698']],
             [S.Cinques,   ['312547698E0',     '2314567890E',     '123547698E0',     '3124567890E',     '231547698E0']],
             [S.Sextuples, ['312547698E0AT',   '2314567890ETA',   '123547698E0AT',   '3124567890ETA',   '231547698E0AT']],
             [S.Septuples, ['312547698E0ATCB', '2314567890ETABC', '123547698E0ATCB', '3124567890ETABC', '231547698E0ATCB']],
         ]],
-        [2, SixType.Hot, ['(31)', '(31)', '(31)', '(31)'], [
+        [2, SixType.Hot, [
             [S.Triples,   ['3125476',         '2314567',         '1235476',         '3124567']],
             [S.Caters,    ['312547698',       '231456789',       '123547698',       '312456789']],
             [S.Cinques,   ['312547698E0',     '2314567890E',     '123547698E0',     '3124567890E']],
             [S.Sextuples, ['312547698E0AT',   '2314567890ETA',   '123547698E0AT',   '3124567890ETA']],
             [S.Septuples, ['312547698E0ATCB', '2314567890ETABC', '123547698E0ATCB', '3124567890ETABC']],
         ]],
-        [3, SixType.Hot, ['(31)', '(31)', '(31)'], [
+        [3, SixType.Hot, [
             [S.Triples,   ['3125476',         '2314567',         '1235476']],
             [S.Caters,    ['312547698',       '231456789',       '123547698']],
             [S.Cinques,   ['312547698E0',     '2314567890E',     '123547698E0']],
             [S.Sextuples, ['312547698E0AT',   '2314567890ETA',   '123547698E0AT']],
             [S.Septuples, ['312547698E0ATCB', '2314567890ETABC', '123547698E0ATCB']],
         ]],
-        [4, SixType.Hot, ['(31)', '(31)'], [
+        [4, SixType.Hot, [
             [S.Triples,   ['3125476',         '2314567']],
             [S.Caters,    ['312547698',       '231456789']],
             [S.Cinques,   ['312547698E0',     '2314567890E']],
             [S.Sextuples, ['312547698E0AT',   '2314567890ETA']],
             [S.Septuples, ['312547698E0ATCB', '2314567890ETABC']],
         ]],
-        [5, SixType.Hot, ['(31)'], [
+        [5, SixType.Hot, [
             [S.Triples,   ['3125476']],
             [S.Caters,    ['312547698']],
             [S.Cinques,   ['312547698E0']],
             [S.Sextuples, ['312547698E0AT']],
             [S.Septuples, ['312547698E0ATCB']],
         ]],
-        [6, SixType.Hot, [], [
+        [6, SixType.Hot, [
             [S.Triples,   []],
             [S.Caters,    []],
             [S.Cinques,   []],
             [S.Sextuples, []],
             [S.Septuples, []],
+        ]],
+    ];
+
+    const notationTestCases: Array<StartPosition<string[]>> = [
+        [1, SixType.Quick, [
+            [S.Triples,   ['1', '3', '1', '3', '1']],
+            [S.Caters,    ['1', '3', '1', '3', '1']],
+            [S.Cinques,   ['1', '3', '1', '3', '1']],
+            [S.Sextuples, ['1', '3', '1', '3', '1']],
+            [S.Septuples, ['1', '3', '1', '3', '1']],
+        ]],
+        [2, SixType.Quick, [
+            [S.Triples,   ['3', '1', '3', '1']],
+            [S.Caters,    ['3', '1', '3', '1']],
+            [S.Cinques,   ['3', '1', '3', '1']],
+            [S.Sextuples, ['3', '1', '3', '1']],
+            [S.Septuples, ['3', '1', '3', '1']],
+        ]],
+        [3, SixType.Quick, [
+            [S.Triples,   ['1', '3', '1']],
+            [S.Caters,    ['1', '3', '1']],
+            [S.Cinques,   ['1', '3', '1']],
+            [S.Sextuples, ['1', '3', '1']],
+            [S.Septuples, ['1', '3', '1']],
+        ]],
+        [4, SixType.Quick, [
+            [S.Triples,   ['3', '1']],
+            [S.Caters,    ['3', '1']],
+            [S.Cinques,   ['3', '1']],
+            [S.Sextuples, ['3', '1']],
+            [S.Septuples, ['3', '1']],
+        ]],
+        [5, SixType.Quick, [
+            [S.Triples,   ['1']],
+            [S.Caters,    ['1']],
+            [S.Cinques,   ['1']],
+            [S.Sextuples, ['1']],
+            [S.Septuples, ['1']],
+        ]],
+        [6, SixType.Quick, [
+            [S.Triples,   []],
+            [S.Caters,    []],
+            [S.Cinques,   []],
+            [S.Sextuples, []],
+            [S.Septuples, []],
+        ]],
+        [1, SixType.Slow, [
+            [S.Triples,   ['3', '1', '3', '1', '3']],
+            [S.Caters,    ['3', '1', '3', '1', '3']],
+            [S.Cinques,   ['3', '1', '3', '1', '3']],
+            [S.Sextuples, ['3', '1', '3', '1', '3']],
+            [S.Septuples, ['3', '1', '3', '1', '3']],
+        ]],
+        [2, SixType.Slow, [
+            [S.Triples,   ['1', '3', '1', '3']],
+            [S.Caters,    ['1', '3', '1', '3']],
+            [S.Cinques,   ['1', '3', '1', '3']],
+            [S.Sextuples, ['1', '3', '1', '3']],
+            [S.Septuples, ['1', '3', '1', '3']],
+        ]],
+        [3, SixType.Slow, [
+            [S.Triples,   ['3', '1', '3']],
+            [S.Caters,    ['3', '1', '3']],
+            [S.Cinques,   ['3', '1', '3']],
+            [S.Sextuples, ['3', '1', '3']],
+            [S.Septuples, ['3', '1', '3']],
+        ]],
+        [4, SixType.Slow, [
+            [S.Triples,   ['1', '3']],
+            [S.Caters,    ['1', '3']],
+            [S.Cinques,   ['1', '3']],
+            [S.Sextuples, ['1', '3']],
+            [S.Septuples, ['1', '3']],
+        ]],
+        [5, SixType.Slow, [
+            [S.Triples,   ['3']],
+            [S.Caters,    ['3']],
+            [S.Cinques,   ['3']],
+            [S.Sextuples, ['3']],
+            [S.Septuples, ['3']],
+        ]],
+        [6, SixType.Slow, [
+            [S.Triples,   []],
+            [S.Caters,    []],
+            [S.Cinques,   []],
+            [S.Sextuples, []],
+            [S.Septuples, []],
+        ]],
+        [1, SixType.Cold, [
+            [S.Triples,   ["'2315476'",         "'2315476'",         "'2315476'",         "'2315476'",         "'2315476'"]],
+            [S.Caters,    ["'231547698'",       "'231547698'",       "'231547698'",       "'231547698'",       "'231547698'"]],
+            [S.Cinques,   ["'231547698E0'",     "'231547698E0'",     "'231547698E0'",     "'231547698E0'",     "'231547698E0'"]],
+            [S.Sextuples, ["'231547698E0AT'",   "'231547698E0AT'",   "'231547698E0AT'",   "'231547698E0AT'",   "'231547698E0AT'"]],
+            [S.Septuples, ["'231547698E0ATCB'", "'231547698E0ATCB'", "'231547698E0ATCB'", "'231547698E0ATCB'", "'231547698E0ATCB'"]],
+        ]],
+        [2, SixType.Cold, [
+            [S.Triples,   ["'2315476'",         "'2315476'",         "'2315476'",         "'2315476'"]],
+            [S.Caters,    ["'231547698'",       "'231547698'",       "'231547698'",       "'231547698'"]],
+            [S.Cinques,   ["'231547698E0'",     "'231547698E0'",     "'231547698E0'",     "'231547698E0'"]],
+            [S.Sextuples, ["'231547698E0AT'",   "'231547698E0AT'",   "'231547698E0AT'",   "'231547698E0AT'"]],
+            [S.Septuples, ["'231547698E0ATCB'", "'231547698E0ATCB'", "'231547698E0ATCB'", "'231547698E0ATCB'"]],
+        ]],
+        [3, SixType.Cold, [
+            [S.Triples,   ["'2315476'",         "'2315476'",         "'2315476'"]],
+            [S.Caters,    ["'231547698'",       "'231547698'",       "'231547698'"]],
+            [S.Cinques,   ["'231547698E0'",     "'231547698E0'",     "'231547698E0'"]],
+            [S.Sextuples, ["'231547698E0AT'",   "'231547698E0AT'",   "'231547698E0AT'"]],
+            [S.Septuples, ["'231547698E0ATCB'", "'231547698E0ATCB'", "'231547698E0ATCB'"]],
+        ]],
+        [4, SixType.Cold, [
+            [S.Triples,   ["'2315476'",         "'2315476'"]],
+            [S.Caters,    ["'231547698'",       "'231547698'"]],
+            [S.Cinques,   ["'231547698E0'",     "'231547698E0'"]],
+            [S.Sextuples, ["'231547698E0AT'",   "'231547698E0AT'"]],
+            [S.Septuples, ["'231547698E0ATCB'", "'231547698E0ATCB'"]],
+        ]],
+        [5, SixType.Cold, [
+            [S.Triples,   ["'2315476'"]],
+            [S.Caters,    ["'231547698'"]],
+            [S.Cinques,   ["'231547698E0'"]],
+            [S.Sextuples, ["'231547698E0AT'"]],
+            [S.Septuples, ["'231547698E0ATCB'"]],
+        ]],
+        [6, SixType.Cold, [
+            [S.Triples,   []],
+            [S.Caters,    []],
+            [S.Cinques,   []],
+            [S.Sextuples, []],
+            [S.Septuples, []],
+        ]],
+        [1, SixType.Hot, [
+            [S.Triples,   ["'3125476'",         "'3125476'",         "'3125476'",         "'3125476'",         "'3125476'"]],
+            [S.Caters,    ["'312547698'",       "'312547698'",       "'312547698'",       "'312547698'",       "'312547698'"]],
+            [S.Cinques,   ["'312547698E0'",     "'312547698E0'",     "'312547698E0'",     "'312547698E0'",     "'312547698E0'"]],
+            [S.Sextuples, ["'312547698E0AT'",   "'312547698E0AT'",   "'312547698E0AT'",   "'312547698E0AT'",   "'312547698E0AT'"]],
+            [S.Septuples, ["'312547698E0ATCB'", "'312547698E0ATCB'", "'312547698E0ATCB'", "'312547698E0ATCB'", "'312547698E0ATCB'"]],
+        ]],
+        [2, SixType.Hot, [
+            [S.Triples,   ["'3125476'",         "'3125476'",         "'3125476'",         "'3125476'"]],
+            [S.Caters,    ["'312547698'",       "'312547698'",       "'312547698'",       "'312547698'"]],
+            [S.Cinques,   ["'312547698E0'",     "'312547698E0'",     "'312547698E0'",     "'312547698E0'"]],
+            [S.Sextuples, ["'312547698E0AT'",   "'312547698E0AT'",   "'312547698E0AT'",   "'312547698E0AT'"]],
+            [S.Septuples, ["'312547698E0ATCB'", "'312547698E0ATCB'", "'312547698E0ATCB'", "'312547698E0ATCB'"]],
+        ]],
+        [3, SixType.Hot, [
+            [S.Triples,   ["'3125476'",         "'3125476'",         "'3125476'"]],
+            [S.Caters,    ["'312547698'",       "'312547698'",       "'312547698'"]],
+            [S.Cinques,   ["'312547698E0'",     "'312547698E0'",     "'312547698E0'"]],
+            [S.Sextuples, ["'312547698E0AT'",   "'312547698E0AT'",   "'312547698E0AT'"]],
+            [S.Septuples, ["'312547698E0ATCB'", "'312547698E0ATCB'", "'312547698E0ATCB'"]],
+        ]],
+        [4, SixType.Hot, [
+            [S.Triples,   ["'3125476'",         "'3125476'"]],
+            [S.Caters,    ["'312547698'",       "'312547698'"]],
+            [S.Cinques,   ["'312547698E0'",     "'312547698E0'"]],
+            [S.Sextuples, ["'312547698E0AT'",   "'312547698E0AT'"]],
+            [S.Septuples, ["'312547698E0ATCB'", "'312547698E0ATCB'"]],
+        ]],
+        [5, SixType.Hot, [
+            [S.Triples,   ["'3125476'"]],
+            [S.Caters,    ["'312547698'"]],
+            [S.Cinques,   ["'312547698E0'"]],
+            [S.Sextuples, ["'312547698E0AT'"]],
+            [S.Septuples, ["'312547698E0ATCB'"]],
+        ]],
+        [6, SixType.Hot, [
+            [S.Triples,   []],
+            [S.Caters,    []],
+            [S.Cinques,   []],
+            [S.Sextuples, []],
+            [S.Septuples, []],
+        ]],
+    ];
+
+    const notationStringTestCases: Array<StartPosition<string>> = [
+        [1, SixType.Quick, [
+            [S.Triples,   '+1.3.1.3.1'],
+            [S.Caters,    '+1.3.1.3.1'],
+            [S.Cinques,   '+1.3.1.3.1'],
+            [S.Sextuples, '+1.3.1.3.1'],
+            [S.Septuples, '+1.3.1.3.1'],
+        ]],
+        [2, SixType.Quick, [
+            [S.Triples,   '+3.1.3.1'],
+            [S.Caters,    '+3.1.3.1'],
+            [S.Cinques,   '+3.1.3.1'],
+            [S.Sextuples, '+3.1.3.1'],
+            [S.Septuples, '+3.1.3.1'],
+        ]],
+        [3, SixType.Quick, [
+            [S.Triples,   '+1.3.1'],
+            [S.Caters,    '+1.3.1'],
+            [S.Cinques,   '+1.3.1'],
+            [S.Sextuples, '+1.3.1'],
+            [S.Septuples, '+1.3.1'],
+        ]],
+        [4, SixType.Quick, [
+            [S.Triples,   '+3.1'],
+            [S.Caters,    '+3.1'],
+            [S.Cinques,   '+3.1'],
+            [S.Sextuples, '+3.1'],
+            [S.Septuples, '+3.1'],
+        ]],
+        [5, SixType.Quick, [
+            [S.Triples,   '+1'],
+            [S.Caters,    '+1'],
+            [S.Cinques,   '+1'],
+            [S.Sextuples, '+1'],
+            [S.Septuples, '+1'],
+        ]],
+        [6, SixType.Quick, [
+            [S.Triples,   '+'],
+            [S.Caters,    '+'],
+            [S.Cinques,   '+'],
+            [S.Sextuples, '+'],
+            [S.Septuples, '+'],
+        ]],
+        [1, SixType.Slow, [
+            [S.Triples,   '+3.1.3.1.3'],
+            [S.Caters,    '+3.1.3.1.3'],
+            [S.Cinques,   '+3.1.3.1.3'],
+            [S.Sextuples, '+3.1.3.1.3'],
+            [S.Septuples, '+3.1.3.1.3'],
+        ]],
+        [2, SixType.Slow, [
+            [S.Triples,   '+1.3.1.3'],
+            [S.Caters,    '+1.3.1.3'],
+            [S.Cinques,   '+1.3.1.3'],
+            [S.Sextuples, '+1.3.1.3'],
+            [S.Septuples, '+1.3.1.3'],
+        ]],
+        [3, SixType.Slow, [
+            [S.Triples,   '+3.1.3'],
+            [S.Caters,    '+3.1.3'],
+            [S.Cinques,   '+3.1.3'],
+            [S.Sextuples, '+3.1.3'],
+            [S.Septuples, '+3.1.3'],
+        ]],
+        [4, SixType.Slow, [
+            [S.Triples,   '+1.3'],
+            [S.Caters,    '+1.3'],
+            [S.Cinques,   '+1.3'],
+            [S.Sextuples, '+1.3'],
+            [S.Septuples, '+1.3'],
+        ]],
+        [5, SixType.Slow, [
+            [S.Triples,   '+3'],
+            [S.Caters,    '+3'],
+            [S.Cinques,   '+3'],
+            [S.Sextuples, '+3'],
+            [S.Septuples, '+3'],
+        ]],
+        [6, SixType.Slow, [
+            [S.Triples,   '+'],
+            [S.Caters,    '+'],
+            [S.Cinques,   '+'],
+            [S.Sextuples, '+'],
+            [S.Septuples, '+'],
+        ]],
+        [1, SixType.Cold, [
+            [S.Triples,   "'2315476', '2315476', '2315476', '2315476', '2315476'"],
+            [S.Caters,    "'231547698', '231547698', '231547698', '231547698', '231547698'"],
+            [S.Cinques,   "'231547698E0', '231547698E0', '231547698E0', '231547698E0', '231547698E0'"],
+            [S.Sextuples, "'231547698E0AT', '231547698E0AT', '231547698E0AT', '231547698E0AT', '231547698E0AT'"],
+            [S.Septuples, "'231547698E0ATCB', '231547698E0ATCB', '231547698E0ATCB', '231547698E0ATCB', '231547698E0ATCB'"],
+        ]],
+        [2, SixType.Cold, [
+            [S.Triples,   "'2315476', '2315476', '2315476', '2315476'"],
+            [S.Caters,    "'231547698', '231547698', '231547698', '231547698'"],
+            [S.Cinques,   "'231547698E0', '231547698E0', '231547698E0', '231547698E0'"],
+            [S.Sextuples, "'231547698E0AT', '231547698E0AT', '231547698E0AT', '231547698E0AT'"],
+            [S.Septuples, "'231547698E0ATCB', '231547698E0ATCB', '231547698E0ATCB', '231547698E0ATCB'"],
+        ]],
+        [3, SixType.Cold, [
+            [S.Triples,   "'2315476', '2315476', '2315476'"],
+            [S.Caters,    "'231547698', '231547698', '231547698'"],
+            [S.Cinques,   "'231547698E0', '231547698E0', '231547698E0'"],
+            [S.Sextuples, "'231547698E0AT', '231547698E0AT', '231547698E0AT'"],
+            [S.Septuples, "'231547698E0ATCB', '231547698E0ATCB', '231547698E0ATCB'"],
+        ]],
+        [4, SixType.Cold, [
+            [S.Triples,   "'2315476', '2315476'"],
+            [S.Caters,    "'231547698', '231547698'"],
+            [S.Cinques,   "'231547698E0', '231547698E0'"],
+            [S.Sextuples, "'231547698E0AT', '231547698E0AT'"],
+            [S.Septuples, "'231547698E0ATCB', '231547698E0ATCB'"],
+        ]],
+        [5, SixType.Cold, [
+            [S.Triples,   "'2315476'"],
+            [S.Caters,    "'231547698'"],
+            [S.Cinques,   "'231547698E0'"],
+            [S.Sextuples, "'231547698E0AT'"],
+            [S.Septuples, "'231547698E0ATCB'"],
+        ]],
+        [6, SixType.Cold, [
+            [S.Triples,   ''],
+            [S.Caters,    ''],
+            [S.Cinques,   ''],
+            [S.Sextuples, ''],
+            [S.Septuples, ''],
+        ]],
+        [1, SixType.Hot, [
+            [S.Triples,   "'3125476', '3125476', '3125476', '3125476', '3125476'"],
+            [S.Caters,    "'312547698', '312547698', '312547698', '312547698', '312547698'"],
+            [S.Cinques,   "'312547698E0', '312547698E0', '312547698E0', '312547698E0', '312547698E0'"],
+            [S.Sextuples, "'312547698E0AT', '312547698E0AT', '312547698E0AT', '312547698E0AT', '312547698E0AT'"],
+            [S.Septuples, "'312547698E0ATCB', '312547698E0ATCB', '312547698E0ATCB', '312547698E0ATCB', '312547698E0ATCB'"],
+        ]],
+        [2, SixType.Hot, [
+            [S.Triples,   "'3125476', '3125476', '3125476', '3125476'"],
+            [S.Caters,    "'312547698', '312547698', '312547698', '312547698'"],
+            [S.Cinques,   "'312547698E0', '312547698E0', '312547698E0', '312547698E0'"],
+            [S.Sextuples, "'312547698E0AT', '312547698E0AT', '312547698E0AT', '312547698E0AT'"],
+            [S.Septuples, "'312547698E0ATCB', '312547698E0ATCB', '312547698E0ATCB', '312547698E0ATCB'"],
+        ]],
+        [3, SixType.Hot, [
+            [S.Triples,   "'3125476', '3125476', '3125476'"],
+            [S.Caters,    "'312547698', '312547698', '312547698'"],
+            [S.Cinques,   "'312547698E0', '312547698E0', '312547698E0'"],
+            [S.Sextuples, "'312547698E0AT', '312547698E0AT', '312547698E0AT'"],
+            [S.Septuples, "'312547698E0ATCB', '312547698E0ATCB', '312547698E0ATCB'"],
+        ]],
+        [4, SixType.Hot, [
+            [S.Triples,   "'3125476', '3125476'"],
+            [S.Caters,    "'312547698', '312547698'"],
+            [S.Cinques,   "'312547698E0', '312547698E0'"],
+            [S.Sextuples, "'312547698E0AT', '312547698E0AT'"],
+            [S.Septuples, "'312547698E0ATCB', '312547698E0ATCB'"],
+        ]],
+        [5, SixType.Hot, [
+            [S.Triples,   "'3125476'"],
+            [S.Caters,    "'312547698'"],
+            [S.Cinques,   "'312547698E0'"],
+            [S.Sextuples, "'312547698E0AT'"],
+            [S.Septuples, "'312547698E0ATCB'"],
+        ]],
+        [6, SixType.Hot, [
+            [S.Triples,   ''],
+            [S.Caters,    ''],
+            [S.Cinques,   ''],
+            [S.Sextuples, ''],
+            [S.Septuples, ''],
         ]],
     ];
 
@@ -267,18 +607,18 @@ describe('Start class', () => {
         [SixType.Hot]: StedmanJump,
     };
 
-    const runTestCases = (testFn: (fixture: Start, rows: string[]) => void) => () => {
-        for (const startPosition of startPositions) {
-            const rowIndex = startPosition[0];
-            const sixType = startPosition[1];
-            const testCases = startPosition[3];
+    const runRowTestCases = (testFn: (fixture: Start, rows: string[]) => void) => () => {
+        for (const rowTestCase of rowTestCases) {
+            const rowIndex = rowTestCase[0];
+            const sixType = rowTestCase[1];
+            const testCases = rowTestCase[2];
 
             for (const testCase of testCases) {
                 const stage = testCase[0];
                 const rows = testCase[1];
                 const method = methodMap[sixType]!;
                 const fixture = new Start(
-                    createTestRow('123', stage),
+                    createTestRow('', stage),
                     undefined,
                     new method(),
                 );
@@ -291,24 +631,52 @@ describe('Start class', () => {
     };
 
     it('computes the notation correctly', () => {
-        for (const startPosition of startPositions) {
-            const rowIndex = startPosition[0];
-            const sixType = startPosition[1];
-            const notation = startPosition[2];
-            const method = methodMap[sixType]!;
-            const fixture = new Start(
-                createTestRow(),
-                undefined,
-                new method(),
-            );
+        for (const notationTestCase of notationTestCases) {
+            const rowIndex = notationTestCase[0];
+            const sixType = notationTestCase[1];
+            const testCases = notationTestCase[2];
 
-            fixture.rowIndex = rowIndex;
-            fixture.sixType = sixType;
-            expect(fixture.notation).toEqual(notation);
+            for (const testCase of testCases) {
+                const stage = testCase[0];
+                const notation = testCase[1];
+                const method = methodMap[sixType]!;
+                const fixture = new Start(
+                    createTestRow('', stage),
+                    undefined,
+                    new method(),
+                );
+
+                fixture.rowIndex = rowIndex;
+                fixture.sixType = sixType;
+                expect(fixture.notation).toEqual(notation);
+            }
         }
     });
 
-    it('computes the last row correctly', runTestCases(
+    it('computes the notation string correctly', () => {
+        for (const notationStringTestCase of notationStringTestCases) {
+            const rowIndex = notationStringTestCase[0];
+            const sixType = notationStringTestCase[1];
+            const testCases = notationStringTestCase[2];
+
+            for (const testCase of testCases) {
+                const stage = testCase[0];
+                const notation = testCase[1];
+                const method = methodMap[sixType]!;
+                const fixture = new Start(
+                    createTestRow('', stage),
+                    undefined,
+                    new method(),
+                );
+
+                fixture.rowIndex = rowIndex;
+                fixture.sixType = sixType;
+                expect(fixture.getNotationString()).toEqual(notation);
+            }
+        }
+    });
+
+    it('computes the last row correctly', runRowTestCases(
         (fixture: Start, rows: string[]) => {
             const last = fixture.getLast();
             const stage = last.length;
@@ -322,7 +690,7 @@ describe('Start class', () => {
         },
     ));
 
-    it('computes the rows correctly', runTestCases(
+    it('computes the rows correctly', runRowTestCases(
         (fixture: Start, rows: string[]) => {
             const visitor = new StringArray();
             fixture.accept(visitor);
@@ -330,7 +698,7 @@ describe('Start class', () => {
         },
     ));
 
-    it('computes the length correctly', runTestCases(
+    it('computes the length correctly', runRowTestCases(
         (fixture: Start, rows: string[]) => {
             expect(fixture.estimateRows()).toBe(rows.length);
         },

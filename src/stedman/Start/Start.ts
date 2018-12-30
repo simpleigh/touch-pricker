@@ -9,10 +9,15 @@ import { AbstractBlock, BlockOwnership } from '../../blocks';
 import { Row } from '../../rows';
 import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
+import AbstractSix from '../AbstractSix';
 import * as Changes from '../Changes';
+import Cold from '../Cold';
+import Hot from '../Hot';
 import { AbstractMethod, Stedman } from '../methods';
+import Quick from '../Quick';
 import SixType from '../SixType';
 import SixTypeMap from '../SixTypeMap';
+import Slow from '../Slow';
 import siril from './siril.dot';
 import text from './text.dot';
 
@@ -76,19 +81,14 @@ class Start extends AbstractBlock implements Templates.Interface {
         }
 
         for (const notation of this.notation) {
-            switch (notation) {
-                case '1':
-                    Changes.permute1(row);
-                    break;
-                case '3':
-                    Changes.permute3(row);
-                    break;
-                case '(13)':
-                    Changes.permuteUp(row);
-                    break;
-                case '(31)':
-                    Changes.permuteDown(row);
-                    break;
+            if (notation === '1') {
+                Changes.permute1(row);
+            } else if (notation === '3') {
+                Changes.permute3(row);
+            } else if (this._sixType === SixType.Cold) {
+                Changes.permuteUp(row);
+            } else if (this._sixType === SixType.Hot) {
+                Changes.permuteDown(row);
             }
 
             this._rows.push(row.slice());
@@ -231,14 +231,33 @@ class Start extends AbstractBlock implements Templates.Interface {
      * Returns place notation for the start
      */
     get notation(): string[] {
-        const types: SixTypeMap<string[]> = {
-            [SixType.Slow]: ['3', '1', '3', '1', '3'],
-            [SixType.Quick]: ['1', '3', '1', '3', '1'],
-            [SixType.Cold]: ['(13)', '(13)', '(13)', '(13)', '(13)'],
-            [SixType.Hot]: ['(31)', '(31)', '(31)', '(31)', '(31)'],
+        const sixClasses: SixTypeMap<{ new(...args: any[]): AbstractSix }> = {
+            [SixType.Slow]: Slow,
+            [SixType.Quick]: Quick,
+            [SixType.Cold]: Cold,
+            [SixType.Hot]: Hot,
         };
-        const sixNotation = types[this._sixType]!;
-        return sixNotation.slice(this._rowIndex - 1);
+        const sixClass = sixClasses[this._sixType]!;
+        const six = new sixClass(this._initialRow);
+        return six.notation.slice(this._rowIndex - 1);
+    }
+
+    /**
+     * Computes the place notation string for the start
+     */
+    public getNotationString(): string {
+        switch (this._sixType) {
+            case SixType.Slow:
+            case SixType.Quick:
+                return '+' + this.notation.join('.');
+
+            case SixType.Cold:
+            case SixType.Hot:
+                return this.notation.join(', ');
+
+            default:
+                throw new Error('Assertion failed in Start.getNotationString');
+        }
     }
 
 }

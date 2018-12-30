@@ -25,6 +25,7 @@ export const testSixImplementation = (
     rowTests: Array<[string, string, string, string, string, string, Stage]>,
     type: SixType,
     notation: string[],
+    notationStringTests: [string, string, string, string, string],
 ) => {
 
     type TestFunction =
@@ -42,13 +43,20 @@ export const testSixImplementation = (
     };
 
     it('has the expected type', () => {
-        const six = factory(createTestRow('231'));
+        const six = factory(createTestRow());
         expect(six.type).toBe(type);
     });
 
     it('has the expected notation', () => {
-        const six = factory(createTestRow('231'));
+        const six = factory(createTestRow());
         expect(six.notation).toEqual(notation);
+    });
+
+    it('can render the notation as a string', () => {
+        const six = factory(createTestRow());
+        for (let i = 1; i <= 5; i = i + 1) {
+            expect(six.getNotationString(i)).toBe(notationStringTests[i - 1]);
+        }
     });
 
     it('calculates the last row correctly', runTestCases(

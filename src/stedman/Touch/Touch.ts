@@ -9,8 +9,12 @@ import { BlockOwnership, RandomAccessContainer } from '../../blocks';
 import { Row, rowFromString, Stage } from '../../rows';
 import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
+import Cold from '../Cold';
 import Course from '../Course';
+import Hot from '../Hot';
 import { AbstractMethod, Stedman } from '../methods';
+import Quick from '../Quick';
+import Slow from '../Slow';
 import Start from '../Start';
 import select from './select.dot';
 import siril from './siril.dot';
@@ -19,7 +23,10 @@ import text from './text.dot';
 /**
  * A touch, being a set of courses
  */
-@Templates.makePrintable({ select, siril, text }, { rowFromString })
+@Templates.makePrintable(
+    { select, siril, text },
+    { rowFromString, sixes: { Cold, Hot, Quick, Slow } },
+)
 class Touch
     extends RandomAccessContainer<Course>
     implements Templates.Interface {

@@ -27,7 +27,7 @@ class Hot extends AbstractSix {
     get notation(): string[] {
         const row = rowFromString('321', this._initialRow.length);
         Changes.permute1(row);
-        const notation = stringFromRow(row);
+        const notation = `'${stringFromRow(row)}'`;
         return [notation, notation, notation, notation, notation];
     }
 
@@ -62,6 +62,14 @@ class Hot extends AbstractSix {
     }
 
     /* AbstractSix methods ****************************************************/
+
+    /**
+     * Computes a place notation string for a number of rows
+     * @param {number} rows  Number of rows (from 1 to 5)
+     */
+    public getNotationString(rows: number): string {
+        return this.notation.slice(0, rows).join(', ');
+    }
 
     /**
      * Transposes the front three bells depending upon the type of six

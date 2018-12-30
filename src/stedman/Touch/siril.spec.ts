@@ -31,6 +31,8 @@ describe('siril template for Touch', () => {
         ['renders the number of bells', '11 bells\n'],
         ['renders a symbol for a slow six', 'slow = +3.1.3.1.3\n'],
         ['renders a symbol for a quick six', 'quick = +1.3.1.3.1\n'],
+        ['renders a symbol for a cold six', "cold = '231547698E0', '2315476"],
+        ['renders a symbol for a hot six', "hot = '312547698E0', '3125476"],
         ['renders a symbol for a plain sixend', 'plain = +E\n'],
         ['renders a symbol for a bobbed sixend', 'bob = +9\n'],
         ['renders a symbol for a singled sixend', 'single = +90E\n'],

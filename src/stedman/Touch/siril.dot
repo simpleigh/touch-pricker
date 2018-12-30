@@ -12,9 +12,8 @@
 
 {{
 	var courseNames = [ ],
-		rounds = context.stringFromRow(
-			context.rowFromString('', context.object.initialRow.length)
-		);
+		rounds = context.rowFromString('', context.object.initialRow.length),
+		roundsString = context.stringFromRow(rounds);
 
 	context.touchRows = context.touchRows || Infinity;
 	context.touchRows -= context.object.start.estimateRows();
@@ -41,11 +40,13 @@ composition = touch{{= '\n' }}
 {{= '\n' }}
 
 /* Short blocks */
-slow = +3.1.3.1.3{{= '\n' }}
-quick = +1.3.1.3.1{{= '\n' }}
-plain = +{{= rounds.slice(-1) }}{{= '\n' }}
-bob = +{{= rounds.slice(-3, -2) }}{{= '\n' }}
-single = +{{= rounds.slice(-3) }}{{= '\n' }}
+slow = +{{= (new context.sixes.Slow(rounds)).notation.join('.') }}{{= '\n' }}
+quick = +{{= (new context.sixes.Quick(rounds)).notation.join('.') }}{{= '\n' }}
+cold = {{= (new context.sixes.Cold(rounds)).notation.join(', ') }}{{= '\n' }}
+hot = {{= (new context.sixes.Hot(rounds)).notation.join(', ') }}{{= '\n' }}
+plain = +{{= roundsString.slice(-1) }}{{= '\n' }}
+bob = +{{= roundsString.slice(-3, -2) }}{{= '\n' }}
+single = +{{= roundsString.slice(-3) }}{{= '\n' }}
 /* Can't use the name "start": it's processed separately by gsiril */
 strt = {{= context.object.start.print('siril') }}{{= '\n' }}
 {{= '\n' }}
