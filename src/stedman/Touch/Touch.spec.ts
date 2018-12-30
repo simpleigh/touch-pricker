@@ -12,7 +12,7 @@ import {
 import { createTestRow } from '../../testFunctions.spec';
 import { StringArray } from '../../visitors';
 import Course from '../Course';
-import { AbstractMethod, Erin, Stedman } from '../methods';
+import { AbstractMethod, Erin, Stedman, StedmanJump } from '../methods';
 import SixType from '../SixType';
 
 describe('Touch class', () => {
@@ -37,6 +37,12 @@ describe('Touch class', () => {
         touch = new Touch(testRow, undefined, new Erin());
         expect(touch.start.rowIndex).toBe(6);
         expect(touch.start.sixType).toBe(SixType.Slow);
+    });
+
+    it('allows access to the start for Stedman Jump', () => {
+        touch = new Touch(testRow, undefined, new StedmanJump());
+        expect(touch.start.rowIndex).toBe(6);
+        expect(touch.start.sixType).toBe(SixType.Hot);
     });
 
     it('passes the initial row to the start', () => {
@@ -252,7 +258,17 @@ describe('Touch class', () => {
             '1234567890E\n'
                 + '4321567890E  6 7\n'
                 + '1234567890E  6 7\n',
-        new Erin(),
+            new Erin(),
+        ));
+
+        it('a touch of Stedman Jump', testImport(
+            '1234567890E\n'
+                + '4321567890E  6 7\n'
+                + '1234567890E  6 7\n',
+            '1234567890E\n'
+                + '4321567890E  6 7\n'
+                + '1234567890E  6 7\n',
+            new StedmanJump(),
         ));
 
         it('a touch with no lines', () => {

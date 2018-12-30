@@ -10,6 +10,8 @@ import { BlockOwnership } from '../../blocks';
 import { Row } from '../../rows';
 import { createTestRow } from '../../testFunctions.spec';
 import Call from '../Call';
+import Cold from '../Cold';
+import Hot from '../Hot';
 import Quick from '../Quick';
 import Slow from '../Slow';
 
@@ -64,10 +66,18 @@ const testSirilAbstractSixTemplate = (
 
 };
 
+describe('siril template for Slow six', testSirilAbstractSixTemplate(
+    (initialRow, _ownership) => new Slow(initialRow, _ownership),
+));
+
 describe('siril template for Quick six', testSirilAbstractSixTemplate(
     (initialRow, _ownership) => new Quick(initialRow, _ownership),
 ));
 
-describe('siril template for Slow six', testSirilAbstractSixTemplate(
-    (initialRow, _ownership) => new Slow(initialRow, _ownership),
+describe('siril template for Cold six', testSirilAbstractSixTemplate(
+    (initialRow, _ownership) => new Cold(initialRow, _ownership),
+));
+
+describe('siril template for Hot six', testSirilAbstractSixTemplate(
+    (initialRow, _ownership) => new Hot(initialRow, _ownership),
 ));

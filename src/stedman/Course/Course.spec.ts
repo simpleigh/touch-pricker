@@ -87,7 +87,7 @@ describe('Course class', () => {
     it('always uses slow sixes for Erin', () => {
         course = new Course(testRow, undefined, new Erin());
         course.resetLength();
-        for (let index = 1; index <= 11; index += 1) {
+        for (let index = 1; index <= course.length; index += 1) {
             expect(course.getBlock(index).type).toBe(SixType.Slow);
         }
     });
@@ -95,11 +95,23 @@ describe('Course class', () => {
     it('alternates six types for Stedman', () => {
         course = new Course(testRow, undefined, new Stedman());
         course.resetLength();
-        for (let index = 1; index <= 22; index += 1) {
+        for (let index = 1; index <= course.length; index += 1) {
             if (index % 2) {
                 expect(course.getBlock(index).type).toBe(SixType.Slow);
             } else {
                 expect(course.getBlock(index).type).toBe(SixType.Quick);
+            }
+        }
+    });
+
+    it('alternates six types for Stedman Jump', () => {
+        course = new Course(testRow, undefined, new StedmanJump());
+        course.resetLength();
+        for (let index = 1; index <= course.length; index += 1) {
+            if (index % 2) {
+                expect(course.getBlock(index).type).toBe(SixType.Cold);
+            } else {
+                expect(course.getBlock(index).type).toBe(SixType.Hot);
             }
         }
     });
@@ -207,6 +219,44 @@ describe('Course class', () => {
             '529783E1046',
             '52739184E60',
             '2351749680E',
+            '2314567890E',
+        ];
+
+        for (let index = 1; index <= 22; index += 1) {
+            expect(stringFromRow(course.getBlock(index).getLast()))
+                .toBe(expectedSixEnds[index]);
+        }
+    });
+
+    it('calculates sixes correctly for Stedman Jump', () => {
+        course = Course.fromString(
+            createTestRow('123'),
+            '1234567890E 1 6 11 12 17 22',
+            new StedmanJump(),
+        );
+        const expectedSixEnds = [
+            '',  // blank entry so indices line up
+            '4216385970E',
+            '462819305E7',
+            '8649201E375',
+            '89604E27153',
+            '098E6745231',
+            '0E978562431',
+            '7E059283614',
+            '75E20391846',
+            '2573E104968',
+            '235174E6089',
+            '13245670E89',
+            '1436205E789',
+            '64103E28597',
+            '604E1839275',
+            'E0684917352',
+            'E8096745123',
+            '98E70561423',
+            '9785E102634',
+            '579182E3046',
+            '51729384E60',
+            '2153749680E',
             '2314567890E',
         ];
 
@@ -441,9 +491,15 @@ describe('Course class', () => {
         ));
 
         it('a course of Erin', testImport(
-            '1234567890E  6',
+            '2314567890E  6',
             '1234567890E  6',
             new Erin(),
+        ));
+
+        it('a course of Stedman Jump', testImport(
+            '2314567890E  1 6 11 12 17 22',
+            '3124567890E  1 6 11 12 17 22',
+            new StedmanJump(),
         ));
 
         it('a broken course (that raises an error)', () => {
