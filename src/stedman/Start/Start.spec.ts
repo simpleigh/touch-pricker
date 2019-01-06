@@ -83,9 +83,9 @@ describe('Start class', () => {
         expect(start.method).toBe(method);
     });
 
-    type Stage<Expected> = [S, Expected];
+    type StageTestCase<Expected> = [S, Expected];
 
-    type StartPosition<Expected> = [number, SixType, Array<Stage<Expected>>];
+    type StartPosition<Expected> = [number, SixType, Array<StageTestCase<Expected>>];
 
     const rowTestCases: Array<StartPosition<string[]>> = [
         [1, SixType.Quick, [
