@@ -9,11 +9,11 @@ import AbstractSix from '.';
 import {
     BlockDirectory,
     BlockOwnership,
-} from '../../blocks';
-import { Row, stringFromRow } from '../../rows';
-import { createTestRow } from '../../testFunctions.spec';
-import Call from '../Call';
-import Course from '../Course';
+} from '../../../blocks';
+import { Row, stringFromRow } from '../../../rows';
+import { createTestRow } from '../../../testFunctions.spec';
+import Call from '../../Call';
+import Course from '../../Course';
 import Quick from '../Quick';
 import Slow from '../Slow';
 
@@ -45,7 +45,7 @@ const testMbdAbstractSixTemplate = (
                     + stringFromRow(six.getLast())
                     + '</span>'
                     + '&nbsp;&nbsp;<span class="' + six.type
-                    + 'Six" onclick="pricker.c(1)">'
+                    + ' call" onclick="pricker.c(1)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
         });
@@ -57,7 +57,7 @@ const testMbdAbstractSixTemplate = (
                     + stringFromRow(six.getLast())
                     + '</span>'
                     + '&nbsp;&nbsp;<span class="' + six.type
-                    + 'Six" onclick="pricker.c(1)">'
+                    + ' call" onclick="pricker.c(1)">'
                     + '&nbsp;-&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
         });
@@ -69,7 +69,7 @@ const testMbdAbstractSixTemplate = (
                     + stringFromRow(six.getLast())
                     + '</span>'
                     + '&nbsp;&nbsp;<span class="' + six.type
-                    + 'Six" onclick="pricker.c(1)">'
+                    + ' call" onclick="pricker.c(1)">'
                     + '&nbsp;s&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
         });
@@ -81,7 +81,7 @@ const testMbdAbstractSixTemplate = (
                     + stringFromRow(six.getLast())
                     + '</span>'
                     + '&nbsp;&nbsp;<span class="' + six.type
-                    + 'Six" onclick="pricker.c(999)">'
+                    + ' call" onclick="pricker.c(999)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;999<br />',
             );
         });
@@ -96,7 +96,7 @@ const testMbdAbstractSixTemplate = (
                     + stringFromRow(six.getLast())
                     + '</span>'
                     + '&nbsp;&nbsp;<span class="' + six.type
-                    + 'Six" onclick="pricker.c(1)">'
+                    + ' call" onclick="pricker.c(1)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
         });
@@ -113,7 +113,7 @@ const testMbdAbstractSixTemplate = (
                     + stringFromRow(six.getLast())
                     + '</span>'
                     + '&nbsp;&nbsp;<span class="' + six.type
-                    + 'Six" onclick="pricker.c(1)">'
+                    + ' call" onclick="pricker.c(1)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
         });
@@ -134,7 +134,7 @@ const testMbdAbstractSixTemplate = (
                     + stringFromRow(six.getLast())
                     + '</span>'
                     + '&nbsp;&nbsp;<span class="' + six.type
-                    + 'Six" onclick="pricker.c(1)">'
+                    + ' call" onclick="pricker.c(1)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
         });
@@ -145,7 +145,7 @@ const testMbdAbstractSixTemplate = (
                     + stringFromRow(six.getLast())
                     + '</u></span>'
                     + '&nbsp;&nbsp;<span class="' + six.type
-                    + 'Six" onclick="pricker.c(1)">'
+                    + ' call" onclick="pricker.c(1)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
         });
@@ -156,7 +156,7 @@ const testMbdAbstractSixTemplate = (
                     + stringFromRow(six.getFirst())
                     + '</span>'
                     + '&nbsp;&nbsp;<span class="' + six.type
-                    + 'Six" onclick="pricker.c(1)">'
+                    + ' call" onclick="pricker.c(1)">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />'
                     + '<span class=""><u>'
                     + stringFromRow(six.getLast())

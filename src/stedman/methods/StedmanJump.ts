@@ -7,20 +7,20 @@
 
 import { Row } from '../../rows';
 import Course from '../Course';
-import { AbstractSix, Quick, Slow } from '../sixes';
+import { AbstractSix, Cold, Hot } from '../sixes';
 import SixType from '../SixType';
 import SixTypeMap from '../SixTypeMap';
 import AbstractMethod from './AbstractMethod';
 
 /**
- * Stedman-specific functionality
+ * Stedman Jump-specific functionality
  */
-class Stedman extends AbstractMethod {
+class StedmanJump extends AbstractMethod {
 
     /**
      * Method name
      */
-    public readonly name: string = 'Stedman';
+    public readonly name: string = 'Stedman Jump';
 
     /**
      * Returns the default length of new courses
@@ -41,39 +41,39 @@ class Stedman extends AbstractMethod {
         index: number,
     ): AbstractSix {
         const offsets: SixTypeMap<number> = {
-            [SixType.Slow]: 0,
-            [SixType.Quick]: 1,
+            [SixType.Cold]: 0,
+            [SixType.Hot]: 1,
         };
         const offset = offsets[course.firstSixType]!;
 
         return (offset + index) % 2
-            ? new Slow(initialRow, { container: course, index })
-            : new Quick(initialRow, { container: course, index });
+            ? new Cold(initialRow, { container: course, index })
+            : new Hot(initialRow, { container: course, index });
     }
 
     /**
      * Mapping from each valid six type to its successor
      */
     protected readonly sixTypeProgression: SixTypeMap<SixType> = {
-        [SixType.Slow]: SixType.Quick,
-        [SixType.Quick]: SixType.Slow,
+        [SixType.Cold]: SixType.Hot,
+        [SixType.Hot]: SixType.Cold,
     };
 
     /**
      * First six in a standard course
      */
-    public readonly defaultFirstSix: SixType = SixType.Slow;
+    public readonly defaultFirstSix: SixType = SixType.Cold;
 
     /**
      * Index of rounds within six for standard start
      */
-    public readonly defaultStartRowIndex: number = 4;
+    public readonly defaultStartRowIndex: number = 6;
 
     /**
      * Type of six for standard start
      */
-    public readonly defaultStartSixType: SixType = SixType.Quick;
+    public readonly defaultStartSixType: SixType = SixType.Hot;
 
 }
 
-export default Stedman;
+export default StedmanJump;

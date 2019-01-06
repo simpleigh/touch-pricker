@@ -29,8 +29,7 @@
 	{{? context.touchRows >= 6 }}
 		{{= context.object.type }}
 	{{??}}
-		+
-		{{= context.object.notation.slice(0, context.touchRows - 1).join('.') }}
+		{{= context.object.getNotationString(context.touchRows - 1) }}
 	{{?}}
 	,
 	 /* single space */

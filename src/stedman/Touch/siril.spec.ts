@@ -6,6 +6,7 @@
  */
 
 import Touch from '.';
+import { StedmanJump } from '../methods';
 
 describe('siril template for Touch', () => {
 
@@ -57,6 +58,17 @@ describe('siril template for Touch', () => {
             .map((line) => `// ${line}`)
             .join('\n');
         expect(output).toContain(expected);
+    });
+
+    it('renders hot and cold sixes for Stedman Jump', () => {
+        const method = new StedmanJump();
+        touch = Touch.fromString(composition, method);
+        output = touch.print('siril');
+
+        expect(output).toContain("cold = '231547698E0', '231547698E0', ");
+        expect(output).toContain("hot = '312547698E0', '312547698E0', ");
+        expect(output).not.toContain('slow');
+        expect(output).not.toContain('quick');
     });
 
     it('avoids rendering extra courses after the touch comes round', () => {

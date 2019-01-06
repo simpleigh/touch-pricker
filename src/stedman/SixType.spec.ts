@@ -17,6 +17,8 @@ describe('SixType enum', () => {
 
     testValue('slow', SixType.Slow);
     testValue('quick', SixType.Quick);
+    testValue('cold', SixType.Cold);
+    testValue('hot', SixType.Hot);
     testValue('invalid', SixType.Invalid);
 
 });

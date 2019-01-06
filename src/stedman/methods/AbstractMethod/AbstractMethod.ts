@@ -7,8 +7,8 @@
 
 import { Row } from '../../../rows';
 import * as Templates from '../../../templates';
-import AbstractSix from '../../AbstractSix';
 import Course from '../../Course';
+import { AbstractSix } from '../../sixes';
 import SixType from '../../SixType';
 import SixTypeMap from '../../SixTypeMap';
 import select from './select.dot';
@@ -73,6 +73,11 @@ abstract class AbstractMethod implements Templates.Interface {
         this.checkSixType(sixType);
         return this.sixTypeProgression[sixType]!;
     }
+
+    /**
+     * First six in a standard course
+     */
+    public abstract readonly defaultFirstSix: SixType;
 
     /**
      * Index of rounds within six for standard start

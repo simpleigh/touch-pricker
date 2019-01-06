@@ -9,5 +9,4 @@
  * Renders a start for consumption by siril-based provers
  */
 
-+
-{{= context.object.notation.join('.') }}
+{{= context.object.getNotationString() }}

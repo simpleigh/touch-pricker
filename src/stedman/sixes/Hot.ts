@@ -5,25 +5,31 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { AbstractVisitor } from '../visitors';
+import { rowFromString, stringFromRow } from '../../rows';
+import { AbstractVisitor } from '../../visitors';
+import * as Changes from '../Changes';
+import SixType from '../SixType';
 import AbstractSix from './AbstractSix';
-import * as Changes from './Changes';
-import SixType from './SixType';
 
 /**
- * A quick six
+ * A "Hot" (jump down) six
  */
-class Quick extends AbstractSix {
+class Hot extends AbstractSix {
 
     /**
      * Type of the six
      */
-    public readonly type: SixType = SixType.Quick;
+    public readonly type: SixType = SixType.Hot;
 
     /**
      * Notation (excluding call)
      */
-    public readonly notation: string[] = ['1', '3', '1', '3', '1'];
+    get notation(): string[] {
+        const row = rowFromString('321', this._initialRow.length);
+        Changes.permute1(row);
+        const notation = `'${stringFromRow(row)}'`;
+        return [notation, notation, notation, notation, notation];
+    }
 
     /* AbstractBlock methods **************************************************/
 
@@ -37,16 +43,16 @@ class Quick extends AbstractSix {
             Changes.permuteCall(row, this._call);
             visitor.visit(row, this);
 
-            Changes.permute1(row);
+            Changes.permuteDown(row);
             visitor.visit(row, this);
 
-            Changes.permute3(row);
+            Changes.permuteDown(row);
             visitor.visit(row, this);
 
-            Changes.permute1(row);
+            Changes.permuteDown(row);
             visitor.visit(row, this);
 
-            Changes.permute3(row);
+            Changes.permuteDown(row);
             visitor.visit(row, this);
 
             visitor.visit(this._end, this);
@@ -58,12 +64,20 @@ class Quick extends AbstractSix {
     /* AbstractSix methods ****************************************************/
 
     /**
+     * Computes a place notation string for a number of rows
+     * @param {number} rows  Number of rows (from 1 to 5)
+     */
+    public getNotationString(rows: number): string {
+        return this.notation.slice(0, rows).join(', ');
+    }
+
+    /**
      * Transposes the front three bells depending upon the type of six
      */
     protected applySixTransposition(): void {
-        Changes.permute3(this._end);
+        Changes.permuteUp(this._end);
     }
 
 }
 
-export default Quick;
+export default Hot;

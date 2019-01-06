@@ -10,22 +10,23 @@ import SixType from '../SixType';
 import {
     testAbstractMethodImplementation,
 } from './AbstractMethod/AbstractMethod.spec';
-import Erin from './Erin';
+import StedmanJump from './StedmanJump';
 
-describe('Erin method', () => {
+describe('Stedman Jump method', () => {
     testAbstractMethodImplementation(
-        Erin,
-        'Erin',
+        StedmanJump,
+        'Stedman Jump',
         [
-            [Stage.Triples, 7],
-            [Stage.Caters, 9],
-            [Stage.Cinques, 11],
-            [Stage.Sextuples, 13],
-            [Stage.Septuples, 15],
+            [Stage.Triples, 14],
+            [Stage.Caters, 18],
+            [Stage.Cinques, 22],
+            [Stage.Sextuples, 26],
+            [Stage.Septuples, 30],
         ],
         [
-            [SixType.Slow, SixType.Slow],
+            [SixType.Cold, SixType.Hot],
+            [SixType.Hot, SixType.Cold],
         ],
-        [SixType.Slow, 6, SixType.Slow],
+        [SixType.Cold, 6, SixType.Hot],
     );
 });

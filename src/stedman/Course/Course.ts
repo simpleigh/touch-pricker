@@ -8,9 +8,9 @@
 import { BlockOwnership, SerialContainer } from '../../blocks';
 import { Row } from '../../rows';
 import * as Templates from '../../templates';
-import AbstractSix from '../AbstractSix';
 import Call from '../Call';
 import { AbstractMethod, Stedman } from '../methods';
+import { AbstractSix } from '../sixes';
 import SixType from '../SixType';
 import html from './html.dot';
 import mbd from './mbd.dot';
@@ -28,7 +28,7 @@ class Course
     /**
      * Type of the first six
      */
-    private _firstSixType: SixType = SixType.Slow;
+    private _firstSixType: SixType;
 
     /**
      * Constructor
@@ -41,6 +41,7 @@ class Course
         private _method: AbstractMethod = new Stedman(),
     ) {
         super(initialRow, _ownership);
+        this._firstSixType = this._method.defaultFirstSix;
     }
 
     /* templating *************************************************************/

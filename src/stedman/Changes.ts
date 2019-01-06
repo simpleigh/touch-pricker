@@ -48,6 +48,34 @@ export const permute3 = (row: Row): void => {
 };
 
 /**
+ * Notation <231>
+ */
+export const permuteUp = (row: Row): void => {
+    let index: number;
+
+    swapPair(row, 0);
+    swapPair(row, 1);
+
+    for (index = 3; index < row.length - 1; index += 2) {
+        swapPair(row, index);
+    }
+};
+
+/**
+ * Notation <312>
+ */
+export const permuteDown = (row: Row): void => {
+    let index: number;
+
+    swapPair(row, 1);
+    swapPair(row, 0);
+
+    for (index = 3; index < row.length - 1; index += 2) {
+        swapPair(row, index);
+    }
+};
+
+/**
  * Notation <n>
  */
 export const permuteN = (row: Row): void => {

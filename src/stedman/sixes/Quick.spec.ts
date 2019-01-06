@@ -5,11 +5,11 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { Stage as S } from '../rows';
+import { Stage as S } from '../../rows';
+import C from '../Call';
+import SixType from '../SixType';
 import { testSixImplementation } from './AbstractSix/AbstractSix.spec';
-import C from './Call';
 import Quick from './Quick';
-import SixType from './SixType';
 
 describe('Quick six class', () => {
 
@@ -81,6 +81,13 @@ describe('Quick six class', () => {
         ],
         SixType.Quick,
         ['1', '3', '1', '3', '1'],
+        [
+            '+1',
+            '+1.3',
+            '+1.3.1',
+            '+1.3.1.3',
+            '+1.3.1.3.1',
+        ],
     );
 
 });

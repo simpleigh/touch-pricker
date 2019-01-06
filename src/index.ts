@@ -19,13 +19,12 @@ import {
     stringFromRow,
 } from './rows';
 import {
-    AbstractSix,
     Call,
     Changes,
     Course,
-    Quick,
+    methods as stedmanMethods,
+    sixes,
     SixType,
-    Slow,
     Start,
     Touch,
 } from './stedman';
@@ -33,7 +32,6 @@ import * as Visitors from './visitors';
 
 export {
     AbstractBlock,
-    AbstractSix,
     Bell,
     BlockDirectory,
     BlockOwnership,
@@ -44,15 +42,15 @@ export {
     Music,
     Notifiable,
     Options,
-    Quick,
     RandomAccessContainer,
     Row,
     rowFromString,
     SerialContainer,
+    sixes,
     SixType,
-    Slow,
     Stage,
     Start,
+    stedmanMethods,
     stringFromRow,
     Touch,
     Visitors,

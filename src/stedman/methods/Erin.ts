@@ -6,11 +6,10 @@
  */
 
 import { Row } from '../../rows';
-import AbstractSix from '../AbstractSix';
 import Course from '../Course';
+import { AbstractSix, Slow } from '../sixes';
 import SixType from '../SixType';
 import SixTypeMap from '../SixTypeMap';
-import Slow from '../Slow';
 import AbstractMethod from './AbstractMethod';
 
 /**
@@ -50,6 +49,11 @@ class Erin extends AbstractMethod {
     protected readonly sixTypeProgression: SixTypeMap<SixType> = {
         [SixType.Slow]: SixType.Slow,
     };
+
+    /**
+     * First six in a standard course
+     */
+    public readonly defaultFirstSix: SixType = SixType.Slow;
 
     /**
      * Index of rounds within six for standard start

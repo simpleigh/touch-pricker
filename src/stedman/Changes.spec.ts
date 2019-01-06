@@ -47,6 +47,28 @@ describe('Changes:', () => {
         ],
     ));
 
+    describe('permuteUp function', createChangeTests(
+        Changes.permuteUp,
+        [
+            ['2315476', Stage.Triples],
+            ['231547698', Stage.Caters],
+            ['231547698E0', Stage.Cinques],
+            ['231547698E0AT', Stage.Sextuples],
+            ['231547698E0ATCB', Stage.Septuples],
+        ],
+    ));
+
+    describe('permuteDown function', createChangeTests(
+        Changes.permuteDown,
+        [
+            ['3125476', Stage.Triples],
+            ['312547698', Stage.Caters],
+            ['312547698E0', Stage.Cinques],
+            ['312547698E0AT', Stage.Sextuples],
+            ['312547698E0ATCB', Stage.Septuples],
+        ],
+    ));
+
     describe('permuteN function', createChangeTests(
         Changes.permuteN,
         [

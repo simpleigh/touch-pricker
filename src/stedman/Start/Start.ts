@@ -10,9 +10,9 @@ import { Row } from '../../rows';
 import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
 import * as Changes from '../Changes';
+import constructorFromType from '../constructorFromType';
 import { AbstractMethod, Stedman } from '../methods';
 import SixType from '../SixType';
-import SixTypeMap from '../SixTypeMap';
 import siril from './siril.dot';
 import text from './text.dot';
 
@@ -78,9 +78,14 @@ class Start extends AbstractBlock implements Templates.Interface {
         for (const notation of this.notation) {
             if (notation === '1') {
                 Changes.permute1(row);
-            } else {
+            } else if (notation === '3') {
                 Changes.permute3(row);
+            } else if (this._sixType === SixType.Cold) {
+                Changes.permuteUp(row);
+            } else if (this._sixType === SixType.Hot) {
+                Changes.permuteDown(row);
             }
+
             this._rows.push(row.slice());
         }
 
@@ -221,12 +226,26 @@ class Start extends AbstractBlock implements Templates.Interface {
      * Returns place notation for the start
      */
     get notation(): string[] {
-        const types: SixTypeMap<string[]> = {
-            [SixType.Slow]: ['3', '1', '3', '1', '3'],
-            [SixType.Quick]: ['1', '3', '1', '3', '1'],
-        };
-        const sixNotation = types[this._sixType]!;
-        return sixNotation.slice(this._rowIndex - 1);
+        const six = new (constructorFromType(this._sixType))(this._initialRow);
+        return six.notation.slice(this._rowIndex - 1);
+    }
+
+    /**
+     * Computes the place notation string for the start
+     */
+    public getNotationString(): string {
+        switch (this._sixType) {
+            case SixType.Slow:
+            case SixType.Quick:
+                return '+' + this.notation.join('.');
+
+            case SixType.Cold:
+            case SixType.Hot:
+                return this.notation.join(', ');
+
+            default:
+                throw new Error('Assertion failed in Start.getNotationString');
+        }
     }
 
 }

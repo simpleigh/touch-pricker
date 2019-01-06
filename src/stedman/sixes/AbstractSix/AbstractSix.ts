@@ -5,12 +5,12 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { AbstractBlock, BlockOwnership } from '../../blocks';
-import { Row } from '../../rows';
-import * as Templates from '../../templates';
-import Call from '../Call';
-import * as Changes from '../Changes';
-import SixType from '../SixType';
+import { AbstractBlock, BlockOwnership } from '../../../blocks';
+import { Row } from '../../../rows';
+import * as Templates from '../../../templates';
+import Call from '../../Call';
+import * as Changes from '../../Changes';
+import SixType from '../../SixType';
 import mbd from './mbd.dot';
 import siril from './siril.dot';
 
@@ -81,6 +81,14 @@ abstract class AbstractSix
     }
 
     /* AbstractSix methods ****************************************************/
+
+    /**
+     * Computes a place notation string for a number of rows
+     * @param {number} rows  Number of rows (from 1 to 5)
+     */
+    public getNotationString(rows: number): string {
+        return '+' + this.notation.slice(0, rows).join('.');
+    }
 
     /**
      * Returns the six head

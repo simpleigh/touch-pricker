@@ -9,8 +9,10 @@ import { BlockOwnership, RandomAccessContainer } from '../../blocks';
 import { Row, rowFromString, Stage } from '../../rows';
 import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
+import constructorFromType from '../constructorFromType';
 import Course from '../Course';
 import { AbstractMethod, Stedman } from '../methods';
+import * as sixes from '../sixes';
 import Start from '../Start';
 import select from './select.dot';
 import siril from './siril.dot';
@@ -19,7 +21,10 @@ import text from './text.dot';
 /**
  * A touch, being a set of courses
  */
-@Templates.makePrintable({ select, siril, text }, { rowFromString })
+@Templates.makePrintable(
+    { select, siril, text },
+    { constructorFromType, rowFromString, sixes },
+)
 class Touch
     extends RandomAccessContainer<Course>
     implements Templates.Interface {
@@ -96,10 +101,17 @@ class Touch
     /* Touch methods **********************************************************/
 
     /**
-     * Read access to the start
+     * Provides read access to the start
      */
     get start(): Start {
         return this._start;
+    }
+
+    /**
+     * Provides read access to the method
+     */
+    get method(): AbstractMethod {
+        return this._method;
     }
 
     /**
