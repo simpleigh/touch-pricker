@@ -8,7 +8,7 @@
 import MbdPricker from '.';
 import {
     testAbstractPrickerImplementation,
-} from '../../prickers/AbstractPricker.spec';
+} from '../../AbstractPricker.spec';
 
 describe('Mbd Pricker class', () => {
 

@@ -5,10 +5,10 @@
  * @copyright Copyright 2015-19 Leigh Simpson. All rights reserved.
  */
 
+import AbstractPricker from '../../AbstractPricker';
 import { BlockDirectory, Notifiable } from '../../blocks';
 import { hide, show } from '../../dom';
 import { MbdScheme } from '../../music';
-import { AbstractPricker } from '../../prickers';
 import { Row, rowFromString, Stage, stringFromRow } from '../../rows';
 import * as Templates from '../../templates';
 import * as Visitors from '../../visitors';

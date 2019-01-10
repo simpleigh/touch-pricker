@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-19 Leigh Simpson. All rights reserved.
  */
 
-import { getHeight, getWidth } from '../dom';
-import * as Templates from '../templates';
+import { getHeight, getWidth } from './dom';
+import * as Templates from './templates';
 
 abstract class AbstractPricker implements Templates.Interface {
 

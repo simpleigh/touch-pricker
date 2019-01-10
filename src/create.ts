@@ -5,10 +5,10 @@
  * @copyright Copyright 2015-19 Leigh Simpson. All rights reserved.
  */
 
-import { createAndAppendStyle, createIframe, injectIframeData } from '../dom';
-import { MbdPricker } from '../stedman';
 import template from './create.dot';
+import { createAndAppendStyle, createIframe, injectIframeData } from './dom';
 import Options from './Options';
+import { MbdPricker } from './stedman';
 
 /**
  * Factory function to create a pricker

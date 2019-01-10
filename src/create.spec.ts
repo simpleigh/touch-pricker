@@ -5,11 +5,11 @@
  * @copyright Copyright 2015-19 Leigh Simpson. All rights reserved.
  */
 
-import * as Dom from '../dom';
-import { MbdPricker } from '../stedman';
 import AbstractPricker from './AbstractPricker';
 import create from './create';
 import template from './create.dot';
+import * as Dom from './dom';
+import { MbdPricker } from './stedman';
 
 describe('create function', () => {
 

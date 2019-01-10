@@ -13,11 +13,9 @@ import {
     RandomAccessContainer,
     SerialContainer,
 } from './blocks';
+import create from './create';
 import * as Music from './music';
-import {
-    create,
-    Options,
-} from './prickers';
+import Options from './Options';
 import {
     Bell,
     Row,
