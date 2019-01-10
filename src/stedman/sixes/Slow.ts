@@ -6,7 +6,7 @@
  */
 
 import { AbstractVisitor } from '../../visitors';
-import * as Changes from '../Changes';
+import * as Changes from '../changes';
 import SixType from '../SixType';
 import AbstractSix from './AbstractSix';
 

@@ -8,7 +8,7 @@
 import { Row, Stage, stringFromRow } from '../rows';
 import { createTestRow } from '../testFunctions.spec';
 import Call from './Call';
-import * as Changes from './Changes';
+import * as Changes from './changes';
 
 const createChangeTests = (
     testFn: (row: Row) => void,

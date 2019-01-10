@@ -9,7 +9,7 @@ import { AbstractBlock, BlockOwnership } from '../../blocks';
 import { Row } from '../../rows';
 import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
-import * as Changes from '../Changes';
+import * as Changes from '../changes';
 import constructorFromType from '../constructorFromType';
 import { AbstractMethod, Stedman } from '../methods';
 import SixType from '../SixType';

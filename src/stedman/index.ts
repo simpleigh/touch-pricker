@@ -5,14 +5,14 @@
  * @copyright Copyright 2015-19 Leigh Simpson. All rights reserved.
  */
 
-import * as methods from './methods';
-import * as sixes from './sixes';
+import * as Methods from './methods';
+import * as Sixes from './sixes';
 
 export { default as Call } from './Call';
 export { default as Course } from './Course';
 export { default as MbdPricker } from './MbdPricker';
-export { methods };
-export { sixes };
+export { Methods };
+export { Sixes };
 export { default as SixType } from './SixType';
 export { default as Start } from './Start';
 export { default as Touch } from './Touch';

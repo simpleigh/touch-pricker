@@ -9,7 +9,7 @@ import { AbstractBlock, BlockOwnership } from '../../../blocks';
 import { Row } from '../../../rows';
 import * as Templates from '../../../templates';
 import Call from '../../Call';
-import * as Changes from '../../Changes';
+import * as Changes from '../../changes';
 import SixType from '../../SixType';
 import mbd from './mbd.dot';
 import siril from './siril.dot';

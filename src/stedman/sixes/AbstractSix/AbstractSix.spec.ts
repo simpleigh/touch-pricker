@@ -15,7 +15,7 @@ import matchers from '../../../templates/matchers';
 import { createTestRow } from '../../../testFunctions.spec';
 import { StringArray } from '../../../visitors';
 import Call from '../../Call';
-import * as Changes from '../../Changes';
+import * as Changes from '../../changes';
 import Course from '../../Course';
 import SixType from '../../SixType';
 
