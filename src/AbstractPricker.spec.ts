@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-19 Leigh Simpson. All rights reserved.
  */
 
-import matchers from '../templates/matchers';
 import AbstractPricker from './AbstractPricker';
+import matchers from './templates/matchers';
 
 /**
  * Tests that a pricker behaves as an AbstractPricker

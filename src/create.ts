@@ -5,10 +5,11 @@
  * @copyright Copyright 2015-19 Leigh Simpson. All rights reserved.
  */
 
-import { createAndAppendStyle, createIframe, injectIframeData } from '../dom';
 import template from './create.dot';
-import Mbd from './Mbd';
+import { createAndAppendStyle, createIframe, injectIframeData } from './dom';
 import Options from './Options';
+import Pricker from './Pricker';
+import { MbdPricker } from './stedman';
 
 /**
  * Factory function to create a pricker
@@ -20,8 +21,8 @@ const create = (
     elementId: string,
     options: Options = { },
     parentDocument: HTMLDocument = document,
-): Mbd => {
-    let pricker: Mbd;
+): Pricker => {
+    let pricker: MbdPricker;
 
     const element = parentDocument.getElementById(elementId);
     if (!element) {
@@ -31,10 +32,10 @@ const create = (
     if (options.iframe || options.iframe === undefined) {
         const iframe = createIframe(parentDocument);
         element.appendChild(iframe);
-        pricker = new Mbd(iframe);
+        pricker = new MbdPricker(iframe);
         injectIframeData(iframe, template({ pricker }), { pricker });
     } else {
-        pricker = new Mbd();
+        pricker = new MbdPricker();
         createAndAppendStyle(parentDocument, pricker.print('css'));
         element.innerHTML = pricker.print('html');
         (window as any).pricker = pricker;

@@ -5,11 +5,13 @@
  * @copyright Copyright 2015-19 Leigh Simpson. All rights reserved.
  */
 
-import Mbd from '.';
-import { testAbstractPrickerImplementation } from '../AbstractPricker.spec';
+import MbdPricker from '.';
+import {
+    testAbstractPrickerImplementation,
+} from '../../AbstractPricker.spec';
 
 describe('Mbd Pricker class', () => {
 
-    testAbstractPrickerImplementation(Mbd);
+    testAbstractPrickerImplementation(MbdPricker);
 
 });

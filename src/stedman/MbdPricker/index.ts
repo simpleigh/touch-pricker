@@ -5,9 +5,4 @@
  * @copyright Copyright 2015-19 Leigh Simpson. All rights reserved.
  */
 
-/**
- * Prickers
- */
-
-export { default as create } from './create';
-export { default as Options } from './Options';
+export { default } from './MbdPricker';

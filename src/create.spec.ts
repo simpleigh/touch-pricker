@@ -5,11 +5,11 @@
  * @copyright Copyright 2015-19 Leigh Simpson. All rights reserved.
  */
 
-import * as Dom from '../dom';
-import AbstractPricker from './AbstractPricker';
 import create from './create';
 import template from './create.dot';
-import Mbd from './Mbd';
+import * as Dom from './dom';
+import Pricker from './Pricker';
+import { MbdPricker } from './stedman';
 
 describe('create function', () => {
 
@@ -39,14 +39,14 @@ describe('create function', () => {
 
     describe('creates an iframe to host the pricker', () => {
 
-        let pricker: AbstractPricker;
+        let pricker: Pricker;
 
         beforeEach(() => {
             pricker = create('element', undefined, parentDocument);
         });
 
         it('creates the pricker with the iframe', () => {
-            expect(pricker).toEqual(new Mbd(iframe));
+            expect(pricker).toEqual(new MbdPricker(iframe));
         });
 
         it('creates an iframe to hold the pricker', () => {
@@ -69,14 +69,14 @@ describe('create function', () => {
 
     describe('appends the pricker to an element if requested', () => {
 
-        let pricker: Mbd;
+        let pricker: Pricker;
 
         beforeEach(() => {
             pricker = create('element', { iframe: false }, parentDocument);
         });
 
         it('creates the pricker', () => {
-            expect(pricker).toEqual(new Mbd());
+            expect(pricker).toEqual(new MbdPricker());
         });
 
         it('creates a style element and appends it to the document', () => {
