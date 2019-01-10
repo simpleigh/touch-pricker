@@ -27,7 +27,6 @@ import {
 } from './rows';
 import {
     Call,
-    Changes,
     Course,
     methods as stedmanMethods,
     sixes,
@@ -43,7 +42,6 @@ export {
     BlockDirectory,
     BlockOwnership,
     Call,
-    Changes,
     Course,
     create,
     Music,
