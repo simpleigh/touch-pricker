@@ -5,14 +5,7 @@
  * @copyright Copyright 2015-19 Leigh Simpson. All rights reserved.
  */
 
-import {
-    AbstractBlock,
-    BlockDirectory,
-    BlockOwnership,
-    Notifiable,
-    RandomAccessContainer,
-    SerialContainer,
-} from './blocks';
+import * as Blocks from './blocks';
 import create from './create';
 import * as Music from './music';
 import Options from './Options';
@@ -24,39 +17,20 @@ import {
     Stage,
     stringFromRow,
 } from './rows';
-import {
-    Call,
-    Course,
-    methods as stedmanMethods,
-    sixes,
-    SixType,
-    Start,
-    Touch,
-} from './stedman';
+import * as Stedman from './stedman';
 import * as Visitors from './visitors';
 
 export {
-    AbstractBlock,
     Bell,
-    BlockDirectory,
-    BlockOwnership,
-    Call,
-    Course,
+    Blocks,
     create,
     Music,
-    Notifiable,
     Options,
     Pricker,
-    RandomAccessContainer,
     Row,
     rowFromString,
-    SerialContainer,
-    sixes,
-    SixType,
     Stage,
-    Start,
-    stedmanMethods,
+    Stedman,
     stringFromRow,
-    Touch,
     Visitors,
 };
