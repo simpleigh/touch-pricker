@@ -6,9 +6,10 @@
  */
 
 import { getHeight, getWidth } from './dom';
+import Pricker from './Pricker';
 import * as Templates from './templates';
 
-abstract class AbstractPricker implements Templates.Interface {
+abstract class AbstractPricker implements Pricker {
 
     /**
      * Constructor

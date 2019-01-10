@@ -8,6 +8,7 @@
 import template from './create.dot';
 import { createAndAppendStyle, createIframe, injectIframeData } from './dom';
 import Options from './Options';
+import Pricker from './Pricker';
 import { MbdPricker } from './stedman';
 
 /**
@@ -20,7 +21,7 @@ const create = (
     elementId: string,
     options: Options = { },
     parentDocument: HTMLDocument = document,
-): MbdPricker => {
+): Pricker => {
     let pricker: MbdPricker;
 
     const element = parentDocument.getElementById(elementId);

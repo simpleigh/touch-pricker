@@ -16,6 +16,7 @@ import {
 import create from './create';
 import * as Music from './music';
 import Options from './Options';
+import Pricker from './Pricker';
 import {
     Bell,
     Row,
@@ -45,6 +46,7 @@ export {
     Music,
     Notifiable,
     Options,
+    Pricker,
     RandomAccessContainer,
     Row,
     rowFromString,

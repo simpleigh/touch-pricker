@@ -83,7 +83,7 @@ See `examples/mbd.html` for a full example.
 The `Pricker.create()` call has the following signature:
 
 ```typescript
-Pricker.create(id: string, config: any): Pricker.Pricker.Abstract;
+Pricker.create(id: string, config: Pricker.Options): Pricker.Pricker;
 ```
 
 This currently supports the following configuration option:
