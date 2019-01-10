@@ -5,4 +5,4 @@
  * @copyright Copyright 2015-19 Leigh Simpson. All rights reserved.
  */
 
-export { default } from './Mbd';
+export { default } from './MbdPricker';

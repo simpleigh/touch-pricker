@@ -6,8 +6,8 @@
  */
 
 import { createAndAppendStyle, createIframe, injectIframeData } from '../dom';
+import { MbdPricker } from '../stedman';
 import template from './create.dot';
-import Mbd from './Mbd';
 import Options from './Options';
 
 /**
@@ -20,8 +20,8 @@ const create = (
     elementId: string,
     options: Options = { },
     parentDocument: HTMLDocument = document,
-): Mbd => {
-    let pricker: Mbd;
+): MbdPricker => {
+    let pricker: MbdPricker;
 
     const element = parentDocument.getElementById(elementId);
     if (!element) {
@@ -31,10 +31,10 @@ const create = (
     if (options.iframe || options.iframe === undefined) {
         const iframe = createIframe(parentDocument);
         element.appendChild(iframe);
-        pricker = new Mbd(iframe);
+        pricker = new MbdPricker(iframe);
         injectIframeData(iframe, template({ pricker }), { pricker });
     } else {
-        pricker = new Mbd();
+        pricker = new MbdPricker();
         createAndAppendStyle(parentDocument, pricker.print('css'));
         element.innerHTML = pricker.print('html');
         (window as any).pricker = pricker;

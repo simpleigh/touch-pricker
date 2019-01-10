@@ -6,10 +6,10 @@
  */
 
 import * as Dom from '../dom';
+import { MbdPricker } from '../stedman';
 import AbstractPricker from './AbstractPricker';
 import create from './create';
 import template from './create.dot';
-import Mbd from './Mbd';
 
 describe('create function', () => {
 
@@ -46,7 +46,7 @@ describe('create function', () => {
         });
 
         it('creates the pricker with the iframe', () => {
-            expect(pricker).toEqual(new Mbd(iframe));
+            expect(pricker).toEqual(new MbdPricker(iframe));
         });
 
         it('creates an iframe to hold the pricker', () => {
@@ -69,14 +69,14 @@ describe('create function', () => {
 
     describe('appends the pricker to an element if requested', () => {
 
-        let pricker: Mbd;
+        let pricker: MbdPricker;
 
         beforeEach(() => {
             pricker = create('element', { iframe: false }, parentDocument);
         });
 
         it('creates the pricker', () => {
-            expect(pricker).toEqual(new Mbd());
+            expect(pricker).toEqual(new MbdPricker());
         });
 
         it('creates a style element and appends it to the document', () => {

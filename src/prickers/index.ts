@@ -9,5 +9,6 @@
  * Prickers
  */
 
+export { default as AbstractPricker } from './AbstractPricker';
 export { default as create } from './create';
 export { default as Options } from './Options';

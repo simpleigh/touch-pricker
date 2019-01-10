@@ -10,6 +10,7 @@ import * as sixes from './sixes';
 
 export { default as Call } from './Call';
 export { default as Course } from './Course';
+export { default as MbdPricker } from './MbdPricker';
 export { methods };
 export { sixes };
 export { default as SixType } from './SixType';

@@ -8,17 +8,19 @@
 import { BlockDirectory, Notifiable } from '../../blocks';
 import { hide, show } from '../../dom';
 import { MbdScheme } from '../../music';
+import { AbstractPricker } from '../../prickers';
 import { Row, rowFromString, Stage, stringFromRow } from '../../rows';
-import { Course, SixType, Touch } from '../../stedman';
+import * as Templates from '../../templates';
+import * as Visitors from '../../visitors';
+import Course from '../Course';
 import {
     AbstractMethod,
     Erin,
     Stedman,
     StedmanJump,
-} from '../../stedman/methods';
-import * as Templates from '../../templates';
-import * as Visitors from '../../visitors';
-import AbstractPricker from '../AbstractPricker';
+} from '../methods';
+import SixType from '../SixType';
+import Touch from '../Touch';
 import css from './css.dot';
 import html from './html.dot';
 
@@ -28,7 +30,7 @@ enum Block { Course, Touch }
  * An MBD pricker
  */
 @Templates.makePrintable({ css, html }, { Stage })
-class Mbd extends AbstractPricker implements Notifiable {
+class MbdPricker extends AbstractPricker implements Notifiable {
 
     /**
      * Method
@@ -539,4 +541,4 @@ class Mbd extends AbstractPricker implements Notifiable {
 
 }
 
-export default Mbd;
+export default MbdPricker;
