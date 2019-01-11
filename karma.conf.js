@@ -8,6 +8,9 @@
 const paths = require('./config/paths');
 const webpackConfig = require('./config/webpack.config.test');
 
+// Remove the output filename (let karma-webpack put this in itself)
+delete webpackConfig.output.filename;
+
 module.exports = (config) => {
     config.set({
         autoWatch: true,
