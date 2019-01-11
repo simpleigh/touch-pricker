@@ -11,9 +11,10 @@ import { AbstractSix, Cold, Hot, Quick, Slow } from './sixes';
 import SixType from './SixType';
 import SixTypeMap from './SixTypeMap';
 
-interface SixConstructor {
-    new(initialRow: Row, _ownership?: BlockOwnership): AbstractSix;
-}
+type SixConstructor = new(
+    initialRow: Row,
+    _ownership?: BlockOwnership,
+) => AbstractSix;
 
 /**
  * Looks up the six constructor for a six type

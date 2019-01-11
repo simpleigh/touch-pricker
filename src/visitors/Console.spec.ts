@@ -22,6 +22,7 @@ describe('Console visitor', () => {
     it('logs to the console when it visits a row', () => {
         const visitor = new ConsoleVisitor();
         visitor.visit(createTestRow());
+        /* tslint:disable-next-line:no-console */
         expect(console.log).toHaveBeenCalledWith('2314567890E');
     });
 
