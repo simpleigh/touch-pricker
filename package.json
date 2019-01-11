@@ -29,14 +29,14 @@
     "test:browsers": "karma start --single-run"
   },
   "devDependencies": {
-    "@types/jasmine": "2.8.8",
+    "@types/jasmine": "3.3.5",
     "clean-webpack-plugin": "1.0.0",
     "codecov": "3.0.4",
     "copy-webpack-plugin": "4.6.0",
     "dot": "1.1.2",
     "dotjs-loader": "0.1.0",
     "istanbul-instrumenter-loader": "3.0.1",
-    "jasmine-core": "2.8.0",
+    "jasmine-core": "3.3.0",
     "karma": "2.0.4",
     "karma-chrome-launcher": "2.2.0",
     "karma-coverage-istanbul-reporter": "2.0.1",
