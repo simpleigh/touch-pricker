@@ -14,7 +14,7 @@ describe('text template for Start', () => {
 
     const initialRow = createTestRow();
 
-    type StartPosition = [{ new(): AbstractMethod }, SixType, string[]];
+    type StartPosition = [new() => AbstractMethod, SixType, string[]];
 
     const startPositions: StartPosition[] = [
         [Erin, SixType.Slow, [

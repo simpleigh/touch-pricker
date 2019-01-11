@@ -56,7 +56,7 @@ describe('siril template for Start', () => {
         ]],
     ];
 
-    const methodMap: SixTypeMap<{ new(): AbstractMethod }> = {
+    const methodMap: SixTypeMap<new() => AbstractMethod> = {
         [SixType.Slow]: Stedman,
         [SixType.Quick]: Stedman,
         [SixType.Cold]: StedmanJump,

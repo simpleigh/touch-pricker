@@ -600,7 +600,7 @@ describe('Start class', () => {
         ]],
     ];
 
-    const methodMap: SixTypeMap<{ new(): AbstractMethod }> = {
+    const methodMap: SixTypeMap<new() => AbstractMethod> = {
         [SixType.Slow]: Stedman,
         [SixType.Quick]: Stedman,
         [SixType.Cold]: StedmanJump,
@@ -706,7 +706,7 @@ describe('Start class', () => {
 
     describe('can set the row index and six type from strings:', () => {
 
-        const validSixTypes: Array<[{ new(): AbstractMethod }, SixType]> = [
+        const validSixTypes: Array<[new() => AbstractMethod, SixType]> = [
             [Erin, SixType.Slow],
             [Stedman, SixType.Quick],
             [Stedman, SixType.Slow],

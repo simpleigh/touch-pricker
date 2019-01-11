@@ -14,7 +14,7 @@ import matchers from './templates/matchers';
  */
 export const testAbstractPrickerImplementation = (
     // tslint:disable-next-line:variable-name
-    TestPricker: { new (): AbstractPricker },
+    TestPricker: new() => AbstractPricker,
 ) => {
 
     describe('is derived from AbstractPricker and', () => {
