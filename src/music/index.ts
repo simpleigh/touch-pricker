@@ -16,3 +16,4 @@ export { default as MatchType } from './MatchType';
 export { default as MbdScheme } from './MbdScheme';
 export { default as Pattern } from './Pattern';
 export { default as PatternGroup } from './PatternGroup';
+export { default as RunsScheme } from './RunsScheme';
