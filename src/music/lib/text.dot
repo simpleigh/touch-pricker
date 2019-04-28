@@ -1,0 +1,23 @@
+/**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-19 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * Renders a set matcher as text
+ *
+ * A set matcher is one that contains multiple matchers within it, e.g.:
+ *  - [[AbstractScheme]]
+ *  - [[MatcherSet]]
+ *  - [[OneOnlyMatcherSet]]
+ *
+ * The matchers should be accessible via a [[matchers]] property.
+ */
+
+{{~ context.object.matchers :matcher }}
+
+	{{= matcher.print('text') }}
+
+{{~}}

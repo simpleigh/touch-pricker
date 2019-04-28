@@ -7,7 +7,9 @@
 
 import AbstractMatcher from './AbstractMatcher';
 import AbstractScheme from './AbstractScheme';
+import MatcherSet from './MatcherSet';
 import MatchType from './MatchType';
+import OneOnlyMatcherSet from './OneOnlyMatcherSet';
 import Pattern from './Pattern';
 import PatternGroup from './PatternGroup';
 
@@ -36,9 +38,8 @@ class RunsScheme extends AbstractScheme {
      * Create matchers for this scheme/stage.
      */
     protected createMatchers(rounds: string): AbstractMatcher[] {
-        const matchers: AbstractMatcher[] = [ ];
-
-        matchers.push(new Pattern(reverse(rounds), 'Reverse rounds'));
+        const frontMatchers: AbstractMatcher[] = [ ];
+        const backMatchers: AbstractMatcher[] = [ ];
 
         // Loop over possible run lengths
         // Start with longer runs as they're more interesting.
@@ -63,13 +64,19 @@ class RunsScheme extends AbstractScheme {
                 );
             }
 
-            matchers.push(
-                new PatternGroup(`front ${run}-runs`, front),
-                new PatternGroup(`back ${run}-runs`, back),
-            );
+            frontMatchers.push(new PatternGroup(`front ${run}-runs`, front));
+            backMatchers.push(new PatternGroup(`back ${run}-runs`, back));
         }
 
-        return matchers;
+        return [
+            new OneOnlyMatcherSet([
+                new Pattern(reverse(rounds), 'Reverse rounds', MatchType.Row),
+                new MatcherSet([
+                    new OneOnlyMatcherSet(frontMatchers),
+                    new OneOnlyMatcherSet(backMatchers),
+                ]),
+            ]),
+        ];
     }
 
 }

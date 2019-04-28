@@ -46,10 +46,10 @@ export const testAbstractMatcherImplementation = (
 
         it('increments the match count for each match', () => {
             matcher.match('2314567890E');
-            const firstRunMatchCount = matcher.matchCount;
+            expect(matcher.matchCount).toBe(1);
 
             matcher.match('2314567890E');
-            expect(matcher.matchCount).toBe(2 * firstRunMatchCount);
+            expect(matcher.matchCount).toBe(2);
         });
 
         it('is printable', () => {

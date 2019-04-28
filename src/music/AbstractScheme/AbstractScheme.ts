@@ -8,7 +8,7 @@
 import { rowFromString, Stage, stringFromRow } from '../../rows';
 import * as Templates from '../../templates';
 import AbstractMatcher from '../AbstractMatcher';
-import text from './text.dot';
+import text from '../lib/text.dot';
 
 /**
  * Base for music matching schemes.
