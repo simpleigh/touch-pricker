@@ -42,6 +42,11 @@ describe('PatternGroup music class', () => {
         expect(group.patterns.length).toBe(0);
     });
 
+    it('provides read access to the name', () => {
+        const group = new PatternGroup('test', [ ]);
+        expect(group.name).toBe('test');
+    });
+
     it('provides access to the patterns', () => {
         const patterns: Pattern[] = [new Pattern('2314567890E')];
         const group = new PatternGroup('test', patterns);

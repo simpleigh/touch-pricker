@@ -20,7 +20,6 @@ describe('Custom music scheme', () => {
             scheme.addMatcher(new Pattern('2314567890E'));
             return scheme;
         },
-        'Custom scheme',
         [
             [Stage.Cinques, '2314567890E', 1, '1 2314567890E\n'],
         ],

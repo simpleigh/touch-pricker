@@ -17,7 +17,6 @@ describe('Runs music scheme', () => {
 
     testAbstractSchemeImplementation(
         (stage: S = S.Cinques) => new RunsScheme(stage),
-        'Runs-based scheme',
         [
             [S.Triples, '7654321', 1, 'Reverse rounds\n'],
             [S.Triples, 'xxx1234', 1, '1 back 4-runs (1 1234)\n'],

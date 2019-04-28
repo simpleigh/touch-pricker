@@ -37,12 +37,8 @@ class MatcherSet extends AbstractMatcher {
     /**
      * Constructor.
      * @param _matchers  Matchers in the set.
-     * @param _name      Name to use when printing results.
      */
-    constructor(
-        protected _matchers: AbstractMatcher[],
-        protected _name?: string,
-    ) {
+    constructor(protected _matchers: AbstractMatcher[]) {
         super();
     }
 
@@ -62,21 +58,6 @@ class MatcherSet extends AbstractMatcher {
         }
 
         return result;
-    }
-
-    /**
-     * Provides read access to the name.
-     */
-    get name(): string {
-        if (this._name) {
-            return this._name;
-        }
-
-        const matcherNames = [];
-        for (const matcher of this._matchers) {
-            matcherNames.push(matcher.name);
-        }
-        return `MatcherSet(${matcherNames.join(', ')})`;
     }
 
     /**

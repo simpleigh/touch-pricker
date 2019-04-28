@@ -58,7 +58,7 @@ describe('MatcherSet', () => {
     });
 
     testAbstractMatcherImplementation(
-        () => new MatcherSet([new Pattern('890E')], 'test'),
+        () => new MatcherSet([new Pattern('890E')]),
     );
 
 });

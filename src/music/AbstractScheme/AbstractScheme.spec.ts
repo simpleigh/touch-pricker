@@ -11,13 +11,11 @@ import { testAbstractMatcherImplementation } from '../AbstractMatcher.spec';
 
 /**
  * Tests that a scheme behaves as an AbstractScheme
- * @param createFn    function to create the sceme under test
- * @param schemeName  expected name of the scheme
- * @param testCases   array of tests: [stage, row, matches, output]
+ * @param createFn   function to create the sceme under test
+ * @param testCases  array of tests: [stage, row, matches, output]
  */
 export const testAbstractSchemeImplementation = (
     createFn: (stage?: Stage) => AbstractScheme,
-    schemeName: string,
     testCases: Array<[Stage, string, number, string]>,
 ) => {
 
@@ -50,7 +48,7 @@ export const testAbstractSchemeImplementation = (
             }
         });
 
-        testAbstractMatcherImplementation(createFn, schemeName);
+        testAbstractMatcherImplementation(createFn);
 
     });
 

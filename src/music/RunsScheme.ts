@@ -25,13 +25,6 @@ const reverse = (str: string) => str.split('').reverse().join('');
  */
 class RunsScheme extends AbstractScheme {
 
-    /* AbstractMatcher methods ************************************************/
-
-    /**
-     * Provides read access to the name..
-     */
-    public readonly name: string = 'Runs-based scheme';
-
     /* AbstractScheme methods *************************************************/
 
     /**

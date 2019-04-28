@@ -57,7 +57,7 @@ describe('OneOnlyMatcherSet', () => {
     });
 
     testAbstractMatcherImplementation(
-        () => new OneOnlyMatcherSet([new Pattern('890E')], 'test'),
+        () => new OneOnlyMatcherSet([new Pattern('890E')]),
     );
 
 });
