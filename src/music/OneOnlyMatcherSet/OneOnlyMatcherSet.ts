@@ -5,12 +5,10 @@
  * @copyright Copyright 2015-19 Leigh Simpson. All rights reserved.
  */
 
-import * as Templates from '../../templates';
-import AbstractMatcher from '../AbstractMatcher';
-import text from '../lib/text.dot';
+import MatcherSet from '../MatcherSet';
 
 /**
- * An [[AbstractMatcher]] that only reports a single match.
+ * A [[MattherSet]] that only reports a single match.
  *
  * Forwards rows to child matchers, but stops processing when a match occurs.
  * This is useful to avoid reporting multiple similar matches for the same row:
@@ -28,21 +26,13 @@ import text from '../lib/text.dot';
  *
  * The example above will report only one match for '987654321' rather than six.
  */
-@Templates.makePrintable({ text })
-class OneOnlyMatcherSet extends AbstractMatcher {
-
-    /**
-     * Constructor.
-     * @param _matchers  Matchers in the set.
-     */
-    constructor(protected _matchers: AbstractMatcher[]) {
-        super();
-    }
+class OneOnlyMatcherSet extends MatcherSet {
 
     /* AbstractMatcher methods ************************************************/
 
     /**
      * Matches a row string.
+     * Override to abort processing when a match occurs.
      */
     public match(row: string): boolean {
         let result = false;
@@ -59,28 +49,6 @@ class OneOnlyMatcherSet extends AbstractMatcher {
         }
 
         return result;
-    }
-
-    /**
-     * Provides read access to the count of matches.
-     */
-    get matchCount(): number {
-        let matches = 0;
-
-        for (const matcher of this._matchers) {
-            matches += matcher.matchCount;
-        }
-
-        return matches;
-    }
-
-    /* OneOnlyMatcherSet methods **********************************************/
-
-    /**
-     * Provides read access to matchers
-     */
-    get matchers(): AbstractMatcher[] {
-        return this._matchers.slice();
     }
 
 }

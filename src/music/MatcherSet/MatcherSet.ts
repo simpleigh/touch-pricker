@@ -7,14 +7,14 @@
 
 import * as Templates from '../../templates';
 import AbstractMatcher from '../AbstractMatcher';
-import text from '../lib/text.dot';
+import text from './text.dot';
 
 /**
  * An [[AbstractMatcher]] that combines other matchers.
  *
  * Forwards rows to a group of child matchers.
- * Allows matchers to be grouped together, which is useful when using the
- * [[OneOnlyMatcherSet]]:
+ * Allows matchers to be grouped together, e.g. into an [[AbstractScheme]].
+ * This is also useful when using the [[OneOnlyMatcherSet]]:
  *
  * ```
  * const set = new OneOnlyMatcherSet([
