@@ -19,13 +19,6 @@ import PatternGroup from './PatternGroup';
  */
 class MbdScheme extends AbstractScheme {
 
-    /* AbstractMatcher methods ************************************************/
-
-    /**
-     * Provides read access to the name..
-     */
-    public readonly name: string = 'MBD scheme';
-
     /* AbstractScheme methods *************************************************/
 
     /**

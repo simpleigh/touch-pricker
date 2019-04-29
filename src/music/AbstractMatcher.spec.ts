@@ -10,12 +10,10 @@ import AbstractMatcher from './AbstractMatcher';
 
 /**
  * Tests that a matcher behaves appropriately
- * @param createFn     function to create the matcher under test
- * @param matcherName  expected name of the matcher
+ * @param createFn  function to create the matcher under test
  */
 export const testAbstractMatcherImplementation = (
     createFn: () => AbstractMatcher,
-    matcherName: string = 'test',
 ) => {
 
     describe('is derived from AbstractMatcher and', () => {
@@ -34,10 +32,6 @@ export const testAbstractMatcherImplementation = (
         it('can identify a mismatch', () => {
             // Unmusical test row that's not likely to be matched
             expect(matcher.match('2614E378509')).toBe(false);
-        });
-
-        it('provides read access to the matcher name', () => {
-            expect(matcher.name).toBe(matcherName);
         });
 
         it('starts out with no matches', () => {

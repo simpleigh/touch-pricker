@@ -11,6 +11,11 @@ import MatchType from '../MatchType';
 
 describe('Pattern music class', () => {
 
+    it('provides read access to the name', () => {
+        const pattern = new Pattern('231', 'test');
+        expect(pattern.name).toBe('test');
+    });
+
     it('uses the pattern as the name by default', () => {
         const pattern = new Pattern('231');
         expect(pattern.name).toBe('231');

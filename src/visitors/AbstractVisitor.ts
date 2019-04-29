@@ -57,10 +57,10 @@ abstract class AbstractVisitor {
         }
 
         if (this._visiting) {
-            this.visitImplementation(row, block);
             if (stringFromRow(row) === this._rounds) {
                 this._visiting = false;
             }
+            this.visitImplementation(row, block);
         }
         return this;
     }

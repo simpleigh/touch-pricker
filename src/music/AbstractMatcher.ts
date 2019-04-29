@@ -13,9 +13,8 @@ import * as Templates from '../templates';
  * Matchers are given a row string using [[match]], which should immediately
  * return whether or not the row string has matched.
  * An internal [[matchCount]] should log a meaningful count of the matches that
- * have occurred, and a matcher should have a [[name]].
- * Finally matchers should provide a `text` template so their results can be
- * output.
+ * have occurred.
+ * Matchers should provide a `text` template so their results can be output.
  *
  * The [[Pattern]] class is the simplest matcher implemented so far, allowing
  * simple patterns of bells to be matched at the start or end of rows.
@@ -36,12 +35,6 @@ abstract class AbstractMatcher implements Templates.Interface {
      * @returns    Whether or not a match occurred.
      */
     public abstract match(row: string): boolean;
-
-    /**
-     * Provides read access to the name.
-     * This might be fixed, or generated dynamically depending on the matcher.
-     */
-    abstract get name(): string;
 
     /**
      * Provides read access to the count of matches.

@@ -48,6 +48,11 @@ describe('Music visitor', () => {
         expect(matcher.match).toHaveBeenCalledWith('2314567890E');
     });
 
+    it('avoids matching rounds', () => {
+        visitor.visit(createTestRow('123'));
+        expect(matcher.match).not.toHaveBeenCalled();
+    });
+
     it('builds up an directory that starts out empty', () => {
         expect(visitor.directory.empty).toBe(true);
     });

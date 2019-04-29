@@ -5,12 +5,4 @@
  * @copyright Copyright 2015-19 Leigh Simpson. All rights reserved.
  */
 
-/**
- * Renders an AbstractScheme as text
- */
-
-{{~ context.object.matchers :matcher }}
-
-	{{= matcher.print('text') }}
-
-{{~}}
+export { default } from './MatcherSet';

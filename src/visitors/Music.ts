@@ -55,6 +55,12 @@ class Music extends AbstractVisitor {
      * Receives a row for processing.
      */
     protected visitImplementation(row: Row, block?: AbstractBlock): void {
+        // Skip visiting rounds: all touches should end in rounds so there's
+        // not much point reporting this as musical!
+        if (!this.visiting) {
+            return;
+        }
+
         const matches = this._matcher.match(stringFromRow(row));
         if (matches && block) {
             this._directory.add(block);

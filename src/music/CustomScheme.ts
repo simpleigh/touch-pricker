@@ -30,13 +30,6 @@ import AbstractScheme from './AbstractScheme';
  */
 class CustomScheme extends AbstractScheme {
 
-    /* AbstractMatcher methods ************************************************/
-
-    /**
-     * Provides read access to the name.
-     */
-    public readonly name: string = 'Custom scheme';
-
     /* AbstractScheme methods *************************************************/
 
     /**
