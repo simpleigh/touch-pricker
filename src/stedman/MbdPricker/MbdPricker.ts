@@ -8,7 +8,7 @@
 import AbstractPricker from '../../AbstractPricker';
 import { BlockDirectory, Notifiable } from '../../blocks';
 import { hide, show } from '../../dom';
-import { MbdScheme } from '../../music';
+import { MbdScheme, RunsScheme } from '../../music';
 import { Row, rowFromString, Stage, stringFromRow } from '../../rows';
 import * as Templates from '../../templates';
 import * as Visitors from '../../visitors';
@@ -476,7 +476,10 @@ class MbdPricker extends AbstractPricker implements Notifiable {
     }
 
     public onAnalyseMusic(): void {
-        const scheme = new MbdScheme(this._stage);
+        const schemeName = this.getEl<HTMLSelectElement>('musicScheme').value;
+        const scheme = schemeName === 'runs'
+            ? new RunsScheme(this._stage)
+            : new MbdScheme(this._stage);
         const visitor = new Visitors.Music(scheme);
         this._touch.accept(visitor);
         this.getEl<HTMLTextAreaElement>('musicTextarea').value =

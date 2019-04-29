@@ -99,6 +99,11 @@
 
     <div class="page" id="page_music">
       <form onsubmit="return false">
+        <label for="musicScheme">Scheme:</label>
+        <select id="musicScheme" value="mbd">
+          <option value="mbd">MBD</option>
+          <option value="runs">Runs-based</option>
+        </select>
         <button onclick="pricker.onAnalyseMusic()">Analyse</button>
       </form>
       <textarea id="musicTextarea"></textarea>
