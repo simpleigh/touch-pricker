@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-19 Leigh Simpson. All rights reserved.
  */
 
-import Bell from './Bell';
+import bellFromSymbol from './bellFromSymbol';
 import Row from './Row';
 import Stage from './Stage';
 
@@ -23,24 +23,10 @@ import Stage from './Stage';
  *
  * ```
  * > Pricker.rowFromString('231', Pricker.Stage.Cinques);
- * [2, 3, 1, 4, 5, 6, 7, 8, 9, 0, 11]
+ * [2, 3, 1, 4, 5, 6, 7, 8, 9, 10, 11]
  * ```
  */
 const rowFromString = (input: string, stage: Stage): Row => {
-    // tslint:disable
-    const bellSymbolsMap: { [index: string]: number } = {
-        '1': 1, '2': 2, '3': 3, '4': 4, '5': 5,
-        '6': 6, '7': 7, '8': 8, '9': 9, '0': 10,
-        'E': 11, 'T': 12, 'A': 13, 'B': 14, 'C': 15,
-    };
-    // tslint:enable
-
-    const bellsSeen: boolean[] = [ ];
-    const output: Row = [ ];
-
-    let bellNumber: Bell;
-    let inputIndex: number;
-
     input = input.toUpperCase();
 
     if (input.length > stage) {
@@ -48,30 +34,36 @@ const rowFromString = (input: string, stage: Stage): Row => {
     }
 
     // Build a table to record when we've seen each bell
-    for (bellNumber = 1; bellNumber <= stage; bellNumber += 1) {
+    const bellsSeen: boolean[] = [ ];
+    for (let bellNumber = 1; bellNumber <= stage; bellNumber += 1) {
         bellsSeen[bellNumber] = false;
     }
 
+    const output: Row = [ ];
+
+    // Assemble the row based on the input string
     for (
-        inputIndex = 0;
+        let inputIndex = 0;
         inputIndex < input.length && inputIndex < stage;
         inputIndex += 1
     ) {
-        bellNumber = bellSymbolsMap[input.charAt(inputIndex)];
+        const bellNumber = bellFromSymbol(input.charAt(inputIndex));
 
-        if (bellNumber && bellNumber <= stage) {
-            if (bellsSeen[bellNumber]) {
-                throw new Error('Bell repeated');
-            }
-            output.push(bellNumber);
-            bellsSeen[bellNumber] = true;
-        } else {
+        if (bellNumber > stage) {
             throw new Error('Unknown bell');
         }
+
+        if (bellsSeen[bellNumber]) {
+            throw new Error('Bell repeated');
+        }
+
+        output.push(bellNumber);
+        bellsSeen[bellNumber] = true;
     }
 
+    // Fill in additional bells not yet seen
     if (input.length < stage) {
-        for (bellNumber = 1; bellNumber <= stage; bellNumber += 1) {
+        for (let bellNumber = 1; bellNumber <= stage; bellNumber += 1) {
             if (!bellsSeen[bellNumber]) {
                 output.push(bellNumber);
             }
