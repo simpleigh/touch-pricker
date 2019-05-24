@@ -6,6 +6,10 @@
  */
 
 import * as Blocks from './blocks';
+import {
+    Change,
+    changeFromNotation,
+} from './changes';
 import create from './create';
 import * as Music from './music';
 import Options from './Options';
@@ -25,6 +29,8 @@ export {
     Bell,
     bellFromSymbol,
     Blocks,
+    Change,
+    changeFromNotation,
     create,
     Music,
     Options,
