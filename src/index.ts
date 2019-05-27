@@ -12,6 +12,9 @@ import Options from './Options';
 import Pricker from './Pricker';
 import {
     Bell,
+    bellFromSymbol,
+    Change,
+    changeFromNotation,
     Row,
     rowFromString,
     Stage,
@@ -22,7 +25,10 @@ import * as Visitors from './visitors';
 
 export {
     Bell,
+    bellFromSymbol,
     Blocks,
+    Change,
+    changeFromNotation,
     create,
     Music,
     Options,
