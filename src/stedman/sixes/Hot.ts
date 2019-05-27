@@ -5,7 +5,6 @@
  * @copyright Copyright 2015-19 Leigh Simpson. All rights reserved.
  */
 
-import { rowFromString, stringFromRow } from '../../rows';
 import { AbstractVisitor } from '../../visitors';
 import * as Changes from '../changes';
 import SixType from '../SixType';
@@ -25,9 +24,8 @@ class Hot extends AbstractSix {
      * Notation (excluding call)
      */
     get notation(): string[] {
-        const row = rowFromString('321', this._initialRow.length);
-        Changes.permute1(row);
-        const notation = `'${stringFromRow(row)}'`;
+        const row = '312547698E0ATCB'.slice(0, this._initialRow.length);
+        const notation = `'${row}'`;
         return [notation, notation, notation, notation, notation];
     }
 
