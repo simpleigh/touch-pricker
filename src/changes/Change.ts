@@ -6,26 +6,22 @@
  */
 
 import { Row } from '../rows';
-import * as Templates from '../templates';
 
 /**
  * A change
  *
  * Changes permute a row in order to generate the next row.
  * They should be constructed using `changeFromNotation()`.
- */
-export type BaseChange = ((row: Row) => void);
-
-/**
- * A printable change
- *
- * Extension of [[BaseChange]] that can be printed to retrieve the notation.
  *
  * ```
+ * > const row = Pricker.rowFromString('', Pricker.Stage.Triples);
+ * [1, 2, 3, 4, 5, 6, 7]
  * > const change = Pricker.changeFromNotation('1', Pricker.Stage.Triples);
- * TODO #######################################################################
- * > change.print('text');
- * '1'
+ * 1
+ * > change(row);
+ * [1, 3, 2, 5, 4, 7, 6]
  * ```
  */
-export type PrintableChange = BaseChange & Templates.Interface;
+type Change = ((row: Row) => void);
+
+export default Change;

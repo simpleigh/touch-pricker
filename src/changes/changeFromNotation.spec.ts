@@ -102,7 +102,7 @@ describe('changeFromNotation function', () => {
 
             it(description, () => {
                 const change = changeFromNotation(input, stage);
-                expect(change.print('text')).toBe(expected);
+                expect(change.toString()).toBe(expected);
             });
         }
     });

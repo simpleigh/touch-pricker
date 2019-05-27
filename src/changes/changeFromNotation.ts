@@ -6,12 +6,12 @@
  */
 
 import { Bell, bellFromSymbol, Row, Stage } from '../rows';
-import { BaseChange, PrintableChange } from './types';
+import Change from './Change';
 
 /**
  * Helper function that extends a change to swap two bells
  */
-const swap = (change: BaseChange, place: number): BaseChange => (row: Row) => {
+const swap = (change: Change, place: number): Change => (row: Row) => {
     // Apply the original change
     change(row);
 
@@ -31,19 +31,15 @@ const swap = (change: BaseChange, place: number): BaseChange => (row: Row) => {
  * particular stage.
  *
  * ```
- * > const row = Pricker.rowFromString('', Pricker.Stage.Triples);
- * [1, 2, 3, 4, 5, 6, 7]
  * > const change = Pricker.changeFromNotation('1', Pricker.Stage.Triples);
- * TODO #######################################################################
- * > change(row);
- * [1, 3, 2, 5, 4, 7, 6]
+ * 1
  * ```
  */
-const changeFromNotation = (input: string, stage: Stage): PrintableChange => {
+const changeFromNotation = (input: string, stage: Stage): Change => {
     input = input.toUpperCase();
 
     // Start out with the empty change and accumulate swaps as we go
-    let change: BaseChange = (row: Row) => { /* NOOP */ };
+    let change: Change = (row: Row) => { /* NOOP */ };
 
     // Also accumulate a canonical representation of the notation
     let notation = '';
@@ -89,8 +85,8 @@ const changeFromNotation = (input: string, stage: Stage): PrintableChange => {
         notation = notation + bellSymbols.charAt(stage);
     }
 
-    (change as PrintableChange).print = () => notation;
-    return (change as PrintableChange);
+    change.toString = () => notation;
+    return change;
 };
 
 export default changeFromNotation;

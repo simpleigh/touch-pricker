@@ -5,5 +5,5 @@
  * @copyright Copyright 2015-19 Leigh Simpson. All rights reserved.
  */
 
+export { default as Change } from './Change';
 export { default as changeFromNotation } from './changeFromNotation';
-export { PrintableChange as Change } from './types';
