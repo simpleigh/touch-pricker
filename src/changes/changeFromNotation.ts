@@ -16,8 +16,7 @@ const swap = (change: Change, place: number): Change => (row: Row) => {
     change(row);
 
     // ... then swap the pair
-    let bell: Bell;
-    bell = row[place - 1];
+    const bell: Bell = row[place - 1];
     row[place - 1] = row[place];
     row[place] = bell;
 
@@ -46,29 +45,42 @@ const changeFromNotation = (input: string, stage: Stage): Change => {
 
     let currentPlace: Bell = 1;
     for (const inputCharacter of input.split('')) {
-        const bellNumber = bellFromSymbol(inputCharacter);
+        let inputPlace: Bell;
 
-        if (bellNumber > stage) {
-            throw new Error('Unknown bell');
+        try {
+            inputPlace = bellFromSymbol(inputCharacter);
+        } catch (_) {
+            // Rethrow with a more appropriate message
+            throw new Error('Unknown place');
         }
 
-        if (bellNumber < currentPlace) {
-            throw new Error('Bell out of order');
+        if (inputPlace > stage) {
+            throw new Error('Unknown place');
+        }
+
+        if (inputPlace === currentPlace - 1) {
+            throw new Error('Repeated place');
+        }
+
+        if (inputPlace < currentPlace) {
+            throw new Error('Place out of order');
         }
 
         // Add '1' at the beginning if necessary
-        if (currentPlace === 1 && bellNumber > 1 && bellNumber % 2 === 0) {
+        if (currentPlace === 1 && inputPlace > 1 && inputPlace % 2 === 0) {
             notation = '1';
             currentPlace = currentPlace + 1;
         }
 
         // Advance to the correct place
-        while (currentPlace < bellNumber - 1) {
+        while (currentPlace < inputPlace - 1) {
             change = swap(change, currentPlace);
             currentPlace = currentPlace + 2;
         }
 
-        // TODO: what if a bell is missed out?
+        if (currentPlace === inputPlace - 1) {
+            throw new Error('Place missed out');
+        }
 
         notation = notation + inputCharacter;
         currentPlace = currentPlace + 1;
@@ -81,8 +93,7 @@ const changeFromNotation = (input: string, stage: Stage): Change => {
 
     // Add <n> at the end if necessary
     if (currentPlace === stage) {
-        const bellSymbols = ' 1234567890ETABC';
-        notation = notation + bellSymbols.charAt(stage);
+        notation = notation + ' 1234567890ETABC'.charAt(stage);
     }
 
     change.toString = () => notation;

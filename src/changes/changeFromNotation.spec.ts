@@ -39,6 +39,13 @@ describe('changeFromNotation function', () => {
             '145',
         ],
         [
+            'with non-consecutive places',
+            Stage.Caters,
+            '369',
+            '213546879',
+            '369',
+        ],
+        [
             'with an implicit place at the start',
             Stage.Triples,
             '47',
@@ -106,4 +113,61 @@ describe('changeFromNotation function', () => {
             });
         }
     });
+
+    it('can parse all triples notations', () => {
+        const triplesNotations: Array<[string, string]> = [
+            ['1325476', '1'],
+            ['1235476', '123'],
+            ['1234576', '12345'],
+            ['1234657', '12347'],
+            ['1243576', '125'],
+            ['1243567', '12567'],
+            ['1243657', '127'],
+            ['1324576', '145'],
+            ['1324567', '14567'],
+            ['1324657', '147'],
+            ['1325467', '167'],
+            ['2135476', '3'],
+            ['2134576', '345'],
+            ['2134567', '34567'],
+            ['2134657', '347'],
+            ['2135467', '367'],
+            ['2143576', '5'],
+            ['2143567', '567'],
+            ['2143657', '7'],
+        ];
+
+        for (const triplesNotation of triplesNotations) {
+            const expected = triplesNotation[0];
+            const notation = triplesNotation[1];
+
+            const row = rowFromString('', Stage.Triples);
+            const change = changeFromNotation(notation, Stage.Triples);
+
+            expect(change.toString()).toBe(notation);
+
+            change(row);
+
+            expect(row).toEqual(rowFromString(expected, Stage.Triples));
+        }
+    });
+
+    const errorTestCases: Array<[string, string, string]> = [
+        ['invalid symbols', '#', 'Unknown place'],
+        ['places that are too high', '9', 'Unknown place'],
+        ['places out of order', '43', 'Place out of order'],
+        ['repeated places', '33', 'Repeated place'],
+        ['places missed out', '13', 'Place missed out'],
+    ];
+
+    for (const errorTestCase of errorTestCases) {
+        const description = errorTestCase[0];
+        const input = errorTestCase[1];
+        const expected = errorTestCase[2];
+
+        it(`rejects ${description}`, () => {
+            expect(() => changeFromNotation(input, Stage.Triples))
+                .toThrowError(expected);
+        });
+    }
 });
