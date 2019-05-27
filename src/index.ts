@@ -6,10 +6,6 @@
  */
 
 import * as Blocks from './blocks';
-import {
-    Change,
-    changeFromNotation,
-} from './changes';
 import create from './create';
 import * as Music from './music';
 import Options from './Options';
@@ -17,6 +13,8 @@ import Pricker from './Pricker';
 import {
     Bell,
     bellFromSymbol,
+    Change,
+    changeFromNotation,
     Row,
     rowFromString,
     Stage,

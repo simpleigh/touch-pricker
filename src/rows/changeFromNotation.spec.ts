@@ -5,8 +5,9 @@
  * @copyright Copyright 2015-19 Leigh Simpson. All rights reserved.
  */
 
-import { rowFromString, Stage } from '../rows';
 import changeFromNotation from './changeFromNotation';
+import rowFromString from './rowFromString';
+import Stage from './Stage';
 
 describe('changeFromNotation function', () => {
     const testCases: Array<[string, Stage, string, string, string]> = [

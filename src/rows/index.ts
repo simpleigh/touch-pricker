@@ -7,6 +7,8 @@
 
 export { default as Bell } from './Bell';
 export { default as bellFromSymbol } from './bellFromSymbol';
+export { default as Change } from './Change';
+export { default as changeFromNotation } from './changeFromNotation';
 export { default as Row } from './Row';
 export { default as rowFromString } from './rowFromString';
 export { default as Stage } from './Stage';

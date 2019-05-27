@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-19 Leigh Simpson. All rights reserved.
  */
 
-import { Row } from '../rows';
+import Row from './Row';
 
 /**
  * A change
