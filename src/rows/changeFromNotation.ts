@@ -10,6 +10,7 @@ import bellFromSymbol from './bellFromSymbol';
 import Change from './Change';
 import Row from './Row';
 import Stage from './Stage';
+import symbolFromBell from './symbolFromBell';
 
 /**
  * Helper function that extends a change to swap two bells
@@ -102,7 +103,7 @@ const changeFromNotation = (input: string, stage: Stage): Change => {
 
     // Add <n> at the end if necessary
     if (currentPlace === stage) {
-        notation = notation + ' 1234567890ETABCD'.charAt(stage);
+        notation = notation + symbolFromBell(stage);
     }
 
     change.toString = () => notation;

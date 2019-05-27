@@ -14,3 +14,4 @@ export { default as Row } from './Row';
 export { default as rowFromString } from './rowFromString';
 export { default as Stage } from './Stage';
 export { default as stringFromRow } from './stringFromRow';
+export { default as symbolFromBell } from './symbolFromBell';

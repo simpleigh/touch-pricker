@@ -6,19 +6,19 @@
  */
 
 import Row from './Row';
+import symbolFromBell from './symbolFromBell';
 
 /**
  * Converts a [[Row]] into a string.
  */
 const stringFromRow = (row: Row): string => {
-    const bellSymbols = ' 1234567890ETABCD';
-    const bellCharacters: string[] = [ ];
+    const bellSymbols: string[] = [ ];
 
     for (const bell of row) {
-        bellCharacters.push(bellSymbols.charAt(bell));
+        bellSymbols.push(symbolFromBell(bell));
     }
 
-    return bellCharacters.join('');
+    return bellSymbols.join('');
 };
 
 export default stringFromRow;
