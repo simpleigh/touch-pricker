@@ -243,7 +243,7 @@ class MbdPricker extends AbstractPricker implements Notifiable {
 
         this.getEl('courses').outerHTML =
             '<select id="courses"'
-                + ' onblur="pricker.onSelectCourse()"'
+                + ' onblur="pricker.onSelectCourse()"' // for iOS Safari (#11)
                 + ' onclick="pricker.onSelectCourse()"'
                 + ' ondblclick="pricker.onCopyCourse()">'
                 + this._touch.print('select', {
