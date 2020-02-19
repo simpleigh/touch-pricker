@@ -31,7 +31,7 @@
   "devDependencies": {
     "@types/jasmine": "3.3.5",
     "clean-webpack-plugin": "1.0.0",
-    "codecov": "3.1.0",
+    "codecov": "3.6.5",
     "copy-webpack-plugin": "4.6.0",
     "dot": "1.1.2",
     "dotjs-loader": "0.1.0",
