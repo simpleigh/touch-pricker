@@ -28,7 +28,7 @@ class Proof extends AbstractVisitor {
      * row.
      */
     private _rowCounts:
-        { [index: string]: Array<AbstractBlock | undefined> } = { };
+        { [index: string]: (AbstractBlock | undefined)[] } = { };
 
     /**
      * Directory of false blocks.

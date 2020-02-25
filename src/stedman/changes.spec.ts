@@ -12,7 +12,7 @@ import * as Changes from './changes';
 
 const createChangeTests = (
     testFn: (row: Row) => void,
-    testCases: Array<[string, Stage]>,
+    testCases: [string, Stage][],
 ) => () => it('applies the permutation correctly', () => {
     for (const testCase of testCases) {
         const expected = testCase[0];

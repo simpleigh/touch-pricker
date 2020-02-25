@@ -9,7 +9,7 @@ import Bell from './Bell';
 import symbolFromBell from './symbolFromBell';
 
 describe('symbolFromBell function', () => {
-    const testCases: Array<[string, Bell]> = [
+    const testCases: [string, Bell][] = [
         ['1', 1],
         ['2', 2],
         ['3', 3],

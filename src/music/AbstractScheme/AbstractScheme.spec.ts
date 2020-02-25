@@ -16,7 +16,7 @@ import { testAbstractMatcherImplementation } from '../AbstractMatcher.spec';
  */
 export const testAbstractSchemeImplementation = (
     createFn: (stage?: Stage) => AbstractScheme,
-    testCases: Array<[Stage, string, number, string]>,
+    testCases: [Stage, string, number, string][],
 ) => {
 
     describe('is derived from AbstractScheme and', () => {

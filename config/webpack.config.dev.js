@@ -1,4 +1,4 @@
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const merge = require('webpack-merge');
 
 const paths = require('./paths');
@@ -13,9 +13,8 @@ module.exports = merge(base, {
     },
     output: { filename: 'touch-pricker.js' },
     plugins: [
-        new CleanWebpackPlugin(
-            [paths.devDistFile],
-            { root: paths.rootDir }
-        ),
+        new CleanWebpackPlugin({
+            cleanOnceBeforeBuildPatterns: [paths.devDistFile],
+        }),
     ],
 }, banner);

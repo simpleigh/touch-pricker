@@ -10,7 +10,7 @@ import rowFromString from './rowFromString';
 import Stage from './Stage';
 
 describe('changeFromNotation function', () => {
-    const testCases: Array<[string, Stage, string, string, string]> = [
+    const testCases: [string, Stage, string, string, string][] = [
         [
             'with "-" for cross',
             Stage.Major,
@@ -137,7 +137,7 @@ describe('changeFromNotation function', () => {
     });
 
     it('can parse all triples notations', () => {
-        const triplesNotations: Array<[string, string]> = [
+        const triplesNotations: [string, string][] = [
             ['1325476', '1'],
             ['1235476', '123'],
             ['1234576', '12345'],
@@ -174,7 +174,7 @@ describe('changeFromNotation function', () => {
         }
     });
 
-    const errorTestCases: Array<[string, string, string]> = [
+    const errorTestCases: [string, string, string][] = [
         ['invalid symbols', '#', 'Unknown place'],
         ['places that are too high', '9', 'Unknown place'],
         ['places out of order', '43', 'Place out of order'],

@@ -85,9 +85,9 @@ describe('Start class', () => {
 
     type StageTestCase<Expected> = [S, Expected];
 
-    type StartPosition<Expected> = [number, SixType, Array<StageTestCase<Expected>>];
+    type StartPosition<Expected> = [number, SixType, StageTestCase<Expected>[]];
 
-    const rowTestCases: Array<StartPosition<string[]>> = [
+    const rowTestCases: StartPosition<string[]>[] = [
         [1, SixType.Quick, [
             [S.Triples,   ['1325476',         '3124567',         '3215476',         '2314567',         '2135476']],
             [S.Caters,    ['132547698',       '312456789',       '321547698',       '231456789',       '213547698']],
@@ -258,7 +258,7 @@ describe('Start class', () => {
         ]],
     ];
 
-    const notationTestCases: Array<StartPosition<string[]>> = [
+    const notationTestCases: StartPosition<string[]>[] = [
         [1, SixType.Quick, [
             [S.Triples,   ['1', '3', '1', '3', '1']],
             [S.Caters,    ['1', '3', '1', '3', '1']],
@@ -429,7 +429,7 @@ describe('Start class', () => {
         ]],
     ];
 
-    const notationStringTestCases: Array<StartPosition<string>> = [
+    const notationStringTestCases: StartPosition<string>[] = [
         [1, SixType.Quick, [
             [S.Triples,   '+1.3.1.3.1'],
             [S.Caters,    '+1.3.1.3.1'],
@@ -706,7 +706,7 @@ describe('Start class', () => {
 
     describe('can set the row index and six type from strings:', () => {
 
-        const validSixTypes: Array<[new() => AbstractMethod, SixType]> = [
+        const validSixTypes: [new() => AbstractMethod, SixType][] = [
             [Erin, SixType.Slow],
             [Stedman, SixType.Quick],
             [Stedman, SixType.Slow],

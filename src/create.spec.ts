@@ -32,7 +32,7 @@ describe('create function', () => {
     });
 
     it('throws an error if the element is not found', () => {
-        parentDocument.getElementById.and.returnValue(undefined);
+        parentDocument.getElementById.and.returnValue(null);
         expect(() => create('element', { }, parentDocument))
             .toThrowError("Cannot find HTML element: 'element'");
     });

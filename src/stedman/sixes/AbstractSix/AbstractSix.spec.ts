@@ -21,8 +21,8 @@ import SixType from '../../SixType';
 
 export const testSixImplementation = (
     factory: (initialRow: Row, _ownership?: BlockOwnership) => AbstractSix,
-    testCases: Array<[string, string, Stage, Call]>,
-    rowTests: Array<[string, string, string, string, string, string, Stage]>,
+    testCases: [string, string, Stage, Call][],
+    rowTests: [string, string, string, string, string, string, Stage][],
     type: SixType,
     notation: string[],
     notationStringTests: [string, string, string, string, string],

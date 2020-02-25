@@ -18,8 +18,8 @@ import AbstractMethod from './AbstractMethod';
 export const testAbstractMethodImplementation = (
     Method: { new(): AbstractMethod },  // tslint:disable-line
     name: string,
-    lengthTestCases: Array<[Stage, number]>,
-    progressionTestCases: Array<[SixType, SixType]>,
+    lengthTestCases: [Stage, number][],
+    progressionTestCases: [SixType, SixType][],
     [defaultFirstSix, defaultStartRowIndex, defaultStartSixType]:
         [SixType, number, SixType],
 ) => {

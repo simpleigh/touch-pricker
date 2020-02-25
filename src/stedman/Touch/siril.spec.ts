@@ -28,7 +28,7 @@ describe('siril template for Touch', () => {
         expect(output.length).toBeGreaterThanOrEqual(1);
     });
 
-    const testCases: Array<[string, string]> = [
+    const testCases: [string, string][] = [
         ['renders the number of bells', '11 bells\n'],
         ['renders a symbol for a slow six', 'slow = +3.1.3.1.3\n'],
         ['renders a symbol for a quick six', 'quick = +1.3.1.3.1\n'],

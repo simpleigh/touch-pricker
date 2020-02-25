@@ -24,7 +24,7 @@ type TestContainer = SerialContainer<AbstractBlock>;
  */
 export const testSerialContainerImplementation = (
     factory: (initialRow: Row, _ownership?: BlockOwnership) => TestContainer,
-    lengthTestCases: Array<[Stage, number, number]>,
+    lengthTestCases: [Stage, number, number][],
     expectedLength: number,
     expectedRows: number,
 ) => {
