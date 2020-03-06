@@ -7,36 +7,40 @@
 
 /**
  * Renders a touch as HTML for use within a <select> element
- * @param {number}          touchRows       count of rows in the touch
- * @param {string}          styleUnreached  style to apply for unreached courses
  * @param {BlockDirectory}  falseness       directory to lookup falseness
- * @param {string}          styleFalse      style to apply for false courses
+ * @param {number}          selectedIndex   index of selected course
+ * @param {number}          touchRows       count of rows in the touch
  */
 
 {{
 	context.touchRows = context.touchRows || Infinity;
 	context.touchRows -= context.object.start.estimateRows();
-	context.styleUnreached = context.styleUnreached || '';
-	context.styleFalse = context.styleFalse || '';
 }}
 
-<option value="0">
+<div>
 	{{= context.stringFromRow(context.object.start.getLast()) }}
-</option>
+</div>
 
 {{~ context.object.blocks :course }}
-	<option
-		 value="{{= course.index }}"
-		{{? context.touchRows <= 0 }}
-			 /* single space */
-			style="{{= context.styleUnreached }}"
-		{{?}}
-		{{? context.falseness && context.falseness.contains(course) }}
-			 /* single space */
-			style="{{= context.styleFalse }}"
-		{{?}}
+	<div
+		 class="
+			noselect
+			{{? context.selectedIndex === course.index }}
+				 /* single space */
+				selected
+			{{?}}
+			{{? context.falseness && context.falseness.contains(course) }}
+				 /* single space */
+				false
+			{{?}}
+			{{? context.touchRows <= 0 }}
+				 /* single space */
+				unreached
+			{{?}}
+		"
+		 onclick="pricker.onSelectCourse({{= course.index }})"
 	>
 		{{= course.print('text') }}
-	</option>
+	</div>
 	{{ context.touchRows -= course.estimateRows(); }}
 {{~}}

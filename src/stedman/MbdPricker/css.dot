@@ -6,6 +6,19 @@
  */
 
 /**
+ * General CSS overrides, resets etc.
+ */
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Opera and Firefox */
+}
+
+/**
  * CSS for MBD-style pricker
  */
 
@@ -96,7 +109,31 @@
 }
 
 #courses {
+    background-color: white;
+    border: rgb(227, 227, 227) 0.8px inset;
+    cursor: default;
     margin: 5px 0;
+    min-height: 2em;
+    padding: 1px 0;
+}
+
+#courses div {
+    font-size: 0.9em;
+    margin: 0;
+    padding: 0 5px 0 3px;
+}
+
+#courses div.selected {
+    background-color: rgb(0, 120, 215);
+    color: white !important;
+}
+
+#courses div.false {
+    color: red;
+}
+
+#courses div.unreached {
+    color: gray;
 }
 
 .call {

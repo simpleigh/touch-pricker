@@ -158,7 +158,7 @@
       <button onclick="pricker.onCutCourse()">Cut</button>
       <button onclick="pricker.onDeleteCourse()">Delete</button>
     </form>
-    <select id="courses"></select>
+    <div id="courses" ondblclick="pricker.onCopyCourse()"></div>
     <form onsubmit="return false">
       <button onclick="pricker.onInsertCourse()">Insert</button>
       <button onclick="pricker.onPasteCourse()">Paste</button>

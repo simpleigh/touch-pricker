@@ -23,15 +23,36 @@ describe('select template for Touch', () => {
 
         expect(touch.print('select')).toBe(
             ''
-                + '<option value="0">'
+                + '<div>'
                 + stringFromRow(touch.start.getLast())
-                + '</option>'
-                + '<option value="1">'
+                + '</div>'
+                + '<div class="noselect" onclick="pricker.onSelectCourse(1)">'
                 + touch.getBlock(1).print('text')
-                + '</option>'
-                + '<option value="2">'
+                + '</div>'
+                + '<div class="noselect" onclick="pricker.onSelectCourse(2)">'
                 + touch.getBlock(2).print('text')
-                + '</option>',
+                + '</div>',
+        );
+    });
+
+    it('adds a class when a course is selected', () => {
+        const touch = Touch.fromString(
+            '2314567890E\n'
+                + '2314568790E  1 s10 s13 s15 22\n'
+                + '2314567890E  1 s10 s13 s15 22\n',
+        );
+
+        expect(touch.print('select', { selectedIndex: 2 })).toBe(
+            ''
+                + '<div>'
+                + stringFromRow(touch.start.getLast())
+                + '</div>'
+                + '<div class="noselect" onclick="pricker.onSelectCourse(1)">'
+                + touch.getBlock(1).print('text')
+                + '</div>'
+                + '<div class="noselect selected" onclick="pricker.onSelectCourse(2)">'
+                + touch.getBlock(2).print('text')
+                + '</div>',
         );
     });
 
@@ -42,18 +63,16 @@ describe('select template for Touch', () => {
         touch.insertBlock(3, createTestCourse(testRow));
 
         expect(touch.print('select', {
-            styleUnreached: 'color:gray',
             touchRows: 266, // Two courses plus a standard start
         })).toBe(
             ''
-                + '<option value="0">'
-                + '2314567890E</option>'
-                + '<option value="1">'
-                + '2314567890E  p</option>'
-                + '<option value="2">'
-                + '2314567890E  p</option>'
-                + '<option value="3"'
-                + ' style="color:gray">2314567890E  p</option>',
+                + '<div>2314567890E</div>'
+                + '<div class="noselect" onclick="pricker.onSelectCourse(1)">'
+                + '2314567890E  p</div>'
+                + '<div class="noselect" onclick="pricker.onSelectCourse(2)">'
+                + '2314567890E  p</div>'
+                + '<div class="noselect unreached" onclick="pricker.onSelectCourse(3)">'
+                + '2314567890E  p</div>',
         );
     });
 
@@ -65,17 +84,13 @@ describe('select template for Touch', () => {
         touch.insertBlock(2, createTestCourse(testRow));
         falseness.add(1, 3);
 
-        expect(touch.print('select', {
-            falseness,
-            styleFalse: 'color:red',
-        })).toBe(
+        expect(touch.print('select', { falseness })).toBe(
             ''
-                + '<option value="0">'
-                + '2314567890E</option>'
-                + '<option value="1"'
-                + ' style="color:red">2314567890E  p</option>'
-                + '<option value="2">'
-                + '2314567890E  p</option>',
+                + '<div>2314567890E</div>'
+                + '<div class="noselect false" onclick="pricker.onSelectCourse(1)">'
+                + '2314567890E  p</div>'
+                + '<div class="noselect" onclick="pricker.onSelectCourse(2)">'
+                + '2314567890E  p</div>',
         );
     });
 

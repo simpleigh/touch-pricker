@@ -241,26 +241,18 @@ class MbdPricker extends AbstractPricker implements Notifiable {
             hide(this.getEl('sixType'));
         }
 
-        this.getEl('courses').outerHTML =
-            '<select id="courses"'
-                + ' onblur="pricker.onSelectCourse()"' // for iOS Safari (#11)
-                + ' onclick="pricker.onSelectCourse()"'
-                + ' ondblclick="pricker.onCopyCourse()">'
-                + this._touch.print('select', {
-                    falseness: this._falseness,
-                    styleFalse: 'color:red',
-                    styleUnreached: 'color:gray',
-                    touchRows: this._rowCount,
-                })
-                + '</select>';
-        this.getEl<HTMLSelectElement>('courses').size = Math.max(
-            this._touch.length + 1,
-            2,
-        );
-        this.getEl<HTMLSelectElement>('courses').value =
-            this._selectedIndex.toString();
+        this.redrawCourses();
 
         this.resize();
+    }
+
+    private redrawCourses(): void {
+        this.getEl<HTMLDivElement>('courses').innerHTML =
+            this._touch.print('select', {
+                falseness: this._falseness,
+                selectedIndex: this._selectedIndex,
+                touchRows: this._rowCount,
+            });
     }
 
     public c(six: number): void {
@@ -363,9 +355,13 @@ class MbdPricker extends AbstractPricker implements Notifiable {
         this.redrawTouch();
     }
 
-    public onSelectCourse(): void {
-        const input = this.getEl<HTMLSelectElement>('courses').value;
-        this._selectedIndex = parseInt(input);
+    public onSelectCourse(index: number): void {
+        // Only redraw when selection changes to avoid breaking ondblclick by
+        // swapping out DOM elements underneath it.
+        if (index !== this._selectedIndex) {
+            this._selectedIndex = index;
+            this.redrawCourses();
+        }
     }
 
     public onInsertCourse(): void {
