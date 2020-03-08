@@ -6,7 +6,6 @@
  */
 
 import { Stage } from '../../../rows';
-import matchers from '../../../templates/matchers';
 import { createTestRow } from '../../../testFunctions.spec';
 import Course from '../../Course';
 import SixType from '../../SixType';
@@ -135,10 +134,6 @@ export const testAbstractMethodImplementation = (
     });
 
     describe('is derived from AbstractMethod and', () => {
-
-        beforeEach(() => {
-            jasmine.addMatchers(matchers);
-        });
 
         it('knows that an invalid six is invalid', () => {
             expect(() => method.checkSixType(SixType.Invalid)).toThrow();

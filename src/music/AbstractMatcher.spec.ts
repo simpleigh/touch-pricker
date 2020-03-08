@@ -5,7 +5,6 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import matchers from '../templates/matchers';
 import AbstractMatcher from './AbstractMatcher';
 
 /**
@@ -21,7 +20,6 @@ export const testAbstractMatcherImplementation = (
         let matcher: AbstractMatcher;
 
         beforeEach(() => {
-            jasmine.addMatchers(matchers);
             matcher = createFn();
         });
 

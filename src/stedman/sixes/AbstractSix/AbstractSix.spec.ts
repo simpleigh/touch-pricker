@@ -11,7 +11,6 @@ import {
     testAbstractBlockImplementation,
 } from '../../../blocks/AbstractBlock.spec';
 import { Row, Stage, stringFromRow } from '../../../rows';
-import matchers from '../../../templates/matchers';
 import { createTestRow } from '../../../testFunctions.spec';
 import { StringArray } from '../../../visitors';
 import Call from '../../Call';
@@ -136,10 +135,6 @@ export const testSixImplementation = (
     });
 
     describe('is derived from AbstractSix and', () => {
-
-        beforeEach(() => {
-            jasmine.addMatchers(matchers);
-        });
 
         const createTestSix = (
             container?: Course,

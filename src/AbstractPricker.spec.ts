@@ -6,7 +6,6 @@
  */
 
 import AbstractPricker from './AbstractPricker';
-import matchers from './templates/matchers';
 
 /**
  * Tests that a pricker behaves as an AbstractPricker
@@ -20,10 +19,6 @@ export const testAbstractPrickerImplementation = (
     describe('is derived from AbstractPricker and', () => {
 
         const pricker = new TestPricker();
-
-        beforeEach(() => {
-            jasmine.addMatchers(matchers);
-        });
 
         it('is printable', () => {
             expect(pricker).toBePrintable();
