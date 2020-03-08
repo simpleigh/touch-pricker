@@ -68,6 +68,7 @@
 <span
  class="{{= context.object.type }} call"
  onclick="pricker.c({{= context.object.index }})"
+ onmousedown="return false"/* prevent selection on double-click */
 >
 	&nbsp;
 	{{? context.object.call === context.Call.Plain }}

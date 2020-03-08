@@ -44,8 +44,11 @@ const testMbdAbstractSixTemplate = (
                 '<span class="">'
                     + stringFromRow(six.getLast())
                     + '</span>'
-                    + '&nbsp;&nbsp;<span class="' + six.type
-                    + ' call" onclick="pricker.c(1)">'
+                    + '&nbsp;&nbsp;'
+                    + '<span'
+                    + ' class="' + six.type + ' call"'
+                    + ' onclick="pricker.c(1)"'
+                    + ' onmousedown="return false">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
         });
@@ -56,8 +59,11 @@ const testMbdAbstractSixTemplate = (
                 '<span class="">'
                     + stringFromRow(six.getLast())
                     + '</span>'
-                    + '&nbsp;&nbsp;<span class="' + six.type
-                    + ' call" onclick="pricker.c(1)">'
+                    + '&nbsp;&nbsp;'
+                    + '<span'
+                    + ' class="' + six.type + ' call"'
+                    + ' onclick="pricker.c(1)"'
+                    + ' onmousedown="return false">'
                     + '&nbsp;-&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
         });
@@ -68,8 +74,11 @@ const testMbdAbstractSixTemplate = (
                 '<span class="">'
                     + stringFromRow(six.getLast())
                     + '</span>'
-                    + '&nbsp;&nbsp;<span class="' + six.type
-                    + ' call" onclick="pricker.c(1)">'
+                    + '&nbsp;&nbsp;'
+                    + '<span'
+                    + ' class="' + six.type + ' call"'
+                    + ' onclick="pricker.c(1)"'
+                    + ' onmousedown="return false">'
                     + '&nbsp;s&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
         });
@@ -80,8 +89,11 @@ const testMbdAbstractSixTemplate = (
                 '<span class="">'
                     + stringFromRow(six.getLast())
                     + '</span>'
-                    + '&nbsp;&nbsp;<span class="' + six.type
-                    + ' call" onclick="pricker.c(999)">'
+                    + '&nbsp;&nbsp;'
+                    + '<span'
+                    + ' class="' + six.type + ' call"'
+                    + ' onclick="pricker.c(999)"'
+                    + ' onmousedown="return false">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;999<br />',
             );
         });
@@ -95,8 +107,11 @@ const testMbdAbstractSixTemplate = (
                 '<span class="musicalBlock">'
                     + stringFromRow(six.getLast())
                     + '</span>'
-                    + '&nbsp;&nbsp;<span class="' + six.type
-                    + ' call" onclick="pricker.c(1)">'
+                    + '&nbsp;&nbsp;'
+                    + '<span'
+                    + ' class="' + six.type + ' call"'
+                    + ' onclick="pricker.c(1)"'
+                    + ' onmousedown="return false">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
         });
@@ -112,8 +127,11 @@ const testMbdAbstractSixTemplate = (
                 '<span class="falseBlock">'
                     + stringFromRow(six.getLast())
                     + '</span>'
-                    + '&nbsp;&nbsp;<span class="' + six.type
-                    + ' call" onclick="pricker.c(1)">'
+                    + '&nbsp;&nbsp;'
+                    + '<span'
+                    + ' class="' + six.type + ' call"'
+                    + ' onclick="pricker.c(1)"'
+                    + ' onmousedown="return false">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
         });
@@ -133,8 +151,11 @@ const testMbdAbstractSixTemplate = (
                 '<span class="falseBlock">'
                     + stringFromRow(six.getLast())
                     + '</span>'
-                    + '&nbsp;&nbsp;<span class="' + six.type
-                    + ' call" onclick="pricker.c(1)">'
+                    + '&nbsp;&nbsp;'
+                    + '<span'
+                    + ' class="' + six.type + ' call"'
+                    + ' onclick="pricker.c(1)"'
+                    + ' onmousedown="return false">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
         });
@@ -144,8 +165,11 @@ const testMbdAbstractSixTemplate = (
                 '<span class=""><u>'
                     + stringFromRow(six.getLast())
                     + '</u></span>'
-                    + '&nbsp;&nbsp;<span class="' + six.type
-                    + ' call" onclick="pricker.c(1)">'
+                    + '&nbsp;&nbsp;'
+                    + '<span'
+                    + ' class="' + six.type + ' call"'
+                    + ' onclick="pricker.c(1)"'
+                    + ' onmousedown="return false">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
             );
         });
@@ -155,8 +179,11 @@ const testMbdAbstractSixTemplate = (
                 '<span class="">'
                     + stringFromRow(six.getFirst())
                     + '</span>'
-                    + '&nbsp;&nbsp;<span class="' + six.type
-                    + ' call" onclick="pricker.c(1)">'
+                    + '&nbsp;&nbsp;'
+                    + '<span'
+                    + ' class="' + six.type + ' call"'
+                    + ' onclick="pricker.c(1)"'
+                    + ' onmousedown="return false">'
                     + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />'
                     + '<span class=""><u>'
                     + stringFromRow(six.getLast())
