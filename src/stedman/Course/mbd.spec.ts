@@ -13,13 +13,13 @@ describe('mbd template for Course', () => {
 
     it('renders a course correctly', () => {
         const course = Course.fromString(createTestRow(), 's2 3 (4)');
-        expect(course.print('mbd')).toBe(''
-            + '<u>2314567890E</u><br />'
-            + course.getBlock(1).print('mbd')
-            + course.getBlock(2).print('mbd')
-            + course.getBlock(3).print('mbd')
-            + course.getBlock(4).print('mbd', { underline: true }),
-        );
+        expect(course.print('mbd')).toRenderAs(`
+            <u>2314567890E</u><br />
+            ${course.getBlock(1).print('mbd')}
+            ${course.getBlock(2).print('mbd')}
+            ${course.getBlock(3).print('mbd')}
+            ${course.getBlock(4).print('mbd', { underline: true })}
+        `);
     });
 
     it('can print extra sixes after the pricker', () => {
@@ -29,17 +29,17 @@ describe('mbd template for Course', () => {
         course.setLength(2);
         extraSixes.setLength(2);
 
-        expect(course.print('mbd', { extraSixes })).toBe(''
-            + '<u>2314567890E</u><br />'
-            + course.getBlock(1).print('mbd')
-            + course.getBlock(2).print('mbd', { underline: true })
-            + '<span class="extraSix">'
-            + stringFromRow(extraSixes.getBlock(1).getLast())
-            + '</span><br />'
-            + '<span class="extraSix">'
-            + stringFromRow(extraSixes.getBlock(2).getLast())
-            + '</span><br />',
-        );
+        expect(course.print('mbd', { extraSixes })).toRenderAs(`
+            <u>2314567890E</u><br />
+            ${course.getBlock(1).print('mbd')}
+            ${course.getBlock(2).print('mbd', { underline: true })}
+            <span class="extraSix">
+                ${stringFromRow(extraSixes.getBlock(1).getLast())}
+            </span><br />
+            <span class="extraSix">
+                ${stringFromRow(extraSixes.getBlock(2).getLast())}
+            </span><br />
+        `);
     });
 
     it('can display a six head as well as a six end', () => {
@@ -52,24 +52,28 @@ describe('mbd template for Course', () => {
         expect(course.print('mbd', {
             extraSixes,
             showSixHeads: true,
-        })).toBe(''
-            + '<u>2314567890E</u><br />'
-            + course.getBlock(1).print('mbd', { showSixHeads: true })
-            + course.getBlock(2).print('mbd', {
+        })).toRenderAs(`
+            <u>2314567890E</u><br />
+            ${course.getBlock(1).print('mbd', { showSixHeads: true })}
+            ${course.getBlock(2).print('mbd', {
                 showSixHeads: true,
                 underline: true,
-            })
-            + '<span class="extraSix">'
-            + stringFromRow(extraSixes.getBlock(1).getFirst())
-            + '<br /><u>'
-            + stringFromRow(extraSixes.getBlock(1).getLast())
-            + '</u></span><br />'
-            + '<span class="extraSix">'
-            + stringFromRow(extraSixes.getBlock(2).getFirst())
-            + '<br /><u>'
-            + stringFromRow(extraSixes.getBlock(2).getLast())
-            + '</u></span><br />',
-        );
+            })}
+            <span class="extraSix">
+                ${stringFromRow(extraSixes.getBlock(1).getFirst())}
+                <br />
+                <u>
+                    ${stringFromRow(extraSixes.getBlock(1).getLast())}
+                </u>
+            </span><br />
+            <span class="extraSix">
+                ${stringFromRow(extraSixes.getBlock(2).getFirst())}
+                <br />
+                <u>
+                    ${stringFromRow(extraSixes.getBlock(2).getLast())}
+                </u>
+            </span><br />
+        `);
     });
 
 });

@@ -40,62 +40,66 @@ const testMbdAbstractSixTemplate = (
         };
 
         it('renders a six correctly', () => {
-            expect(six.print('mbd')).toBe(
-                '<span class="">'
-                    + stringFromRow(six.getLast())
-                    + '</span>'
-                    + '&nbsp;&nbsp;'
-                    + '<span'
-                    + ' class="' + six.type + ' call"'
-                    + ' onclick="pricker.c(1)"'
-                    + ' onmousedown="return false">'
-                    + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
-            );
+            expect(six.print('mbd')).toRenderAs(`
+                <span class="">
+                    ${stringFromRow(six.getLast())}
+                </span>
+                &nbsp;&nbsp;
+                <span class="${six.type} call" onclick="pricker.c(1)" onmousedown="return false">
+                    &nbsp;&nbsp;&nbsp;
+                </span>
+                &nbsp;&nbsp;
+                1
+                <br />
+            `);
         });
 
         it('displays bobbed sixes correctly', () => {
             six.setCall(Call.Bob);
-            expect(six.print('mbd')).toBe(
-                '<span class="">'
-                    + stringFromRow(six.getLast())
-                    + '</span>'
-                    + '&nbsp;&nbsp;'
-                    + '<span'
-                    + ' class="' + six.type + ' call"'
-                    + ' onclick="pricker.c(1)"'
-                    + ' onmousedown="return false">'
-                    + '&nbsp;-&nbsp;</span>&nbsp;&nbsp;1<br />',
-            );
+            expect(six.print('mbd')).toRenderAs(`
+                <span class="">
+                    ${stringFromRow(six.getLast())}
+                </span>
+                &nbsp;&nbsp;
+                <span class="${six.type} call" onclick="pricker.c(1)" onmousedown="return false">
+                    &nbsp;-&nbsp;
+                </span>
+                &nbsp;&nbsp;
+                1
+                <br />
+            `);
         });
 
         it('displays singled sixes correctly', () => {
             six.setCall(Call.Single);
-            expect(six.print('mbd')).toBe(
-                '<span class="">'
-                    + stringFromRow(six.getLast())
-                    + '</span>'
-                    + '&nbsp;&nbsp;'
-                    + '<span'
-                    + ' class="' + six.type + ' call"'
-                    + ' onclick="pricker.c(1)"'
-                    + ' onmousedown="return false">'
-                    + '&nbsp;s&nbsp;</span>&nbsp;&nbsp;1<br />',
-            );
+            expect(six.print('mbd')).toRenderAs(`
+                <span class="">
+                    ${stringFromRow(six.getLast())}
+                </span>
+                &nbsp;&nbsp;
+                <span class="${six.type} call" onclick="pricker.c(1)" onmousedown="return false">
+                    &nbsp;s&nbsp;
+                </span>
+                &nbsp;&nbsp;
+                1
+                <br />
+            `);
         });
 
         it('displays the index correctly', () => {
             six = createTestSix(999);
-            expect(six.print('mbd')).toBe(
-                '<span class="">'
-                    + stringFromRow(six.getLast())
-                    + '</span>'
-                    + '&nbsp;&nbsp;'
-                    + '<span'
-                    + ' class="' + six.type + ' call"'
-                    + ' onclick="pricker.c(999)"'
-                    + ' onmousedown="return false">'
-                    + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;999<br />',
-            );
+            expect(six.print('mbd')).toRenderAs(`
+                <span class="">
+                    ${stringFromRow(six.getLast())}
+                </span>
+                &nbsp;&nbsp;
+                <span class="${six.type} call" onclick="pricker.c(999)" onmousedown="return false">
+                    &nbsp;&nbsp;&nbsp;
+                </span>
+                &nbsp;&nbsp;
+                999
+                <br />
+            `);
         });
 
         it('highlights sixes based on a music directory', () => {
@@ -103,17 +107,18 @@ const testMbdAbstractSixTemplate = (
 
             music.add(2, 1);
 
-            expect(six.print('mbd', { music, courseIndex: 2 })).toBe(
-                '<span class="musicalBlock">'
-                    + stringFromRow(six.getLast())
-                    + '</span>'
-                    + '&nbsp;&nbsp;'
-                    + '<span'
-                    + ' class="' + six.type + ' call"'
-                    + ' onclick="pricker.c(1)"'
-                    + ' onmousedown="return false">'
-                    + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
-            );
+            expect(six.print('mbd', { music, courseIndex: 2 })).toRenderAs(`
+                <span class="musicalBlock">
+                    ${stringFromRow(six.getLast())}
+                </span>
+                &nbsp;&nbsp;
+                <span class="${six.type} call" onclick="pricker.c(1)" onmousedown="return false">
+                    &nbsp;&nbsp;&nbsp;
+                </span>
+                &nbsp;&nbsp;
+                1
+                <br />
+            `);
         });
 
         it('highlights sixes based on a falseness directory', () => {
@@ -121,19 +126,18 @@ const testMbdAbstractSixTemplate = (
 
             falseness.add(2, 1);
 
-            expect(
-                six.print('mbd', { falseness, courseIndex: 2 }),
-            ).toBe(
-                '<span class="falseBlock">'
-                    + stringFromRow(six.getLast())
-                    + '</span>'
-                    + '&nbsp;&nbsp;'
-                    + '<span'
-                    + ' class="' + six.type + ' call"'
-                    + ' onclick="pricker.c(1)"'
-                    + ' onmousedown="return false">'
-                    + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
-            );
+            expect(six.print('mbd', { falseness, courseIndex: 2 })).toRenderAs(`
+                <span class="falseBlock">
+                    ${stringFromRow(six.getLast())}
+                </span>
+                &nbsp;&nbsp;
+                <span class="${six.type} call" onclick="pricker.c(1)" onmousedown="return false">
+                    &nbsp;&nbsp;&nbsp;
+                </span>
+                &nbsp;&nbsp;
+                1
+                <br />
+            `);
         });
 
         it('gives priority to falseness over music', () => {
@@ -147,48 +151,56 @@ const testMbdAbstractSixTemplate = (
                 courseIndex: 2,
                 falseness,
                 music,
-            })).toBe(
-                '<span class="falseBlock">'
-                    + stringFromRow(six.getLast())
-                    + '</span>'
-                    + '&nbsp;&nbsp;'
-                    + '<span'
-                    + ' class="' + six.type + ' call"'
-                    + ' onclick="pricker.c(1)"'
-                    + ' onmousedown="return false">'
-                    + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
-            );
+            })).toRenderAs(`
+                <span class="falseBlock">
+                    ${stringFromRow(six.getLast())}
+                </span>
+                &nbsp;&nbsp;
+                <span class="${six.type} call" onclick="pricker.c(1)" onmousedown="return false">
+                    &nbsp;&nbsp;&nbsp;
+                </span>
+                &nbsp;&nbsp;
+                1
+                <br />
+            `);
         });
 
         it('can underline a sixend', () => {
-            expect(six.print('mbd', { underline: true })).toBe(
-                '<span class=""><u>'
-                    + stringFromRow(six.getLast())
-                    + '</u></span>'
-                    + '&nbsp;&nbsp;'
-                    + '<span'
-                    + ' class="' + six.type + ' call"'
-                    + ' onclick="pricker.c(1)"'
-                    + ' onmousedown="return false">'
-                    + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />',
-            );
+            expect(six.print('mbd', { underline: true })).toRenderAs(`
+                <span class="">
+                    <u>
+                        ${stringFromRow(six.getLast())}
+                    </u>
+                </span>
+                &nbsp;&nbsp;
+                <span class="${six.type} call" onclick="pricker.c(1)" onmousedown="return false">
+                    &nbsp;&nbsp;&nbsp;
+                </span>
+                &nbsp;&nbsp;
+                1
+                <br />
+            `);
         });
 
         it('can display a six head as well as a six end', () => {
-            expect(six.print('mbd', { showSixHeads: true })).toBe(
-                '<span class="">'
-                    + stringFromRow(six.getFirst())
-                    + '</span>'
-                    + '&nbsp;&nbsp;'
-                    + '<span'
-                    + ' class="' + six.type + ' call"'
-                    + ' onclick="pricker.c(1)"'
-                    + ' onmousedown="return false">'
-                    + '&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;1<br />'
-                    + '<span class=""><u>'
-                    + stringFromRow(six.getLast())
-                    + '</u></span><br />',
-            );
+            expect(six.print('mbd', { showSixHeads: true })).toRenderAs(`
+                <span class="">
+                    ${stringFromRow(six.getFirst())}
+                </span>
+                &nbsp;&nbsp;
+                <span class="${six.type} call" onclick="pricker.c(1)" onmousedown="return false">
+                    &nbsp;&nbsp;&nbsp;
+                </span>
+                &nbsp;&nbsp;
+                1
+                <br />
+                <span class="">
+                    <u>
+                        ${stringFromRow(six.getLast())}
+                    </u>
+                </span>
+                <br />
+            `);
         });
 
     });

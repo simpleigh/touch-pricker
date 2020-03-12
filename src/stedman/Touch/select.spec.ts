@@ -21,18 +21,17 @@ describe('select template for Touch', () => {
                 + '2314567890E  1 s10 s13 s15 22\n',
         );
 
-        expect(touch.print('select')).toBe(
-            ''
-                + '<div>'
-                + stringFromRow(touch.start.getLast())
-                + '</div>'
-                + '<div class="noselect" onclick="pricker.onSelectCourse(1)">'
-                + touch.getBlock(1).print('text')
-                + '</div>'
-                + '<div class="noselect" onclick="pricker.onSelectCourse(2)">'
-                + touch.getBlock(2).print('text')
-                + '</div>',
-        );
+        expect(touch.print('select')).toRenderAs(`
+            <div>
+                ${stringFromRow(touch.start.getLast())}
+            </div>
+            <div class="noselect" onclick="pricker.onSelectCourse(1)">
+                ${touch.getBlock(1).print('text')}
+            </div>
+            <div class="noselect" onclick="pricker.onSelectCourse(2)">
+                ${touch.getBlock(2).print('text')}
+            </div>
+        `);
     });
 
     it('adds a class when a course is selected', () => {
@@ -42,18 +41,17 @@ describe('select template for Touch', () => {
                 + '2314567890E  1 s10 s13 s15 22\n',
         );
 
-        expect(touch.print('select', { selectedIndex: 2 })).toBe(
-            ''
-                + '<div>'
-                + stringFromRow(touch.start.getLast())
-                + '</div>'
-                + '<div class="noselect" onclick="pricker.onSelectCourse(1)">'
-                + touch.getBlock(1).print('text')
-                + '</div>'
-                + '<div class="noselect selected" onclick="pricker.onSelectCourse(2)">'
-                + touch.getBlock(2).print('text')
-                + '</div>',
-        );
+        expect(touch.print('select', { selectedIndex: 2 })).toRenderAs(`
+            <div>
+                ${stringFromRow(touch.start.getLast())}
+            </div>
+            <div class="noselect" onclick="pricker.onSelectCourse(1)">
+                ${touch.getBlock(1).print('text')}
+            </div>
+            <div class="noselect selected" onclick="pricker.onSelectCourse(2)">
+                ${touch.getBlock(2).print('text')}
+            </div>
+        `);
     });
 
     it('applies a style for unreachable courses', () => {
@@ -64,16 +62,18 @@ describe('select template for Touch', () => {
 
         expect(touch.print('select', {
             touchRows: 266, // Two courses plus a standard start
-        })).toBe(
-            ''
-                + '<div>2314567890E</div>'
-                + '<div class="noselect" onclick="pricker.onSelectCourse(1)">'
-                + '2314567890E  p</div>'
-                + '<div class="noselect" onclick="pricker.onSelectCourse(2)">'
-                + '2314567890E  p</div>'
-                + '<div class="noselect unreached" onclick="pricker.onSelectCourse(3)">'
-                + '2314567890E  p</div>',
-        );
+        })).toRenderAs(`
+            <div>2314567890E</div>
+            <div class="noselect" onclick="pricker.onSelectCourse(1)">
+                2314567890E  p
+            </div>
+            <div class="noselect" onclick="pricker.onSelectCourse(2)">
+                2314567890E  p
+            </div>
+            <div class="noselect unreached" onclick="pricker.onSelectCourse(3)">
+                2314567890E  p
+            </div>
+        `);
     });
 
     it('applies a style for false courses', () => {
@@ -84,14 +84,15 @@ describe('select template for Touch', () => {
         touch.insertBlock(2, createTestCourse(testRow));
         falseness.add(1, 3);
 
-        expect(touch.print('select', { falseness })).toBe(
-            ''
-                + '<div>2314567890E</div>'
-                + '<div class="noselect false" onclick="pricker.onSelectCourse(1)">'
-                + '2314567890E  p</div>'
-                + '<div class="noselect" onclick="pricker.onSelectCourse(2)">'
-                + '2314567890E  p</div>',
-        );
+        expect(touch.print('select', { falseness })).toRenderAs(`
+            <div>2314567890E</div>
+            <div class="noselect false" onclick="pricker.onSelectCourse(1)">
+                2314567890E  p
+            </div>
+            <div class="noselect" onclick="pricker.onSelectCourse(2)">
+                2314567890E  p
+            </div>
+        `);
     });
 
 });

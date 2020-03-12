@@ -7,5 +7,6 @@ declare module jasmine {
     interface Matchers<T> {
         toBePrintable(): jasmine.CustomMatcherResult;
         toHaveTemplate(expected: string): jasmine.CustomMatcherResult;
+        toRenderAs(expected: string): jasmine.CustomMatcherResult;
     }
 }

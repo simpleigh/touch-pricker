@@ -7,8 +7,10 @@
 
 import toBePrintable from './toBePrintable';
 import toHaveTemplate from './toHaveTemplate';
+import toRenderAs from './toRenderAs';
 
 export default {
     toBePrintable,
     toHaveTemplate,
+    toRenderAs,
 };
