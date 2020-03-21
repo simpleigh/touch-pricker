@@ -7,6 +7,7 @@
 
 import * as Blocks from './blocks';
 import create from './create';
+export * as Grandsire from './grandsire';
 import * as Music from './music';
 import Options from './Options';
 import Pricker from './Pricker';

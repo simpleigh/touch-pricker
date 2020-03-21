@@ -1,0 +1,84 @@
+/**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * Renders a lead as HTML for MBD-style pricker
+ * @param {enum}            Call          enum for calls
+ * @param {number}          courseIndex   index number of the course
+ * @param {BlockDirectory}  falseness     directory to lookup falseness
+ * @param {BlockDirectory}  music         directory to lookup music
+ * @param {boolean}         underline     whether to underline the sixend
+ */
+
+{{? context.underline !== true }}
+	{{ context.underline = false; }}
+{{?}}
+
+{{?
+	context.falseness && context.courseIndex && context.falseness.contains(
+		context.courseIndex,
+		context.object.index
+	)
+}}
+	{{ var className = 'falseBlock'; }}
+{{??
+	context.music && context.courseIndex && context.music.contains(
+		context.courseIndex,
+		context.object.index
+	)
+}}
+	{{ var className = 'musicalBlock'; }}
+{{??}}
+	{{ var className = ''; }}
+{{?}}
+
+
+/* Lead head */
+
+<span class="{{= className }}">
+
+	{{? context.underline }}
+		<u>
+	{{?}}
+
+		{{= context.stringFromRow(context.object.getLast()) }}
+
+	{{? context.underline }}
+		</u>
+	{{?}}
+
+</span>
+
+&nbsp;&nbsp;
+
+
+/* Call */
+
+<span
+ class="{{= context.object.index % 2 ? 'odd' : 'even' }} call"
+ onmousedown="pricker.c({{= context.object.index }}); return false"
+ ontouchstart="pricker.c({{= context.object.index }}); return false"
+>
+	&nbsp;
+	{{? context.object.call === context.Call.Plain }}
+		&nbsp;
+	{{?? context.object.call === context.Call.Bob }}
+		-
+	{{?? context.object.call === context.Call.Single }}
+		s
+	{{?}}
+	&nbsp;
+</span>
+
+&nbsp;&nbsp;
+
+
+/* Index */
+
+{{= context.object.index }}
+
+<br />
