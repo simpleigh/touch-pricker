@@ -14,11 +14,46 @@
 <div id="controls">
 
   <div id="tabs">
-    <div id="tab_pricking" onclick="pricker.onTab('pricking')" class="tab tab-selected">Pricking</div>
-    <div id="tab_loadSave" onclick="pricker.onTab('loadSave')" class="tab">Load/Save</div>
-    <div id="tab_siril"    onclick="pricker.onTab('siril')"    class="tab">Siril</div>
-    <div id="tab_music"    onclick="pricker.onTab('music')"    class="tab">Music</div>
-    <div id="tab_view"     onclick="pricker.onTab('view')"     class="tab">View</div>
+    <div
+      class="tab tab-selected"
+      id="tab_pricking"
+      onmousedown="pricker.onTab('pricking'); return false"
+      ontouchstart="pricker.onTab('pricking'); return false"
+    >
+      Pricking
+    </div>
+    <div
+      class="tab"
+      id="tab_loadSave"
+      onmousedown="pricker.onTab('loadSave'); return false"
+      ontouchstart="pricker.onTab('loadSave'); return false"
+    >
+      Load/Save
+    </div>
+    <div
+      class="tab"
+      id="tab_siril"
+      onmousedown="pricker.onTab('siril'); return false"
+      ontouchstart="pricker.onTab('siril'); return false"
+    >
+      Siril
+    </div>
+    <div
+      class="tab"
+      id="tab_music"
+      onmousedown="pricker.onTab('music'); return false"
+      ontouchstart="pricker.onTab('music'); return false"
+    >
+      Music
+    </div>
+    <div
+      class="tab"
+      id="tab_view"
+      onmousedown="pricker.onTab('view'); return false"
+      ontouchstart="pricker.onTab('view'); return false"
+    >
+      View
+    </div>
   </div>
 
   <div id="pages">
