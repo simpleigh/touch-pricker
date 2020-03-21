@@ -25,10 +25,10 @@ describe('select template for Touch', () => {
             <div>
                 ${stringFromRow(touch.start.getLast())}
             </div>
-            <div class="noselect" onclick="pricker.onSelectCourse(1)">
+            <div class="" onmousedown="pricker.onSelectCourse(1); return false" ontouchstart="pricker.onSelectCourse(1); return false">
                 ${touch.getBlock(1).print('text')}
             </div>
-            <div class="noselect" onclick="pricker.onSelectCourse(2)">
+            <div class="" onmousedown="pricker.onSelectCourse(2); return false" ontouchstart="pricker.onSelectCourse(2); return false">
                 ${touch.getBlock(2).print('text')}
             </div>
         `);
@@ -45,10 +45,10 @@ describe('select template for Touch', () => {
             <div>
                 ${stringFromRow(touch.start.getLast())}
             </div>
-            <div class="noselect" onclick="pricker.onSelectCourse(1)">
+            <div class="" onmousedown="pricker.onSelectCourse(1); return false" ontouchstart="pricker.onSelectCourse(1); return false">
                 ${touch.getBlock(1).print('text')}
             </div>
-            <div class="noselect selected" onclick="pricker.onSelectCourse(2)">
+            <div class="selected" onmousedown="pricker.onSelectCourse(2); return false" ontouchstart="pricker.onSelectCourse(2); return false">
                 ${touch.getBlock(2).print('text')}
             </div>
         `);
@@ -64,13 +64,13 @@ describe('select template for Touch', () => {
             touchRows: 266, // Two courses plus a standard start
         })).toRenderAs(`
             <div>2314567890E</div>
-            <div class="noselect" onclick="pricker.onSelectCourse(1)">
+            <div class="" onmousedown="pricker.onSelectCourse(1); return false" ontouchstart="pricker.onSelectCourse(1); return false">
                 2314567890E  p
             </div>
-            <div class="noselect" onclick="pricker.onSelectCourse(2)">
+            <div class="" onmousedown="pricker.onSelectCourse(2); return false" ontouchstart="pricker.onSelectCourse(2); return false">
                 2314567890E  p
             </div>
-            <div class="noselect unreached" onclick="pricker.onSelectCourse(3)">
+            <div class="unreached" onmousedown="pricker.onSelectCourse(3); return false" ontouchstart="pricker.onSelectCourse(3); return false">
                 2314567890E  p
             </div>
         `);
@@ -86,10 +86,10 @@ describe('select template for Touch', () => {
 
         expect(touch.print('select', { falseness })).toRenderAs(`
             <div>2314567890E</div>
-            <div class="noselect false" onclick="pricker.onSelectCourse(1)">
+            <div class="false" onmousedown="pricker.onSelectCourse(1); return false" ontouchstart="pricker.onSelectCourse(1); return false">
                 2314567890E  p
             </div>
-            <div class="noselect" onclick="pricker.onSelectCourse(2)">
+            <div class="" onmousedown="pricker.onSelectCourse(2); return false" ontouchstart="pricker.onSelectCourse(2); return false">
                 2314567890E  p
             </div>
         `);

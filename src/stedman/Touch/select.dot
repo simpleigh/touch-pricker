@@ -22,23 +22,22 @@
 </div>
 
 {{~ context.object.blocks :course }}
+	{{
+		var classes = [ ];
+		if (context.selectedIndex === course.index) {
+			classes.push('selected');
+		}
+		if (context.falseness && context.falseness.contains(course)) {
+			classes.push('false');
+		}
+		if (context.touchRows <= 0) {
+			classes.push('unreached');
+		}
+	}}
 	<div
-		 class="
-			noselect
-			{{? context.selectedIndex === course.index }}
-				 /* single space */
-				selected
-			{{?}}
-			{{? context.falseness && context.falseness.contains(course) }}
-				 /* single space */
-				false
-			{{?}}
-			{{? context.touchRows <= 0 }}
-				 /* single space */
-				unreached
-			{{?}}
-		"
-		 onclick="pricker.onSelectCourse({{= course.index }})"
+		 class="{{= classes.join(' ') }}"
+		 onmousedown="pricker.onSelectCourse({{= course.index }}); return false"
+		 ontouchstart="pricker.onSelectCourse({{= course.index }}); return false"
 	>
 		{{= course.print('text') }}
 	</div>
