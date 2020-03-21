@@ -15,3 +15,11 @@ indent_style = tab
 # HTML tends to be more nested: shrink intend to 2 spaces
 [*.html]
 indent_size = 2
+
+# These dotfiles are really CSS and HTML respectively
+[css.dot]
+indent_style = space
+
+[html.dot]
+indent_size = 2
+indent_style = space
