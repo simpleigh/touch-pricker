@@ -145,10 +145,15 @@ export const testAbstractBlockImplementation = (
         });
 
         it('calls a visitor in order to traverse rows', () => {
-            const visitor = new Counter();
-            spyOn(visitor, 'visit');
+            const visitor = jasmine.createSpyObj('AbstractVisitor', ['visit']);
             block.accept(visitor);
             expect(visitor.visit).toHaveBeenCalled();
+        });
+
+        it('calls a visitor with each row', () => {
+            const visitor = jasmine.createSpyObj('AbstractVisitor', ['visit']);
+            block.accept(visitor);
+            expect(visitor.visit.calls.count()).toBeGreaterThan(0);
         });
 
         it('returns this when receiving a visitor', () => {

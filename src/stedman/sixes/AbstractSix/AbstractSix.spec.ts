@@ -123,14 +123,14 @@ export const testSixImplementation = (
 
     it('generates the correct rows when visited', () => {
         for (const rowTest of rowTests) {
-            const expectedRow: any[] = rowTest.slice(0, 6);  // Six test rows
+            const expectedRows: any[] = rowTest.slice(0, 6);  // Six test rows
             const initialRow = createTestRow('', rowTest[6]); // ... and stage
             const six = factory(initialRow);
             const visitor = new StringArray();
 
             six.accept(visitor);
 
-            expect(visitor.strings).toEqual(expectedRow);
+            expect(visitor.strings).toEqual(expectedRows);
         }
     });
 
@@ -224,7 +224,7 @@ export const testSixImplementation = (
         });
 
         it('passes itself to visitors', () => {
-            const six = factory(createTestRow('123'));
+            const six = factory(createTestRow(''));
             const visitor = jasmine.createSpyObj('AbstractVisitor', ['visit']);
 
             six.accept(visitor);
@@ -232,6 +232,19 @@ export const testSixImplementation = (
             for (let i = 0; i < 6; i += 1) {
                 expect(visitor.visit.calls.argsFor(i)[1]).toBe(six);
             }
+        });
+
+        it('is unchanged when visited', () => {
+            const six = factory(createTestRow(''));
+            const visitor = new StringArray();
+
+            const initialRowBackup = six.initialRow;
+            const callBackup = six.call;
+
+            six.accept(visitor);
+
+            expect(six.initialRow).toEqual(initialRowBackup);
+            expect(six.call).toEqual(callBackup);
         });
 
         it('is printable', () => {

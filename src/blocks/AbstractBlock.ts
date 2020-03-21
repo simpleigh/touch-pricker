@@ -109,9 +109,18 @@ abstract class AbstractBlock {
     }
 
     /**
-     * Receives a visitor that will be called to process each row
+     * Receives visitor(s) that will be called to process each row
      */
     public abstract accept(...visitors: AbstractVisitor[]): this;
+
+    /**
+     * Helper function to correctly fan out calls to multiple visitors
+     */
+    protected visitAll(visitors: AbstractVisitor[], row: Row): void {
+        for (const visitor of visitors) {
+            visitor.visit(row, this);
+        }
+    }
 
     /**
      * Estimates the number of rows in the block

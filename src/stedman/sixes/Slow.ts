@@ -33,24 +33,22 @@ class Slow extends AbstractSix {
     public accept(...visitors: AbstractVisitor[]): this {
         const row = this.initialRow;
 
-        for (const visitor of visitors) {
-            Changes.permuteCall(row, this._call);
-            visitor.visit(row, this);
+        Changes.permuteCall(row, this._call);
+        this.visitAll(visitors, row);
 
-            Changes.permute3(row);
-            visitor.visit(row, this);
+        Changes.permute3(row);
+        this.visitAll(visitors, row);
 
-            Changes.permute1(row);
-            visitor.visit(row, this);
+        Changes.permute1(row);
+        this.visitAll(visitors, row);
 
-            Changes.permute3(row);
-            visitor.visit(row, this);
+        Changes.permute3(row);
+        this.visitAll(visitors, row);
 
-            Changes.permute1(row);
-            visitor.visit(row, this);
+        Changes.permute1(row);
+        this.visitAll(visitors, row);
 
-            visitor.visit(this._end, this);
-        }
+        this.visitAll(visitors, this._end);
 
         return this;
     }
