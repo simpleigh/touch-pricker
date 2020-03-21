@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { createTestRow } from '../testFunctions.spec';
 import AbstractVisitor from './AbstractVisitor';
+import { rounds, rowFromString, Stage } from '../rows';
 
 /**
  * Tests that a visitor behaves as an AbstractVisitor
@@ -21,12 +21,14 @@ export const testAbstractVisitorImplementation = (
 
     describe('is derived from AbstractVisitor and', () => {
 
+        const testRow = rowFromString('2143', Stage.Minimus);
+
         let visitor: AbstractVisitor;
 
         beforeEach(() => { visitor = createFn(); });
 
         it('returns this when processing a row', () => {
-            expect(visitor.visit(createTestRow())).toBe(visitor);
+            expect(visitor.visit(testRow)).toBe(visitor);
         });
 
         it('starts out processing rows', () => {
@@ -34,19 +36,19 @@ export const testAbstractVisitorImplementation = (
         });
 
         it('stops processing rows after rounds is reached', () => {
-            visitor.visit(createTestRow());
-            visitor.visit(createTestRow('123'));
+            visitor.visit(testRow);
+            visitor.visit(rounds(Stage.Minimus));
             expect(visitor.visiting).toBe(false);
         });
 
         it('stops changing its state when not processing', () => {
             let result: any;
 
-            visitor.visit(createTestRow());
-            visitor.visit(createTestRow('123'));
+            visitor.visit(testRow);
+            visitor.visit(rounds(Stage.Minimus));
             result = getState(visitor);
 
-            visitor.visit(createTestRow());
+            visitor.visit(testRow);
             expect(getState(visitor)).toEqual(result);
         });
 

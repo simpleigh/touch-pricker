@@ -6,7 +6,6 @@
  */
 
 import { rounds, Row, Stage, stringFromRow } from '../rows';
-import { createTestRow } from '../testFunctions.spec';
 import Call from './Call';
 import * as Changes from './changes';
 
@@ -105,8 +104,8 @@ describe('Changes:', () => {
     describe('permuteCall function', () => {
 
         it('can apply plain transpositions', () => {
-            const calledRow = createTestRow();
-            const expectedRow = createTestRow();
+            const calledRow = rounds(Stage.Cinques);
+            const expectedRow = rounds(Stage.Cinques);
 
             Changes.permuteCall(calledRow, Call.Plain);
             Changes.permuteN(expectedRow);
@@ -115,8 +114,8 @@ describe('Changes:', () => {
         });
 
         it('can apply bob transpositions', () => {
-            const calledRow = createTestRow();
-            const expectedRow = createTestRow();
+            const calledRow = rounds(Stage.Cinques);
+            const expectedRow = rounds(Stage.Cinques);
 
             Changes.permuteCall(calledRow, Call.Bob);
             Changes.permuteBob(expectedRow);
@@ -125,8 +124,8 @@ describe('Changes:', () => {
         });
 
         it('can apply single transpositions', () => {
-            const calledRow = createTestRow();
-            const expectedRow = createTestRow();
+            const calledRow = rounds(Stage.Cinques);
+            const expectedRow = rounds(Stage.Cinques);
 
             Changes.permuteCall(calledRow, Call.Single);
             Changes.permuteSingle(expectedRow);

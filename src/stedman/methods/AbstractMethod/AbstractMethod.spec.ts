@@ -5,8 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { rounds, Stage } from '../../../rows';
-import { createTestRow } from '../../../testFunctions.spec';
+import { rounds, rowFromString, Stage } from '../../../rows';
 import Course from '../../Course';
 import SixType from '../../SixType';
 import AbstractMethod from './AbstractMethod';
@@ -23,7 +22,7 @@ export const testAbstractMethodImplementation = (
         [SixType, number, SixType],
 ) => {
 
-    const initialRow = createTestRow();
+    const initialRow = rowFromString('231', Stage.Cinques);
 
     const testCourse = new Course(initialRow, undefined, new Method());
 

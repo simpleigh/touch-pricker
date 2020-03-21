@@ -5,21 +5,21 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import Touch from '.';
 import {
     testRandomAccessContainerImplementation,
 } from '../../blocks/RandomAccessContainer.spec';
-import { createTestRow } from '../../testFunctions.spec';
+import { rounds, rowFromString, Stage } from '../../rows';
 import { StringArray } from '../../visitors';
 import Course from '../Course';
 import { AbstractMethod, Erin, Stedman, StedmanJump } from '../methods';
 import SixType from '../SixType';
+import Touch from '.';
 
 describe('Touch class', () => {
 
-    const testRow = createTestRow('123');
+    const testRow = rounds(Stage.Cinques);
 
-    const otherRow = createTestRow('4321');
+    const otherRow = rowFromString('4321', Stage.Cinques);
 
     let touch: Touch;
 

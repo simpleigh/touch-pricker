@@ -23,7 +23,9 @@ export const createTestRow = (
 /**
  * Creates a plain course of Stedman Cinques
  */
-export const createTestCourse = (initialRow: Row = createTestRow()): Course => {
+export const createTestCourse = (
+    initialRow: Row = rowFromString('231', Stage.Cinques),
+): Course => {
     const course = new Course(initialRow);
     course.resetLength();
     return course;

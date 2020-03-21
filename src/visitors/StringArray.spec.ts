@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { createTestRow } from '../testFunctions.spec';
+import { rowFromString, Stage } from '../rows';
 import { testAbstractVisitorImplementation } from './AbstractVisitor.spec';
 import StringArray from './StringArray';
 
@@ -20,9 +20,9 @@ describe('StringArray visitor', () => {
     });
 
     it('stores a string when it visits a row', () => {
-        visitor.visit(createTestRow('2314567890E'));
-        visitor.visit(createTestRow('3241658709E'));
-        expect(visitor.strings).toEqual(['2314567890E', '3241658709E']);
+        visitor.visit(rowFromString('2143', Stage.Minimus));
+        visitor.visit(rowFromString('2413', Stage.Minimus));
+        expect(visitor.strings).toEqual(['2143', '2413']);
     });
 
     it('ignores changes to the result', () => {

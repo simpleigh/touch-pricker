@@ -10,8 +10,7 @@ import {
     BlockDirectory,
     BlockOwnership,
 } from '../../../blocks';
-import { Row, stringFromRow } from '../../../rows';
-import { createTestRow } from '../../../testFunctions.spec';
+import { rounds, Row, Stage, stringFromRow } from '../../../rows';
 import Call from '../../Call';
 import Course from '../../Course';
 import Quick from '../Quick';
@@ -33,10 +32,11 @@ const testMbdAbstractSixTemplate = (
         });
 
         const createTestSix = (index: number): AbstractSix => {
+            const initialRow = rounds(Stage.Cinques);
             const container: Course =
                 jasmine.createSpyObj('Course', ['notify']);
 
-            return factory(createTestRow(), { container, index });
+            return factory(initialRow, { container, index });
         };
 
         it('renders a six correctly', () => {

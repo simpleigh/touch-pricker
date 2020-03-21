@@ -5,14 +5,12 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import Start from '.';
-import { createTestRow } from '../../testFunctions.spec';
+import { rounds, Stage } from '../../rows';
 import { AbstractMethod, Erin, Stedman, StedmanJump } from '../methods';
 import SixType from '../SixType';
+import Start from '.';
 
 describe('text template for Start', () => {
-
-    const initialRow = createTestRow();
 
     type StartPosition = [new() => AbstractMethod, SixType, string[]];
 
@@ -68,7 +66,7 @@ describe('text template for Start', () => {
         const method = new startPosition[0]();
         const sixType = startPosition[1];
 
-        const start = new Start(initialRow, undefined, method);
+        const start = new Start(rounds(Stage.Cinques), undefined, method);
         start.sixType = sixType;
 
         for (let rowIndex = 1; rowIndex <= 6; rowIndex = rowIndex + 1) {

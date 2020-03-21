@@ -6,12 +6,13 @@
  */
 
 import Course from '.';
-import { createTestRow } from '../../testFunctions.spec';
+import { rowFromString, Stage } from '../../rows';
 
 describe('html template for Course', () => {
 
     it('renders a course correctly', () => {
-        const course = Course.fromString(createTestRow(), 's2 3 (4)');
+        const initialRow = rowFromString('231', Stage.Cinques);
+        const course = Course.fromString(initialRow, 's2 3 (4)');
         expect(course.print('html')).toRenderAs(`
             <u>2314567890E</u><br />
             ${course.print('text')}

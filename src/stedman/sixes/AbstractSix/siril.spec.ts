@@ -7,8 +7,7 @@
 
 import AbstractSix from '.';
 import { BlockOwnership } from '../../../blocks';
-import { Row } from '../../../rows';
-import { createTestRow } from '../../../testFunctions.spec';
+import { rounds, Row, Stage } from '../../../rows';
 import Call from '../../Call';
 import Cold from '../Cold';
 import Hot from '../Hot';
@@ -26,7 +25,7 @@ const testSirilAbstractSixTemplate = (
         let six: AbstractSix;
 
         beforeEach(() => {
-            six = factory(createTestRow());
+            six = factory(rounds(Stage.Cinques));
         });
 
         it('renders a six correctly', () => {

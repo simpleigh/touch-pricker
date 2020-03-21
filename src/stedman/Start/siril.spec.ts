@@ -5,15 +5,13 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import Start from '.';
-import { createTestRow } from '../../testFunctions.spec';
+import { rounds, Stage } from '../../rows';
 import { AbstractMethod, Stedman, StedmanJump } from '../methods';
 import SixType from '../SixType';
 import SixTypeMap from '../SixTypeMap';
+import Start from '.';
 
 describe('siril template for Start', () => {
-
-    const initialRow = createTestRow();
 
     type StartPosition = [SixType, string[]];
 
@@ -70,7 +68,11 @@ describe('siril template for Start', () => {
             const method = methodMap[sixType]!;
 
             it(`prints correctly "${expected}"`, () => {
-                const start = new Start(initialRow, undefined, new method());
+                const start = new Start(
+                    rounds(Stage.Cinques),
+                    undefined,
+                    new method(),
+                );
                 start.rowIndex = rowIndex;
                 start.sixType = sixType;
                 expect(start.print('siril')).toBe(expected);

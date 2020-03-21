@@ -6,12 +6,12 @@
  */
 
 import Course from '.';
-import { createTestRow } from '../../testFunctions.spec';
 import { Erin } from '../methods';
+import { rounds, rowFromString, Stage } from '../../rows';
 
 describe('text template for Course', () => {
 
-    const initialRow = createTestRow();
+    const initialRow = rowFromString('231', Stage.Cinques);
 
     it('renders a simple Stedman course correctly', () => {
         const course = Course.fromString(initialRow, '1 s10 s13 22');
@@ -20,7 +20,7 @@ describe('text template for Course', () => {
 
     it('renders a simple Erin course correctly', () => {
         const course = Course.fromString(
-            createTestRow('123'),
+            rounds(Stage.Cinques),
             '1 6 7',
             new Erin(),
         );

@@ -5,64 +5,94 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+import Row from './Row';
 import rowFromString from './rowFromString';
 import Stage from './Stage';
 
 describe('rowFromString function', () => {
 
-    it('converts strings to rows', () => {
-        expect(rowFromString('2315476', Stage.Triples))
-            .toEqual([2, 3, 1, 5, 4, 7, 6]);
-        expect(rowFromString('231547698', Stage.Caters))
-            .toEqual([2, 3, 1, 5, 4, 7, 6, 9, 8]);
-        expect(rowFromString('231547698E0', Stage.Cinques))
-            .toEqual([2, 3, 1, 5, 4, 7, 6, 9, 8, 11, 10]);
-        expect(rowFromString('231547698E0AT', Stage.Sextuples))
-            .toEqual([2, 3, 1, 5, 4, 7, 6, 9, 8, 11, 10, 13, 12]);
-        expect(rowFromString('231547698E0ATCB', Stage.Septuples))
-            .toEqual([2, 3, 1, 5, 4, 7, 6, 9, 8, 11, 10, 13, 12, 15, 14]);
-    });
+    // tslint:disable:max-line-length
+    const conversionTestCases: [string, Stage, Row][] = [
+        ['4321',             Stage.Minimus,   [4, 3, 2, 1]],
+        ['54321',            Stage.Doubles,   [5, 4, 3, 2, 1]],
+        ['654321',           Stage.Minor,     [6, 5, 4, 3, 2, 1]],
+        ['7654321',          Stage.Triples,   [7, 6, 5, 4, 3, 2, 1]],
+        ['87654321',         Stage.Major,     [8, 7, 6, 5, 4, 3, 2, 1]],
+        ['987654321',        Stage.Caters,    [9, 8, 7, 6, 5, 4, 3, 2, 1]],
+        ['0987654321',       Stage.Royal,     [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]],
+        ['E0987654321',      Stage.Cinques,   [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]],
+        ['TE0987654321',     Stage.Maximus,   [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]],
+        ['ATE0987654321',    Stage.Sextuples, [13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]],
+        ['BATE0987654321',   Stage.Fourteen,  [14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]],
+        ['CBATE0987654321',  Stage.Septuples, [15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]],
+        ['DCBATE0987654321', Stage.Sixteen,   [16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]],
+    ];
+    // tslint:enable:max-line-length
+
+    for (const testCase of conversionTestCases) {
+        const input = testCase[0];
+        const stage = testCase[1];
+        const expected = testCase[2];
+
+        it(`can convert a string to a row on ${stage}`, () => {
+            expect(rowFromString(input, stage)).toEqual(expected);
+        });
+    }
 
     it('copes with lowercase letters', () => {
-        expect(rowFromString('231547698e0atcb', Stage.Septuples))
-            .toEqual([2, 3, 1, 5, 4, 7, 6, 9, 8, 11, 10, 13, 12, 15, 14]);
+        expect(rowFromString('2143658709TEBADC', Stage.Sixteen))
+            .toEqual([2, 1, 4, 3, 6, 5, 8, 7, 10, 9, 12, 11, 14, 13, 16, 15]);
     });
 
     it('rejects repeated bells', () => {
         expect(() => {
-            rowFromString('1123456', Stage.Triples);
+            rowFromString('1123', Stage.Minimus);
         }).toThrowError('Bell repeated');
     });
 
     it('rejects unknown symbols', () => {
         expect(() => {
-            rowFromString('123#567', Stage.Triples);
+            rowFromString('123#', Stage.Minimus);
         }).toThrowError('Unknown bell');
     });
 
     it('rejects bells that are too high', () => {
         expect(() => {
-            rowFromString('1238567', Stage.Triples);
+            rowFromString('1236', Stage.Minimus);
         }).toThrowError('Unknown bell');
     });
 
     it('rejects rows that are too long', () => {
         expect(() => {
-            rowFromString('12345678', Stage.Triples);
+            rowFromString('12345', Stage.Minimus);
         }).toThrowError('Row too long');
     });
 
-    it("fills in bells that aren't specified", () => {
-        expect(rowFromString('231', Stage.Triples))
-            .toEqual([2, 3, 1, 4, 5, 6, 7]);
-        expect(rowFromString('231', Stage.Caters))
-            .toEqual([2, 3, 1, 4, 5, 6, 7, 8, 9]);
-        expect(rowFromString('231', Stage.Cinques))
-            .toEqual([2, 3, 1, 4, 5, 6, 7, 8, 9, 10, 11]);
-        expect(rowFromString('231', Stage.Sextuples))
-            .toEqual([2, 3, 1, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]);
-        expect(rowFromString('231', Stage.Septuples))
-            .toEqual([2, 3, 1, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]);
-    });
+    // tslint:disable:max-line-length
+    const fillTestCases: [Stage, Row][] = [
+        [Stage.Minimus,   [3, 1, 2, 4]],
+        [Stage.Doubles,   [3, 1, 2, 4, 5]],
+        [Stage.Minor,     [3, 1, 2, 4, 5, 6]],
+        [Stage.Triples,   [3, 1, 2, 4, 5, 6, 7]],
+        [Stage.Major,     [3, 1, 2, 4, 5, 6, 7, 8]],
+        [Stage.Caters,    [3, 1, 2, 4, 5, 6, 7, 8, 9]],
+        [Stage.Royal,     [3, 1, 2, 4, 5, 6, 7, 8, 9, 10]],
+        [Stage.Cinques,   [3, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11]],
+        [Stage.Maximus,   [3, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12]],
+        [Stage.Sextuples, [3, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]],
+        [Stage.Fourteen,  [3, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]],
+        [Stage.Septuples, [3, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]],
+        [Stage.Sixteen,   [3, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]],
+    ];
+    // tslint:enable:max-line-length
+
+    for (const testCase of fillTestCases) {
+        const stage = testCase[0];
+        const expected = testCase[1];
+
+        it(`fills in bells taht aren't specified on ${stage}`, () => {
+            expect(rowFromString('3', stage)).toEqual(expected);
+        });
+    }
 
 });

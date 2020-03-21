@@ -22,8 +22,8 @@ import Stage from './Stage';
  *  - A character doesn't represent a bell on the current stage
  *
  * ```
- * > Pricker.rowFromString('231', Pricker.Stage.Cinques);
- * [2, 3, 1, 4, 5, 6, 7, 8, 9, 10, 11]
+ * > Pricker.rowFromString('2143', Pricker.Stage.Minimus);
+ * [2, 1, 4, 3]
  * ```
  */
 const rowFromString = (input: string, stage: Stage): Row => {

@@ -6,13 +6,14 @@
  */
 
 import Course from '.';
-import { stringFromRow } from '../../rows';
-import { createTestCourse, createTestRow } from '../../testFunctions.spec';
+import { rowFromString, Stage, stringFromRow } from '../../rows';
+import { createTestCourse } from '../../testFunctions.spec';
 
 describe('mbd template for Course', () => {
 
     it('renders a course correctly', () => {
-        const course = Course.fromString(createTestRow(), 's2 3 (4)');
+        const initialRow = rowFromString('231', Stage.Cinques);
+        const course = Course.fromString(initialRow, 's2 3 (4)');
         expect(course.print('mbd')).toRenderAs(`
             <u>2314567890E</u><br />
             ${course.getBlock(1).print('mbd')}

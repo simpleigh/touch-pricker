@@ -9,8 +9,8 @@ import Course from '.';
 import {
     testSerialContainerImplementation,
 } from '../../blocks/SerialContainer.spec';
-import { Stage, stringFromRow } from '../../rows';
-import { createTestCourse, createTestRow } from '../../testFunctions.spec';
+import { rounds, rowFromString, Stage, stringFromRow } from '../../rows';
+import { createTestCourse } from '../../testFunctions.spec';
 import { StringArray } from '../../visitors';
 import Call from '../Call';
 import { AbstractMethod, Erin, Stedman, StedmanJump } from '../methods';
@@ -19,7 +19,7 @@ import Touch from '../Touch';
 
 describe('Course class', () => {
 
-    const testRow = createTestRow();
+    const testRow = rowFromString('231', Stage.Cinques);
 
     let course: Course;
 
@@ -165,7 +165,7 @@ describe('Course class', () => {
 
     it('calculates sixes correctly for Erin', () => {
         course = Course.fromString(
-            createTestRow('123'),
+            rounds(Stage.Cinques),
             '1234567890E 6',
             new Erin(),
         );
@@ -230,7 +230,7 @@ describe('Course class', () => {
 
     it('calculates sixes correctly for Stedman Jump', () => {
         course = Course.fromString(
-            createTestRow('123'),
+            rounds(Stage.Cinques),
             '1234567890E 1 6 11 12 17 22',
             new StedmanJump(),
         );
@@ -269,10 +269,10 @@ describe('Course class', () => {
     it('recalculates when the parity is changed', () => {
         course.setLength(2);
         course.setFirstSixType(SixType.Quick);
-        expect(course.getBlock(1).getLast())
-            .toEqual(createTestRow('234618507E9'));
-        expect(course.getBlock(2).getLast())
-            .toEqual(createTestRow('3628401E597'));
+        expect(stringFromRow(course.getBlock(1).getLast()))
+            .toBe('234618507E9');
+        expect(stringFromRow(course.getBlock(2).getLast()))
+            .toBe('3628401E597');
     });
 
     it('maintains the parity when adding sixes to the course', () => {
@@ -280,10 +280,10 @@ describe('Course class', () => {
         course.setFirstSixType(SixType.Quick);
 
         course.setLength(4);
-        expect(course.getBlock(3).getLast())
-            .toEqual(createTestRow('36802E49175'));
-        expect(course.getBlock(4).getLast())
-            .toEqual(createTestRow('603E8927451'));
+        expect(stringFromRow(course.getBlock(3).getLast()))
+            .toBe('36802E49175');
+        expect(stringFromRow(course.getBlock(4).getLast()))
+            .toBe('603E8927451');
     });
 
     it('maintains calls correctly when the parity is changed', () => {
@@ -295,14 +295,14 @@ describe('Course class', () => {
         expect(course.getBlock(2).call).toBe(Call.Single);
         expect(course.getBlock(3).call).toBe(Call.Bob);
 
-        expect(course.getBlock(1).getLast())
-            .toEqual(createTestRow('234618507E9'));
-        expect(course.getBlock(2).getLast())
-            .toEqual(createTestRow('3628401759E'));
-        expect(course.getBlock(3).getLast())
-            .toEqual(createTestRow('3680274519E'));
-        expect(course.getBlock(4).getLast())
-            .toEqual(createTestRow('603785294E1'));
+        expect(stringFromRow(course.getBlock(1).getLast()))
+            .toBe('234618507E9');
+        expect(stringFromRow(course.getBlock(2).getLast()))
+            .toBe('3628401759E');
+        expect(stringFromRow(course.getBlock(3).getLast()))
+            .toBe('3680274519E');
+        expect(stringFromRow(course.getBlock(4).getLast()))
+            .toBe('603785294E1');
     });
 
     it('can be reset to a plain course', () => {
@@ -504,7 +504,7 @@ describe('Course class', () => {
 
         it('a broken course (that raises an error)', () => {
             expect(() => {
-                Course.fromString(createTestRow(), 'garbage');
+                Course.fromString(testRow, 'garbage');
             }).toThrowError('Cannot import course');
         });
     });

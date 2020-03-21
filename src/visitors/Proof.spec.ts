@@ -6,13 +6,13 @@
  */
 
 import { Course, Touch } from '../../tests/blocks';
-import { createTestRow } from '../testFunctions.spec';
+import { rowFromString, Stage } from '../rows';
 import { testAbstractVisitorImplementation } from './AbstractVisitor.spec';
 import Proof from './Proof';
 
 describe('Proof visitor', () => {
 
-    const testRow = createTestRow();
+    const testRow = rowFromString('2143', Stage.Minimus);
 
     const createTestCourse = (): Course => {
         const course = new Course(testRow);
@@ -39,23 +39,23 @@ describe('Proof visitor', () => {
     });
 
     it('accumulates counts when it visits a row', () => {
-        const row1 = createTestRow('2314567890E');
-        const row2 = createTestRow('3241658709E');
+        const row1 = rowFromString('2143', Stage.Minimus);
+        const row2 = rowFromString('2413', Stage.Minimus);
 
         visitor.visit(row1);
         visitor.visit(row2);
         visitor.visit(row2);
 
         expect(visitor.getRowCounts()).toEqual({
-            '2314567890E': 1,
-            '3241658709E': 2,
+            '2143': 1,
+            '2413': 2,
         });
     });
 
     it('ignores changes to the result', () => {
         const getRowCounts = visitor.getRowCounts();
 
-        getRowCounts['2314567890E'] = 5;  // Mutate the getRows result
+        getRowCounts['4321'] = 5;  // Mutate the getRows result
 
         expect(visitor.getRowCounts()).not.toEqual(getRowCounts);
         expect(visitor.getRowCounts()).toEqual({ });
