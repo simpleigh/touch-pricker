@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { Stage } from '../../../rows';
+import { rounds, Stage } from '../../../rows';
 import { createTestRow } from '../../../testFunctions.spec';
 import Course from '../../Course';
 import SixType from '../../SixType';
@@ -42,7 +42,7 @@ export const testAbstractMethodImplementation = (
         const stage = testCase[0];
         const expected = testCase[1];
         it(`computes the correct length for a ${stage} course`, () => {
-            const row = createTestRow('', stage);
+            const row = rounds(stage);
             expect(method.getCourseLength(row)).toBe(expected);
         });
     }

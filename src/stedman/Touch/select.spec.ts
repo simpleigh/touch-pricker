@@ -7,12 +7,12 @@
 
 import Touch from '.';
 import { BlockDirectory } from '../../blocks';
-import { stringFromRow } from '../../rows';
-import { createTestCourse, createTestRow } from '../../testFunctions.spec';
+import { rounds, Stage, stringFromRow } from '../../rows';
+import { createTestCourse } from '../../testFunctions.spec';
 
 describe('select template for Touch', () => {
 
-    const testRow = createTestRow('123');
+    const testRow = rounds(Stage.Cinques);
 
     it('renders a touch correctly', () => {
         const touch = Touch.fromString(

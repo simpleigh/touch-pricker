@@ -9,7 +9,7 @@ import AbstractPricker from '../../AbstractPricker';
 import { BlockDirectory, Notifiable } from '../../blocks';
 import { hide, show } from '../../dom';
 import { MbdScheme, RunsScheme } from '../../music';
-import { Row, rowFromString, Stage, stringFromRow } from '../../rows';
+import { rounds, Row, rowFromString, Stage, stringFromRow } from '../../rows';
 import * as Templates from '../../templates';
 import * as Visitors from '../../visitors';
 import Course from '../Course';
@@ -134,7 +134,7 @@ class MbdPricker extends AbstractPricker implements Notifiable {
 
     private reboot(): void {
         this._touch = new Touch(
-            rowFromString('', this._stage),
+            rounds(this._stage),
             { container: this, index: Block.Touch },
             this._method,
         );

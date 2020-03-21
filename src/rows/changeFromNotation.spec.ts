@@ -6,6 +6,7 @@
  */
 
 import changeFromNotation from './changeFromNotation';
+import rounds from './rounds';
 import rowFromString from './rowFromString';
 import Stage from './Stage';
 
@@ -109,15 +110,15 @@ describe('changeFromNotation function', () => {
             const description = testCase[0];
             const stage = testCase[1];
             const input = testCase[2];
-            const expected = testCase[3];
+            const expected = rowFromString(testCase[3], stage);
 
             it(description, () => {
-                const row = rowFromString('', stage);
+                const row = rounds(stage);
                 const change = changeFromNotation(input, stage);
 
                 change(row);
 
-                expect(row).toEqual(rowFromString(expected, stage));
+                expect(row).toEqual(expected);
             });
         }
     });
@@ -163,7 +164,7 @@ describe('changeFromNotation function', () => {
             const expected = triplesNotation[0];
             const notation = triplesNotation[1];
 
-            const row = rowFromString('', Stage.Triples);
+            const row = rounds(Stage.Triples);
             const change = changeFromNotation(notation, Stage.Triples);
 
             expect(change.toString()).toBe(notation);

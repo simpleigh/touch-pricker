@@ -14,7 +14,7 @@ import Row from './Row';
  * They should be constructed using `changeFromNotation()`.
  *
  * ```
- * > const row = Pricker.rowFromString('', Pricker.Stage.Triples);
+ * > const row = Pricker.rounds(Pricker.Stage.Triples);
  * [1, 2, 3, 4, 5, 6, 7]
  * > const change = Pricker.changeFromNotation('1', Pricker.Stage.Triples);
  * 1

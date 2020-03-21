@@ -5,13 +5,13 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { rowFromString, Stage } from '../rows';
+import { rounds, Stage } from '../rows';
 import constructorFromType from './constructorFromType';
 import SixType from './SixType';
 
 describe('constructorFromType function', () => {
 
-    const testRow = rowFromString('', Stage.Cinques);
+    const testRow = rounds(Stage.Cinques);
 
     const testCreation = (type: SixType) => {
         it(`can create ${type} sixes`, () => {

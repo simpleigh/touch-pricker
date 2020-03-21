@@ -12,8 +12,7 @@ import { BlockOwnership } from '../../blocks';
 import {
     testAbstractBlockImplementation,
 } from '../../blocks/AbstractBlock.spec';
-import { Row, rowFromString, Stage as S } from '../../rows';
-import { createTestRow } from '../../testFunctions.spec';
+import { rounds, Row, rowFromString, Stage as S } from '../../rows';
 import { StringArray } from '../../visitors';
 import { AbstractMethod, Erin, Stedman, StedmanJump } from '../methods';
 import SixType from '../SixType';
@@ -21,7 +20,7 @@ import SixTypeMap from '../SixTypeMap';
 
 describe('Start class', () => {
 
-    const testRow = createTestRow();
+    const testRow = rounds(S.Cinques);
 
     let start: Start;
 
@@ -618,7 +617,7 @@ describe('Start class', () => {
                 const rows = testCase[1];
                 const method = methodMap[sixType]!;
                 const fixture = new Start(
-                    createTestRow('', stage),
+                    rounds(stage),
                     undefined,
                     new method(),
                 );
@@ -641,7 +640,7 @@ describe('Start class', () => {
                 const notation = testCase[1];
                 const method = methodMap[sixType]!;
                 const fixture = new Start(
-                    createTestRow('', stage),
+                    rounds(stage),
                     undefined,
                     new method(),
                 );
@@ -664,7 +663,7 @@ describe('Start class', () => {
                 const notation = testCase[1];
                 const method = methodMap[sixType]!;
                 const fixture = new Start(
-                    createTestRow('', stage),
+                    rounds(stage),
                     undefined,
                     new method(),
                 );

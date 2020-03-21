@@ -7,6 +7,15 @@
 
 import Bell from './Bell';
 
+// tslint:disable:object-literal-key-quotes object-literal-sort-keys
+const BELL_SYMBOLS_MAP: { [index: string]: number } = {
+    '1': 1, '2': 2, '3': 3, '4': 4,
+    '5': 5, '6': 6, '7': 7, '8': 8,
+    '9': 9, '0': 10, 'E': 11, 'T': 12,
+    'A': 13, 'B': 14, 'C': 15, 'D': 16,
+};
+// tslint:enable:object-literal-key-quotes object-literal-sort-keys
+
 /**
  * Converts a character into a [[Bell]].
  *
@@ -21,20 +30,11 @@ import Bell from './Bell';
 const bellFromSymbol = (input: string): Bell => {
     input = input.toUpperCase();
 
-    // tslint:disable:object-literal-key-quotes object-literal-sort-keys
-    const bellSymbolsMap: { [index: string]: number } = {
-        '1': 1, '2': 2, '3': 3, '4': 4,
-        '5': 5, '6': 6, '7': 7, '8': 8,
-        '9': 9, '0': 10, 'E': 11, 'T': 12,
-        'A': 13, 'B': 14, 'C': 15, 'D': 16,
-    };
-    // tslint:enable:object-literal-key-quotes object-literal-sort-keys
-
-    if (!bellSymbolsMap[input]) {
+    if (!BELL_SYMBOLS_MAP[input]) {
         throw new Error('Unknown bell');
     }
 
-    return bellSymbolsMap[input];
+    return BELL_SYMBOLS_MAP[input];
 };
 
 export default bellFromSymbol;

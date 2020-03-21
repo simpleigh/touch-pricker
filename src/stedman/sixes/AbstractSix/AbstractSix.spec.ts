@@ -10,8 +10,13 @@ import { BlockOwnership } from '../../../blocks';
 import {
     testAbstractBlockImplementation,
 } from '../../../blocks/AbstractBlock.spec';
-import { Row, Stage, stringFromRow } from '../../../rows';
-import { createTestRow } from '../../../testFunctions.spec';
+import {
+    rounds,
+    Row,
+    rowFromString,
+    Stage,
+    stringFromRow,
+} from '../../../rows';
 import { StringArray } from '../../../visitors';
 import Call from '../../Call';
 import * as Changes from '../../changes';
@@ -33,8 +38,8 @@ export const testSixImplementation = (
     const runTestCases = (testFunction: TestFunction) => () => {
         for (const testCase of testCases) {
             testFunction(
-                createTestRow(testCase[0], testCase[2]),  // Previous sixend
-                createTestRow(testCase[1], testCase[2]),  // Expected sixend
+                rowFromString(testCase[0], testCase[2]),  // Previous sixend
+                rowFromString(testCase[1], testCase[2]),  // Expected sixend
                 testCase[2],                              // Stage
                 testCase[3],                              // Call
             );
@@ -42,17 +47,17 @@ export const testSixImplementation = (
     };
 
     it('has the expected type', () => {
-        const six = factory(createTestRow());
+        const six = factory(rounds(Stage.Cinques));
         expect(six.type).toBe(type);
     });
 
     it('has the expected notation', () => {
-        const six = factory(createTestRow());
+        const six = factory(rounds(Stage.Cinques));
         expect(six.notation).toEqual(notation);
     });
 
     it('can render the notation as a string', () => {
-        const six = factory(createTestRow());
+        const six = factory(rounds(Stage.Cinques));
         for (let i = 1; i <= 5; i = i + 1) {
             expect(six.getNotationString(i)).toBe(notationStringTests[i - 1]);
         }
@@ -68,7 +73,7 @@ export const testSixImplementation = (
 
     it('updates when the initial row changes', runTestCases(
         (previous, expected, stage, call) => {
-            const incorrectPrevious = createTestRow('', stage);
+            const incorrectPrevious = rounds(stage);
             const six = factory(incorrectPrevious);
 
             six.setCall(call);
@@ -124,7 +129,7 @@ export const testSixImplementation = (
     it('generates the correct rows when visited', () => {
         for (const rowTest of rowTests) {
             const expectedRows: any[] = rowTest.slice(0, 6);  // Six test rows
-            const initialRow = createTestRow('', rowTest[6]); // ... and stage
+            const initialRow = rounds(rowTest[6]);            // ... and stage
             const six = factory(initialRow);
             const visitor = new StringArray();
 
@@ -141,9 +146,9 @@ export const testSixImplementation = (
             index: number = 999,
         ): AbstractSix => {
             if (container) {
-                return factory(createTestRow(), { container, index });
+                return factory(rounds(Stage.Cinques), { container, index });
             }
-            return factory(createTestRow());
+            return factory(rounds(Stage.Cinques));
         };
 
         it('ignores changes to the returned six head', () => {
@@ -224,7 +229,7 @@ export const testSixImplementation = (
         });
 
         it('passes itself to visitors', () => {
-            const six = factory(createTestRow(''));
+            const six = factory(rounds(Stage.Cinques));
             const visitor = jasmine.createSpyObj('AbstractVisitor', ['visit']);
 
             six.accept(visitor);
@@ -235,7 +240,7 @@ export const testSixImplementation = (
         });
 
         it('is unchanged when visited', () => {
-            const six = factory(createTestRow(''));
+            const six = factory(rounds(Stage.Cinques));
             const visitor = new StringArray();
 
             const initialRowBackup = six.initialRow;
@@ -248,15 +253,15 @@ export const testSixImplementation = (
         });
 
         it('is printable', () => {
-            expect(factory(createTestRow())).toBePrintable();
+            expect(factory(rounds(Stage.Cinques))).toBePrintable();
         });
 
         it('has a template for MBD-style prickers', () => {
-            expect(factory(createTestRow())).toHaveTemplate('mbd');
+            expect(factory(rounds(Stage.Cinques))).toHaveTemplate('mbd');
         });
 
         it('has a template for Siril output', () => {
-            expect(factory(createTestRow())).toHaveTemplate('siril');
+            expect(factory(rounds(Stage.Cinques))).toHaveTemplate('siril');
         });
 
         testAbstractBlockImplementation(

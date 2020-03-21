@@ -7,14 +7,13 @@
 
 import { Course, Touch } from '../../tests/blocks';
 import { MbdScheme } from '../music';
-import { Stage } from '../rows';
-import { createTestRow } from '../testFunctions.spec';
+import { rounds, rowFromString, Stage } from '../rows';
 import { testAbstractVisitorImplementation } from './AbstractVisitor.spec';
 import Music from './Music';
 
 describe('Music visitor', () => {
 
-    const testRow = createTestRow();
+    const testRow = rowFromString('2143', Stage.Minimus);
 
     const createTestCourse = (): Course => {
         const course = new Course(testRow);
@@ -45,11 +44,11 @@ describe('Music visitor', () => {
 
     it('matches rows using the provided matcher', () => {
         visitor.visit(testRow);
-        expect(matcher.match).toHaveBeenCalledWith('2314567890E');
+        expect(matcher.match).toHaveBeenCalledWith('2143');
     });
 
     it('avoids matching rounds', () => {
-        visitor.visit(createTestRow('123'));
+        visitor.visit(rounds(Stage.Minimus));
         expect(matcher.match).not.toHaveBeenCalled();
     });
 

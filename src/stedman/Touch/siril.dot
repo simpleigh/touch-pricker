@@ -12,7 +12,7 @@
 
 {{
 	var courseNames = [ ],
-		rounds = context.rowFromString('', context.object.initialRow.length),
+		rounds = context.rounds(context.object.initialRow.length),
 		roundsString = context.stringFromRow(rounds);
 
 	context.touchRows = context.touchRows || Infinity;

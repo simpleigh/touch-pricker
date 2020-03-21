@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { rowFromString, Stage, stringFromRow } from '../../rows';
+import { rounds, Stage, stringFromRow } from '../../rows';
 import AbstractMatcher from '../AbstractMatcher';
 import MatcherSet from '../MatcherSet';
 
@@ -49,7 +49,7 @@ abstract class AbstractScheme extends MatcherSet {
     constructor(protected _stage: Stage) {
         super([ ]);
         this._matchers = this.createMatchers(
-            stringFromRow(rowFromString('', _stage)),  // rounds
+            stringFromRow(rounds(_stage)),
         );
     }
 

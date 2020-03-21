@@ -6,13 +6,12 @@
  */
 
 import { Course, Touch } from '../../tests/blocks';
-import { Stage } from '../rows';
-import { createTestRow } from '../testFunctions.spec';
+import { rounds, Stage } from '../rows';
 import BlockDirectory from './BlockDirectory';
 
 describe('BlockDirectory class', () => {
 
-    const testRow = createTestRow('', Stage.Triples);
+    const testRow = rounds(Stage.Triples);
 
     let directory: BlockDirectory;
 

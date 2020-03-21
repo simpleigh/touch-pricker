@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { createTestRow } from '../testFunctions.spec';
+import { rowFromString, Stage } from '../rows';
 import { testAbstractVisitorImplementation } from './AbstractVisitor.spec';
 import Counter from './Counter';
 
@@ -19,7 +19,7 @@ describe('Counter visitor', () => {
     it('increments the count when it visits a row', () => {
         const visitor = new Counter();
         for (let i = 1; i < 5; i += 1) {
-            visitor.visit(createTestRow());
+            visitor.visit(rowFromString('2143', Stage.Minimus));
             expect(visitor.count).toBe(i);
         }
     });

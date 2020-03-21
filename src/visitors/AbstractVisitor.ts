@@ -6,7 +6,7 @@
  */
 
 import { AbstractBlock } from '../blocks';
-import { Row, rowFromString, stringFromRow } from '../rows';
+import { rounds, Row, stringFromRow } from '../rows';
 
 /**
  * Visitor classes to analyse blocks
@@ -53,7 +53,7 @@ abstract class AbstractVisitor {
      */
     public visit(row: Row, block?: AbstractBlock): this {
         if (!this._rounds) {
-            this._rounds = stringFromRow(rowFromString('', row.length));
+            this._rounds = stringFromRow(rounds(row.length));
         }
 
         if (this._visiting) {

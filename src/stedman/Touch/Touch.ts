@@ -6,7 +6,7 @@
  */
 
 import { BlockOwnership, RandomAccessContainer } from '../../blocks';
-import { Row, rowFromString, Stage } from '../../rows';
+import { rounds, Row, rowFromString, Stage } from '../../rows';
 import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
 import constructorFromType from '../constructorFromType';
@@ -23,7 +23,7 @@ import text from './text.dot';
  */
 @Templates.makePrintable(
     { select, siril, text },
-    { constructorFromType, rowFromString, sixes },
+    { constructorFromType, rounds, sixes },
 )
 class Touch
     extends RandomAccessContainer<Course>
