@@ -15,7 +15,7 @@ import { AbstractMethod, Erin, Stedman, StedmanJump } from '../methods';
 import SixType from '../SixType';
 import Touch from '.';
 
-describe('Touch class', () => {
+describe('Stedman Touch class', () => {
 
     const testRow = rounds(Stage.Cinques);
 

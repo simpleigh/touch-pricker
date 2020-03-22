@@ -5,8 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { Row, Stage, stringFromRow } from '../rows';
-import { createTestRow } from '../testFunctions.spec';
+import { rounds, Row, Stage, stringFromRow } from '../rows';
 import * as Changes from './changes';
 
 const createChangeTests = (
@@ -16,7 +15,7 @@ const createChangeTests = (
     for (const testCase of testCases) {
         const expected = testCase[0];
         const stage = testCase[1];
-        const row = createTestRow('', stage);
+        const row = rounds(stage);
 
         testFn(row);
         expect(stringFromRow(row)).toBe(expected);

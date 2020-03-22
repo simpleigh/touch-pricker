@@ -5,18 +5,22 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { BlockOwnership } from '../../blocks';
 import {
     testAbstractBlockImplementation,
 } from '../../blocks/AbstractBlock.spec';
 import { rounds, Row, rowFromString, Stage, stringFromRow } from '../../rows';
-import { createTestRow } from '../../testFunctions.spec';
 import { StringArray } from '../../visitors';
 import Call from '../Call';
-import Course from '../Course';
 import Lead from '.';
 
-describe('Lead class', () => {
+describe('Grandsire Lead class', () => {
+
+    testAbstractBlockImplementation(
+        Stage.Doubles,
+        (initialRow, _ownership) => new Lead(initialRow, _ownership),
+        10,
+        (lead) => (lead as Lead).toggleCall(),
+    );
 
     const lastTestCases: [Stage, Call, string][] = [
         [Stage.Doubles,   Call.Plain,  '12534'],
@@ -303,34 +307,25 @@ describe('Lead class', () => {
         }
     });
 
-    const createTestLead = (
-        container?: Course,
-        index: number = 999,
-    ): Lead => {
-        if (container) {
-            return new Lead(createTestRow(''), { container, index });
-        }
-        return new Lead(createTestRow(''));
-    };
-
     it('starts life as a plain lead', () => {
-        expect(createTestLead().call).toBe(Call.Plain);
+        const lead = new Lead(rounds(Stage.Doubles));
+        expect(lead.call).toBe(Call.Plain);
     });
 
     it('lets the call be set using the property', () => {
-        const lead = createTestLead();
+        const lead = new Lead(rounds(Stage.Doubles));
         lead.call = Call.Bob;
         expect(lead.call).toBe(Call.Bob);
     });
 
     it('lets the call be set using a method', () => {
-        const lead = createTestLead();
+        const lead = new Lead(rounds(Stage.Doubles));
         lead.setCall(Call.Bob);
         expect(lead.call).toBe(Call.Bob);
     });
 
     it('rotates between calls when toggled', () => {
-        const lead = createTestLead();
+        const lead = new Lead(rounds(Stage.Doubles));
 
         lead.toggleCall();
         expect(lead.call).toBe(Call.Bob);
@@ -343,7 +338,7 @@ describe('Lead class', () => {
     });
 
     it('returns the new call when toggled', () => {
-        const lead = createTestLead();
+        const lead = new Lead(rounds(Stage.Doubles));
         expect(lead.toggleCall()).toBe(Call.Bob);
         expect(lead.toggleCall()).toBe(Call.Single);
         expect(lead.toggleCall()).toBe(Call.Plain);
@@ -370,7 +365,7 @@ describe('Lead class', () => {
     ));
 
     it('can suppress updates when a call is set', () => {
-        const lead = createTestLead();
+        const lead = new Lead(rounds(Stage.Doubles));
         const originalLast: Row = lead.getLast();
 
         lead.setCall(Call.Bob, false);
@@ -378,40 +373,44 @@ describe('Lead class', () => {
     });
 
     it('notifies the parent course when a call is set', () => {
-        const parent = jasmine.createSpyObj('Course', ['notify']);
-        const lead = createTestLead(parent);
+        const container = jasmine.createSpyObj('Course', ['notify']);
+        const lead = new Lead(rounds(Stage.Doubles));
+        // set this after creation to avoid spurious notifications
+        lead.ownership = { container, index: 999 };
+
         lead.setCall(Call.Plain);
-        expect(parent.notify).toHaveBeenCalledWith(999);
+
+        expect(container.notify).toHaveBeenCalledWith(999);
     });
 
     it('notifies the parent course when toggled', () => {
-        const parent = jasmine.createSpyObj('Course', ['notify']);
-        const lead = createTestLead(parent);
+        const container = jasmine.createSpyObj('Course', ['notify']);
+        const lead = new Lead(rounds(Stage.Doubles));
+        // set this after creation to avoid spurious notifications
+        lead.ownership = { container, index: 999 };
+
         lead.toggleCall();
-        expect(parent.notify).toHaveBeenCalledWith(999);
+
+        expect(container.notify).toHaveBeenCalledWith(999);
     });
 
     it('can suppress notification when a call is set', () => {
-        const parent = jasmine.createSpyObj('Course', ['notify']);
-        const lead = createTestLead(parent);
+        const container = jasmine.createSpyObj('Course', ['notify']);
+        const lead = new Lead(rounds(Stage.Doubles));
+        // set this after creation to avoid spurious notifications
+        lead.ownership = { container, index: 999 };
+
         lead.setCall(Call.Plain, false);
-        expect(parent.notify).not.toHaveBeenCalled();
+
+        expect(container.notify).not.toHaveBeenCalled();
     });
 
     it('is printable', () => {
-        expect(new Lead(createTestRow(''))).toBePrintable();
+        expect(new Lead(rounds(Stage.Doubles))).toBePrintable();
     });
 
     it('has a template for MBD-style prickers', () => {
-        expect(new Lead(createTestRow(''))).toHaveTemplate('mbd');
+        expect(new Lead(rounds(Stage.Doubles))).toHaveTemplate('mbd');
     });
-
-    testAbstractBlockImplementation(
-        (initialRow: Row, _ownership?: BlockOwnership) =>
-            new Lead(initialRow, _ownership),
-        (lead) => { (lead as Lead).toggleCall(); },
-        22,
-    );
-
 
 });

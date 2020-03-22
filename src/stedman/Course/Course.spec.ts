@@ -16,19 +16,19 @@ import { AbstractMethod, Erin, Stedman, StedmanJump } from '../methods';
 import SixType from '../SixType';
 import Touch from '../Touch';
 
-describe('Course class', () => {
+describe('Stedman Course class', () => {
 
     testSerialContainerImplementation(
         Stage.Cinques,
         (initialRow, _ownership) => new Course(initialRow, _ownership),
-        22,
         132,
+        22,
         [
-            [Stage.Triples, 14, 84],
-            [Stage.Caters, 18, 108],
-            [Stage.Cinques, 22, 132],
-            [Stage.Sextuples, 26, 156],
-            [Stage.Septuples, 30, 180],
+            [Stage.Triples,    84, 14],
+            [Stage.Caters,    108, 18],
+            [Stage.Cinques,   132, 22],
+            [Stage.Sextuples, 156, 26],
+            [Stage.Septuples, 180, 30],
         ],
     );
 

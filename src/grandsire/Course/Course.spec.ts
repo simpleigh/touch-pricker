@@ -14,7 +14,22 @@ import Call from '../Call';
 import Touch from '../Touch';
 import Course from '.';
 
-describe('Course class', () => {
+describe('Grandsire Course class', () => {
+
+    testSerialContainerImplementation(
+        Stage.Doubles,
+        (initialRow, _ownership) => new Course(initialRow, _ownership),
+        30,
+        3,
+        [
+            [Stage.Doubles,    30,  3],
+            [Stage.Triples,    70,  5],
+            [Stage.Caters,    126,  7],
+            [Stage.Cinques,   198,  9],
+            [Stage.Sextuples, 286, 11],
+            [Stage.Septuples, 390, 13],
+        ],
+    );
 
     let course: Course;
 
@@ -182,17 +197,4 @@ describe('Course class', () => {
         expect(courseVisitor.strings).toEqual(strings);
     });
 
-    testSerialContainerImplementation(
-        (initialRow, _ownership) => new Course(initialRow, _ownership),
-        [
-            [Stage.Doubles,    3,  30],
-            [Stage.Triples,    5,  70],
-            [Stage.Caters,     7, 126],
-            [Stage.Cinques,    9, 198],
-            [Stage.Sextuples, 11, 286],
-            [Stage.Septuples, 13, 390],
-        ],
-        9,
-        198,
-    );
 });

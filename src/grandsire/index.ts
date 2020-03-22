@@ -8,4 +8,5 @@
 export { default as Call } from './Call';
 export { default as Course } from './Course';
 export { default as Lead } from './Lead';
+export { default as MbdPricker } from './MbdPricker';
 export { default as Touch } from './Touch';

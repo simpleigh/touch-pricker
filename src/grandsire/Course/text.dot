@@ -47,7 +47,7 @@
 	var initialRow = context.object.initialRow;
 }}
 
-{{? context.object.length !== context.object.getDefaultLength() }}
+{{? context.object.length !== context.object.getDefaultLength(initialRow) }}
 	 /* single space */
 	 /* single space */
 	({{= context.object.length }} leads)

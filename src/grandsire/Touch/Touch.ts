@@ -6,13 +6,15 @@
  */
 
 import { RandomAccessContainer } from '../../blocks';
+import { stringFromRow } from '../../rows';
 import * as Templates from '../../templates';
 import Course from '../Course';
+import select from './select.dot';
 
 /**
  * A touch, being a set of courses
  */
-@Templates.makePrintable({ })
+@Templates.makePrintable({ select }, { stringFromRow })
 class Touch
     extends RandomAccessContainer<Course>
     implements Templates.Interface {

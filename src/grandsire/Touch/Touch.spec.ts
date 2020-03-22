@@ -14,15 +14,31 @@ import Call from '../Call';
 import Course from '../Course';
 import Touch from '.';
 
-describe('Touch class', () => {
+describe('Grandsire Touch class', () => {
 
     const createTestCourse = () => {
         const testCourse = new Course(rounds(Stage.Doubles));
         testCourse.setLength(4);
-        testCourse.getBlock(2).call = Call.Bob;
+        testCourse.getBlock(1).call = Call.Plain;
+        testCourse.getBlock(2).call = Call.Single;
+        testCourse.getBlock(3).call = Call.Bob;
         testCourse.getBlock(4).call = Call.Single;
         return testCourse;
     };
+
+    testRandomAccessContainerImplementation(
+        Stage.Doubles,
+        (initialRow, _ownership) => {
+            const testTouch = new Touch(initialRow, _ownership);
+            testTouch.insertBlock(1, createTestCourse());
+            testTouch.insertBlock(2, createTestCourse());
+            testTouch.insertBlock(3, createTestCourse());
+            return testTouch;
+        },
+        120,
+        3,
+        createTestCourse(),
+    );
 
     it('generates the correct rows when visited', () => {
         const touch = new Touch(rounds(Stage.Doubles));
@@ -40,16 +56,5 @@ describe('Touch class', () => {
 
         expect(touchVisitor.strings).toEqual(blockVisitor.strings);
     });
-
-    testRandomAccessContainerImplementation(
-        (initialRow, _ownership) => new Touch(initialRow, _ownership),
-        [
-            createTestCourse(),
-            createTestCourse(),
-            createTestCourse(),
-        ],
-        (container) => rounds(Stage.Cinques),
-        0,
-    );
 
 });
