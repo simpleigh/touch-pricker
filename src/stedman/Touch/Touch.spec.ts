@@ -47,7 +47,6 @@ describe('Touch class', () => {
             rounds(Stage.Cinques),
             '2314567890E 1 s10 s13 22',
         ),
-        (container) => (container as Touch).start.getLast(),
     );
 
     const otherRow = rowFromString('4321', Stage.Cinques);

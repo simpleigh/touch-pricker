@@ -97,22 +97,29 @@ class Touch
     /* AbstractContainer methods **********************************************/
 
     /**
-     * Propagates data from a previous block to a current block
+     * Propagates data between blocks within the container
+     * @param index  where to start when recalculating
      */
-    protected propagateCurrentBlock(previous: Course, current: Course): void {
-        const sixType = previous.getBlock(previous.length).type;
-        current.initialRow = previous.getLast();
-        current.setFirstSixType(this._method.getNextSixType(sixType));
-    }
+    protected propagateBlocks(index: number = 0): void {
+        // Handle first block
+        if (!index && this.length) {
+            const first = this._blocks[0];
 
-    /**
-     * Propagates data for the first block within the container
-     * Handled as a special case to allow for e.g. Stedman starts
-     */
-    protected propagateFirstBlock(first: Course): void {
-        const sixType = this._start.sixType;
-        first.initialRow = this._start.getLast();
-        first.setFirstSixType(this._method.getNextSixType(sixType));
+            const sixType = this._start.sixType;
+            first.initialRow = this._start.getLast();
+            first.setFirstSixType(this._method.getNextSixType(sixType));
+
+            index = 1;
+        }
+
+        for (; index < this.length; index += 1) {
+            const previous = this._blocks[index - 1];
+            const current = this._blocks[index];
+
+            const sixType = previous.getBlock(previous.length).type;
+            current.initialRow = previous.getLast();
+            current.setFirstSixType(this._method.getNextSixType(sixType));
+        }
     }
 
     /* Touch methods **********************************************************/

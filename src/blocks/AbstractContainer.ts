@@ -91,34 +91,16 @@ abstract class AbstractContainer<Block extends AbstractBlock>
      * Propagates data between blocks within the container
      * @param index  where to start when recalculating
      */
-    private propagateBlocks(index: number = 0): void {
+    protected propagateBlocks(index: number = 0): void {
         // Handle first block
         if (!index && this.length) {
-            this.propagateFirstBlock(this._blocks[0]);
+            this._blocks[0].initialRow = this._initialRow;
             index = 1;
         }
 
         for (; index < this.length; index += 1) {
-            this.propagateCurrentBlock(
-                this._blocks[index - 1],
-                this._blocks[index],
-            );
+            this._blocks[index].initialRow = this._blocks[index - 1].getLast();
         }
-    }
-
-    /**
-     * Propagates data from a previous block to a current block
-     */
-    protected propagateCurrentBlock(previous: Block, current: Block): void {
-        current.initialRow = previous.getLast();
-    }
-
-    /**
-     * Propagates data for the first block within the container
-     * Handled as a special case to allow for e.g. Stedman starts
-     */
-    protected propagateFirstBlock(first: Block): void {
-        first.initialRow = this._initialRow;
     }
 
     /**

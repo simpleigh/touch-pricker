@@ -74,21 +74,6 @@ export const testSerialContainerImplementation = (
             }
         });
 
-        it('propagates rows between blocks correctly', () => {
-            // First block initial row OK
-            expect(container.getBlock(1).initialRow).toEqual(rounds(stage));
-
-            // All blocks connected to the previous one
-            for (let index = 2; index <= container.length; index += 1) {
-                expect(container.getBlock(index).initialRow)
-                    .toEqual(container.getBlock(index - 1).getLast());
-            }
-
-            // Container last row matches last block last row
-            expect(container.getLast())
-                .toEqual(container.getBlock(container.length).getLast());
-        });
-
         it('allows the length to be increased', () => {
             container.setLength(expectedLength + 1);
             expect(container.length).toBe(expectedLength + 1);

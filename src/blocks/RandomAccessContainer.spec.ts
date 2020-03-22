@@ -21,7 +21,6 @@ type TestContainer = RandomAccessContainer<AbstractBlock>;
  * @param expectedRows    number of rows expected in this container
  * @param expectedLength  number of blocks expected in this container
  * @param testBlock       a valid child block
- * @param firstBlockInitialRowFn
  */
 export const testRandomAccessContainerImplementation = (
     stage: Stage,
@@ -29,7 +28,6 @@ export const testRandomAccessContainerImplementation = (
     expectedRows: number,
     expectedLength: number,
     testBlock: AbstractBlock,
-    firstBlockInitialRowFn: (container: TestContainer) => Row,
 ) => {
 
     describe('is derived from RandomAccessContainer and', () => {
@@ -51,9 +49,9 @@ export const testRandomAccessContainerImplementation = (
          * Validate that rows are propagated correctly between blocks
          */
         const checkPropagation = () => {
-            // First block initial row OK
+            // First block initial row propagated from container initial row
             expect(container.getBlock(1).initialRow)
-                .toEqual(firstBlockInitialRowFn(container));
+                .toEqual(container.initialRow);
 
             // All blocks connected to the previous one
             for (let index = 2; index <= container.length; index += 1) {
@@ -61,7 +59,7 @@ export const testRandomAccessContainerImplementation = (
                     .toEqual(container.getBlock(index - 1).getLast());
             }
 
-            // Container last row matches last block last row
+            // Container last row propagated from last block last row
             expect(container.getLast())
                 .toEqual(container.getBlock(container.length).getLast());
         };

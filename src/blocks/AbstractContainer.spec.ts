@@ -70,6 +70,21 @@ export const testAbstractContainerImplementation = (
             expect(container.getLast()).toEqual(newRow);
         });
 
+        it('propagates rows between blocks correctly', () => {
+            // First block initial row propagated from container initial row
+            expect(container.getBlock(1).initialRow).toEqual(rounds(stage));
+
+            // All blocks connected to the previous one
+            for (let index = 2; index <= container.length; index += 1) {
+                expect(container.getBlock(index).initialRow)
+                    .toEqual(container.getBlock(index - 1).getLast());
+            }
+
+            // Container last row propagated from last block last row
+            const lastBlock = container.getBlock(container.length);
+            expect(container.getLast()).toEqual(lastBlock.getLast());
+        });
+
         it('contains the expected number of blocks', () => {
             expect(container.length).toBe(expectedLength);
         });
