@@ -7,12 +7,9 @@
 
 import Touch from '.';
 import { BlockDirectory } from '../../blocks';
-import { rounds, Stage, stringFromRow } from '../../rows';
-import { createTestCourse } from '../../testFunctions.spec';
+import { stringFromRow } from '../../rows';
 
 describe('select template for Touch', () => {
-
-    const testRow = rounds(Stage.Cinques);
 
     it('renders a touch correctly', () => {
         const touch = Touch.fromString(
@@ -55,10 +52,7 @@ describe('select template for Touch', () => {
     });
 
     it('applies a style for unreachable courses', () => {
-        const touch = new Touch(testRow);
-        touch.insertBlock(1, createTestCourse(testRow));
-        touch.insertBlock(2, createTestCourse(testRow));
-        touch.insertBlock(3, createTestCourse(testRow));
+        const touch = Touch.fromString('2314567890E\np\np\np');  // 3 courses
 
         expect(touch.print('select', {
             touchRows: 266, // Two courses plus a standard start
@@ -77,11 +71,8 @@ describe('select template for Touch', () => {
     });
 
     it('applies a style for false courses', () => {
-        const touch = new Touch(testRow);
+        const touch = Touch.fromString('2314567890E\np\np');  // 2 courses
         const falseness = new BlockDirectory();
-
-        touch.insertBlock(1, createTestCourse(testRow));
-        touch.insertBlock(2, createTestCourse(testRow));
         falseness.add(1, 3);
 
         expect(touch.print('select', { falseness })).toRenderAs(`

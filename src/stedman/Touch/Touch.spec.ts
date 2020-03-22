@@ -19,6 +19,37 @@ describe('Touch class', () => {
 
     const testRow = rounds(Stage.Cinques);
 
+    testRandomAccessContainerImplementation(
+        Stage.Cinques,
+        (initialRow, _ownership) => {
+            const testTouch = Touch.fromString(
+                ''
+                    + '1234567890E\n'
+                    + '21345678E90  1 s7\n'
+                    + '12345687E90  s7 s13 s15 s22\n'
+                    + '1234567890E  12 14 s16 17 18 19  (20 sixes)\n'
+                    + 'Start from rounds as the last row of a quick six.\n'
+            );
+
+            // remove the start so the touch becomes a true round block
+            testTouch.start.rowIndex = 6;
+
+            testTouch.initialRow = initialRow;
+            if (_ownership) {
+                testTouch.ownership = _ownership;
+            }
+
+            return testTouch;
+        },
+        384,
+        3,
+        Course.fromString(
+            rounds(Stage.Cinques),
+            '2314567890E 1 s10 s13 22',
+        ),
+        (container) => (container as Touch).start.getLast(),
+    );
+
     const otherRow = rowFromString('4321', Stage.Cinques);
 
     let touch: Touch;
@@ -313,19 +344,5 @@ describe('Touch class', () => {
         expect(touch.getBlock(1).method).toBe(method);
         expect(touch.getBlock(2).method).toBe(method);
     });
-
-    testRandomAccessContainerImplementation(
-        (initialRow, _ownership) => new Touch(initialRow, _ownership),
-        [
-            Course.fromString(testRow, '32145678E90  1 s7'),
-            Course.fromString(testRow, '23145687E90  s7 s13 s15 s22'),
-            Course.fromString(
-                testRow,
-                '2314567890E  12 14 s16 17 18 19  (20 sixes)',
-            ),
-        ],
-        (container) => (container as Touch).start.getLast(),
-        2,
-    );
 
 });

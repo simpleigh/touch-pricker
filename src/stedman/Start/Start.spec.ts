@@ -8,11 +8,10 @@
 /* tslint:disable:max-line-length */
 
 import Start from '.';
-import { BlockOwnership } from '../../blocks';
 import {
     testAbstractBlockImplementation,
 } from '../../blocks/AbstractBlock.spec';
-import { rounds, Row, rowFromString, Stage as S } from '../../rows';
+import { rounds, rowFromString, Stage as S } from '../../rows';
 import { StringArray } from '../../visitors';
 import { AbstractMethod, Erin, Stedman, StedmanJump } from '../methods';
 import SixType from '../SixType';
@@ -20,28 +19,44 @@ import SixTypeMap from '../SixTypeMap';
 
 describe('Start class', () => {
 
-    const testRow = rounds(S.Cinques);
+    testAbstractBlockImplementation(
+        S.Cinques,
+        (initialRow, _ownership?) => new Start(initialRow, _ownership),
+        2,
+        (fixture) => { (fixture as Start).rowIndex = 2; },
+    );
 
     let start: Start;
 
     beforeEach(() => {
-        start = new Start(testRow);
+        start = new Start(rounds(S.Cinques));
+    });
+
+    it('obtains the default start from the chosen method', () => {
+        const method = jasmine.createSpyObj('AbstractMethod', ['createSix']);
+        method.defaultStartRowIndex = 999;
+        method.defaultStartSixType = SixType.Cold;
+
+        start = new Start(rounds(S.Cinques), undefined, method);
+
+        expect(start.rowIndex).toBe(999);
+        expect(start.sixType).toBe(SixType.Cold);
     });
 
     it('defaults to a standard start for Erin', () => {
-        start = new Start(testRow, undefined, new Erin());
+        start = new Start(rounds(S.Cinques), undefined, new Erin());
         expect(start.rowIndex).toBe(6);
         expect(start.sixType).toBe(SixType.Slow);
     });
 
     it('defaults to a standard start for Stedman', () => {
-        start = new Start(testRow, undefined, new Stedman());
+        start = new Start(rounds(S.Cinques), undefined, new Stedman());
         expect(start.rowIndex).toBe(4);
         expect(start.sixType).toBe(SixType.Quick);
     });
 
     it('defaults to a standard start for Stedman Jump', () => {
-        start = new Start(testRow, undefined, new StedmanJump());
+        start = new Start(rounds(S.Cinques), undefined, new StedmanJump());
         expect(start.rowIndex).toBe(6);
         expect(start.sixType).toBe(SixType.Hot);
     });
@@ -68,7 +83,7 @@ describe('Start class', () => {
     it('checks the six type is valid for the chosen method', () => {
         const method = new Stedman();
         spyOn(method, 'checkSixType');
-        start = new Start(testRow, undefined, method);
+        start = new Start(rounds(S.Cinques), undefined, method);
 
         start.sixType = SixType.Slow;
 
@@ -76,9 +91,31 @@ describe('Start class', () => {
         expect(method.checkSixType).toHaveBeenCalledWith(SixType.Slow);
     });
 
+    it('checks the six type is valid for Erin', () => {
+        start = new Start(rounds(S.Cinques), undefined, new Erin());
+        expect(() => start.sixType = SixType.Quick).toThrow();
+        expect(() => start.sixType = SixType.Cold).toThrow();
+        expect(() => start.sixType = SixType.Hot).toThrow();
+        expect(() => start.sixType = SixType.Invalid).toThrow();
+    });
+
+    it('checks the six type is valid for Stedman', () => {
+        start = new Start(rounds(S.Cinques), undefined, new Erin());
+        expect(() => start.sixType = SixType.Cold).toThrow();
+        expect(() => start.sixType = SixType.Hot).toThrow();
+        expect(() => start.sixType = SixType.Invalid).toThrow();
+    });
+
+    it('checks the six type is valid for Stedman Jump', () => {
+        start = new Start(rounds(S.Cinques), undefined, new StedmanJump());
+        expect(() => start.sixType = SixType.Slow).toThrow();
+        expect(() => start.sixType = SixType.Quick).toThrow();
+        expect(() => start.sixType = SixType.Invalid).toThrow();
+    });
+
     it('provides read access to the method', () => {
         const method = new Stedman();
-        start = new Start(testRow, undefined, method);
+        start = new Start(rounds(S.Cinques), undefined, method);
         expect(start.method).toBe(method);
     });
 
@@ -705,17 +742,24 @@ describe('Start class', () => {
 
     describe('can set the row index and six type from strings:', () => {
 
+        /*
+         * Enumerate all possible starts and check the following flow:
+         *   Start -> text (`print`) -> Start (`setFromString`)
+         */
+
         const validSixTypes: [new() => AbstractMethod, SixType][] = [
             [Erin, SixType.Slow],
             [Stedman, SixType.Quick],
             [Stedman, SixType.Slow],
+            [StedmanJump, SixType.Cold],
+            [StedmanJump, SixType.Hot],
         ];
 
         for (const combination of validSixTypes) {
             const method = new combination[0]();
             const sixType = combination[1];
 
-            start = new Start(testRow, undefined, method);
+            start = new Start(rounds(S.Cinques), undefined, method);
             start.sixType = sixType;
 
             for (let rowIndex = 1; rowIndex <= 6; rowIndex = rowIndex + 1) {
@@ -733,7 +777,7 @@ describe('Start class', () => {
 
                 it(description, () => {
                     // Reset start as beforeEach() rule will have overwritten
-                    start = new Start(testRow, undefined, method);
+                    start = new Start(rounds(S.Cinques), undefined, method);
                     start.setFromString(output);
                     expect(start.rowIndex).toBe(rowIndex);
                     expect(start.sixType).toBe(sixType);
@@ -807,12 +851,5 @@ describe('Start class', () => {
         });
 
     });
-
-    testAbstractBlockImplementation(
-        (initialRow: Row, _ownership?: BlockOwnership) =>
-            new Start(initialRow, _ownership),
-        (fixture) => { (fixture as Start).rowIndex = 2; },
-        2,
-    );
 
 });

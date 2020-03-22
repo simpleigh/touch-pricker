@@ -55,6 +55,23 @@ class Touch
     /* AbstractBlock methods **************************************************/
 
     /**
+     * Read access to the initial row
+     */
+    get initialRow(): Row {
+        return this._initialRow.slice();
+    }
+
+    /**
+     * Write access to the initial row
+     * Override in order to pass the initial row down to the start.
+     */
+    set initialRow(initialRow: Row) {
+        this._initialRow = initialRow.slice();
+        this._start.initialRow = initialRow.slice();
+        this.calculate();
+    }
+
+    /**
      * Receives a visitor that will be called to process each row
      */
     public accept(...visitors: AbstractVisitor[]): this {

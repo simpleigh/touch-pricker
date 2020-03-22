@@ -13,7 +13,7 @@ import AbstractContainer from './AbstractContainer';
  * Abstract container that manages a series of child blocks
  *
  * Child blocks are managed by changing the length of the container.
- * Might be used to represent a course of Stedman or a single method.
+ * Might be used to represent a course of a single method.
  */
 abstract class SerialContainer<Block extends AbstractBlock>
     extends AbstractContainer<Block> {

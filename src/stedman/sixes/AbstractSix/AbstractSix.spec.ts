@@ -32,6 +32,13 @@ export const testSixImplementation = (
     notationStringTests: [string, string, string, string, string],
 ) => {
 
+    testAbstractBlockImplementation(
+        Stage.Cinques,
+        factory,
+        6,
+        (six) => (six as AbstractSix).toggleCall(),
+    );
+
     type TestFunction =
         (previous: Row, expected: Row, stage: Stage, call: Call) => void;
 
@@ -264,10 +271,6 @@ export const testSixImplementation = (
             expect(factory(rounds(Stage.Cinques))).toHaveTemplate('siril');
         });
 
-        testAbstractBlockImplementation(
-            factory,
-            (six) => { (six as AbstractSix).toggleCall(); },
-            6,
-        );
     });
+
 };

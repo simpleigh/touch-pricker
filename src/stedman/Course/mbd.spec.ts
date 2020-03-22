@@ -7,7 +7,6 @@
 
 import Course from '.';
 import { rowFromString, Stage, stringFromRow } from '../../rows';
-import { createTestCourse } from '../../testFunctions.spec';
 
 describe('mbd template for Course', () => {
 
@@ -24,8 +23,8 @@ describe('mbd template for Course', () => {
     });
 
     it('can print extra sixes after the pricker', () => {
-        const course = createTestCourse();
-        const extraSixes = course.clone();
+        const course = new Course(rowFromString('231', Stage.Cinques));
+        const extraSixes = new Course(rowFromString('231', Stage.Cinques));
 
         course.setLength(2);
         extraSixes.setLength(2);
@@ -44,8 +43,8 @@ describe('mbd template for Course', () => {
     });
 
     it('can display a six head as well as a six end', () => {
-        const course = createTestCourse();
-        const extraSixes = course.clone();
+        const course = new Course(rowFromString('231', Stage.Cinques));
+        const extraSixes = new Course(rowFromString('231', Stage.Cinques));
 
         course.setLength(2);
         extraSixes.setLength(2);

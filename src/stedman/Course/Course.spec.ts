@@ -10,7 +10,6 @@ import {
     testSerialContainerImplementation,
 } from '../../blocks/SerialContainer.spec';
 import { rounds, rowFromString, Stage, stringFromRow } from '../../rows';
-import { createTestCourse } from '../../testFunctions.spec';
 import { StringArray } from '../../visitors';
 import Call from '../Call';
 import { AbstractMethod, Erin, Stedman, StedmanJump } from '../methods';
@@ -19,12 +18,27 @@ import Touch from '../Touch';
 
 describe('Course class', () => {
 
+    testSerialContainerImplementation(
+        Stage.Cinques,
+        (initialRow, _ownership) => new Course(initialRow, _ownership),
+        22,
+        132,
+        [
+            [Stage.Triples, 14, 84],
+            [Stage.Caters, 18, 108],
+            [Stage.Cinques, 22, 132],
+            [Stage.Sextuples, 26, 156],
+            [Stage.Septuples, 30, 180],
+        ],
+    );
+
     const testRow = rowFromString('231', Stage.Cinques);
 
     let course: Course;
 
     beforeEach(() => {
-        course = createTestCourse(testRow);
+        course = new Course(testRow);
+        course.resetLength();
     });
 
     it('starts out with a slow six by default for Erin', () => {
@@ -509,16 +523,4 @@ describe('Course class', () => {
         });
     });
 
-    testSerialContainerImplementation(
-        (initialRow, _ownership) => new Course(initialRow, _ownership),
-        [
-            [Stage.Triples, 14, 84],
-            [Stage.Caters, 18, 108],
-            [Stage.Cinques, 22, 132],
-            [Stage.Sextuples, 26, 156],
-            [Stage.Septuples, 30, 180],
-        ],
-        22,
-        132,
-    );
 });

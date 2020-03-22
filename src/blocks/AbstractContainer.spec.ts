@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { Row } from '../rows';
-import { createTestRow } from '../testFunctions.spec';
+import { rounds, Row, rowFromString, Stage } from '../rows';
+import { Proof, StringArray } from '../visitors';
 import AbstractBlock from './AbstractBlock';
 import { testAbstractBlockImplementation } from './AbstractBlock.spec';
 import AbstractContainer from './AbstractContainer';
@@ -16,39 +16,57 @@ type TestContainer = AbstractContainer<AbstractBlock>;
 
 /**
  * Tests that a container behaves as an AbstractContainer
- * @param factory         creates an instance of the object under test
- * @param fixtureFactory  function to create a test fixture of >= three blocks
- * @param expectedLength  blocks in the test fixture
- * @param expectedRows    rows in a new Cinques container
+ * @param stage           stage to use when testing this container
+ * @param factory         creates a true round block instance of length >= 3
+ * @param expectedRows    number of rows expected in this container
+ * @param expectedLength  number of blocks expected in this container
  */
 export const testAbstractContainerImplementation = (
+    stage: Stage,
     factory: (initialRow: Row, _ownership?: BlockOwnership) => TestContainer,
-    fixtureFactory: () => TestContainer,
-    expectedLength: number,
     expectedRows: number,
+    expectedLength: number,
 ) => {
 
     describe('is derived from AbstractContainer and', () => {
 
+        testAbstractBlockImplementation(
+            stage,
+            factory,
+            expectedRows,
+            (block) => (block as TestContainer).notify(0),
+        );
+
         let container: TestContainer;
 
         beforeEach(() => {
-            container = fixtureFactory();
+            container = factory(rounds(stage));
         });
 
-        it('starts as a round block (last row equal to initial row)', () => {
-            const initialRow = createTestRow();
-            container = factory(initialRow);
-            expect(container.getLast()).toEqual(initialRow);
+        /* Prerequisites: factory creates a true round block of length >= 3 ***/
+
+        it('is true when created for testing', () => {
+            const visitor = new Proof();
+            container.accept(visitor);
+            expect(visitor.isTrue).toBe(true);
         });
+
+        it('is a round block when created for testing', () => {
+            expect(container.getLast()).toEqual(rounds(stage));
+        });
+
+        it('is of length >= 3 when created for testing', () => {
+            expect(container.length).toBeGreaterThanOrEqual(3);
+        });
+
+        /* Functionality ******************************************************/
 
         it('keeps the last row in sync with the initial row', () => {
-            const initialRow = createTestRow();
-            const newRow = createTestRow('123');
-            container = factory(initialRow);
+            const newRow = rowFromString('4321', stage);
 
             container.initialRow = newRow;
-            expect(container.getLast()).not.toEqual(initialRow);
+
+            expect(container.getLast()).not.toEqual(rounds(stage));
             expect(container.getLast()).toEqual(newRow);
         });
 
@@ -77,16 +95,27 @@ export const testAbstractContainerImplementation = (
             expect(() => container.getBlock(expectedLength + 1)).toThrow();
         });
 
-        it('uses the last row of the last block as its last row', () => {
-            expect(container.getLast())
-                .toEqual(container.getBlock(expectedLength).getLast());
+        it('contains all the rows from its contained blocks', () => {
+            let visitor = new StringArray();
+            container.accept(visitor);
+            const containerRows = visitor.strings;
+
+            visitor = new StringArray();
+            for (let index = 1; index <= container.length; index += 1) {
+                container.getBlock(index).accept(visitor);
+            }
+            const blockRows = visitor.strings;
+
+            blockRows.forEach((row) => {
+                expect(containerRows.indexOf(row)).not.toBe(-1);
+            });
         });
 
         const getSpy = (index: number) =>
             spyOnProperty(container.getBlock(index), 'initialRow', 'set');
 
         it('recalculates blocks when the initial row changes', () => {
-            const newRow = createTestRow('123');
+            const newRow = rowFromString('4321', stage);
             const spy1 = getSpy(1);
             const spy2 = getSpy(2);
             const spy3 = getSpy(3);
@@ -117,6 +146,7 @@ export const testAbstractContainerImplementation = (
         it('notifies the parent container on notify', () => {
             const parent: TestContainer =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
+            // set this after creation to avoid spurious notifications
             container.ownership = { container: parent, index: 999 };
 
             container.notify(2);
@@ -124,14 +154,6 @@ export const testAbstractContainerImplementation = (
             expect(parent.notify).toHaveBeenCalledWith(999);
             expect(parent.notify).toHaveBeenCalledTimes(1);
         });
-
-        testAbstractBlockImplementation(
-            factory,
-            (block) => {
-                (block as TestContainer).notify(0);
-            },
-            expectedRows,
-        );
 
     });
 

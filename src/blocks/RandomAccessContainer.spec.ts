@@ -6,8 +6,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { Row } from '../rows';
-import { createTestRow } from '../testFunctions.spec';
+import { rounds, Row, Stage } from '../rows';
 import AbstractBlock from './AbstractBlock';
 import { testAbstractContainerImplementation } from './AbstractContainer.spec';
 import BlockOwnership from './BlockOwnership';
@@ -17,28 +16,40 @@ type TestContainer = RandomAccessContainer<AbstractBlock>;
 
 /**
  * Tests that a container behaves as a RandomAccessContainer
- * @param factory       creates an instance of the object under test
- * @param testBlocks    array containing three potential child blocks
+ * @param stage           stage to use when testing this container
+ * @param factory         creates a true round block instance of length >= 3
+ * @param expectedRows    number of rows expected in this container
+ * @param expectedLength  number of blocks expected in this container
+ * @param testBlock       a valid child block
  * @param firstBlockInitialRowFn
- * @param expectedRows  rows in a new Cinques container
  */
 export const testRandomAccessContainerImplementation = (
+    stage: Stage,
     factory: (initialRow: Row, _ownership?: BlockOwnership) => TestContainer,
-    testBlocks: AbstractBlock[],
-    firstBlockInitialRowFn: (container: TestContainer) => Row,
     expectedRows: number,
+    expectedLength: number,
+    testBlock: AbstractBlock,
+    firstBlockInitialRowFn: (container: TestContainer) => Row,
 ) => {
 
     describe('is derived from RandomAccessContainer and', () => {
 
-        const testRow = createTestRow();
+        testAbstractContainerImplementation(
+            stage,
+            factory,
+            expectedRows,
+            expectedLength,
+        );
 
         let container: TestContainer;
 
         beforeEach(() => {
-            container = factory(testRow);
+            container = factory(rounds(stage));
         });
 
+        /**
+         * Validate that rows are propagated correctly between blocks
+         */
         const checkPropagation = () => {
             // First block initial row OK
             expect(container.getBlock(1).initialRow)
@@ -55,118 +66,235 @@ export const testRandomAccessContainerImplementation = (
                 .toEqual(container.getBlock(container.length).getLast());
         };
 
-        const checkBlock = (index: number, testBlock: AbstractBlock) =>
-            expect(container.getBlock(index)).toBe(testBlock);
-
+        /**
+         * Validate that all contained blocks have the correct ownership
+         */
         const checkOwnership = () => {
             for (let index = 1; index <= container.length; index += 1) {
-                expect(container.getBlock(index).container)
-                    .toBe(container);
+                expect(container.getBlock(index).container).toBe(container);
                 expect(container.getBlock(index).index).toBe(index);
             }
         };
 
-        it('starts out empty', () => {
-            expect(container.length).toBe(0);
+        it('can insert a block at the beginning', () => {
+            container.insertBlock(1, testBlock);
+            expect(container.getBlock(1)).toBe(testBlock);
         });
 
-        it('can insert a new block', () => {
-            container.insertBlock(1, testBlocks[0]);
-            expect(container.length).toBe(1);
+        it('increases the length when inserting at the beginning', () => {
+            const originalLength = container.length;
+            container.insertBlock(1, testBlock);
+            expect(container.length).toBe(originalLength + 1);
+        });
+
+        it('moves blocks correctly when inserting at the beginning', () => {
+            const originalBlocks = container.blocks;
+            container.insertBlock(1, testBlock);
+            originalBlocks.forEach((block, index) => {
+                // 2 = 1-based index offset + inserted block
+                expect(container.getBlock(index + 2)).toBe(block);
+            });
+        });
+
+        it('propagates rows correctly when inserting at the beginning', () => {
+            container.insertBlock(1, testBlock);
             checkPropagation();
-            checkBlock(1, testBlocks[0]);
+        });
+
+        it('sets ownership correctly when inserting at the beginning', () => {
+            container.insertBlock(1, testBlock);
+            checkOwnership();
         });
 
         it('ignores the initial row when inserting a new block', () => {
             // Set container initial row different from block initial row
-            let initialRow = testBlocks[0].initialRow;
+            let initialRow = testBlock.initialRow;
             const [a, b, ...rest] = initialRow;
             initialRow = [b, a, ...rest];
             container.initialRow = initialRow;
 
             // Container initial row should be unaffected when inserting
-            container.insertBlock(1, testBlocks[0]);
+            container.insertBlock(1, testBlock);
             expect(container.initialRow).toEqual(initialRow);
             checkPropagation();
         });
 
-        it('can insert a second block', () => {
-            container.insertBlock(1, testBlocks[0]);  // [0]
-            container.insertBlock(2, testBlocks[1]);  // [0, 1]
-            expect(container.length).toBe(2);
-            checkPropagation();
-            checkBlock(1, testBlocks[0]);
-            checkBlock(2, testBlocks[1]);
-        });
-
-        it('can insert a block at the beginning', () => {
-            container.insertBlock(1, testBlocks[1]);  // [1]
-            container.insertBlock(1, testBlocks[0]);  // [0, 1]
-            expect(container.length).toBe(2);
-            checkPropagation();
-            checkBlock(1, testBlocks[0]);
-            checkBlock(2, testBlocks[1]);
-        });
-
         it('can insert a block in the middle', () => {
-            container.insertBlock(1, testBlocks[0]);  // [0]
-            container.insertBlock(2, testBlocks[2]);  // [0, 2]
-            container.insertBlock(2, testBlocks[1]);  // [0, 1, 2]
-            checkPropagation();
-            checkBlock(1, testBlocks[0]);
-            checkBlock(2, testBlocks[1]);
-            checkBlock(3, testBlocks[2]);
+            container.insertBlock(2, testBlock);
+            expect(container.getBlock(2)).toBe(testBlock);
         });
 
-        it('sets ownership correctly when inserting new blocks', () => {
-            container.insertBlock(1, testBlocks[0]);  // [0]
-            container.insertBlock(2, testBlocks[1]);  // [0, 1]
+        it('increases the length when inserting in the middle', () => {
+            const originalLength = container.length;
+            container.insertBlock(2, testBlock);
+            expect(container.length).toBe(originalLength + 1);
+        });
+
+        it('moves blocks correctly when inserting in the middle', () => {
+            const originalBlocks = container.blocks;
+            container.insertBlock(2, testBlock);
+
+            expect(container.getBlock(1)).toBe(originalBlocks[0]);
+            originalBlocks.forEach((block, index) => {
+                if (index > 0) {
+                    // 2 = 1-based index offset + inserted block
+                    expect(container.getBlock(index + 2)).toBe(block);
+                }
+            });
+        });
+
+        it('propagates rows correctly when inserting in the middle', () => {
+            container.insertBlock(2, testBlock);
+            checkPropagation();
+        });
+
+        it('sets ownership correctly when inserting in the middle', () => {
+            container.insertBlock(2, testBlock);
             checkOwnership();
         });
 
-        it('can delete a block from the end', () => {
-            container.insertBlock(1, testBlocks[0]);  // [0]
-            container.insertBlock(2, testBlocks[1]);  // [0, 1]
-            container.deleteBlock(2);                 // [0]
-            expect(container.length).toBe(1);
+        it('can insert a block at the end', () => {
+            const lastIndex = container.length + 1;
+            container.insertBlock(lastIndex, testBlock);
+            expect(container.getBlock(lastIndex)).toBe(testBlock);
+        });
+
+        it('increases the length when inserting at the end', () => {
+            const lastIndex = container.length + 1;
+            const originalLength = container.length;
+            container.insertBlock(lastIndex, testBlock);
+            expect(container.length).toBe(originalLength + 1);
+        });
+
+        it('moves blocks correctly when inserting at the end', () => {
+            const lastIndex = container.length + 1;
+            const originalBlocks = container.blocks;
+
+            container.insertBlock(lastIndex, testBlock);
+
+            originalBlocks.forEach((block, index) => {
+                expect(container.getBlock(index + 1)).toBe(block);
+            });
+        });
+
+        it('propagates rows correctly when inserting at the end', () => {
+            const lastIndex = container.length + 1;
+            container.insertBlock(lastIndex, testBlock);
             checkPropagation();
-            checkBlock(1, testBlocks[0]);
+        });
+
+        it('sets ownership correctly when inserting at the end', () => {
+            const lastIndex = container.length + 1;
+            container.insertBlock(lastIndex, testBlock);
+            checkOwnership();
+        });
+
+        it('can delete a block from the beginning', () => {
+            const deletedBlock = container.getBlock(1);
+            container.deleteBlock(1);
+            expect(container.getBlock(1)).not.toBe(deletedBlock);
+        })
+
+        it('decreases the length when deleting from the beginning', () => {
+            const originalLength = container.length;
+            container.deleteBlock(1);
+            expect(container.length).toBe(originalLength - 1);
+        });
+
+        it('moves blocks correctly when deleting from the beginning', () => {
+            const originalBlocks = container.blocks;
+            container.deleteBlock(1);
+            for (let index = 1; index <= container.length; index += 1) {
+                // 0 = 1-based index offset - deleted block
+                expect(container.getBlock(index)).toBe(originalBlocks[index]);
+            }
+        });
+
+        it('propagates rows correctly when deleting from the beginning', () => {
+            container.deleteBlock(1);
+            checkPropagation();
+        });
+
+        it('sets ownership correctly when deleting from the beginning', () => {
+            const deletedBlock = container.getBlock(1);
+
+            container.deleteBlock(1);
+
+            checkOwnership();
+            expect(deletedBlock.container).toBeUndefined();
+            expect(deletedBlock.index).toBeUndefined();
         });
 
         it('can delete a block from the middle', () => {
-            container.insertBlock(1, testBlocks[0]);  // [0]
-            container.insertBlock(2, testBlocks[1]);  // [0, 1]
-            container.insertBlock(3, testBlocks[2]);  // [0, 1, 2]
-            container.deleteBlock(2);                 // [0, 2]
-            expect(container.length).toBe(2);
+            const deletedBlock = container.getBlock(2);
+            container.deleteBlock(2);
+            expect(container.getBlock(2)).not.toBe(deletedBlock);
+        })
+
+        it('decreases the length when deleting from the middle', () => {
+            const originalLength = container.length;
+            container.deleteBlock(2);
+            expect(container.length).toBe(originalLength - 1);
+        });
+
+        it('moves blocks correctly when deleting from the middle', () => {
+            const originalBlocks = container.blocks;
+            container.deleteBlock(2);
+
+            expect(container.getBlock(1)).toBe(originalBlocks[0]);
+            for (let index = 2; index <= container.length; index += 1) {
+                // 0 = 1-based index offset - deleted block
+                expect(container.getBlock(index)).toBe(originalBlocks[index]);
+            }
+        });
+
+        it('propagates rows correctly when deleting from the middle', () => {
+            container.deleteBlock(2);
             checkPropagation();
-            checkBlock(1, testBlocks[0]);
-            checkBlock(2, testBlocks[2]);
         });
 
-        it('sets ownership correctly when deleting blocks', () => {
-            container.insertBlock(1, testBlocks[0]);  // [0]
-            container.insertBlock(2, testBlocks[1]);  // [0, 1]
-            container.deleteBlock(2);                 // [0]
+        it('sets ownership correctly when deleting from the middle', () => {
+            const deletedBlock = container.getBlock(2);
+
+            container.deleteBlock(2);
+
             checkOwnership();
-            expect(testBlocks[1].container).toBeUndefined();
-            expect(testBlocks[1].index).toBeUndefined();
+            expect(deletedBlock.container).toBeUndefined();
+            expect(deletedBlock.index).toBeUndefined();
         });
 
-        const fixtureFactory: () => TestContainer = () => {
-            const testContainer = factory(createTestRow());
-            testContainer.insertBlock(1, testBlocks[0]);  // [0]
-            testContainer.insertBlock(2, testBlocks[1]);  // [0, 1]
-            testContainer.insertBlock(3, testBlocks[2]);  // [0, 1, 2]
-            return testContainer;
-        };
+        // This test can't follow the regular pattern: there's no more nth block
+        xit('can delete a block from the end');
 
-        testAbstractContainerImplementation(
-            factory,
-            fixtureFactory,
-            3,
-            expectedRows,
-        );
+        it('decreases the length when deleting from the end', () => {
+            const originalLength = container.length;
+            container.deleteBlock(container.length);
+            expect(container.length).toBe(originalLength - 1);
+        });
+
+        it('moves blocks correctly when deleting from the end', () => {
+            const originalBlocks = container.blocks;
+            container.deleteBlock(container.length);
+            for (let index = 1; index <= container.length; index += 1) {
+                expect(container.getBlock(index))
+                    .toBe(originalBlocks[index - 1]);
+            }
+        });
+
+        it('propagates rows correctly when deleting from the end', () => {
+            container.deleteBlock(container.length);
+            checkPropagation();
+        });
+
+        it('sets ownership correctly when deleting from the end', () => {
+            const deletedBlock = container.getBlock(container.length);
+
+            container.deleteBlock(container.length);
+
+            checkOwnership();
+            expect(deletedBlock.container).toBeUndefined();
+            expect(deletedBlock.index).toBeUndefined();
+        });
 
     });
 
