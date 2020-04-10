@@ -6,7 +6,7 @@
  */
 
 import { Stage as S } from '../../rows';
-import C from '../Call';
+import { Call as C } from '../../shared';
 import SixType from '../SixType';
 import { testSixImplementation } from './AbstractSix/AbstractSix.spec';
 import Slow from './Slow';

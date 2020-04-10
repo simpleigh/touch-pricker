@@ -8,7 +8,6 @@
 import * as Methods from './methods';
 import * as Sixes from './sixes';
 
-export { default as Call } from './Call';
 export { default as Course } from './Course';
 export { default as MbdPricker } from './MbdPricker';
 export { Methods };

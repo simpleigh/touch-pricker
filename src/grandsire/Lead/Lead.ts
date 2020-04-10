@@ -7,9 +7,9 @@
 
 import { AbstractBlock, BlockOwnership } from '../../blocks';
 import { multiply, Row } from '../../rows';
+import { Call } from '../../shared';
 import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
-import Call from '../Call';
 import * as Changes from '../changes';
 import mbd from './mbd.dot';
 

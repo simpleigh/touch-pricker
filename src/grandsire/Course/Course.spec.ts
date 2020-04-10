@@ -9,8 +9,8 @@ import {
     testSerialContainerImplementation,
 } from '../../blocks/SerialContainer.spec';
 import { rounds, Stage, stringFromRow } from '../../rows';
+import { Call } from '../../shared';
 import { StringArray } from '../../visitors';
-import Call from '../Call';
 import Touch from '../Touch';
 import Course from '.';
 

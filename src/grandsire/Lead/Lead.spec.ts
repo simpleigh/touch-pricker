@@ -9,8 +9,8 @@ import {
     testAbstractBlockImplementation,
 } from '../../blocks/AbstractBlock.spec';
 import { rounds, Row, rowFromString, Stage, stringFromRow } from '../../rows';
+import { Call } from '../../shared';
 import { StringArray } from '../../visitors';
-import Call from '../Call';
 import Lead from '.';
 
 describe('Grandsire Lead class', () => {

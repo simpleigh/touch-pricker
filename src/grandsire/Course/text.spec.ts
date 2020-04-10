@@ -6,7 +6,7 @@
  */
 
 import { rounds, Stage } from '../../rows';
-import Call from '../Call';
+import { Call } from '../../shared';
 import Course from '.';
 
 describe('text template for Course', () => {

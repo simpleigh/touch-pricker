@@ -5,10 +5,4 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-/**
- * Types of call
- * @enum {number}
- */
-enum Call { Plain = 0, Bob, Single }
-
-export default Call;
+export { default as Call } from './Call';

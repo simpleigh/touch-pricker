@@ -9,8 +9,8 @@ import {
     testRandomAccessContainerImplementation,
 } from '../../blocks/RandomAccessContainer.spec';
 import { rounds, Stage } from '../../rows';
+import { Call } from '../../shared';
 import { StringArray } from '../../visitors';
-import Call from '../Call';
 import Course from '../Course';
 import Touch from '.';
 

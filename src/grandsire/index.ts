@@ -5,7 +5,6 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-export { default as Call } from './Call';
 export { default as Course } from './Course';
 export { default as Lead } from './Lead';
 export { default as MbdPricker } from './MbdPricker';

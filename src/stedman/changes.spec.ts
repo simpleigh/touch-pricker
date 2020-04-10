@@ -6,7 +6,7 @@
  */
 
 import { rounds, Row, Stage, stringFromRow } from '../rows';
-import Call from './Call';
+import { Call } from '../shared';
 import * as Changes from './changes';
 
 const createChangeTests = (

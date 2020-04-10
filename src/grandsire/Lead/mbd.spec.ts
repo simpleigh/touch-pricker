@@ -7,7 +7,7 @@
 
 import { BlockDirectory } from '../../blocks';
 import { rounds, Stage, stringFromRow } from '../../rows';
-import Call from '../Call';
+import { Call } from '../../shared';
 import Course from '../Course';
 import Lead from '.';
 

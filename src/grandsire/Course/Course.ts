@@ -7,8 +7,8 @@
 
 import { SerialContainer } from '../../blocks';
 import { stringFromRow, Row } from '../../rows';
+import { Call } from '../../shared';
 import * as Templates from '../../templates';
-import Call from '../Call';
 import Lead from '../Lead';
 import html from './html.dot';
 import mbd from './mbd.dot';

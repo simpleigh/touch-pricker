@@ -7,8 +7,8 @@
 
 import { BlockOwnership, SerialContainer } from '../../blocks';
 import { Row } from '../../rows';
+import { Call } from '../../shared';
 import * as Templates from '../../templates';
-import Call from '../Call';
 import { AbstractMethod, Stedman } from '../methods';
 import { AbstractSix } from '../sixes';
 import SixType from '../SixType';
