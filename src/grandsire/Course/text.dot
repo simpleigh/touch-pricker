@@ -1,0 +1,56 @@
+/**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * Renders a course, e.g.:
+ * 480735692E1  s2 3  (4 sixes)
+ * 2314567890E  p
+ * @param {enum}     Call       enum for calls
+ * @param {boolean}  courseEnd  whether to print the course end
+ * @param {string}   end        line ending
+ */
+
+{{
+	var calls = [ ];
+	context.end = context.end || '';
+	if (context.courseEnd === undefined) {
+		context.courseEnd = true;
+	}
+}}
+
+{{? context.courseEnd }}
+	{{= context.stringFromRow(context.object.getLast()) }}
+	 /* single space */
+	 /* single space */
+{{?}}
+
+{{~ context.object.blocks :lead }}
+	{{? lead.call }}
+		{{ calls.push(
+			((lead.call === context.Call.Single) ? 's' : '')
+				+ lead.index
+		); }}
+	{{?}}
+{{~}}
+
+{{? calls.length }}
+	{{= calls.join(' ') }}
+{{??}}
+	p
+{{?}}
+
+{{
+	var initialRow = context.object.initialRow;
+}}
+
+{{? context.object.length !== context.object.getDefaultLength(initialRow) }}
+	 /* single space */
+	 /* single space */
+	({{= context.object.length }} leads)
+{{?}}
+
+{{= context.end }}

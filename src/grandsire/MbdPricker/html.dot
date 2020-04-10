@@ -1,0 +1,161 @@
+/**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * HTML for MBD-style pricker
+ */
+
+<div id="leadends"></div>
+
+<div id="controls">
+
+  <div id="tabs">
+    <div
+      class="tab tab-selected"
+      id="tab_pricking"
+      onclick="pricker.onTab('pricking')"
+      onmousedown="return false"
+    >
+      Pricking
+    </div>
+    <div
+      class="tab"
+      id="tab_loadSave"
+      onclick="pricker.onTab('loadSave')"
+      onmousedown="return false"
+    >
+      Load/Save
+    </div>
+    <div
+      class="tab"
+      id="tab_siril"
+      onclick="pricker.onTab('siril')"
+      onmousedown="return false"
+    >
+      Siril
+    </div>
+    <div
+      class="tab"
+      id="tab_music"
+      onclick="pricker.onTab('music')"
+      onmousedown="return false"
+    >
+      Music
+    </div>
+  </div>
+
+  <div id="pages">
+
+    <div class="page page-selected" id="page_pricking">
+      <div>
+        <label for="stage">Number of bells:</label>
+        <select id="stage" onchange="pricker.onStage()">
+          <option value="{{= context.Stage.Doubles }}">Doubles</option>
+          <option selected value="{{= context.Stage.Triples }}">Triples</option>
+          <option value="{{= context.Stage.Caters }}">Caters</option>
+          <option value="{{= context.Stage.Cinques }}">Cinques</option>
+          <option value="{{= context.Stage.Sextuples }}">Sextuples</option>
+          <option value="{{= context.Stage.Septuples }}">Septuples</option>
+        </select>
+      </div>
+      <div>
+        Course from rounds:
+        <div id="callingFromRounds"></div>
+      </div>
+      <div>
+        From current start row:
+        <div id="calling"></div>
+      </div>
+      <div>
+        <form onsubmit="return false">
+        <label for="initialRow">Starting row:</label>
+        <input type="text" id="initialRow" size="15" maxLength="15" />
+        <button onclick="pricker.onSetInitialRow()">Set</button>
+        <button onclick="pricker.onResetInitialRow()">Reset</button>
+        </form>
+      </div>
+      <div>
+        <form onsubmit="return false">
+        <label for="courseLength">Course length:</label>
+        <input type="text" id="courseLength" size="2" maxLength="2" />
+        <button onclick="pricker.onSetLength()">Set</button>
+        <button onclick="pricker.onResetLength()">Reset</button>
+        </form>
+      </div>
+      <div>
+        <label for="callReset">Current calling:</label>
+        <button id="callReset" onclick="pricker.onResetCalls()">Reset</button>
+      </div>
+      <div>
+        Saved calling:
+        <div id="savedCalling"></div>
+        <button id="saveCalling" onclick="pricker.onSaveCalling()">Save</button>
+        <button id="loadCalling" onclick="pricker.onLoadCalling()">Load</button>
+      </div>
+    </div>
+
+    <div class="page" id="page_loadSave">
+      <form onsubmit="return false">
+        <button onclick="pricker.onLoadTouch()">Import</button>
+        <button onclick="pricker.onSaveTouch()">Export</button>
+      </form>
+      <textarea id="loadSaveTextarea"></textarea>
+    </div>
+
+    <div class="page" id="page_siril">
+      <form onsubmit="return false">
+        <button onclick="pricker.onGenerateSiril()">Generate</button>
+      </form>
+      <textarea id="sirilTextarea"></textarea>
+    </div>
+
+    <div class="page" id="page_music">
+      <form onsubmit="return false">
+        <label for="musicScheme">Scheme:</label>
+        <select id="musicScheme" value="mbd">
+          <option value="mbd">MBD</option>
+          <option value="runs">Runs-based</option>
+        </select>
+        <button onclick="pricker.onAnalyseMusic()">Analyse</button>
+      </form>
+      <textarea id="musicTextarea"></textarea>
+    </div>
+
+  </div>
+
+</div>
+
+<div id="touch">
+  <div>
+    <button onclick="pricker.onProve()">PROVE</button>
+    <span id="proofResult"></span>
+  </div>
+  <div id="numRows"></div>
+  <div>
+    <label>
+      <input id="rolling" type="checkbox" />
+      Rolling course entry
+    </label>
+  </div>
+  <div>
+    <form onsubmit="return false">
+      <button onclick="pricker.onInsertCourse()">Insert</button>
+      <button onclick="pricker.onPasteCourse()">Paste</button>
+      <button onclick="pricker.onCopyCourse()">Copy</button>
+      <button onclick="pricker.onCutCourse()">Cut</button>
+      <button onclick="pricker.onDeleteCourse()">Delete</button>
+    </form>
+    <div id="courses" ondblclick="pricker.onCopyCourse()"></div>
+    <form onsubmit="return false">
+      <button onclick="pricker.onInsertCourse()">Insert</button>
+      <button onclick="pricker.onPasteCourse()">Paste</button>
+      <button onclick="pricker.onCopyCourse()">Copy</button>
+      <button onclick="pricker.onCutCourse()">Cut</button>
+      <button onclick="pricker.onDeleteCourse()">Delete</button>
+    </form>
+  </div>
+</div>

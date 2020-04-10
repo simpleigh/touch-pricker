@@ -1,0 +1,30 @@
+/**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * Renders a six for consumption by siril-based provers
+ * @param {number}  touchRows  rows remaining in the touch
+ * @param {enum}    Call       enum for calls
+ */
+
+{{
+	context.touchRows = context.touchRows || Infinity;
+}}
+
+{{? context.touchRows >= context.object.estimateRows() }}
+	{{? context.object.call === context.Call.Plain }}
+		plain
+	{{?? context.object.call === context.Call.Bob }}
+		bob
+	{{?? context.object.call === context.Call.Single }}
+		single
+	{{?}}
+{{??}}
+	+{{= context.object.notation.slice(0, context.touchRows).join('.') }}
+{{?}}
+,
+ /* single space */

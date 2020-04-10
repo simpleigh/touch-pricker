@@ -8,7 +8,7 @@
 import Touch from '.';
 import { StedmanJump } from '../methods';
 
-describe('siril template for Touch', () => {
+describe('siril template for Stedman Touch', () => {
 
     const composition = ''
         + '1234567890E\n'

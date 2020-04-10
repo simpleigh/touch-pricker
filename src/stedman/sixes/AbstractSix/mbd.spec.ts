@@ -6,12 +6,9 @@
  */
 
 import AbstractSix from '.';
-import {
-    BlockDirectory,
-    BlockOwnership,
-} from '../../../blocks';
+import { BlockDirectory, BlockOwnership } from '../../../blocks';
 import { rounds, Row, Stage, stringFromRow } from '../../../rows';
-import Call from '../../Call';
+import { Call } from '../../../shared';
 import Course from '../../Course';
 import Quick from '../Quick';
 import Slow from '../Slow';

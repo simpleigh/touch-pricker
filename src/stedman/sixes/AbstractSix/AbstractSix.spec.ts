@@ -17,8 +17,8 @@ import {
     Stage,
     stringFromRow,
 } from '../../../rows';
+import { Call } from '../../../shared';
 import { StringArray } from '../../../visitors';
-import Call from '../../Call';
 import * as Changes from '../../changes';
 import Course from '../../Course';
 import SixType from '../../SixType';

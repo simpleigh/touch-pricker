@@ -1,0 +1,148 @@
+/**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * CSS for MBD-style pricker
+ */
+
+#leadends {
+    float: left;
+    font-family: "Courier New", "Courier", "monospace";
+    font-size: 12pt;
+    margin-right: 25px;
+}
+
+#controls {
+    float: left;
+    margin-right: 25px;
+}
+
+.tab {
+    background-color: #EFEFF7;
+    border-color: black;
+    border-radius: 15px 0 0 0;
+    border-style: solid;
+    border-width: 1px 1px 0 1px;
+    cursor: pointer;
+    float: left;
+    height: 20px;
+    line-height: 20px;
+    padding-left: 10px;
+    padding-right: 8px;
+    text-align: center;
+}
+
+.tab-selected {
+    background-color: #BDBDE7;
+    font-weight: bold;
+}
+
+#pages {
+    width: 360px;
+}
+
+.page {
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    clear: left;
+    display: none;
+    padding: 9px;
+    visibility: hidden;
+    width: 340px;
+}
+
+.page-selected {
+    display: block;
+    visibility: visible;
+}
+
+.page div, .page div#savedCalling {
+    margin-bottom: 20px;
+}
+
+.page div:last-of-type {
+    margin-bottom: 0px;
+}
+
+.page form {
+    height: 25px;
+    margin-bottom: 10px;
+}
+
+.page textarea {
+    border-width: 1px;
+    height: 450px;
+    padding: 1px;
+    width: 336px;
+}
+
+#touch {
+    background-color: #EFEFF7;
+    float: left;
+    padding: 10px;
+}
+
+#touch div {
+    margin-bottom: 5px;
+}
+
+#touch div:last-of-type {
+    margin-bottom: 0px;
+}
+
+#courses {
+    background-color: white;
+    border: rgb(227, 227, 227) 0.8px inset;
+    cursor: default;
+    margin: 5px 0;
+    min-height: 2em;
+    padding: 1px 0;
+}
+
+#courses div {
+    font-size: 0.9em;
+    margin: 0;
+    padding: 0 5px 0 3px;
+}
+
+#courses div.selected {
+    background-color: rgb(0, 120, 215);
+    color: white !important;
+}
+
+#courses div.false {
+    color: red;
+}
+
+#courses div.unreached {
+    color: gray;
+}
+
+.call {
+    cursor: pointer;
+}
+
+[class*="odd call"] {
+    background-color: #f0f0f8;
+}
+
+[class*="even call"] {
+    background-color: #e2e2f0;
+}
+
+.extraLead {
+    color: #505050;
+}
+
+.falseBlock {
+    color: red;
+}
+
+.musicalBlock {
+    color: gold;
+}

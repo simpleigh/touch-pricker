@@ -9,7 +9,8 @@ import template from './create.dot';
 import { createAndAppendStyle, createIframe, injectIframeData } from './dom';
 import Options from './Options';
 import Pricker from './Pricker';
-import { MbdPricker } from './stedman';
+import { MbdPricker as Grandsire } from './grandsire';
+import { MbdPricker as Stedman } from './stedman';
 
 /**
  * Factory function to create a pricker
@@ -22,7 +23,7 @@ const create = (
     options: Options = { },
     parentDocument: HTMLDocument = document,
 ): Pricker => {
-    let pricker: MbdPricker;
+    let pricker: Pricker;
 
     const element = parentDocument.getElementById(elementId);
     if (!element) {
@@ -32,10 +33,17 @@ const create = (
     if (options.iframe || options.iframe === undefined) {
         const iframe = createIframe(parentDocument);
         element.appendChild(iframe);
-        pricker = new MbdPricker(iframe);
+
+        pricker = options.type === 'grandsire'
+            ? new Grandsire(iframe)
+            : new Stedman(iframe);
+
         injectIframeData(iframe, template({ pricker }), { pricker });
     } else {
-        pricker = new MbdPricker();
+        pricker = options.type === 'grandsire'
+            ? new Grandsire()
+            : new Stedman();
+
         createAndAppendStyle(parentDocument, pricker.print('css'));
         element.innerHTML = pricker.print('html');
         (window as any).pricker = pricker;

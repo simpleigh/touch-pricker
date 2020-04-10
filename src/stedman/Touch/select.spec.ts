@@ -9,7 +9,7 @@ import Touch from '.';
 import { BlockDirectory } from '../../blocks';
 import { stringFromRow } from '../../rows';
 
-describe('select template for Touch', () => {
+describe('select template for Stedman Touch', () => {
 
     it('renders a touch correctly', () => {
         const touch = Touch.fromString(

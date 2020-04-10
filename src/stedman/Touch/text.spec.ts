@@ -8,7 +8,7 @@
 import Touch from '.';
 import SixType from '../SixType';
 
-describe('text template for Touch', () => {
+describe('text template for Stedman Touch', () => {
 
     it('renders a touch correctly', () => {
         const text = '2314567890E\n'

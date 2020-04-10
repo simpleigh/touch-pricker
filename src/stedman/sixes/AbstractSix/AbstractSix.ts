@@ -7,8 +7,8 @@
 
 import { AbstractBlock, BlockOwnership } from '../../../blocks';
 import { Row } from '../../../rows';
+import { Call } from '../../../shared';
 import * as Templates from '../../../templates';
-import Call from '../../Call';
 import * as Changes from '../../changes';
 import SixType from '../../SixType';
 import mbd from './mbd.dot';

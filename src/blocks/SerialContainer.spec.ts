@@ -25,8 +25,8 @@ type TestContainer = SerialContainer<AbstractBlock>;
 export const testSerialContainerImplementation = (
     stage: Stage,
     factory: (initialRow: Row, _ownership?: BlockOwnership) => TestContainer,
-    expectedLength: number,
     expectedRows: number,
+    expectedLength: number,
     lengthTestCases: [Stage, number, number][],
 ) => {
 
@@ -70,7 +70,7 @@ export const testSerialContainerImplementation = (
             for (const testCase of lengthTestCases) {
                 container = factory(rounds(testCase[0]));
                 container.resetLength();
-                expect(container.length).toBe(testCase[1]);
+                expect(container.length).toBe(testCase[2]);
             }
         });
 
@@ -153,7 +153,7 @@ export const testSerialContainerImplementation = (
             for (const testCase of lengthTestCases) {
                 container = factory(rounds(testCase[0]));
                 container.resetLength();
-                expect(container.estimateRows()).toBe(testCase[2]);
+                expect(container.estimateRows()).toBe(testCase[1]);
             }
         });
 

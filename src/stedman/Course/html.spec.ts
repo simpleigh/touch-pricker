@@ -8,7 +8,7 @@
 import Course from '.';
 import { rowFromString, Stage } from '../../rows';
 
-describe('html template for Course', () => {
+describe('html template for Stedman Course', () => {
 
     it('renders a course correctly', () => {
         const initialRow = rowFromString('231', Stage.Cinques);

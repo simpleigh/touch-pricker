@@ -7,8 +7,8 @@
 
 import { BlockOwnership, SerialContainer } from '../../blocks';
 import { Row } from '../../rows';
+import { Call, parseCourse } from '../../shared';
 import * as Templates from '../../templates';
-import Call from '../Call';
 import { AbstractMethod, Stedman } from '../methods';
 import { AbstractSix } from '../sixes';
 import SixType from '../SixType';
@@ -185,55 +185,10 @@ class Course
         method: AbstractMethod = new Stedman(),
     ): Course {
         const course = new Course(initialRow, undefined, method);
-        const courseEnd = '[0-9a-et]{3,15}';
-        const separator = '[\\s.,]+';
-        const six = '(?:\\d{1,2}|\\d{1,2}s|s\\d{1,2})'; // 5 or 5s or s5
-        const sixes = `${six}(?:${separator}${six})*`;
-        const numSixes = '\\((\\d{1,2})[^\\d\\)]*\\)'; // (5 <anything>)
-        const line = ''
-            + '^\\s*'
-            + `(?:${courseEnd}\\s+)?`
-            + `(${sixes}|p)`  // group 1
-            + `(?:\\s+${numSixes})?`  // group 2 in here
-            + '\\s*$';
-        const matches = new RegExp(line, 'i').exec(input);
-
-        let calls: string[];
-        let i: number;
-        let call: string;
-
-        if (!matches) {
-            throw new Error('Cannot import course');
-        }
-
-        // Second group matches length of course
-        if (matches[2]) {
-            course.setLength(parseInt(matches[2]));
-        } else {
-            course.resetLength();
-        }
-
-        // If this is a plain course then our job is done
-        if (matches[1] === 'p') {
-            return course;
-        }
-
-        // Otherwise split up the calling and process
-        calls = matches[1].split(new RegExp(separator));
-        for (i = 0; i < calls.length; i += 1) {
-            call = calls[i];
-            if (call.charAt(0) === 's') {
-                call = call.slice(1);
-                course.getBlock(parseInt(call)).setCall(Call.Single);
-            } else if (call.slice(-1) === 's') {
-                call = call.slice(0, -1);
-                course.getBlock(parseInt(call)).setCall(Call.Single);
-            } else {
-                course.getBlock(parseInt(call)).setCall(Call.Bob);
-            }
-        }
+        parseCourse(course, input);
         return course;
     }
+
 }
 
 export default Course;

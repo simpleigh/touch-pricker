@@ -6,7 +6,7 @@
  */
 
 import { Bell, Row } from '../rows';
-import Call from './Call';
+import { Call } from '../shared';
 
 /**
  * Simple functions to permute rows

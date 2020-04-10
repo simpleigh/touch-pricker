@@ -1,0 +1,44 @@
+/**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * Renders a touch as HTML for use within a <select> element
+ * @param {BlockDirectory}  falseness       directory to lookup falseness
+ * @param {number}          selectedIndex   index of selected course
+ * @param {number}          touchRows       count of rows in the touch
+ */
+
+{{
+	context.touchRows = context.touchRows || Infinity;
+}}
+
+<div>
+	{{= context.stringFromRow(context.object.initialRow) }}
+</div>
+
+{{~ context.object.blocks :course }}
+	{{
+		var classes = [ ];
+		if (context.selectedIndex === course.index) {
+			classes.push('selected');
+		}
+		if (context.falseness && context.falseness.contains(course)) {
+			classes.push('false');
+		}
+		if (context.touchRows <= 0) {
+			classes.push('unreached');
+		}
+	}}
+	<div
+		 class="{{= classes.join(' ') }}"
+		 onclick="pricker.onSelectCourse({{= course.index }})"
+		 onmousedown="return false"
+	>
+		{{= course.print('text') }}
+	</div>
+	{{ context.touchRows -= course.estimateRows(); }}
+{{~}}
