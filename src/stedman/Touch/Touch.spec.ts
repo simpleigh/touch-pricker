@@ -308,24 +308,17 @@ describe('Stedman Touch class', () => {
         ));
 
         it('a touch with no lines', () => {
-            expect(() => {
-                Touch.fromString('');
-            }).toThrowError('No input lines');
+            expect(() => Touch.fromString('')).toThrowError('No input lines');
         });
 
         it('a touch with a broken initial row', () => {
-            expect(() => {
-                Touch.fromString('not');
-            }).toThrowError('Cannot recognise stage');
+            expect(() => Touch.fromString('not'))
+                .toThrowError('Cannot recognise stage');
         });
 
         it('a touch with a broken course', () => {
-            expect(() => {
-                Touch.fromString(
-                    '2314567890E\n'
-                        + 'garbage\n',
-                );
-            }).toThrowError('Cannot import course');
+            expect(() => Touch.fromString('2314567890E\n' + 'garbage\n'))
+                .toThrowError('Cannot import course');
         });
 
     });

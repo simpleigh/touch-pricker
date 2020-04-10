@@ -326,6 +326,29 @@ class MbdPricker extends AbstractPricker implements Notifiable {
         }
     }
 
+    public onLoadTouch(): void {
+        const input = this.getEl<HTMLTextAreaElement>('loadSaveTextarea').value;
+        let newTouch: Touch;
+
+        try {
+            newTouch = Touch.fromString(input);
+        } catch (e) {
+            // Ignore
+            return;
+        }
+
+        this._stage = newTouch.initialRow.length;
+        this.getEl<HTMLSelectElement>('stage').value = this._stage.toString();
+        this.onStage();
+
+        this._touch = newTouch;
+        this._touch.ownership = { container: this, index: Block.Touch };
+
+        // Call notify() to clear out state from the previous touch
+        this.notify(Block.Touch); // calls redraw()
+        this.redrawTouch();
+    }
+
     public onSaveTouch(): void {
         this.getEl<HTMLTextAreaElement>('loadSaveTextarea').value =
             this._touch.print('text');

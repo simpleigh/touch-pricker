@@ -57,4 +57,96 @@ describe('Grandsire Touch class', () => {
         expect(touchVisitor.strings).toEqual(blockVisitor.strings);
     });
 
+    describe('can create touches from strings:', () => {
+
+        const testImport = (
+            input: string,
+            output: string,
+        ) => () => {
+            const imported = Touch.fromString(input);
+            expect(imported.print('text')).toBe(output);
+        };
+
+        it('a simple touch', testImport(
+            '123456789\n'
+                + '123456789  1 2 3 4  (4 leads)\n',
+            '123456789\n'
+                + '123456789  1 2 3 4  (4 leads)\n',
+        ));
+
+        it('a touch with more than one course', testImport(
+            '123456789\n'
+                + '132654789  1 2 s3 s4  (4 leads)\n'
+                + '126458379  s2 3 4  (4 leads)\n'
+                + '123456789  s1 s2 3 s5  (5 leads)\n',
+            '123456789\n'
+                + '132654789  1 2 s3 s4  (4 leads)\n'
+                + '126458379  s2 3 4  (4 leads)\n'
+                + '123456789  s1 s2 3 s5  (5 leads)\n',
+        ));
+
+        it('a touch that comes round at hand', testImport(
+            '123456789\n'
+                + '143926587  1 s2 s4  (4 leads)\n'
+                + '145329876  s1 s2 4 s5  (5 leads)\n'
+                + '132547698  s2 s3 s4  (5 leads)\n',
+            '123456789\n'
+                + '143926587  1 s2 s4  (4 leads)\n'
+                + '145329876  s1 s2 4 s5  (5 leads)\n'
+                + '132547698  s2 s3 s4  (5 leads)\n',
+        ));
+
+        it('a touch with extra spacing', testImport(
+            '\t 123456789\t \n'
+                + '123456789  1 2 3 4  (4 leads)\n',
+            '123456789\n'
+                + '123456789  1 2 3 4  (4 leads)\n',
+        ));
+
+        it('a touch with a blank line', testImport(
+            '123456789\n'
+                + ' \t\n'
+                + '123456789  1 2 3 4  (4 leads)\n',
+            '123456789\n'
+                + '123456789  1 2 3 4  (4 leads)\n',
+        ));
+
+        it('a touch with microsiril comments', testImport(
+            '123456789\n'
+                + '/123456789  1 2 3 4  (4 leads)\n',
+            '123456789\n'
+                + '123456789  1 2 3 4  (4 leads)\n',
+        ));
+
+        it('a touch with a "//" comment line', testImport(
+            '123456789\n'
+                + '// comment \n'
+                + '123456789  1 2 3 4  (4 leads)\n',
+            '123456789\n'
+                + '123456789  1 2 3 4  (4 leads)\n',
+        ));
+
+        it('a touch with an included "//" comment', testImport(
+            '123456789\n'
+                + '123456789  1 2 3 4  (4 leads)  // bob course\n',
+            '123456789\n'
+                + '123456789  1 2 3 4  (4 leads)\n',
+        ));
+
+        it('a touch with no lines', () => {
+            expect(() => Touch.fromString('')).toThrowError('No input lines');
+        });
+
+        it('a touch with a broken initial row', () => {
+            expect(() => Touch.fromString('not'))
+                .toThrowError('Cannot recognise stage');
+        });
+
+        it('a touch with a broken course', () => {
+            expect(() => Touch.fromString('123456789\n' + 'garbage\n'))
+                .toThrowError('Cannot import course');
+        });
+
+    });
+
 });

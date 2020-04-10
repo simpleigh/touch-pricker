@@ -28,7 +28,7 @@
       onmousedown="pricker.onTab('loadSave'); return false"
       ontouchstart="pricker.onTab('loadSave'); return false"
     >
-      Save
+      Load/Save
     </div>
     <div
       class="tab"
@@ -92,6 +92,7 @@
 
     <div class="page" id="page_loadSave">
       <form onsubmit="return false">
+        <button onclick="pricker.onLoadTouch()">Import</button>
         <button onclick="pricker.onSaveTouch()">Export</button>
       </form>
       <textarea id="loadSaveTextarea"></textarea>

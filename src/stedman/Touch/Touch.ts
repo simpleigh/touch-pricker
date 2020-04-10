@@ -6,7 +6,8 @@
  */
 
 import { BlockOwnership, RandomAccessContainer } from '../../blocks';
-import { rounds, Row, rowFromString, Stage } from '../../rows';
+import { rounds, Row } from '../../rows';
+import { parseTouch } from '../../shared';
 import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
 import constructorFromType from '../constructorFromType';
@@ -145,62 +146,29 @@ class Touch
         input: string,
         method: AbstractMethod = new Stedman(),
     ): Touch {
-        const lines = input.split('\n');
-
-        let i: number;
-        let line: string;
-        let course: Course;
-        let touch: Touch | undefined;
         let start: string | undefined;
 
-        // Process each input line, making text substitutions
-        for (i = 0; i < lines.length; i += 1) {
-            line = lines[i];
-
-            // Drop any content after comment characters "//"
-            line = line.replace(/\/\/.*$/, '');
-
-            // Ignore a microsiril comment "/" at the start of a line
-            line = line.replace(/^\//, '');
-
-            // Skip this line if it's blank
-            if (/^\s*$/.test(line)) {
-                continue;
-            }
-
-            // Store start definitions for later processing
-            if (/start/i.test(line)) {
-                start = line;
-                continue;
-            }
-
-            if (!touch) {
-                // Create the touch with a stage based on the first line
-                line = line.replace(/\s/g, '');
-                if (!Stage[line.length]) {
-                    throw new Error('Cannot recognise stage');
+        const parsedTouch = parseTouch(
+            (row: Row) => new Touch(row, undefined, method),
+            input,
+            (touch: Touch, line: string) => {
+                // Store start definitions for later processing
+                if (/start/i.test(line)) {
+                    start = line;
+                    return;
                 }
-                touch = new Touch(
-                    rowFromString('123', line.length),
-                    undefined,
-                    method,
-                );
-            } else {
-                // Create a course for each remaining line
-                course = Course.fromString(touch.getLast(), line, method);
-                touch.insertBlock(touch.length + 1, course);
-            }
-        }
 
-        if (!touch) {
-            throw new Error('No input lines');
-        }
+                // Create a course for each line
+                const course = Course.fromString(touch.getLast(), line, method);
+                touch.insertBlock(touch.length + 1, course);
+            },
+        );
 
         if (start) {
-            touch.start.setFromString(start);
+            parsedTouch.start.setFromString(start);
         }
 
-        return touch;
+        return parsedTouch;
     }
 }
 
