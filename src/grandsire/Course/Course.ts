@@ -12,12 +12,13 @@ import * as Templates from '../../templates';
 import Lead from '../Lead';
 import html from './html.dot';
 import mbd from './mbd.dot';
+import siril from './siril.dot';
 import text from './text.dot';
 
 /**
  * A course, being a set of leads
  */
-@Templates.makePrintable({ html, mbd, text }, { Call, stringFromRow })
+@Templates.makePrintable({ html, mbd, siril, text }, { Call, stringFromRow })
 class Course extends SerialContainer<Lead> implements Templates.Interface {
 
     /* templating *************************************************************/

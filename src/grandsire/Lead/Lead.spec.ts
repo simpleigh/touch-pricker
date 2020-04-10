@@ -307,6 +307,78 @@ describe('Grandsire Lead class', () => {
         }
     });
 
+    // tslint:disable:max-line-length
+    const notationTestCases: [Stage, Call, string[]][] = [
+        [Stage.Doubles, Call.Plain, [
+            '3', '1', '5', '1', '5', '1', '5', '1', '5', '1',
+        ]],
+        [Stage.Triples, Call.Plain, [
+            '3', '1', '7', '1', '7', '1', '7', '1', '7', '1', '7', '1', '7', '1',
+        ]],
+        [Stage.Caters, Call.Plain, [
+            '3', '1', '9', '1', '9', '1', '9', '1', '9', '1', '9', '1', '9', '1', '9', '1', '9', '1',
+        ]],
+        [Stage.Cinques, Call.Plain, [
+            '3', '1', 'E', '1', 'E', '1', 'E', '1', 'E', '1', 'E', '1', 'E', '1', 'E', '1', 'E', '1', 'E', '1', 'E', '1',
+        ]],
+        [Stage.Sextuples, Call.Plain, [
+            '3', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1',
+        ]],
+        [Stage.Septuples, Call.Plain, [
+            '3', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1',
+        ]],
+        [Stage.Doubles, Call.Bob, [
+            '3', '1', '5', '1', '5', '1', '5', '1', '3', '1',
+        ]],
+        [Stage.Triples, Call.Bob, [
+            '3', '1', '7', '1', '7', '1', '7', '1', '7', '1', '7', '1', '3', '1',
+        ]],
+        [Stage.Caters, Call.Bob, [
+            '3', '1', '9', '1', '9', '1', '9', '1', '9', '1', '9', '1', '9', '1', '9', '1', '3', '1',
+        ]],
+        [Stage.Cinques, Call.Bob, [
+            '3', '1', 'E', '1', 'E', '1', 'E', '1', 'E', '1', 'E', '1', 'E', '1', 'E', '1', 'E', '1', 'E', '1', '3', '1',
+        ]],
+        [Stage.Sextuples, Call.Bob, [
+            '3', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1', '3', '1',
+        ]],
+        [Stage.Septuples, Call.Bob, [
+            '3', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', '3', '1',
+        ]],
+        [Stage.Doubles, Call.Single, [
+            '3', '1', '5', '1', '5', '1', '5', '1', '3', '123',
+        ]],
+        [Stage.Triples, Call.Single, [
+            '3', '1', '7', '1', '7', '1', '7', '1', '7', '1', '7', '1', '3', '123',
+        ]],
+        [Stage.Caters, Call.Single, [
+            '3', '1', '9', '1', '9', '1', '9', '1', '9', '1', '9', '1', '9', '1', '9', '1', '3', '123',
+        ]],
+        [Stage.Cinques, Call.Single, [
+            '3', '1', 'E', '1', 'E', '1', 'E', '1', 'E', '1', 'E', '1', 'E', '1', 'E', '1', 'E', '1', 'E', '1', '3', '123',
+        ]],
+        [Stage.Sextuples, Call.Single, [
+            '3', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1', 'A', '1', '3', '123',
+        ]],
+        [Stage.Septuples, Call.Single, [
+            '3', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', '3', '123',
+        ]],
+    ];
+    // tslint:enable:max-line-length
+
+    it('computes the correct notation', () => {
+        for (const notationTestCase of notationTestCases) {
+            const stage = notationTestCase[0];
+            const call = notationTestCase[1];
+            const expected = notationTestCase[2];
+
+            const lead = new Lead(rounds(stage));
+            lead.setCall(call);
+
+            expect(lead.notation).toEqual(expected);
+        }
+    });
+
     it('starts life as a plain lead', () => {
         const lead = new Lead(rounds(Stage.Doubles));
         expect(lead.call).toBe(Call.Plain);
@@ -411,6 +483,10 @@ describe('Grandsire Lead class', () => {
 
     it('has a template for MBD-style prickers', () => {
         expect(new Lead(rounds(Stage.Doubles))).toHaveTemplate('mbd');
+    });
+
+    it('has a template for Siril output', () => {
+        expect(new Lead(rounds(Stage.Doubles))).toHaveTemplate('siril');
     });
 
 });

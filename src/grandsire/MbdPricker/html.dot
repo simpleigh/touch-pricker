@@ -32,6 +32,14 @@
     </div>
     <div
       class="tab"
+      id="tab_siril"
+      onclick="pricker.onTab('siril')"
+      onmousedown="return false"
+    >
+      Siril
+    </div>
+    <div
+      class="tab"
       id="tab_music"
       onclick="pricker.onTab('music')"
       onmousedown="return false"
@@ -96,6 +104,13 @@
         <button onclick="pricker.onSaveTouch()">Export</button>
       </form>
       <textarea id="loadSaveTextarea"></textarea>
+    </div>
+
+    <div class="page" id="page_siril">
+      <form onsubmit="return false">
+        <button onclick="pricker.onGenerateSiril()">Generate</button>
+      </form>
+      <textarea id="sirilTextarea"></textarea>
     </div>
 
     <div class="page" id="page_music">

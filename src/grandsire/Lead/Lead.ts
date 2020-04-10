@@ -6,17 +6,18 @@
  */
 
 import { AbstractBlock, BlockOwnership } from '../../blocks';
-import { multiply, Row } from '../../rows';
+import { multiply, Row, symbolFromBell } from '../../rows';
 import { Call } from '../../shared';
 import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
 import * as Changes from '../changes';
 import mbd from './mbd.dot';
+import siril from './siril.dot';
 
 /**
  * A lead of grandsire
  */
-@Templates.makePrintable({ mbd }, { Call })
+@Templates.makePrintable({ mbd, siril }, { Call })
 class Lead extends AbstractBlock implements Templates.Interface {
     /**
      * Lead head reached by this lead
@@ -141,6 +142,34 @@ class Lead extends AbstractBlock implements Templates.Interface {
         11: [1, 7, 5, 2, 9, 3, 11, 4, 10, 6, 8],
         13: [1, 7, 5, 2, 9, 3, 11, 4, 13, 6, 12, 8, 10],
         15: [1, 7, 5, 2, 9, 3, 11, 4, 13, 6, 15, 8, 14, 10, 12],
+    }
+
+    /**
+     * Computes the place notation for the lead
+     */
+    get notation(): string[] {
+        const stage = this.initialRow.length;
+        const nNotation = symbolFromBell(stage);
+        const result = ['3', '1'];
+
+        for (let i = 1; i <= stage - 2; i += 1) {
+            result.push(nNotation);
+            result.push('1');
+        }
+
+        if (this.call) {
+            result.push('3');  // "early thirds"
+        } else {
+            result.push(nNotation);
+        }
+
+        if (this.call === Call.Single) {
+            result.push('123');
+        } else {
+            result.push('1');
+        }
+
+        return result;
     }
 
     /**

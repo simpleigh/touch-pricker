@@ -7,16 +7,18 @@
 
 import { RandomAccessContainer } from '../../blocks';
 import { Row, stringFromRow } from '../../rows';
-import { parseTouch } from '../../shared';
+import { Call, parseTouch } from '../../shared';
 import * as Templates from '../../templates';
 import Course from '../Course';
+import Lead from '../Lead';
 import select from './select.dot';
+import siril from './siril.dot';
 import text from './text.dot';
 
 /**
  * A touch, being a set of courses
  */
-@Templates.makePrintable({ select, text }, { stringFromRow })
+@Templates.makePrintable({ select, siril, text }, { Call, stringFromRow })
 class Touch
     extends RandomAccessContainer<Course>
     implements Templates.Interface {
@@ -24,6 +26,23 @@ class Touch
     /* templating *************************************************************/
 
     public print: Templates.Print;
+
+    /**
+     * Computes place notation for each type of lead
+     * Helper for use in templates
+     * @return { [Call]: string[] }
+     */
+    get callNotations(): string[][] {
+        const result = [ ];
+        const lead = new Lead(this.initialRow);
+
+        for (const call of [Call.Plain, Call.Bob, Call.Single]) {
+            lead.setCall(call);
+            result[call] = lead.notation;
+        }
+
+        return result;
+    }
 
     /**
      * Creates a new touch from a string representation

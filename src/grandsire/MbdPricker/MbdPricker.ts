@@ -358,6 +358,16 @@ class MbdPricker extends AbstractPricker implements Notifiable {
             this._touch.print('text');
     }
 
+    public onGenerateSiril(): void {
+        // Make sure we have the count of rows before generating
+        if (!this._rowCount) {
+            this.onProve();
+        }
+
+        this.getEl<HTMLTextAreaElement>('sirilTextarea').value =
+            this._touch.print('siril', { touchRows: this._rowCount });
+    }
+
     public onAnalyseMusic(): void {
         const schemeName = this.getEl<HTMLSelectElement>('musicScheme').value;
         const scheme = schemeName === 'runs'

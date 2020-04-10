@@ -15,22 +15,16 @@
 	context.touchRows = context.touchRows || Infinity;
 }}
 
-{{? context.object.call === context.Call.Plain }}
-	plain
-{{?? context.object.call === context.Call.Bob }}
-	bob
-{{?? context.object.call === context.Call.Single }}
-	single
+{{? context.touchRows >= context.object.estimateRows() }}
+	{{? context.object.call === context.Call.Plain }}
+		plain
+	{{?? context.object.call === context.Call.Bob }}
+		bob
+	{{?? context.object.call === context.Call.Single }}
+		single
+	{{?}}
+{{??}}
+	+{{= context.object.notation.slice(0, context.touchRows).join('.') }}
 {{?}}
 ,
  /* single space */
-
-{{? context.touchRows > 1 }}
-	{{? context.touchRows >= 6 }}
-		{{= context.object.type }}
-	{{??}}
-		{{= context.object.getNotationString(context.touchRows - 1) }}
-	{{?}}
-	,
-	 /* single space */
-{{?}}

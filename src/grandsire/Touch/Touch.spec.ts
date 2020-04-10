@@ -9,8 +9,10 @@ import {
     testRandomAccessContainerImplementation,
 } from '../../blocks/RandomAccessContainer.spec';
 import { rounds, Stage } from '../../rows';
+import { Call } from '../../shared';
 import { StringArray } from '../../visitors';
 import Course from '../Course';
+import Lead from '../Lead';
 import Touch from '.';
 
 describe('Grandsire Touch class', () => {
@@ -20,10 +22,10 @@ describe('Grandsire Touch class', () => {
         (initialRow, _ownership) => {
             const testTouch = Touch.fromString(
                 ''
-                + '12345\n'
-                + '13425  s2 3 s4  (4 leads)\n'
-                + '14235  s2 3 s4  (4 leads)\n'
-                + '12345  s2 3 s4  (4 leads)\n'
+                    + '12345\n'
+                    + '13425  s2 3 s4  (4 leads)\n'
+                    + '14235  s2 3 s4  (4 leads)\n'
+                    + '12345  s2 3 s4  (4 leads)\n'
             )
 
             testTouch.initialRow = initialRow;
@@ -59,6 +61,21 @@ describe('Grandsire Touch class', () => {
         touch.accept(touchVisitor);
 
         expect(touchVisitor.strings).toEqual(blockVisitor.strings);
+    });
+
+    it('provides access to place notations by call', () => {
+        for (let stage = 5; stage <= 15; stage += 2) {
+            const lead = new Lead(rounds(stage));
+            const touch = new Touch(rounds(stage));
+
+            expect(touch.callNotations[Call.Plain]).toEqual(lead.notation);
+
+            lead.setCall(Call.Bob);
+            expect(touch.callNotations[Call.Bob]).toEqual(lead.notation);
+
+            lead.setCall(Call.Single);
+            expect(touch.callNotations[Call.Single]).toEqual(lead.notation);
+        }
     });
 
     describe('can create touches from strings:', () => {
