@@ -24,6 +24,9 @@ const copyClickToTouchStart = (element: Node & GlobalEventHandlers) => {
             element.onclick = originalHandler;
             return false;
         };
+
+        // Stop any further processing (e.g. double-click zoom, click animation)
+        return false;
     };
 };
 
