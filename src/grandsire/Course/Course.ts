@@ -7,7 +7,7 @@
 
 import { SerialContainer } from '../../blocks';
 import { stringFromRow, Row } from '../../rows';
-import { Call } from '../../shared';
+import { Call, parseCourse } from '../../shared';
 import * as Templates from '../../templates';
 import Lead from '../Lead';
 import html from './html.dot';
@@ -96,6 +96,15 @@ class Course extends SerialContainer<Lead> implements Templates.Interface {
         }
 
         return cloned;
+    }
+
+    /**
+     * Creates a new course from a string representation
+     */
+    public static fromString(initialRow: Row, input: string): Course {
+        const course = new Course(initialRow);
+        parseCourse(course, input);
+        return course;
     }
 
 }

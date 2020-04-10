@@ -12,13 +12,17 @@ import {
     RandomAccessContainer,
     SerialContainer,
 } from '../src/blocks';
+import { Call } from '../src/shared';
 import { Row } from '../src/rows';
 
 export class Lead extends AbstractBlock {
+    protected _call: Call = Call.Plain;
     protected calculate(): void { /* NOOP */ }
     public getLast(): Row { return this.initialRow; }
     public accept(): this { return this; }
     public estimateRows(): number { return 0; }
+    public setCall(call: Call): Lead { this._call = call; return this; }
+    public getCall(): Call { return this._call; }
 }
 
 export class Course extends SerialContainer<Lead> {
