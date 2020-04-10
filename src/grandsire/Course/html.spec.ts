@@ -6,15 +6,15 @@
  */
 
 import Course from '.';
-import { rowFromString, Stage } from '../../rows';
+import { rounds, Stage } from '../../rows';
 
-describe('html template for Stedman Course', () => {
+describe('html template for Grandsire Course', () => {
 
     it('renders a course correctly', () => {
-        const initialRow = rowFromString('231', Stage.Cinques);
+        const initialRow = rounds(Stage.Cinques);
         const course = Course.fromString(initialRow, 's2 3 (4)');
         expect(course.print('html')).toRenderAs(`
-            <u>2314567890E</u><br />
+            <u>1234567890E</u><br />
             ${course.print('text')}
         `);
     });

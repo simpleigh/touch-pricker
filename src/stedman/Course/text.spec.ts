@@ -9,7 +9,7 @@ import Course from '.';
 import { Erin } from '../methods';
 import { rounds, rowFromString, Stage } from '../../rows';
 
-describe('text template for Course', () => {
+describe('text template for Stedman Course', () => {
 
     const initialRow = rowFromString('231', Stage.Cinques);
 

@@ -9,41 +9,45 @@ import {
     testRandomAccessContainerImplementation,
 } from '../../blocks/RandomAccessContainer.spec';
 import { rounds, Stage } from '../../rows';
-import { Call } from '../../shared';
 import { StringArray } from '../../visitors';
 import Course from '../Course';
 import Touch from '.';
 
 describe('Grandsire Touch class', () => {
 
-    const createTestCourse = () => {
-        const testCourse = new Course(rounds(Stage.Doubles));
-        testCourse.setLength(4);
-        testCourse.getBlock(1).call = Call.Plain;
-        testCourse.getBlock(2).call = Call.Single;
-        testCourse.getBlock(3).call = Call.Bob;
-        testCourse.getBlock(4).call = Call.Single;
-        return testCourse;
-    };
-
     testRandomAccessContainerImplementation(
         Stage.Doubles,
         (initialRow, _ownership) => {
-            const testTouch = new Touch(initialRow, _ownership);
-            testTouch.insertBlock(1, createTestCourse());
-            testTouch.insertBlock(2, createTestCourse());
-            testTouch.insertBlock(3, createTestCourse());
+            const testTouch = Touch.fromString(
+                ''
+                + '12345\n'
+                + '13425  s2 3 s4  (4 leads)\n'
+                + '14235  s2 3 s4  (4 leads)\n'
+                + '12345  s2 3 s4  (4 leads)\n'
+            )
+
+            testTouch.initialRow = initialRow;
+            if (_ownership) {
+                testTouch.ownership = _ownership;
+            }
+
             return testTouch;
         },
         120,
         3,
-        createTestCourse(),
+        Course.fromString(
+            rounds(Stage.Doubles),
+            '13425  s2 3 s4  (4 leads)',
+        ),
     );
 
     it('generates the correct rows when visited', () => {
-        const touch = new Touch(rounds(Stage.Doubles));
-        const course1 = createTestCourse();
-        const course2 = createTestCourse();
+        const testRow = rounds(Stage.Doubles);
+        const touch = new Touch(testRow);
+        const course1 = new Course(testRow);
+        const course2 = new Course(testRow);
+        course1.setLength(2);
+        course2.setLength(1);
         touch.insertBlock(1, course1);
         touch.insertBlock(2, course2);
 

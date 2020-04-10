@@ -10,7 +10,7 @@ import {
     testAbstractPrickerImplementation,
 } from '../../AbstractPricker.spec';
 
-describe('Mbd Pricker class', () => {
+describe('Grandsire Mbd Pricker class', () => {
 
     testAbstractPrickerImplementation(MbdPricker);
 

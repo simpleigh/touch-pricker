@@ -7,7 +7,7 @@
 
 import Touch from '.';
 
-describe('text template for Touch', () => {
+describe('text template for Grandsire Touch', () => {
 
     it('renders a touch correctly', () => {
         const text = '12345\n'

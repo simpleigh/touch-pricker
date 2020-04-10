@@ -8,7 +8,7 @@
 import Course from '.';
 import { rounds, Stage } from '../../rows';
 
-describe('siril template for Course', () => {
+describe('siril template for Stedman Course', () => {
 
     const initialRow = rounds(Stage.Cinques);
 

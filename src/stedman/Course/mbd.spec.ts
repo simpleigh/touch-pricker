@@ -8,7 +8,7 @@
 import Course from '.';
 import { rowFromString, Stage, stringFromRow } from '../../rows';
 
-describe('mbd template for Course', () => {
+describe('mbd template for Stedman Course', () => {
 
     it('renders a course correctly', () => {
         const initialRow = rowFromString('231', Stage.Cinques);

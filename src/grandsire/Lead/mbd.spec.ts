@@ -11,7 +11,7 @@ import { Call } from '../../shared';
 import Course from '../Course';
 import Lead from '.';
 
-describe('mbd template for Lead', () => {
+describe('mbd template for Grandsire Lead', () => {
     let lead: Lead;
 
     beforeEach(() => {
