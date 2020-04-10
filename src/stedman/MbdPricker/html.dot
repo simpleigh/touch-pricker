@@ -17,40 +17,40 @@
     <div
       class="tab tab-selected"
       id="tab_pricking"
-      onmousedown="pricker.onTab('pricking'); return false"
-      ontouchstart="pricker.onTab('pricking'); return false"
+      onclick="pricker.onTab('pricking')"
+      onmousedown="return false"
     >
       Pricking
     </div>
     <div
       class="tab"
       id="tab_loadSave"
-      onmousedown="pricker.onTab('loadSave'); return false"
-      ontouchstart="pricker.onTab('loadSave'); return false"
+      onclick="pricker.onTab('loadSave')"
+      onmousedown="return false"
     >
       Load/Save
     </div>
     <div
       class="tab"
       id="tab_siril"
-      onmousedown="pricker.onTab('siril'); return false"
-      ontouchstart="pricker.onTab('siril'); return false"
+      onclick="pricker.onTab('siril')"
+      onmousedown="return false"
     >
       Siril
     </div>
     <div
       class="tab"
       id="tab_music"
-      onmousedown="pricker.onTab('music'); return false"
-      ontouchstart="pricker.onTab('music'); return false"
+      onclick="pricker.onTab('music')"
+      onmousedown="return false"
     >
       Music
     </div>
     <div
       class="tab"
       id="tab_view"
-      onmousedown="pricker.onTab('view'); return false"
-      ontouchstart="pricker.onTab('view'); return false"
+      onclick="pricker.onTab('view')"
+      onmousedown="return false"
     >
       View
     </div>

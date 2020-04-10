@@ -23,13 +23,13 @@ describe('select template for Grandsire Touch', () => {
             <div>
                 ${stringFromRow(touch.initialRow)}
             </div>
-            <div class="" onmousedown="pricker.onSelectCourse(1); return false" ontouchstart="pricker.onSelectCourse(1); return false">
+            <div class="" onclick="pricker.onSelectCourse(1)" onmousedown="return false">
                 ${touch.getBlock(1).print('text')}
             </div>
-            <div class="" onmousedown="pricker.onSelectCourse(2); return false" ontouchstart="pricker.onSelectCourse(2); return false">
+            <div class="" onclick="pricker.onSelectCourse(2)" onmousedown="return false">
                 ${touch.getBlock(2).print('text')}
             </div>
-            <div class="" onmousedown="pricker.onSelectCourse(3); return false" ontouchstart="pricker.onSelectCourse(3); return false">
+            <div class="" onclick="pricker.onSelectCourse(3)" onmousedown="return false">
                 ${touch.getBlock(3).print('text')}
             </div>
         `);
@@ -47,13 +47,13 @@ describe('select template for Grandsire Touch', () => {
             <div>
                 ${stringFromRow(touch.initialRow)}
             </div>
-            <div class="" onmousedown="pricker.onSelectCourse(1); return false" ontouchstart="pricker.onSelectCourse(1); return false">
+            <div class="" onclick="pricker.onSelectCourse(1)" onmousedown="return false">
                 ${touch.getBlock(1).print('text')}
             </div>
-            <div class="selected" onmousedown="pricker.onSelectCourse(2); return false" ontouchstart="pricker.onSelectCourse(2); return false">
+            <div class="selected" onclick="pricker.onSelectCourse(2)" onmousedown="return false">
                 ${touch.getBlock(2).print('text')}
             </div>
-            <div class="" onmousedown="pricker.onSelectCourse(3); return false" ontouchstart="pricker.onSelectCourse(3); return false">
+            <div class="" onclick="pricker.onSelectCourse(3)" onmousedown="return false">
                 ${touch.getBlock(3).print('text')}
             </div>
         `);
@@ -66,13 +66,13 @@ describe('select template for Grandsire Touch', () => {
             touchRows: 252, // Two courses
         })).toRenderAs(`
             <div>123456789</div>
-            <div class="" onmousedown="pricker.onSelectCourse(1); return false" ontouchstart="pricker.onSelectCourse(1); return false">
+            <div class="" onclick="pricker.onSelectCourse(1)" onmousedown="return false">
                 123456789  p
             </div>
-            <div class="" onmousedown="pricker.onSelectCourse(2); return false" ontouchstart="pricker.onSelectCourse(2); return false">
+            <div class="" onclick="pricker.onSelectCourse(2)" onmousedown="return false">
                 123456789  p
             </div>
-            <div class="unreached" onmousedown="pricker.onSelectCourse(3); return false" ontouchstart="pricker.onSelectCourse(3); return false">
+            <div class="unreached" onclick="pricker.onSelectCourse(3)" onmousedown="return false">
                 123456789  p
             </div>
         `);
@@ -85,10 +85,10 @@ describe('select template for Grandsire Touch', () => {
 
         expect(touch.print('select', { falseness })).toRenderAs(`
             <div>123456789</div>
-            <div class="false" onmousedown="pricker.onSelectCourse(1); return false" ontouchstart="pricker.onSelectCourse(1); return false">
+            <div class="false" onclick="pricker.onSelectCourse(1)" onmousedown="return false">
                 123456789  p
             </div>
-            <div class="" onmousedown="pricker.onSelectCourse(2); return false" ontouchstart="pricker.onSelectCourse(2); return false">
+            <div class="" onclick="pricker.onSelectCourse(2)" onmousedown="return false">
                 123456789  p
             </div>
         `);

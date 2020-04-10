@@ -67,8 +67,8 @@
 
 <span
  class="{{= context.object.type }} call"
- onmousedown="pricker.c({{= context.object.index }}); return false"
- ontouchstart="pricker.c({{= context.object.index }}); return false"
+ onclick="pricker.c({{= context.object.index }})"
+ onmousedown="return false"
 >
 	&nbsp;
 	{{? context.object.call === context.Call.Plain }}

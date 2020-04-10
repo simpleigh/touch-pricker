@@ -28,9 +28,6 @@ export const getHeight = (element: HTMLElement) =>
  * stylesheets in order to avoid this.
  */
 const getMetric = (element: HTMLElement, metric: string): number => {
-    const metricText = window.getComputedStyle
-        ? (getComputedStyle(element) as any)[metric]
-        : (element as any).currentStyle[metric];
-
+    const metricText = (getComputedStyle(element) as any)[metric];
     return metricText === 'auto' ? 0 : parseInt(metricText) + 1;
 };

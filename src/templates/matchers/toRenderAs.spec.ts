@@ -10,6 +10,10 @@ import toRenderAs from './toRenderAs';
 describe('toRenderAs matcher', () => {
     const compare = toRenderAs(jasmine.matchersUtil, [ ]).compare;
 
+    it('fails for items that are not a string', () => {
+        expect(compare(null, 'string').pass).toBe(false);
+    });
+
     it('knows when simple strings are the same', () => {
         expect(compare('string', 'string').pass).toBe(true);
     });

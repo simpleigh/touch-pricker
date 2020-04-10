@@ -36,8 +36,8 @@
 	}}
 	<div
 		 class="{{= classes.join(' ') }}"
-		 onmousedown="pricker.onSelectCourse({{= course.index }}); return false"
-		 ontouchstart="pricker.onSelectCourse({{= course.index }}); return false"
+		 onclick="pricker.onSelectCourse({{= course.index }})"
+		 onmousedown="return false"
 	>
 		{{= course.print('text') }}
 	</div>

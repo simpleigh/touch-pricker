@@ -96,6 +96,27 @@ describe('Proof visitor', () => {
             .toBe(true);
     });
 
+    it('can handle multiple false blocks', () => {
+        const lookupBlock = (courseIndex: number, leadIndex: number) =>
+            touch.getBlock(courseIndex).getBlock(leadIndex);
+
+        visitor.visit(testRow, lookupBlock(1, 1));
+        visitor.visit(testRow, lookupBlock(1, 2));
+        visitor.visit(testRow, lookupBlock(1, 3));
+
+        const otherRow = rowFromString('4321', Stage.Minimus);
+        visitor.visit(otherRow, lookupBlock(2, 1));
+        visitor.visit(otherRow, lookupBlock(2, 2));
+        visitor.visit(otherRow, lookupBlock(2, 3));
+
+        expect(visitor.directory.contains(lookupBlock(1, 1))).toBe(true);
+        expect(visitor.directory.contains(lookupBlock(1, 2))).toBe(true);
+        expect(visitor.directory.contains(lookupBlock(1, 3))).toBe(true);
+        expect(visitor.directory.contains(lookupBlock(2, 1))).toBe(true);
+        expect(visitor.directory.contains(lookupBlock(2, 2))).toBe(true);
+        expect(visitor.directory.contains(lookupBlock(2, 3))).toBe(true);
+    });
+
     testAbstractVisitorImplementation(
         () => new Proof(),
         (testVisitor) => (testVisitor as Proof).getRowCounts(),

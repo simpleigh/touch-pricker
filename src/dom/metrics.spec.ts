@@ -55,16 +55,6 @@ const testMetricImplementation = (
         expect(metricFunction(element as HTMLElement)).toBe(5);
     });
 
-    it('falls back to currentStyle if getComputedStyle is unavailable', () => {
-        const getComputedStyleBackup = window.getComputedStyle;
-        (window as any).getComputedStyle = false;
-
-        setupMetrics(0, '1px', '1px');
-        expect(metricFunction(element as HTMLElement)).toBe(5);
-
-        window.getComputedStyle = getComputedStyleBackup;
-    });
-
 };
 
 describe('getWidth DOM utility', () => testMetricImplementation(

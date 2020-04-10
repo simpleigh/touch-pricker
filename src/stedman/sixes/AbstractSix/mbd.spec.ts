@@ -42,7 +42,7 @@ const testMbdAbstractSixTemplate = (
                     ${stringFromRow(six.getLast())}
                 </span>
                 &nbsp;&nbsp;
-                <span class="${six.type} call" onmousedown="pricker.c(1); return false" ontouchstart="pricker.c(1); return false">
+                <span class="${six.type} call" onclick="pricker.c(1)" onmousedown="return false">
                     &nbsp;&nbsp;&nbsp;
                 </span>
                 &nbsp;&nbsp;
@@ -58,7 +58,7 @@ const testMbdAbstractSixTemplate = (
                     ${stringFromRow(six.getLast())}
                 </span>
                 &nbsp;&nbsp;
-                <span class="${six.type} call" onmousedown="pricker.c(1); return false" ontouchstart="pricker.c(1); return false">
+                <span class="${six.type} call" onclick="pricker.c(1)" onmousedown="return false">
                     &nbsp;-&nbsp;
                 </span>
                 &nbsp;&nbsp;
@@ -74,7 +74,7 @@ const testMbdAbstractSixTemplate = (
                     ${stringFromRow(six.getLast())}
                 </span>
                 &nbsp;&nbsp;
-                <span class="${six.type} call" onmousedown="pricker.c(1); return false" ontouchstart="pricker.c(1); return false">
+                <span class="${six.type} call" onclick="pricker.c(1)" onmousedown="return false">
                     &nbsp;s&nbsp;
                 </span>
                 &nbsp;&nbsp;
@@ -90,7 +90,7 @@ const testMbdAbstractSixTemplate = (
                     ${stringFromRow(six.getLast())}
                 </span>
                 &nbsp;&nbsp;
-                <span class="${six.type} call" onmousedown="pricker.c(999); return false" ontouchstart="pricker.c(999); return false">
+                <span class="${six.type} call" onclick="pricker.c(999)" onmousedown="return false">
                     &nbsp;&nbsp;&nbsp;
                 </span>
                 &nbsp;&nbsp;
@@ -109,7 +109,7 @@ const testMbdAbstractSixTemplate = (
                     ${stringFromRow(six.getLast())}
                 </span>
                 &nbsp;&nbsp;
-                <span class="${six.type} call" onmousedown="pricker.c(1); return false" ontouchstart="pricker.c(1); return false">
+                <span class="${six.type} call" onclick="pricker.c(1)" onmousedown="return false">
                     &nbsp;&nbsp;&nbsp;
                 </span>
                 &nbsp;&nbsp;
@@ -128,7 +128,7 @@ const testMbdAbstractSixTemplate = (
                     ${stringFromRow(six.getLast())}
                 </span>
                 &nbsp;&nbsp;
-                <span class="${six.type} call" onmousedown="pricker.c(1); return false" ontouchstart="pricker.c(1); return false">
+                <span class="${six.type} call" onclick="pricker.c(1)" onmousedown="return false">
                     &nbsp;&nbsp;&nbsp;
                 </span>
                 &nbsp;&nbsp;
@@ -153,7 +153,7 @@ const testMbdAbstractSixTemplate = (
                     ${stringFromRow(six.getLast())}
                 </span>
                 &nbsp;&nbsp;
-                <span class="${six.type} call" onmousedown="pricker.c(1); return false" ontouchstart="pricker.c(1); return false">
+                <span class="${six.type} call" onclick="pricker.c(1)" onmousedown="return false">
                     &nbsp;&nbsp;&nbsp;
                 </span>
                 &nbsp;&nbsp;
@@ -170,7 +170,7 @@ const testMbdAbstractSixTemplate = (
                     </u>
                 </span>
                 &nbsp;&nbsp;
-                <span class="${six.type} call" onmousedown="pricker.c(1); return false" ontouchstart="pricker.c(1); return false">
+                <span class="${six.type} call" onclick="pricker.c(1)" onmousedown="return false">
                     &nbsp;&nbsp;&nbsp;
                 </span>
                 &nbsp;&nbsp;
@@ -185,7 +185,7 @@ const testMbdAbstractSixTemplate = (
                     ${stringFromRow(six.getFirst())}
                 </span>
                 &nbsp;&nbsp;
-                <span class="${six.type} call" onmousedown="pricker.c(1); return false" ontouchstart="pricker.c(1); return false">
+                <span class="${six.type} call" onclick="pricker.c(1)" onmousedown="return false">
                     &nbsp;&nbsp;&nbsp;
                 </span>
                 &nbsp;&nbsp;
