@@ -24,6 +24,14 @@
     </div>
     <div
       class="tab"
+      id="tab_loadSave"
+      onmousedown="pricker.onTab('loadSave'); return false"
+      ontouchstart="pricker.onTab('loadSave'); return false"
+    >
+      Save
+    </div>
+    <div
+      class="tab"
       id="tab_music"
       onmousedown="pricker.onTab('music'); return false"
       ontouchstart="pricker.onTab('music'); return false"
@@ -80,6 +88,13 @@
         <button id="saveCalling" onclick="pricker.onSaveCalling()">Save</button>
         <button id="loadCalling" onclick="pricker.onLoadCalling()">Load</button>
       </div>
+    </div>
+
+    <div class="page" id="page_loadSave">
+      <form onsubmit="return false">
+        <button onclick="pricker.onSaveTouch()">Export</button>
+      </form>
+      <textarea id="loadSaveTextarea"></textarea>
     </div>
 
     <div class="page" id="page_music">

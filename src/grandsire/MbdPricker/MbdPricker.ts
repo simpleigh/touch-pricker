@@ -326,6 +326,11 @@ class MbdPricker extends AbstractPricker implements Notifiable {
         }
     }
 
+    public onSaveTouch(): void {
+        this.getEl<HTMLTextAreaElement>('loadSaveTextarea').value =
+            this._touch.print('text');
+    }
+
     public onAnalyseMusic(): void {
         const schemeName = this.getEl<HTMLSelectElement>('musicScheme').value;
         const scheme = schemeName === 'runs'

@@ -10,11 +10,12 @@ import { stringFromRow } from '../../rows';
 import * as Templates from '../../templates';
 import Course from '../Course';
 import select from './select.dot';
+import text from './text.dot';
 
 /**
  * A touch, being a set of courses
  */
-@Templates.makePrintable({ select }, { stringFromRow })
+@Templates.makePrintable({ select, text }, { stringFromRow })
 class Touch
     extends RandomAccessContainer<Course>
     implements Templates.Interface {
