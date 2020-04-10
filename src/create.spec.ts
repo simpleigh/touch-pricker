@@ -9,7 +9,8 @@ import create from './create';
 import template from './create.dot';
 import * as Dom from './dom';
 import Pricker from './Pricker';
-import { MbdPricker } from './stedman';
+import { MbdPricker as Grandsire } from './grandsire';
+import { MbdPricker as Stedman } from './stedman';
 
 describe('create function', () => {
 
@@ -46,7 +47,12 @@ describe('create function', () => {
         });
 
         it('creates the pricker with the iframe', () => {
-            expect(pricker).toEqual(new MbdPricker(iframe));
+            expect(pricker).toEqual(new Stedman(iframe));
+        });
+
+        it('can create a grandsire pricker if requested', () => {
+            pricker = create('element', { type: 'grandsire' }, parentDocument);
+            expect(pricker).toEqual(new Grandsire(iframe));
         });
 
         it('creates an iframe to hold the pricker', () => {
@@ -76,7 +82,16 @@ describe('create function', () => {
         });
 
         it('creates the pricker', () => {
-            expect(pricker).toEqual(new MbdPricker());
+            expect(pricker).toEqual(new Stedman());
+        });
+
+        it('can create a grandsire pricker if requested', () => {
+            pricker = create(
+                'element',
+                { iframe: false, type: 'grandsire' },
+                parentDocument,
+            );
+            expect(pricker).toEqual(new Grandsire());
         });
 
         it('creates a style element and appends it to the document', () => {

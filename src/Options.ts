@@ -16,6 +16,12 @@ interface Options {
      */
     iframe?: boolean;
 
+    /**
+     * Type of pricker to render
+     * @default 'stedman'
+     */
+    type?: 'grandsire' | 'stedman';
+
 }
 
 export default Options;
