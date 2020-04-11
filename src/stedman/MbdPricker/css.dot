@@ -87,11 +87,11 @@
     padding: 10px;
 }
 
-#touch div {
+#touch > * {
     margin-bottom: 5px;
 }
 
-#touch div:last-of-type {
+#touch > *:last-child {
     margin-bottom: 0px;
 }
 
@@ -99,7 +99,6 @@
     background-color: white;
     border: rgb(227, 227, 227) 0.8px inset;
     cursor: default;
-    margin: 5px 0;
     min-height: 2em;
     padding: 1px 0;
 }
