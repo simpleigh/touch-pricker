@@ -13,5 +13,5 @@ export { default as createAndAppendStyle } from './createAndAppendStyle';
 export { default as createIframe } from './createIframe';
 export { default as injectIframeData } from './injectIframeData';
 export { getWidth, getHeight } from './metrics';
-export { default as polyfill } from './polyfill';
+export { default as polyfillTree } from './polyfillTree';
 export { hide, show } from './showHide';

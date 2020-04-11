@@ -7,7 +7,7 @@
 
 import AbstractPricker from '../../AbstractPricker';
 import { BlockDirectory, Notifiable } from '../../blocks';
-import { polyfill } from '../../dom';
+import { polyfillTree } from '../../dom';
 import { MbdScheme, RunsScheme } from '../../music';
 import { rounds, Row, rowFromString, Stage, stringFromRow } from '../../rows';
 import * as Templates from '../../templates';
@@ -107,7 +107,7 @@ class MbdPricker extends AbstractPricker implements Notifiable {
     /* Pricker methods ********************************************************/
 
     public onLoad(): void {
-        polyfill(document);
+        polyfillTree(document);
         this.reboot();
     }
 
@@ -148,7 +148,7 @@ class MbdPricker extends AbstractPricker implements Notifiable {
             falseness: this._falseness,
             music: this._music,
         });
-        polyfill(this.getEl('leadends'));
+        polyfillTree(this.getEl('leadends'));
 
         this.getEl('calling').innerHTML = this._course.print('html');
 
@@ -189,7 +189,7 @@ class MbdPricker extends AbstractPricker implements Notifiable {
                 selectedIndex: this._selectedIndex,
                 touchRows: this._rowCount,
             });
-        polyfill(this.getEl('courses'));
+        polyfillTree(this.getEl('courses'));
     }
 
     public c(lead: number): void {
