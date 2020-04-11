@@ -225,7 +225,7 @@ class MbdPricker extends AbstractPricker implements Notifiable {
         let length = parseInt(input);
 
         if (length) {
-            length = Math.max(2, length);
+            length = Math.max(1, length);
             length = Math.min(60, length);
             this._course.setLength(length);
         }
