@@ -15,7 +15,7 @@ import PatternGroup from './PatternGroup';
 
 /**
  * Reverses a string
- * @param {string} str - String to reverse.
+ * @param str  String to reverse.
  * @returns {string} reversed version of `str`.
  */
 const reverse = (str: string) => str.split('').reverse().join('');

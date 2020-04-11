@@ -61,7 +61,7 @@ class Hot extends AbstractSix {
 
     /**
      * Computes a place notation string for a number of rows
-     * @param {number} rows  Number of rows (from 1 to 5)
+     * @param rows  Number of rows (from 1 to 5)
      */
     public getNotationString(rows: number): string {
         return this.notation.slice(0, rows).join(', ');

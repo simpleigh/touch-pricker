@@ -262,7 +262,7 @@ export const testRandomAccessContainerImplementation = (
         });
 
         // This test can't follow the regular pattern: there's no more nth block
-        xit('can delete a block from the end');
+        // it('can delete a block from the end');
 
         it('decreases the length when deleting from the end', () => {
             const originalLength = container.length;
