@@ -7,9 +7,10 @@
 
 import { BlockOwnership, SerialContainer } from '../../blocks';
 import { Row } from '../../rows';
-import { Call, parseCourse } from '../../shared';
+import { Call } from '../../shared';
 import * as Templates from '../../templates';
 import { AbstractMethod, Stedman } from '../methods';
+import Parser from '../Parser';
 import { AbstractSix } from '../sixes';
 import SixType from '../SixType';
 import html from './html.dot';
@@ -183,10 +184,10 @@ class Course
         initialRow: Row,
         input: string,
         method: AbstractMethod = new Stedman(),
+        parser: Parser = new Parser(),
     ): Course {
-        const course = new Course(initialRow, undefined, method);
-        parseCourse(course, input);
-        return course;
+        parser.method = method;
+        return parser.parseCourse(initialRow, input);
     }
 
 }

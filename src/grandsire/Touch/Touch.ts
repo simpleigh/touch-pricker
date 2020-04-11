@@ -6,11 +6,12 @@
  */
 
 import { RandomAccessContainer } from '../../blocks';
-import { Row, stringFromRow } from '../../rows';
-import { Call, parseTouch } from '../../shared';
+import { stringFromRow } from '../../rows';
+import { Call } from '../../shared';
 import * as Templates from '../../templates';
 import Course from '../Course';
 import Lead from '../Lead';
+import Parser from '../Parser';
 import select from './select.dot';
 import siril from './siril.dot';
 import text from './text.dot';
@@ -47,15 +48,11 @@ class Touch
     /**
      * Creates a new touch from a string representation
      */
-    public static fromString(input: string): Touch {
-        return parseTouch(
-            (row: Row) => new Touch(row),
-            input,
-            (touch: Touch, line: string) => {
-                const course = Course.fromString(touch.getLast(), line);
-                touch.insertBlock(touch.length + 1, course);
-            },
-        );
+    public static fromString(
+        input: string,
+        parser: Parser = new Parser(),
+    ): Touch {
+        return parser.parseTouch(input);
     }
 }
 

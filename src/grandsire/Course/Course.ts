@@ -7,9 +7,10 @@
 
 import { SerialContainer } from '../../blocks';
 import { stringFromRow, Row } from '../../rows';
-import { Call, parseCourse } from '../../shared';
+import { Call } from '../../shared';
 import * as Templates from '../../templates';
 import Lead from '../Lead';
+import Parser from '../Parser';
 import html from './html.dot';
 import mbd from './mbd.dot';
 import siril from './siril.dot';
@@ -102,10 +103,12 @@ class Course extends SerialContainer<Lead> implements Templates.Interface {
     /**
      * Creates a new course from a string representation
      */
-    public static fromString(initialRow: Row, input: string): Course {
-        const course = new Course(initialRow);
-        parseCourse(course, input);
-        return course;
+    public static fromString(
+        initialRow: Row,
+        input: string,
+        parser: Parser = new Parser(),
+    ): Course {
+        return parser.parseCourse(initialRow, input);
     }
 
 }

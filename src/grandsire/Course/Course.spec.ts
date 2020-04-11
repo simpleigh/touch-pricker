@@ -197,106 +197,24 @@ describe('Grandsire Course class', () => {
         expect(courseVisitor.strings).toEqual(strings);
     });
 
-    describe('can create courses from strings:', () => {
+    it('passes strings to a parser for loading', () => {
+        const parser = jasmine.createSpyObj('Parser', ['parseCourse']);
+        const testRow = rounds(Stage.Doubles);
 
-        const testImport = (
-            input: string,
-            output: string,
-        ) => () => {
-            const imported = Course.fromString(rounds(Stage.Caters), input);
-            expect(imported.print('text')).toBe(output);
-        };
+        Course.fromString(testRow, 'test', parser);
 
-        it('a plain course', testImport(
-            '123456789  p',
-            '123456789  p',
-        ));
+        expect(parser.parseCourse).toHaveBeenCalled();
+        expect(parser.parseCourse).toHaveBeenCalledWith(testRow, 'test');
+    });
 
-        it('a bob course', testImport(
-            '123456789  1 2 3 4  (4 leads)',
-            '123456789  1 2 3 4  (4 leads)',
-        ));
+    it('returns the parsed result', () => {
+        const parser = jasmine.createSpyObj('Parser', ['parseCourse']);
+        parser.parseCourse.and.returnValue(course);
+        const testRow = rounds(Stage.Doubles);
 
-        it('a singled course', testImport(
-            '123456789  s1 s2 s3 s4 s5 s6 s7 s8  (8 leads)',
-            '123456789  s1 s2 s3 s4 s5 s6 s7 s8  (8 leads)',
-        ));
+        const result = Course.fromString(testRow, 'test', parser);
 
-        it('a more complex course ending in rounds', testImport(
-            '123456789  2 s4 5 7 s9 10  (10 leads)',
-            '123456789  2 s4 5 7 s9 10  (10 leads)',
-        ));
-
-        it('a course with singles marked after the six number', testImport(
-            '123456789  2 4s 5 7 9s 10  (10 leads)',
-            '123456789  2 s4 5 7 s9 10  (10 leads)',
-        ));
-
-        it('a course with calls separated with "."s', testImport(
-            '123456789  2.s4. 5 .7 . s9 10  (10 leads)',
-            '123456789  2 s4 5 7 s9 10  (10 leads)',
-        ));
-
-        it('a course with calls separated with ","s', testImport(
-            '123456789  2,s4, 5 ,7 , s9 10  (10 leads)',
-            '123456789  2 s4 5 7 s9 10  (10 leads)',
-        ));
-
-        it('a short course', testImport(
-            '135624789  2 3 s5  (5 leads)',
-            '135624789  2 3 s5  (5 leads)',
-        ));
-
-        it('a short course with concise length description', testImport(
-            '135624789  2 3 s5  (5)',
-            '135624789  2 3 s5  (5 leads)',
-        ));
-
-        it('a short course with odd length description', testImport(
-            '135624789  2 3 s5  (5-em ù leaden)',
-            '135624789  2 3 s5  (5 leads)',
-        ));
-
-        it('a short plain course', testImport(
-            'p (3)',
-            '129785634  p  (3 leads)',
-        ));
-
-        it('a string with extra spacing', testImport(
-            ' \t\r123456789  \t\r\n2 s4  \t\r\n5 7 s9 10 \t\r\n (10 leads)  \n',
-            '123456789  2 s4 5 7 s9 10  (10 leads)',
-        ));
-
-        it('a string with a broken course end', testImport(
-            'abcde  2 s4 5 7 s9 10 (10 leads)',
-            '123456789  2 s4 5 7 s9 10  (10 leads)',
-        ));
-
-        it('a string with a short course end', testImport(
-            '123  2 s4 5 7 s9 10 (10 leads)',
-            '123456789  2 s4 5 7 s9 10  (10 leads)',
-        ));
-
-        it('a string without a course end', testImport(
-            '2 s4 5 7 s9 10 (10 leads)',
-            '123456789  2 s4 5 7 s9 10  (10 leads)',
-        ));
-
-        it('another string without a course end', testImport(
-            's10  (10 leads)',
-            '198267453  s10  (10 leads)',
-        ));
-
-        it('yet another string without a course end', testImport(
-            '10s  (10 leads)',
-            '198267453  s10  (10 leads)',
-        ));
-
-        it('a broken course (that raises an error)', () => {
-            expect(() => {
-                Course.fromString(rounds(Stage.Caters), 'garbage');
-            }).toThrowError('Cannot import course');
-        });
+        expect(result).toBe(course);
     });
 
 });

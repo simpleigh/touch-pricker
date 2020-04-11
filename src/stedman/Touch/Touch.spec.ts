@@ -11,7 +11,7 @@ import {
 import { rounds, rowFromString, Stage } from '../../rows';
 import { StringArray } from '../../visitors';
 import Course from '../Course';
-import { AbstractMethod, Erin, Stedman, StedmanJump } from '../methods';
+import { Erin, Stedman, StedmanJump } from '../methods';
 import SixType from '../SixType';
 import Touch from '.';
 
@@ -203,138 +203,31 @@ describe('Stedman Touch class', () => {
         expect(touch.method).toBe(method);
     });
 
-    describe('can create touches from strings:', () => {
+    it('passes strings to a parser for loading', () => {
+        const parser = jasmine.createSpyObj('Parser', ['parseTouch']);
 
-        const testImport = (
-            input: string,
-            output: string,
-            method: AbstractMethod = new Stedman(),
-        ) => () => {
-            const imported = Touch.fromString(input, method);
-            expect(imported.print('text')).toBe(output);
-        };
+        Touch.fromString('test', undefined, parser);
 
-        it('a simple touch', testImport(
-            '2314567890E\n'
-                + '2314567890E  1 s10 s13 22\n',
-            '2314567890E\n'
-                + '2314567890E  1 s10 s13 22\n',
-        ));
-
-        it('a touch with more than one course', testImport(
-            '2314567890E\n'
-                + '2314568790E  1 s10 s13 s15 22\n'
-                + '2314567890E  1 s10 s13 s15 22\n',
-            '2314567890E\n'
-                + '2314568790E  1 s10 s13 s15 22\n'
-                + '2314567890E  1 s10 s13 s15 22\n',
-        ));
-
-        it('a touch that comes round at hand', testImport(
-            '2314567890E\n'
-                + '21436578E90  1 5 7 8 10 11 s13 15 16  (20 sixes)\n'
-                + '2143658709E  2 s13 s15\n'
-                + '2143658709E  p\n',
-            '2314567890E\n'
-                + '21436578E90  1 5 7 8 10 11 s13 15 16  (20 sixes)\n'
-                + '2143658709E  2 s13 s15\n'
-                + '2143658709E  p\n',
-        ));
-
-        it('a touch with extra spacing', testImport(
-            '\t 2314567890E\t \n'
-                + '2314567890E  1 s10 s13 22\n',
-            '2314567890E\n'
-                + '2314567890E  1 s10 s13 22\n',
-        ));
-
-        it('a touch with a blank line', testImport(
-            '2314567890E\n'
-                + ' \t\n'
-                + '2314567890E  1 s10 s13 22\n',
-            '2314567890E\n'
-                + '2314567890E  1 s10 s13 22\n',
-        ));
-
-        it('a touch with microsiril comments', testImport(
-            '2314567890E\n'
-                + '/2314567890E  1 s10 s13 22\n',
-            '2314567890E\n'
-                + '2314567890E  1 s10 s13 22\n',
-        ));
-
-        it('a touch with a "//" comment line', testImport(
-            '2314567890E\n'
-                + '// comment\n'
-                + '2314567890E  1 s10 s13 22\n',
-            '2314567890E\n'
-                + '2314567890E  1 s10 s13 22\n',
-        ));
-
-        it('a touch with an included "//" comment', testImport(
-            '2314567890E\n'
-                + '2314567890E  1 s10 s13 22  // turn 78\n',
-            '2314567890E\n'
-                + '2314567890E  1 s10 s13 22\n',
-        ));
-
-        it('a touch with a start', testImport(
-            '321547698E0\n'
-                + '3765421E098  1 s10 s13 22\n'
-                + 'Start from rounds as the third row of a slow six.\n',
-            '321547698E0\n'
-                + '3765421E098  1 s10 s13 22\n'
-                + 'Start from rounds as the third row of a slow six.\n',
-        ));
-
-        it('a touch of Erin', testImport(
-            '1234567890E\n'
-                + '4321567890E  6 7\n'
-                + '1234567890E  6 7\n',
-            '1234567890E\n'
-                + '4321567890E  6 7\n'
-                + '1234567890E  6 7\n',
-            new Erin(),
-        ));
-
-        it('a touch of Stedman Jump', testImport(
-            '1234567890E\n'
-                + '4321567890E  6 7\n'
-                + '1234567890E  6 7\n',
-            '1234567890E\n'
-                + '4321567890E  6 7\n'
-                + '1234567890E  6 7\n',
-            new StedmanJump(),
-        ));
-
-        it('a touch with no lines', () => {
-            expect(() => Touch.fromString('')).toThrowError('No input lines');
-        });
-
-        it('a touch with a broken initial row', () => {
-            expect(() => Touch.fromString('not'))
-                .toThrowError('Cannot recognise stage');
-        });
-
-        it('a touch with a broken course', () => {
-            expect(() => Touch.fromString('2314567890E\n' + 'garbage\n'))
-                .toThrowError('Cannot import course');
-        });
-
+        expect(parser.parseTouch).toHaveBeenCalled();
+        expect(parser.parseTouch).toHaveBeenCalledWith('test');
     });
 
-    it('passes the method to all children when creating touches', () => {
-        const method = new Stedman();
-        touch = Touch.fromString(
-            '1234567890E\n'
-                + '4321567890E  6 7\n'
-                + '1234567890E  6 7\n',
-            method,
-        );
+    it('returns the parsed result', () => {
+        const parser = jasmine.createSpyObj('Parser', ['parseTouch']);
+        parser.parseTouch.and.returnValue(touch);
 
-        expect(touch.start.method).toBe(method);
-        expect(touch.getBlock(1).method).toBe(method);
-        expect(touch.getBlock(2).method).toBe(method);
+        const result = Touch.fromString('test', undefined, parser);
+
+        expect(result).toBe(touch);
+    });
+
+    it('configures the parser with the correct method', () => {
+        const method = new Erin();
+        const parser = jasmine.createSpyObj('Parser', ['parseTouch']);
+
+        Touch.fromString('test', method, parser);
+
+        expect(parser.method).toBe(method);
     });
 
 });

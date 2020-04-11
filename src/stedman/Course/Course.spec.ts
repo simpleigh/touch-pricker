@@ -418,109 +418,31 @@ describe('Stedman Course class', () => {
         expect(courseVisitor.strings).toEqual(strings);
     });
 
-    describe('can create courses from strings:', () => {
+    it('passes strings to a parser for loading', () => {
+        const parser = jasmine.createSpyObj('Parser', ['parseCourse']);
 
-        const testImport = (
-            input: string,
-            output: string,
-            method: AbstractMethod = new Stedman(),
-        ) => () => {
-            const imported = Course.fromString(testRow, input, method);
-            expect(imported.print('text')).toBe(output);
-        };
+        Course.fromString(testRow, 'test', undefined, parser);
 
-        it('a simple course ending in rounds', testImport(
-            '2314567890E  1 s10 s13 22',
-            '2314567890E  1 s10 s13 22',
-        ));
+        expect(parser.parseCourse).toHaveBeenCalled();
+        expect(parser.parseCourse).toHaveBeenCalledWith(testRow, 'test');
+    });
 
-        it('a course with singles marked after the six number', testImport(
-            '2314567890E  1 10s 13s 22',
-            '2314567890E  1 s10 s13 22',
-        ));
+    it('returns the parsed result', () => {
+        const parser = jasmine.createSpyObj('Parser', ['parseCourse']);
+        parser.parseCourse.and.returnValue(course);
 
-        it('a course with calls separated with "."s', testImport(
-            '2314567890E  1.s10. s13 .22',
-            '2314567890E  1 s10 s13 22',
-        ));
+        const result = Course.fromString(testRow, 'test', undefined, parser);
 
-        it('a course with calls separated with ","s', testImport(
-            '2314567890E  1,s10, s13 ,22',
-            '2314567890E  1 s10 s13 22',
-        ));
+        expect(result).toBe(course);
+    });
 
-        it('a more complex course', testImport(
-            '23145768E90  1 s6 s17 s19',
-            '23145768E90  1 s6 s17 s19',
-        ));
+    it('configures the parser with the correct method', () => {
+        const method = new Erin();
+        const parser = jasmine.createSpyObj('Parser', ['parseCourse']);
 
-        it('a short course', testImport(
-            '21436578E90  1 5 7 8 10 11 s13 15 16  (20 sixes)',
-            '21436578E90  1 5 7 8 10 11 s13 15 16  (20 sixes)',
-        ));
+        Course.fromString(testRow, 'test', method, parser);
 
-        it('a short course with concise length description', testImport(
-            '21436578E90  1 5 7 8 10 11 s13 15 16  (20)',
-            '21436578E90  1 5 7 8 10 11 s13 15 16  (20 sixes)',
-        ));
-
-        it('a short course with odd length description', testImport(
-            '21436578E90  1 5 7 8 10 11 s13 15 16  (20-em ù sixen)',
-            '21436578E90  1 5 7 8 10 11 s13 15 16  (20 sixes)',
-        ));
-
-        it('a plain course', testImport(
-            'p (8)',
-            'E7518296430  p  (8 sixes)',
-        ));
-
-        it('a string with extra spacing', testImport(
-            ' \t\r\n2314567890E  \t\r\n1 s10  \t\r\ns13 22 \t\r\n',
-            '2314567890E  1 s10 s13 22',
-        ));
-
-        it('a string with a broken course end', testImport(
-            'abcde  1 s10 s13 22',
-            '2314567890E  1 s10 s13 22',
-        ));
-
-        it('a string with a short course end', testImport(
-            '231  1 s10 s13 22',
-            '2314567890E  1 s10 s13 22',
-        ));
-
-        it('a string without a course end', testImport(
-            '1 s10 s13 22',
-            '2314567890E  1 s10 s13 22',
-        ));
-
-        it('another string without a course end', testImport(
-            's10 s13 s15 s22',
-            '2314568709E  s10 s13 s15 s22',
-        ));
-
-        it('yet another string without a course end', testImport(
-            '10s s13 s15 s22',
-            '2314568709E  s10 s13 s15 s22',
-        ));
-
-        it('a course of Erin', testImport(
-            '2314567890E  6',
-            '1234567890E  6',
-            new Erin(),
-        ));
-
-        it('a course of Stedman Jump', testImport(
-            '2314567890E  1 6 11 12 17 22',
-            '3124567890E  1 6 11 12 17 22',
-            new StedmanJump(),
-        ));
-
-        it('a broken course (that raises an error)', () => {
-            expect(() => {
-                Course.fromString(testRow, 'garbage');
-            }).toThrowError('Cannot import course');
-        });
+        expect(parser.method).toBe(method);
     });
 
 });

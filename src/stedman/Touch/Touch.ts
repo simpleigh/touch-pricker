@@ -7,12 +7,12 @@
 
 import { BlockOwnership, RandomAccessContainer } from '../../blocks';
 import { rounds, Row } from '../../rows';
-import { parseTouch } from '../../shared';
 import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
 import constructorFromType from '../constructorFromType';
 import Course from '../Course';
 import { AbstractMethod, Stedman } from '../methods';
+import Parser from '../Parser';
 import * as sixes from '../sixes';
 import Start from '../Start';
 import select from './select.dot';
@@ -145,30 +145,10 @@ class Touch
     public static fromString(
         input: string,
         method: AbstractMethod = new Stedman(),
+        parser: Parser = new Parser(),
     ): Touch {
-        let start: string | undefined;
-
-        const parsedTouch = parseTouch(
-            (row: Row) => new Touch(row, undefined, method),
-            input,
-            (touch: Touch, line: string) => {
-                // Store start definitions for later processing
-                if (/start/i.test(line)) {
-                    start = line;
-                    return;
-                }
-
-                // Create a course for each line
-                const course = Course.fromString(touch.getLast(), line, method);
-                touch.insertBlock(touch.length + 1, course);
-            },
-        );
-
-        if (start) {
-            parsedTouch.start.setFromString(start);
-        }
-
-        return parsedTouch;
+        parser.method = method;
+        return parser.parseTouch(input);
     }
 }
 
