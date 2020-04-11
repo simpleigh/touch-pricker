@@ -9,8 +9,7 @@ import Course from '.';
 import {
     testSerialContainerImplementation,
 } from '../../blocks/SerialContainer.spec';
-import { rounds, rowFromString, Stage, stringFromRow } from '../../rows';
-import { Call } from '../../shared';
+import { Call, rounds, rowFromString, Stage, stringFromRow } from '../../rows';
 import { StringArray } from '../../visitors';
 import { AbstractMethod, Erin, Stedman, StedmanJump } from '../methods';
 import SixType from '../SixType';

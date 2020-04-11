@@ -6,8 +6,7 @@
  */
 
 import { AbstractBlock, BlockOwnership } from '../../../blocks';
-import { Row } from '../../../rows';
-import { Call } from '../../../shared';
+import { Call, Row } from '../../../rows';
 import * as Templates from '../../../templates';
 import * as Changes from '../../changes';
 import SixType from '../../SixType';

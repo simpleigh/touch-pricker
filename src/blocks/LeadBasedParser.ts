@@ -5,8 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { Row } from '../rows';
-import { Call } from '../shared';
+import { Call, Row } from '../rows';
 import AbstractBlock from './AbstractBlock';
 import AbstractParser from './AbstractParser';
 import SerialContainer from './SerialContainer';

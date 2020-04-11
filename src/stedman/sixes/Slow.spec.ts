@@ -5,8 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { Stage as S } from '../../rows';
-import { Call as C } from '../../shared';
+import { Call as C, Stage as S } from '../../rows';
 import SixType from '../SixType';
 import { testSixImplementation } from './AbstractSix/AbstractSix.spec';
 import Slow from './Slow';

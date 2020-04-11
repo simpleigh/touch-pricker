@@ -7,6 +7,7 @@
 
 export { default as Bell } from './Bell';
 export { default as bellFromSymbol } from './bellFromSymbol';
+export { default as Call } from './Call';
 export { default as Change } from './Change';
 export { default as changeFromNotation } from './changeFromNotation';
 export { default as multiply } from './multiply';

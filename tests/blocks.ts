@@ -12,8 +12,7 @@ import {
     RandomAccessContainer,
     SerialContainer,
 } from '../src/blocks';
-import { Call } from '../src/shared';
-import { Row } from '../src/rows';
+import { Call, Row } from '../src/rows';
 
 export class Lead extends AbstractBlock {
     protected _call: Call = Call.Plain;

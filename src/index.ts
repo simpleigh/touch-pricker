@@ -14,6 +14,7 @@ import Pricker from './Pricker';
 import {
     Bell,
     bellFromSymbol,
+    Call,
     Change,
     changeFromNotation,
     multiply,
@@ -30,6 +31,7 @@ export {
     Bell,
     bellFromSymbol,
     Blocks,
+    Call,
     Change,
     changeFromNotation,
     create,

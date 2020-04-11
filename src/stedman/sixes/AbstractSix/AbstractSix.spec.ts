@@ -11,13 +11,13 @@ import {
     testAbstractBlockImplementation,
 } from '../../../blocks/AbstractBlock.spec';
 import {
+    Call,
     rounds,
     Row,
     rowFromString,
     Stage,
     stringFromRow,
 } from '../../../rows';
-import { Call } from '../../../shared';
 import { StringArray } from '../../../visitors';
 import * as Changes from '../../changes';
 import Course from '../../Course';

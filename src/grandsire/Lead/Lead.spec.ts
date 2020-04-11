@@ -8,8 +8,7 @@
 import {
     testAbstractBlockImplementation,
 } from '../../blocks/AbstractBlock.spec';
-import { rounds, Row, rowFromString, Stage, stringFromRow } from '../../rows';
-import { Call } from '../../shared';
+import { Call, rounds, Row, rowFromString, Stage, stringFromRow } from '../../rows';
 import { StringArray } from '../../visitors';
 import Lead from '.';
 

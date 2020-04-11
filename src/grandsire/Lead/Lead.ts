@@ -6,8 +6,7 @@
  */
 
 import { AbstractBlock, BlockOwnership } from '../../blocks';
-import { multiply, Row, symbolFromBell } from '../../rows';
-import { Call } from '../../shared';
+import { Call, multiply, Row, symbolFromBell } from '../../rows';
 import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
 import * as Changes from '../changes';

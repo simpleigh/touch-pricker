@@ -7,8 +7,7 @@
 
 import AbstractSix from '.';
 import { BlockOwnership } from '../../../blocks';
-import { rounds, Row, Stage } from '../../../rows';
-import { Call } from '../../../shared';
+import { Call, rounds, Row, Stage } from '../../../rows';
 import Cold from '../Cold';
 import Hot from '../Hot';
 import Quick from '../Quick';
