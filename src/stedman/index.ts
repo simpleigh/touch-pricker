@@ -12,6 +12,5 @@ export { default as Course } from './Course';
 export { default as MbdPricker } from './MbdPricker';
 export { Methods };
 export { Sixes };
-export { default as SixType } from './SixType';
 export { default as Start } from './Start';
 export { default as Touch } from './Touch';

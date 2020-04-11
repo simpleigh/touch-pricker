@@ -9,7 +9,7 @@
  * Types of six
  * @enum {number}
  */
-enum SixType {
+const enum SixType {
     Slow = 'slow',
     Quick = 'quick',
     Cold = 'cold',

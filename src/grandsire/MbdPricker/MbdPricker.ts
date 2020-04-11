@@ -17,7 +17,7 @@ import Touch from '../Touch';
 import css from './css.dot';
 import html from './html.dot';
 
-enum Block { Course, Touch }
+const enum Block { Course, Touch }
 
 /**
  * An MBD pricker
