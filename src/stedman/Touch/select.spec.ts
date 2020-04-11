@@ -19,7 +19,7 @@ describe('select template for Stedman Touch', () => {
         );
 
         expect(touch.print('select')).toRenderAs(`
-            <div>
+            <div class="" onclick="pricker.onSelectCourse(0)" onmousedown="return false">
                 ${stringFromRow(touch.start.getLast())}
             </div>
             <div class="" onclick="pricker.onSelectCourse(1)" onmousedown="return false">
@@ -39,7 +39,7 @@ describe('select template for Stedman Touch', () => {
         );
 
         expect(touch.print('select', { selectedIndex: 2 })).toRenderAs(`
-            <div>
+            <div class="" onclick="pricker.onSelectCourse(0)" onmousedown="return false">
                 ${stringFromRow(touch.start.getLast())}
             </div>
             <div class="" onclick="pricker.onSelectCourse(1)" onmousedown="return false">
@@ -51,13 +51,35 @@ describe('select template for Stedman Touch', () => {
         `);
     });
 
+    it('can select the end of the start', () => {
+        const touch = Touch.fromString(
+            '2314567890E\n'
+                + '2314568790E  1 s10 s13 s15 22\n'
+                + '2314567890E  1 s10 s13 s15 22\n',
+        );
+
+        expect(touch.print('select', { selectedIndex: 0 })).toRenderAs(`
+            <div class="selected" onclick="pricker.onSelectCourse(0)" onmousedown="return false">
+                ${stringFromRow(touch.start.getLast())}
+            </div>
+            <div class="" onclick="pricker.onSelectCourse(1)" onmousedown="return false">
+                ${touch.getBlock(1).print('text')}
+            </div>
+            <div class="" onclick="pricker.onSelectCourse(2)" onmousedown="return false">
+                ${touch.getBlock(2).print('text')}
+            </div>
+        `);
+    });
+
     it('applies a style for unreachable courses', () => {
         const touch = Touch.fromString('2314567890E\np\np\np');  // 3 courses
 
         expect(touch.print('select', {
             touchRows: 266, // Two courses plus a standard start
         })).toRenderAs(`
-            <div>2314567890E</div>
+            <div class="" onclick="pricker.onSelectCourse(0)" onmousedown="return false">
+                2314567890E
+            </div>
             <div class="" onclick="pricker.onSelectCourse(1)" onmousedown="return false">
                 2314567890E  p
             </div>
@@ -76,7 +98,9 @@ describe('select template for Stedman Touch', () => {
         falseness.add(1, 3);
 
         expect(touch.print('select', { falseness })).toRenderAs(`
-            <div>2314567890E</div>
+            <div class="" onclick="pricker.onSelectCourse(0)" onmousedown="return false">
+                2314567890E
+            </div>
             <div class="false" onclick="pricker.onSelectCourse(1)" onmousedown="return false">
                 2314567890E  p
             </div>

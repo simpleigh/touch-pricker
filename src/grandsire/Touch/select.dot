@@ -16,7 +16,11 @@
 	context.touchRows = context.touchRows || Infinity;
 }}
 
-<div>
+<div
+	 class="{{? context.selectedIndex === 0}}selected{{?}}"
+	 onclick="pricker.onSelectCourse(0)"
+	 onmousedown="return false"
+>
 	{{= context.stringFromRow(context.object.initialRow) }}
 </div>
 

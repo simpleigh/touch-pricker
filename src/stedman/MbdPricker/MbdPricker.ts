@@ -80,7 +80,7 @@ class MbdPricker extends AbstractPricker implements Notifiable {
     /**
      * Course selected in touch view
      */
-    private _selectedIndex: number = 0;
+    private _selectedIndex: number | undefined;
 
     /**
      * Index of course copied from touch view
@@ -157,7 +157,7 @@ class MbdPricker extends AbstractPricker implements Notifiable {
         this._extraSixes.setLength(8);
 
         this._savedCourse = undefined;
-        this._selectedIndex = 0;
+        this._selectedIndex = undefined;
         this._copiedIndex = undefined;
 
         this.getEl<HTMLSelectElement>('firstSix').innerHTML =
@@ -368,6 +368,10 @@ class MbdPricker extends AbstractPricker implements Notifiable {
     }
 
     public onInsertCourse(): void {
+        if (!this._selectedIndex) {
+            this._selectedIndex = 0;
+        }
+
         this._selectedIndex += 1;
 
         this._touch.insertBlock(this._selectedIndex, this._course.clone());
