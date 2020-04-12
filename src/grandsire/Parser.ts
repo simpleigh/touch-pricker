@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { LeadBasedParser } from '../blocks';
+import { LeadBasedParser } from '../leads';
 import { Row } from '../rows';
 import Course from './Course';
 import Touch from './Touch';

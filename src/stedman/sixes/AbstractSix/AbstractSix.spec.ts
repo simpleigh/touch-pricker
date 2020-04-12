@@ -8,16 +8,9 @@
 import AbstractSix from '.';
 import { BlockOwnership } from '../../../blocks';
 import {
-    testAbstractBlockImplementation,
-} from '../../../blocks/AbstractBlock.spec';
-import {
-    Call,
-    rounds,
-    Row,
-    rowFromString,
-    Stage,
-    stringFromRow,
-} from '../../../rows';
+    testAbstractLeadImplementation,
+} from '../../../leads/AbstractLead.spec';
+import { Call, rounds, Row, rowFromString, Stage } from '../../../rows';
 import { StringArray } from '../../../visitors';
 import * as Changes from '../../changes';
 import Course from '../../Course';
@@ -32,26 +25,18 @@ export const testSixImplementation = (
     notationStringTests: string[],
 ) => {
 
-    testAbstractBlockImplementation(
+    testAbstractLeadImplementation(
         Stage.Cinques,
         factory,
-        notation.length + 1,
-        (six) => (six as AbstractSix).toggleCall(),
+        testCases,
+        [
+            [Stage.Triples,   notation.length + 1],
+            [Stage.Caters,    notation.length + 1],
+            [Stage.Cinques,   notation.length + 1],
+            [Stage.Sextuples, notation.length + 1],
+            [Stage.Septuples, notation.length + 1],
+        ],
     );
-
-    type TestFunction =
-        (previous: Row, expected: Row, stage: Stage, call: Call) => void;
-
-    const runTestCases = (testFunction: TestFunction) => () => {
-        for (const testCase of testCases) {
-            testFunction(
-                rowFromString(testCase[0], testCase[2]),  // Previous sixend
-                rowFromString(testCase[1], testCase[2]),  // Expected sixend
-                testCase[2],                              // Stage
-                testCase[3],                              // Call
-            );
-        }
-    };
 
     it('has the expected type', () => {
         const six = factory(rounds(Stage.Cinques));
@@ -70,74 +55,19 @@ export const testSixImplementation = (
         }
     });
 
-    it('calculates the last row correctly', runTestCases(
-        (previous, expected, stage, call) => {
-            const six = factory(previous);
-            six.setCall(call);
-            expect(six.getLast()).toEqual(expected);
-        },
-    ));
+    it('computes the six head correctly', () => {
+        for (const testCase of testCases) {
+            const initialRow = testCase[0];
+            const testStage = testCase[2];
+            const call = testCase[3];
 
-    it('throws an exception if used for an unexpected stage', () => {
-        expect(() => factory(rounds(Stage.Minimus)))
-            .toThrowError("Cannot find lead head for stage '4'");
-    });
-
-    it('updates when the initial row changes', runTestCases(
-        (previous, expected, stage, call) => {
-            const incorrectPrevious = rounds(stage);
-            const six = factory(incorrectPrevious);
-
-            six.setCall(call);
-            expect(six.getLast()).not.toEqual(expected);
-
-            six.initialRow = previous;
-            expect(six.getLast()).toEqual(expected);
-        },
-    ));
-
-    it('updates when the call is toggled', runTestCases(
-        (previous, expected, stage, call) => {
-            const six = factory(previous);
-
-            // Set the call to the one before the right one
-            if (call === Call.Plain) {
-                six.setCall(Call.Single);
-            } else if (call === Call.Bob) {
-                six.setCall(Call.Plain);
-            } else {
-                six.setCall(Call.Bob);
-            }
-
-            expect(six.getLast()).not.toEqual(expected);
-
-            six.toggleCall();
-            expect(six.getLast()).toEqual(expected);
-        },
-    ));
-
-    it('generates the correct last row when visited', runTestCases(
-        (previous, expected, stage, call) => {
-            const six = factory(previous);
-            const visitor = new StringArray();
-
-            six.setCall(call);
-            six.accept(visitor);
-
-            const lastRow = visitor.strings[visitor.strings.length - 1];
-            expect(lastRow).toEqual(stringFromRow(expected));
-        },
-    ));
-
-    it('computes the six head correctly', runTestCases(
-        (previous, expected, stage, call) => {
-            const six = factory(previous);
-            const row = previous.slice();
+            const six = factory(rowFromString(initialRow, testStage));
+            const row = six.initialRow;
             Changes.permuteCall(row, call);
-            six.setCall(call);
+            six.call = call;
             expect(six.getFirst()).toEqual(row);
-        },
-    ));
+        }
+    });
 
     it('generates the correct rows when visited', () => {
         for (const rowTest of rowTests) {
@@ -174,95 +104,6 @@ export const testSixImplementation = (
 
             expect(six.getFirst()).not.toEqual(getFirst);
             expect(six.getFirst()).toEqual(getFirstBackup);
-        });
-
-        it('starts life as a plain six', () => {
-            expect(createTestSix().call).toBe(Call.Plain);
-        });
-
-        it('lets the call be set using the property', () => {
-            const six = createTestSix();
-            six.call = Call.Bob;
-            expect(six.call).toBe(Call.Bob);
-        });
-
-        it('lets the call be set using a method', () => {
-            const six = createTestSix();
-            six.setCall(Call.Bob);
-            expect(six.call).toBe(Call.Bob);
-        });
-
-        it('rotates between calls when toggled', () => {
-            const six = createTestSix();
-
-            six.toggleCall();
-            expect(six.call).toBe(Call.Bob);
-
-            six.toggleCall();
-            expect(six.call).toBe(Call.Single);
-
-            six.toggleCall();
-            expect(six.call).toBe(Call.Plain);
-        });
-
-        it('returns the new call when toggled', () => {
-            const six = createTestSix();
-            expect(six.toggleCall()).toBe(Call.Bob);
-            expect(six.toggleCall()).toBe(Call.Single);
-            expect(six.toggleCall()).toBe(Call.Plain);
-        });
-
-        it('can suppress updates when a call is set', () => {
-            const six = createTestSix();
-            const originalLast: Row = six.getLast();
-
-            six.setCall(Call.Bob, false);
-            expect(six.getLast()).toEqual(originalLast);
-        });
-
-        it('notifies the parent course when a call is set', () => {
-            const parent = jasmine.createSpyObj('Course', ['notify']);
-            const six = createTestSix(parent);
-            six.setCall(Call.Plain);
-            expect(parent.notify).toHaveBeenCalledWith(999);
-        });
-
-        it('notifies the parent course when toggled', () => {
-            const parent = jasmine.createSpyObj('Course', ['notify']);
-            const six = createTestSix(parent);
-            six.toggleCall();
-            expect(parent.notify).toHaveBeenCalledWith(999);
-        });
-
-        it('can suppress notification when a call is set', () => {
-            const parent = jasmine.createSpyObj('Course', ['notify']);
-            const six = createTestSix(parent);
-            six.setCall(Call.Plain, false);
-            expect(parent.notify).not.toHaveBeenCalled();
-        });
-
-        it('passes itself to visitors', () => {
-            const six = factory(rounds(Stage.Cinques));
-            const visitor = jasmine.createSpyObj('AbstractVisitor', ['visit']);
-
-            six.accept(visitor);
-            expect(visitor.visit).toHaveBeenCalledTimes(six.rows);
-            for (let i = 0; i < six.rows; i += 1) {
-                expect(visitor.visit.calls.argsFor(i)[1]).toBe(six);
-            }
-        });
-
-        it('is unchanged when visited', () => {
-            const six = factory(rounds(Stage.Cinques));
-            const visitor = new StringArray();
-
-            const initialRowBackup = six.initialRow;
-            const callBackup = six.call;
-
-            six.accept(visitor);
-
-            expect(six.initialRow).toEqual(initialRowBackup);
-            expect(six.call).toEqual(callBackup);
         });
 
         it('is printable', () => {

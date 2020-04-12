@@ -72,9 +72,9 @@ describe('LeadBasedParser class', () => {
 
             const calling = [];
             for (let i = 1; i <= course.length; i++) {
-                if (course.getBlock(i).getCall() === Call.Bob) {
+                if (course.getBlock(i).call === Call.Bob) {
                     calling.push(i);
-                } else if (course.getBlock(i).getCall() === Call.Single) {
+                } else if (course.getBlock(i).call === Call.Single) {
                     calling.push(`s${i}`);
                 }
             }

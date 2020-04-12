@@ -13,15 +13,15 @@ import BlockOwnership from './BlockOwnership';
 
 /**
  * Tests that a block behaves as an AbstractBlock
- * @param stage                stage to use when testing this block
+ * @param testStage            stage to use when testing this block
  * @param factory              creates a non-empty instance of the block
- * @param expectedRows         number of rows expected in this block
+ * @param lengthTestCases      testcases for the length of the block
  * @param triggerNotification  fn that triggers the block to notify its parent
  */
 export const testAbstractBlockImplementation = (
-    stage: Stage,
+    testStage: Stage,
     factory: (initialRow: Row, _ownership?: BlockOwnership) => AbstractBlock,
-    expectedRows: number,
+    lengthTestCases: [Stage, number][],
     triggerNotification: (block: AbstractBlock) => any,
 ) => {
 
@@ -30,22 +30,22 @@ export const testAbstractBlockImplementation = (
         let block: AbstractBlock;
 
         beforeEach(() => {
-            block = factory(rounds(stage));
+            block = factory(rounds(testStage));
         });
 
         it('stores the initial row', () => {
-            expect(block.initialRow).toEqual(rounds(stage));
+            expect(block.initialRow).toEqual(rounds(testStage));
         });
 
         it('allows the initial row to be changed', () => {
-            const newRow = rowFromString('4321', stage);
+            const newRow = rowFromString('4321', testStage);
             block.initialRow = newRow;
             expect(block.initialRow).toEqual(newRow);
         });
 
         it('ignores changes to the original initial row', () => {
-            const initialRow = rounds(stage);
-            const expected = rounds(stage);
+            const initialRow = rounds(testStage);
+            const expected = rounds(testStage);
             block = factory(initialRow);
 
             initialRow[3] = 999;  // Mutate the initial row
@@ -67,7 +67,7 @@ export const testAbstractBlockImplementation = (
         });
 
         it('ignores changes to the set initialRow', () => {
-            const initialRow = rowFromString('4321', stage);
+            const initialRow = rowFromString('4321', testStage);
             const expected = initialRow.slice();
 
             block.initialRow = initialRow;
@@ -80,12 +80,12 @@ export const testAbstractBlockImplementation = (
 
         it('updates when the initial row changes', () => {
             const lastRow = block.getLast();
-            block.initialRow = rowFromString('4321', stage);
+            block.initialRow = rowFromString('4321', testStage);
             expect(block.getLast()).not.toEqual(lastRow);
         });
 
         it('has a last row on the same stage as it starts', () => {
-            expect(block.getLast().length).toEqual(stage);
+            expect(block.getLast().length).toEqual(testStage);
         });
 
         it('ignores changes to the getLast result', () => {
@@ -100,11 +100,14 @@ export const testAbstractBlockImplementation = (
         });
 
         it('provides access to the stage', () => {
-            expect(block.stage).toBe(stage);
+            expect(block.stage).toBe(testStage);
         });
 
         it('provides access to the number of rows', () => {
-            expect(block.rows).toBe(expectedRows);
+            for (const [stage, rows] of lengthTestCases) {
+                block = factory(rounds(stage));
+                expect(block.rows).toBe(rows);
+            }
         });
 
         it('notifies the parent container', () => {
@@ -124,7 +127,7 @@ export const testAbstractBlockImplementation = (
             // set this after creation to avoid spurious notifications
             block.ownership = { container, index: 999 };
 
-            block.initialRow = rounds(stage);
+            block.initialRow = rounds(testStage);
 
             expect(container.notify).not.toHaveBeenCalled();
         });
@@ -132,7 +135,7 @@ export const testAbstractBlockImplementation = (
         it('allows access to parent information', () => {
             const container: AbstractContainer<AbstractBlock> =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
-            block = factory(rounds(stage), { container, index: 999 });
+            block = factory(rounds(testStage), { container, index: 999 });
 
             expect(block.container).toBe(container);
             expect(block.index).toBe(999);
@@ -144,7 +147,7 @@ export const testAbstractBlockImplementation = (
             const containerNew: AbstractContainer<AbstractBlock> =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
             block = factory(
-                rounds(stage),
+                rounds(testStage),
                 { container: containerOld, index: 999 }
             );
 
@@ -157,7 +160,7 @@ export const testAbstractBlockImplementation = (
         it('can be detached from a parent', () => {
             const container: AbstractContainer<AbstractBlock> =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
-            block = factory(rounds(stage), { container, index: 999 });
+            block = factory(rounds(testStage), { container, index: 999 });
 
             block.clearOwnership();
 

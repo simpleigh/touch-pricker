@@ -7,24 +7,32 @@
 
 // tslint:disable:max-classes-per-file
 
-import {
-    AbstractBlock,
-    RandomAccessContainer,
-    SerialContainer,
-} from '../src/blocks';
-import { Call, Row } from '../src/rows';
+import { RandomAccessContainer, SerialContainer } from '../src/blocks';
+import { AbstractLead, LeadHeadTable } from '../src/leads';
+import { Call, rounds, Row, Stage } from '../src/rows';
 
-export class Lead extends AbstractBlock {
-    protected _call: Call = Call.Plain;
-    protected calculate(): void { /* NOOP */ }
-    public getLast(): Row { return this.initialRow; }
+export class Lead extends AbstractLead {
+
     public accept(): this { return this; }
     public readonly rows: number = 0;
-    public setCall(call: Call): Lead { this._call = call; return this; }
-    public getCall(): Call { return this._call; }
+
+    protected get leadHeadTable(): LeadHeadTable {
+        const stages: { [stage in Stage]?: Row } = { };
+        for (let stage = 4; stage < 16; stage += 1) {
+            stages[stage as Stage] = rounds(stage);
+        }
+
+        return {
+            [Call.Plain]:  stages,
+            [Call.Bob]:    stages,
+            [Call.Single]: stages,
+        };
+    }
+
 }
 
 export class Course extends SerialContainer<Lead> {
+
     protected createBlock(initialRow: Row, index: number): Lead {
         return new Lead(initialRow, { container: this, index });
     }
@@ -32,6 +40,7 @@ export class Course extends SerialContainer<Lead> {
     protected get defaultLength(): number {
         return this.stage - 1;
     }
+
 }
 
 export class Touch extends RandomAccessContainer<Course> { }

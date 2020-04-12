@@ -22,7 +22,7 @@ describe('Start class', () => {
     testAbstractBlockImplementation(
         S.Cinques,
         (initialRow, _ownership?) => new Start(initialRow, _ownership),
-        2,
+        [[S.Cinques, 2]],
         (fixture) => { (fixture as Start).rowIndex = 2; },
     );
 

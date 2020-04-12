@@ -10,7 +10,7 @@ import { AbstractVisitor } from '../../visitors';
 import * as Changes from '../changes';
 import SixType from '../SixType';
 import AbstractSix from './AbstractSix';
-import LeadHeadTable from './LeadHeadTable';
+import { LeadHeadTable } from '../../leads';
 
 /**
  * An "eight" six for Carter's
@@ -62,7 +62,7 @@ class Eight extends AbstractSix {
         Changes.permute3(row);
         this.visitAll(visitors, row);
 
-        this.visitAll(visitors, this._end);
+        this.visitAll(visitors, this.getLast());
 
         return this;
     }

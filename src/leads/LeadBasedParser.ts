@@ -5,18 +5,10 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+import { RandomAccessContainer, SerialContainer } from '../blocks';
 import { Call, Row } from '../rows';
-import AbstractBlock from './AbstractBlock';
+import AbstractLead from './AbstractLead';
 import AbstractParser from './AbstractParser';
-import SerialContainer from './SerialContainer';
-import RandomAccessContainer from './RandomAccessContainer';
-
-/**
- * A block that supports `setCall`
- */
-interface Lead extends AbstractBlock {
-    setCall: (call: Call) => Lead;
-}
 
 /**
  * A parser that supports rows of courses with numbered calls
@@ -45,7 +37,7 @@ interface Lead extends AbstractBlock {
  * parentheses at the end of the line.
  */
 abstract class LeadBasedParser<
-    Course extends SerialContainer<Lead>,
+    Course extends SerialContainer<AbstractLead>,
     Touch extends RandomAccessContainer<Course>,
 >
     extends AbstractParser<Touch> {

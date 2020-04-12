@@ -16,14 +16,14 @@ type TestContainer = SerialContainer<AbstractBlock>;
 
 /**
  * Tests that a container behaves as a SerialContainer
- * @param stage            stage to use when testing this container
+ * @param testStage        stage to use when testing this container
  * @param factory          creates an instance of the object under test
  * @param expectedRows     number of rows expected in this container
  * @param expectedLength   number of blocks expected in this container
  * @param lengthTestCases  expected lengths and rows for each stage
  */
 export const testSerialContainerImplementation = (
-    stage: Stage,
+    testStage: Stage,
     factory: (initialRow: Row, _ownership?: BlockOwnership) => TestContainer,
     expectedRows: number,
     expectedLength: number,
@@ -47,7 +47,7 @@ export const testSerialContainerImplementation = (
         };
 
         testAbstractContainerImplementation(
-            stage,
+            testStage,
             defaultLengthFactory,
             expectedRows,
             expectedLength,
@@ -56,7 +56,7 @@ export const testSerialContainerImplementation = (
         let container: TestContainer;
 
         beforeEach(() => {
-            container = defaultLengthFactory(rounds(stage));
+            container = defaultLengthFactory(rounds(testStage));
         });
 
         it('starts out empty', () => {
@@ -81,7 +81,7 @@ export const testSerialContainerImplementation = (
 
         it('recalculates last row when increasing length', () => {
             container.setLength(expectedLength + 1);
-            expect(container.getLast()).not.toEqual(rounds(stage));
+            expect(container.getLast()).not.toEqual(rounds(testStage));
             expect(container.getLast())
                 .toEqual(container.getBlock(expectedLength + 1).getLast());
         });
@@ -93,7 +93,7 @@ export const testSerialContainerImplementation = (
 
         it('recalculates last row when decreasing length', () => {
             container.setLength(expectedLength - 1);
-            expect(container.getLast()).not.toEqual(rounds(stage));
+            expect(container.getLast()).not.toEqual(rounds(testStage));
             expect(container.getLast())
                 .toEqual(container.getBlock(expectedLength - 1).getLast());
         });

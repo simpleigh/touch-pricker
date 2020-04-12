@@ -5,107 +5,47 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import {
-    testAbstractBlockImplementation,
-} from '../../blocks/AbstractBlock.spec';
-import { Call, rounds, Row, rowFromString, Stage, stringFromRow } from '../../rows';
+import { testAbstractLeadImplementation } from '../../leads/AbstractLead.spec';
+import { Call, rounds, Stage } from '../../rows';
 import { StringArray } from '../../visitors';
 import Lead from '.';
 
 describe('Grandsire Lead class', () => {
 
-    testAbstractBlockImplementation(
+    testAbstractLeadImplementation(
         Stage.Doubles,
         (initialRow, _ownership) => new Lead(initialRow, _ownership),
-        10,
-        (lead) => (lead as Lead).toggleCall(),
+        [
+            // tslint:disable max-line-length
+            ['13245',           '13524',           Stage.Doubles,   Call.Plain],
+            ['1324567',         '1352746',         Stage.Triples,   Call.Plain],
+            ['132456789',       '135274968',       Stage.Caters,    Call.Plain],
+            ['1324567890E',     '13527496E80',     Stage.Cinques,   Call.Plain],
+            ['1324567890ETA',   '13527496E8A0T',   Stage.Sextuples, Call.Plain],
+            ['1324567890ETABC', '13527496E8A0CTB', Stage.Septuples, Call.Plain],
+            ['13245',           '14532',           Stage.Doubles,   Call.Bob],
+            ['1324567',         '1753624',         Stage.Triples,   Call.Bob],
+            ['132456789',       '175392846',       Stage.Caters,    Call.Bob],
+            ['1324567890E',     '175392E4068',     Stage.Cinques,   Call.Bob],
+            ['1324567890ETA',   '175392E4A6T80',   Stage.Sextuples, Call.Bob],
+            ['1324567890ETABC', '175392E4A6C8B0T', Stage.Septuples, Call.Bob],
+            ['13245',           '15432',           Stage.Doubles,   Call.Single],
+            ['1324567',         '1573624',         Stage.Triples,   Call.Single],
+            ['132456789',       '157392846',       Stage.Caters,    Call.Single],
+            ['1324567890E',     '157392E4068',     Stage.Cinques,   Call.Single],
+            ['1324567890ETA',   '157392E4A6T80',   Stage.Sextuples, Call.Single],
+            ['1324567890ETABC', '157392E4A6C8B0T', Stage.Septuples, Call.Single],
+            // tslint:enable max-line-length
+        ],
+        [
+            [Stage.Doubles,   10],
+            [Stage.Triples,   14],
+            [Stage.Caters,    18],
+            [Stage.Cinques,   22],
+            [Stage.Sextuples, 26],
+            [Stage.Septuples, 30],
+        ],
     );
-
-    const lastTestCases: [Stage, Call, string][] = [
-        [Stage.Doubles,   Call.Plain,  '12534'],
-        [Stage.Triples,   Call.Plain,  '1253746'],
-        [Stage.Caters,    Call.Plain,  '125374968'],
-        [Stage.Cinques,   Call.Plain,  '12537496E80'],
-        [Stage.Sextuples, Call.Plain,  '12537496E8A0T'],
-        [Stage.Septuples, Call.Plain,  '12537496E8A0CTB'],
-        [Stage.Doubles,   Call.Bob,    '14523'],
-        [Stage.Triples,   Call.Bob,    '1752634'],
-        [Stage.Caters,    Call.Bob,    '175293846'],
-        [Stage.Cinques,   Call.Bob,    '175293E4068'],
-        [Stage.Sextuples, Call.Bob,    '175293E4A6T80'],
-        [Stage.Septuples, Call.Bob,    '175293E4A6C8B0T'],
-        [Stage.Doubles,   Call.Single, '15423'],
-        [Stage.Triples,   Call.Single, '1572634'],
-        [Stage.Caters,    Call.Single, '157293846'],
-        [Stage.Cinques,   Call.Single, '157293E4068'],
-        [Stage.Sextuples, Call.Single, '157293E4A6T80'],
-        [Stage.Septuples, Call.Single, '157293E4A6C8B0T'],
-    ];
-
-    type TestFunction = (stage: Stage, call: Call, expected: Row) => void;
-
-    const runTestCases = (testFunction: TestFunction) => () => {
-        for (const testCase of lastTestCases) {
-            testFunction(
-                testCase[0],                              // Stage
-                testCase[1],                              // Call
-                rowFromString(testCase[2], testCase[0]),  // Expected last row
-            );
-        }
-    };
-
-    it('calculates the last row correctly', runTestCases(
-        (stage, call, expected) => {
-            const lead = new Lead(rounds(stage));
-            lead.setCall(call);
-            expect(lead.getLast()).toEqual(expected);
-        }
-    ));
-
-    it('updates when the initial row changes', runTestCases(
-        (stage, call, expected) => {
-            const incorrectPrevious = rowFromString('54321', stage);
-            const lead = new Lead(incorrectPrevious);
-
-            lead.setCall(call);
-            expect(lead.getLast()).not.toEqual(expected);
-
-            lead.initialRow = rounds(stage);
-
-            expect(lead.getLast()).toEqual(expected);
-        },
-    ));
-
-    const lengthTestCases: [Stage, number][] = [
-        [Stage.Doubles,   10],
-        [Stage.Triples,   14],
-        [Stage.Caters,    18],
-        [Stage.Cinques,   22],
-        [Stage.Sextuples, 26],
-        [Stage.Septuples, 30],
-    ];
-
-    it('provides access to the number of rows', () => {
-        for (const testCase of lengthTestCases) {
-            const stage = testCase[0];
-            const expected = testCase[1];
-            const lead = new Lead(rounds(stage));
-            expect(lead.rows).toBe(expected);
-        }
-    });
-
-    it('generates the correct last row when visited', runTestCases(
-        (stage, call, expected) => {
-            const lead = new Lead(rounds(stage));
-            const visitor = new StringArray();
-
-            lead.setCall(call);
-            lead.accept(visitor);
-
-            const lastString = visitor.strings[visitor.strings.length - 1];
-            expect(lastString).toEqual(stringFromRow(expected));
-        },
-    ));
 
     const rowTests: [Stage, Call, string[]][] = [
         [Stage.Doubles, Call.Plain, [
@@ -282,30 +222,6 @@ describe('Grandsire Lead class', () => {
         }
     });
 
-    it('passes itself to visitors', () => {
-        const lead = new Lead(rounds(Stage.Doubles));
-        const visitor = jasmine.createSpyObj('AbstractVisitor', ['visit']);
-
-        lead.accept(visitor);
-        expect(visitor.visit).toHaveBeenCalledTimes(10);
-        for (let i = 1; i < 10; i += 1) {
-            expect(visitor.visit.calls.argsFor(i)[1]).toBe(lead);
-        }
-    });
-
-    it('is unchanged when visited', () => {
-        const lead = new Lead(rounds(Stage.Doubles));
-        const visitor = new StringArray();
-
-        const initialRowBackup = lead.initialRow;
-        const callBackup = lead.call;
-
-        lead.accept(visitor);
-
-        expect(lead.initialRow).toEqual(initialRowBackup);
-        expect(lead.call).toEqual(callBackup);
-    });
-
     // tslint:disable:max-line-length
     const notationTestCases: [Stage, Call, string[]][] = [
         [Stage.Doubles, Call.Plain, [
@@ -376,104 +292,6 @@ describe('Grandsire Lead class', () => {
 
             expect(lead.notation).toEqual(expected);
         }
-    });
-
-    it('starts life as a plain lead', () => {
-        const lead = new Lead(rounds(Stage.Doubles));
-        expect(lead.call).toBe(Call.Plain);
-    });
-
-    it('lets the call be set using the property', () => {
-        const lead = new Lead(rounds(Stage.Doubles));
-        lead.call = Call.Bob;
-        expect(lead.call).toBe(Call.Bob);
-    });
-
-    it('lets the call be set using a method', () => {
-        const lead = new Lead(rounds(Stage.Doubles));
-        lead.setCall(Call.Bob);
-        expect(lead.call).toBe(Call.Bob);
-    });
-
-    it('rotates between calls when toggled', () => {
-        const lead = new Lead(rounds(Stage.Doubles));
-
-        lead.toggleCall();
-        expect(lead.call).toBe(Call.Bob);
-
-        lead.toggleCall();
-        expect(lead.call).toBe(Call.Single);
-
-        lead.toggleCall();
-        expect(lead.call).toBe(Call.Plain);
-    });
-
-    it('returns the new call when toggled', () => {
-        const lead = new Lead(rounds(Stage.Doubles));
-        expect(lead.toggleCall()).toBe(Call.Bob);
-        expect(lead.toggleCall()).toBe(Call.Single);
-        expect(lead.toggleCall()).toBe(Call.Plain);
-    });
-
-    it('updates the last row when the call is toggled', runTestCases(
-        (stage, call, expected) => {
-            const lead = new Lead(rounds(stage));
-
-            // Set the call to the one before the right one
-            if (call === Call.Plain) {
-                lead.setCall(Call.Single);
-            } else if (call === Call.Bob) {
-                lead.setCall(Call.Plain);
-            } else {
-                lead.setCall(Call.Bob);
-            }
-
-            expect(lead.getLast()).not.toEqual(expected);
-
-            lead.toggleCall();
-            expect(lead.getLast()).toEqual(expected);
-        },
-    ));
-
-    it('can suppress updates when a call is set', () => {
-        const lead = new Lead(rounds(Stage.Doubles));
-        const originalLast: Row = lead.getLast();
-
-        lead.setCall(Call.Bob, false);
-        expect(lead.getLast()).toEqual(originalLast);
-    });
-
-    it('notifies the parent course when a call is set', () => {
-        const container = jasmine.createSpyObj('Course', ['notify']);
-        const lead = new Lead(rounds(Stage.Doubles));
-        // set this after creation to avoid spurious notifications
-        lead.ownership = { container, index: 999 };
-
-        lead.setCall(Call.Plain);
-
-        expect(container.notify).toHaveBeenCalledWith(999);
-    });
-
-    it('notifies the parent course when toggled', () => {
-        const container = jasmine.createSpyObj('Course', ['notify']);
-        const lead = new Lead(rounds(Stage.Doubles));
-        // set this after creation to avoid spurious notifications
-        lead.ownership = { container, index: 999 };
-
-        lead.toggleCall();
-
-        expect(container.notify).toHaveBeenCalledWith(999);
-    });
-
-    it('can suppress notification when a call is set', () => {
-        const container = jasmine.createSpyObj('Course', ['notify']);
-        const lead = new Lead(rounds(Stage.Doubles));
-        // set this after creation to avoid spurious notifications
-        lead.ownership = { container, index: 999 };
-
-        lead.setCall(Call.Plain, false);
-
-        expect(container.notify).not.toHaveBeenCalled();
     });
 
     it('is printable', () => {

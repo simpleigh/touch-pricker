@@ -16,13 +16,13 @@ type TestContainer = AbstractContainer<AbstractBlock>;
 
 /**
  * Tests that a container behaves as an AbstractContainer
- * @param stage           stage to use when testing this container
+ * @param testStage       stage to use when testing this container
  * @param factory         creates a true round block instance of length >= 3
  * @param expectedRows    number of rows expected in this container
  * @param expectedLength  number of blocks expected in this container
  */
 export const testAbstractContainerImplementation = (
-    stage: Stage,
+    testStage: Stage,
     factory: (initialRow: Row, _ownership?: BlockOwnership) => TestContainer,
     expectedRows: number,
     expectedLength: number,
@@ -31,16 +31,16 @@ export const testAbstractContainerImplementation = (
     describe('is derived from AbstractContainer and', () => {
 
         testAbstractBlockImplementation(
-            stage,
+            testStage,
             factory,
-            expectedRows,
+            [[testStage, expectedRows]],
             (block) => (block as TestContainer).notify(0),
         );
 
         let container: TestContainer;
 
         beforeEach(() => {
-            container = factory(rounds(stage));
+            container = factory(rounds(testStage));
         });
 
         /* Prerequisites: factory creates a true round block of length >= 3 ***/
@@ -52,7 +52,7 @@ export const testAbstractContainerImplementation = (
         });
 
         it('is a round block when created for testing', () => {
-            expect(container.getLast()).toEqual(rounds(stage));
+            expect(container.getLast()).toEqual(rounds(testStage));
         });
 
         it('is of length >= 3 when created for testing', () => {
@@ -62,17 +62,17 @@ export const testAbstractContainerImplementation = (
         /* Functionality ******************************************************/
 
         it('keeps the last row in sync with the initial row', () => {
-            const newRow = rowFromString('4321', stage);
+            const newRow = rowFromString('4321', testStage);
 
             container.initialRow = newRow;
 
-            expect(container.getLast()).not.toEqual(rounds(stage));
+            expect(container.getLast()).not.toEqual(rounds(testStage));
             expect(container.getLast()).toEqual(newRow);
         });
 
         it('propagates rows between blocks correctly', () => {
             // First block initial row propagated from container initial row
-            expect(container.getBlock(1).initialRow).toEqual(rounds(stage));
+            expect(container.getBlock(1).initialRow).toEqual(rounds(testStage));
 
             // All blocks connected to the previous one
             for (let index = 2; index <= container.length; index += 1) {
@@ -133,7 +133,7 @@ export const testAbstractContainerImplementation = (
             spyOnProperty(container.getBlock(index), 'initialRow', 'set');
 
         it('recalculates blocks when the initial row changes', () => {
-            const newRow = rowFromString('4321', stage);
+            const newRow = rowFromString('4321', testStage);
             const spy1 = getSpy(1);
             const spy2 = getSpy(2);
             const spy3 = getSpy(3);

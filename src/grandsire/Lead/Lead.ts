@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { AbstractBlock, BlockOwnership } from '../../blocks';
-import { Call, multiply, Row, symbolFromBell } from '../../rows';
+import { AbstractLead, LeadHeadTable } from '../../leads';
+import { Call, Stage, symbolFromBell } from '../../rows';
 import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
 import * as Changes from '../changes';
@@ -17,61 +17,13 @@ import siril from './siril.dot';
  * A lead of grandsire
  */
 @Templates.makePrintable({ mbd, siril }, { Call })
-class Lead extends AbstractBlock implements Templates.Interface {
-    /**
-     * Lead head reached by this lead
-     */
-    protected _last: Row;
-
-    /**
-     * Call used at the end of the lead
-     */
-    protected _call: Call = Call.Plain;
-
-    /**
-     * Constructor
-     */
-    constructor(initialRow: Row, protected _ownership?: BlockOwnership) {
-        super(initialRow, _ownership);
-        this.calculate();
-    }
+class Lead extends AbstractLead implements Templates.Interface {
 
     /* templating *************************************************************/
 
     public print: Templates.Print;
 
     /* AbstractBlock methods **************************************************/
-
-    /**
-     * Does any calculation needed by the block
-     */
-    protected calculate(): void {
-        let leadHead: Row;
-
-        // Figure out lead head starting from rounds for this stage and call
-        if (this._call === Call.Plain) {
-            leadHead = this.leadHead.slice(0, this.stage - 1);
-            leadHead.push(this.stage - 1);
-        } else {
-            leadHead = this.bobbedLeadHeads[this.stage].slice();
-        }
-
-        if (this._call === Call.Single) {
-            // swap places 2 and 3; 5 is always in place 3 before we do this
-            leadHead[2] = leadHead[1];
-            leadHead[1] = 5;
-        }
-
-        // then multiply to find the answer
-        this._last = multiply(this._initialRow, leadHead);
-    }
-
-    /**
-     * Returns the last row in the block (the six end)
-     */
-    public getLast(): Row {
-        return this._last.slice();
-    }
 
     /**
      * Number of rows in the block
@@ -118,28 +70,43 @@ class Lead extends AbstractBlock implements Templates.Interface {
         return this;
     }
 
-    /* Lead methods ***********************************************************/
+    /* BaseLead methods *******************************************************/
 
     /**
-     * First lead head of a plain lead on the maximum supported stage
+     * Returns a table of lead heads from rounds for each stage and call
      */
-    private readonly leadHead: Row = [
-        1, 2, 5, 3, 7, 4, 9, 6, 11, 8, 13, 10, 15, 12, 14,
-    ];
-
-    /**
-     * First lead head of a bobbed lead for each supported stage
-     *
-     * Precompute to avoid complicated computation every `calculate()`.
-     */
-    private readonly bobbedLeadHeads: { [stage: number]: Row } = {
-        5: [1, 4, 5, 2, 3],
-        7: [1, 7, 5, 2, 6, 3, 4],
-        9: [1, 7, 5, 2, 9, 3, 8, 4, 6],
-        11: [1, 7, 5, 2, 9, 3, 11, 4, 10, 6, 8],
-        13: [1, 7, 5, 2, 9, 3, 11, 4, 13, 6, 12, 8, 10],
-        15: [1, 7, 5, 2, 9, 3, 11, 4, 13, 6, 15, 8, 14, 10, 12],
+    protected get leadHeadTable(): LeadHeadTable {
+        // tslint:disable max-line-length
+        return {
+            [Call.Plain]: {
+                [Stage.Doubles]:   [1, 2, 5, 3, 4],
+                [Stage.Triples]:   [1, 2, 5, 3, 7, 4, 6],
+                [Stage.Caters]:    [1, 2, 5, 3, 7, 4, 9, 6, 8],
+                [Stage.Cinques]:   [1, 2, 5, 3, 7, 4, 9, 6, 11, 8, 10],
+                [Stage.Sextuples]: [1, 2, 5, 3, 7, 4, 9, 6, 11, 8, 13, 10, 12],
+                [Stage.Septuples]: [1, 2, 5, 3, 7, 4, 9, 6, 11, 8, 13, 10, 15, 12, 14],
+            },
+            [Call.Bob]: {
+                [Stage.Doubles]:   [1, 4, 5, 2, 3],
+                [Stage.Triples]:   [1, 7, 5, 2, 6, 3, 4],
+                [Stage.Caters]:    [1, 7, 5, 2, 9, 3, 8, 4, 6],
+                [Stage.Cinques]:   [1, 7, 5, 2, 9, 3, 11, 4, 10, 6, 8],
+                [Stage.Sextuples]: [1, 7, 5, 2, 9, 3, 11, 4, 13, 6, 12, 8, 10],
+                [Stage.Septuples]: [1, 7, 5, 2, 9, 3, 11, 4, 13, 6, 15, 8, 14, 10, 12],
+            },
+            [Call.Single]: {
+                [Stage.Doubles]:   [1, 5, 4, 2, 3],
+                [Stage.Triples]:   [1, 5, 7, 2, 6, 3, 4],
+                [Stage.Caters]:    [1, 5, 7, 2, 9, 3, 8, 4, 6],
+                [Stage.Cinques]:   [1, 5, 7, 2, 9, 3, 11, 4, 10, 6, 8],
+                [Stage.Sextuples]: [1, 5, 7, 2, 9, 3, 11, 4, 13, 6, 12, 8, 10],
+                [Stage.Septuples]: [1, 5, 7, 2, 9, 3, 11, 4, 13, 6, 15, 8, 14, 10, 12],
+            },
+        };
+        // tslint:enable max-line-length
     }
+
+    /* Lead methods ***********************************************************/
 
     /**
      * Computes the place notation for the lead
@@ -166,41 +133,6 @@ class Lead extends AbstractBlock implements Templates.Interface {
         }
 
         return result;
-    }
-
-    /**
-     * Read access to the call
-     */
-    get call(): Call {
-        return this._call;
-    }
-
-    /**
-     * Write access to the call
-     */
-    set call(call: Call) {
-        this.setCall(call);
-    }
-
-    /**
-     * Write access to the call, with the ability to suppress updates
-     */
-    public setCall(call: Call, update: boolean = true): Lead {
-        this._call = call;
-        if (update) {
-            this.calculate();
-            this.notifyContainer();
-        }
-        return this;
-    }
-
-    /**
-     * Toggles the call type between Plain -> Bob -> Single -> Plain
-     */
-    public toggleCall(): Call {
-        const call: Call = (this._call + 1) % 3;
-        this.setCall(call);
-        return call;
     }
 
 }

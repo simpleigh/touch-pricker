@@ -10,7 +10,7 @@ import { AbstractVisitor } from '../../visitors';
 import * as Changes from '../changes';
 import SixType from '../SixType';
 import AbstractSix from './AbstractSix';
-import LeadHeadTable from './LeadHeadTable';
+import { LeadHeadTable } from '../../leads';
 
 /**
  * A slow six
@@ -50,7 +50,7 @@ class Slow extends AbstractSix {
         Changes.permute1(row);
         this.visitAll(visitors, row);
 
-        this.visitAll(visitors, this._end);
+        this.visitAll(visitors, this.getLast());
 
         return this;
     }

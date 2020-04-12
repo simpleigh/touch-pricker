@@ -16,14 +16,14 @@ type TestContainer = RandomAccessContainer<AbstractBlock>;
 
 /**
  * Tests that a container behaves as a RandomAccessContainer
- * @param stage           stage to use when testing this container
+ * @param testStage       stage to use when testing this container
  * @param factory         creates a true round block instance of length >= 3
  * @param expectedRows    number of rows expected in this container
  * @param expectedLength  number of blocks expected in this container
  * @param testBlock       a valid child block
  */
 export const testRandomAccessContainerImplementation = (
-    stage: Stage,
+    testStage: Stage,
     factory: (initialRow: Row, _ownership?: BlockOwnership) => TestContainer,
     expectedRows: number,
     expectedLength: number,
@@ -33,7 +33,7 @@ export const testRandomAccessContainerImplementation = (
     describe('is derived from RandomAccessContainer and', () => {
 
         testAbstractContainerImplementation(
-            stage,
+            testStage,
             factory,
             expectedRows,
             expectedLength,
@@ -42,7 +42,7 @@ export const testRandomAccessContainerImplementation = (
         let container: TestContainer;
 
         beforeEach(() => {
-            container = factory(rounds(stage));
+            container = factory(rounds(testStage));
         });
 
         /**
