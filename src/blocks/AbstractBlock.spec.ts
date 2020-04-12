@@ -99,6 +99,10 @@ export const testAbstractBlockImplementation = (
             expect(block.getLast()).toEqual(expected);
         });
 
+        it('provides access to the stage', () => {
+            expect(block.stage).toBe(stage);
+        });
+
         it('provides access to the number of rows', () => {
             expect(block.rows).toBe(expectedRows);
         });

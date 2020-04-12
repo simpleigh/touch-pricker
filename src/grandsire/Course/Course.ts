@@ -31,7 +31,7 @@ class Course extends SerialContainer<Lead> implements Templates.Interface {
      * Returns the default length of new containers of this type
      */
     protected getDefaultLength(initialRow: Row): number {
-        return initialRow.length - 2;
+        return this.stage - 2;
     }
 
     /**

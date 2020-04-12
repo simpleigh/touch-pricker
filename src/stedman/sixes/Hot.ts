@@ -24,7 +24,7 @@ class Hot extends AbstractSix {
      * Notation (excluding call)
      */
     get notation(): string[] {
-        const row = '312547698E0ATCB'.slice(0, this._initialRow.length);
+        const row = '312547698E0ATCB'.slice(0, this.stage);
         const notation = `'${row}'`;
         return [notation, notation, notation, notation, notation];
     }

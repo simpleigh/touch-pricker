@@ -30,7 +30,7 @@
 {{= '\n' }}
 
 /* Number of bells */
-{{= context.object.initialRow.length }} bells{{= '\n' }}
+{{= context.object.stage }} bells{{= '\n' }}
 {{= '\n' }}
 
 /* MicroSIRIL will prove the first symbol in the file, so define it */

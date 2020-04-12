@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { Row } from '../rows';
+import { Row, Stage } from '../rows';
 import { AbstractVisitor } from '../visitors';
 import BlockOwnership from './BlockOwnership';
 import Notifiable from './Notifiable';
@@ -67,6 +67,13 @@ abstract class AbstractBlock {
      * e.g. a lead head or a six end (for Stedman)
      */
     public abstract getLast(): Row;
+
+    /**
+     * Stage for the block
+     */
+    public get stage(): Stage {
+        return this._initialRow.length;
+    }
 
     /**
      * Number of rows in the block

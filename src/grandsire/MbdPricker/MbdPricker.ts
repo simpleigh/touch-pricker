@@ -345,7 +345,7 @@ class MbdPricker extends AbstractPricker implements Notifiable {
             return;
         }
 
-        this._stage = newTouch.initialRow.length;
+        this._stage = newTouch.stage;
         this.getEl<HTMLSelectElement>('stage').value = this._stage.toString();
         this.onStage();
 

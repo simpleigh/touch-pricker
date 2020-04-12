@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { Call, multiply, Row, Stage } from '../../rows';
+import { Call, multiply, Row } from '../../rows';
 import { AbstractVisitor } from '../../visitors';
 import * as Changes from '../changes';
 import SixType from '../SixType';
@@ -32,9 +32,10 @@ class Eight extends AbstractSix {
      * Does any calculation needed by the block
      */
     protected calculate(): void {
-        const stage: Stage = this._initialRow.length;
-        const leadHead = this.leadHeads[this._call][stage];
-        this._end = multiply(this._initialRow, leadHead);
+        this._end = multiply(
+            this._initialRow,
+            this.leadHeads[this._call][this.stage],
+        );
     }
 
     /**

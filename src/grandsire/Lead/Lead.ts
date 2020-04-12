@@ -46,15 +46,14 @@ class Lead extends AbstractBlock implements Templates.Interface {
      * Does any calculation needed by the block
      */
     protected calculate(): void {
-        const stage = this._initialRow.length;
         let leadHead: Row;
 
         // Figure out lead head starting from rounds for this stage and call
         if (this._call === Call.Plain) {
-            leadHead = this.leadHead.slice(0, stage - 1);
-            leadHead.push(stage - 1);
+            leadHead = this.leadHead.slice(0, this.stage - 1);
+            leadHead.push(this.stage - 1);
         } else {
-            leadHead = this.bobbedLeadHeads[stage].slice();
+            leadHead = this.bobbedLeadHeads[this.stage].slice();
         }
 
         if (this._call === Call.Single) {
@@ -79,14 +78,13 @@ class Lead extends AbstractBlock implements Templates.Interface {
      * This doesn't take into account coming round part-way through
      */
     public get rows(): number {
-        return this._initialRow.length * 2;
+        return this.stage * 2;
     }
 
     /**
      * Receives a visitor that will be called to process each row
      */
     public accept(...visitors: AbstractVisitor[]): this {
-        const stage = this._initialRow.length;
         const row = this.initialRow;
 
         Changes.permute3(row);
@@ -95,7 +93,7 @@ class Lead extends AbstractBlock implements Templates.Interface {
         Changes.permute1(row);
         this.visitAll(visitors, row);
 
-        for (let i = 1; i <= stage - 2; i += 1) {
+        for (let i = 1; i <= this.stage - 2; i += 1) {
             Changes.permuteN(row);
             this.visitAll(visitors, row);
 
@@ -147,11 +145,10 @@ class Lead extends AbstractBlock implements Templates.Interface {
      * Computes the place notation for the lead
      */
     get notation(): string[] {
-        const stage = this.initialRow.length;
-        const nNotation = symbolFromBell(stage);
+        const nNotation = symbolFromBell(this.stage);
         const result = ['3', '1'];
 
-        for (let i = 1; i <= stage - 2; i += 1) {
+        for (let i = 1; i <= this.stage - 2; i += 1) {
             result.push(nNotation);
             result.push('1');
         }

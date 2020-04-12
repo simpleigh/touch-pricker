@@ -30,7 +30,7 @@ export class Course extends SerialContainer<Lead> {
     }
 
     protected getDefaultLength(initialRow: Row): number {
-        return initialRow.length - 1;
+        return this.stage - 1;
     }
 }
 
