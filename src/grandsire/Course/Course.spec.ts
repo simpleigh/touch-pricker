@@ -6,17 +6,16 @@
  */
 
 import {
-    testSerialContainerImplementation,
-} from '../../blocks/SerialContainer.spec';
+    testAbstractCourseImplementation,
+} from '../../leads/AbstractCourse.spec';
 import { rounds, Stage, stringFromRow } from '../../rows';
-import { Call } from '../../leads';
 import { StringArray } from '../../visitors';
 import Touch from '../Touch';
 import Course from '.';
 
 describe('Grandsire Course class', () => {
 
-    testSerialContainerImplementation(
+    testAbstractCourseImplementation(
         Stage.Doubles,
         (initialRow, _ownership) => new Course(initialRow, _ownership),
         30,
@@ -113,39 +112,6 @@ describe('Grandsire Course class', () => {
             }
         });
     }
-
-    it('can be reset to a plain course', () => {
-        course.getBlock(2).toggleCall();
-        course.resetCalls();
-        expect(course.getBlock(2).call).toBe(Call.Plain);
-    });
-
-    it('returns this when resetting the calls', () => {
-        expect(course.resetCalls()).toBe(course);
-    });
-
-    it('copes when resetting a course if the length is zero', () => {
-        course.setLength(0);
-        expect(() => course.resetCalls()).not.toThrow();
-    });
-
-    it('only calls notify once when resetting the calls', () => {
-        const container = jasmine.createSpyObj('Notifiable', ['notify']);
-        course.ownership = { container, index: 1 };
-
-        course.resetCalls();
-
-        expect(container.notify).toHaveBeenCalledTimes(1);
-    });
-
-    it('starts out as a plain course', () => {
-        expect(course.isPlain()).toBe(true);
-    });
-
-    it('knows when it is not a plain course', () => {
-        course.getBlock(2).toggleCall();
-        expect(course.isPlain()).toBe(false);
-    });
 
     it('can be cloned', () => {
         course.setLength(4);

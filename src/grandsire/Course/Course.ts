@@ -5,8 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { SerialContainer } from '../../blocks';
-import { Call } from '../../leads';
+import { AbstractCourse, Call } from '../../leads';
 import { stringFromRow, Row } from '../../rows';
 import * as Templates from '../../templates';
 import Lead from '../Lead';
@@ -20,7 +19,7 @@ import text from './text.dot';
  * A course, being a set of leads
  */
 @Templates.makePrintable({ html, mbd, siril, text }, { Call, stringFromRow })
-class Course extends SerialContainer<Lead> implements Templates.Interface {
+class Course extends AbstractCourse<Lead> implements Templates.Interface {
 
     /* templating *************************************************************/
 
@@ -49,34 +48,6 @@ class Course extends SerialContainer<Lead> implements Templates.Interface {
     }
 
     /* Course methods *********************************************************/
-
-    /**
-     * Makes the course into a plain course
-     */
-    public resetCalls(): this {
-        for (const lead of this._blocks) {
-            lead.setCall(Call.Plain, false);  // Avoid multiple updates...
-        }
-
-        // ... and trigger one at the end
-        if (this.length) {
-            this.getBlock(1).setCall(Call.Plain);
-        }
-
-        return this;
-    }
-
-    /**
-     * Checks whether this is a plain course
-     */
-    public isPlain(): boolean {
-        for (const lead of this._blocks) {
-            if (lead.call) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     /**
      * Clones the course

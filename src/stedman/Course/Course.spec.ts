@@ -6,10 +6,10 @@
  */
 
 import Course from '.';
-import {
-    testSerialContainerImplementation,
-} from '../../blocks/SerialContainer.spec';
 import { Call } from '../../leads';
+import {
+    testAbstractCourseImplementation,
+} from '../../leads/AbstractCourse.spec';
 import { rounds, rowFromString, Stage, stringFromRow } from '../../rows';
 import { StringArray } from '../../visitors';
 import { AbstractMethod, Erin, Stedman, StedmanJump } from '../methods';
@@ -18,7 +18,7 @@ import Touch from '../Touch';
 
 describe('Stedman Course class', () => {
 
-    testSerialContainerImplementation(
+    testAbstractCourseImplementation(
         Stage.Cinques,
         (initialRow, _ownership) => new Course(initialRow, _ownership),
         132,
@@ -318,37 +318,6 @@ describe('Stedman Course class', () => {
             .toBe('3680274519E');
         expect(stringFromRow(course.getBlock(4).getLast()))
             .toBe('603785294E1');
-    });
-
-    it('can be reset to a plain course', () => {
-        course.getBlock(5).toggleCall();
-        course.resetCalls();
-        expect(course.getBlock(5).call).toBe(Call.Plain);
-    });
-
-    it('returns this when resetting the calls', () => {
-        expect(course.resetCalls()).toBe(course);
-    });
-
-    it('copes when resetting a course if the length is zero', () => {
-        course.setLength(0);
-        expect(() => course.resetCalls()).not.toThrow();
-    });
-
-    it('only calls notify once when resetting the calls', () => {
-        const container = jasmine.createSpyObj('Notifiable', ['notify']);
-        course.ownership = { container, index: 1 };
-        course.resetCalls();
-        expect(container.notify).toHaveBeenCalledTimes(1);
-    });
-
-    it('starts out as a plain course', () => {
-        expect(course.isPlain()).toBe(true);
-    });
-
-    it('knows when it is not a plain course', () => {
-        course.getBlock(5).toggleCall();
-        expect(course.isPlain()).toBe(false);
     });
 
     it('can be cloned', () => {

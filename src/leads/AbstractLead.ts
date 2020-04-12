@@ -58,7 +58,7 @@ abstract class Lead extends AbstractBlock {
         return this._last.slice();
     }
 
-    /* Lead methods ***********************************************************/
+    /* AbstractLead methods ***************************************************/
 
     /**
      * Read access to the call

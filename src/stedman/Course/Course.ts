@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { BlockOwnership, SerialContainer } from '../../blocks';
-import { Call } from '../../leads';
+import { BlockOwnership } from '../../blocks';
+import { AbstractCourse, Call } from '../../leads';
 import { Row } from '../../rows';
 import * as Templates from '../../templates';
 import { AbstractMethod, Stedman } from '../methods';
@@ -23,7 +23,7 @@ import text from './text.dot';
  */
 @Templates.makePrintable({ html, mbd, siril, text }, { Call })
 class Course
-    extends SerialContainer<AbstractSix>
+    extends AbstractCourse<AbstractSix>
     implements Templates.Interface {
 
     /**
@@ -113,34 +113,6 @@ class Course
         }
 
         return this;
-    }
-
-    /**
-     * Makes the course into a plain course
-     */
-    public resetCalls(): this {
-        for (const six of this._blocks) {
-            six.setCall(Call.Plain, false);  // Avoid multiple updates...
-        }
-
-        // ... and trigger one at the end
-        if (this.length) {
-            this.getBlock(1).setCall(Call.Plain);
-        }
-
-        return this;
-    }
-
-    /**
-     * Checks whether this is a plain course
-     */
-    public isPlain(): boolean {
-        for (const six of this._blocks) {
-            if (six.call) {
-                return false;
-            }
-        }
-        return true;
     }
 
     /**

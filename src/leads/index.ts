@@ -5,6 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+export { default as AbstractCourse } from './AbstractCourse';
 export { default as AbstractLead } from './AbstractLead';
 export { default as Call } from './Call';
 export { default as LeadBasedParser } from './LeadBasedParser';
