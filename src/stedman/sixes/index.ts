@@ -7,6 +7,8 @@
 
 export { default as AbstractSix } from './AbstractSix';
 export { default as Cold } from './Cold';
+export { default as Four } from './Four';
+export { default as Eight } from './Eight';
 export { default as Hot } from './Hot';
 export { default as Quick } from './Quick';
 export { default as Slow } from './Slow';

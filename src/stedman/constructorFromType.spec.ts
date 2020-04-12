@@ -24,6 +24,8 @@ describe('constructorFromType function', () => {
     testCreation(SixType.Quick);
     testCreation(SixType.Cold);
     testCreation(SixType.Hot);
+    testCreation(SixType.Four);
+    testCreation(SixType.Eight);
 
     it('throws for invalid six types', () => {
         expect(() => constructorFromType(SixType.Invalid)).toThrow();

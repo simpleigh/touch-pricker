@@ -15,6 +15,7 @@ import * as Visitors from '../../visitors';
 import Course from '../Course';
 import {
     AbstractMethod,
+    Carter,
     Erin,
     Stedman,
     StedmanJump,
@@ -165,6 +166,13 @@ class MbdPricker extends AbstractPricker implements Notifiable {
         this.getEl<HTMLSelectElement>('sixType').innerHTML =
             this._method.print('select');
 
+        // UI doesn't properly support starts for Carter
+        if (this._method.name === 'Carter') {
+            hide(this.getEl('showAdvancedOptionsDiv'));
+        } else {
+            show(this.getEl('showAdvancedOptionsDiv'));
+        }
+
         // Call notify() to clear out state from the previous touch
         this.notify(Block.Touch); // calls redraw()
         this.redrawTouch();
@@ -265,6 +273,7 @@ class MbdPricker extends AbstractPricker implements Notifiable {
     public onMethod(): void {
         const method = this.getEl<HTMLSelectElement>('method').value;
         const methodMap: { [method: string]: AbstractMethod } = {
+            carter: new Carter(),
             erin: new Erin(),
             jump: new StedmanJump(),
             stedman: new Stedman(),

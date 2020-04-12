@@ -26,16 +26,16 @@ import SixType from '../../SixType';
 export const testSixImplementation = (
     factory: (initialRow: Row, _ownership?: BlockOwnership) => AbstractSix,
     testCases: [string, string, Stage, Call][],
-    rowTests: [string, string, string, string, string, string, Stage][],
+    rowTests: [Stage, ...string[]][],
     type: SixType,
     notation: string[],
-    notationStringTests: [string, string, string, string, string],
+    notationStringTests: string[],
 ) => {
 
     testAbstractBlockImplementation(
         Stage.Cinques,
         factory,
-        6,
+        notation.length + 1,
         (six) => (six as AbstractSix).toggleCall(),
     );
 
@@ -65,7 +65,7 @@ export const testSixImplementation = (
 
     it('can render the notation as a string', () => {
         const six = factory(rounds(Stage.Cinques));
-        for (let i = 1; i <= 5; i = i + 1) {
+        for (let i = 1; i <= notationStringTests.length; i = i + 1) {
             expect(six.getNotationString(i)).toBe(notationStringTests[i - 1]);
         }
     });
@@ -119,7 +119,8 @@ export const testSixImplementation = (
             six.setCall(call);
             six.accept(visitor);
 
-            expect(visitor.strings[5]).toEqual(stringFromRow(expected));
+            const lastRow = visitor.strings[visitor.strings.length - 1];
+            expect(lastRow).toEqual(stringFromRow(expected));
         },
     ));
 
@@ -135,8 +136,8 @@ export const testSixImplementation = (
 
     it('generates the correct rows when visited', () => {
         for (const rowTest of rowTests) {
-            const expectedRows: any[] = rowTest.slice(0, 6);  // Six test rows
-            const initialRow = rounds(rowTest[6]);            // ... and stage
+            const initialRow = rounds(rowTest[0]);         // Stage
+            const expectedRows: any[] = rowTest.slice(1);  // ... and test rows
             const six = factory(initialRow);
             const visitor = new StringArray();
 
@@ -240,8 +241,8 @@ export const testSixImplementation = (
             const visitor = jasmine.createSpyObj('AbstractVisitor', ['visit']);
 
             six.accept(visitor);
-            expect(visitor.visit).toHaveBeenCalledTimes(6);
-            for (let i = 0; i < 6; i += 1) {
+            expect(visitor.visit).toHaveBeenCalledTimes(six.estimateRows());
+            for (let i = 0; i < six.estimateRows(); i += 1) {
                 expect(visitor.visit.calls.argsFor(i)[1]).toBe(six);
             }
         });

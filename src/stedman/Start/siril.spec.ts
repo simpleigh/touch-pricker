@@ -6,7 +6,7 @@
  */
 
 import { rounds, Stage } from '../../rows';
-import { AbstractMethod, Stedman, StedmanJump } from '../methods';
+import { AbstractMethod, Stedman, StedmanJump, Carter } from '../methods';
 import SixType from '../SixType';
 import SixTypeMap from '../SixTypeMap';
 import Start from '.';
@@ -52,29 +52,46 @@ describe('siril template for Start', () => {
             "'312547698E0'",
             '',
         ]],
+        [SixType.Four, [
+            '', // Aligns array indices with rowIndex
+            '+3.1.3',
+            '+1.3',
+            '+3',
+            '+',
+        ]],
+        [SixType.Eight, [
+            '', // Aligns array indices with rowIndex
+            '+1.3.5.3.5.3.1',
+            '+3.5.3.5.3.1',
+            '+5.3.5.3.1',
+            '+3.5.3.1',
+            '+5.3.1',
+            '+3.1',
+            '+1',
+            '+',
+        ]],
     ];
 
     const methodMap: SixTypeMap<new() => AbstractMethod> = {
-        [SixType.Slow]: Stedman,
+        [SixType.Slow]:  Stedman,
         [SixType.Quick]: Stedman,
-        [SixType.Cold]: StedmanJump,
-        [SixType.Hot]: StedmanJump,
+        [SixType.Cold]:  StedmanJump,
+        [SixType.Hot]:   StedmanJump,
+        [SixType.Four]:  Carter,
+        [SixType.Eight]: Carter,
     };
 
     for (const startPosition of startPositions) {
-        for (let rowIndex = 1; rowIndex <= 6; rowIndex = rowIndex + 1) {
-            const sixType = startPosition[0];
+        const sixType = startPosition[0];
+        const method = new methodMap[sixType]!();
+        const start = new Start(rounds(Stage.Cinques), undefined, method);
+        start.sixType = sixType;
+
+        for (let rowIndex = 1; rowIndex <= start.lastRowIndex; rowIndex += 1) {
             const expected = startPosition[1][rowIndex];
-            const method = methodMap[sixType]!;
 
             it(`prints correctly "${expected}"`, () => {
-                const start = new Start(
-                    rounds(Stage.Cinques),
-                    undefined,
-                    new method(),
-                );
                 start.rowIndex = rowIndex;
-                start.sixType = sixType;
                 expect(start.print('siril')).toBe(expected);
             });
         }

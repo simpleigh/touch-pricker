@@ -135,8 +135,9 @@ abstract class AbstractSix
 
     /**
      * Finishes transposing the end row depending upon the type of six
+     * Either provide an implementation for this or override `calculate`.
      */
-    protected abstract applySixTransposition(): void;
+    protected applySixTransposition(): void { /* NOOP */ }
 
 }
 

@@ -70,7 +70,7 @@ class Start extends AbstractBlock implements Templates.Interface {
         const row = this._initialRow.slice();
         this._rows = [];
 
-        if (this._rowIndex === 6) {
+        if (this._rowIndex === this.lastRowIndex) {
             this._lastRow = row;
             return;
         }
@@ -80,6 +80,8 @@ class Start extends AbstractBlock implements Templates.Interface {
                 Changes.permute1(row);
             } else if (notation === '3') {
                 Changes.permute3(row);
+            } else if (notation === '5') {
+                Changes.permute5(row);
             } else if (this._sixType === SixType.Cold) {
                 Changes.permuteUp(row);
             } else {  // this._sixType === SixType.Hot
@@ -134,7 +136,7 @@ class Start extends AbstractBlock implements Templates.Interface {
      * Provides write access to the row index
      */
     set rowIndex(rowIndex: number) {
-        if (rowIndex < 1 || rowIndex > 6) {
+        if (rowIndex < 1 || rowIndex > this.lastRowIndex) {
             throw new Error('Row index out of range');
         }
         this._rowIndex = rowIndex;
@@ -157,6 +159,10 @@ class Start extends AbstractBlock implements Templates.Interface {
         this._method.checkSixType(sixType);
         this._sixType = sixType;
 
+        if (this._rowIndex > this.lastRowIndex) {
+            this._rowIndex = this.lastRowIndex;
+        }
+
         this.calculate();
         this.notifyContainer();
     }
@@ -177,13 +183,15 @@ class Start extends AbstractBlock implements Templates.Interface {
 
         // tslint:disable:object-literal-sort-keys
         const rowIndexPatterns: { [key: string]: number } = {
-            'first':  1, '1st': 1, '1': 1,
-            'second': 2, '2nd': 2, '2': 2,
-            'third':  3, '3rd': 3, '3': 3,
-            'fourth': 4, '4th': 4, '4': 4,
-            'fifth':  5, '5th': 5, '5': 5,
-            'sixth':  6, '6th': 6, '6': 6,
-            'last': 6,
+            'first':   1, '1st': 1, '1': 1,
+            'second':  2, '2nd': 2, '2': 2,
+            'third':   3, '3rd': 3, '3': 3,
+            'fourth':  4, '4th': 4, '4': 4,
+            'fifth':   5, '5th': 5, '5': 5,
+            'sixth':   6, '6th': 6, '6': 6,
+            'seventh': 7, '7th': 7, '7': 7,
+            'eighth':   8, '8th': 8, '8': 8,
+            'last': 99,  // sentinel value; see below
         };
         // tslint:enable:object-literal-sort-keys
 
@@ -207,19 +215,32 @@ class Start extends AbstractBlock implements Templates.Interface {
             sixType = validTypes[0];
         }
 
-        if (rowIndex === null) {
-            throw new Error('Could not determine row index');
-        }
+        // n.b. set sixType first so we can calculate this.lastRowIndex
         if (sixType === null) {
             throw new Error('Could not determine six type');
         }
+        this.sixType = sixType;
 
-        this._rowIndex = rowIndex;
-        this._sixType = sixType;
+        if (rowIndex === null) {
+            throw new Error('Could not determine row index');
+        }
+        if (rowIndex === 99) {
+            rowIndex = this.lastRowIndex;
+        }
+        this.rowIndex = rowIndex;
+
         this.calculate();
         this.notifyContainer();
 
         return this;
+    }
+
+    /**
+     * Computes the maximum row index for the selected six type
+     */
+    get lastRowIndex(): number {
+        const six = new (constructorFromType(this._sixType))(this._initialRow);
+        return six.estimateRows();
     }
 
     /**
@@ -237,6 +258,8 @@ class Start extends AbstractBlock implements Templates.Interface {
         switch (this._sixType) {
             case SixType.Slow:
             case SixType.Quick:
+            case SixType.Four:
+            case SixType.Eight:
                 return '+' + this.notation.join('.');
 
             case SixType.Cold:

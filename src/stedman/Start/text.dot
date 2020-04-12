@@ -10,7 +10,10 @@
  * "Start from rounds as the fifth row of a quick six."
  */
 
-{{ var rowMap = ['', 'first', 'second', 'third', 'fourth', 'fifth', 'last']; }}
+{{
+	var rowMap = ['', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth'];
+	rowMap[context.object.lastRowIndex] = 'last';
+}}
 
 {{?
 	context.object.rowIndex === context.object.method.defaultStartRowIndex &&
@@ -25,12 +28,14 @@
 	 /* single space */
 	{{= rowMap[context.object.rowIndex] }}
 	 /* single space */
-	row of a
-	 /* single space */
+	row of a{{? context.object.sixType === 'eight' }}n{{?}}
 	{{? context.object.method.getSixTypes().length > 1 }}
-		{{= context.object.sixType }}
 		 /* single space */
+		{{= context.object.sixType }}
 	{{?}}
-	six.
-
+	{{? context.object.sixType !== 'four' && context.object.sixType !== 'eight' }}
+		 /* single space */
+		six
+	{{?}}
+	.
 {{?}}
