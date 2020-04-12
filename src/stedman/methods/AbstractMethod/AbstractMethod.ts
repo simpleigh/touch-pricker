@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { Row } from '../../../rows';
+import { Row, Stage } from '../../../rows';
 import * as Templates from '../../../templates';
 import Course from '../../Course';
 import { AbstractSix } from '../../sixes';
@@ -31,7 +31,9 @@ abstract class AbstractMethod implements Templates.Interface {
     /**
      * Returns the default length of new courses
      */
-    public abstract getCourseLength(initialRow: Row): number;
+    public getCourseLength(stage: Stage): number {
+        return stage * 2;
+    }
 
     /**
      * Creates a new six for use in a course

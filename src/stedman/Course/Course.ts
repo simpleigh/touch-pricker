@@ -51,10 +51,11 @@ class Course
     /* SerialContainer methods ************************************************/
 
     /**
-     * Returns the default length of new containers of this type
+     * Returns the default length for this container
+     * N.b. this is likely to vary depending on the stage
      */
-    protected getDefaultLength(initialRow: Row): number {
-        return this._method.getCourseLength(initialRow);
+    protected get defaultLength(): number {
+        return this._method.getCourseLength(this.stage);
     }
 
     /**

@@ -43,11 +43,7 @@
 	p
 {{?}}
 
-{{
-	var initialRow = context.object.initialRow;
-}}
-
-{{? context.object.length !== context.object.getDefaultLength(initialRow) }}
+{{? context.object.length !== context.object.defaultLength }}
 	 /* single space */
 	 /* single space */
 	({{= context.object.length }} leads)

@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { Row } from '../../rows';
+import { Row, Stage } from '../../rows';
 import Course from '../Course';
 import { AbstractSix, Slow } from '../sixes';
 import SixType from '../SixType';
@@ -25,8 +25,8 @@ class Erin extends AbstractMethod {
     /**
      * Returns the default length of new courses
      */
-    public getCourseLength(initialRow: Row): number {
-        return initialRow.length;
+    public getCourseLength(stage: Stage): number {
+        return stage;
     }
 
     /**

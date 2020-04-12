@@ -39,9 +39,10 @@ abstract class SerialContainer<Block extends AbstractBlock>
     }
 
     /**
-     * Returns the default length of new containers of this type
+     * Returns the default length for this container
+     * N.b. this is likely to vary depending on the stage
      */
-    protected abstract getDefaultLength(initialRow: Row): number;
+    protected abstract get defaultLength(): number;
 
     /**
      * Creates a new block for the container
@@ -76,7 +77,7 @@ abstract class SerialContainer<Block extends AbstractBlock>
      * Resets the course to be the default length
      */
     public resetLength(): this {
-        this.setLength(this.getDefaultLength(this._initialRow));
+        this.setLength(this.defaultLength);
         return this;
     }
 

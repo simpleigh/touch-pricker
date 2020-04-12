@@ -23,13 +23,6 @@ class StedmanJump extends AbstractMethod {
     public readonly name: string = 'Stedman Jump';
 
     /**
-     * Returns the default length of new courses
-     */
-    public getCourseLength(initialRow: Row): number {
-        return initialRow.length * 2;
-    }
-
-    /**
      * Creates a new six for use in a course
      * @param initialRow  initial row for the six
      * @param course      course that will own the six

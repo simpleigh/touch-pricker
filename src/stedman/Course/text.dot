@@ -43,12 +43,7 @@
 	p
 {{?}}
 
-{{
-	var method = context.object.method;
-	var initialRow = context.object.initialRow;
-}}
-
-{{? context.object.length !== method.getCourseLength(initialRow) }}
+{{? context.object.length !== context.object.defaultLength }}
 	 /* single space */
 	 /* single space */
 	({{= context.object.length }} sixes)

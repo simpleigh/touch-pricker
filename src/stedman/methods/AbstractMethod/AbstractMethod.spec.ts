@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { rounds, rowFromString, Stage } from '../../../rows';
+import { rowFromString, Stage } from '../../../rows';
 import Course from '../../Course';
 import SixType from '../../SixType';
 import AbstractMethod from './AbstractMethod';
@@ -41,8 +41,7 @@ export const testAbstractMethodImplementation = (
         const stage = testCase[0];
         const expected = testCase[1];
         it(`computes the correct length for a ${stage} course`, () => {
-            const row = rounds(stage);
-            expect(method.getCourseLength(row)).toBe(expected);
+            expect(method.getCourseLength(stage)).toBe(expected);
         });
     }
 
@@ -88,7 +87,7 @@ export const testAbstractMethodImplementation = (
     });
 
     it('can create a course worth of sixes correctly', () => {
-        const maxIndex = method.getCourseLength(initialRow);
+        const maxIndex = method.getCourseLength(initialRow.length);
         let type = testCourse.firstSixType;
 
         for (let index = 1; index <= maxIndex; index = index + 1) {
