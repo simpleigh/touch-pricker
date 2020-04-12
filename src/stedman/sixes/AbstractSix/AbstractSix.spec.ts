@@ -7,10 +7,11 @@
 
 import AbstractSix from '.';
 import { BlockOwnership } from '../../../blocks';
+import { Call } from '../../../leads';
 import {
     testAbstractLeadImplementation,
 } from '../../../leads/AbstractLead.spec';
-import { Call, rounds, Row, rowFromString, Stage } from '../../../rows';
+import { rounds, Row, rowFromString, Stage } from '../../../rows';
 import { StringArray } from '../../../visitors';
 import * as Changes from '../../changes';
 import Course from '../../Course';

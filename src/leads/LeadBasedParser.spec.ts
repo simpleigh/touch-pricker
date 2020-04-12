@@ -6,7 +6,8 @@
  */
 
 import { Course, Touch } from '../../tests/blocks';
-import { Call, rounds, Row, Stage } from '../rows';
+import { rounds, Row, Stage } from '../rows';
+import Call from './Call';
 import LeadBasedParser from './LeadBasedParser';
 
 class TestParser extends LeadBasedParser<Course, Touch> {

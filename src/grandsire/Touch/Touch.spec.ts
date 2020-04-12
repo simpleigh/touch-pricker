@@ -8,7 +8,8 @@
 import {
     testRandomAccessContainerImplementation,
 } from '../../blocks/RandomAccessContainer.spec';
-import { Call, rounds, Stage } from '../../rows';
+import { Call } from '../../leads';
+import { rounds, Stage } from '../../rows';
 import { StringArray } from '../../visitors';
 import Course from '../Course';
 import Lead from '../Lead';

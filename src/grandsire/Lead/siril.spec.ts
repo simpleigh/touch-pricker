@@ -5,7 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { Call, rounds, Stage } from '../../rows';
+import { Call } from '../../leads';
+import { rounds, Stage } from '../../rows';
 import Lead from './Lead';
 
 describe('siril template for Grandsire Lead', () => {

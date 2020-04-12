@@ -6,7 +6,8 @@
  */
 
 import { SerialContainer } from '../../blocks';
-import { Call, stringFromRow, Row } from '../../rows';
+import { Call } from '../../leads';
+import { stringFromRow, Row } from '../../rows';
 import * as Templates from '../../templates';
 import Lead from '../Lead';
 import Parser from '../Parser';

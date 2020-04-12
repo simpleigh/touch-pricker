@@ -5,7 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { Bell, Call, Row } from '../rows';
+import { Call } from '../leads';
+import { Bell, Row } from '../rows';
 
 /**
  * Simple functions to permute rows

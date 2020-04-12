@@ -5,12 +5,12 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { Call, Stage } from '../../rows';
+import { Call, LeadHeadTable } from '../../leads';
+import { Stage } from '../../rows';
 import { AbstractVisitor } from '../../visitors';
 import * as Changes from '../changes';
 import SixType from '../SixType';
 import AbstractSix from './AbstractSix';
-import { LeadHeadTable } from '../../leads';
 
 /**
  * A "cold" (jump up) six

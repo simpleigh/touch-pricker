@@ -6,5 +6,6 @@
  */
 
 export { default as AbstractLead } from './AbstractLead';
+export { default as Call } from './Call';
 export { default as LeadBasedParser } from './LeadBasedParser';
 export { default as LeadHeadTable } from './LeadHeadTable';

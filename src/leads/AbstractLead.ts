@@ -6,7 +6,8 @@
  */
 
 import { AbstractBlock, BlockOwnership } from '../blocks';
-import { Call, multiply, Row } from '../rows';
+import { multiply, Row } from '../rows';
+import Call from './Call';
 import LeadHeadTable from './LeadHeadTable';
 
 /**

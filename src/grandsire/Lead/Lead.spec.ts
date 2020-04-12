@@ -6,7 +6,8 @@
  */
 
 import { testAbstractLeadImplementation } from '../../leads/AbstractLead.spec';
-import { Call, rounds, Stage } from '../../rows';
+import { rounds, Stage } from '../../rows';
+import { Call } from '../../leads';
 import { StringArray } from '../../visitors';
 import Lead from '.';
 

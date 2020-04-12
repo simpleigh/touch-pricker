@@ -8,8 +8,8 @@
 // tslint:disable:max-classes-per-file
 
 import { RandomAccessContainer, SerialContainer } from '../src/blocks';
-import { AbstractLead, LeadHeadTable } from '../src/leads';
-import { Call, rounds, Row, Stage } from '../src/rows';
+import { AbstractLead, Call, LeadHeadTable } from '../src/leads';
+import { rounds, Row, Stage } from '../src/rows';
 
 export class Lead extends AbstractLead {
 

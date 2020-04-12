@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { AbstractLead, LeadHeadTable } from '../../leads';
-import { Call, Stage, symbolFromBell } from '../../rows';
+import { AbstractLead, Call, LeadHeadTable } from '../../leads';
+import { Stage, symbolFromBell } from '../../rows';
 import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
 import * as Changes from '../changes';

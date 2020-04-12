@@ -6,7 +6,8 @@
  */
 
 import { BlockDirectory } from '../../blocks';
-import { Call, rounds, Stage, stringFromRow } from '../../rows';
+import { Call } from '../../leads';
+import { rounds, Stage, stringFromRow } from '../../rows';
 import Course from '../Course';
 import Lead from '.';
 

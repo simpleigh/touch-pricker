@@ -5,7 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { Call, rounds, Row, Stage, stringFromRow } from '../rows';
+import { Call } from '../leads';
+import { rounds, Row, Stage, stringFromRow } from '../rows';
 import * as Changes from './changes';
 
 const createChangeTests = (

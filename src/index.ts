@@ -8,13 +8,15 @@
 import * as Blocks from './blocks';
 import create from './create';
 export * as Grandsire from './grandsire';
+import {
+    Call,
+} from './leads';
 import * as Music from './music';
 import Options from './Options';
 import Pricker from './Pricker';
 import {
     Bell,
     bellFromSymbol,
-    Call,
     Change,
     changeFromNotation,
     multiply,

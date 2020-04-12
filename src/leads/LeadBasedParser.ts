@@ -6,9 +6,10 @@
  */
 
 import { RandomAccessContainer, SerialContainer } from '../blocks';
-import { Call, Row } from '../rows';
+import { Row } from '../rows';
 import AbstractLead from './AbstractLead';
 import AbstractParser from './AbstractParser';
+import Call from './Call';
 
 /**
  * A parser that supports rows of courses with numbered calls

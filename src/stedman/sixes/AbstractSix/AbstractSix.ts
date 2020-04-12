@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { AbstractLead } from '../../../leads';
-import { Call, Row } from '../../../rows';
+import { AbstractLead, Call } from '../../../leads';
+import { Row } from '../../../rows';
 import * as Templates from '../../../templates';
 import * as Changes from '../../changes';
 import SixType from '../../SixType';

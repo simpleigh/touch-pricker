@@ -7,16 +7,10 @@
 
 import { BlockOwnership } from '../blocks';
 import { testAbstractBlockImplementation } from '../blocks/AbstractBlock.spec';
-import {
-    Call,
-    rounds,
-    Row,
-    rowFromString,
-    Stage,
-    stringFromRow,
-} from '../rows';
+import { rounds, Row, rowFromString, Stage, stringFromRow } from '../rows';
 import { StringArray } from '../visitors';
 import AbstractLead from './AbstractLead';
+import Call from './Call';
 
 /**
  * Tests that a lead behaves as an AbstractLead
