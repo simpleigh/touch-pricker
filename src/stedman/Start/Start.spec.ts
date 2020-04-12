@@ -1051,17 +1051,17 @@ describe('Start class', () => {
         },
     ));
 
+    it('computes the length correctly', runRowTestCases(
+        (fixture: Start, rows: string[]) => {
+            expect(fixture.rows).toBe(rows.length);
+        },
+    ));
+
     it('computes the rows correctly', runRowTestCases(
         (fixture: Start, rows: string[]) => {
             const visitor = new StringArray();
             fixture.accept(visitor);
             expect(visitor.strings).toEqual(rows);
-        },
-    ));
-
-    it('computes the length correctly', runRowTestCases(
-        (fixture: Start, rows: string[]) => {
-            expect(fixture.estimateRows()).toBe(rows.length);
         },
     ));
 

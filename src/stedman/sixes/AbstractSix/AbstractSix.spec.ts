@@ -241,8 +241,8 @@ export const testSixImplementation = (
             const visitor = jasmine.createSpyObj('AbstractVisitor', ['visit']);
 
             six.accept(visitor);
-            expect(visitor.visit).toHaveBeenCalledTimes(six.estimateRows());
-            for (let i = 0; i < six.estimateRows(); i += 1) {
+            expect(visitor.visit).toHaveBeenCalledTimes(six.rows);
+            for (let i = 0; i < six.rows; i += 1) {
                 expect(visitor.visit.calls.argsFor(i)[1]).toBe(six);
             }
         });

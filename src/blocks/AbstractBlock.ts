@@ -69,6 +69,12 @@ abstract class AbstractBlock {
     public abstract getLast(): Row;
 
     /**
+     * Number of rows in the block
+     * This doesn't take into account coming round part-way through
+     */
+    public abstract get rows(): number;
+
+    /**
      * Updates references to the parent container
      */
     set ownership(ownership: BlockOwnership) {
@@ -121,12 +127,6 @@ abstract class AbstractBlock {
             visitor.visit(row, this);
         }
     }
-
-    /**
-     * Estimates the number of rows in the block
-     * The estimate doesn't take into account coming round part-way through
-     */
-    public abstract estimateRows(): number;
 
 }
 

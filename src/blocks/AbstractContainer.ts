@@ -51,6 +51,14 @@ abstract class AbstractContainer<Block extends AbstractBlock>
     }
 
     /**
+     * Estimates the number of rows in the block
+     * The estimate doesn't take into account coming round part-way through
+     */
+    public get rows(): number {
+        return this._blocks.reduce((total, block) => total + block.rows, 0);
+    }
+
+    /**
      * Receives a visitor that will be called to process each row
      */
     public accept(...visitors: AbstractVisitor[]): this {
@@ -60,18 +68,6 @@ abstract class AbstractContainer<Block extends AbstractBlock>
             }
         }
         return this;
-    }
-
-    /**
-     * Estimates the number of rows in the block
-     * The estimate doesn't take into account coming round part-way through
-     */
-    public estimateRows(): number {
-        let rows = 0;
-        for (const block of this._blocks) {
-            rows += block.estimateRows();
-        }
-        return rows;
     }
 
     /* Notifiable methods *****************************************************/

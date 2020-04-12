@@ -44,5 +44,5 @@
 	>
 		{{= course.print('text') }}
 	</div>
-	{{ context.touchRows -= course.estimateRows(); }}
+	{{ context.touchRows -= course.rows; }}
 {{~}}

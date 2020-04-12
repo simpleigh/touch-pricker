@@ -106,6 +106,22 @@ export const testSerialContainerImplementation = (
             expect(() => container.setLength(-1)).toThrow();
         });
 
+        it('provides access to the number of rows', () => {
+            for (const testCase of lengthTestCases) {
+                container = factory(rounds(testCase[0]));
+                container.resetLength();
+                expect(container.rows).toBe(testCase[1]);
+            }
+        });
+
+        it('updates the number of rows on length change', () => {
+            const originalRows = container.rows;
+            container.setLength(expectedLength + 1);
+            expect(container.rows).toBeGreaterThan(originalRows);
+            container.setLength(expectedLength - 1);
+            expect(container.rows).toBeLessThan(originalRows);
+        });
+
         it('notifies the parent container for length increase', () => {
             const parent: AbstractContainer<TestContainer> =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
@@ -147,22 +163,6 @@ export const testSerialContainerImplementation = (
             expect(parent.notify).toHaveBeenCalled();
             expect(parent.notify).toHaveBeenCalledWith(999);
             expect(parent.notify).toHaveBeenCalledTimes(1);
-        });
-
-        it('estimates the number of rows correctly', () => {
-            for (const testCase of lengthTestCases) {
-                container = factory(rounds(testCase[0]));
-                container.resetLength();
-                expect(container.estimateRows()).toBe(testCase[1]);
-            }
-        });
-
-        it('updates the estimate of rows on length change', () => {
-            const originalRows = container.estimateRows();
-            container.setLength(expectedLength + 1);
-            expect(container.estimateRows()).toBeGreaterThan(originalRows);
-            container.setLength(expectedLength - 1);
-            expect(container.estimateRows()).toBeLessThan(originalRows);
         });
 
     });

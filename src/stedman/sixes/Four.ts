@@ -38,6 +38,12 @@ class Four extends AbstractSix {
     }
 
     /**
+     * Number of rows in the block
+     * This doesn't take into account coming round part-way through
+     */
+    public readonly rows: number = 4;
+
+    /**
      * Receives a visitor that will be called to process each row
      */
     public accept(...visitors: AbstractVisitor[]): this {
@@ -55,14 +61,6 @@ class Four extends AbstractSix {
         this.visitAll(visitors, this._end);
 
         return this;
-    }
-
-    /**
-     * Estimates the number of rows in the block
-     * The estimate doesn't take into account coming round part-way through
-     */
-    public estimateRows(): number {
-        return 4;
     }
 
     /* Four methods ***********************************************************/

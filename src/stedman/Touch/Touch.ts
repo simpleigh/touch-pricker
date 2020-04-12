@@ -73,6 +73,15 @@ class Touch
     }
 
     /**
+     * Number of rows in the block
+     * This doesn't take into account coming round part-way through
+     */
+    public get rows(): number {
+        return this._start.rows +
+            this._blocks.reduce((total, block) => total + block.rows, 0);
+    }
+
+    /**
      * Receives a visitor that will be called to process each row
      */
     public accept(...visitors: AbstractVisitor[]): this {
@@ -81,14 +90,6 @@ class Touch
         }
 
         return super.accept(...visitors);
-    }
-
-    /**
-     * Estimates the number of rows in the block
-     * The estimate doesn't take into account coming round part-way through
-     */
-    public estimateRows(): number {
-        return this._start.estimateRows() + super.estimateRows();
     }
 
     /* templating *************************************************************/

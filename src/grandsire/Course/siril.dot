@@ -17,7 +17,7 @@
 {{~ context.object.blocks :lead }}
 	{{= lead.print('siril', { touchRows: context.touchRows }) }}
 
-	{{ context.touchRows -= lead.estimateRows(); }}
+	{{ context.touchRows -= lead.rows; }}
 	{{? context.touchRows <= 0 }}
 		{{ break; }}
 	{{?}}

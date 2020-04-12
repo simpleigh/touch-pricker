@@ -233,7 +233,7 @@ class MbdPricker extends AbstractPricker implements Notifiable {
         this.getEl('proofResult').innerText = this._proofText || '';
         this.getEl('numRows').innerText = this._rowCount
             ? `${this._rowCount} ${this._method.name} ${Stage[this._stage]}`
-            : `${this._touch.estimateRows()} changes`;
+            : `${this._touch.rows} changes`;
 
         this.getEl<HTMLSelectElement>('sixType').value =
             this._touch.start.sixType.toString();

@@ -19,7 +19,7 @@ export class Lead extends AbstractBlock {
     protected calculate(): void { /* NOOP */ }
     public getLast(): Row { return this.initialRow; }
     public accept(): this { return this; }
-    public estimateRows(): number { return 0; }
+    public readonly rows: number = 0;
     public setCall(call: Call): Lead { this._call = call; return this; }
     public getCall(): Call { return this._call; }
 }

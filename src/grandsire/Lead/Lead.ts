@@ -75,6 +75,14 @@ class Lead extends AbstractBlock implements Templates.Interface {
     }
 
     /**
+     * Number of rows in the block
+     * This doesn't take into account coming round part-way through
+     */
+    public get rows(): number {
+        return this._initialRow.length * 2;
+    }
+
+    /**
      * Receives a visitor that will be called to process each row
      */
     public accept(...visitors: AbstractVisitor[]): this {
@@ -110,14 +118,6 @@ class Lead extends AbstractBlock implements Templates.Interface {
         this.visitAll(visitors, row);
 
         return this;
-    }
-
-    /**
-     * Estimates the number of rows in the block
-     * The estimate doesn't take into account coming round part-way through
-     */
-    public estimateRows(): number {
-        return this._initialRow.length * 2;
     }
 
     /* Lead methods ***********************************************************/

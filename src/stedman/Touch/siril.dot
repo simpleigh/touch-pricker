@@ -16,7 +16,7 @@
 		roundsString = context.stringFromRow(rounds);
 
 	context.touchRows = context.touchRows || Infinity;
-	context.touchRows -= context.object.start.estimateRows();
+	context.touchRows -= context.object.start.rows;
 }}
 
 /* Header */
@@ -58,7 +58,7 @@ strt = {{= context.object.start.print('siril') }}{{= '\n' }}
 	{{= course.print('siril', { touchRows: context.touchRows }) }}
 	{{ courseNames.push('course' + (index + 1)); }}
 
-	{{ context.touchRows -= course.estimateRows(); }}
+	{{ context.touchRows -= course.rows; }}
 	{{? context.touchRows <= 0 }}
 		{{ break; }}
 	{{?}}

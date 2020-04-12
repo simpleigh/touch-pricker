@@ -15,7 +15,7 @@
 	context.touchRows = context.touchRows || Infinity;
 }}
 
-{{? context.touchRows >= context.object.estimateRows() }}
+{{? context.touchRows >= context.object.rows }}
 	{{? context.object.call === context.Call.Plain }}
 		plain
 	{{?? context.object.call === context.Call.Bob }}

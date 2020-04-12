@@ -90,6 +90,10 @@ describe('Stedman Touch class', () => {
         expect(touch.start.method).toBe(method);
     });
 
+    it('includes the start in the number of rows', () => {
+        expect(touch.rows).toBe(touch.start.rows);
+    });
+
     it('includes the start when visiting rows', () => {
         const startVisitor = new StringArray();
         const touchVisitor = new StringArray();
@@ -117,10 +121,6 @@ describe('Stedman Touch class', () => {
         touch.accept(touchVisitor);
 
         expect(touchVisitor.strings).toEqual(blockVisitor.strings);
-    });
-
-    it('includes the start in the estimate of rows', () => {
-        expect(touch.estimateRows()).toBe(touch.start.estimateRows());
     });
 
     it('propagates the initialRow for the first block', () => {

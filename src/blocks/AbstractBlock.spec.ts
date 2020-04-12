@@ -99,6 +99,10 @@ export const testAbstractBlockImplementation = (
             expect(block.getLast()).toEqual(expected);
         });
 
+        it('provides access to the number of rows', () => {
+            expect(block.rows).toBe(expectedRows);
+        });
+
         it('notifies the parent container', () => {
             const container: AbstractContainer<AbstractBlock> =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
@@ -181,10 +185,6 @@ export const testAbstractBlockImplementation = (
             expect(visitor1.count).toBeGreaterThan(0);
             expect(visitor2.count).toBeGreaterThan(0);
             expect(visitor1.count).toEqual(visitor2.count);
-        });
-
-        it('estimates the number of rows correctly', () => {
-            expect(block.estimateRows()).toBe(expectedRows);
         });
 
     });

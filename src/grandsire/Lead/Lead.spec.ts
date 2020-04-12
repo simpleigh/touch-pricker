@@ -76,6 +76,24 @@ describe('Grandsire Lead class', () => {
         },
     ));
 
+    const lengthTestCases: [Stage, number][] = [
+        [Stage.Doubles,   10],
+        [Stage.Triples,   14],
+        [Stage.Caters,    18],
+        [Stage.Cinques,   22],
+        [Stage.Sextuples, 26],
+        [Stage.Septuples, 30],
+    ];
+
+    it('provides access to the number of rows', () => {
+        for (const testCase of lengthTestCases) {
+            const stage = testCase[0];
+            const expected = testCase[1];
+            const lead = new Lead(rounds(stage));
+            expect(lead.rows).toBe(expected);
+        }
+    });
+
     it('generates the correct last row when visited', runTestCases(
         (stage, call, expected) => {
             const lead = new Lead(rounds(stage));
@@ -286,24 +304,6 @@ describe('Grandsire Lead class', () => {
 
         expect(lead.initialRow).toEqual(initialRowBackup);
         expect(lead.call).toEqual(callBackup);
-    });
-
-    const lengthTestCases: [Stage, number][] = [
-        [Stage.Doubles,   10],
-        [Stage.Triples,   14],
-        [Stage.Caters,    18],
-        [Stage.Cinques,   22],
-        [Stage.Sextuples, 26],
-        [Stage.Septuples, 30],
-    ];
-
-    it('estimates the number of rows correctly', () => {
-        for (const testCase of lengthTestCases) {
-            const stage = testCase[0];
-            const expected = testCase[1];
-            const lead = new Lead(rounds(stage));
-            expect(lead.estimateRows()).toBe(expected);
-        }
     });
 
     // tslint:disable:max-line-length

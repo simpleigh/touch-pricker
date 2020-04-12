@@ -50,7 +50,7 @@ single = +{{= context.object.callNotations[context.Call.Single].join('.')}}{{= '
 	{{= course.print('siril', { touchRows: context.touchRows }) }}
 	{{ courseNames.push('course' + (index + 1)); }}
 
-	{{ context.touchRows -= course.estimateRows(); }}
+	{{ context.touchRows -= course.rows; }}
 	{{? context.touchRows <= 0 }}
 		{{ break; }}
 	{{?}}

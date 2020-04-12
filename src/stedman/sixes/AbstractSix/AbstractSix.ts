@@ -72,12 +72,10 @@ abstract class AbstractSix
     }
 
     /**
-     * Estimates the number of rows in the block
-     * The estimate doesn't take into account coming round part-way through
+     * Number of rows in the block
+     * This doesn't take into account coming round part-way through
      */
-    public estimateRows(): number {
-        return 6;
-    }
+    public readonly rows: number = 6;
 
     /* AbstractSix methods ****************************************************/
 
