@@ -5,10 +5,12 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+import { Call, Stage } from '../../rows';
 import { AbstractVisitor } from '../../visitors';
 import * as Changes from '../changes';
 import SixType from '../SixType';
 import AbstractSix from './AbstractSix';
+import LeadHeadTable from './LeadHeadTable';
 
 /**
  * A "Hot" (jump down) six
@@ -68,10 +70,34 @@ class Hot extends AbstractSix {
     }
 
     /**
-     * Transposes the front three bells depending upon the type of six
+     * Returns a table of lead heads from rounds for each stage and call
      */
-    protected applySixTransposition(): void {
-        Changes.permuteUp(this._end);
+    protected get leadHeadTable(): LeadHeadTable {
+        // tslint:disable max-line-length
+        return {
+            [Call.Plain]: {
+                [Stage.Triples]:   [1, 4, 2, 6, 3, 7, 5],
+                [Stage.Caters]:    [1, 4, 2, 6, 3, 8, 5, 9, 7],
+                [Stage.Cinques]:   [1, 4, 2, 6, 3, 8, 5, 10, 7, 11, 9],
+                [Stage.Sextuples]: [1, 4, 2, 6, 3, 8, 5, 10, 7, 12, 9, 13, 11],
+                [Stage.Septuples]: [1, 4, 2, 6, 3, 8, 5, 10, 7, 12, 9, 14, 11, 15, 13],
+            },
+            [Call.Bob]: {
+                [Stage.Triples]:   [1, 4, 2, 5, 3, 6, 7],
+                [Stage.Caters]:    [1, 4, 2, 6, 3, 7, 5, 8, 9],
+                [Stage.Cinques]:   [1, 4, 2, 6, 3, 8, 5, 9, 7, 10, 11],
+                [Stage.Sextuples]: [1, 4, 2, 6, 3, 8, 5, 10, 7, 11, 9, 12, 13],
+                [Stage.Septuples]: [1, 4, 2, 6, 3, 8, 5, 10, 7, 12, 9, 13, 11, 14, 15],
+            },
+            [Call.Single]: {
+                [Stage.Triples]:   [1, 4, 2, 5, 3, 7, 6],
+                [Stage.Caters]:    [1, 4, 2, 6, 3, 7, 5, 9, 8],
+                [Stage.Cinques]:   [1, 4, 2, 6, 3, 8, 5, 9, 7, 11, 10],
+                [Stage.Sextuples]: [1, 4, 2, 6, 3, 8, 5, 10, 7, 11, 9, 13, 12],
+                [Stage.Septuples]: [1, 4, 2, 6, 3, 8, 5, 10, 7, 12, 9, 13, 11, 15, 14],
+            },
+        };
+        // tslint:enable max-line-length
     }
 
 }

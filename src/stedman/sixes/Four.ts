@@ -5,11 +5,12 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { Call, multiply, Row } from '../../rows';
+import { Call, Stage } from '../../rows';
 import { AbstractVisitor } from '../../visitors';
 import * as Changes from '../changes';
 import SixType from '../SixType';
 import AbstractSix from './AbstractSix';
+import LeadHeadTable from './LeadHeadTable';
 
 /**
  * A "four" six for Carter's
@@ -27,16 +28,6 @@ class Four extends AbstractSix {
     public readonly notation: string[] = ['3', '1', '3'];
 
     /* AbstractBlock methods **************************************************/
-
-    /**
-     * Does any calculation needed by the block
-     */
-    protected calculate(): void {
-        this._end = multiply(
-            this._initialRow,
-            this.leadHeads[this._call][this.stage],
-        );
-    }
 
     /**
      * Number of rows in the block
@@ -64,36 +55,38 @@ class Four extends AbstractSix {
         return this;
     }
 
-    /* Four methods ***********************************************************/
+    /* AbstractSix methods ****************************************************/
 
     /**
-     * First lead heads for each stage and call
+     * Returns a table of lead heads from rounds for each stage and call
      */
-    private get leadHeads(): { [call: number]: { [stage: number]: Row } } {
+    protected get leadHeadTable(): LeadHeadTable {
+        // tslint:disable max-line-length
         return {
             [Call.Plain]: {
-                7: [4, 1, 2, 6, 3, 7, 5],
-                9: [4, 1, 2, 6, 3, 8, 5, 9, 7],
-                11: [4, 1, 2, 6, 3, 8, 5, 10, 7, 11, 9],
-                13: [4, 1, 2, 6, 3, 8, 5, 10, 7, 12, 9, 13, 11],
-                15: [4, 1, 2, 6, 3, 8, 5, 10, 7, 12, 9, 14, 11, 15, 13],
+                [Stage.Triples]:   [4, 1, 2, 6, 3, 7, 5],
+                [Stage.Caters]:    [4, 1, 2, 6, 3, 8, 5, 9, 7],
+                [Stage.Cinques]:   [4, 1, 2, 6, 3, 8, 5, 10, 7, 11, 9],
+                [Stage.Sextuples]: [4, 1, 2, 6, 3, 8, 5, 10, 7, 12, 9, 13, 11],
+                [Stage.Septuples]: [4, 1, 2, 6, 3, 8, 5, 10, 7, 12, 9, 14, 11, 15, 13],
             },
             [Call.Bob]: {
-                7: [4, 1, 2, 5, 3, 6, 7],
-                9: [4, 1, 2, 6, 3, 7, 5, 8, 9],
-                11: [4, 1, 2, 6, 3, 8, 5, 9, 7, 10, 11],
-                13: [4, 1, 2, 6, 3, 8, 5, 10, 7, 11, 9, 12, 13],
-                15: [4, 1, 2, 6, 3, 8, 5, 10, 7, 12, 9, 13, 11, 14, 15],
+                [Stage.Triples]:   [4, 1, 2, 5, 3, 6, 7],
+                [Stage.Caters]:    [4, 1, 2, 6, 3, 7, 5, 8, 9],
+                [Stage.Cinques]:   [4, 1, 2, 6, 3, 8, 5, 9, 7, 10, 11],
+                [Stage.Sextuples]: [4, 1, 2, 6, 3, 8, 5, 10, 7, 11, 9, 12, 13],
+                [Stage.Septuples]: [4, 1, 2, 6, 3, 8, 5, 10, 7, 12, 9, 13, 11, 14, 15],
             },
             [Call.Single]: {
-                7: [4, 1, 2, 5, 3, 7, 6],
-                9: [4, 1, 2, 6, 3, 7, 5, 9, 8],
-                11: [4, 1, 2, 6, 3, 8, 5, 9, 7, 11, 10],
-                13: [4, 1, 2, 6, 3, 8, 5, 10, 7, 11, 9, 13, 12],
-                15: [4, 1, 2, 6, 3, 8, 5, 10, 7, 12, 9, 13, 11, 15, 14],
+                [Stage.Triples]:   [4, 1, 2, 5, 3, 7, 6],
+                [Stage.Caters]:    [4, 1, 2, 6, 3, 7, 5, 9, 8],
+                [Stage.Cinques]:   [4, 1, 2, 6, 3, 8, 5, 9, 7, 11, 10],
+                [Stage.Sextuples]: [4, 1, 2, 6, 3, 8, 5, 10, 7, 11, 9, 13, 12],
+                [Stage.Septuples]: [4, 1, 2, 6, 3, 8, 5, 10, 7, 12, 9, 13, 11, 15, 14],
             },
         };
-    };
+        // tslint:enable max-line-length
+    }
 
 }
 

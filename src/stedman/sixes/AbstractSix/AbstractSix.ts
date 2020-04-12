@@ -6,10 +6,11 @@
  */
 
 import { AbstractBlock, BlockOwnership } from '../../../blocks';
-import { Call, Row } from '../../../rows';
+import { Call, multiply, Row } from '../../../rows';
 import * as Templates from '../../../templates';
 import * as Changes from '../../changes';
 import SixType from '../../SixType';
+import LeadHeadTable from '../LeadHeadTable';
 import mbd from './mbd.dot';
 import siril from './siril.dot';
 
@@ -59,9 +60,12 @@ abstract class AbstractSix
      * Does any calculation needed by the block
      */
     protected calculate(): void {
-        this._end = this._initialRow.slice();  // Create new array
-        Changes.permuteCall(this._end, this._call);
-        this.applySixTransposition();
+        const leadHead = this.leadHeadTable[this._call][this.stage];
+        if (!leadHead) {
+            throw new Error(`Cannot find lead head for stage '${this.stage}'`);
+        }
+
+        this._end = multiply(this._initialRow, leadHead);
     }
 
     /**
@@ -132,10 +136,9 @@ abstract class AbstractSix
     }
 
     /**
-     * Finishes transposing the end row depending upon the type of six
-     * Either provide an implementation for this or override `calculate`.
+     * Returns a table of lead heads from rounds for each stage and call
      */
-    protected applySixTransposition(): void { /* NOOP */ }
+    protected abstract get leadHeadTable(): LeadHeadTable;
 
 }
 

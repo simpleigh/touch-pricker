@@ -78,6 +78,11 @@ export const testSixImplementation = (
         },
     ));
 
+    it('throws an exception if used for an unexpected stage', () => {
+        expect(() => factory(rounds(Stage.Minimus)))
+            .toThrowError("Cannot find lead head for stage '4'");
+    });
+
     it('updates when the initial row changes', runTestCases(
         (previous, expected, stage, call) => {
             const incorrectPrevious = rounds(stage);
