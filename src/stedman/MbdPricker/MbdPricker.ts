@@ -166,6 +166,13 @@ class MbdPricker extends AbstractPricker implements Notifiable {
         this.getEl<HTMLSelectElement>('sixType').innerHTML =
             this._method.print('select');
 
+        // UI doesn't properly support starts for Carter
+        if (this._method.name === 'Carter') {
+            hide(this.getEl('showAdvancedOptionsDiv'));
+        } else {
+            show(this.getEl('showAdvancedOptionsDiv'));
+        }
+
         // Call notify() to clear out state from the previous touch
         this.notify(Block.Touch); // calls redraw()
         this.redrawTouch();
