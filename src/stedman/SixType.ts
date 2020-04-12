@@ -14,6 +14,8 @@ const enum SixType {
     Quick = 'quick',
     Cold = 'cold',
     Hot = 'hot',
+    Four = 'four',
+    Eight = 'eight',
     Invalid = 'invalid',
 }
 

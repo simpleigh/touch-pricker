@@ -15,6 +15,7 @@ import * as Visitors from '../../visitors';
 import Course from '../Course';
 import {
     AbstractMethod,
+    Carter,
     Erin,
     Stedman,
     StedmanJump,
@@ -265,6 +266,7 @@ class MbdPricker extends AbstractPricker implements Notifiable {
     public onMethod(): void {
         const method = this.getEl<HTMLSelectElement>('method').value;
         const methodMap: { [method: string]: AbstractMethod } = {
+            carter: new Carter(),
             erin: new Erin(),
             jump: new StedmanJump(),
             stedman: new Stedman(),

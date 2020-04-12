@@ -7,7 +7,7 @@
 
 import { BlockOwnership } from '../blocks';
 import { Row } from '../rows';
-import { AbstractSix, Cold, Hot, Quick, Slow } from './sixes';
+import { AbstractSix, Cold, Four, Eight, Hot, Quick, Slow } from './sixes';
 import SixType from './SixType';
 import SixTypeMap from './SixTypeMap';
 
@@ -25,6 +25,8 @@ const constructorFromType = (type: SixType): SixConstructor => {
         [SixType.Quick]: Quick,
         [SixType.Cold]: Cold,
         [SixType.Hot]: Hot,
+        [SixType.Four]: Four,
+        [SixType.Eight]: Eight,
     };
     const constructor = constructors[type];
 

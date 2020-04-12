@@ -64,6 +64,7 @@
         <select id="method" onchange="pricker.onMethod()">
           <option selected value="stedman">Stedman</option>
           <option value="erin">Erin</option>
+          <option value="carter">Carter</option>
           <option value="jump">Stedman Jump</option>
         </select>
       </div>

@@ -135,11 +135,19 @@
 }
 
 [class*="cold call"] {
-    background-color: #e2f0f0;
+    background-color: #f8f0f0;
 }
 
 [class*="hot call"] {
     background-color: #f0e2e2;
+}
+
+[class*="four call"] {
+    background-color: #f0f8f0;
+}
+
+[class*="eight call"] {
+    background-color: #e2f0e2;
 }
 
 .extraSix {
