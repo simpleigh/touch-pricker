@@ -59,7 +59,7 @@ abstract class SerialContainer<Block extends AbstractBlock>
      */
     public setLength(length: number): this {
         if (length < 0) {
-            throw new Error('Length must be > 0');
+            throw new Error(`Length must be > 0 (was '${length}')`);
         }
 
         if (length > this.length) {

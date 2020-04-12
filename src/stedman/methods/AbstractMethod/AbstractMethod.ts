@@ -64,7 +64,7 @@ abstract class AbstractMethod implements Templates.Interface {
      */
     public checkSixType(sixType: SixType): void {
         if (!this.sixTypeProgression[sixType]) {
-            throw new Error(`"${sixType}" sixes not allowed for this method`);
+            throw new Error(`'${sixType}' blocks not allowed for this method`);
         }
     }
 

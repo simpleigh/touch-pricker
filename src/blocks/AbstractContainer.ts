@@ -121,7 +121,7 @@ abstract class AbstractContainer<Block extends AbstractBlock>
      */
     public getBlock(index: number): Block {
         if (index < 1 || index > this.length) {
-            throw new Error('Block index out of range');
+            throw new Error(`Block index '${index}' out of range`);
         }
         return this._blocks[index - 1];
     }

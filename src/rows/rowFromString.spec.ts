@@ -45,27 +45,23 @@ describe('rowFromString function', () => {
     });
 
     it('rejects repeated bells', () => {
-        expect(() => {
-            rowFromString('1123', Stage.Minimus);
-        }).toThrowError('Bell repeated');
+        expect(() => rowFromString('1123', Stage.Minimus))
+            .toThrowError("Row '1123' has bell '1' repeated");
     });
 
     it('rejects unknown symbols', () => {
-        expect(() => {
-            rowFromString('123#', Stage.Minimus);
-        }).toThrowError('Unknown bell');
+        expect(() => rowFromString('123#', Stage.Minimus))
+            .toThrowError("Row '123#' has unknown bell '#'");
     });
 
     it('rejects bells that are too high', () => {
-        expect(() => {
-            rowFromString('1236', Stage.Minimus);
-        }).toThrowError('Unknown bell');
+        expect(() => rowFromString('1236', Stage.Minimus))
+            .toThrowError("Row '1236' bell '6' exceeds stage '4'");
     });
 
     it('rejects rows that are too long', () => {
-        expect(() => {
-            rowFromString('12345', Stage.Minimus);
-        }).toThrowError('Row too long');
+        expect(() => rowFromString('12345', Stage.Minimus))
+            .toThrowError("Row '12345' exceeds stage '4'");
     });
 
     // tslint:disable:max-line-length
@@ -90,7 +86,7 @@ describe('rowFromString function', () => {
         const stage = testCase[0];
         const expected = testCase[1];
 
-        it(`fills in bells taht aren't specified on ${stage}`, () => {
+        it(`fills in bells that aren't specified on ${stage}`, () => {
             expect(rowFromString('3', stage)).toEqual(expected);
         });
     }

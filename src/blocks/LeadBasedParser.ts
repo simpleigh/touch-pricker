@@ -79,7 +79,7 @@ abstract class LeadBasedParser<
         const matches = new RegExp(line, 'i').exec(input);
 
         if (!matches) {
-            throw new Error('Cannot import course');
+            throw new Error(`Cannot import course from line '${input}'`);
         }
 
         const course = this.createCourse(initialRow);

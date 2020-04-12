@@ -162,7 +162,8 @@ describe('Stedman Course class', () => {
     });
 
     it('throws an exception if the six type is invalid', () => {
-        expect(() => course.setFirstSixType(SixType.Invalid)).toThrow();
+        expect(() => course.setFirstSixType(SixType.Invalid))
+            .toThrowError("'invalid' blocks not allowed for this method");
     });
 
     it('checks the six type is valid for the chosen method', () => {

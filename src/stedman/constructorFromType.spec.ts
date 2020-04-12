@@ -28,7 +28,8 @@ describe('constructorFromType function', () => {
     testCreation(SixType.Eight);
 
     it('throws for invalid six types', () => {
-        expect(() => constructorFromType(SixType.Invalid)).toThrow();
+        expect(() => constructorFromType(SixType.Invalid))
+            .toThrowError("Cannot find six constructor for 'invalid'");
     });
 
 });

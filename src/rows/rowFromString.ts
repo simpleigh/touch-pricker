@@ -5,6 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+import Bell from './Bell';
 import bellFromSymbol from './bellFromSymbol';
 import Row from './Row';
 import Stage from './Stage';
@@ -30,7 +31,7 @@ const rowFromString = (input: string, stage: Stage): Row => {
     input = input.toUpperCase();
 
     if (input.length > stage) {
-        throw new Error('Row too long');
+        throw new Error(`Row '${input}' exceeds stage '${stage}'`);
     }
 
     // Build a table to record when we've seen each bell
@@ -47,14 +48,25 @@ const rowFromString = (input: string, stage: Stage): Row => {
         inputIndex < input.length && inputIndex < stage;
         inputIndex += 1
     ) {
-        const bellNumber = bellFromSymbol(input.charAt(inputIndex));
+        let bellNumber: Bell;
+
+        // Catch errors parsing the bell number and add the input to the message
+        try {
+            bellNumber = bellFromSymbol(input.charAt(inputIndex));
+        } catch (err) {
+            (err as Error).message =
+                `Row '${input}' has unknown bell '${input.charAt(inputIndex)}'`;
+            throw err;
+        }
 
         if (bellNumber > stage) {
-            throw new Error('Unknown bell');
+            throw new Error(
+                `Row '${input}' bell '${bellNumber}' exceeds stage '${stage}'`
+            );
         }
 
         if (bellsSeen[bellNumber]) {
-            throw new Error('Bell repeated');
+            throw new Error(`Row '${input}' has bell '${bellNumber}' repeated`);
         }
 
         output.push(bellNumber);

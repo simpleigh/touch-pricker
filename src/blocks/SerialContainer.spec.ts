@@ -103,7 +103,8 @@ export const testSerialContainerImplementation = (
         });
 
         it('throws an exception when setting invalid lengths', () => {
-            expect(() => container.setLength(-1)).toThrow();
+            expect(() => container.setLength(-1))
+                .toThrowError("Length must be > 0 (was '-1')");
         });
 
         it('provides access to the number of rows', () => {

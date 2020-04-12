@@ -59,7 +59,8 @@ describe('AbstractParser class', () => {
     });
 
     it('throws if the stage cannot be recognised', () => {
-        expect(() => testParse(['1'])).toThrowError('Cannot recognise stage');
+        expect(() => testParse(['1']))
+            .toThrowError("Cannot recognise stage from line '1'");
     });
 
     it('calls `parseLine` to process additional lines', () => {

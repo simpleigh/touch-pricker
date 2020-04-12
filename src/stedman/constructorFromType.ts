@@ -31,7 +31,7 @@ const constructorFromType = (type: SixType): SixConstructor => {
     const constructor = constructors[type];
 
     if (!constructor) {
-        throw new Error(`Cannot find six constructor for ${type}`);
+        throw new Error(`Cannot find six constructor for '${type}'`);
     }
 
     return constructor;

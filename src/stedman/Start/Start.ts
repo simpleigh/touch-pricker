@@ -159,7 +159,7 @@ class Start extends AbstractBlock implements Templates.Interface {
      */
     set rowIndex(rowIndex: number) {
         if (rowIndex < 1 || rowIndex > this.lastRowIndex) {
-            throw new Error('Row index out of range');
+            throw new Error(`Row index '${rowIndex}' out of range`);
         }
         this._rowIndex = rowIndex;
 
@@ -217,12 +217,12 @@ class Start extends AbstractBlock implements Templates.Interface {
 
         // n.b. set sixType first so we can calculate this.lastRowIndex
         if (sixType === null) {
-            throw new Error('Could not determine six type');
+            throw new Error(`Start '${input}' missing type of block`);
         }
         this.sixType = sixType;
 
         if (rowIndex === null) {
-            throw new Error('Could not determine row index');
+            throw new Error(`Start '${input}' missing row index`);
         }
         if (rowIndex === 99) {
             rowIndex = this.lastRowIndex;

@@ -28,13 +28,13 @@ const BELL_SYMBOLS_MAP: { [index: string]: number } = {
  * ```
  */
 const bellFromSymbol = (input: string): Bell => {
-    input = input.toUpperCase();
+    const upper = input.toUpperCase();
 
-    if (!BELL_SYMBOLS_MAP[input]) {
-        throw new Error('Unknown bell');
+    if (!BELL_SYMBOLS_MAP[upper]) {
+        throw new Error(`Unknown bell '${input}'`);
     }
 
-    return BELL_SYMBOLS_MAP[input];
+    return BELL_SYMBOLS_MAP[upper];
 };
 
 export default bellFromSymbol;
