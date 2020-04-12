@@ -27,6 +27,6 @@ describe('Stedman Jump method', () => {
             [SixType.Cold, SixType.Hot],
             [SixType.Hot, SixType.Cold],
         ],
-        [SixType.Cold, 6, SixType.Hot],
+        [SixType.Cold, SixType.Hot, 6],
     );
 });

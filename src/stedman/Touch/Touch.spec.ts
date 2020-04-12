@@ -59,20 +59,20 @@ describe('Stedman Touch class', () => {
 
     it('allows access to the start for Stedman', () => {
         touch = new Touch(testRow, undefined, new Stedman());
-        expect(touch.start.rowIndex).toBe(4);
         expect(touch.start.sixType).toBe(SixType.Quick);
+        expect(touch.start.rowIndex).toBe(4);
     });
 
     it('allows access to the start for Erin', () => {
         touch = new Touch(testRow, undefined, new Erin());
-        expect(touch.start.rowIndex).toBe(6);
         expect(touch.start.sixType).toBe(SixType.Slow);
+        expect(touch.start.rowIndex).toBe(6);
     });
 
     it('allows access to the start for Stedman Jump', () => {
         touch = new Touch(testRow, undefined, new StedmanJump());
-        expect(touch.start.rowIndex).toBe(6);
         expect(touch.start.sixType).toBe(SixType.Hot);
+        expect(touch.start.rowIndex).toBe(6);
     });
 
     it('passes the initial row to the start', () => {

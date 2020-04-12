@@ -26,6 +26,6 @@ describe('Erin method', () => {
         [
             [SixType.Slow, SixType.Slow],
         ],
-        [SixType.Slow, 6, SixType.Slow],
+        [SixType.Slow, SixType.Slow, 6],
     );
 });

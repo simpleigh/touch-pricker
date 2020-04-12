@@ -65,14 +65,14 @@ class Stedman extends AbstractMethod {
     public readonly defaultFirstSix: SixType = SixType.Slow;
 
     /**
-     * Index of rounds within six for standard start
-     */
-    public readonly defaultStartRowIndex: number = 4;
-
-    /**
      * Type of six for standard start
      */
     public readonly defaultStartSixType: SixType = SixType.Quick;
+
+    /**
+     * Index of rounds within six for standard start
+     */
+    public readonly defaultStartRowIndex: number = 4;
 
 }
 

@@ -65,14 +65,14 @@ class StedmanJump extends AbstractMethod {
     public readonly defaultFirstSix: SixType = SixType.Cold;
 
     /**
-     * Index of rounds within six for standard start
-     */
-    public readonly defaultStartRowIndex: number = 6;
-
-    /**
      * Type of six for standard start
      */
     public readonly defaultStartSixType: SixType = SixType.Hot;
+
+    /**
+     * Index of rounds within six for standard start
+     */
+    public readonly defaultStartRowIndex: number = 6;
 
 }
 

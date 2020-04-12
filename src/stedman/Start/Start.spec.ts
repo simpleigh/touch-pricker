@@ -34,37 +34,37 @@ describe('Start class', () => {
 
     it('obtains the default start from the chosen method', () => {
         const method = jasmine.createSpyObj('AbstractMethod', ['createSix']);
-        method.defaultStartRowIndex = 3;
         method.defaultStartSixType = SixType.Cold;
+        method.defaultStartRowIndex = 3;
 
         start = new Start(rounds(S.Cinques), undefined, method);
 
-        expect(start.rowIndex).toBe(3);
         expect(start.sixType).toBe(SixType.Cold);
+        expect(start.rowIndex).toBe(3);
     });
 
     it('defaults to standard start for Carter', () => {
         start = new Start(rounds(S.Cinques), undefined, new Carter());
-        expect(start.rowIndex).toBe(8);
         expect(start.sixType).toBe(SixType.Eight);
+        expect(start.rowIndex).toBe(8);
     });
 
     it('defaults to a standard start for Erin', () => {
         start = new Start(rounds(S.Cinques), undefined, new Erin());
-        expect(start.rowIndex).toBe(6);
         expect(start.sixType).toBe(SixType.Slow);
+        expect(start.rowIndex).toBe(6);
     });
 
     it('defaults to a standard start for Stedman', () => {
         start = new Start(rounds(S.Cinques), undefined, new Stedman());
-        expect(start.rowIndex).toBe(4);
         expect(start.sixType).toBe(SixType.Quick);
+        expect(start.rowIndex).toBe(4);
     });
 
     it('defaults to a standard start for Stedman Jump', () => {
         start = new Start(rounds(S.Cinques), undefined, new StedmanJump());
-        expect(start.rowIndex).toBe(6);
         expect(start.sixType).toBe(SixType.Hot);
+        expect(start.rowIndex).toBe(6);
     });
 
     it('allows the six type to be set', () => {
@@ -984,8 +984,8 @@ describe('Start class', () => {
                     new method(),
                 );
 
-                fixture.rowIndex = rowIndex;
                 fixture.sixType = sixType;
+                fixture.rowIndex = rowIndex;
                 testFn(fixture, rows);
             }
         }
@@ -1007,8 +1007,8 @@ describe('Start class', () => {
                     new method(),
                 );
 
-                fixture.rowIndex = rowIndex;
                 fixture.sixType = sixType;
+                fixture.rowIndex = rowIndex;
                 expect(fixture.notation).toEqual(notation);
             }
         }
@@ -1030,8 +1030,8 @@ describe('Start class', () => {
                     new method(),
                 );
 
-                fixture.rowIndex = rowIndex;
                 fixture.sixType = sixType;
+                fixture.rowIndex = rowIndex;
                 expect(fixture.getNotationString()).toEqual(notation);
             }
         }
@@ -1107,8 +1107,8 @@ describe('Start class', () => {
                     // Reset start as beforeEach() rule will have overwritten
                     start = new Start(rounds(S.Cinques), undefined, method);
                     start.setFromString(output);
-                    expect(start.rowIndex).toBe(rowIndex);
                     expect(start.sixType).toBe(sixType);
+                    expect(start.rowIndex).toBe(rowIndex);
                 });
             }
         }
@@ -1120,8 +1120,8 @@ describe('Start class', () => {
             expectedSixType: SixType = SixType.Slow,
         ) => it(description, () => {
             start.setFromString(input);
-            expect(start.rowIndex).toBe(expectedRowIndex);
             expect(start.sixType).toBe(expectedSixType);
+            expect(start.rowIndex).toBe(expectedRowIndex);
         });
 
         testLoad(

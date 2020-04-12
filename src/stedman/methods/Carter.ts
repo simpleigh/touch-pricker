@@ -64,14 +64,14 @@ class Carter extends AbstractMethod {
     public readonly defaultFirstSix: SixType = SixType.Four;
 
     /**
-     * Index of rounds within six for standard start
-     */
-    public readonly defaultStartRowIndex: number = 8;
-
-    /**
      * Type of six for standard start
      */
     public readonly defaultStartSixType: SixType = SixType.Eight;
+
+    /**
+     * Index of rounds within six for standard start
+     */
+    public readonly defaultStartRowIndex: number = 8;
 
 }
 

@@ -80,14 +80,14 @@ abstract class AbstractMethod implements Templates.Interface {
     public abstract readonly defaultFirstSix: SixType;
 
     /**
-     * Index of rounds within six for standard start
-     */
-    public abstract readonly defaultStartRowIndex: number;
-
-    /**
      * Type of six for standard start
      */
     public abstract readonly defaultStartSixType: SixType;
+
+    /**
+     * Index of rounds within six for standard start
+     */
+    public abstract readonly defaultStartRowIndex: number;
 
 }
 

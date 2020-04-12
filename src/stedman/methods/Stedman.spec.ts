@@ -27,6 +27,6 @@ describe('Stedman method', () => {
             [SixType.Slow, SixType.Quick],
             [SixType.Quick, SixType.Slow],
         ],
-        [SixType.Slow, 4, SixType.Quick],
+        [SixType.Slow, SixType.Quick, 4],
     );
 });

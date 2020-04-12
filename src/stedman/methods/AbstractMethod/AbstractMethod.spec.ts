@@ -18,8 +18,8 @@ export const testAbstractMethodImplementation = (
     name: string,
     lengthTestCases: [Stage, number][],
     progressionTestCases: [SixType, SixType][],
-    [defaultFirstSix, defaultStartRowIndex, defaultStartSixType]:
-        [SixType, number, SixType],
+    [defaultFirstSix, defaultStartSixType, defaultStartRowIndex]:
+        [SixType, SixType, number],
 ) => {
 
     const initialRow = rowFromString('231', Stage.Cinques);

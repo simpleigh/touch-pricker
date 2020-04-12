@@ -23,14 +23,14 @@ import text from './text.dot';
 class Start extends AbstractBlock implements Templates.Interface {
 
     /**
-     * Index of rounds within the six
-     */
-    private _rowIndex: number;
-
-    /**
      * Type of six
      */
     private _sixType: SixType;
+
+    /**
+     * Index of rounds within the six
+     */
+    private _rowIndex: number;
 
     /**
      * Rows of the start
@@ -52,8 +52,8 @@ class Start extends AbstractBlock implements Templates.Interface {
     ) {
         super(initialRow, _ownership);
 
-        this._rowIndex = this._method.defaultStartRowIndex;
         this._sixType = this._method.defaultStartSixType;
+        this._rowIndex = this._method.defaultStartRowIndex;
         this.calculate();
     }
 
@@ -126,26 +126,6 @@ class Start extends AbstractBlock implements Templates.Interface {
     /* Start methods **********************************************************/
 
     /**
-     * Provides read access to the row index
-     */
-    get rowIndex(): number {
-        return this._rowIndex;
-    }
-
-    /**
-     * Provides write access to the row index
-     */
-    set rowIndex(rowIndex: number) {
-        if (rowIndex < 1 || rowIndex > this.lastRowIndex) {
-            throw new Error('Row index out of range');
-        }
-        this._rowIndex = rowIndex;
-
-        this.calculate();
-        this.notifyContainer();
-    }
-
-    /**
      * Provides read access to the six type
      */
     get sixType(): SixType {
@@ -168,6 +148,26 @@ class Start extends AbstractBlock implements Templates.Interface {
     }
 
     /**
+     * Provides read access to the row index
+     */
+    get rowIndex(): number {
+        return this._rowIndex;
+    }
+
+    /**
+     * Provides write access to the row index
+     */
+    set rowIndex(rowIndex: number) {
+        if (rowIndex < 1 || rowIndex > this.lastRowIndex) {
+            throw new Error('Row index out of range');
+        }
+        this._rowIndex = rowIndex;
+
+        this.calculate();
+        this.notifyContainer();
+    }
+
+    /**
      * Provides read access to the method
      */
     get method(): AbstractMethod {
@@ -178,8 +178,8 @@ class Start extends AbstractBlock implements Templates.Interface {
      * Sets the row index and six type from a string representation
      */
     public setFromString(input: string): this {
-        let rowIndex: number | null = null;
         let sixType: SixType | null = null;
+        let rowIndex: number | null = null;
 
         // tslint:disable:object-literal-sort-keys
         const rowIndexPatterns: { [key: string]: number } = {

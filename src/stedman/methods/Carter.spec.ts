@@ -27,6 +27,6 @@ describe('Carter method', () => {
             [SixType.Four, SixType.Eight],
             [SixType.Eight, SixType.Four],
         ],
-        [SixType.Four, 8, SixType.Eight],
+        [SixType.Four, SixType.Eight, 8],
     );
 });
