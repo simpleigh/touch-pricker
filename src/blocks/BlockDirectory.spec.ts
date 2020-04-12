@@ -122,16 +122,16 @@ describe('BlockDirectory class', () => {
     });
 
     it('throws an exception for an unowned block', () => {
-        expect(() => { BlockDirectory.getIndices(touch); }).toThrow();
-        expect(() => { directory.add(touch); }).toThrow();
-        expect(() => { directory.contains(touch); }).toThrow();
+        expect(() => BlockDirectory.getIndices(touch)).toThrow();
+        expect(() => directory.add(touch)).toThrow();
+        expect(() => directory.contains(touch)).toThrow();
     });
 
     it('throws an exception for an incorrectly owned block', () => {
         const course = new Course(testRow, { container: touch, index: 0 });
-        expect(() => { BlockDirectory.getIndices(course); }).toThrow();
-        expect(() => { directory.add(course); }).toThrow();
-        expect(() => { directory.contains(course); }).toThrow();
+        expect(() => BlockDirectory.getIndices(course)).toThrow();
+        expect(() => directory.add(course)).toThrow();
+        expect(() => directory.contains(course)).toThrow();
     });
 
 });
