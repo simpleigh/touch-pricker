@@ -50,29 +50,6 @@ class Course extends AbstractCourse<Lead> implements Templates.Interface {
     /* Course methods *********************************************************/
 
     /**
-     * Clones the course
-     */
-    public clone(): Course {
-        const cloned = new Course(this._initialRow);
-        cloned.setLength(this.length);
-
-        // Copy across all the calls
-        for (let index = 1; index <= this.length; index += 1) {
-            cloned.getBlock(index).setCall(
-                this.getBlock(index).call,
-                false,  // Avoid multiple updates...
-            );
-        }
-
-        // ... and trigger one at the end
-        if (cloned.length) {
-            cloned.getBlock(1).setCall(this.getBlock(1).call);
-        }
-
-        return cloned;
-    }
-
-    /**
      * Creates a new course from a string representation
      */
     public static fromString(

@@ -10,7 +10,6 @@ import {
 } from '../../leads/AbstractCourse.spec';
 import { rounds, Stage, stringFromRow } from '../../rows';
 import { StringArray } from '../../visitors';
-import Touch from '../Touch';
 import Course from '.';
 
 describe('Grandsire Course class', () => {
@@ -112,41 +111,6 @@ describe('Grandsire Course class', () => {
             }
         });
     }
-
-    it('can be cloned', () => {
-        course.setLength(4);
-        course.getBlock(3).toggleCall();
-
-        const cloned = course.clone();
-        expect(cloned.length).toBe(course.length);
-        expect(cloned.getLast()).toEqual(course.getLast());
-    });
-
-    it('creates the cloned course without any owner', () => {
-        const container = new Touch(rounds(Stage.Doubles));
-        course.ownership = { container, index: 10 };
-        expect(course.clone().ownership).toBeUndefined();
-    });
-
-    it('ignores changes to the cloned course', () => {
-        const lengthBackup = course.length;
-        const getLastBackup = course.getLast();
-        const cloned = course.clone();
-
-        cloned.setLength(4);
-        cloned.getBlock(3).toggleCall();
-
-        expect(cloned.length).not.toBe(course.length);
-        expect(cloned.getLast()).not.toEqual(course.getLast());
-
-        expect(course.length).toBe(lengthBackup);
-        expect(course.getLast()).toEqual(getLastBackup);
-    });
-
-    it('copes when cloning a course if the length is zero', () => {
-        course.setLength(0);
-        expect(() => course.clone()).not.toThrow();
-    });
 
     it('generates the correct rows when visited', () => {
         let strings: string[] = [ ];

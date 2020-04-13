@@ -77,5 +77,43 @@ export const testAbstractCourseImplementation = (
         expect(course.isPlain()).toBe(false);
     });
 
+    it('can be cloned', () => {
+        course.setLength(4);
+        course.getBlock(3).toggleCall();
+
+        const cloned = course.clone();
+
+        expect(cloned.initialRow).toEqual(course.initialRow);
+        expect(cloned.length).toBe(course.length);
+        expect(cloned.getLast()).toEqual(course.getLast());
+    });
+
+    it('creates the cloned course without any owner', () => {
+        const container = jasmine.createSpyObj('Notifiable', ['notify']);
+        course.ownership = { container, index: 10 };
+
+        expect(course.clone().container).toBeUndefined();
+        expect(course.clone().index).toBeUndefined();
+    });
+
+    it('ignores changes to the cloned course', () => {
+        const lengthBackup = course.length;
+        const getLastBackup = course.getLast();
+        const cloned = course.clone();
+
+        cloned.setLength(4);
+        cloned.getBlock(3).toggleCall();
+
+        expect(cloned.length).not.toBe(course.length);
+        expect(cloned.getLast()).not.toEqual(course.getLast());
+
+        expect(course.length).toBe(lengthBackup);
+        expect(course.getLast()).toEqual(getLastBackup);
+    });
+
+    it('copes when cloning a course if the length is zero', () => {
+        course.setLength(0);
+        expect(() => course.clone()).not.toThrow();
+    });
 
 };

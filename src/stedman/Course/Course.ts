@@ -71,6 +71,24 @@ class Course
         return this._method.createSix(initialRow, this, index);
     }
 
+    /* AbstractCourse methods *************************************************/
+
+    /**
+     * Clones the course
+     */
+    public clone(): this {
+        const cloned: this = new Course(
+            this._initialRow,
+            undefined,
+            this._method,
+        ) as any;
+
+        cloned.setFirstSixType(this.firstSixType);
+        Course.copyCalls(this, cloned);
+
+        return cloned;
+    }
+
     /* Course methods *********************************************************/
 
     /**
@@ -113,34 +131,6 @@ class Course
         }
 
         return this;
-    }
-
-    /**
-     * Clones the course
-     */
-    public clone(): Course {
-        const cloned = new Course(
-            this._initialRow,
-            undefined,
-            this._method,
-        );
-        cloned.setLength(this.length);
-        cloned.setFirstSixType(this.firstSixType);
-
-        // Copy across all the calls
-        for (let index = 1; index <= this.length; index += 1) {
-            cloned.getBlock(index).setCall(
-                this.getBlock(index).call,
-                false,  // Avoid multiple updates...
-            );
-        }
-
-        // ... and trigger one at the end
-        if (cloned.length) {
-            cloned.getBlock(1).setCall(this.getBlock(1).call);
-        }
-
-        return cloned;
     }
 
     /**

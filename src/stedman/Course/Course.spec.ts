@@ -14,7 +14,6 @@ import { rounds, rowFromString, Stage, stringFromRow } from '../../rows';
 import { StringArray } from '../../visitors';
 import { AbstractMethod, Erin, Stedman, StedmanJump } from '../methods';
 import SixType from '../SixType';
-import Touch from '../Touch';
 
 describe('Stedman Course class', () => {
 
@@ -320,35 +319,16 @@ describe('Stedman Course class', () => {
             .toBe('603785294E1');
     });
 
-    it('can be cloned', () => {
-        course.setLength(20);
+    it('provides read access to the method', () => {
+        const method = new Stedman();
+        course = new Course(testRow, undefined, method);
+        expect(course.method).toBe(method);
+    });
+
+    it('preserves the first six type when cloning', () => {
         course.setFirstSixType(SixType.Quick);
-        course.getBlock(5).toggleCall();
-
         const cloned = course.clone();
-        expect(cloned.length).toBe(course.length);
-        expect(cloned.firstSixType).toBe(course.firstSixType);
-        expect(cloned.getLast()).toEqual(course.getLast());
-    });
-
-    it('creates the cloned course without any owner', () => {
-        course.ownership = { container: new Touch(testRow), index: 10 };
-        expect(course.clone().ownership).toBeUndefined();
-    });
-
-    it('ignores changes to the cloned course', () => {
-        const lengthBackup = course.length;
-        const getLastBackup = course.getLast();
-        const cloned = course.clone();
-
-        cloned.setLength(20);
-        cloned.getBlock(5).toggleCall();
-
-        expect(cloned.length).not.toBe(course.length);
-        expect(cloned.getLast()).not.toEqual(course.getLast());
-
-        expect(course.length).toBe(lengthBackup);
-        expect(course.getLast()).toEqual(getLastBackup);
+        expect(cloned.firstSixType).toBe(SixType.Quick);
     });
 
     it('passes the method to the cloned course', () => {
@@ -360,17 +340,6 @@ describe('Stedman Course class', () => {
         const cloned = course.clone();
         cloned.resetLength();
         expect(method.getCourseLength).toHaveBeenCalled();
-    });
-
-    it('copes when cloning a course if the length is zero', () => {
-        course.setLength(0);
-        expect(() => course.clone()).not.toThrow();
-    });
-
-    it('provides read access to the method', () => {
-        const method = new Stedman();
-        course = new Course(testRow, undefined, method);
-        expect(course.method).toBe(method);
     });
 
     it('generates the correct rows when visited', () => {

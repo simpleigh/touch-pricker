@@ -48,6 +48,40 @@ abstract class AbstractCourse<Lead extends AbstractLead>
         return true;
     }
 
+    /**
+     * Clones the course
+     */
+    public clone(): this {
+        const cloned: this = new (this.constructor as any)(this._initialRow);
+        AbstractCourse.copyCalls(this, cloned);
+        return cloned;
+    }
+
+    /**
+     * Helper function for use when cloning courses
+     * Sets a target course to the correct length and then copies all calls from
+     * the source.
+     */
+    protected static copyCalls<Course extends AbstractCourse<AbstractLead>>(
+        source: Course,
+        target: Course,
+    ): void {
+        target.setLength(source.length);
+
+        // Copy across all the calls
+        for (let index = 1; index <= source.length; index += 1) {
+            target.getBlock(index).setCall(
+                source.getBlock(index).call,
+                false,  // Avoid multiple updates...
+            );
+        }
+
+        // ... and trigger one at the end
+        if (target.length) {
+            target.getBlock(1).setCall(source.getBlock(1).call);
+        }
+    }
+
 }
 
 export default AbstractCourse
