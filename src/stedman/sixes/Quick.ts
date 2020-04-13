@@ -55,7 +55,7 @@ class Quick extends AbstractSix {
         return this;
     }
 
-    /* AbstractSix methods ****************************************************/
+    /* AbstractLead methods ***************************************************/
 
     /**
      * Returns a table of lead heads from rounds for each stage and call

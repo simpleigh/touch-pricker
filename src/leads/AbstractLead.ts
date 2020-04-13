@@ -61,6 +61,11 @@ abstract class Lead extends AbstractBlock {
     /* AbstractLead methods ***************************************************/
 
     /**
+     * Returns a table of lead heads from rounds for each stage and call
+     */
+    protected abstract get leadHeadTable(): LeadHeadTable;
+
+    /**
      * Read access to the call
      */
     get call(): Call {
@@ -94,11 +99,6 @@ abstract class Lead extends AbstractBlock {
         this.setCall(call);
         return call;
     }
-
-    /**
-     * Returns a table of lead heads from rounds for each stage and call
-     */
-    protected abstract get leadHeadTable(): LeadHeadTable;
 
 }
 

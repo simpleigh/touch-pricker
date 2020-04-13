@@ -59,15 +59,7 @@ class Cold extends AbstractSix {
         return this;
     }
 
-    /* AbstractSix methods ****************************************************/
-
-    /**
-     * Computes a place notation string for a number of rows
-     * @param rows  Number of rows (from 1 to 5)
-     */
-    public getNotationString(rows: number): string {
-        return this.notation.slice(0, rows).join(', ');
-    }
+    /* AbstractLead methods ***************************************************/
 
     /**
      * Returns a table of lead heads from rounds for each stage and call
@@ -98,6 +90,16 @@ class Cold extends AbstractSix {
             },
         };
         // tslint:enable max-line-length
+    }
+
+    /* AbstractSix methods ****************************************************/
+
+    /**
+     * Computes a place notation string for a number of rows
+     * @param rows  Number of rows (from 1 to 5)
+     */
+    public getNotationString(rows: number): string {
+        return this.notation.slice(0, rows).join(', ');
     }
 
 }
