@@ -10,20 +10,14 @@ import { stringFromRow, Row } from '../../rows';
 import * as Templates from '../../templates';
 import Lead from '../Lead';
 import Parser from '../Parser';
-import html from './html.dot';
 import mbd from './mbd.dot';
 import siril from './siril.dot';
-import text from './text.dot';
 
 /**
  * A course, being a set of leads
  */
-@Templates.makePrintable({ html, mbd, siril, text }, { Call, stringFromRow })
+@Templates.makePrintable({ mbd, siril }, { Call, stringFromRow })
 class Course extends AbstractCourse<Lead> implements Templates.Interface {
-
-    /* templating *************************************************************/
-
-    public print: Templates.Print;
 
     /* SerialContainer methods ************************************************/
 

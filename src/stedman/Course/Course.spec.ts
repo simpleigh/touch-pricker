@@ -9,7 +9,7 @@ import Course from '.';
 import { Call } from '../../leads';
 import {
     testAbstractCourseImplementation,
-} from '../../leads/AbstractCourse.spec';
+} from '../../leads/AbstractCourse/AbstractCourse.spec';
 import { rounds, rowFromString, Stage, stringFromRow } from '../../rows';
 import { StringArray } from '../../visitors';
 import { AbstractMethod, Erin, Stedman, StedmanJump } from '../methods';
@@ -29,6 +29,7 @@ describe('Stedman Course class', () => {
             [Stage.Sextuples, 156, 26],
             [Stage.Septuples, 180, 30],
         ],
+        'sixes',
     );
 
     const testRow = rowFromString('231', Stage.Cinques);

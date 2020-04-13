@@ -5,14 +5,16 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { BlockOwnership } from '../blocks';
+import { BlockOwnership } from '../../blocks';
 import {
     testSerialContainerImplementation,
-} from '../blocks/SerialContainer.spec';
-import { rounds, Row, Stage } from '../rows';
-import AbstractLead from './AbstractLead';
-import AbstractCourse from './AbstractCourse';
-import Call from './Call';
+} from '../../blocks/SerialContainer.spec';
+import { rounds, Row, Stage } from '../../rows';
+import AbstractLead from '../AbstractLead';
+import AbstractCourse from '../AbstractCourse';
+import Call from '../Call';
+import { testHtmlAbstractCourseTemplate } from './html.spec';
+import { testTextAbstractCourseTemplate } from './text.spec';
 
 /**
  * Test that a course behaves as an AbstractCourse
@@ -21,6 +23,7 @@ import Call from './Call';
  * @param expectedRows     number of rows expected in this container
  * @param expectedLength   number of blocks expected in this container
  * @param lengthTestCases  expected lengths and rows for each stage
+ * @param leadsWord        word to use when describing a count of leads
  */
 export const testAbstractCourseImplementation = (
     testStage: Stage,
@@ -29,6 +32,7 @@ export const testAbstractCourseImplementation = (
     expectedRows: number,
     expectedLength: number,
     lengthTestCases: [Stage, number, number][],
+    leadsWord?: string,
 ) => {
 
     testSerialContainerImplementation(
@@ -38,6 +42,9 @@ export const testAbstractCourseImplementation = (
         expectedLength,
         lengthTestCases,
     );
+
+    testHtmlAbstractCourseTemplate(testStage, factory);
+    testTextAbstractCourseTemplate(testStage, factory, leadsWord);
 
     let course: AbstractCourse<AbstractLead>;
 

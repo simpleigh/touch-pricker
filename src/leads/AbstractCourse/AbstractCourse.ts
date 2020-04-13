@@ -5,18 +5,26 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { SerialContainer } from '../blocks';
-import AbstractLead from './AbstractLead';
-import Call from './Call';
+import { SerialContainer } from '../../blocks';
+import * as Templates from '../../templates';
+import AbstractLead from '../AbstractLead';
+import Call from '../Call';
+import html from './html.dot';
+import text from './text.dot';
 
 /**
  * Course class
  *
  * A [[SerialContainer]] for [[AbstractLead]]s.
  */
+@Templates.makePrintable({ html, text }, { Call })
 abstract class AbstractCourse<Lead extends AbstractLead>
     extends SerialContainer<Lead>
 {
+
+    /* templating *************************************************************/
+
+    public print: Templates.Print;
 
     /* AbstractCourse methods *************************************************/
 

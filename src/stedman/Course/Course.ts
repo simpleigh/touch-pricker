@@ -13,15 +13,13 @@ import { AbstractMethod, Stedman } from '../methods';
 import Parser from '../Parser';
 import { AbstractSix } from '../sixes';
 import SixType from '../SixType';
-import html from './html.dot';
 import mbd from './mbd.dot';
 import siril from './siril.dot';
-import text from './text.dot';
 
 /**
  * A course, being a set of sixes
  */
-@Templates.makePrintable({ html, mbd, siril, text }, { Call })
+@Templates.makePrintable({ mbd, siril }, { Call, leadsWord: 'sixes' })
 class Course
     extends AbstractCourse<AbstractSix>
     implements Templates.Interface {
@@ -44,10 +42,6 @@ class Course
         super(initialRow, _ownership);
         this._firstSixType = this._method.defaultFirstSix;
     }
-
-    /* templating *************************************************************/
-
-    public print: Templates.Print;
 
     /* SerialContainer methods ************************************************/
 

@@ -17,9 +17,21 @@ const makePrintable = (
     templates: Templates,
     extraContext: Context = { },
 ) => (cls: any) => {
-    cls.prototype.print = AbstractPrintable.prototype.print;
-    cls.prototype.templates = templates;
-    cls.prototype.extraContext = extraContext;
+    if (!cls.prototype.print) {
+        cls.prototype.print = AbstractPrintable.prototype.print;
+        cls.prototype.templates = { };
+        cls.prototype.extraContent = { };
+    }
+
+    cls.prototype.templates = {
+        ...cls.prototype.templates,
+        ...templates,
+    }
+
+    cls.prototype.extraContext = {
+        ...cls.prototype.extraContext,
+        ...extraContext,
+    }
 };
 
 export default makePrintable;

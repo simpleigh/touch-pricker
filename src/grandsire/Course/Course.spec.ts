@@ -7,7 +7,7 @@
 
 import {
     testAbstractCourseImplementation,
-} from '../../leads/AbstractCourse.spec';
+} from '../../leads/AbstractCourse/AbstractCourse.spec';
 import { rounds, Stage, stringFromRow } from '../../rows';
 import { StringArray } from '../../visitors';
 import Course from '.';
