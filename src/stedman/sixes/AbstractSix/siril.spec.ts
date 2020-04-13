@@ -6,22 +6,18 @@
  */
 
 import AbstractSix from '.';
-import { BlockOwnership } from '../../../blocks';
 import { Call } from '../../../leads';
 import { rounds, Row, Stage } from '../../../rows';
-import Cold from '../Cold';
-import Hot from '../Hot';
-import Quick from '../Quick';
-import Slow from '../Slow';
 
 /**
  * Tests the template behaves like the parent version
  */
-const testSirilAbstractSixTemplate = (
-    factory: (initialRow: Row, _ownership?: BlockOwnership) => AbstractSix,
-) => () => {
+export const testSirilAbstractSixTemplate = (
+    factory: (initialRow: Row) => AbstractSix,
+) => {
 
-    describe('is a siril template', () => {
+    describe('it has a siril template that', () => {
+
         let six: AbstractSix;
 
         beforeEach(() => {
@@ -61,19 +57,3 @@ const testSirilAbstractSixTemplate = (
     });
 
 };
-
-describe('siril template for Slow six', testSirilAbstractSixTemplate(
-    (initialRow, _ownership) => new Slow(initialRow, _ownership),
-));
-
-describe('siril template for Quick six', testSirilAbstractSixTemplate(
-    (initialRow, _ownership) => new Quick(initialRow, _ownership),
-));
-
-describe('siril template for Cold six', testSirilAbstractSixTemplate(
-    (initialRow, _ownership) => new Cold(initialRow, _ownership),
-));
-
-describe('siril template for Hot six', testSirilAbstractSixTemplate(
-    (initialRow, _ownership) => new Hot(initialRow, _ownership),
-));

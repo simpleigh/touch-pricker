@@ -16,6 +16,8 @@ import { StringArray } from '../../../visitors';
 import * as Changes from '../../changes';
 import Course from '../../Course';
 import SixType from '../../SixType';
+import { testMbdAbstractSixTemplate } from './mbd.spec';
+import { testSirilAbstractSixTemplate } from './siril.spec';
 
 export const testSixImplementation = (
     factory: (initialRow: Row, _ownership?: BlockOwnership) => AbstractSix,
@@ -84,6 +86,9 @@ export const testSixImplementation = (
     });
 
     describe('is derived from AbstractSix and', () => {
+
+        testMbdAbstractSixTemplate(factory);
+        testSirilAbstractSixTemplate(factory);
 
         const createTestSix = (
             container?: Course,

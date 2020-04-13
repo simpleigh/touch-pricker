@@ -10,18 +10,16 @@ import { BlockDirectory, BlockOwnership } from '../../../blocks';
 import { Call } from '../../../leads';
 import { rounds, Row, Stage, stringFromRow } from '../../../rows';
 import Course from '../../Course';
-import Quick from '../Quick';
-import Slow from '../Slow';
 
 /**
  * Tests the template behaves like the parent version
- * @param factory  creates an instance of the object under test
  */
-const testMbdAbstractSixTemplate = (
+export const testMbdAbstractSixTemplate = (
     factory: (initialRow: Row, _ownership?: BlockOwnership) => AbstractSix,
-) => () => {
+) => {
 
-    describe('is derived from mbd template for AbstractSix and', () => {
+    describe('it has an mbd template that', () => {
+
         let six: AbstractSix;
 
         beforeEach(() => {
@@ -203,11 +201,3 @@ const testMbdAbstractSixTemplate = (
     });
 
 };
-
-describe('mbd template for Quick six', testMbdAbstractSixTemplate(
-    (initialRow, _ownership) => new Quick(initialRow, _ownership),
-));
-
-describe('mbd template for Slow six', testMbdAbstractSixTemplate(
-    (initialRow, _ownership) => new Slow(initialRow, _ownership),
-));
