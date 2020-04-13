@@ -22,10 +22,6 @@ export const testMbdAbstractSixTemplate = (
 
         let six: AbstractSix;
 
-        beforeEach(() => {
-            six = createTestSix(1);
-        });
-
         const createTestSix = (index: number): AbstractSix => {
             const initialRow = rounds(Stage.Cinques);
             const container: Course =
@@ -33,6 +29,10 @@ export const testMbdAbstractSixTemplate = (
 
             return factory(initialRow, { container, index });
         };
+
+        beforeEach(() => {
+            six = createTestSix(1);
+        });
 
         it('renders a six correctly', () => {
             expect(six.print('mbd')).toRenderAs(`

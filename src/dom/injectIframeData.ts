@@ -14,7 +14,7 @@ const injectIframeData = (
     theDoc.open();
 
     for (const key in globals) {
-        if (globals.hasOwnProperty(key)) {
+        if (Object.prototype.hasOwnProperty.call(globals, key)) {
             (iframe.contentWindow as any)[key] = globals[key];
         }
     }

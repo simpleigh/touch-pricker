@@ -196,7 +196,9 @@ class Start extends AbstractBlock implements Templates.Interface {
         // tslint:enable:object-literal-sort-keys
 
         for (const pattern in rowIndexPatterns) {
-            if (rowIndexPatterns.hasOwnProperty(pattern)) {
+            if (
+                Object.prototype.hasOwnProperty.call(rowIndexPatterns, pattern)
+            ) {
                 const regex = new RegExp(pattern, 'i');
                 if (regex.test(input)) {
                     rowIndex = rowIndexPatterns[pattern];

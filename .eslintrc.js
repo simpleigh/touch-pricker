@@ -30,13 +30,13 @@ module.exports = {
                 'plugin:@typescript-eslint/recommended',
             ],
             rules: {
+                '@typescript-eslint/explicit-function-return-type': 'off',
+                '@typescript-eslint/no-explicit-any': 'off',
+                '@typescript-eslint/no-inferrable-types': 'off',
             },
             overrides: [
                 {
                     files: ['**/*.spec.ts'],
-                    env: {
-                        jasmine: true,
-                    },
                 },
             ],
         },

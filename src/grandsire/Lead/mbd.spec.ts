@@ -14,10 +14,6 @@ import Lead from '.';
 describe('mbd template for Grandsire Lead', () => {
     let lead: Lead;
 
-    beforeEach(() => {
-        lead = createTestLead(1);
-    });
-
     const createTestLead = (index: number): Lead => {
         const container: Course = jasmine.createSpyObj('Course', ['notify']);
 
@@ -26,6 +22,10 @@ describe('mbd template for Grandsire Lead', () => {
             { container, index },
         );
     };
+
+    beforeEach(() => {
+        lead = createTestLead(1);
+    });
 
     it('renders a lead correctly', () => {
         expect(lead.print('mbd')).toRenderAs(`

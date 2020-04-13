@@ -3,7 +3,7 @@ declare module '*.dot' {
     export default template;
 }
 
-declare module jasmine {
+declare namespace jasmine {
     interface Matchers<T> {
         toBePrintable(): jasmine.CustomMatcherResult;
         toHaveTemplate(expected: string): jasmine.CustomMatcherResult;

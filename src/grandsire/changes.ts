@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { Bell, Row } from '../rows';
+import { Row } from '../rows';
 
 /**
  * Simple functions to permute rows
@@ -15,9 +15,7 @@ import { Bell, Row } from '../rows';
  * Helper function to swap two bells
  */
 const swapPair = (row: Row, index: number): void => {
-    let bell: Bell;
-
-    bell = row[index];
+    const bell = row[index];
     row[index] = row[index + 1];
     row[index + 1] = bell;
 };

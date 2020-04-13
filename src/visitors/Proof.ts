@@ -54,7 +54,9 @@ class Proof extends AbstractVisitor {
         const result: { [index: string]: number } = { };
 
         for (const rowString in this._rowCounts) {
-            if (this._rowCounts.hasOwnProperty(rowString)) {
+            if (
+                Object.prototype.hasOwnProperty.call(this._rowCounts, rowString)
+            ) {
                 result[rowString] = this._rowCounts[rowString].length;
             }
         }

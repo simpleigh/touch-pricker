@@ -6,7 +6,7 @@
  */
 
 import { Call } from '../leads';
-import { Bell, Row } from '../rows';
+import { Row } from '../rows';
 
 /**
  * Simple functions to permute rows
@@ -16,9 +16,7 @@ import { Bell, Row } from '../rows';
  * Helper function to swap two bells
  */
 const swapPair = (row: Row, index: number): void => {
-    let bell: Bell;
-
-    bell = row[index];
+    const bell = row[index];
     row[index] = row[index + 1];
     row[index + 1] = bell;
 };
@@ -101,14 +99,6 @@ export const permuteN = (row: Row): void => {
 };
 
 /**
- * Notation <9> for Cinques
- */
-export const permuteBob = (row: Row): void => {
-    permuteSingle(row);
-    swapPair(row, row.length - 2);
-};
-
-/**
  * Notation <90E> for Cinques
  */
 export const permuteSingle = (row: Row): void => {
@@ -117,6 +107,14 @@ export const permuteSingle = (row: Row): void => {
     for (index = 0; index < row.length - 3; index += 2) {
         swapPair(row, index);
     }
+};
+
+/**
+ * Notation <9> for Cinques
+ */
+export const permuteBob = (row: Row): void => {
+    permuteSingle(row);
+    swapPair(row, row.length - 2);
 };
 
 /**

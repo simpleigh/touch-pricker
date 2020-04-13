@@ -42,11 +42,9 @@ export const testAbstractVisitorImplementation = (
         });
 
         it('stops changing its state when not processing', () => {
-            let result: any;
-
             visitor.visit(testRow);
             visitor.visit(rounds(Stage.Minimus));
-            result = getState(visitor);
+            const result = getState(visitor);
 
             visitor.visit(testRow);
             expect(getState(visitor)).toEqual(result);
