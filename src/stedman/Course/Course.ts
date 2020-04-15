@@ -37,7 +37,7 @@ class Course
     constructor(
         initialRow: Row,
         protected _ownership?: BlockOwnership,
-        private _method: AbstractMethod = new Stedman(),
+        private readonly _method: AbstractMethod = new Stedman(),
     ) {
         super(initialRow, _ownership);
         this._firstSixType = this._method.defaultFirstSix;

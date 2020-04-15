@@ -32,7 +32,7 @@ describe('PatternGroup music class', () => {
     });
 
     it('ignores changes to the original patterns', () => {
-        const patterns: Pattern[] = [ ];
+        const patterns: Pattern[] = [];
         const group = new PatternGroup('group', patterns);
 
         // We add a pattern to the array
@@ -43,7 +43,7 @@ describe('PatternGroup music class', () => {
     });
 
     it('provides read access to the name', () => {
-        const group = new PatternGroup('test', [ ]);
+        const group = new PatternGroup('test', []);
         expect(group.name).toBe('test');
     });
 

@@ -18,6 +18,7 @@ const makePrintable = (
     extraContext: Context = { },
 ) => (cls: any) => {
     if (!cls.prototype.print) {
+        // eslint-disable-next-line @typescript-eslint/unbound-method
         cls.prototype.print = AbstractPrintable.prototype.print;
         cls.prototype.templates = { };
         cls.prototype.extraContent = { };
@@ -26,12 +27,12 @@ const makePrintable = (
     cls.prototype.templates = {
         ...cls.prototype.templates,
         ...templates,
-    }
+    };
 
     cls.prototype.extraContext = {
         ...cls.prototype.extraContext,
         ...extraContext,
-    }
+    };
 };
 
 export default makePrintable;

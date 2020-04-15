@@ -6,7 +6,6 @@
         "noEmitOnError": true,
         "noFallthroughCasesInSwitch": true,
         "noImplicitReturns": true,
-        "noUnusedLocals": true,
         "outDir": "./dist/",
         "sourceMap": true,
         "strict": true,

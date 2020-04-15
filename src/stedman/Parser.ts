@@ -44,6 +44,7 @@ class Parser extends LeadBasedParser<Course, Touch> {
 
         const touch = super.parseTouch(input);
 
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (this._start) {
             touch.start.setFromString(this._start);
         }
@@ -68,7 +69,7 @@ class Parser extends LeadBasedParser<Course, Touch> {
         // Store start definitions for later processing
         if (/start/i.test(input)) {
             this._start = input;
-            return;
+            return undefined;
         }
 
         return this.parseCourse(initialRow, input);

@@ -11,7 +11,7 @@ import Stage from './Stage';
 
 describe('rowFromString function', () => {
 
-    // tslint:disable:max-line-length
+    /* eslint-disable max-len */
     const conversionTestCases: [string, Stage, Row][] = [
         ['4321',             Stage.Minimus,   [4, 3, 2, 1]],
         ['54321',            Stage.Doubles,   [5, 4, 3, 2, 1]],
@@ -27,13 +27,9 @@ describe('rowFromString function', () => {
         ['CBATE0987654321',  Stage.Septuples, [15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]],
         ['DCBATE0987654321', Stage.Sixteen,   [16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]],
     ];
-    // tslint:enable:max-line-length
+    /* eslint-enable max-len */
 
-    for (const testCase of conversionTestCases) {
-        const input = testCase[0];
-        const stage = testCase[1];
-        const expected = testCase[2];
-
+    for (const [input, stage, expected] of conversionTestCases) {
         it(`can convert a string to a row on ${stage}`, () => {
             expect(rowFromString(input, stage)).toEqual(expected);
         });
@@ -64,7 +60,7 @@ describe('rowFromString function', () => {
             .toThrowError("Row '12345' exceeds stage '4'");
     });
 
-    // tslint:disable:max-line-length
+    /* eslint-disable max-len */
     const fillTestCases: [Stage, Row][] = [
         [Stage.Minimus,   [3, 1, 2, 4]],
         [Stage.Doubles,   [3, 1, 2, 4, 5]],
@@ -80,12 +76,9 @@ describe('rowFromString function', () => {
         [Stage.Septuples, [3, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]],
         [Stage.Sixteen,   [3, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]],
     ];
-    // tslint:enable:max-line-length
+    /* eslint-enable max-len */
 
-    for (const testCase of fillTestCases) {
-        const stage = testCase[0];
-        const expected = testCase[1];
-
+    for (const [stage, expected] of fillTestCases) {
         it(`fills in bells that aren't specified on ${stage}`, () => {
             expect(rowFromString('3', stage)).toEqual(expected);
         });

@@ -43,10 +43,7 @@ describe('siril template for Stedman Touch', () => {
         ['proves the touch', 'prove touch\n'],
     ];
 
-    for (const testCase of testCases) {
-        const description = testCase[0];
-        const expected = testCase[1];
-
+    for (const [description, expected] of testCases) {
         it(description, () => {
             expect(output).toContain(expected);
         });

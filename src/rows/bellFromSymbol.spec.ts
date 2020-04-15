@@ -34,10 +34,7 @@ describe('bellFromSymbol function', () => {
         ['d', 16],
     ];
 
-    for (const testCase of testCases) {
-        const input = testCase[0];
-        const expected = testCase[1];
-
+    for (const [input, expected] of testCases) {
         it(`can parse "${input}" as a bell`, () => {
             expect(bellFromSymbol(input)).toBe(expected);
         });

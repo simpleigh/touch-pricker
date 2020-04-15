@@ -28,10 +28,7 @@ describe('symbolFromBell function', () => {
         ['D', 16],
     ];
 
-    for (const testCase of testCases) {
-        const expected = testCase[0];
-        const input = testCase[1];
-
+    for (const [expected, input] of testCases) {
         it(`can convert "${input}" to a string`, () => {
             expect(symbolFromBell(input)).toBe(expected);
         });

@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-/* tslint:disable:max-line-length */
+/* eslint-disable max-len */
 
 import { Stage as S } from '../rows';
 import {

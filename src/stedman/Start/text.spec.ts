@@ -80,11 +80,8 @@ describe('text template for Start', () => {
         ]],
     ];
 
-    for (const startPosition of startPositions) {
-        const method = new startPosition[0]();
-        const sixType = startPosition[1];
-        const starts = startPosition[2];
-
+    for (const [Method, sixType, starts] of startPositions) {
+        const method = new Method();
         const start = new Start(rounds(Stage.Cinques), undefined, method);
         start.sixType = sixType;
 

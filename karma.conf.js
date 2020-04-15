@@ -5,6 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+'use strict';
+
 const paths = require('./config/paths');
 const webpackConfig = require('./config/webpack.config.test');
 

@@ -48,7 +48,7 @@ abstract class AbstractSix extends AbstractLead implements Templates.Interface {
      * @param rows  Number of rows (from 1 to 5)
      */
     public getNotationString(rows: number): string {
-        return '+' + this.notation.slice(0, rows).join('.');
+        return `+${this.notation.slice(0, rows).join('.')}`;
     }
 
     /**

@@ -17,12 +17,13 @@ class BlockDirectory {
     /**
      * The directory itself
      */
-    protected _directory: any = [ ];
+    protected _directory: any = [];
 
     /**
      * Adds a six to the directory
      */
     public add(block: AbstractBlock): this;
+
     public add(...indices: number[]): this;
 
     public add(param: any, ...indices: number[]): this {
@@ -41,7 +42,7 @@ class BlockDirectory {
         directory = this._directory;
         for (const index of indices) {
             if (!directory[index]) {
-                directory[index] = [ ];
+                directory[index] = [];
             }
             directory = directory[index];
         }
@@ -54,6 +55,7 @@ class BlockDirectory {
      * Checks whether a six is in the directory
      */
     public contains(block: AbstractBlock): boolean;
+
     public contains(...indices: number[]): boolean;
 
     public contains(param: any, ...indices: number[]): boolean {
@@ -80,7 +82,7 @@ class BlockDirectory {
      * Computes an array of ownership indices for block
      */
     public static getIndices(block: AbstractBlock): number[] {
-        const ownershipArray: number[] = [ ];
+        const ownershipArray: number[] = [];
         let container: Notifiable | undefined;
         let index: number | undefined;
 

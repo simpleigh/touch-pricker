@@ -1,3 +1,7 @@
+'use strict';
+
+/* eslint-disable sort-keys */
+
 const merge = require('webpack-merge');
 
 const paths = require('./paths');

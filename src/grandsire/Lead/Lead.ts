@@ -29,7 +29,7 @@ class Lead extends AbstractLead implements Templates.Interface {
      * Number of rows in the block
      * This doesn't take into account coming round part-way through
      */
-    public get rows(): number {
+    get rows(): number {
         return this.stage * 2;
     }
 
@@ -76,7 +76,7 @@ class Lead extends AbstractLead implements Templates.Interface {
      * Returns a table of lead heads from rounds for each stage and call
      */
     protected get leadHeadTable(): LeadHeadTable {
-        // tslint:disable max-line-length
+        /* eslint-disable max-len */
         return {
             [Call.Plain]: {
                 [Stage.Doubles]:   [1, 2, 5, 3, 4],
@@ -103,7 +103,7 @@ class Lead extends AbstractLead implements Templates.Interface {
                 [Stage.Septuples]: [1, 5, 7, 2, 9, 3, 11, 4, 13, 6, 15, 8, 14, 10, 12],
             },
         };
-        // tslint:enable max-line-length
+        /* eslint-enable max-len */
     }
 
     /* Lead methods ***********************************************************/

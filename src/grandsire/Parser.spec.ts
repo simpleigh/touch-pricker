@@ -231,7 +231,7 @@ describe('Parser for Grandsire', () => {
         });
 
         it('a touch with a broken course', () => {
-            expect(() => parser.parseTouch('123456789\n' + 'garbage\n'))
+            expect(() => parser.parseTouch('123456789\ngarbage\n'))
                 .toThrowError("Cannot import course from line 'garbage'");
         });
 

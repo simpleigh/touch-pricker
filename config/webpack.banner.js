@@ -1,4 +1,6 @@
-const BannerPlugin = require('webpack').BannerPlugin;
+'use strict';
+
+const { BannerPlugin } = require('webpack');
 const fs = require('fs');
 
 const package = require('../package.json');

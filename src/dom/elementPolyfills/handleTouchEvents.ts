@@ -10,7 +10,7 @@
  * Calls through to the onclick handler but patches it to avoid double-clicks.
  * @param element  element to modify
  */
-export const handleTouchEvents = (element: HTMLElement) => {
+export const handleTouchEvents = (element: HTMLElement): void => {
     const originalHandler = element.onclick;
 
     element.ontouchstart = () => {

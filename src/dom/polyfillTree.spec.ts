@@ -22,7 +22,7 @@ describe('polyfillTree DOM utility', () => {
         child.setAttribute('onclick', 'test()');
         parent.appendChild(child);
         return child;
-    }
+    };
 
     it('passes a clickable element to handleTouchEvents()', () => {
         const parent = document.createElement('div');

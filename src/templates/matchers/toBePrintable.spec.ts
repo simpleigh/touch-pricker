@@ -9,7 +9,7 @@ import * as Templates from '..';
 import toBePrintable from './toBePrintable';
 
 describe('toBePrintable matcher', () => {
-    const compare = toBePrintable(jasmine.matchersUtil, [ ]).compare;
+    const compare = toBePrintable(jasmine.matchersUtil, []).compare;
 
     it('fails for items that are not objects', () => {
         expect(compare('string').pass).toBe(false);
@@ -50,10 +50,12 @@ describe('toBePrintable matcher', () => {
     });
 
     it('passes for printable objects', () => {
+        /* eslint-disable padded-blocks */
         @Templates.makePrintable({ })
         class Printable implements Templates.Interface {
             public print: Templates.Print;
         }
+        /* eslint-enable padded-blocks */
 
         const printable = new Printable();
         expect(compare(printable).pass).toBe(true);

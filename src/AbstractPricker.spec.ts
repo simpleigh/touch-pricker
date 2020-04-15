@@ -12,7 +12,6 @@ import AbstractPricker from './AbstractPricker';
  * @param TestPricker  pricker under test
  */
 export const testAbstractPrickerImplementation = (
-    // tslint:disable-next-line:variable-name
     TestPricker: new() => AbstractPricker,
 ) => {
 

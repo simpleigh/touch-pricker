@@ -72,7 +72,7 @@ describe('LeadBasedParser class', () => {
             const course = parser.parseCourse(rounds(Stage.Minor), input);
 
             const calling = [];
-            for (let i = 1; i <= course.length; i++) {
+            for (let i = 1; i <= course.length; i += 1) {
                 if (course.getBlock(i).call === Call.Bob) {
                     calling.push(i);
                 } else if (course.getBlock(i).call === Call.Single) {

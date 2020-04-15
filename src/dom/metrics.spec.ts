@@ -21,11 +21,11 @@ const testMetricImplementation = (
         secondMarginValue: string,
     ) => {
         element = {
-            [elementMetric]: elementMetricValue,
             currentStyle: {
                 [firstMargin]: firstMarginValue,
                 [secondMargin]: secondMarginValue,
             },
+            [elementMetric]: elementMetricValue,
         };
         spyOn(window, 'getComputedStyle').and.returnValue(element.currentStyle);
     };

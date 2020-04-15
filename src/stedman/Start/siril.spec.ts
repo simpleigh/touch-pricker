@@ -36,7 +36,7 @@ describe('siril template for Start', () => {
         ]],
         [SixType.Cold, [
             '', // Aligns array indices with rowIndex
-            "'231547698E0', '231547698E0', '231547698E0', '231547698E0', '231547698E0'", // tslint:disable-line:max-line-length
+            "'231547698E0', '231547698E0', '231547698E0', '231547698E0', '231547698E0'", // eslint-disable-line max-len
             "'231547698E0', '231547698E0', '231547698E0', '231547698E0'",
             "'231547698E0', '231547698E0', '231547698E0'",
             "'231547698E0', '231547698E0'",
@@ -45,7 +45,7 @@ describe('siril template for Start', () => {
         ]],
         [SixType.Hot, [
             '', // Aligns array indices with rowIndex
-            "'312547698E0', '312547698E0', '312547698E0', '312547698E0', '312547698E0'", // tslint:disable-line:max-line-length
+            "'312547698E0', '312547698E0', '312547698E0', '312547698E0', '312547698E0'", // eslint-disable-line max-len
             "'312547698E0', '312547698E0', '312547698E0', '312547698E0'",
             "'312547698E0', '312547698E0', '312547698E0'",
             "'312547698E0', '312547698E0'",
@@ -81,14 +81,13 @@ describe('siril template for Start', () => {
         [SixType.Eight]: Carter,
     };
 
-    for (const startPosition of startPositions) {
-        const sixType = startPosition[0];
+    for (const [sixType, positions] of startPositions) {
         const method = new methodMap[sixType]!();
         const start = new Start(rounds(Stage.Cinques), undefined, method);
         start.sixType = sixType;
 
         for (let rowIndex = 1; rowIndex <= start.lastRowIndex; rowIndex += 1) {
-            const expected = startPosition[1][rowIndex];
+            const expected = positions[rowIndex];
 
             it(`prints correctly "${expected}"`, () => {
                 start.rowIndex = rowIndex;

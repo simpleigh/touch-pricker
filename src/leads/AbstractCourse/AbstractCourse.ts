@@ -19,8 +19,7 @@ import text from './text.dot';
  */
 @Templates.makePrintable({ html, text }, { Call })
 abstract class AbstractCourse<Lead extends AbstractLead>
-    extends SerialContainer<Lead>
-{
+    extends SerialContainer<Lead> {
 
     /* templating *************************************************************/
 
@@ -92,4 +91,4 @@ abstract class AbstractCourse<Lead extends AbstractLead>
 
 }
 
-export default AbstractCourse
+export default AbstractCourse;

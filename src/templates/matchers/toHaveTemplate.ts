@@ -15,7 +15,7 @@ const toHaveTemplate: jasmine.CustomMatcherFactory =
             const { compare } = toBePrintable(util, customEqualityTesters);
             const { message, pass } = compare(actual);
             if (!pass) {
-                result.message = `Expected printable object\n${message}`;
+                result.message = `Expected printable object\n${message ?? ''}`;
                 return result;
             }
 

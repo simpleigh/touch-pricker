@@ -17,7 +17,7 @@ describe('Grandsire Lead class', () => {
         Stage.Doubles,
         (initialRow, _ownership) => new Lead(initialRow, _ownership),
         [
-            // tslint:disable max-line-length
+            /* eslint-disable max-len */
             ['13245',           '13524',           Stage.Doubles,   Call.Plain],
             ['1324567',         '1352746',         Stage.Triples,   Call.Plain],
             ['132456789',       '135274968',       Stage.Caters,    Call.Plain],
@@ -36,7 +36,7 @@ describe('Grandsire Lead class', () => {
             ['1324567890E',     '157392E4068',     Stage.Cinques,   Call.Single],
             ['1324567890ETA',   '157392E4A6T80',   Stage.Sextuples, Call.Single],
             ['1324567890ETABC', '157392E4A6C8B0T', Stage.Septuples, Call.Single],
-            // tslint:enable max-line-length
+            /* eslint-enable max-len */
         ],
         [
             [Stage.Doubles,   10],
@@ -208,11 +208,7 @@ describe('Grandsire Lead class', () => {
     ];
 
     it('generates the correct rows when visited', () => {
-        for (const rowTest of rowTests) {
-            const stage = rowTest[0];
-            const call = rowTest[1];
-            const expected = rowTest[2];
-
+        for (const [stage, call, expected] of rowTests) {
             const lead = new Lead(rounds(stage));
             lead.setCall(call);
             const visitor = new StringArray();
@@ -223,7 +219,7 @@ describe('Grandsire Lead class', () => {
         }
     });
 
-    // tslint:disable:max-line-length
+    /* eslint-disable max-len */
     const notationTestCases: [Stage, Call, string[]][] = [
         [Stage.Doubles, Call.Plain, [
             '3', '1', '5', '1', '5', '1', '5', '1', '5', '1',
@@ -280,14 +276,10 @@ describe('Grandsire Lead class', () => {
             '3', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', '3', '123',
         ]],
     ];
-    // tslint:enable:max-line-length
+    /* eslint-enable max-len */
 
     it('computes the correct notation', () => {
-        for (const notationTestCase of notationTestCases) {
-            const stage = notationTestCase[0];
-            const call = notationTestCase[1];
-            const expected = notationTestCase[2];
-
+        for (const [stage, call, expected] of notationTestCases) {
             const lead = new Lead(rounds(stage));
             lead.setCall(call);
 

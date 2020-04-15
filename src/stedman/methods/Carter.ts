@@ -16,6 +16,7 @@ import AbstractMethod from './AbstractMethod';
  * Carter-specific functionality
  */
 class Carter extends AbstractMethod {
+
     /**
      * Method name
      */
@@ -68,4 +69,4 @@ class Carter extends AbstractMethod {
 
 }
 
-export default Carter
+export default Carter;

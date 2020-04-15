@@ -20,7 +20,7 @@ class StringArray extends AbstractVisitor {
     /**
      * Array of string representations of rows that have been visited.
      */
-    private _strings: string[] = [ ];
+    private readonly _strings: string[] = [];
 
     /**
      * Reports the rows that have been visited by providing public

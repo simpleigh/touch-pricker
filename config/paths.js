@@ -1,3 +1,5 @@
+'use strict';
+
 const path = require('path');
 
 /**
@@ -25,6 +27,7 @@ const srcDir = path.join(rootDir, 'src');
  */
 const testsDir = path.join(rootDir, 'tests');
 
+/* eslint-disable sort-keys */
 module.exports = {
     // Paths to directories
     rootDir,

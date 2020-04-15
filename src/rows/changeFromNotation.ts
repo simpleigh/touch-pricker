@@ -79,33 +79,34 @@ const changeFromNotation = (input: string, stage: Stage): Change => {
         // Add '1' at the beginning if necessary
         if (currentPlace === 1 && inputPlace > 1 && inputPlace % 2 === 0) {
             notation = '1';
-            currentPlace = currentPlace + 1;
+            currentPlace += 1;
         }
 
         // Advance to the correct place
         while (currentPlace < inputPlace - 1) {
             change = swap(change, currentPlace);
-            currentPlace = currentPlace + 2;
+            currentPlace += 2;
         }
 
         if (currentPlace === inputPlace - 1) {
             throw new Error('Place missed out');
         }
 
-        notation = notation + inputCharacter;
-        currentPlace = currentPlace + 1;
+        notation += inputCharacter;
+        currentPlace += 1;
     }
 
     while (currentPlace < stage) {
         change = swap(change, currentPlace);
-        currentPlace = currentPlace + 2;
+        currentPlace += 2;
     }
 
     // Add <n> at the end if necessary
     if (currentPlace === stage) {
-        notation = notation + symbolFromBell(stage);
+        notation += symbolFromBell(stage);
     }
 
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     change.toString = () => notation;
     return change;
 };

@@ -8,7 +8,7 @@
 import toRenderAs from './toRenderAs';
 
 describe('toRenderAs matcher', () => {
-    const compare = toRenderAs(jasmine.matchersUtil, [ ]).compare;
+    const compare = toRenderAs(jasmine.matchersUtil, []).compare;
 
     it('fails for items that are not a string', () => {
         expect(compare(null, 'string').pass).toBe(false);
@@ -31,7 +31,9 @@ describe('toRenderAs matcher', () => {
     });
 
     it('ignores newlines in a template literal', () => {
-        expect(compare('string', `
+        expect(compare(
+            'string',
+            `
 string
 `
         ).pass).toBe(true);

@@ -5,6 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+/* eslint-disable max-len */
+
 import Course from '.';
 import { rounds, Stage } from '../../rows';
 
@@ -65,7 +67,7 @@ describe('siril template for Grandsire Course', () => {
         const course = Course.fromString(rounds(Stage.Doubles), 's2 3 (4)');
         for (let i = 1; i < EXPECTED_OUTPUTS.length; i += 1) {
             expect(course.print('siril', { touchRows: i }))
-                .toBe(EXPECTED_OUTPUTS[i] + '"@  s2 3  (4 leads)"\n');
+                .toBe(`${EXPECTED_OUTPUTS[i]}"@  s2 3  (4 leads)"\n`);
         }
     });
 

@@ -5,8 +5,8 @@ declare module '*.dot' {
 
 declare namespace jasmine {
     interface Matchers<T> {
-        toBePrintable(): jasmine.CustomMatcherResult;
-        toHaveTemplate(expected: string): jasmine.CustomMatcherResult;
-        toRenderAs(expected: string): jasmine.CustomMatcherResult;
+        toBePrintable: () => CustomMatcherResult;
+        toHaveTemplate: (expected: string) => CustomMatcherResult;
+        toRenderAs: (expected: string) => CustomMatcherResult;
     }
 }

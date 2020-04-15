@@ -1,3 +1,7 @@
+'use strict';
+
+/* eslint-disable sort-keys */
+
 const paths = require('./paths');
 
 module.exports = {

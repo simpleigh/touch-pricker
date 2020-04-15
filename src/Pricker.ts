@@ -18,7 +18,7 @@ interface Pricker extends Templates.Interface {
     /**
      * Event handler for window.onload
      */
-    onLoad(): void;
+    onLoad: () => void;
 
 }
 

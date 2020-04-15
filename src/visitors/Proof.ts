@@ -33,7 +33,7 @@ class Proof extends AbstractVisitor {
     /**
      * Directory of false blocks.
      */
-    private _directory: BlockDirectory = new BlockDirectory();
+    private readonly _directory: BlockDirectory = new BlockDirectory();
 
     /**
      * Flag recording truth.
@@ -94,7 +94,7 @@ class Proof extends AbstractVisitor {
             if (this._rowCounts[rowString].length === 1) {
                 // First time this row has run false
                 // need to add the previous block to the directory
-                const previousBlock = this._rowCounts[rowString][0];
+                const [previousBlock] = this._rowCounts[rowString];
                 if (previousBlock) {
                     this._directory.add(previousBlock);
                 }

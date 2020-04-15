@@ -14,7 +14,6 @@ import { rounds, rowFromString, Stage } from '../rows';
  * @param getState   fn that returns the visitor's state
  */
 export const testAbstractVisitorImplementation = (
-    // tslint:disable-next-line:variable-name
     createFn: () => AbstractVisitor,
     getState: (visitor: AbstractVisitor) => any,
 ) => {

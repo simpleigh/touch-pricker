@@ -10,7 +10,7 @@ import OneOnlyMatcherSet from './OneOnlyMatcherSet';
 describe('text template for OneOnlyMatcherSet music class', () => {
 
     it('displays nothing when nothing matches', () => {
-        const matcher = new OneOnlyMatcherSet([ ]);
+        const matcher = new OneOnlyMatcherSet([]);
         expect(matcher.print('text')).toBe('');
     });
 

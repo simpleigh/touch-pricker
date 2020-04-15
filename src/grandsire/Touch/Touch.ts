@@ -34,7 +34,7 @@ class Touch
      * @return { [Call]: string[] }
      */
     get callNotations(): string[][] {
-        const result = [ ];
+        const result = [];
         const lead = new Lead(this.initialRow);
 
         for (const call of [Call.Plain, Call.Bob, Call.Single]) {
@@ -54,6 +54,7 @@ class Touch
     ): Touch {
         return parser.parseTouch(input);
     }
+
 }
 
 export default Touch;

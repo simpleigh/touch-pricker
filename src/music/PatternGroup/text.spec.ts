@@ -10,7 +10,7 @@ import { Pattern, PatternGroup } from '..';
 describe('text template for PatternGroup music class', () => {
 
     it('displays nothing when nothing matches', () => {
-        const group = new PatternGroup('group', [ ]);
+        const group = new PatternGroup('group', []);
         expect(group.print('text')).toBe('');
     });
 

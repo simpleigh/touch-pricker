@@ -12,9 +12,7 @@ const createChangeTests = (
     testFn: (row: Row) => void,
     testCases: [string, Stage][],
 ) => () => it('applies the permutation correctly', () => {
-    for (const testCase of testCases) {
-        const expected = testCase[0];
-        const stage = testCase[1];
+    for (const [expected, stage] of testCases) {
         const row = rounds(stage);
 
         testFn(row);
@@ -24,7 +22,8 @@ const createChangeTests = (
 
 describe('Changes:', () => {
 
-    describe('permute1 function', createChangeTests(Changes.permute1,
+    describe('permute1 function', createChangeTests(
+        Changes.permute1,
         [
             ['1325476', Stage.Triples],
             ['132547698', Stage.Caters],

@@ -5,7 +5,9 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-// tslint:disable:max-classes-per-file
+/* eslint-disable lines-between-class-members, max-classes-per-file,
+    padded-blocks
+*/
 
 import * as Templates from '.';
 import AbstractPrintable from './AbstractPrintable';

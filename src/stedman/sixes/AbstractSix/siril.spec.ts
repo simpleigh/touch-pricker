@@ -25,17 +25,17 @@ export const testSirilAbstractSixTemplate = (
         });
 
         it('renders a six correctly', () => {
-            expect(six.print('siril')).toBe('plain, ' + six.type + ', ');
+            expect(six.print('siril')).toBe(`plain, ${six.type}, `);
         });
 
         it('renders a bobbed six', () => {
             six.setCall(Call.Bob);
-            expect(six.print('siril')).toBe('bob, ' + six.type + ', ');
+            expect(six.print('siril')).toBe(`bob, ${six.type}, `);
         });
 
         it('renders a singled six', () => {
             six.setCall(Call.Single);
-            expect(six.print('siril')).toBe('single, ' + six.type + ', ');
+            expect(six.print('siril')).toBe(`single, ${six.type}, `);
         });
 
         it('renders just the call when only one row is needed', () => {
@@ -44,7 +44,7 @@ export const testSirilAbstractSixTemplate = (
 
         it('renders the whole six when six rows are needed', () => {
             expect(six.print('siril', { touchRows: 6 }))
-                .toBe('plain, ' + six.type + ', ');
+                .toBe(`plain, ${six.type}, `);
         });
 
         it('renders place notation for lengths in between', () => {

@@ -69,7 +69,7 @@ describe('handleTouchEvents polyfill', () => {
         const event = document.createEvent('MouseEvent');
         event.initEvent('click', true, true);
         return element.dispatchEvent(event);
-    }
+    };
 
     /**
      * Helper to touch the element
@@ -78,7 +78,7 @@ describe('handleTouchEvents polyfill', () => {
         const event = document.createEvent('TouchEvent');
         event.initEvent('touchstart', true, true);
         return element.dispatchEvent(event);
-    }
+    };
 
     it('adds an ontouchstart handler', () => {
         element = document.createElement('div');

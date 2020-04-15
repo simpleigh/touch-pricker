@@ -1,3 +1,5 @@
+'use strict';
+
 const paths = require('./config/paths');
 
 module.exports = {

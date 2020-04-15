@@ -40,7 +40,7 @@ abstract class AbstractParser<
             .map((line) => line.replace(/^\//, ''))
 
             // Skip blank lines
-            .filter((line) => !(/^\s*$/.test(line)));
+            .filter((line) => !/^\s*$/.test(line));
 
         if (!lines.length) {
             throw new Error('No input lines');

@@ -9,12 +9,14 @@ import * as Templates from '..';
 import toHaveTemplate from './toHaveTemplate';
 
 describe('toHaveTemplate matcher', () => {
-    const compare = toHaveTemplate(jasmine.matchersUtil, [ ]).compare;
+    const compare = toHaveTemplate(jasmine.matchersUtil, []).compare;
 
+    /* eslint-disable padded-blocks */
     @Templates.makePrintable({ template: () => '' })
     class Printable implements Templates.Interface {
         public print: Templates.Print;
     }
+    /* eslint-enbale padded-blocks */
 
     const printable = new Printable();
 

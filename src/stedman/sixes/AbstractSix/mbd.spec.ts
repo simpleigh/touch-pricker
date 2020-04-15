@@ -5,6 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+/* eslint-disable max-len */
+
 import AbstractSix from '.';
 import { BlockDirectory, BlockOwnership } from '../../../blocks';
 import { Call } from '../../../leads';
@@ -102,7 +104,7 @@ export const testMbdAbstractSixTemplate = (
 
             music.add(2, 1);
 
-            expect(six.print('mbd', { music, courseIndex: 2 })).toRenderAs(`
+            expect(six.print('mbd', { courseIndex: 2, music })).toRenderAs(`
                 <span class="musicalBlock">
                     ${stringFromRow(six.getLast())}
                 </span>
@@ -121,7 +123,7 @@ export const testMbdAbstractSixTemplate = (
 
             falseness.add(2, 1);
 
-            expect(six.print('mbd', { falseness, courseIndex: 2 })).toRenderAs(`
+            expect(six.print('mbd', { courseIndex: 2, falseness })).toRenderAs(`
                 <span class="falseBlock">
                     ${stringFromRow(six.getLast())}
                 </span>

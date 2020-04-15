@@ -191,7 +191,7 @@ export const testRandomAccessContainerImplementation = (
             const deletedBlock = container.getBlock(1);
             container.deleteBlock(1);
             expect(container.getBlock(1)).not.toBe(deletedBlock);
-        })
+        });
 
         it('decreases the length when deleting from the beginning', () => {
             const originalLength = container.length;
@@ -227,7 +227,7 @@ export const testRandomAccessContainerImplementation = (
             const deletedBlock = container.getBlock(2);
             container.deleteBlock(2);
             expect(container.getBlock(2)).not.toBe(deletedBlock);
-        })
+        });
 
         it('decreases the length when deleting from the middle', () => {
             const originalLength = container.length;

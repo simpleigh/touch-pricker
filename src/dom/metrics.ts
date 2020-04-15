@@ -19,7 +19,7 @@ const getMetric = (element: HTMLElement, metric: string): number => {
 /**
  * Computes the width of an element
  */
-export const getWidth = (element: HTMLElement) =>
+export const getWidth = (element: HTMLElement): number =>
     element.offsetWidth + 1  // Allow for fractional part
         + getMetric(element, 'marginLeft')
         + getMetric(element, 'marginRight');
@@ -27,7 +27,7 @@ export const getWidth = (element: HTMLElement) =>
 /**
  * Computes the height of an element
  */
-export const getHeight = (element: HTMLElement) =>
+export const getHeight = (element: HTMLElement): number =>
     element.offsetHeight + 1  // Allow for fractional part
         + getMetric(element, 'marginTop')
         + getMetric(element, 'marginBottom');

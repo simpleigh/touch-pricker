@@ -53,17 +53,13 @@ export const testSixImplementation = (
 
     it('can render the notation as a string', () => {
         const six = factory(rounds(Stage.Cinques));
-        for (let i = 1; i <= notationStringTests.length; i = i + 1) {
+        for (let i = 1; i <= notationStringTests.length; i += 1) {
             expect(six.getNotationString(i)).toBe(notationStringTests[i - 1]);
         }
     });
 
     it('computes the six head correctly', () => {
-        for (const testCase of testCases) {
-            const initialRow = testCase[0];
-            const testStage = testCase[2];
-            const call = testCase[3];
-
+        for (const [initialRow, _, testStage, call] of testCases) {
             const six = factory(rowFromString(initialRow, testStage));
             const row = six.initialRow;
             Changes.permuteCall(row, call);

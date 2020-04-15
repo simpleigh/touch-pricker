@@ -24,7 +24,7 @@ class Console extends AbstractVisitor {
      * Receives a row for processing.
      */
     protected visitImplementation(row: Row, block?: AbstractBlock): void {
-        /* tslint:disable-next-line:no-console */
+        // eslint-disable-next-line no-console
         console.log(stringFromRow(row));
     }
 

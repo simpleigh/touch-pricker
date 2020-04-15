@@ -5,6 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+/* eslint-disable max-len */
+
 import Course from '.';
 import { rowFromString, Stage, stringFromRow } from '../../rows';
 
@@ -55,10 +57,7 @@ describe('mbd template for Stedman Course', () => {
         })).toRenderAs(`
             <u>2314567890E</u><br />
             ${course.getBlock(1).print('mbd', { showSixHeads: true })}
-            ${course.getBlock(2).print('mbd', {
-                showSixHeads: true,
-                underline: true,
-            })}
+            ${course.getBlock(2).print('mbd', { showSixHeads: true, underline: true })}
             <span class="extraSix">
                 ${stringFromRow(extraSixes.getBlock(1).getFirst())}
                 <br />

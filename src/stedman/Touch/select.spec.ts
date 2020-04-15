@@ -5,6 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+/* eslint-disable max-len */
+
 import Touch from '.';
 import { BlockDirectory } from '../../blocks';
 import { stringFromRow } from '../../rows';

@@ -35,12 +35,12 @@ const rowFromString = (input: string, stage: Stage): Row => {
     }
 
     // Build a table to record when we've seen each bell
-    const bellsSeen: boolean[] = [ ];
+    const bellsSeen: boolean[] = [];
     for (let bellNumber = 1; bellNumber <= stage; bellNumber += 1) {
         bellsSeen[bellNumber] = false;
     }
 
-    const output: Row = [ ];
+    const output: Row = [];
 
     // Assemble the row based on the input string
     for (

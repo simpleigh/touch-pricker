@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-/* tslint:disable:max-line-length */
+/* eslint-disable max-len */
 
 import { Stage } from '../rows';
 import AbstractMatcher from './AbstractMatcher';
@@ -25,7 +25,7 @@ class MbdScheme extends AbstractScheme {
      * Create matchers for this scheme/stage.
      */
     protected createMatchers(rounds: string): AbstractMatcher[] {
-        const matchers: AbstractMatcher[] = [ ];
+        const matchers: AbstractMatcher[] = [];
         let pattern: string;
         let patternArray: Pattern[];
 
@@ -40,11 +40,11 @@ class MbdScheme extends AbstractScheme {
         matchers.push(new Pattern(pattern));
 
         // 657890E
-        pattern = '65' + rounds.slice(6 - this._stage);
+        pattern = `65${rounds.slice(6 - this._stage)}`;
         matchers.push(new Pattern(pattern));
 
         // Near misses
-        patternArray = [ ];
+        patternArray = [];
         for (let i = 0; i < this._stage - 1; i += 1) {
             pattern = rounds.slice(0, i)  // 123
                 + rounds.charAt(i + 1)    // 5
@@ -59,7 +59,7 @@ class MbdScheme extends AbstractScheme {
         matchers.push(new PatternGroup('near misses', patternArray));
 
         // Queens music
-        // tslint:disable-next-line:switch-default
+        // eslint-disable-next-line default-case, @typescript-eslint/switch-exhaustiveness-check
         switch (this._stage) {
             case Stage.Triples:
                 matchers.push(new PatternGroup(
@@ -178,7 +178,7 @@ class MbdScheme extends AbstractScheme {
         if (this._stage === Stage.Triples) {
             matchers.push(new PatternGroup('reverse rollups', [new Pattern('7654')]));
         } else {
-            patternArray = [ ];
+            patternArray = [];
             for (let i: number = this._stage - 8; i >= 0; i -= 1) {
                 // reverse rounds
                 pattern = rounds.split('').reverse().join('');
