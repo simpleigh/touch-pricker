@@ -47,7 +47,7 @@ abstract class AbstractScheme extends MatcherSet {
      * Constructor.
      */
     constructor(protected _stage: Stage) {
-        super([ ]);
+        super([]);
         this._matchers = this.createMatchers(
             stringFromRow(rounds(_stage)),
         );

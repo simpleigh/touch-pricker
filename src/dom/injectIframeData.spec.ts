@@ -10,7 +10,7 @@ import injectIframeData from './injectIframeData';
 describe('injectIframeData DOM utility', () => {
 
     let contentDocument: jasmine.SpyObj<HTMLDocument>;
-    let iframe: any;
+    let iframe: any;  // eslint-disable-line @typescript-eslint/no-explicit-any
 
     beforeEach(() => {
         contentDocument = jasmine.createSpyObj('HTMLDocument', [

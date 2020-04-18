@@ -13,7 +13,7 @@ describe('text template for Grandsire Touch', () => {
         const text = '12345\n'
             + '13425  s2 3 s4  (4 leads)\n'
             + '14235  s2 3 s4  (4 leads)\n'
-            + '12345  s2 3 s4  (4 leads)\n'
+            + '12345  s2 3 s4  (4 leads)\n';
         const touch = Touch.fromString(text);
         expect(touch.print('text')).toBe(text);
     });

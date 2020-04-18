@@ -7,7 +7,7 @@
 
 import { Call } from '../../leads';
 import { rounds, Stage } from '../../rows';
-import Lead from './Lead';
+import Lead from '.';
 
 describe('siril template for Grandsire Lead', () => {
     let lead: Lead;

@@ -26,7 +26,7 @@ describe('Grandsire Touch class', () => {
                     + '13425  s2 3 s4  (4 leads)\n'
                     + '14235  s2 3 s4  (4 leads)\n'
                     + '12345  s2 3 s4  (4 leads)\n'
-            )
+            );
 
             testTouch.initialRow = initialRow;
             if (_ownership) {

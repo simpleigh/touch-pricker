@@ -9,6 +9,7 @@ import create from './create';
 import template from './create.dot';
 import * as Dom from './dom';
 import Pricker from './Pricker';
+import PrickerWindow from './PrickerWindow';
 import { MbdPricker as Grandsire } from './grandsire';
 import { MbdPricker as Stedman } from './stedman';
 
@@ -16,7 +17,7 @@ describe('create function', () => {
 
     let parentDocument: jasmine.SpyObj<HTMLDocument>;
     let element: jasmine.SpyObj<HTMLDivElement>;
-    const iframe: any = { };
+    const iframe = { } as HTMLIFrameElement;
 
     beforeEach(() => {
         parentDocument = jasmine.createSpyObj('HTMLDocument', [
@@ -104,7 +105,7 @@ describe('create function', () => {
         });
 
         it('stores the pricker object globally', () => {
-            expect((window as any).pricker).toBe(pricker);
+            expect((window as PrickerWindow).pricker).toBe(pricker);
         });
 
     });

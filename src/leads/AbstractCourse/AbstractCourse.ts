@@ -6,6 +6,7 @@
  */
 
 import { SerialContainer } from '../../blocks';
+import { Row } from '../../rows';
 import * as Templates from '../../templates';
 import AbstractLead from '../AbstractLead';
 import Call from '../Call';
@@ -19,8 +20,7 @@ import text from './text.dot';
  */
 @Templates.makePrintable({ html, text }, { Call })
 abstract class AbstractCourse<Lead extends AbstractLead>
-    extends SerialContainer<Lead>
-{
+    extends SerialContainer<Lead> {
 
     /* templating *************************************************************/
 
@@ -60,7 +60,8 @@ abstract class AbstractCourse<Lead extends AbstractLead>
      * Clones the course
      */
     public clone(): this {
-        const cloned: this = new (this.constructor as any)(this._initialRow);
+        const Type = this.constructor as new(row: Row) => this;
+        const cloned = new Type(this._initialRow);
         AbstractCourse.copyCalls(this, cloned);
         return cloned;
     }
@@ -92,4 +93,4 @@ abstract class AbstractCourse<Lead extends AbstractLead>
 
 }
 
-export default AbstractCourse
+export default AbstractCourse;

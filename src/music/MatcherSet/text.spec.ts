@@ -5,12 +5,12 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import MatcherSet from './MatcherSet';
+import MatcherSet from '.';
 
 describe('text template for MatcherSet music class', () => {
 
     it('displays nothing when nothing matches', () => {
-        const matcher = new MatcherSet([ ]);
+        const matcher = new MatcherSet([]);
         expect(matcher.print('text')).toBe('');
     });
 

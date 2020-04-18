@@ -6,9 +6,23 @@
  */
 
 /**
+ * Reads a style-related metric from an element
+ * Designed to read dimensions of padding, margins, etc.
+ * Values of "auto" are returned as zero: set explicit values in
+ * stylesheets in order to avoid this.
+ */
+const getMetric = (
+    element: HTMLElement,
+    metric: 'marginBottom' | 'marginLeft' | 'marginRight' | 'marginTop',
+): number => {
+    const metricText = getComputedStyle(element)[metric];
+    return metricText === 'auto' ? 0 : parseInt(metricText) + 1;
+};
+
+/**
  * Computes the width of an element
  */
-export const getWidth = (element: HTMLElement) =>
+export const getWidth = (element: HTMLElement): number =>
     element.offsetWidth + 1  // Allow for fractional part
         + getMetric(element, 'marginLeft')
         + getMetric(element, 'marginRight');
@@ -16,18 +30,7 @@ export const getWidth = (element: HTMLElement) =>
 /**
  * Computes the height of an element
  */
-export const getHeight = (element: HTMLElement) =>
+export const getHeight = (element: HTMLElement): number =>
     element.offsetHeight + 1  // Allow for fractional part
         + getMetric(element, 'marginTop')
         + getMetric(element, 'marginBottom');
-
-/**
- * Reads a style-related metric from an element
- * Designed to read dimensions of padding, margins, etc.
- * Values of "auto" are returned as zero: set explicit values in
- * stylesheets in order to avoid this.
- */
-const getMetric = (element: HTMLElement, metric: string): number => {
-    const metricText = (getComputedStyle(element) as any)[metric];
-    return metricText === 'auto' ? 0 : parseInt(metricText) + 1;
-};

@@ -5,11 +5,13 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import AbstractSix from '.';
+/* eslint-disable max-len */
+
 import { BlockDirectory, BlockOwnership } from '../../../blocks';
 import { Call } from '../../../leads';
 import { rounds, Row, Stage, stringFromRow } from '../../../rows';
 import Course from '../../Course';
+import AbstractSix from '.';
 
 /**
  * Tests the template behaves like the parent version
@@ -22,10 +24,6 @@ export const testMbdAbstractSixTemplate = (
 
         let six: AbstractSix;
 
-        beforeEach(() => {
-            six = createTestSix(1);
-        });
-
         const createTestSix = (index: number): AbstractSix => {
             const initialRow = rounds(Stage.Cinques);
             const container: Course =
@@ -33,6 +31,10 @@ export const testMbdAbstractSixTemplate = (
 
             return factory(initialRow, { container, index });
         };
+
+        beforeEach(() => {
+            six = createTestSix(1);
+        });
 
         it('renders a six correctly', () => {
             expect(six.print('mbd')).toRenderAs(`
@@ -102,7 +104,7 @@ export const testMbdAbstractSixTemplate = (
 
             music.add(2, 1);
 
-            expect(six.print('mbd', { music, courseIndex: 2 })).toRenderAs(`
+            expect(six.print('mbd', { courseIndex: 2, music })).toRenderAs(`
                 <span class="musicalBlock">
                     ${stringFromRow(six.getLast())}
                 </span>
@@ -121,7 +123,7 @@ export const testMbdAbstractSixTemplate = (
 
             falseness.add(2, 1);
 
-            expect(six.print('mbd', { falseness, courseIndex: 2 })).toRenderAs(`
+            expect(six.print('mbd', { courseIndex: 2, falseness })).toRenderAs(`
                 <span class="falseBlock">
                     ${stringFromRow(six.getLast())}
                 </span>

@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import Touch from '.';
 import SixType from '../SixType';
+import Touch from '.';
 
 describe('text template for Stedman Touch', () => {
 
@@ -27,7 +27,7 @@ describe('text template for Stedman Touch', () => {
         touch.start.sixType = SixType.Quick;
         touch.start.rowIndex = 2;
 
-        const expected = text + touch.start.print('text') + '\n';
+        const expected = `${text}${touch.start.print('text')}\n`;
         expect(touch.print('text')).toBe(expected);
     });
 

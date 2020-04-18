@@ -5,10 +5,10 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import MbdPricker from '.';
 import {
     testAbstractPrickerImplementation,
 } from '../../AbstractPricker.spec';
+import MbdPricker from '.';
 
 describe('Stedman Mbd Pricker class', () => {
 

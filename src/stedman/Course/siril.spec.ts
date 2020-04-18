@@ -5,8 +5,10 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import Course from '.';
+/* eslint-disable max-len */
+
 import { rounds, Stage } from '../../rows';
+import Course from '.';
 
 describe('siril template for Stedman Course', () => {
 
@@ -49,7 +51,7 @@ describe('siril template for Stedman Course', () => {
         const course = Course.fromString(rounds(Stage.Cinques), 's2 3 (4)');
         for (let i = 1; i < EXPECTED_OUTPUTS.length; i += 1) {
             expect(course.print('siril', { touchRows: i }))
-                .toBe(EXPECTED_OUTPUTS[i] + '"@  s2 3  (4 sixes)"\n');
+                .toBe(`${EXPECTED_OUTPUTS[i]}"@  s2 3  (4 sixes)"\n`);
         }
     });
 

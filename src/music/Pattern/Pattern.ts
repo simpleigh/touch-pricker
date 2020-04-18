@@ -93,7 +93,7 @@ class Pattern extends AbstractMatcher {
      * Provides read access to the name.
      */
     get name(): string {
-        return this._name || this._pattern;
+        return this._name ?? this._pattern;
     }
 
     /**

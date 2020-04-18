@@ -26,7 +26,7 @@ abstract class AbstractContainer<Block extends AbstractBlock>
     /**
      * Blocks within the container
      */
-    protected _blocks: Block[] = [ ];
+    protected _blocks: Block[] = [];
 
     /* AbstractBlock methods **************************************************/
 
@@ -54,7 +54,7 @@ abstract class AbstractContainer<Block extends AbstractBlock>
      * Estimates the number of rows in the block
      * The estimate doesn't take into account coming round part-way through
      */
-    public get rows(): number {
+    get rows(): number {
         return this._blocks.reduce((total, block) => total + block.rows, 0);
     }
 

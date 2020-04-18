@@ -13,46 +13,46 @@ const testMetricImplementation = (
     firstMargin: string,
     secondMargin: string,
 ) => {
-    let element: any;
+    const element = { } as HTMLElement;
 
     const setupMetrics = (
         elementMetricValue: number,
         firstMarginValue: string,
         secondMarginValue: string,
     ) => {
-        element = {
-            [elementMetric]: elementMetricValue,
-            currentStyle: {
-                [firstMargin]: firstMarginValue,
-                [secondMargin]: secondMarginValue,
-            },
-        };
-        spyOn(window, 'getComputedStyle').and.returnValue(element.currentStyle);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (element as any)[elementMetric] = elementMetricValue;
+        const styles = {
+            [firstMargin]: firstMarginValue,
+            [secondMargin]: secondMarginValue,
+        } as unknown as CSSStyleDeclaration;
+
+        spyOn(window, 'getComputedStyle').and.returnValue(styles);
     };
 
     it('adds one to the total', () => {
         setupMetrics(0, 'auto', 'auto');
-        expect(metricFunction(element as HTMLElement)).toBe(1);
+        expect(metricFunction(element)).toBe(1);
     });
 
-    it('adds the elementMetric to the total', () => {
+    it(`adds the ${elementMetric} to the total`, () => {
         setupMetrics(1, 'auto', 'auto');
-        expect(metricFunction(element as HTMLElement)).toBe(2);
+        expect(metricFunction(element)).toBe(2);
     });
 
-    it('adds the first margin and an additional one to the total', () => {
+    it(`adds the ${firstMargin} and an additional one to the total`, () => {
         setupMetrics(0, '1', 'auto');
-        expect(metricFunction(element as HTMLElement)).toBe(3);
+        expect(metricFunction(element)).toBe(3);
     });
 
-    it('adds the second margin and an additional one to the total', () => {
+    it(`adds the ${secondMargin} and an additional one to the total`, () => {
         setupMetrics(0, 'auto', '1');
-        expect(metricFunction(element as HTMLElement)).toBe(3);
+        expect(metricFunction(element)).toBe(3);
     });
 
     it('copes when margins have a px suffix', () => {
         setupMetrics(0, '1px', '1px');
-        expect(metricFunction(element as HTMLElement)).toBe(5);
+        expect(metricFunction(element)).toBe(5);
     });
 
 };

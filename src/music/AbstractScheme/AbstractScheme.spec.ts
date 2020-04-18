@@ -5,9 +5,9 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import AbstractScheme from '.';
 import { Stage } from '../../rows';
 import { testAbstractMatcherImplementation } from '../AbstractMatcher.spec';
+import AbstractScheme from '.';
 
 /**
  * Tests that a scheme behaves as an AbstractScheme
@@ -35,11 +35,7 @@ export const testAbstractSchemeImplementation = (
         });
 
         it('matches music correctly', () => {
-            for (const testCase of testCases) {
-                const stage = testCase[0];
-                const rowString = testCase[1];
-                const matches = testCase[2];
-                const output = testCase[3];
+            for (const [stage, rowString, matches, output] of testCases) {
                 const scheme = createFn(stage);
 
                 scheme.match(rowString);

@@ -12,7 +12,7 @@ import symbolFromBell from './symbolFromBell';
  * Converts a [[Row]] into a string.
  */
 const stringFromRow = (row: Row): string => {
-    const bellSymbols: string[] = [ ];
+    const bellSymbols: string[] = [];
 
     for (const bell of row) {
         bellSymbols.push(symbolFromBell(bell));

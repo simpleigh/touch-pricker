@@ -9,11 +9,13 @@ import * as Templates from '..';
 import toHaveTemplate from './toHaveTemplate';
 
 describe('toHaveTemplate matcher', () => {
-    const compare = toHaveTemplate(jasmine.matchersUtil, [ ]).compare;
+    const compare = toHaveTemplate(jasmine.matchersUtil, []).compare;
 
     @Templates.makePrintable({ template: () => '' })
     class Printable implements Templates.Interface {
+
         public print: Templates.Print;
+
     }
 
     const printable = new Printable();

@@ -14,11 +14,7 @@ abstract class AbstractPricker implements Pricker {
     /**
      * Constructor
      */
-    constructor(
-        protected _iframe?: HTMLIFrameElement,
-    ) {
-        // NOOP
-    }
+    constructor(protected _iframe?: HTMLIFrameElement) { /* NOOP */ }
 
     /* templating *************************************************************/
 
@@ -48,15 +44,15 @@ abstract class AbstractPricker implements Pricker {
         let width = 0;
         let height = 0;
 
-        // tslint:disable-next-line:prefer-for-of
-        for (let i = 0; i < elements.length; i = i + 1) {
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
+        for (let i = 0; i < elements.length; i += 1) {
             const element = elements[i] as HTMLElement;
-            width = width + getWidth(element);
+            width += getWidth(element);
             height = Math.max(height, getHeight(element));
         }
 
-        this._iframe.width = width + 'px';
-        this._iframe.height = height + 'px';
+        this._iframe.width = `${width}px`;
+        this._iframe.height = `${height}px`;
     }
 
     /**

@@ -27,13 +27,12 @@ class Proof extends AbstractVisitor {
      * Each value is an array of all blocks that contain the indexed
      * row.
      */
-    private _rowCounts:
-        { [index: string]: (AbstractBlock | undefined)[] } = { };
+    private _rowCounts: Record<string, (AbstractBlock | undefined)[]> = { };
 
     /**
      * Directory of false blocks.
      */
-    private _directory: BlockDirectory = new BlockDirectory();
+    private readonly _directory = new BlockDirectory();
 
     /**
      * Flag recording truth.
@@ -50,11 +49,13 @@ class Proof extends AbstractVisitor {
      * @returns Dictionary containing the count of each row seen,
      * indexed by the string representation of that row.
      */
-    public getRowCounts(): { [index: string]: number } {
-        const result: { [index: string]: number } = { };
+    public getRowCounts(): Record<string, number> {
+        const result: Record<string, number> = { };
 
         for (const rowString in this._rowCounts) {
-            if (this._rowCounts.hasOwnProperty(rowString)) {
+            if (
+                Object.prototype.hasOwnProperty.call(this._rowCounts, rowString)
+            ) {
                 result[rowString] = this._rowCounts[rowString].length;
             }
         }
@@ -92,7 +93,7 @@ class Proof extends AbstractVisitor {
             if (this._rowCounts[rowString].length === 1) {
                 // First time this row has run false
                 // need to add the previous block to the directory
-                const previousBlock = this._rowCounts[rowString][0];
+                const [previousBlock] = this._rowCounts[rowString];
                 if (previousBlock) {
                     this._directory.add(previousBlock);
                 }

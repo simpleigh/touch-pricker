@@ -36,7 +36,7 @@ class CustomScheme extends AbstractScheme {
      * Create matchers for this scheme/stage.
      */
     protected createMatchers(rounds: string): AbstractMatcher[] {
-        return [ ];
+        return [];
     }
 
     /* CustomScheme methods ***************************************************/

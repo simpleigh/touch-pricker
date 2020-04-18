@@ -48,7 +48,7 @@ class Start extends AbstractBlock implements Templates.Interface {
     constructor(
         initialRow: Row,
         protected _ownership?: BlockOwnership,
-        private _method: AbstractMethod = new Stedman(),
+        private readonly _method: AbstractMethod = new Stedman(),
     ) {
         super(initialRow, _ownership);
 
@@ -106,7 +106,7 @@ class Start extends AbstractBlock implements Templates.Interface {
      * Number of rows in the block
      * This doesn't take into account coming round part-way through
      */
-    public get rows(): number {
+    get rows(): number {
         return this._rows.length;
     }
 
@@ -181,26 +181,24 @@ class Start extends AbstractBlock implements Templates.Interface {
         let sixType: SixType | null = null;
         let rowIndex: number | null = null;
 
-        // tslint:disable:object-literal-sort-keys
-        const rowIndexPatterns: { [key: string]: number } = {
-            'first':   1, '1st': 1, '1': 1,
-            'second':  2, '2nd': 2, '2': 2,
-            'third':   3, '3rd': 3, '3': 3,
-            'fourth':  4, '4th': 4, '4': 4,
-            'fifth':   5, '5th': 5, '5': 5,
-            'sixth':   6, '6th': 6, '6': 6,
-            'seventh': 7, '7th': 7, '7': 7,
-            'eighth':   8, '8th': 8, '8': 8,
-            'last': 99,  // sentinel value; see below
-        };
-        // tslint:enable:object-literal-sort-keys
+        /* eslint-disable array-element-newline, no-multi-spaces */
+        const rowIndexPatterns: [string, number][] = [
+            ['first',   1], ['1st', 1], ['1', 1],
+            ['second',  2], ['2nd', 2], ['2', 2],
+            ['third',   3], ['3rd', 3], ['3', 3],
+            ['fourth',  4], ['4th', 4], ['4', 4],
+            ['fifth',   5], ['5th', 5], ['5', 5],
+            ['sixth',   6], ['6th', 6], ['6', 6],
+            ['seventh', 7], ['7th', 7], ['7', 7],
+            ['eighth',  8], ['8th', 8], ['8', 8],
+            ['last', 99],  // sentinel value; see below
+        ];
+        /* eslint-enable array-element-newline, no-multi-spaces */
 
-        for (const pattern in rowIndexPatterns) {
-            if (rowIndexPatterns.hasOwnProperty(pattern)) {
-                const regex = new RegExp(pattern, 'i');
-                if (regex.test(input)) {
-                    rowIndex = rowIndexPatterns[pattern];
-                }
+        for (const [pattern, value] of rowIndexPatterns) {
+            const regex = new RegExp(pattern, 'i');
+            if (regex.test(input)) {
+                rowIndex = value;
             }
         }
 
@@ -212,7 +210,8 @@ class Start extends AbstractBlock implements Templates.Interface {
                 }
             }
         } else {
-            sixType = validTypes[0];
+            // default to the first valid type
+            [sixType] = validTypes;
         }
 
         // n.b. set sixType first so we can calculate this.lastRowIndex
@@ -260,7 +259,7 @@ class Start extends AbstractBlock implements Templates.Interface {
             case SixType.Quick:
             case SixType.Four:
             case SixType.Eight:
-                return '+' + this.notation.join('.');
+                return `+${this.notation.join('.')}`;
 
             case SixType.Cold:
             case SixType.Hot:

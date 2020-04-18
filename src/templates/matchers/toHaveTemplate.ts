@@ -5,6 +5,12 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+/*
+eslint-disable
+@typescript-eslint/no-explicit-any,
+@typescript-eslint/no-unsafe-member-access,
+*/
+
 import toBePrintable from './toBePrintable';
 
 const toHaveTemplate: jasmine.CustomMatcherFactory =
@@ -15,7 +21,7 @@ const toHaveTemplate: jasmine.CustomMatcherFactory =
             const { compare } = toBePrintable(util, customEqualityTesters);
             const { message, pass } = compare(actual);
             if (!pass) {
-                result.message = `Expected printable object\n${message}`;
+                result.message = `Expected printable object\n${message ?? ''}`;
                 return result;
             }
 

@@ -11,8 +11,8 @@ import Row from './Row';
  * Computes row1 × row 2
  */
 const multiply = (row1: Row, row2: Row): Row => {
-    const output: Row = [ ];
-    for (let i = 0; i < row1.length || i < row2.length; i = i + 1) {
+    const output: Row = [];
+    for (let i = 0; i < row1.length || i < row2.length; i += 1) {
         if (row2[i]) {
             if (row1[row2[i] - 1]) {
                 // If there's a source bell to copy, copy it

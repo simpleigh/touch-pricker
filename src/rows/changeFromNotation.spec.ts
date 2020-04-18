@@ -106,11 +106,8 @@ describe('changeFromNotation function', () => {
     ];
 
     describe('can parse notation', () => {
-        for (const testCase of testCases) {
-            const description = testCase[0];
-            const stage = testCase[1];
-            const input = testCase[2];
-            const expected = rowFromString(testCase[3], stage);
+        for (const [description, stage, input, expectedRow] of testCases) {
+            const expected = rowFromString(expectedRow, stage);
 
             it(description, () => {
                 const row = rounds(stage);
@@ -124,12 +121,7 @@ describe('changeFromNotation function', () => {
     });
 
     describe('can convert notation to a canonical form', () => {
-        for (const testCase of testCases) {
-            const description = testCase[0];
-            const stage = testCase[1];
-            const input = testCase[2];
-            const expected = testCase[4];
-
+        for (const [description, stage, input, , expected] of testCases) {
             it(description, () => {
                 const change = changeFromNotation(input, stage);
                 expect(change.toString()).toBe(expected);
@@ -160,10 +152,7 @@ describe('changeFromNotation function', () => {
             ['2143657', '7'],
         ];
 
-        for (const triplesNotation of triplesNotations) {
-            const expected = triplesNotation[0];
-            const notation = triplesNotation[1];
-
+        for (const [expected, notation] of triplesNotations) {
             const row = rounds(Stage.Triples);
             const change = changeFromNotation(notation, Stage.Triples);
 
@@ -183,11 +172,7 @@ describe('changeFromNotation function', () => {
         ['places missed out', '13', 'Place missed out'],
     ];
 
-    for (const errorTestCase of errorTestCases) {
-        const description = errorTestCase[0];
-        const input = errorTestCase[1];
-        const expected = errorTestCase[2];
-
+    for (const [description, input, expected] of errorTestCases) {
         it(`rejects ${description}`, () => {
             expect(() => changeFromNotation(input, Stage.Triples))
                 .toThrowError(expected);

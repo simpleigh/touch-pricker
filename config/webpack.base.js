@@ -1,3 +1,7 @@
+'use strict';
+
+/* eslint-disable sort-keys */
+
 const paths = require('./paths');
 
 module.exports = {
@@ -9,7 +13,7 @@ module.exports = {
             {
                 enforce: 'pre',
                 test: /\.ts$/,
-                loader: 'tslint-loader',
+                loader: 'eslint-loader',
             },
             {
                 test: /\.ts$/,

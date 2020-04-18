@@ -5,6 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+/* eslint-disable max-len */
+
 import { BlockDirectory } from '../../blocks';
 import { Call } from '../../leads';
 import { rounds, Stage, stringFromRow } from '../../rows';
@@ -14,10 +16,6 @@ import Lead from '.';
 describe('mbd template for Grandsire Lead', () => {
     let lead: Lead;
 
-    beforeEach(() => {
-        lead = createTestLead(1);
-    });
-
     const createTestLead = (index: number): Lead => {
         const container: Course = jasmine.createSpyObj('Course', ['notify']);
 
@@ -26,6 +24,10 @@ describe('mbd template for Grandsire Lead', () => {
             { container, index },
         );
     };
+
+    beforeEach(() => {
+        lead = createTestLead(1);
+    });
 
     it('renders a lead correctly', () => {
         expect(lead.print('mbd')).toRenderAs(`
@@ -111,7 +113,7 @@ describe('mbd template for Grandsire Lead', () => {
 
         music.add(2, 1);
 
-        expect(lead.print('mbd', { music, courseIndex: 2 })).toRenderAs(`
+        expect(lead.print('mbd', { courseIndex: 2, music })).toRenderAs(`
             <span class="musicalBlock">
                 ${stringFromRow(lead.getLast())}
             </span>
@@ -130,7 +132,7 @@ describe('mbd template for Grandsire Lead', () => {
 
         falseness.add(2, 1);
 
-        expect(lead.print('mbd', { falseness, courseIndex: 2 })).toRenderAs(`
+        expect(lead.print('mbd', { courseIndex: 2, falseness })).toRenderAs(`
             <span class="falseBlock">
                 ${stringFromRow(lead.getLast())}
             </span>

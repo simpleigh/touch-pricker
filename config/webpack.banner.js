@@ -1,12 +1,14 @@
-const BannerPlugin = require('webpack').BannerPlugin;
-const fs = require('fs');
+'use strict';
 
-const package = require('../package.json');
+const fs = require('fs');
+const { BannerPlugin } = require('webpack');
+
+const { version } = require('../package.json');
 const paths = require('./paths');
 
 // Load the banner template and add a line with the version number
 const bannerLines = fs.readFileSync(paths.bannerFile, 'utf8').split('\n');
-bannerLines.splice(bannerLines.length - 2, 0, ` * @version ${package.version}`);
+bannerLines.splice(bannerLines.length - 2, 0, ` * @version ${version}`);
 const banner = bannerLines.join('\n');
 
 module.exports = {

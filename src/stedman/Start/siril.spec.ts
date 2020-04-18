@@ -5,10 +5,11 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+/* eslint-disable max-len */
+
 import { rounds, Stage } from '../../rows';
 import { AbstractMethod, Stedman, StedmanJump, Carter } from '../methods';
 import SixType from '../SixType';
-import SixTypeMap from '../SixTypeMap';
 import Start from '.';
 
 describe('siril template for Start', () => {
@@ -36,7 +37,7 @@ describe('siril template for Start', () => {
         ]],
         [SixType.Cold, [
             '', // Aligns array indices with rowIndex
-            "'231547698E0', '231547698E0', '231547698E0', '231547698E0', '231547698E0'", // tslint:disable-line:max-line-length
+            "'231547698E0', '231547698E0', '231547698E0', '231547698E0', '231547698E0'",
             "'231547698E0', '231547698E0', '231547698E0', '231547698E0'",
             "'231547698E0', '231547698E0', '231547698E0'",
             "'231547698E0', '231547698E0'",
@@ -45,7 +46,7 @@ describe('siril template for Start', () => {
         ]],
         [SixType.Hot, [
             '', // Aligns array indices with rowIndex
-            "'312547698E0', '312547698E0', '312547698E0', '312547698E0', '312547698E0'", // tslint:disable-line:max-line-length
+            "'312547698E0', '312547698E0', '312547698E0', '312547698E0', '312547698E0'",
             "'312547698E0', '312547698E0', '312547698E0', '312547698E0'",
             "'312547698E0', '312547698E0', '312547698E0'",
             "'312547698E0', '312547698E0'",
@@ -72,23 +73,23 @@ describe('siril template for Start', () => {
         ]],
     ];
 
-    const methodMap: SixTypeMap<new() => AbstractMethod> = {
-        [SixType.Slow]:  Stedman,
-        [SixType.Quick]: Stedman,
-        [SixType.Cold]:  StedmanJump,
-        [SixType.Hot]:   StedmanJump,
-        [SixType.Four]:  Carter,
-        [SixType.Eight]: Carter,
+    const methodMap: Record<SixType, new() => AbstractMethod> = {
+        [SixType.Slow]:    Stedman,
+        [SixType.Quick]:   Stedman,
+        [SixType.Cold]:    StedmanJump,
+        [SixType.Hot]:     StedmanJump,
+        [SixType.Four]:    Carter,
+        [SixType.Eight]:   Carter,
+        [SixType.Invalid]: Stedman,
     };
 
-    for (const startPosition of startPositions) {
-        const sixType = startPosition[0];
-        const method = new methodMap[sixType]!();
+    for (const [sixType, positions] of startPositions) {
+        const method = new methodMap[sixType]();
         const start = new Start(rounds(Stage.Cinques), undefined, method);
         start.sixType = sixType;
 
         for (let rowIndex = 1; rowIndex <= start.lastRowIndex; rowIndex += 1) {
-            const expected = startPosition[1][rowIndex];
+            const expected = positions[rowIndex];
 
             it(`prints correctly "${expected}"`, () => {
                 start.rowIndex = rowIndex;

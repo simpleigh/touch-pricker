@@ -11,10 +11,10 @@ import {
 } from '../../blocks/SerialContainer.spec';
 import { rounds, Row, Stage } from '../../rows';
 import AbstractLead from '../AbstractLead';
-import AbstractCourse from '../AbstractCourse';
 import Call from '../Call';
 import { testHtmlAbstractCourseTemplate } from './html.spec';
 import { testTextAbstractCourseTemplate } from './text.spec';
+import AbstractCourse from '.';
 
 /**
  * Test that a course behaves as an AbstractCourse

@@ -5,7 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { MatchType, Pattern } from '..';
+import MatchType from '../MatchType';
+import Pattern from '.';
 
 describe('text template for Pattern music class', () => {
 

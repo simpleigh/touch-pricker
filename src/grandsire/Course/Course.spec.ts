@@ -99,10 +99,7 @@ describe('Grandsire Course class', () => {
         ]],
     ];
 
-    for (const testCase of leadEndTestCases) {
-        const stage = testCase[0];
-        const expectedLeadHeads = testCase[1];
-
+    for (const [stage, expectedLeadHeads] of leadEndTestCases) {
         it(`calculates lead heads correctly for a course on ${stage}`, () => {
             course = new Course(rounds(stage));
             for (let index = 1; index <= course.length; index += 1) {
@@ -113,7 +110,7 @@ describe('Grandsire Course class', () => {
     }
 
     it('generates the correct rows when visited', () => {
-        let strings: string[] = [ ];
+        let strings: string[] = [];
 
         for (let index = 1; index <= course.length; index += 1) {
             const blockVisitor = new StringArray();

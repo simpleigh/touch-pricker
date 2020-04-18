@@ -17,7 +17,7 @@ interface Notifiable {
      * Receives a notification from a block that has changed
      * @param index  index of changed block in container
      */
-    notify(index: number): void;
+    notify: (index: number) => void;
 
 }
 

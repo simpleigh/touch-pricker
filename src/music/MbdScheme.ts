@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-/* tslint:disable:max-line-length */
+/* eslint-disable max-len */
 
 import { Stage } from '../rows';
 import AbstractMatcher from './AbstractMatcher';
@@ -25,41 +25,38 @@ class MbdScheme extends AbstractScheme {
      * Create matchers for this scheme/stage.
      */
     protected createMatchers(rounds: string): AbstractMatcher[] {
-        const matchers: AbstractMatcher[] = [ ];
-        let pattern: string;
-        let patternArray: Pattern[];
+        const matchers: AbstractMatcher[] = [];
 
         // 567890E
-        pattern = rounds.slice(4 - this._stage);
-        matchers.push(new Pattern(pattern));
+        matchers.push(new Pattern(rounds.slice(4 - this._stage)));
 
         // 56789E0
-        pattern = rounds.slice(4 - this._stage, -2)
-            + rounds.slice(-1)
-            + rounds.slice(-2, -1);
-        matchers.push(new Pattern(pattern));
+        matchers.push(new Pattern(
+            rounds.slice(4 - this._stage, -2)
+                + rounds.slice(-1)
+                + rounds.slice(-2, -1)
+        ));
 
         // 657890E
-        pattern = '65' + rounds.slice(6 - this._stage);
-        matchers.push(new Pattern(pattern));
+        matchers.push(new Pattern(`65${rounds.slice(6 - this._stage)}`));
 
         // Near misses
-        patternArray = [ ];
+        const nearMisses = [];
         for (let i = 0; i < this._stage - 1; i += 1) {
-            pattern = rounds.slice(0, i)  // 123
+            const pattern = rounds.slice(0, i)  // 123
                 + rounds.charAt(i + 1)    // 5
                 + rounds.charAt(i)        // 4
                 + rounds.slice(i + 2);    // 67890E
-            patternArray.push(new Pattern(
+            nearMisses.push(new Pattern(
                 pattern,
                 rounds.charAt(i + 1) + rounds.charAt(i),
                 MatchType.Row,
             ));
         }
-        matchers.push(new PatternGroup('near misses', patternArray));
+        matchers.push(new PatternGroup('near misses', nearMisses));
 
         // Queens music
-        // tslint:disable-next-line:switch-default
+        // eslint-disable-next-line default-case, @typescript-eslint/switch-exhaustiveness-check
         switch (this._stage) {
             case Stage.Triples:
                 matchers.push(new PatternGroup(
@@ -178,14 +175,14 @@ class MbdScheme extends AbstractScheme {
         if (this._stage === Stage.Triples) {
             matchers.push(new PatternGroup('reverse rollups', [new Pattern('7654')]));
         } else {
-            patternArray = [ ];
+            const reverseRollups = [];
             for (let i: number = this._stage - 8; i >= 0; i -= 1) {
                 // reverse rounds
-                pattern = rounds.split('').reverse().join('');
+                let pattern = rounds.split('').reverse().join('');
                 pattern = pattern.slice(i, i + 4);
-                patternArray.push(new Pattern(pattern));
+                reverseRollups.push(new Pattern(pattern));
             }
-            matchers.push(new PatternGroup('reverse rollups', patternArray));
+            matchers.push(new PatternGroup('reverse rollups', reverseRollups));
         }
 
         return matchers;

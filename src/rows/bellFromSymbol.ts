@@ -7,14 +7,14 @@
 
 import Bell from './Bell';
 
-// tslint:disable:object-literal-key-quotes object-literal-sort-keys
-const BELL_SYMBOLS_MAP: { [index: string]: number } = {
+/* eslint-disable object-property-newline, quote-props, sort-keys */
+const BELL_SYMBOLS_MAP: Record<string, Bell> = {
     '1': 1, '2': 2, '3': 3, '4': 4,
     '5': 5, '6': 6, '7': 7, '8': 8,
     '9': 9, '0': 10, 'E': 11, 'T': 12,
     'A': 13, 'B': 14, 'C': 15, 'D': 16,
 };
-// tslint:enable:object-literal-key-quotes object-literal-sort-keys
+/* eslint-enable object-property-newline, quote-props, sort-keys */
 
 /**
  * Converts a character into a [[Bell]].

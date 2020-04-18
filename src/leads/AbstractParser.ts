@@ -40,13 +40,14 @@ abstract class AbstractParser<
             .map((line) => line.replace(/^\//, ''))
 
             // Skip blank lines
-            .filter((line) => !(/^\s*$/.test(line)));
+            .filter((line) => !/^\s*$/.test(line));
 
         if (!lines.length) {
             throw new Error('No input lines');
         }
 
         // Create the touch with a stage based on the first line
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const first = lines.shift()!.replace(/\s/g, '');
         if (!Stage[first.length]) {
             throw new Error(`Cannot recognise stage from line '${first}'`);

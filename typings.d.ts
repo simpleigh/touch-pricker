@@ -1,12 +1,14 @@
+/* eslint-disable init-declarations */
+
 declare module '*.dot' {
-    const template: (context: any) => string;
+    const template: (context: Record<string, unknown>) => string;
     export default template;
 }
 
-declare module jasmine {
+declare namespace jasmine {
     interface Matchers<T> {
-        toBePrintable(): jasmine.CustomMatcherResult;
-        toHaveTemplate(expected: string): jasmine.CustomMatcherResult;
-        toRenderAs(expected: string): jasmine.CustomMatcherResult;
+        toBePrintable: () => CustomMatcherResult;
+        toHaveTemplate: (expected: string) => CustomMatcherResult;
+        toRenderAs: (expected: string) => CustomMatcherResult;
     }
 }

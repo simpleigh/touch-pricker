@@ -71,7 +71,7 @@ abstract class AbstractBlock {
     /**
      * Stage for the block
      */
-    public get stage(): Stage {
+    get stage(): Stage {
         return this._initialRow.length;
     }
 

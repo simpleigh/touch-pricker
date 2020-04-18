@@ -22,7 +22,7 @@ export const testAbstractBlockImplementation = (
     testStage: Stage,
     factory: (initialRow: Row, _ownership?: BlockOwnership) => AbstractBlock,
     lengthTestCases: [Stage, number][],
-    triggerNotification: (block: AbstractBlock) => any,
+    triggerNotification: (block: AbstractBlock) => unknown,
 ) => {
 
     describe('is derived from AbstractBlock and', () => {

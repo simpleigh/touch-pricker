@@ -5,7 +5,6 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import Course from '.';
 import { Call } from '../../leads';
 import {
     testAbstractCourseImplementation,
@@ -14,6 +13,7 @@ import { rounds, rowFromString, Stage, stringFromRow } from '../../rows';
 import { StringArray } from '../../visitors';
 import { AbstractMethod, Erin, Stedman, StedmanJump } from '../methods';
 import SixType from '../SixType';
+import Course from '.';
 
 describe('Stedman Course class', () => {
 
@@ -63,7 +63,6 @@ describe('Stedman Course class', () => {
     });
 
     it('sets the first six for the chosen method', () => {
-        // tslint:disable-next-line
         const method = { defaultFirstSix: SixType.Cold } as AbstractMethod;
         course = new Course(testRow, undefined, method);
         expect(course.firstSixType).toBe(SixType.Cold);
@@ -344,7 +343,7 @@ describe('Stedman Course class', () => {
     });
 
     it('generates the correct rows when visited', () => {
-        let strings: string[] = [ ];
+        let strings: string[] = [];
 
         for (let index = 1; index <= course.length; index += 1) {
             const blockVisitor = new StringArray();

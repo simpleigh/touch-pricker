@@ -73,7 +73,7 @@ class Eight extends AbstractSix {
      * Returns a table of lead heads from rounds for each stage and call
      */
     protected get leadHeadTable(): LeadHeadTable {
-        // tslint:disable max-line-length
+        /* eslint-disable max-len */
         return {
             [Call.Plain]: {
                 [Stage.Triples]:   [4, 6, 2, 3, 1, 7, 5],
@@ -97,7 +97,7 @@ class Eight extends AbstractSix {
                 [Stage.Septuples]: [4, 6, 2, 3, 1, 8, 5, 10, 7, 12, 9, 13, 11, 15, 14],
             },
         };
-        // tslint:enable max-line-length
+        /* eslint-enable max-len */
     }
 
 }

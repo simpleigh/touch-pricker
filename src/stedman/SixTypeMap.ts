@@ -10,6 +10,6 @@ import SixType from './SixType';
 /**
  * Type of objects allowing values to be looked up for each SixType
  */
-type SixTypeMap<Value> = { [type in SixType]?: Value };
+type SixTypeMap<Value> = Partial<Record<SixType, Value>>;
 
 export default SixTypeMap;

@@ -5,9 +5,11 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import Touch from '.';
+/* eslint-disable max-len */
+
 import { BlockDirectory } from '../../blocks';
 import { stringFromRow } from '../../rows';
+import Touch from '.';
 
 describe('select template for Stedman Touch', () => {
 

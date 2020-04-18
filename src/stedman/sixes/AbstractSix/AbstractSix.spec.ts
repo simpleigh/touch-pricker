@@ -5,7 +5,6 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import AbstractSix from '.';
 import { BlockOwnership } from '../../../blocks';
 import { Call } from '../../../leads';
 import {
@@ -18,6 +17,7 @@ import Course from '../../Course';
 import SixType from '../../SixType';
 import { testMbdAbstractSixTemplate } from './mbd.spec';
 import { testSirilAbstractSixTemplate } from './siril.spec';
+import AbstractSix from '.';
 
 export const testSixImplementation = (
     factory: (initialRow: Row, _ownership?: BlockOwnership) => AbstractSix,
@@ -53,17 +53,13 @@ export const testSixImplementation = (
 
     it('can render the notation as a string', () => {
         const six = factory(rounds(Stage.Cinques));
-        for (let i = 1; i <= notationStringTests.length; i = i + 1) {
+        for (let i = 1; i <= notationStringTests.length; i += 1) {
             expect(six.getNotationString(i)).toBe(notationStringTests[i - 1]);
         }
     });
 
     it('computes the six head correctly', () => {
-        for (const testCase of testCases) {
-            const initialRow = testCase[0];
-            const testStage = testCase[2];
-            const call = testCase[3];
-
+        for (const [initialRow, , testStage, call] of testCases) {
             const six = factory(rowFromString(initialRow, testStage));
             const row = six.initialRow;
             Changes.permuteCall(row, call);
@@ -74,8 +70,8 @@ export const testSixImplementation = (
 
     it('generates the correct rows when visited', () => {
         for (const rowTest of rowTests) {
-            const initialRow = rounds(rowTest[0]);         // Stage
-            const expectedRows: any[] = rowTest.slice(1);  // ... and test rows
+            const initialRow = rounds(rowTest[0]);              // Stage ...
+            const expectedRows = rowTest.slice(1) as string[];  // and test rows
             const six = factory(initialRow);
             const visitor = new StringArray();
 

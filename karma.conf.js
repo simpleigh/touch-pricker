@@ -5,8 +5,12 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+'use strict';
+
+/* eslint-disable import/no-internal-modules */
 const paths = require('./config/paths');
 const webpackConfig = require('./config/webpack.config.test');
+/* eslint-enable import/no-internal-modules */
 
 // Remove the output filename (let karma-webpack put this in itself)
 delete webpackConfig.output.filename;

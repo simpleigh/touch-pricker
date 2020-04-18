@@ -5,9 +5,9 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import * as Templates from '.';
 import { stringFromRow } from '../rows';
 import { Context } from './types';
+import * as Templates from '.';
 
 describe('Printable implementation', () => {
 
@@ -18,7 +18,9 @@ describe('Printable implementation', () => {
 
     @Templates.makePrintable(templates, { compile: 'compile-time context' })
     class Printable implements Templates.Interface {
+
         public print: Templates.Print;
+
     }
 
     let printable: Printable;

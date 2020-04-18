@@ -306,7 +306,7 @@ describe('Parser for Stedman', () => {
         });
 
         it('a touch with a broken course', () => {
-            expect(() => parser.parseTouch('2314567890E\n' + 'garbage\n'))
+            expect(() => parser.parseTouch('2314567890E\ngarbage\n'))
                 .toThrowError("Cannot import course from line 'garbage'");
         });
 

@@ -31,19 +31,19 @@ class RunsScheme extends AbstractScheme {
      * Create matchers for this scheme/stage.
      */
     protected createMatchers(rounds: string): AbstractMatcher[] {
-        const frontMatchers: AbstractMatcher[] = [ ];
-        const backMatchers: AbstractMatcher[] = [ ];
+        const frontMatchers: AbstractMatcher[] = [];
+        const backMatchers: AbstractMatcher[] = [];
 
         // Loop over possible run lengths
         // Start with longer runs as they're more interesting.
         // Ignore rounds and the `n - 1` bell run (also rounds).
         // Ignore runs involving fewer than four bells.
-        for (let run = this._stage - 2; run >= 4; run = run - 1) {
-            const front: Pattern[] = [ ];
-            const back: Pattern[] = [ ];
+        for (let run = this._stage - 2; run >= 4; run -= 1) {
+            const front: Pattern[] = [];
+            const back: Pattern[] = [];
 
             // Slice rounds at different points to generate all possible runs
-            for (let index = 0; index <= this._stage - run; index = index + 1) {
+            for (let index = 0; index <= this._stage - run; index += 1) {
                 const pattern = rounds.slice(index, index + run);
                 const revPattern = reverse(pattern);
 

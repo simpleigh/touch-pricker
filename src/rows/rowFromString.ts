@@ -35,12 +35,12 @@ const rowFromString = (input: string, stage: Stage): Row => {
     }
 
     // Build a table to record when we've seen each bell
-    const bellsSeen: boolean[] = [ ];
+    const bellsSeen: boolean[] = [];
     for (let bellNumber = 1; bellNumber <= stage; bellNumber += 1) {
         bellsSeen[bellNumber] = false;
     }
 
-    const output: Row = [ ];
+    const output: Row = [];
 
     // Assemble the row based on the input string
     for (
@@ -48,7 +48,7 @@ const rowFromString = (input: string, stage: Stage): Row => {
         inputIndex < input.length && inputIndex < stage;
         inputIndex += 1
     ) {
-        let bellNumber: Bell;
+        let bellNumber: Bell;  // eslint-disable-line init-declarations
 
         // Catch errors parsing the bell number and add the input to the message
         try {

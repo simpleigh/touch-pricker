@@ -5,9 +5,9 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import Pattern from '.';
 import { testAbstractMatcherImplementation } from '../AbstractMatcher.spec';
 import MatchType from '../MatchType';
+import Pattern from '.';
 
 describe('Pattern music class', () => {
 

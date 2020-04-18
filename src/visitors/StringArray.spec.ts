@@ -16,7 +16,7 @@ describe('StringArray visitor', () => {
     beforeEach(() => { visitor = new StringArray(); });
 
     it('has a list of strings that starts empty', () => {
-        expect(visitor.strings).toEqual([ ]);
+        expect(visitor.strings).toEqual([]);
     });
 
     it('stores a string when it visits a row', () => {
@@ -29,7 +29,7 @@ describe('StringArray visitor', () => {
         const getStrings = visitor.strings;
         getStrings.push('test');  // Mutate the getStrings result
         expect(visitor.strings).not.toEqual(getStrings);
-        expect(visitor.strings).toEqual([ ]);
+        expect(visitor.strings).toEqual([]);
     });
 
     testAbstractVisitorImplementation(

@@ -9,16 +9,17 @@ import createAndAppendStyle from './createAndAppendStyle';
 
 describe('createAndAppendStyle DOM utility', () => {
 
-    let mockStyle: any;
+    let mockStyle: HTMLStyleElement;
     let parentDocument: jasmine.SpyObj<HTMLDocument>;
 
     beforeEach(() => {
-        mockStyle = { };
+        mockStyle = { } as HTMLStyleElement;
         parentDocument = jasmine.createSpyObj('HTMLDocument', [
             'createElement',
         ]);
         parentDocument.createElement.and.returnValue(mockStyle);
-        (parentDocument as any).head = { appendChild:  jasmine.createSpy() };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (parentDocument as any).head = { appendChild: jasmine.createSpy() };
     });
 
     it('creates a style element', () => {

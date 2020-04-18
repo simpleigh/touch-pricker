@@ -5,17 +5,17 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import AbstractMethod from '.';
 import SixType from '../../SixType';
 import Erin from '../Erin';
 import Stedman from '../Stedman';
 import StedmanJump from '../StedmanJump';
+import AbstractMethod from '.';
 
 /**
  * Tests the template behaves like the parent version
  */
 const testSelectAbstractMethodTemplate = (
-    Method: { new(): AbstractMethod },  // tslint:disable-line
+    Method: new() => AbstractMethod,
     types: SixType[],
 ) => () => {
 
@@ -23,8 +23,7 @@ const testSelectAbstractMethodTemplate = (
         it('renders six type options correctly', () => {
             let expected = '';
             for (const type of types) {
-                expected = expected +
-                    `<option value="${type}">${type}</option>`;
+                expected += `<option value="${type}">${type}</option>`;
             }
             expect(new Method().print('select')).toBe(expected);
         });

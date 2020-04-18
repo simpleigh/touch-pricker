@@ -37,7 +37,7 @@ class Course
     constructor(
         initialRow: Row,
         protected _ownership?: BlockOwnership,
-        private _method: AbstractMethod = new Stedman(),
+        private readonly _method: AbstractMethod = new Stedman(),
     ) {
         super(initialRow, _ownership);
         this._firstSixType = this._method.defaultFirstSix;
@@ -71,11 +71,11 @@ class Course
      * Clones the course
      */
     public clone(): this {
-        const cloned: this = new Course(
+        const cloned = new Course(
             this._initialRow,
             undefined,
             this._method,
-        ) as any;
+        ) as this;
 
         cloned.setFirstSixType(this.firstSixType);
         Course.copyCalls(this, cloned);

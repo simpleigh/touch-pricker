@@ -5,9 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-/* tslint:disable:max-line-length */
+/* eslint-disable max-len */
 
-import Start from '.';
 import {
     testAbstractBlockImplementation,
 } from '../../blocks/AbstractBlock.spec';
@@ -15,7 +14,7 @@ import { rounds, rowFromString, Stage as S } from '../../rows';
 import { StringArray } from '../../visitors';
 import { AbstractMethod, Carter, Erin, Stedman, StedmanJump } from '../methods';
 import SixType from '../SixType';
-import SixTypeMap from '../SixTypeMap';
+import Start from '.';
 
 describe('Start class', () => {
 
@@ -73,7 +72,7 @@ describe('Start class', () => {
     });
 
     it('throws an exception if the six type is invalid', () => {
-        expect(() => start.sixType = SixType.Invalid)
+        expect(() => { start.sixType = SixType.Invalid; })
             .toThrowError("'invalid' blocks not allowed for this method");
     });
 
@@ -90,39 +89,39 @@ describe('Start class', () => {
 
     it('checks the six type is valid for Carter', () => {
         start = new Start(rounds(S.Cinques), undefined, new Carter());
-        expect(() => start.sixType = SixType.Slow).toThrow();
-        expect(() => start.sixType = SixType.Quick).toThrow();
-        expect(() => start.sixType = SixType.Cold).toThrow();
-        expect(() => start.sixType = SixType.Hot).toThrow();
-        expect(() => start.sixType = SixType.Invalid).toThrow();
+        expect(() => { start.sixType = SixType.Slow; }).toThrow();
+        expect(() => { start.sixType = SixType.Quick; }).toThrow();
+        expect(() => { start.sixType = SixType.Cold; }).toThrow();
+        expect(() => { start.sixType = SixType.Hot; }).toThrow();
+        expect(() => { start.sixType = SixType.Invalid; }).toThrow();
     });
 
     it('checks the six type is valid for Erin', () => {
         start = new Start(rounds(S.Cinques), undefined, new Erin());
-        expect(() => start.sixType = SixType.Quick).toThrow();
-        expect(() => start.sixType = SixType.Cold).toThrow();
-        expect(() => start.sixType = SixType.Hot).toThrow();
-        expect(() => start.sixType = SixType.Four).toThrow();
-        expect(() => start.sixType = SixType.Eight).toThrow();
-        expect(() => start.sixType = SixType.Invalid).toThrow();
+        expect(() => { start.sixType = SixType.Quick; }).toThrow();
+        expect(() => { start.sixType = SixType.Cold; }).toThrow();
+        expect(() => { start.sixType = SixType.Hot; }).toThrow();
+        expect(() => { start.sixType = SixType.Four; }).toThrow();
+        expect(() => { start.sixType = SixType.Eight; }).toThrow();
+        expect(() => { start.sixType = SixType.Invalid; }).toThrow();
     });
 
     it('checks the six type is valid for Stedman', () => {
         start = new Start(rounds(S.Cinques), undefined, new Erin());
-        expect(() => start.sixType = SixType.Cold).toThrow();
-        expect(() => start.sixType = SixType.Hot).toThrow();
-        expect(() => start.sixType = SixType.Four).toThrow();
-        expect(() => start.sixType = SixType.Eight).toThrow();
-        expect(() => start.sixType = SixType.Invalid).toThrow();
+        expect(() => { start.sixType = SixType.Cold; }).toThrow();
+        expect(() => { start.sixType = SixType.Hot; }).toThrow();
+        expect(() => { start.sixType = SixType.Four; }).toThrow();
+        expect(() => { start.sixType = SixType.Eight; }).toThrow();
+        expect(() => { start.sixType = SixType.Invalid; }).toThrow();
     });
 
     it('checks the six type is valid for Stedman Jump', () => {
         start = new Start(rounds(S.Cinques), undefined, new StedmanJump());
-        expect(() => start.sixType = SixType.Slow).toThrow();
-        expect(() => start.sixType = SixType.Quick).toThrow();
-        expect(() => start.sixType = SixType.Four).toThrow();
-        expect(() => start.sixType = SixType.Eight).toThrow();
-        expect(() => start.sixType = SixType.Invalid).toThrow();
+        expect(() => { start.sixType = SixType.Slow; }).toThrow();
+        expect(() => { start.sixType = SixType.Quick; }).toThrow();
+        expect(() => { start.sixType = SixType.Four; }).toThrow();
+        expect(() => { start.sixType = SixType.Eight; }).toThrow();
+        expect(() => { start.sixType = SixType.Invalid; }).toThrow();
     });
 
     it('allows the row index to be set', () => {
@@ -147,12 +146,8 @@ describe('Start class', () => {
     ];
 
     it('exposes the last permitted row index for a six', () => {
-        for (const indexTestCase of indexTestCases) {
-            const sixType = indexTestCase[0];
-            const method = indexTestCase[1];
-            const maxIndex = indexTestCase[2];
-
-            start = new Start(rounds(S.Cinques), undefined, new method());
+        for (const [sixType, Method, maxIndex] of indexTestCases) {
+            start = new Start(rounds(S.Cinques), undefined, new Method());
             start.sixType = sixType;
 
             expect(start.lastRowIndex).toBe(maxIndex);
@@ -160,20 +155,16 @@ describe('Start class', () => {
     });
 
     it('restricts the row index range based on the six type', () => {
-        for (const indexTestCase of indexTestCases) {
-            const sixType = indexTestCase[0];
-            const method = indexTestCase[1];
-            const maxIndex = indexTestCase[2];
-
-            start = new Start(rounds(S.Cinques), undefined, new method());
+        for (const [sixType, Method, maxIndex] of indexTestCases) {
+            start = new Start(rounds(S.Cinques), undefined, new Method());
             start.sixType = sixType;
 
             // Following two lines should not raise an error
             start.rowIndex = 1;
             start.rowIndex = maxIndex;
 
-            expect(() => { start.rowIndex = 0 }).toThrow();
-            expect(() => { start.rowIndex = maxIndex + 1 }).toThrow();
+            expect(() => { start.rowIndex = 0; }).toThrow();
+            expect(() => { start.rowIndex = maxIndex + 1; }).toThrow();
         }
     });
 
@@ -962,29 +953,23 @@ describe('Start class', () => {
         ]],
     ];
 
-    const methodMap: SixTypeMap<new() => AbstractMethod> = {
-        [SixType.Slow]: Stedman,
-        [SixType.Quick]: Stedman,
-        [SixType.Cold]: StedmanJump,
-        [SixType.Hot]: StedmanJump,
-        [SixType.Four]: Carter,
-        [SixType.Eight]: Carter,
+    const methodMap: Record<SixType, new() => AbstractMethod> = {
+        [SixType.Slow]:    Stedman,
+        [SixType.Quick]:   Stedman,
+        [SixType.Cold]:    StedmanJump,
+        [SixType.Hot]:     StedmanJump,
+        [SixType.Four]:    Carter,
+        [SixType.Eight]:   Carter,
+        [SixType.Invalid]: Stedman,
     };
 
     const runRowTestCases = (testFn: (fixture: Start, rows: string[]) => void) => () => {
-        for (const rowTestCase of rowTestCases) {
-            const rowIndex = rowTestCase[0];
-            const sixType = rowTestCase[1];
-            const testCases = rowTestCase[2];
-
-            for (const testCase of testCases) {
-                const stage = testCase[0];
-                const rows = testCase[1];
-                const method = methodMap[sixType]!;
+        for (const [rowIndex, sixType, testCases] of rowTestCases) {
+            for (const [stage, rows] of testCases) {
                 const fixture = new Start(
                     rounds(stage),
                     undefined,
-                    new method(),
+                    new methodMap[sixType](),
                 );
 
                 fixture.sixType = sixType;
@@ -995,19 +980,12 @@ describe('Start class', () => {
     };
 
     it('computes the notation correctly', () => {
-        for (const notationTestCase of notationTestCases) {
-            const rowIndex = notationTestCase[0];
-            const sixType = notationTestCase[1];
-            const testCases = notationTestCase[2];
-
-            for (const testCase of testCases) {
-                const stage = testCase[0];
-                const notation = testCase[1];
-                const method = methodMap[sixType]!;
+        for (const [rowIndex, sixType, testCases] of notationTestCases) {
+            for (const [stage, notation] of testCases) {
                 const fixture = new Start(
                     rounds(stage),
                     undefined,
-                    new method(),
+                    new methodMap[sixType](),
                 );
 
                 fixture.sixType = sixType;
@@ -1018,19 +996,12 @@ describe('Start class', () => {
     });
 
     it('computes the notation string correctly', () => {
-        for (const notationStringTestCase of notationStringTestCases) {
-            const rowIndex = notationStringTestCase[0];
-            const sixType = notationStringTestCase[1];
-            const testCases = notationStringTestCase[2];
-
-            for (const testCase of testCases) {
-                const stage = testCase[0];
-                const notation = testCase[1];
-                const method = methodMap[sixType]!;
+        for (const [rowIndex, sixType, testCases] of notationStringTestCases) {
+            for (const [stage, notation] of testCases) {
                 const fixture = new Start(
                     rounds(stage),
                     undefined,
-                    new method(),
+                    new methodMap[sixType](),
                 );
 
                 fixture.sixType = sixType;
@@ -1070,10 +1041,8 @@ describe('Start class', () => {
 
     describe('can set the row index and six type from strings:', () => {
 
-        /*
-         * Enumerate all possible starts and check the following flow:
-         *   Start -> text (`print`) -> Start (`setFromString`)
-         */
+        // Enumerate all possible starts and check the following flow:
+        //  Start -> text (`print`) -> Start (`setFromString`)
 
         const validSixTypes: [new() => AbstractMethod, SixType, number][] = [
             [Erin,        SixType.Slow,  6],
@@ -1085,11 +1054,8 @@ describe('Start class', () => {
             [Carter,      SixType.Eight, 8],
         ];
 
-        for (const combination of validSixTypes) {
-            const method = new combination[0]();
-            const sixType = combination[1];
-            const maxIndex = combination[2];
-
+        for (const [Method, sixType, maxIndex] of validSixTypes) {
+            const method = new Method();
             start = new Start(rounds(S.Cinques), undefined, method);
             start.sixType = sixType;
 
@@ -1099,7 +1065,7 @@ describe('Start class', () => {
 
                 // Ignore default start (produces no output)
                 if (!output) {
-                    continue;
+                    continue;  // eslint-disable-line no-continue
                 }
 
                 const description = ''

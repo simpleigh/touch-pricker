@@ -46,10 +46,12 @@ describe('Proof visitor', () => {
         visitor.visit(row2);
         visitor.visit(row2);
 
+        /* eslint-disable quote-props */
         expect(visitor.getRowCounts()).toEqual({
             '2143': 1,
             '2413': 2,
         });
+        /* eslint-enable quote-props */
     });
 
     it('ignores changes to the result', () => {

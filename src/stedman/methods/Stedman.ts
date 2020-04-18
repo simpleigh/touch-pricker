@@ -33,12 +33,7 @@ class Stedman extends AbstractMethod {
         course: Course,
         index: number,
     ): AbstractSix {
-        const offsets: SixTypeMap<number> = {
-            [SixType.Slow]: 0,
-            [SixType.Quick]: 1,
-        };
-        const offset = offsets[course.firstSixType]!;
-
+        const offset = course.firstSixType === SixType.Slow ? 0 : 1;
         return (offset + index) % 2
             ? new Slow(initialRow, { container: course, index })
             : new Quick(initialRow, { container: course, index });

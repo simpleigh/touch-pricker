@@ -31,10 +31,9 @@ class Touch
     /**
      * Computes place notation for each type of lead
      * Helper for use in templates
-     * @return { [Call]: string[] }
      */
-    get callNotations(): string[][] {
-        const result = [ ];
+    get callNotations(): Partial<Record<Call, string[]>> {
+        const result: Partial<Record<Call, string[]>> = { };
         const lead = new Lead(this.initialRow);
 
         for (const call of [Call.Plain, Call.Bob, Call.Single]) {
@@ -54,6 +53,7 @@ class Touch
     ): Touch {
         return parser.parseTouch(input);
     }
+
 }
 
 export default Touch;

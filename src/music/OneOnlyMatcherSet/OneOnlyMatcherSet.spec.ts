@@ -1,7 +1,7 @@
 import { testAbstractMatcherImplementation } from '../AbstractMatcher.spec';
 import MatchType from '../MatchType';
 import Pattern from '../Pattern';
-import OneOnlyMatcherSet from './OneOnlyMatcherSet';
+import OneOnlyMatcherSet from '.';
 
 describe('OneOnlyMatcherSet', () => {
 

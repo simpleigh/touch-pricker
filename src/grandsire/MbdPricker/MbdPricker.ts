@@ -17,6 +17,7 @@ import Touch from '../Touch';
 import css from './css.dot';
 import html from './html.dot';
 
+// eslint-disable-next-line no-shadow
 const enum Block { Course, Touch }
 
 /**
@@ -172,7 +173,7 @@ class MbdPricker extends AbstractPricker implements Notifiable {
     }
 
     private redrawTouch(): void {
-        this.getEl('proofResult').innerText = this._proofText || '';
+        this.getEl('proofResult').innerText = this._proofText ?? '';
         this.getEl('numRows').innerText = this._rowCount
             ? `${this._rowCount} Grandsire ${Stage[this._stage]}`
             : `${this._touch.rows} changes`;
@@ -192,7 +193,7 @@ class MbdPricker extends AbstractPricker implements Notifiable {
         polyfillTree(this.getEl('courses'));
     }
 
-    public c(lead: number): void {
+    public c(lead: number): void {  // eslint-disable-line id-length
         this._course.getBlock(lead).toggleCall();
     }
 
@@ -203,15 +204,14 @@ class MbdPricker extends AbstractPricker implements Notifiable {
 
     public onSetInitialRow(): void {
         const input = this.getEl<HTMLInputElement>('initialRow').value;
-        let initialRow: Row;
 
         try {
-            initialRow = rowFromString(input, this._stage);
-        } catch (e) {
+            const initialRow = rowFromString(input, this._stage);
+            this._course.initialRow = initialRow;
+        } catch (_) {
             return;
         }
 
-        this._course.initialRow = initialRow;
         this.redraw();
     }
 
@@ -336,11 +336,11 @@ class MbdPricker extends AbstractPricker implements Notifiable {
 
     public onLoadTouch(): void {
         const input = this.getEl<HTMLTextAreaElement>('loadSaveTextarea').value;
-        let newTouch: Touch;
+        let newTouch: Touch;  // eslint-disable-line init-declarations
 
         try {
             newTouch = Touch.fromString(input);
-        } catch (e) {
+        } catch (_) {
             // Ignore
             return;
         }
@@ -407,17 +407,17 @@ class MbdPricker extends AbstractPricker implements Notifiable {
 
     public onTab(pageId: string): void {
         const tabs = this.getEl('tabs').children;
-        const tab = this.getEl('tab_' + pageId);
+        const tab = this.getEl(`tab_${pageId}`);
         const pages = this.getEl('pages').children;
-        const page = this.getEl('page_' + pageId);
+        const page = this.getEl(`page_${pageId}`);
 
-        // tslint:disable-next-line:prefer-for-of
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for (let i = 0; i < tabs.length; i += 1) {
             tabs[i].className = 'tab';
         }
         tab.className = 'tab tab-selected';
 
-        // tslint:disable-next-line:prefer-for-of
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for (let i = 0; i < pages.length; i += 1) {
             pages[i].className = 'page';
         }

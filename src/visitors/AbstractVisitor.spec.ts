@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import AbstractVisitor from './AbstractVisitor';
 import { rounds, rowFromString, Stage } from '../rows';
+import AbstractVisitor from './AbstractVisitor';
 
 /**
  * Tests that a visitor behaves as an AbstractVisitor
@@ -14,9 +14,8 @@ import { rounds, rowFromString, Stage } from '../rows';
  * @param getState   fn that returns the visitor's state
  */
 export const testAbstractVisitorImplementation = (
-    // tslint:disable-next-line:variable-name
     createFn: () => AbstractVisitor,
-    getState: (visitor: AbstractVisitor) => any,
+    getState: (visitor: AbstractVisitor) => unknown,
 ) => {
 
     describe('is derived from AbstractVisitor and', () => {
@@ -42,11 +41,9 @@ export const testAbstractVisitorImplementation = (
         });
 
         it('stops changing its state when not processing', () => {
-            let result: any;
-
             visitor.visit(testRow);
             visitor.visit(rounds(Stage.Minimus));
-            result = getState(visitor);
+            const result = getState(visitor);
 
             visitor.visit(testRow);
             expect(getState(visitor)).toEqual(result);

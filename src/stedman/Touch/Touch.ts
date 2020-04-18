@@ -43,7 +43,7 @@ class Touch
     constructor(
         initialRow: Row,
         protected _ownership?: BlockOwnership,
-        private _method: AbstractMethod = new Stedman(),
+        private readonly _method: AbstractMethod = new Stedman(),
     ) {
         super(initialRow, _ownership);
         this._start = new Start(
@@ -76,9 +76,9 @@ class Touch
      * Number of rows in the block
      * This doesn't take into account coming round part-way through
      */
-    public get rows(): number {
-        return this._start.rows +
-            this._blocks.reduce((total, block) => total + block.rows, 0);
+    get rows(): number {
+        return this._start.rows
+            + this._blocks.reduce((total, block) => total + block.rows, 0);
     }
 
     /**
@@ -105,7 +105,7 @@ class Touch
     protected propagateBlocks(index: number = 0): void {
         // Handle first block
         if (!index && this.length) {
-            const first = this._blocks[0];
+            const [first] = this._blocks;
 
             const sixType = this._start.sixType;
             first.initialRow = this._start.getLast();
@@ -151,6 +151,7 @@ class Touch
         parser.method = method;
         return parser.parseTouch(input);
     }
+
 }
 
 export default Touch;

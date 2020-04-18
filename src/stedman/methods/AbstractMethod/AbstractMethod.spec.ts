@@ -8,13 +8,13 @@
 import { rowFromString, Stage } from '../../../rows';
 import Course from '../../Course';
 import SixType from '../../SixType';
-import AbstractMethod from './AbstractMethod';
+import AbstractMethod from '.';
 
 /**
  * Tests that a method behaves as an AbstractMethod
  */
 export const testAbstractMethodImplementation = (
-    Method: { new(): AbstractMethod },  // tslint:disable-line
+    Method: new() => AbstractMethod,
     name: string,
     lengthTestCases: [Stage, number][],
     progressionTestCases: [SixType, SixType][],
@@ -37,9 +37,7 @@ export const testAbstractMethodImplementation = (
         expect(method.name).toBe(name);
     });
 
-    for (const testCase of lengthTestCases) {
-        const stage = testCase[0];
-        const expected = testCase[1];
+    for (const [stage, expected] of lengthTestCases) {
         it(`computes the correct length for a ${stage} course`, () => {
             expect(method.getCourseLength(stage)).toBe(expected);
         });
@@ -48,9 +46,7 @@ export const testAbstractMethodImplementation = (
     const runProgressionTests = (
         testFunction: (sixType: SixType, expected: SixType) => void,
     ) => {
-        for (const testCase of progressionTestCases) {
-            const sixType = testCase[0];
-            const expected = testCase[1];
+        for (const [sixType, expected] of progressionTestCases) {
             testFunction(sixType, expected);
         }
     };
@@ -90,7 +86,7 @@ export const testAbstractMethodImplementation = (
         const maxIndex = method.getCourseLength(initialRow.length);
         let type = testCourse.firstSixType;
 
-        for (let index = 1; index <= maxIndex; index = index + 1) {
+        for (let index = 1; index <= maxIndex; index += 1) {
             const six = method.createSix(initialRow, testCourse, index);
             expect(six.container).toBe(testCourse);
             expect(six.index).toBe(index);

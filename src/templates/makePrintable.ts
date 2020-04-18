@@ -5,6 +5,13 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+/*
+eslint-disable
+@typescript-eslint/no-explicit-any,
+@typescript-eslint/no-unsafe-member-access,
+@typescript-eslint/unbound-method,
+*/
+
 import AbstractPrintable from './AbstractPrintable';
 import { Context, Templates } from './types';
 
@@ -26,12 +33,12 @@ const makePrintable = (
     cls.prototype.templates = {
         ...cls.prototype.templates,
         ...templates,
-    }
+    };
 
     cls.prototype.extraContext = {
         ...cls.prototype.extraContext,
         ...extraContext,
-    }
+    };
 };
 
 export default makePrintable;

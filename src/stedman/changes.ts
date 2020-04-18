@@ -6,7 +6,7 @@
  */
 
 import { Call } from '../leads';
-import { Bell, Row } from '../rows';
+import { Row } from '../rows';
 
 /**
  * Simple functions to permute rows
@@ -16,9 +16,7 @@ import { Bell, Row } from '../rows';
  * Helper function to swap two bells
  */
 const swapPair = (row: Row, index: number): void => {
-    let bell: Bell;
-
-    bell = row[index];
+    const bell = row[index];
     row[index] = row[index + 1];
     row[index + 1] = bell;
 };
@@ -27,9 +25,7 @@ const swapPair = (row: Row, index: number): void => {
  * Notation <1>
  */
 export const permute1 = (row: Row): void => {
-    let index: number;
-
-    for (index = 1; index < row.length - 1; index += 2) {
+    for (let index = 1; index < row.length - 1; index += 2) {
         swapPair(row, index);
     }
 };
@@ -38,11 +34,9 @@ export const permute1 = (row: Row): void => {
  * Notation <3>
  */
 export const permute3 = (row: Row): void => {
-    let index: number;
-
     swapPair(row, 0);
 
-    for (index = 3; index < row.length - 1; index += 2) {
+    for (let index = 3; index < row.length - 1; index += 2) {
         swapPair(row, index);
     }
 };
@@ -51,12 +45,10 @@ export const permute3 = (row: Row): void => {
  * Notation <5>
  */
 export const permute5 = (row: Row): void => {
-    let index: number;
-
     swapPair(row, 0);
     swapPair(row, 2);
 
-    for (index = 5; index < row.length - 1; index += 2) {
+    for (let index = 5; index < row.length - 1; index += 2) {
         swapPair(row, index);
     }
 };
@@ -65,12 +57,10 @@ export const permute5 = (row: Row): void => {
  * Notation <231>
  */
 export const permuteUp = (row: Row): void => {
-    let index: number;
-
     swapPair(row, 0);
     swapPair(row, 1);
 
-    for (index = 3; index < row.length - 1; index += 2) {
+    for (let index = 3; index < row.length - 1; index += 2) {
         swapPair(row, index);
     }
 };
@@ -79,12 +69,10 @@ export const permuteUp = (row: Row): void => {
  * Notation <312>
  */
 export const permuteDown = (row: Row): void => {
-    let index: number;
-
     swapPair(row, 1);
     swapPair(row, 0);
 
-    for (index = 3; index < row.length - 1; index += 2) {
+    for (let index = 3; index < row.length - 1; index += 2) {
         swapPair(row, index);
     }
 };
@@ -93,9 +81,16 @@ export const permuteDown = (row: Row): void => {
  * Notation <n>
  */
 export const permuteN = (row: Row): void => {
-    let index: number;
+    for (let index = 0; index < row.length - 1; index += 2) {
+        swapPair(row, index);
+    }
+};
 
-    for (index = 0; index < row.length - 1; index += 2) {
+/**
+ * Notation <90E> for Cinques
+ */
+export const permuteSingle = (row: Row): void => {
+    for (let index = 0; index < row.length - 3; index += 2) {
         swapPair(row, index);
     }
 };
@@ -106,17 +101,6 @@ export const permuteN = (row: Row): void => {
 export const permuteBob = (row: Row): void => {
     permuteSingle(row);
     swapPair(row, row.length - 2);
-};
-
-/**
- * Notation <90E> for Cinques
- */
-export const permuteSingle = (row: Row): void => {
-    let index: number;
-
-    for (index = 0; index < row.length - 3; index += 2) {
-        swapPair(row, index);
-    }
 };
 
 /**

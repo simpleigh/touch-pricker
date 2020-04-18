@@ -5,6 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+/* eslint-disable max-len */
+
 import Touch from '.';
 
 describe('siril template for Grandsire Touch', () => {
@@ -28,7 +30,6 @@ describe('siril template for Grandsire Touch', () => {
         expect(output.length).toBeGreaterThanOrEqual(1);
     });
 
-    /* tslint:disable max-line-length */
     const testCases: [string, string][] = [
         ['renders the number of bells', '9 bells\n'],
         ['renders a symbol for a plain lead', 'plain = +3.1.9.1.9.1.9.1.9.1.9.1.9.1.9.1.9.1\n'],
@@ -40,12 +41,8 @@ describe('siril template for Grandsire Touch', () => {
         ['renders a symbol for the touch', 'touch = course1, course2, course3\n'],
         ['proves the touch', 'prove touch\n'],
     ];
-    /* tslint:enable max-line-length */
 
-    for (const testCase of testCases) {
-        const description = testCase[0];
-        const expected = testCase[1];
-
+    for (const [description, expected] of testCases) {
         it(description, () => {
             expect(output).toContain(expected);
         });
