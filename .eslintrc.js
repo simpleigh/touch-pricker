@@ -97,7 +97,7 @@ module.exports = {
         'prefer-regex-literals': 'error',
         'radix': ['error', 'as-needed'],
         'require-await': 'error',
-        'require-unicode-regexp': 'off',  // TODO: try turning this on
+        'require-unicode-regexp': 'off',  // poor browser support
         'vars-on-top': 'error',
         'wrap-iife': 'error',
         'yoda': 'error',
@@ -122,7 +122,7 @@ module.exports = {
             allowSingleLine: true,
         }],
         'camelcase': 'error',
-        'capitalized-comments': 'off',
+        'capitalized-comments': 'off',  // allow inline comments
         'comma-dangle': ['error', 'always-multiline'],
         'comma-spacing': 'error',
         'comma-style': 'error',
@@ -149,7 +149,7 @@ module.exports = {
             mode: 'minimum',
         }],
         'keyword-spacing': 'error',
-        'line-comment-position': 'off',
+        'line-comment-position': 'off',  // allow inline comments
         'linebreak-style': 'error',
         'lines-around-comment': 'error',
         'lines-between-class-members': 'error',
@@ -170,8 +170,8 @@ module.exports = {
         }],
         'no-array-constructor': 'error',
         'no-bitwise': 'error',
-        'no-continue': 'off',
-        'no-inline-comments': 'off',
+        'no-continue': 'error',
+        'no-inline-comments': 'off',  // allow inline comments
         'no-lonely-if': 'error',
         'no-mixed-operators': 'error',
         'no-mixed-spaces-and-tabs': 'error',
@@ -287,9 +287,6 @@ module.exports = {
         },
         {
             files: ['**/*.ts'],
-            env: {
-                jasmine: true,
-            },
             extends: [
                 'eslint:recommended',
                 'plugin:@typescript-eslint/eslint-recommended',
@@ -398,7 +395,7 @@ module.exports = {
                 '@typescript-eslint/prefer-nullish-coalescing': 'error',
                 '@typescript-eslint/prefer-optional-chain': 'error',
                 '@typescript-eslint/prefer-readonly': 'error',
-                '@typescript-eslint/prefer-readonly-parameter-types': 'off',  // TODO: try turning this on
+                '@typescript-eslint/prefer-readonly-parameter-types': 'off',  // TODO: try turning this on (see #4)
                 '@typescript-eslint/prefer-string-starts-ends-with': 'off',  // poor browser support
                 '@typescript-eslint/promise-function-async': 'error',
                 '@typescript-eslint/require-array-sort-compare': 'error',
@@ -414,6 +411,9 @@ module.exports = {
             overrides: [
                 {
                     files: ['**/*.spec.ts'],
+                    env: {
+                        jasmine: true,
+                    },
                     rules: {
                         // Best Practices
                         'no-loop-func': 'off',

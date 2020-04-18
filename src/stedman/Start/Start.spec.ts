@@ -1068,7 +1068,7 @@ describe('Start class', () => {
 
                 // Ignore default start (produces no output)
                 if (!output) {
-                    continue;
+                    continue;  // eslint-disable-line no-continue
                 }
 
                 const description = ''
