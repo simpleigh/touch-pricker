@@ -48,7 +48,7 @@ const rowFromString = (input: string, stage: Stage): Row => {
         inputIndex < input.length && inputIndex < stage;
         inputIndex += 1
     ) {
-        let bellNumber: Bell;
+        let bellNumber: Bell;  // eslint-disable-line init-declarations
 
         // Catch errors parsing the bell number and add the input to the message
         try {

@@ -24,7 +24,7 @@ const create = (
     options: Options = { },
     parentDocument: HTMLDocument = document,
 ): Pricker => {
-    let pricker: Pricker;
+    let pricker: Pricker;  // eslint-disable-line init-declarations
 
     const element = parentDocument.getElementById(elementId);
     if (!element) {

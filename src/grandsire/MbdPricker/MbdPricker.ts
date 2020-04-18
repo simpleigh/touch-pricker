@@ -204,15 +204,14 @@ class MbdPricker extends AbstractPricker implements Notifiable {
 
     public onSetInitialRow(): void {
         const input = this.getEl<HTMLInputElement>('initialRow').value;
-        let initialRow: Row;
 
         try {
-            initialRow = rowFromString(input, this._stage);
+            const initialRow = rowFromString(input, this._stage);
+            this._course.initialRow = initialRow;
         } catch (_) {
             return;
         }
 
-        this._course.initialRow = initialRow;
         this.redraw();
     }
 
@@ -337,7 +336,7 @@ class MbdPricker extends AbstractPricker implements Notifiable {
 
     public onLoadTouch(): void {
         const input = this.getEl<HTMLTextAreaElement>('loadSaveTextarea').value;
-        let newTouch: Touch;
+        let newTouch: Touch;  // eslint-disable-line init-declarations
 
         try {
             newTouch = Touch.fromString(input);

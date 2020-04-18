@@ -1,3 +1,5 @@
+/* eslint-disable init-declarations */
+
 declare module '*.dot' {
     const template: (context: Record<string, unknown>) => string;
     export default template;

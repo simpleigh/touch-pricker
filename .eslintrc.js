@@ -107,7 +107,7 @@ module.exports = {
         'strict': 'error',
 
         // Variables
-        'init-declarations': 'off',
+        'init-declarations': 'error',
         'no-label-var': 'error',
         'no-shadow': 'error',
         'no-undef-init': 'error',
@@ -473,6 +473,9 @@ module.exports = {
                         // Best Practices
                         'no-loop-func': 'off',
                         'no-multi-spaces': 'off',
+
+                        // Variables
+                        'init-declarations': 'off',
 
                         // Stylistic Issues
                         'max-statements-per-line': 'off',

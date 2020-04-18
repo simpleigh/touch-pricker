@@ -55,7 +55,7 @@ const changeFromNotation = (input: string, stage: Stage): Change => {
 
     let currentPlace: Bell = 1;
     for (const inputCharacter of input.split('')) {
-        let inputPlace: Bell;
+        let inputPlace: Bell;  // eslint-disable-line init-declarations
 
         try {
             inputPlace = bellFromSymbol(inputCharacter);

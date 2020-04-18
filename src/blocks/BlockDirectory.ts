@@ -6,7 +6,6 @@
  */
 
 import AbstractBlock from './AbstractBlock';
-import Notifiable from './Notifiable';
 
 type DirectoryArray = (DirectoryArray | boolean)[];
 
@@ -81,11 +80,9 @@ class BlockDirectory {
      */
     public static getIndices(block: AbstractBlock): number[] {
         const ownershipArray: number[] = [];
-        let container: Notifiable | undefined;
-        let index: number | undefined;
 
-        index = block.index;
-        container = block.container;
+        let container = block.container;
+        let index = block.index;
         if (!container) {
             throw new Error('Bad ownership: block has no container');
         }
