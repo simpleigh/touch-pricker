@@ -11,6 +11,6 @@ import Call from './Call';
 /**
  * A table of lead heads indexed by call and stage
  */
-type LeadHeadTable = { [call in Call]: { [stage in Stage]?: Row } };
+type LeadHeadTable = Record<Call, Partial<Record<Stage, Row>>>;
 
 export default LeadHeadTable;

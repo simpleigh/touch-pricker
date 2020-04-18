@@ -70,8 +70,8 @@ export const testSixImplementation = (
 
     it('generates the correct rows when visited', () => {
         for (const rowTest of rowTests) {
-            const initialRow = rounds(rowTest[0]);         // Stage
-            const expectedRows: any[] = rowTest.slice(1);  // ... and test rows
+            const initialRow = rounds(rowTest[0]);              // Stage ...
+            const expectedRows = rowTest.slice(1) as string[];  // and test rows
             const six = factory(initialRow);
             const visitor = new StringArray();
 

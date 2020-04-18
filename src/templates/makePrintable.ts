@@ -16,7 +16,7 @@ import { Context, Templates } from './types';
 const makePrintable = (
     templates: Templates,
     extraContext: Context = { },
-) => (cls: any) => {
+) => (cls: any) => {  // eslint-disable-line @typescript-eslint/no-explicit-any
     if (!cls.prototype.print) {
         // eslint-disable-next-line @typescript-eslint/unbound-method
         cls.prototype.print = AbstractPrintable.prototype.print;

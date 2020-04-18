@@ -8,7 +8,7 @@
 import Bell from './Bell';
 
 /* eslint-disable object-property-newline, quote-props, sort-keys */
-const BELL_SYMBOLS_MAP: { [index: string]: number } = {
+const BELL_SYMBOLS_MAP: Record<string, Bell> = {
     '1': 1, '2': 2, '3': 3, '4': 4,
     '5': 5, '6': 6, '7': 7, '8': 8,
     '9': 9, '0': 10, 'E': 11, 'T': 12,

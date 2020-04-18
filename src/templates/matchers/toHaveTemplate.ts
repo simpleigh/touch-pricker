@@ -9,6 +9,7 @@ import toBePrintable from './toBePrintable';
 
 const toHaveTemplate: jasmine.CustomMatcherFactory =
     (util, customEqualityTesters) => ({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         compare: (actual: any, expected: string) => {
             const result: jasmine.CustomMatcherResult = { pass: false };
 

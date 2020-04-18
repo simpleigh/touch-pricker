@@ -8,6 +8,8 @@
 import AbstractBlock from './AbstractBlock';
 import Notifiable from './Notifiable';
 
+type DirectoryArray = (DirectoryArray | boolean)[];
+
 /**
  * A block directory
  * Files information about blocks in a touch, indexed by their location
@@ -17,7 +19,7 @@ class BlockDirectory {
     /**
      * The directory itself
      */
-    protected _directory: any = [];
+    protected _directory: DirectoryArray = [];
 
     /**
      * Adds a six to the directory
@@ -26,25 +28,23 @@ class BlockDirectory {
 
     public add(...indices: number[]): this;
 
-    public add(param: any, ...indices: number[]): this {
-        let directory: any;
-
+    public add(param: unknown, ...indices: number[]): this {
         if (typeof param === 'object') {
-            indices = BlockDirectory.getIndices(param);
+            indices = BlockDirectory.getIndices(param as AbstractBlock);
         } else {
-            indices.unshift(param);
+            indices.unshift(param as number);
         }
 
         // We must have at least one index or getIndices() would have thrown
         const finalIndex = indices.pop() as number;
 
         // Use indices to build a tree
-        directory = this._directory;
+        let directory = this._directory;
         for (const index of indices) {
             if (!directory[index]) {
                 directory[index] = [];
             }
-            directory = directory[index];
+            directory = directory[index] as DirectoryArray;
         }
 
         directory[finalIndex] = true;
@@ -58,21 +58,19 @@ class BlockDirectory {
 
     public contains(...indices: number[]): boolean;
 
-    public contains(param: any, ...indices: number[]): boolean {
-        let directory: any;
-
+    public contains(param: unknown, ...indices: number[]): boolean {
         if (typeof param === 'object') {
-            indices = BlockDirectory.getIndices(param);
+            indices = BlockDirectory.getIndices(param as AbstractBlock);
         } else {
-            indices.unshift(param);
+            indices.unshift(param as number);
         }
 
-        directory = this._directory;
+        let directory = this._directory;
         for (const index of indices) {
             if (!directory[index]) {
                 return false;
             }
-            directory = directory[index];
+            directory = directory[index] as DirectoryArray;
         }
 
         return true;

@@ -9,6 +9,7 @@ import template from './create.dot';
 import { createAndAppendStyle, createIframe, injectIframeData } from './dom';
 import Options from './Options';
 import Pricker from './Pricker';
+import PrickerWindow from './PrickerWindow';
 import { MbdPricker as Grandsire } from './grandsire';
 import { MbdPricker as Stedman } from './stedman';
 
@@ -46,7 +47,7 @@ const create = (
 
         createAndAppendStyle(parentDocument, pricker.print('css'));
         element.innerHTML = pricker.print('html');
-        (window as any).pricker = pricker;
+        (window as PrickerWindow).pricker = pricker;
         if (parentDocument === document) {
             // don't run in tests (when document has been overridden)
             pricker.onLoad();

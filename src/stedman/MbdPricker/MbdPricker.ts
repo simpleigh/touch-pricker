@@ -273,7 +273,7 @@ class MbdPricker extends AbstractPricker implements Notifiable {
 
     public onMethod(): void {
         const method = this.getEl<HTMLSelectElement>('method').value;
-        const methodMap: { [method: string]: AbstractMethod } = {
+        const methodMap: Record<string, AbstractMethod> = {
             carter: new Carter(),
             erin: new Erin(),
             jump: new StedmanJump(),

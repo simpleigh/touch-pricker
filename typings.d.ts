@@ -1,5 +1,5 @@
 declare module '*.dot' {
-    const template: (context: any) => string;
+    const template: (context: Record<string, unknown>) => string;
     export default template;
 }
 

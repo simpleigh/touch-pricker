@@ -369,7 +369,7 @@ module.exports = {
                 '@typescript-eslint/naming-convention': 'error',
                 '@typescript-eslint/no-base-to-string': 'error',
                 '@typescript-eslint/no-dynamic-delete': 'error',
-                '@typescript-eslint/no-explicit-any': 'off',  // TODO: try turning this on
+                '@typescript-eslint/no-explicit-any': 'error',
                 '@typescript-eslint/no-extra-non-null-assertion': 'error',
                 '@typescript-eslint/no-extraneous-class': 'error',
                 '@typescript-eslint/no-floating-promises': 'error',

@@ -8,11 +8,6 @@
 import handleTouchEvents from './handleTouchEvents';
 
 /**
- * Type of an `onclick` handler
- */
-type onclick = (this: GlobalEventHandlers, ev: MouseEvent) => any;
-
-/**
  * Helper to test that this polyfill has been called for an element
  * Used for testing functions that call this polyfill
  * TODO: if migrating to `jest` then replace with module mocking
@@ -29,7 +24,7 @@ export const testPassedToHandleTouchEvents = (
         expect(element.ontouchstart).not.toBeNull();
     }
 
-    const clickHandler: jasmine.Spy<onclick> = jasmine.createSpy('handler');
+    const clickHandler = jasmine.createSpy('handler');
     element.onclick = clickHandler;
 
     const event = document.createEvent('TouchEvent');
@@ -53,7 +48,7 @@ describe('handleTouchEvents polyfill', () => {
     /**
      * Fixture `onclick` handler
      */
-    const clickHandler: jasmine.Spy<onclick> = jasmine.createSpy('handler');
+    const clickHandler = jasmine.createSpy('handler');
 
     beforeEach(() => {
         element = document.createElement('div');

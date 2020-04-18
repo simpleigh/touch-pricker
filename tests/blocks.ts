@@ -20,7 +20,7 @@ export class Lead extends AbstractLead {
     public readonly rows: number = 0;
 
     protected get leadHeadTable(): LeadHeadTable {
-        const stages: { [stage in Stage]?: Row } = { };
+        const stages: Partial<Record<Stage, Row>> = { };
         for (let stage = 4; stage < 16; stage += 1) {
             stages[stage as Stage] = rounds(stage);
         }

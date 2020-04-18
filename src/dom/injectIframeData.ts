@@ -8,14 +8,20 @@
 const injectIframeData = (
     iframe: HTMLIFrameElement,
     content: string = '',
-    globals: { [key: string]: any } = { },
+    globals: Record<string, unknown> = { },
 ) => {
-    const theDoc = (iframe.contentWindow as Window).document;
+    const theWindow = iframe.contentWindow;
+    if (!theWindow) {
+        throw new Error('Assertion failed: missing iframe window');
+    }
+
+    const theDoc = theWindow.document;
     theDoc.open();
 
     for (const key in globals) {
         if (Object.prototype.hasOwnProperty.call(globals, key)) {
-            (iframe.contentWindow as any)[key] = globals[key];
+            (theWindow as unknown as Record<string, unknown>)[key] =
+                globals[key];
         }
     }
 

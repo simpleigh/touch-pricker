@@ -9,9 +9,7 @@
  * Template context.
  * Object with data to be printed by the template.
  */
-export interface Context {
-    [index: string]: any;
-}
+export type Context = Record<string, unknown>;
 
 /**
  * Renders the object with a template.
@@ -41,6 +39,4 @@ export type Template = (context: Context) => string;
  * The [[makePrintable]] decorator stores these on the class' prototype within
  * the `templates` property.
  */
-export interface Templates {
-    [name: string]: Template;
-}
+export type Templates = Record<string, Template>;

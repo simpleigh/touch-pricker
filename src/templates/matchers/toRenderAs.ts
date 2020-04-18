@@ -14,6 +14,7 @@
  * In order to explicitly match a newline escape this as `\\n`.
  */
 const toRenderAs: jasmine.CustomMatcherFactory = (util) => ({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     compare: (actual: any, expected: string) => {
         const result: jasmine.CustomMatcherResult = { pass: false };
 

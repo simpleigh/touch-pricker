@@ -71,11 +71,11 @@ class Course
      * Clones the course
      */
     public clone(): this {
-        const cloned: this = new Course(
+        const cloned = new Course(
             this._initialRow,
             undefined,
             this._method,
-        ) as any;
+        ) as this;
 
         cloned.setFirstSixType(this.firstSixType);
         Course.copyCalls(this, cloned);

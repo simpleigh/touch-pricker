@@ -15,7 +15,7 @@ import { rounds, rowFromString, Stage } from '../rows';
  */
 export const testAbstractVisitorImplementation = (
     createFn: () => AbstractVisitor,
-    getState: (visitor: AbstractVisitor) => any,
+    getState: (visitor: AbstractVisitor) => unknown,
 ) => {
 
     describe('is derived from AbstractVisitor and', () => {

@@ -9,11 +9,11 @@ import createIframe from './createIframe';
 
 describe('createIframe DOM utility', () => {
 
-    let mockIframe: any;
+    let mockIframe: HTMLIFrameElement;
     let parentDocument: jasmine.SpyObj<HTMLDocument>;
 
     beforeEach(() => {
-        mockIframe = { style: { } };
+        mockIframe = { style: { } } as HTMLIFrameElement;
         parentDocument = jasmine.createSpyObj('HTMLDocument', [
             'createElement',
         ]);

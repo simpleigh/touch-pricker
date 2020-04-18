@@ -12,7 +12,8 @@
  * stylesheets in order to avoid this.
  */
 const getMetric = (element: HTMLElement, metric: string): number => {
-    const metricText = (getComputedStyle(element) as any)[metric];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const metricText: string = (getComputedStyle(element) as any)[metric];
     return metricText === 'auto' ? 0 : parseInt(metricText) + 1;
 };
 

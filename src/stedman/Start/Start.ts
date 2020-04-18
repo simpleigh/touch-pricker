@@ -182,7 +182,7 @@ class Start extends AbstractBlock implements Templates.Interface {
         let rowIndex: number | null = null;
 
         /* eslint-disable object-property-newline, sort-keys */
-        const rowIndexPatterns: { [key: string]: number } = {
+        const rowIndexPatterns: Record<string, number> = {
             'first':   1, '1st': 1, '1': 1,
             'second':  2, '2nd': 2, '2': 2,
             'third':   3, '3rd': 3, '3': 3,

@@ -6,6 +6,7 @@
  */
 
 const toBePrintable: jasmine.CustomMatcherFactory = () => ({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     compare: (actual: any) => {
         const result: jasmine.CustomMatcherResult = { pass: false };
 

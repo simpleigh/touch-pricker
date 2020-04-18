@@ -6,7 +6,7 @@
  */
 
 import { Course, Touch } from '../../tests/blocks';
-import { MbdScheme } from '../music';
+import { AbstractMatcher, MbdScheme } from '../music';
 import { rounds, rowFromString, Stage } from '../rows';
 import { testAbstractVisitorImplementation } from './AbstractVisitor.spec';
 import Music from './Music';
@@ -21,7 +21,7 @@ describe('Music visitor', () => {
         return course;
     };
 
-    let matcher: any;
+    let matcher: jasmine.SpyObj<AbstractMatcher>;
 
     let visitor: Music;
 
@@ -34,7 +34,7 @@ describe('Music visitor', () => {
     });
 
     beforeEach(() => {
-        matcher = jasmine.createSpyObj('MatcherInterface', ['match']);
+        matcher = jasmine.createSpyObj('AbstractMatcher', ['match']);
         visitor = new Music(matcher);
     });
 
