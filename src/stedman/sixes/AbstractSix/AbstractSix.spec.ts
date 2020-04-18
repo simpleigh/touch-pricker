@@ -101,7 +101,7 @@ export const testSixImplementation = (
             const getFirst = six.getFirst();
             const getFirstBackup = getFirst.slice();
 
-            getFirst[3] = 999;  // Mutate the getFirst result
+            getFirst[3] = 16;  // Mutate the getFirst result
             expect(getFirst).not.toEqual(getFirstBackup);
 
             expect(six.getFirst()).not.toEqual(getFirst);

@@ -77,7 +77,7 @@ const rowFromString = (input: string, stage: Stage): Row => {
     if (input.length < stage) {
         for (let bellNumber = 1; bellNumber <= stage; bellNumber += 1) {
             if (!bellsSeen[bellNumber]) {
-                output.push(bellNumber);
+                output.push(bellNumber as Bell);
             }
         }
     }

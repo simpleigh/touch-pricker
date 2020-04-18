@@ -48,7 +48,7 @@ export const testAbstractBlockImplementation = (
             const expected = rounds(testStage);
             block = factory(initialRow);
 
-            initialRow[3] = 999;  // Mutate the initial row
+            initialRow[3] = 16;  // Mutate the initial row
             expect(initialRow).not.toEqual(expected);
 
             expect(block.initialRow).not.toEqual(initialRow);
@@ -59,7 +59,7 @@ export const testAbstractBlockImplementation = (
             const initialRow = block.initialRow;
             const expected = block.initialRow.slice();
 
-            initialRow[3] = 999;  // Mutate the initialRow result
+            initialRow[3] = 16;  // Mutate the initialRow result
             expect(initialRow).not.toEqual(expected);
 
             expect(block.initialRow).not.toEqual(initialRow);
@@ -71,7 +71,7 @@ export const testAbstractBlockImplementation = (
             const expected = initialRow.slice();
 
             block.initialRow = initialRow;
-            initialRow[3] = 999;  // Mutate the initialRow argument
+            initialRow[3] = 16;  // Mutate the initialRow argument
             expect(initialRow).not.toEqual(expected);
 
             expect(block.initialRow).not.toEqual(initialRow);
@@ -92,7 +92,7 @@ export const testAbstractBlockImplementation = (
             const getLast = block.getLast();
             const expected = getLast.slice();
 
-            getLast[3] = 999;  // Mutate the getLast result
+            getLast[3] = 16;  // Mutate the getLast result
             expect(getLast).not.toEqual(expected);
 
             expect(block.getLast()).not.toEqual(getLast);

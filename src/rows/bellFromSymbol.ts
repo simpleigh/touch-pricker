@@ -8,7 +8,7 @@
 import Bell from './Bell';
 
 /* eslint-disable object-property-newline, quote-props, sort-keys */
-const BELL_SYMBOLS_MAP: Record<string, Bell> = {
+const BELL_SYMBOLS_MAP: Partial<Record<string, Bell>> = {
     '1': 1, '2': 2, '3': 3, '4': 4,
     '5': 5, '6': 6, '7': 7, '8': 8,
     '9': 9, '0': 10, 'E': 11, 'T': 12,
@@ -34,7 +34,7 @@ const bellFromSymbol = (input: string): Bell => {
         throw new Error(`Unknown bell '${input}'`);
     }
 
-    return BELL_SYMBOLS_MAP[upper];
+    return BELL_SYMBOLS_MAP[upper] as Bell;
 };
 
 export default bellFromSymbol;

@@ -5,11 +5,12 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+import Bell from './Bell';
 import Row from './Row';
 import Stage from './Stage';
 
 /* eslint-disable array-element-newline */
-const ROUNDS = [
+const ROUNDS: Bell[] = [
     1, 2, 3, 4,
     5, 6, 7, 8,
     9, 10, 11, 12,
