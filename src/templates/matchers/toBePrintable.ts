@@ -5,8 +5,13 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+/*
+eslint-disable
+@typescript-eslint/no-explicit-any,
+@typescript-eslint/no-unsafe-member-access,
+*/
+
 const toBePrintable: jasmine.CustomMatcherFactory = () => ({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     compare: (actual: any) => {
         const result: jasmine.CustomMatcherResult = { pass: false };
 

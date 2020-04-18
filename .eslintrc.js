@@ -385,9 +385,9 @@ module.exports = {
                 '@typescript-eslint/no-unnecessary-condition': 'error',
                 '@typescript-eslint/no-unnecessary-qualifier': 'error',
                 '@typescript-eslint/no-unnecessary-type-arguments': 'error',
-                '@typescript-eslint/no-unsafe-call': 'off',
-                '@typescript-eslint/no-unsafe-member-access': 'off',
-                '@typescript-eslint/no-unsafe-return': 'off',
+                '@typescript-eslint/no-unsafe-call': 'error',
+                '@typescript-eslint/no-unsafe-member-access': 'error',
+                '@typescript-eslint/no-unsafe-return': 'error',
                 '@typescript-eslint/no-unused-vars-experimental': 'off',
                 '@typescript-eslint/prefer-as-const': 'error',
                 '@typescript-eslint/prefer-for-of': 'error',
@@ -403,7 +403,7 @@ module.exports = {
                 '@typescript-eslint/restrict-template-expressions': ['error', {
                     allowNumber: true,
                 }],
-                '@typescript-eslint/strict-boolean-expressions': 'off',  // TODO: try turning this on
+                '@typescript-eslint/strict-boolean-expressions': 'off',
                 '@typescript-eslint/switch-exhaustiveness-check': 'error',
                 '@typescript-eslint/typedef': 'off',  // covered by ts compiler
                 '@typescript-eslint/unified-signatures': 'error',
@@ -425,6 +425,9 @@ module.exports = {
                         '@typescript-eslint/explicit-module-boundary-types': 'off',
                         '@typescript-eslint/no-unused-vars': 'off',
                         '@typescript-eslint/unbound-method': 'off',
+                        '@typescript-eslint/no-unsafe-call': 'off',
+                        '@typescript-eslint/no-unsafe-member-access': 'off',
+                        '@typescript-eslint/no-unsafe-return': 'off',
                     },
                 },
             ],
