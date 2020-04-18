@@ -7,13 +7,10 @@
 
 'use strict';
 
-/* eslint-disable import/no-internal-modules */
-const paths = require('./config/paths');
-const webpackConfig = require('./config/webpack.config.test');
-/* eslint-enable import/no-internal-modules */
+const { paths, webpackTestConfig } = require('./config');
 
 // Remove the output filename (let karma-webpack put this in itself)
-delete webpackConfig.output.filename;
+delete webpackTestConfig.output.filename;
 
 module.exports = (config) => {
     config.set({
@@ -31,6 +28,6 @@ module.exports = (config) => {
             [paths.testsEntryFile]: ['webpack'],
         },
         reporters: ['progress', 'coverage-istanbul'],
-        webpack: webpackConfig,
+        webpack: webpackTestConfig,
     });
 };

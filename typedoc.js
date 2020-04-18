@@ -1,7 +1,6 @@
 'use strict';
 
-// eslint-disable-next-line import/no-internal-modules
-const paths = require('./config/paths');
+const { paths } = require('./config');
 
 module.exports = {
     exclude: '**/*.spec.ts',
