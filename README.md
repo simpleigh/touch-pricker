@@ -7,8 +7,15 @@ Free Touch Pricker
 
 (WIP)
 
-Currently supports a pricker for Stedman touches on various stages,
-based heavily on that created by
+Currently supports the following methods on various stages:
+
+- Grandsire
+- Stedman
+- Erin
+- Carter
+- Stedman Jump
+
+Based heavily on that created by
 [Mark Davies](http://bronze-age.org/stedman2/pricker.html).
 
 ## Installation
