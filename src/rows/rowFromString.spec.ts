@@ -5,13 +5,14 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+/* eslint-disable max-len */
+
 import Row from './Row';
 import rowFromString from './rowFromString';
 import Stage from './Stage';
 
 describe('rowFromString function', () => {
 
-    /* eslint-disable max-len */
     const conversionTestCases: [string, Stage, Row][] = [
         ['4321',             Stage.Minimus,   [4, 3, 2, 1]],
         ['54321',            Stage.Doubles,   [5, 4, 3, 2, 1]],
@@ -27,7 +28,6 @@ describe('rowFromString function', () => {
         ['CBATE0987654321',  Stage.Septuples, [15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]],
         ['DCBATE0987654321', Stage.Sixteen,   [16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]],
     ];
-    /* eslint-enable max-len */
 
     for (const [input, stage, expected] of conversionTestCases) {
         it(`can convert a string to a row on ${stage}`, () => {
@@ -60,7 +60,6 @@ describe('rowFromString function', () => {
             .toThrowError("Row '12345' exceeds stage '4'");
     });
 
-    /* eslint-disable max-len */
     const fillTestCases: [Stage, Row][] = [
         [Stage.Minimus,   [3, 1, 2, 4]],
         [Stage.Doubles,   [3, 1, 2, 4, 5]],
@@ -76,7 +75,6 @@ describe('rowFromString function', () => {
         [Stage.Septuples, [3, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]],
         [Stage.Sixteen,   [3, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]],
     ];
-    /* eslint-enable max-len */
 
     for (const [stage, expected] of fillTestCases) {
         it(`fills in bells that aren't specified on ${stage}`, () => {

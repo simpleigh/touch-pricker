@@ -5,6 +5,7 @@
 var testsContext = require.context('../src', true, /\.spec\.ts$/);
 
 // Initial test setup
-require('./setup.ts');  // eslint-disable-line import/no-unassigned-import
+// eslint-disable-next-line import/no-unassigned-import
+require('./setup.ts');
 
 testsContext.keys().forEach(testsContext);

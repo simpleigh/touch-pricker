@@ -23,7 +23,7 @@ class Music extends AbstractVisitor {
     /**
      * Directory of musical blocks.
      */
-    private readonly _directory: BlockDirectory = new BlockDirectory();
+    private readonly _directory = new BlockDirectory();
 
     /**
      * Creates the visitor, providing the matcher that should be used.

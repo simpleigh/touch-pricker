@@ -50,12 +50,12 @@ describe('toBePrintable matcher', () => {
     });
 
     it('passes for printable objects', () => {
-        /* eslint-disable padded-blocks */
         @Templates.makePrintable({ })
         class Printable implements Templates.Interface {
+
             public print: Templates.Print;
+
         }
-        /* eslint-enable padded-blocks */
 
         const printable = new Printable();
         expect(compare(printable).pass).toBe(true);

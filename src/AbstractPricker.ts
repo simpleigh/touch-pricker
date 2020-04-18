@@ -5,8 +5,6 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-/* eslint-disable no-useless-constructor */
-
 import { getHeight, getWidth } from './dom';
 import Pricker from './Pricker';
 import * as Templates from './templates';

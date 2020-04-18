@@ -5,6 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+/* eslint-disable max-len */
+
 import { testAbstractLeadImplementation } from '../../leads/AbstractLead.spec';
 import { rounds, Stage } from '../../rows';
 import { Call } from '../../leads';
@@ -17,7 +19,6 @@ describe('Grandsire Lead class', () => {
         Stage.Doubles,
         (initialRow, _ownership) => new Lead(initialRow, _ownership),
         [
-            /* eslint-disable max-len */
             ['13245',           '13524',           Stage.Doubles,   Call.Plain],
             ['1324567',         '1352746',         Stage.Triples,   Call.Plain],
             ['132456789',       '135274968',       Stage.Caters,    Call.Plain],
@@ -36,7 +37,6 @@ describe('Grandsire Lead class', () => {
             ['1324567890E',     '157392E4068',     Stage.Cinques,   Call.Single],
             ['1324567890ETA',   '157392E4A6T80',   Stage.Sextuples, Call.Single],
             ['1324567890ETABC', '157392E4A6C8B0T', Stage.Septuples, Call.Single],
-            /* eslint-enable max-len */
         ],
         [
             [Stage.Doubles,   10],
@@ -219,7 +219,6 @@ describe('Grandsire Lead class', () => {
         }
     });
 
-    /* eslint-disable max-len */
     const notationTestCases: [Stage, Call, string[]][] = [
         [Stage.Doubles, Call.Plain, [
             '3', '1', '5', '1', '5', '1', '5', '1', '5', '1',
@@ -276,7 +275,6 @@ describe('Grandsire Lead class', () => {
             '3', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', 'C', '1', '3', '123',
         ]],
     ];
-    /* eslint-enable max-len */
 
     it('computes the correct notation', () => {
         for (const [stage, call, expected] of notationTestCases) {

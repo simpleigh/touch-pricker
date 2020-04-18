@@ -16,12 +16,12 @@ describe('Printable implementation', () => {
         templateTwo: jasmine.createSpy().and.returnValue('two'),
     };
 
-    /* eslint-disable padded-blocks */
     @Templates.makePrintable(templates, { compile: 'compile-time context' })
     class Printable implements Templates.Interface {
+
         public print: Templates.Print;
+
     }
-    /* eslint-enable padded-blocks */
 
     let printable: Printable;
 

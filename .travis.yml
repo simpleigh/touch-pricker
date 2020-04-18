@@ -4,5 +4,6 @@ node_js:
  - 12
 script:
  - yarn build
+ - yarn lint
  - yarn test --single-run
  - codecov

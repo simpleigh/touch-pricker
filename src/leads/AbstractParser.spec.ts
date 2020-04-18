@@ -5,12 +5,12 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-/* eslint-disable no-invalid-this */
 
 import { Course, Touch } from '../../tests/blocks';
 import { rounds, Row, rowFromString, Stage } from '../rows';
 import AbstractParser from './AbstractParser';
 
+/* eslint-disable no-invalid-this */
 class TestParser extends AbstractParser<Touch> {
 
     public readonly touch: Touch = new Touch(rounds(Stage.Minimus));
@@ -30,6 +30,7 @@ class TestParser extends AbstractParser<Touch> {
     }
 
 }
+/* eslint-enable no-invalid-this */
 
 describe('AbstractParser class', () => {
 

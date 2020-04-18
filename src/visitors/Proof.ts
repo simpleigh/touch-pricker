@@ -32,7 +32,7 @@ class Proof extends AbstractVisitor {
     /**
      * Directory of false blocks.
      */
-    private readonly _directory: BlockDirectory = new BlockDirectory();
+    private readonly _directory = new BlockDirectory();
 
     /**
      * Flag recording truth.

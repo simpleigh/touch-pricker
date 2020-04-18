@@ -59,7 +59,7 @@ export const testSixImplementation = (
     });
 
     it('computes the six head correctly', () => {
-        for (const [initialRow, _, testStage, call] of testCases) {
+        for (const [initialRow, , testStage, call] of testCases) {
             const six = factory(rowFromString(initialRow, testStage));
             const row = six.initialRow;
             Changes.permuteCall(row, call);

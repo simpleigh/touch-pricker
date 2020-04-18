@@ -966,11 +966,10 @@ describe('Start class', () => {
     const runRowTestCases = (testFn: (fixture: Start, rows: string[]) => void) => () => {
         for (const [rowIndex, sixType, testCases] of rowTestCases) {
             for (const [stage, rows] of testCases) {
-                const Method = methodMap[sixType];
                 const fixture = new Start(
                     rounds(stage),
                     undefined,
-                    new Method(),
+                    new methodMap[sixType](),
                 );
 
                 fixture.sixType = sixType;
@@ -983,11 +982,10 @@ describe('Start class', () => {
     it('computes the notation correctly', () => {
         for (const [rowIndex, sixType, testCases] of notationTestCases) {
             for (const [stage, notation] of testCases) {
-                const Method = methodMap[sixType];
                 const fixture = new Start(
                     rounds(stage),
                     undefined,
-                    new Method(),
+                    new methodMap[sixType](),
                 );
 
                 fixture.sixType = sixType;
@@ -1000,11 +998,10 @@ describe('Start class', () => {
     it('computes the notation string correctly', () => {
         for (const [rowIndex, sixType, testCases] of notationStringTestCases) {
             for (const [stage, notation] of testCases) {
-                const Method = methodMap[sixType];
                 const fixture = new Start(
                     rounds(stage),
                     undefined,
-                    new Method(),
+                    new methodMap[sixType](),
                 );
 
                 fixture.sixType = sixType;

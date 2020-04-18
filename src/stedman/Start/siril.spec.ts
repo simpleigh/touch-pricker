@@ -5,6 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+/* eslint-disable max-len */
+
 import { rounds, Stage } from '../../rows';
 import { AbstractMethod, Stedman, StedmanJump, Carter } from '../methods';
 import SixType from '../SixType';
@@ -35,7 +37,7 @@ describe('siril template for Start', () => {
         ]],
         [SixType.Cold, [
             '', // Aligns array indices with rowIndex
-            "'231547698E0', '231547698E0', '231547698E0', '231547698E0', '231547698E0'", // eslint-disable-line max-len
+            "'231547698E0', '231547698E0', '231547698E0', '231547698E0', '231547698E0'",
             "'231547698E0', '231547698E0', '231547698E0', '231547698E0'",
             "'231547698E0', '231547698E0', '231547698E0'",
             "'231547698E0', '231547698E0'",
@@ -44,7 +46,7 @@ describe('siril template for Start', () => {
         ]],
         [SixType.Hot, [
             '', // Aligns array indices with rowIndex
-            "'312547698E0', '312547698E0', '312547698E0', '312547698E0', '312547698E0'", // eslint-disable-line max-len
+            "'312547698E0', '312547698E0', '312547698E0', '312547698E0', '312547698E0'",
             "'312547698E0', '312547698E0', '312547698E0', '312547698E0'",
             "'312547698E0', '312547698E0', '312547698E0'",
             "'312547698E0', '312547698E0'",

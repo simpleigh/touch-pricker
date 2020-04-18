@@ -5,8 +5,6 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-/* eslint-disable max-len */
-
 import { Stage as S } from '../rows';
 import {
     testAbstractSchemeImplementation,
@@ -47,7 +45,12 @@ describe('Runs music scheme', () => {
             [S.Triples, '54321xx', 1, '1 front 5-runs (1 54321)\n'],
             [S.Triples, '65432xx', 1, '1 front 5-runs (1 65432)\n'],
             [S.Triples, '76543xx', 1, '1 front 5-runs (1 76543)\n'],
-            [S.Caters, '234516789', 2, '1 front 4-runs (1 2345)\n1 back 4-runs (1 6789)\n'],
+            [
+                S.Caters,
+                '234516789',
+                2,
+                '1 front 4-runs (1 2345)\n1 back 4-runs (1 6789)\n',
+            ],
         ],
     );
 

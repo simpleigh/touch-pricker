@@ -121,7 +121,7 @@ describe('changeFromNotation function', () => {
     });
 
     describe('can convert notation to a canonical form', () => {
-        for (const [description, stage, input, _, expected] of testCases) {
+        for (const [description, stage, input, , expected] of testCases) {
             it(description, () => {
                 const change = changeFromNotation(input, stage);
                 expect(change.toString()).toBe(expected);

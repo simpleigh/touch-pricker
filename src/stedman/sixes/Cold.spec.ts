@@ -5,6 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+/* eslint-disable max-len */
+
 import { Call as C } from '../../leads';
 import { Stage as S } from '../../rows';
 import SixType from '../SixType';
@@ -92,7 +94,7 @@ describe('Cold six class', () => {
             "'231547698E0', '231547698E0'",
             "'231547698E0', '231547698E0', '231547698E0'",
             "'231547698E0', '231547698E0', '231547698E0', '231547698E0'",
-            "'231547698E0', '231547698E0', '231547698E0', '231547698E0', '231547698E0'", // eslint-disable-line max-len
+            "'231547698E0', '231547698E0', '231547698E0', '231547698E0', '231547698E0'",
         ],
     );
 

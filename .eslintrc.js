@@ -3,7 +3,6 @@
  * @see https://eslint.org/docs/rules/
  * @see https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin
  * @see https://github.com/benmosher/eslint-plugin-import
- * @see https://github.com/mysticatea/eslint-plugin-node
  */
 
 module.exports = {
@@ -77,7 +76,7 @@ module.exports = {
         'no-new-func': 'error',
         'no-new-wrappers': 'error',
         'no-octal-escape': 'error',
-        'no-param-reassign': 'off',  // TODO: try turning this on
+        'no-param-reassign': 'off',
         'no-proto': 'error',
         'no-restricted-properties': 'error',
         'no-return-assign': 'error',
