@@ -33,12 +33,7 @@ class StedmanJump extends AbstractMethod {
         course: Course,
         index: number,
     ): AbstractSix {
-        const offsets: SixTypeMap<number> = {
-            [SixType.Cold]: 0,
-            [SixType.Hot]: 1,
-        };
-        const offset = offsets[course.firstSixType]!;
-
+        const offset = course.firstSixType === SixType.Cold ? 0 : 1;
         return (offset + index) % 2
             ? new Cold(initialRow, { container: course, index })
             : new Hot(initialRow, { container: course, index });

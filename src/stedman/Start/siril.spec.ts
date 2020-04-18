@@ -72,17 +72,18 @@ describe('siril template for Start', () => {
         ]],
     ];
 
-    const methodMap: SixTypeMap<new() => AbstractMethod> = {
-        [SixType.Slow]:  Stedman,
-        [SixType.Quick]: Stedman,
-        [SixType.Cold]:  StedmanJump,
-        [SixType.Hot]:   StedmanJump,
-        [SixType.Four]:  Carter,
-        [SixType.Eight]: Carter,
+    const methodMap: Record<SixType, new() => AbstractMethod> = {
+        [SixType.Slow]:    Stedman,
+        [SixType.Quick]:   Stedman,
+        [SixType.Cold]:    StedmanJump,
+        [SixType.Hot]:     StedmanJump,
+        [SixType.Four]:    Carter,
+        [SixType.Eight]:   Carter,
+        [SixType.Invalid]: Stedman,
     };
 
     for (const [sixType, positions] of startPositions) {
-        const method = new methodMap[sixType]!();
+        const method = new methodMap[sixType]();
         const start = new Start(rounds(Stage.Cinques), undefined, method);
         start.sixType = sixType;
 

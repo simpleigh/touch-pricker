@@ -181,28 +181,24 @@ class Start extends AbstractBlock implements Templates.Interface {
         let sixType: SixType | null = null;
         let rowIndex: number | null = null;
 
-        /* eslint-disable object-property-newline, sort-keys */
-        const rowIndexPatterns: Record<string, number> = {
-            'first':   1, '1st': 1, '1': 1,
-            'second':  2, '2nd': 2, '2': 2,
-            'third':   3, '3rd': 3, '3': 3,
-            'fourth':  4, '4th': 4, '4': 4,
-            'fifth':   5, '5th': 5, '5': 5,
-            'sixth':   6, '6th': 6, '6': 6,
-            'seventh': 7, '7th': 7, '7': 7,
-            'eighth':  8, '8th': 8, '8': 8,
-            'last': 99,  // sentinel value; see below
-        };
-        /* eslint-enable object-property-newline, sort-keys */
+        /* eslint-disable array-element-newline, no-multi-spaces */
+        const rowIndexPatterns: [string, number][] = [
+            ['first',   1], ['1st', 1], ['1', 1],
+            ['second',  2], ['2nd', 2], ['2', 2],
+            ['third',   3], ['3rd', 3], ['3', 3],
+            ['fourth',  4], ['4th', 4], ['4', 4],
+            ['fifth',   5], ['5th', 5], ['5', 5],
+            ['sixth',   6], ['6th', 6], ['6', 6],
+            ['seventh', 7], ['7th', 7], ['7', 7],
+            ['eighth',  8], ['8th', 8], ['8', 8],
+            ['last', 99],  // sentinel value; see below
+        ];
+        /* eslint-enable array-element-newline, no-multi-spaces */
 
-        for (const pattern in rowIndexPatterns) {
-            if (
-                Object.prototype.hasOwnProperty.call(rowIndexPatterns, pattern)
-            ) {
-                const regex = new RegExp(pattern, 'i');
-                if (regex.test(input)) {
-                    rowIndex = rowIndexPatterns[pattern];
-                }
+        for (const [pattern, value] of rowIndexPatterns) {
+            const regex = new RegExp(pattern, 'i');
+            if (regex.test(input)) {
+                rowIndex = value;
             }
         }
 

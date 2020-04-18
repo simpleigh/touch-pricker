@@ -33,12 +33,7 @@ class Carter extends AbstractMethod {
         course: Course,
         index: number,
     ): AbstractSix {
-        const offsets: SixTypeMap<number> = {
-            [SixType.Four]: 0,
-            [SixType.Eight]: 1,
-        };
-        const offset = offsets[course.firstSixType]!;
-
+        const offset = course.firstSixType === SixType.Four ? 0 : 1;
         return (offset + index) % 2
             ? new Four(initialRow, { container: course, index })
             : new Eight(initialRow, { container: course, index });

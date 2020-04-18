@@ -954,19 +954,20 @@ describe('Start class', () => {
         ]],
     ];
 
-    const methodMap: SixTypeMap<new() => AbstractMethod> = {
-        [SixType.Slow]: Stedman,
-        [SixType.Quick]: Stedman,
-        [SixType.Cold]: StedmanJump,
-        [SixType.Hot]: StedmanJump,
-        [SixType.Four]: Carter,
-        [SixType.Eight]: Carter,
+    const methodMap: Record<SixType, new() => AbstractMethod> = {
+        [SixType.Slow]:    Stedman,
+        [SixType.Quick]:   Stedman,
+        [SixType.Cold]:    StedmanJump,
+        [SixType.Hot]:     StedmanJump,
+        [SixType.Four]:    Carter,
+        [SixType.Eight]:   Carter,
+        [SixType.Invalid]: Stedman,
     };
 
     const runRowTestCases = (testFn: (fixture: Start, rows: string[]) => void) => () => {
         for (const [rowIndex, sixType, testCases] of rowTestCases) {
             for (const [stage, rows] of testCases) {
-                const Method = methodMap[sixType]!;
+                const Method = methodMap[sixType];
                 const fixture = new Start(
                     rounds(stage),
                     undefined,
@@ -983,7 +984,7 @@ describe('Start class', () => {
     it('computes the notation correctly', () => {
         for (const [rowIndex, sixType, testCases] of notationTestCases) {
             for (const [stage, notation] of testCases) {
-                const Method = methodMap[sixType]!;
+                const Method = methodMap[sixType];
                 const fixture = new Start(
                     rounds(stage),
                     undefined,
@@ -1000,7 +1001,7 @@ describe('Start class', () => {
     it('computes the notation string correctly', () => {
         for (const [rowIndex, sixType, testCases] of notationStringTestCases) {
             for (const [stage, notation] of testCases) {
-                const Method = methodMap[sixType]!;
+                const Method = methodMap[sixType];
                 const fixture = new Start(
                     rounds(stage),
                     undefined,

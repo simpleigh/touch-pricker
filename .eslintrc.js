@@ -376,7 +376,7 @@ module.exports = {
                 '@typescript-eslint/no-implied-eval': 'error',
                 '@typescript-eslint/no-inferrable-types': 'off',  // explicit is OK
                 '@typescript-eslint/no-non-null-asserted-optional-chain': 'error',
-                '@typescript-eslint/no-non-null-assertion': 'off',  // TODO: try turning this on
+                '@typescript-eslint/no-non-null-assertion': 'error',
                 '@typescript-eslint/no-parameter-properties': 'off',
                 '@typescript-eslint/no-require-imports': 'error',
                 '@typescript-eslint/no-throw-literal': 'error',
