@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-internal-modules
-import matchers from '../src/templates/matchers';
+import matchers from './matchers';
 
 beforeAll(() => {
     jasmine.addMatchers(matchers);

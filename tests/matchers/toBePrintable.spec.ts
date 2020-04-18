@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import * as Templates from '..';
+import { rounds, Stage, Stedman } from '../../src';
 import toBePrintable from './toBePrintable';
 
 describe('toBePrintable matcher', () => {
@@ -50,14 +50,7 @@ describe('toBePrintable matcher', () => {
     });
 
     it('passes for printable objects', () => {
-        @Templates.makePrintable({ })
-        class Printable implements Templates.Interface {
-
-            public print: Templates.Print;
-
-        }
-
-        const printable = new Printable();
-        expect(compare(printable).pass).toBe(true);
+        const course = new Stedman.Course(rounds(Stage.Cinques));
+        expect(compare(course).pass).toBe(true);
     });
 });
