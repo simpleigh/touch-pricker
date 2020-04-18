@@ -5,7 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { Pattern, PatternGroup } from '..';
+import Pattern from '../Pattern';
+import PatternGroup from '.';
 
 describe('text template for PatternGroup music class', () => {
 

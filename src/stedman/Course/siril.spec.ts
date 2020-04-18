@@ -7,8 +7,8 @@
 
 /* eslint-disable max-len */
 
-import Course from '.';
 import { rounds, Stage } from '../../rows';
+import Course from '.';
 
 describe('siril template for Stedman Course', () => {
 

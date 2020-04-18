@@ -5,9 +5,9 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import AbstractScheme from '.';
 import { Stage } from '../../rows';
 import { testAbstractMatcherImplementation } from '../AbstractMatcher.spec';
+import AbstractScheme from '.';
 
 /**
  * Tests that a scheme behaves as an AbstractScheme

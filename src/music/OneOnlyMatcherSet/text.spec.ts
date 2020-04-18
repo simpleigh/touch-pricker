@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import OneOnlyMatcherSet from './OneOnlyMatcherSet';
+import OneOnlyMatcherSet from '.';
 
 describe('text template for OneOnlyMatcherSet music class', () => {
 

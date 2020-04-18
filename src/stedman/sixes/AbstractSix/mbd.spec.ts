@@ -7,11 +7,11 @@
 
 /* eslint-disable max-len */
 
-import AbstractSix from '.';
 import { BlockDirectory, BlockOwnership } from '../../../blocks';
 import { Call } from '../../../leads';
 import { rounds, Row, Stage, stringFromRow } from '../../../rows';
 import Course from '../../Course';
+import AbstractSix from '.';
 
 /**
  * Tests the template behaves like the parent version

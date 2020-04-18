@@ -1,7 +1,7 @@
 'use strict';
 
-const { BannerPlugin } = require('webpack');
 const fs = require('fs');
+const { BannerPlugin } = require('webpack');
 
 const { version } = require('../package.json');
 const paths = require('./paths');

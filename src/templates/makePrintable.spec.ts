@@ -12,9 +12,9 @@ max-classes-per-file,
 padded-blocks,
 */
 
-import * as Templates from '.';
 import AbstractPrintable from './AbstractPrintable';
 import { Context, Templates as TemplateProperty } from './types';
+import * as Templates from '.';
 
 describe('makePrintable decorator', () => {
 

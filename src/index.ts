@@ -7,7 +7,7 @@
 
 import * as Blocks from './blocks';
 import create from './create';
-export * as Grandsire from './grandsire';
+import * as Grandsire from './grandsire';
 import {
     Call,
 } from './leads';
@@ -37,6 +37,7 @@ export {
     Change,
     changeFromNotation,
     create,
+    Grandsire,
     multiply,
     Music,
     Options,

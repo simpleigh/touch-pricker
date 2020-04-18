@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import AbstractVisitor from './AbstractVisitor';
 import { rounds, rowFromString, Stage } from '../rows';
+import AbstractVisitor from './AbstractVisitor';
 
 /**
  * Tests that a visitor behaves as an AbstractVisitor

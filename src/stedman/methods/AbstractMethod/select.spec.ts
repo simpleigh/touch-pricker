@@ -5,11 +5,11 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import AbstractMethod from '.';
 import SixType from '../../SixType';
 import Erin from '../Erin';
 import Stedman from '../Stedman';
 import StedmanJump from '../StedmanJump';
+import AbstractMethod from '.';
 
 /**
  * Tests the template behaves like the parent version

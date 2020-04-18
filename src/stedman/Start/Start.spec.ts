@@ -7,7 +7,6 @@
 
 /* eslint-disable max-len */
 
-import Start from '.';
 import {
     testAbstractBlockImplementation,
 } from '../../blocks/AbstractBlock.spec';
@@ -15,7 +14,7 @@ import { rounds, rowFromString, Stage as S } from '../../rows';
 import { StringArray } from '../../visitors';
 import { AbstractMethod, Carter, Erin, Stedman, StedmanJump } from '../methods';
 import SixType from '../SixType';
-import SixTypeMap from '../SixTypeMap';
+import Start from '.';
 
 describe('Start class', () => {
 

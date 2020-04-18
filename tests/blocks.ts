@@ -5,7 +5,11 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-/* eslint-disable max-classes-per-file */
+/*
+eslint-disable
+max-classes-per-file,
+import/no-internal-modules,
+*/
 
 import { RandomAccessContainer, SerialContainer } from '../src/blocks';
 import { AbstractLead, Call, LeadHeadTable } from '../src/leads';

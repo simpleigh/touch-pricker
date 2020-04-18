@@ -5,9 +5,9 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import PatternGroup from '.';
 import { testAbstractMatcherImplementation } from '../AbstractMatcher.spec';
 import Pattern from '../Pattern';
+import PatternGroup from '.';
 
 describe('PatternGroup music class', () => {
 

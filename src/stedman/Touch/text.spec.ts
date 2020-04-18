@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import Touch from '.';
 import SixType from '../SixType';
+import Touch from '.';
 
 describe('text template for Stedman Touch', () => {
 

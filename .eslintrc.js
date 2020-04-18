@@ -16,6 +16,7 @@ module.exports = {
         project: './tsconfig.json',
     },
     plugins: [
+        'eslint-plugin-import',
         '@typescript-eslint',
     ],
     extends: [
@@ -262,6 +263,55 @@ module.exports = {
         'symbol-description': 'error',
         'template-curly-spacing': 'error',
         'yield-star-spacing': 'error',
+
+        // eslint-plugin-import: Static analysis
+        'import/no-unresolved': 'error',
+        'import/named': 'error',
+        'import/default': 'error',
+        'import/namespace': 'error',
+        'import/no-restricted-paths': 'error',
+        'import/no-absolute-path': 'error',
+        'import/no-dynamic-require': 'error',
+        'import/no-internal-modules': 'error',
+        'import/no-webpack-loader-syntax': 'error',
+        'import/no-self-import': 'error',
+        'import/no-cycle': 'warn',
+        'import/no-useless-path-segments': 'error',
+        'import/no-relative-parent-imports': 'off',
+        'import/no-unused-modules': 'error',
+
+        // eslint-plugin-import: Helpful warnings
+        'import/export': 'error',
+        'import/no-named-as-default': 'error',
+        'import/no-named-as-default-member': 'error',
+        'import/no-deprecated': 'error',
+        'import/no-extraneous-dependencies': 'error',
+        'import/no-mutable-exports': 'error',
+        'import/no-unused-modules': 'error',
+
+        // eslint-plugin-import: Module systems
+        'import/unambiguous': 'off',
+        'import/no-commonjs': 'error',
+        'import/no-amd': 'error',
+        'import/no-nodejs-modules': 'error',
+
+        // eslint-plugin-import: Style guide
+        'import/first': 'error',
+        'import/exports-last': 'off',
+        'import/no-duplicates': 'error',
+        'import/no-namespace': 'off',
+        'import/extensions': 'error',
+        'import/order': 'error',
+        'import/newline-after-import': 'error',
+        'import/prefer-default-export': 'off',
+        'import/max-dependencies': 'off',
+        'import/no-unassigned-import': 'error',
+        'import/no-named-default': 'error',
+        'import/no-default-export': 'off',
+        'import/no-named-export': 'off',
+        'import/no-anonymous-default-export': 'error',
+        'import/group-exports': 'off',
+        'import/dynamic-import-chunkname': 'error',
     },
     overrides: [
         {
@@ -283,6 +333,10 @@ module.exports = {
                 'no-process-exit': 'error',
                 'no-restricted-modules': 'error',
                 'no-sync': 'off',  // all our JS code is CLI, so sync is OK
+
+                // eslint-plugin-import: Module systems
+                'import/no-commonjs': 'off',
+                'import/no-nodejs-modules': 'off',
             },
         },
         {
@@ -292,6 +346,7 @@ module.exports = {
                 'plugin:@typescript-eslint/eslint-recommended',
                 'plugin:@typescript-eslint/recommended',
                 'plugin:@typescript-eslint/recommended-requiring-type-checking',
+                'plugin:import/typescript',
             ],
             rules: {
                 // Possible Errors
@@ -422,6 +477,10 @@ module.exports = {
                         // Stylistic Issues
                         'max-statements-per-line': 'off',
 
+                        // eslint-plugin-import: Static analysis
+                        'import/no-internal-modules': 'off',
+
+                        // ESLint Plugin TypeScript
                         '@typescript-eslint/explicit-module-boundary-types': 'off',
                         '@typescript-eslint/no-unused-vars': 'off',
                         '@typescript-eslint/unbound-method': 'off',

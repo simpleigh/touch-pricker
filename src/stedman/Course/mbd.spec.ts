@@ -7,8 +7,8 @@
 
 /* eslint-disable max-len */
 
-import Course from '.';
 import { rowFromString, Stage, stringFromRow } from '../../rows';
+import Course from '.';
 
 describe('mbd template for Stedman Course', () => {
 

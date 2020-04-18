@@ -11,9 +11,11 @@
  * Values of "auto" are returned as zero: set explicit values in
  * stylesheets in order to avoid this.
  */
-const getMetric = (element: HTMLElement, metric: string): number => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const metricText: string = (getComputedStyle(element) as any)[metric];
+const getMetric = (
+    element: HTMLElement,
+    metric: 'marginBottom' | 'marginLeft' | 'marginRight' | 'marginTop',
+): number => {
+    const metricText = getComputedStyle(element)[metric];
     return metricText === 'auto' ? 0 : parseInt(metricText) + 1;
 };
 

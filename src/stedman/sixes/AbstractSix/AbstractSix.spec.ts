@@ -5,7 +5,6 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import AbstractSix from '.';
 import { BlockOwnership } from '../../../blocks';
 import { Call } from '../../../leads';
 import {
@@ -18,6 +17,7 @@ import Course from '../../Course';
 import SixType from '../../SixType';
 import { testMbdAbstractSixTemplate } from './mbd.spec';
 import { testSirilAbstractSixTemplate } from './siril.spec';
+import AbstractSix from '.';
 
 export const testSixImplementation = (
     factory: (initialRow: Row, _ownership?: BlockOwnership) => AbstractSix,

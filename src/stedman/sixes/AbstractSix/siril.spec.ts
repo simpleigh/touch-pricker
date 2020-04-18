@@ -5,9 +5,9 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import AbstractSix from '.';
 import { Call } from '../../../leads';
 import { rounds, Row, Stage } from '../../../rows';
+import AbstractSix from '.';
 
 /**
  * Tests the template behaves like the parent version

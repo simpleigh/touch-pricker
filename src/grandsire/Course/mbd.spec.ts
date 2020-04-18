@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import Course from '.';
 import { rounds, Stage, stringFromRow } from '../../rows';
+import Course from '.';
 
 describe('mbd template for Grandsire Course', () => {
 

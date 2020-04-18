@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import Touch from '.';
 import { StedmanJump } from '../methods';
+import Touch from '.';
 
 describe('siril template for Stedman Touch', () => {
 

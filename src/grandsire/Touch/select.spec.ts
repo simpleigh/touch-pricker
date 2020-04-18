@@ -7,9 +7,9 @@
 
 /* eslint-disable max-len */
 
-import Touch from '.';
 import { BlockDirectory } from '../../blocks';
 import { stringFromRow } from '../../rows';
+import Touch from '.';
 
 describe('select template for Grandsire Touch', () => {
 
