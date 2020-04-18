@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { Course, Touch } from '../../tests/blocks';
+import { Course, Touch } from '../blocks/testBlocks.spec';
 import { AbstractMatcher, MbdScheme } from '../music';
 import { rounds, rowFromString, Stage } from '../rows';
 import { testAbstractVisitorImplementation } from './AbstractVisitor.spec';

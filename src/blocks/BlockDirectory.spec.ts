@@ -5,9 +5,9 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { Course, Touch } from '../../tests/blocks';
 import { rounds, Stage } from '../rows';
 import BlockDirectory from './BlockDirectory';
+import { Course, Touch } from './testBlocks.spec';
 
 describe('BlockDirectory class', () => {
 

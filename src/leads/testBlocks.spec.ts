@@ -5,23 +5,20 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-/*
-eslint-disable
-max-classes-per-file,
-import/no-internal-modules,
-*/
+/* eslint-disable max-classes-per-file */
 
-import { RandomAccessContainer, SerialContainer } from '../src/blocks';
-import { AbstractLead, Call, LeadHeadTable } from '../src/leads';
-import { rounds, Row, Stage } from '../src/rows';
+import { RandomAccessContainer } from '../blocks';
+import { rounds, Row, Stage } from '../rows';
+import AbstractLead from './AbstractLead';
+import Call from './Call';
+import LeadHeadTable from './LeadHeadTable';
+import AbstractCourse from './AbstractCourse';
 
 export class Lead extends AbstractLead {
 
-    public accept(): this {
-        return this;
-    }
-
     public readonly rows: number = 0;
+
+    public accept(): this { return this; }
 
     protected get leadHeadTable(): LeadHeadTable {
         const stages: Partial<Record<Stage, Row>> = { };
@@ -38,14 +35,14 @@ export class Lead extends AbstractLead {
 
 }
 
-export class Course extends SerialContainer<Lead> {
-
-    protected createBlock(initialRow: Row, index: number): Lead {
-        return new Lead(initialRow, { container: this, index });
-    }
+export class Course extends AbstractCourse<Lead> {
 
     protected get defaultLength(): number {
         return this.stage - 1;
+    }
+
+    protected createBlock(initialRow: Row, index: number): Lead {
+        return new Lead(initialRow, { container: this, index });
     }
 
 }

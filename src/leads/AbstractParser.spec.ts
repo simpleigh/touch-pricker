@@ -5,9 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-
-import { Course, Touch } from '../../tests/blocks';
 import { rounds, Row, rowFromString, Stage } from '../rows';
+import { Course, Touch } from './testBlocks.spec';
 import AbstractParser from './AbstractParser';
 
 /* eslint-disable no-invalid-this */

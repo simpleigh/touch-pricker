@@ -5,10 +5,10 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { Course, Touch } from '../../tests/blocks';
 import { rounds, Row, Stage } from '../rows';
 import Call from './Call';
 import LeadBasedParser from './LeadBasedParser';
+import { Course, Touch } from './testBlocks.spec';
 
 class TestParser extends LeadBasedParser<Course, Touch> {
 
