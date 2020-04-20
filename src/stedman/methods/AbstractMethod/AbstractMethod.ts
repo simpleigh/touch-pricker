@@ -10,7 +10,6 @@ import * as Templates from '../../../templates';
 import Course from '../../Course';
 import { AbstractSix } from '../../sixes';
 import SixType from '../../SixType';
-import SixTypeMap from '../../SixTypeMap';
 import select from './select.dot';
 
 /**
@@ -50,7 +49,8 @@ abstract class AbstractMethod implements Templates.Interface {
     /**
      * Mapping from each valid six type to its successor
      */
-    protected abstract readonly sixTypeProgression: SixTypeMap<SixType>;
+    protected abstract readonly sixTypeProgression:
+        Partial<Record<SixType, SixType>>;
 
     /**
      * Returns an array of valid six types

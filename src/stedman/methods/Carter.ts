@@ -9,7 +9,6 @@ import { Row } from '../../rows';
 import Course from '../Course';
 import { AbstractSix, Eight, Four } from '../sixes';
 import SixType from '../SixType';
-import SixTypeMap from '../SixTypeMap';
 import AbstractMethod from './AbstractMethod';
 
 /**
@@ -42,7 +41,7 @@ class Carter extends AbstractMethod {
     /**
      * Mapping from each valid six type to its successor
      */
-    protected readonly sixTypeProgression: SixTypeMap<SixType> = {
+    protected readonly sixTypeProgression: Partial<Record<SixType, SixType>> = {
         [SixType.Four]: SixType.Eight,
         [SixType.Eight]: SixType.Four,
     };

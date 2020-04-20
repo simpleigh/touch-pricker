@@ -9,7 +9,6 @@ import { BlockOwnership } from '../blocks';
 import { Row } from '../rows';
 import { AbstractSix, Cold, Four, Eight, Hot, Quick, Slow } from './sixes';
 import SixType from './SixType';
-import SixTypeMap from './SixTypeMap';
 
 type SixConstructor = new(
     initialRow: Row,
@@ -20,7 +19,7 @@ type SixConstructor = new(
  * Looks up the six constructor for a six type
  */
 const constructorFromType = (type: SixType): SixConstructor => {
-    const constructors: SixTypeMap<SixConstructor> = {
+    const constructors: Partial<Record<SixType, SixConstructor>> = {
         [SixType.Slow]: Slow,
         [SixType.Quick]: Quick,
         [SixType.Cold]: Cold,

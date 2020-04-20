@@ -9,7 +9,6 @@ import { Row } from '../../rows';
 import Course from '../Course';
 import { AbstractSix, Cold, Hot } from '../sixes';
 import SixType from '../SixType';
-import SixTypeMap from '../SixTypeMap';
 import AbstractMethod from './AbstractMethod';
 
 /**
@@ -42,7 +41,7 @@ class StedmanJump extends AbstractMethod {
     /**
      * Mapping from each valid six type to its successor
      */
-    protected readonly sixTypeProgression: SixTypeMap<SixType> = {
+    protected readonly sixTypeProgression: Partial<Record<SixType, SixType>> = {
         [SixType.Cold]: SixType.Hot,
         [SixType.Hot]: SixType.Cold,
     };

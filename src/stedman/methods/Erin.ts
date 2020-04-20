@@ -9,7 +9,6 @@ import { Row, Stage } from '../../rows';
 import Course from '../Course';
 import { AbstractSix, Slow } from '../sixes';
 import SixType from '../SixType';
-import SixTypeMap from '../SixTypeMap';
 import AbstractMethod from './AbstractMethod';
 
 /**
@@ -46,7 +45,7 @@ class Erin extends AbstractMethod {
     /**
      * Mapping from each valid six type to its successor
      */
-    protected readonly sixTypeProgression: SixTypeMap<SixType> = {
+    protected readonly sixTypeProgression: Partial<Record<SixType, SixType>> = {
         [SixType.Slow]: SixType.Slow,
     };
 
