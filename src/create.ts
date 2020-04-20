@@ -15,9 +15,9 @@ import { MbdPricker as Stedman } from './stedman';
 
 /**
  * Factory function to create a pricker
- * @param elementId - ID of HTML element to which the pricker will be bound
- * @param options - pricker options
- * @param parentDocument - document to use to create pricker (for testing)
+ * @param elementId       ID of HTML element to which the pricker will be bound
+ * @param options         pricker options
+ * @param parentDocument  document to use to create pricker (for testing)
  */
 const create = (
     elementId: string,

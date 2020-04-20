@@ -31,8 +31,8 @@ abstract class AbstractPricker implements Pricker {
      * Resizes the parent iframe if one exists
      * May be overridden; default implementation uses elements that are
      * immediate children of the body element as follows:
-     *  - width: sum of all elements' widths and margins
-     *  - height: maximum of all elements' heights and margins
+     * - width: sum of all elements' widths and margins
+     * - height: maximum of all elements' heights and margins
      */
     protected resize(): void {
         if (!this._iframe) {

@@ -11,7 +11,7 @@ var contexts = [
 // eslint-disable-next-line import/no-unassigned-import
 require('./setup.ts');
 
-// eslint-disable-next-line func-style
+// eslint-disable-next-line func-style, jsdoc/require-jsdoc
 function runContext(context) {
     context.keys().forEach(context);
 }

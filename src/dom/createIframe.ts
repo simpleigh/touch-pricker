@@ -7,7 +7,7 @@
 
 /**
  * Creates an iframe for pricker rendering
- * @param parentDocument - document object to use (inject for testing)
+ * @param parentDocument  document object to use (inject for testing)
  */
 const createIframe = (
     parentDocument: HTMLDocument = document,

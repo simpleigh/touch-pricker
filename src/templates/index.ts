@@ -5,6 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+/* eslint-disable jsdoc/check-indentation */
+
 /**
  * Template functionality.
  *
@@ -19,25 +21,26 @@
  * following steps:
  *
  * 1. Import dependencies:
- *    ```
- *    import * as Templates from './templates';
- *    ```
+ *     ```
+ *     import * as Templates from './templates';
+ *     ```
  *
- * 1. Add `implements Templates.Printable` to the target class.
- *    This enables the compiler to check dependencies have been added correctly.
+ * 2. Add `implements Templates.Printable` to the target class.
+ *     This makes the compiler check dependencies have been added correctly.
  *
- * 2. Declare a [[print]] function as follows:
- *    ```
- *    public print: Templates.Print;
- *    ```
+ * 3. Declare a [[print]] function as follows:
+ *     ```
+ *     public print: Templates.Print;
+ *     ```
  *
- * 3. Import any templates used by the class and pass them to the
- *    [[makePrintable]] decorator:
- *    ```
- *    import text from './text.dot';
- *    @Templates.makePrintable({ text })
- *    class Banana {
- *        // ...
+ * 4. Import any templates used by the class and pass them to the
+ *     [[makePrintable]] decorator:
+ *     ```
+ *     import text from './text.dot';
+ *     @Templates.makePrintable({ text })
+ *     class Banana {
+ *         // ...
+ *     ```
  *
  * [[makePrintable]] also takes an additional parameter allowing extra default
  * context to be included when rendering the template.

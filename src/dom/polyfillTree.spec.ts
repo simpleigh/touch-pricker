@@ -14,8 +14,6 @@ describe('polyfillTree DOM utility', () => {
 
     /**
      * Helper to create and append a child element
-     * @param element  Parent element
-     * @param onclick  Click handler to assign
      */
     const addChild = (parent: HTMLElement): HTMLElement => {
         const child = document.createElement('div');

@@ -18,9 +18,9 @@ import Stage from './Stage';
  * If any bells are missing from the input string then these will be added
  * in order at the end of the row.
  * An exception is thrown if:
- *  - The input string is too long for the stage
- *  - A character is repeated in the input string
- *  - A character doesn't represent a bell on the current stage
+ * - The input string is too long for the stage
+ * - A character is repeated in the input string
+ * - A character doesn't represent a bell on the current stage
  *
  * ```
  * > Pricker.rowFromString('2143', Pricker.Stage.Minimus);

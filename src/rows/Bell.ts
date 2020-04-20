@@ -9,8 +9,8 @@
  * Bell number
  *
  * n.b. Bell numbers are 1-indexed, i.e.:
- *   treble =  1
- *   eleven = 11
+ * - treble =  1
+ * - eleven = 11
  */
 type Bell =
     1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16;

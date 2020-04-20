@@ -15,9 +15,9 @@ import Notifiable from './Notifiable';
  *
  * Containers are blocks that contain other blocks.
  * Like blocks, containers:
- *  - are initialised from a row
- *  - provide access to the last row in the container
- *  - etc.
+ * - are initialised from a row
+ * - provide access to the last row in the container
+ * - etc.
  * In addition to this containers propagate changes between child blocks.
  */
 abstract class AbstractContainer<Block extends AbstractBlock>

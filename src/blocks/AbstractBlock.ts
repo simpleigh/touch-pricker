@@ -14,11 +14,11 @@ import Notifiable from './Notifiable';
  * Abstract class representing blocks of rows
  *
  * A block:
- *  - is initialised from a row
- *  - provides access to the last row in the block
- *  - recalculates that row if the initial row is changed
- *  - provides mechanisms for controlling how the last row is created
- *  - notifies any parent block whenever those mechanisms are actuated
+ * - is initialised from a row
+ * - provides access to the last row in the block
+ * - recalculates that row if the initial row is changed
+ * - provides mechanisms for controlling how the last row is created
+ * - notifies any parent block whenever those mechanisms are actuated
  *
  * Blocks are designed to be aggregated into containers.
  * Containers notify blocks of changes by setting a new initial row.
@@ -34,7 +34,7 @@ abstract class AbstractBlock {
     /**
      * Constructor
      * @param initialRow  initial row for the block
-     * @param ownership   ownership of this block
+     * @param _ownership  ownership of this block
      */
     constructor(initialRow: Row, protected _ownership?: BlockOwnership) {
         this._initialRow = initialRow.slice();

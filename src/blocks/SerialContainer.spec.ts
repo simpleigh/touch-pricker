@@ -35,7 +35,7 @@ export const testSerialContainerImplementation = (
         /**
          * Fixture factory that extends the container to its default length
          * @param initialRow  initial row for the container
-         * @param ownership   ownership of this container
+         * @param _ownership  ownership of this container
          */
         const defaultLengthFactory = (
             initialRow: Row,

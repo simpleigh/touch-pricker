@@ -43,7 +43,7 @@ describe('AbstractParser class', () => {
 
     /**
      * Helper to call the `parseTouch` function
-     * @param lines - array of lines to parse
+     * @param lines  array of lines to parse
      */
     const testParse = (lines: string[]) => parser.parseTouch(lines.join('\n'));
 

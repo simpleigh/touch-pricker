@@ -7,7 +7,7 @@
 
 /**
  * Creates a style element for pricker rendering
- * @param parentDocument - document object to use (inject for testing)
+ * @param parentDocument  document object to use (inject for testing)
  */
 const createAndAppendStyle = (
     parentDocument: HTMLDocument = document,

@@ -1,8 +1,9 @@
 /**
  * Configuration for ESLint
  * @see https://eslint.org/docs/rules/
- * @see https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin
+ * @see https://github.com/gajus/eslint-plugin-jsdoc
  * @see https://github.com/benmosher/eslint-plugin-import
+ * @see https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin
  */
 
 module.exports = {
@@ -16,6 +17,7 @@ module.exports = {
     },
     plugins: [
         'eslint-plugin-import',
+        'jsdoc',
         '@typescript-eslint',
     ],
     extends: [
@@ -311,6 +313,36 @@ module.exports = {
         'import/no-anonymous-default-export': 'error',
         'import/group-exports': 'off',
         'import/dynamic-import-chunkname': 'error',
+
+        // eslint-plugin-jsdoc
+        'jsdoc/check-alignment': 'error',
+        'jsdoc/check-examples': 'error',
+        'jsdoc/check-indentation': 'error',
+        'jsdoc/check-param-names': 'error',
+        'jsdoc/check-syntax': 'error',
+        'jsdoc/check-tag-names': ['error', {
+            definedTags: ['preferred'],
+        }],
+        'jsdoc/check-types': 'error',
+        'jsdoc/implements-on-classes': 'error',
+        'jsdoc/match-description': 'off',
+        'jsdoc/newline-after-description': ['error', 'never'],
+        'jsdoc/no-types': 'error',
+        'jsdoc/no-undefined-types': 'error',
+        'jsdoc/require-description': 'off',
+        'jsdoc/require-description-complete-sentence': 'off',
+        'jsdoc/require-example': 'off',
+        'jsdoc/require-hyphen-before-param-description': ['error', 'never'],
+        'jsdoc/require-jsdoc': 'error',
+        'jsdoc/require-param': 'off',  // sometimes covered by type
+        'jsdoc/require-param-description': 'error',
+        'jsdoc/require-param-name': 'error',
+        'jsdoc/require-param-type': 'off',  // covered by type
+        'jsdoc/require-returns': 'off',  // covered by type
+        'jsdoc/require-returns-check': 'error',
+        'jsdoc/require-returns-description': 'error',
+        'jsdoc/require-returns-type': 'off',  // covered by type
+        'jsdoc/valid-types': 'error',
     },
     overrides: [
         {
@@ -340,6 +372,11 @@ module.exports = {
         },
         {
             files: ['**/*.ts'],
+            settings: {
+                jsdoc: {
+                    mode: 'typescript',
+                },
+            },
             extends: [
                 'eslint:recommended',
                 'plugin:@typescript-eslint/eslint-recommended',

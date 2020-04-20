@@ -22,13 +22,12 @@ abstract class AbstractParser<
     /**
      * Parses calling for a touch expressed on multiple lines
      * Strips out:
-     *  - blank lines
-     *  - MicroSIRIL's comment marker (`/` at the start of a line)
-     *  - Other comments (marked using `//` anywhere in a line)
+     * - blank lines
+     * - MicroSIRIL's comment marker (`/` at the start of a line)
+     * - Other comments (marked using `//` anywhere in a line)
      * Uses the first line to create a touch and passes each subsequent line to
      * `parseLine()` for further processing.
      * @param input         input string to parse
-     * @param lineParser    function to parse a particular line
      */
     public parseTouch(input: string): Touch {
         const lines = input.split('\n')
