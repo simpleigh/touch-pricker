@@ -6,7 +6,7 @@
  */
 
 import { Call, LeadHeadTable } from '../../leads';
-import { Stage } from '../../rows';
+import { MutableRow, Stage } from '../../rows';
 import { AbstractVisitor } from '../../visitors';
 import * as Changes from '../changes';
 import SixType from '../SixType';
@@ -37,7 +37,7 @@ class Cold extends AbstractSix {
      * Receives a visitor that will be called to process each row
      */
     public accept(...visitors: AbstractVisitor[]): this {
-        const row = this.initialRow;
+        const row = this.initialRow as MutableRow;
 
         Changes.permuteCall(row, this._call);
         this.visitAll(visitors, row);

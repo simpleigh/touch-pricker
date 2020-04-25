@@ -7,12 +7,12 @@
 
 import bellFromSymbol from './bellFromSymbol';
 import symbolFromBell from './symbolFromBell';
-import { Bell, Change, Row, Stage } from './types';
+import { Bell, Change, MutableRow, Stage } from './types';
 
 /**
  * Helper function that extends a change to swap two bells
  */
-const swap = (change: Change, place: number): Change => (row: Row) => {
+const swap = (change: Change, place: number): Change => (row: MutableRow) => {
     // Apply the original change
     change(row);
 
@@ -39,7 +39,7 @@ const changeFromNotation = (input: string, stage: Stage): Change => {
     input = input.toUpperCase();
 
     // Start out with the empty change and accumulate swaps as we go
-    let change: Change = (row: Row) => { /* NOOP */ };
+    let change: Change = () => { /* NOOP */ };
 
     // Also accumulate a canonical representation of the notation
     let notation = '';

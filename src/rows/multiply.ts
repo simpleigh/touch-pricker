@@ -5,13 +5,13 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import { Row } from './types';
+import { MutableRow, Row } from './types';
 
 /**
  * Computes row1 × row 2
  */
 const multiply = (row1: Row, row2: Row): Row => {
-    const output: Row = [];
+    const output: MutableRow = [];
 
     for (let i = 0; i < row1.length || i < row2.length; i += 1) {
         if (row2[i]) {

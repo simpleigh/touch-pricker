@@ -6,7 +6,7 @@
  */
 
 import { AbstractLead, Call, LeadHeadTable } from '../../leads';
-import { Stage, symbolFromBell } from '../../rows';
+import { MutableRow, Stage, symbolFromBell } from '../../rows';
 import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
 import * as Changes from '../changes';
@@ -37,7 +37,7 @@ class Lead extends AbstractLead implements Templates.Interface {
      * Receives a visitor that will be called to process each row
      */
     public accept(...visitors: AbstractVisitor[]): this {
-        const row = this.initialRow;
+        const row = this.initialRow as MutableRow;
 
         Changes.permute3(row);
         this.visitAll(visitors, row);
