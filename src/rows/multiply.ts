@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
  */
 
-import Row from './Row';
+import { Row } from './types';
 
 /**
  * Computes row1 × row 2

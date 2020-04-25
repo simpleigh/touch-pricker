@@ -8,7 +8,7 @@
 import changeFromNotation from './changeFromNotation';
 import rounds from './rounds';
 import rowFromString from './rowFromString';
-import Stage from './Stage';
+import { Stage } from './types';
 
 describe('changeFromNotation function', () => {
     const testCases: [string, Stage, string, string, string][] = [

@@ -6,8 +6,7 @@
  */
 
 import rounds from './rounds';
-import Row from './Row';
-import S from './stage';
+import { Row, Stage as S } from './types';
 
 describe('rounds function', () => {
 

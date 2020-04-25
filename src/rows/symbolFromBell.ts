@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import Bell from './Bell';
+import { Bell } from './types';
 
 /**
  * Converts a [[Bell]] into a character.

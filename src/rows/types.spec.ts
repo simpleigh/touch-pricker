@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import Stage from './Stage';
+import { Stage } from './types';
 
 describe('Stage enum', () => {
 

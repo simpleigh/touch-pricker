@@ -7,9 +7,8 @@
 
 /* eslint-disable max-len */
 
-import Row from './Row';
 import rowFromString from './rowFromString';
-import Stage from './Stage';
+import { Row, Stage } from './types';
 
 describe('rowFromString function', () => {
 

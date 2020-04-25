@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import Bell from './Bell';
+import { Bell } from './types';
 
 /* eslint-disable object-property-newline, quote-props, sort-keys */
 const BELL_SYMBOLS_MAP: Partial<Record<string, Bell>> = {

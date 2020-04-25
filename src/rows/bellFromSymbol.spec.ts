@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import Bell from './Bell';
 import bellFromSymbol from './bellFromSymbol';
+import { Bell } from './types';
 
 describe('bellFromSymbol function', () => {
 

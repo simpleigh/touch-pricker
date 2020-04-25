@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import Row from './Row';
 import symbolFromBell from './symbolFromBell';
+import { Row } from './types';
 
 /**
  * Converts a [[Row]] into a string.

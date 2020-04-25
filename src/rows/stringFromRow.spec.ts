@@ -6,8 +6,8 @@
  */
 
 import rowFromString from './rowFromString';
-import Stage from './Stage';
 import stringFromRow from './stringFromRow';
+import { Stage } from './types';
 
 describe('stringFromRow function', () => {
 

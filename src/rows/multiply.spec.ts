@@ -6,10 +6,9 @@
  */
 
 import multiply from './multiply';
-import Row from './Row';
 import rowFromString from './rowFromString';
-import Stage from './Stage';
 import stringFromRow from './stringFromRow';
+import { Row, Stage } from './types';
 
 describe('multiply function', () => {
 

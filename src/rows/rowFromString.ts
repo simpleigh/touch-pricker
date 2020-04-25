@@ -5,10 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import Bell from './Bell';
 import bellFromSymbol from './bellFromSymbol';
-import Row from './Row';
-import Stage from './Stage';
+import { Bell, Row, Stage } from './types';
 
 /**
  * Converts a string into a [[Row]].

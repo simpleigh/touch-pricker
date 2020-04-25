@@ -5,12 +5,9 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import Bell from './Bell';
 import bellFromSymbol from './bellFromSymbol';
-import Change from './Change';
-import Row from './Row';
-import Stage from './Stage';
 import symbolFromBell from './symbolFromBell';
+import { Bell, Change, Row, Stage } from './types';
 
 /**
  * Helper function that extends a change to swap two bells
