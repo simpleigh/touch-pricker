@@ -79,7 +79,7 @@ abstract class AbstractBlock {
      * Number of rows in the block
      * This doesn't take into account coming round part-way through
      */
-    public abstract get rows(): number;
+    abstract get rows(): number;
 
     /**
      * Updates references to the parent container
@@ -105,7 +105,7 @@ abstract class AbstractBlock {
     /**
      * Clears references to the parent container
      */
-    public clearOwnership(): AbstractBlock {
+    public clearOwnership(): this {
         this._ownership = undefined;
         return this;
     }

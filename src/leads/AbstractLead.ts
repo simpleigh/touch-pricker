@@ -17,7 +17,7 @@ import LeadHeadTable from './LeadHeadTable';
  * - uses two standard calls (bobs and singles)
  * - calculates the last row using a table of lead heads
  */
-abstract class Lead extends AbstractBlock {
+abstract class AbstractLead extends AbstractBlock {
 
     /**
      * Lead head reached by this lead
@@ -82,7 +82,7 @@ abstract class Lead extends AbstractBlock {
     /**
      * Write access to the call, with the ability to suppress updates
      */
-    public setCall(call: Call, update: boolean = true): Lead {
+    public setCall(call: Call, update: boolean = true): this {
         this._call = call;
         if (update) {
             this.calculate();
@@ -102,4 +102,4 @@ abstract class Lead extends AbstractBlock {
 
 }
 
-export default Lead;
+export default AbstractLead;
