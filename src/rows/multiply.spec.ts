@@ -12,6 +12,7 @@ import Stage from './Stage';
 import stringFromRow from './stringFromRow';
 
 describe('multiply function', () => {
+
     const test = (
         description: string,
         input1: string,
@@ -61,4 +62,5 @@ describe('multiply function', () => {
             expect(row2).toEqual(rowBackup);
         });
     });
+
 });

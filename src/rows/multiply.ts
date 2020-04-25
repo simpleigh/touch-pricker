@@ -12,6 +12,7 @@ import Row from './Row';
  */
 const multiply = (row1: Row, row2: Row): Row => {
     const output: Row = [];
+
     for (let i = 0; i < row1.length || i < row2.length; i += 1) {
         if (row2[i]) {
             if (row1[row2[i] - 1]) {
@@ -25,6 +26,7 @@ const multiply = (row1: Row, row2: Row): Row => {
             output.push(row1[i]);
         }
     }
+
     return output;
 };
 

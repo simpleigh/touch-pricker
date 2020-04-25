@@ -9,6 +9,7 @@ import Bell from './Bell';
 import symbolFromBell from './symbolFromBell';
 
 describe('symbolFromBell function', () => {
+
     const testCases: [string, Bell][] = [
         ['1', 1],
         ['2', 2],
@@ -33,4 +34,5 @@ describe('symbolFromBell function', () => {
             expect(symbolFromBell(input)).toBe(expected);
         });
     }
+
 });

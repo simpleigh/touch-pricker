@@ -9,6 +9,7 @@ import Bell from './Bell';
 import bellFromSymbol from './bellFromSymbol';
 
 describe('bellFromSymbol function', () => {
+
     const testCases: [string, Bell][] = [
         ['1', 1],
         ['2', 2],
@@ -43,4 +44,5 @@ describe('bellFromSymbol function', () => {
     it('rejects unknown symbols', () => {
         expect(() => bellFromSymbol('x')).toThrowError("Unknown bell 'x'");
     });
+
 });
