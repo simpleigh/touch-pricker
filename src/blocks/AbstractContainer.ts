@@ -109,7 +109,7 @@ abstract class AbstractContainer<Block extends AbstractBlock>
     /**
      * Read access to the blocks
      */
-    get blocks(): Block[] {
+    get blocks(): readonly Block[] {
         return this._blocks.slice();
     }
 
