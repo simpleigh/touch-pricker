@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { rounds, Row, rowFromString, Stage } from '../rows';
+import { MutableRow, rounds, Row, rowFromString, Stage } from '../rows';
 import { Counter } from '../visitors';
 import AbstractBlock from './AbstractBlock';
 import AbstractContainer from './AbstractContainer';
@@ -44,7 +44,7 @@ export const testAbstractBlockImplementation = (
         });
 
         it('ignores changes to the original initial row', () => {
-            const initialRow = rounds(testStage);
+            const initialRow = rounds(testStage) as MutableRow;
             const expected = rounds(testStage);
             block = factory(initialRow);
 
@@ -56,7 +56,7 @@ export const testAbstractBlockImplementation = (
         });
 
         it('ignores changes to the initialRow result', () => {
-            const initialRow = block.initialRow;
+            const initialRow = block.initialRow as MutableRow;
             const expected = block.initialRow.slice();
 
             initialRow[3] = 16;  // Mutate the initialRow result
@@ -67,7 +67,7 @@ export const testAbstractBlockImplementation = (
         });
 
         it('ignores changes to the set initialRow', () => {
-            const initialRow = rowFromString('4321', testStage);
+            const initialRow = rowFromString('4321', testStage) as MutableRow;
             const expected = initialRow.slice();
 
             block.initialRow = initialRow;
@@ -89,7 +89,7 @@ export const testAbstractBlockImplementation = (
         });
 
         it('ignores changes to the getLast result', () => {
-            const getLast = block.getLast();
+            const getLast = block.getLast() as MutableRow;
             const expected = getLast.slice();
 
             getLast[3] = 16;  // Mutate the getLast result

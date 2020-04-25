@@ -10,7 +10,7 @@ import { Call } from '../../../leads';
 import {
     testAbstractLeadImplementation,
 } from '../../../leads/AbstractLead.spec';
-import { rounds, Row, rowFromString, Stage } from '../../../rows';
+import { MutableRow, rounds, Row, rowFromString, Stage } from '../../../rows';
 import { StringArray } from '../../../visitors';
 import * as Changes from '../../changes';
 import Course from '../../Course';
@@ -61,7 +61,7 @@ export const testSixImplementation = (
     it('computes the six head correctly', () => {
         for (const [initialRow, , testStage, call] of testCases) {
             const six = factory(rowFromString(initialRow, testStage));
-            const row = six.initialRow;
+            const row = six.initialRow as MutableRow;
             Changes.permuteCall(row, call);
             six.call = call;
             expect(six.getFirst()).toEqual(row);
@@ -98,7 +98,7 @@ export const testSixImplementation = (
 
         it('ignores changes to the returned six head', () => {
             const six = createTestSix();
-            const getFirst = six.getFirst();
+            const getFirst = six.getFirst() as MutableRow;
             const getFirstBackup = getFirst.slice();
 
             getFirst[3] = 16;  // Mutate the getFirst result

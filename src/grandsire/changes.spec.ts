@@ -5,15 +5,15 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { rounds, Row, Stage, stringFromRow } from '../rows';
+import { Change, MutableRow, rounds, Stage, stringFromRow } from '../rows';
 import * as Changes from './changes';
 
 const createChangeTests = (
-    testFn: (row: Row) => void,
+    testFn: Change,
     testCases: [string, Stage][],
 ) => () => it('applies the permutation correctly', () => {
     for (const [expected, stage] of testCases) {
-        const row = rounds(stage);
+        const row = rounds(stage) as MutableRow;
 
         testFn(row);
         expect(stringFromRow(row)).toBe(expected);

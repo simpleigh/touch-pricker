@@ -6,7 +6,7 @@
  */
 
 import bellFromSymbol from './bellFromSymbol';
-import { Bell, Row, Stage } from './types';
+import { Bell, MutableRow, Row, Stage } from './types';
 
 /**
  * Converts a string into a [[Row]].
@@ -38,7 +38,7 @@ const rowFromString = (input: string, stage: Stage): Row => {
         bellsSeen[bellNumber] = false;
     }
 
-    const output: Row = [];
+    const output: MutableRow = [];
 
     // Assemble the row based on the input string
     for (

@@ -8,7 +8,7 @@
 import changeFromNotation from './changeFromNotation';
 import rounds from './rounds';
 import rowFromString from './rowFromString';
-import { Stage } from './types';
+import { MutableRow, Stage } from './types';
 
 describe('changeFromNotation function', () => {
     const testCases: [string, Stage, string, string, string][] = [
@@ -110,7 +110,7 @@ describe('changeFromNotation function', () => {
             const expected = rowFromString(expectedRow, stage);
 
             it(description, () => {
-                const row = rounds(stage);
+                const row = rounds(stage) as MutableRow;
                 const change = changeFromNotation(input, stage);
 
                 change(row);
@@ -153,7 +153,7 @@ describe('changeFromNotation function', () => {
         ];
 
         for (const [expected, notation] of triplesNotations) {
-            const row = rounds(Stage.Triples);
+            const row = rounds(Stage.Triples) as MutableRow;
             const change = changeFromNotation(notation, Stage.Triples);
 
             expect(change.toString()).toBe(notation);

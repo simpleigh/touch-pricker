@@ -6,15 +6,15 @@
  */
 
 import { Call } from '../leads';
-import { rounds, Row, Stage, stringFromRow } from '../rows';
+import { Change, MutableRow, rounds, Stage, stringFromRow } from '../rows';
 import * as Changes from './changes';
 
 const createChangeTests = (
-    testFn: (row: Row) => void,
+    testFn: Change,
     testCases: [string, Stage][],
 ) => () => it('applies the permutation correctly', () => {
     for (const [expected, stage] of testCases) {
-        const row = rounds(stage);
+        const row = rounds(stage) as MutableRow;
 
         testFn(row);
         expect(stringFromRow(row)).toBe(expected);
@@ -114,8 +114,8 @@ describe('Changes:', () => {
     describe('permuteCall function', () => {
 
         it('can apply plain transpositions', () => {
-            const calledRow = rounds(Stage.Cinques);
-            const expectedRow = rounds(Stage.Cinques);
+            const calledRow = rounds(Stage.Cinques) as MutableRow;
+            const expectedRow = rounds(Stage.Cinques) as MutableRow;
 
             Changes.permuteCall(calledRow, Call.Plain);
             Changes.permuteN(expectedRow);
@@ -124,8 +124,8 @@ describe('Changes:', () => {
         });
 
         it('can apply bob transpositions', () => {
-            const calledRow = rounds(Stage.Cinques);
-            const expectedRow = rounds(Stage.Cinques);
+            const calledRow = rounds(Stage.Cinques) as MutableRow;
+            const expectedRow = rounds(Stage.Cinques) as MutableRow;
 
             Changes.permuteCall(calledRow, Call.Bob);
             Changes.permuteBob(expectedRow);
@@ -134,8 +134,8 @@ describe('Changes:', () => {
         });
 
         it('can apply single transpositions', () => {
-            const calledRow = rounds(Stage.Cinques);
-            const expectedRow = rounds(Stage.Cinques);
+            const calledRow = rounds(Stage.Cinques) as MutableRow;
+            const expectedRow = rounds(Stage.Cinques) as MutableRow;
 
             Changes.permuteCall(calledRow, Call.Single);
             Changes.permuteSingle(expectedRow);

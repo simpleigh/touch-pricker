@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { Row } from '../rows';
+import { Change, MutableRow } from '../rows';
 
 /**
  * Simple functions to permute rows
@@ -14,7 +14,7 @@ import { Row } from '../rows';
 /**
  * Helper function to swap two bells
  */
-const swapPair = (row: Row, index: number): void => {
+const swapPair = (row: MutableRow, index: number): void => {
     const bell = row[index];
     row[index] = row[index + 1];
     row[index + 1] = bell;
@@ -23,7 +23,7 @@ const swapPair = (row: Row, index: number): void => {
 /**
  * Notation <1>
  */
-export const permute1 = (row: Row): void => {
+export const permute1: Change = (row) => {
     for (let index = 1; index < row.length - 1; index += 2) {
         swapPair(row, index);
     }
@@ -32,7 +32,7 @@ export const permute1 = (row: Row): void => {
 /**
  * Notation <3>
  */
-export const permute3 = (row: Row): void => {
+export const permute3: Change = (row) => {
     swapPair(row, 0);
 
     for (let index = 3; index < row.length - 1; index += 2) {
@@ -43,7 +43,7 @@ export const permute3 = (row: Row): void => {
 /**
  * Notation <123>
  */
-export const permute123 = (row: Row): void => {
+export const permute123: Change = (row) => {
     for (let index = 3; index < row.length - 1; index += 2) {
         swapPair(row, index);
     }
@@ -52,7 +52,7 @@ export const permute123 = (row: Row): void => {
 /**
  * Notation <n>
  */
-export const permuteN = (row: Row): void => {
+export const permuteN: Change = (row) => {
     for (let index = 0; index < row.length - 1; index += 2) {
         swapPair(row, index);
     }

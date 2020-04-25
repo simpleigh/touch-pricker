@@ -26,7 +26,7 @@ describe('StringArray visitor', () => {
     });
 
     it('ignores changes to the result', () => {
-        const getStrings = visitor.strings;
+        const getStrings = visitor.strings as string[];
         getStrings.push('test');  // Mutate the getStrings result
         expect(visitor.strings).not.toEqual(getStrings);
         expect(visitor.strings).toEqual([]);

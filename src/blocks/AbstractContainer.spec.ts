@@ -94,7 +94,7 @@ export const testAbstractContainerImplementation = (
         });
 
         it('ignores changes to the returned blocks array', () => {
-            const blocks = container.blocks;
+            const blocks = container.blocks as AbstractBlock[];
             blocks.pop();
             expect(container.length).toBe(expectedLength);
         });

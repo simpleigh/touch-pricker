@@ -79,12 +79,12 @@ class MbdPricker extends AbstractPricker implements Notifiable {
     /**
      * Directory of false leads
      */
-    private _falseness: BlockDirectory | undefined;
+    private _falseness: Readonly<BlockDirectory> | undefined;
 
     /**
      * Directory of musical leads
      */
-    private _music: BlockDirectory | undefined;
+    private _music: Readonly<BlockDirectory> | undefined;
 
     /* Notifiable methods *****************************************************/
 

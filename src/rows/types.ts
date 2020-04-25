@@ -37,7 +37,12 @@ export type Bell =
 /**
  * A row (permutation of bells)
  */
-export type Row = Bell[];
+export type Row = readonly Bell[];
+
+/**
+ * A [[Row]] that is mutable
+ */
+export type MutableRow = Bell[];
 
 /**
  * A change
@@ -54,4 +59,4 @@ export type Row = Bell[];
  * [1, 3, 2, 5, 4, 7, 6]
  * ```
  */
-export type Change = ((row: Row) => void);
+export type Change = ((row: MutableRow) => void);
