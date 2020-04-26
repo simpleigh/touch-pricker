@@ -16,7 +16,7 @@ import Cold from './Cold';
 describe('Cold six class', () => {
 
     testSixImplementation(
-        (initialRow, _ownership) => new Cold(initialRow, _ownership),
+        (initialRow) => new Cold(initialRow),
         [
             ['2314567',         '4326175',         S.Triples,   C.Plain],
             ['231456789',       '432618597',       S.Caters,    C.Plain],

@@ -85,7 +85,7 @@ describe('siril template for Start', () => {
 
     for (const [sixType, positions] of startPositions) {
         const method = new methodMap[sixType]();
-        const start = new Start(rounds(Stage.Cinques), undefined, method);
+        const start = new Start(rounds(Stage.Cinques), method);
         start.sixType = sixType;
 
         for (let rowIndex = 1; rowIndex <= start.lastRowIndex; rowIndex += 1) {

@@ -9,7 +9,6 @@ import { MutableRow, rounds, Row, rowFromString, Stage } from '../rows';
 import { Counter } from '../visitors';
 import AbstractBlock from './AbstractBlock';
 import AbstractContainer from './AbstractContainer';
-import BlockOwnership from './BlockOwnership';
 
 /**
  * Tests that a block behaves as an AbstractBlock
@@ -20,7 +19,7 @@ import BlockOwnership from './BlockOwnership';
  */
 export const testAbstractBlockImplementation = (
     testStage: Stage,
-    factory: (initialRow: Row, _ownership?: BlockOwnership) => AbstractBlock,
+    factory: (initialRow: Row) => AbstractBlock,
     lengthTestCases: [Stage, number][],
     triggerNotification: (block: AbstractBlock) => unknown,
 ) => {
@@ -110,32 +109,19 @@ export const testAbstractBlockImplementation = (
             }
         });
 
-        it('notifies the parent container', () => {
-            const container: AbstractContainer<AbstractBlock> =
-                jasmine.createSpyObj('AbstractContainer', ['notify']);
-            // set this after creation to avoid spurious notifications
-            block.ownership = { container, index: 999 };
-
-            triggerNotification(block);
-
-            expect(container.notify).toHaveBeenCalledWith(999);
+        it('starts out without a parent', () => {
+            block = factory(rounds(testStage));
+            expect(block.ownership).toBeUndefined();
+            expect(block.container).toBeUndefined();
+            expect(block.index).toBeUndefined();
         });
 
-        it('does not notify when the initial row changes', () => {
+        it('can be attached to a parent', () => {
             const container: AbstractContainer<AbstractBlock> =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
-            // set this after creation to avoid spurious notifications
+            block = factory(rounds(testStage));
+
             block.ownership = { container, index: 999 };
-
-            block.initialRow = rounds(testStage);
-
-            expect(container.notify).not.toHaveBeenCalled();
-        });
-
-        it('allows access to parent information', () => {
-            const container: AbstractContainer<AbstractBlock> =
-                jasmine.createSpyObj('AbstractContainer', ['notify']);
-            block = factory(rounds(testStage), { container, index: 999 });
 
             expect(block.container).toBe(container);
             expect(block.index).toBe(999);
@@ -146,10 +132,7 @@ export const testAbstractBlockImplementation = (
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
             const containerNew: AbstractContainer<AbstractBlock> =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
-            block = factory(
-                rounds(testStage),
-                { container: containerOld, index: 999 }
-            );
+            block.ownership = { container: containerOld, index: 999 };
 
             block.ownership = { container: containerNew, index: 998 };
 
@@ -160,12 +143,34 @@ export const testAbstractBlockImplementation = (
         it('can be detached from a parent', () => {
             const container: AbstractContainer<AbstractBlock> =
                 jasmine.createSpyObj('AbstractContainer', ['notify']);
-            block = factory(rounds(testStage), { container, index: 999 });
+            block = factory(rounds(testStage));
+            block.ownership = { container, index: 999 };
 
             block.clearOwnership();
 
+            expect(block.ownership).toBeUndefined();
             expect(block.container).toBeUndefined();
             expect(block.index).toBeUndefined();
+        });
+
+        it('notifies the parent container', () => {
+            const container: AbstractContainer<AbstractBlock> =
+                jasmine.createSpyObj('AbstractContainer', ['notify']);
+            block.ownership = { container, index: 999 };
+
+            triggerNotification(block);
+
+            expect(container.notify).toHaveBeenCalledWith(999);
+        });
+
+        it('does not notify when the initial row changes', () => {
+            const container: AbstractContainer<AbstractBlock> =
+                jasmine.createSpyObj('AbstractContainer', ['notify']);
+            block.ownership = { container, index: 999 };
+
+            block.initialRow = rounds(testStage);
+
+            expect(container.notify).not.toHaveBeenCalled();
         });
 
         it('calls a visitor in order to traverse rows', () => {

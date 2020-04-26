@@ -39,7 +39,9 @@ class Erin extends AbstractMethod {
         course: Course,
         index: number,
     ): AbstractSix {
-        return new Slow(initialRow, { container: course, index });
+        const six = new Slow(initialRow);
+        six.ownership = { container: course, index };
+        return six;
     }
 
     /**

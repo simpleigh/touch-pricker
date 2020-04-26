@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { BlockOwnership, RandomAccessContainer } from '../../blocks';
+import { RandomAccessContainer } from '../../blocks';
 import { rounds, Row } from '../../rows';
 import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
@@ -42,15 +42,12 @@ class Touch
      */
     constructor(
         initialRow: Row,
-        protected _ownership?: BlockOwnership,
         private readonly _method: AbstractMethod = new Stedman(),
     ) {
-        super(initialRow, _ownership);
-        this._start = new Start(
-            initialRow,
-            { container: this, index: 0 },
-            this._method,
-        );
+        super(initialRow);
+
+        this._start = new Start(initialRow, this._method);
+        this.start.ownership = { container: this, index: 0 };
     }
 
     /* AbstractBlock methods **************************************************/

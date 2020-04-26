@@ -17,7 +17,7 @@ describe('Grandsire Lead class', () => {
 
     testAbstractLeadImplementation(
         Stage.Doubles,
-        (initialRow, _ownership) => new Lead(initialRow, _ownership),
+        (initialRow) => new Lead(initialRow),
         [
             ['13245',           '13524',           Stage.Doubles,   Call.Plain],
             ['1324567',         '1352746',         Stage.Triples,   Call.Plain],

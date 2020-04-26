@@ -21,7 +21,7 @@ describe('Stedman Touch class', () => {
 
     testRandomAccessContainerImplementation(
         Stage.Cinques,
-        (initialRow, _ownership) => {
+        (initialRow) => {
             const testTouch = Touch.fromString(
                 ''
                     + '1234567890E\n'
@@ -35,9 +35,6 @@ describe('Stedman Touch class', () => {
             testTouch.start.rowIndex = 6;
 
             testTouch.initialRow = initialRow;
-            if (_ownership) {
-                testTouch.ownership = _ownership;
-            }
 
             return testTouch;
         },
@@ -58,19 +55,19 @@ describe('Stedman Touch class', () => {
     });
 
     it('allows access to the start for Stedman', () => {
-        touch = new Touch(testRow, undefined, new Stedman());
+        touch = new Touch(testRow, new Stedman());
         expect(touch.start.sixType).toBe(SixType.Quick);
         expect(touch.start.rowIndex).toBe(4);
     });
 
     it('allows access to the start for Erin', () => {
-        touch = new Touch(testRow, undefined, new Erin());
+        touch = new Touch(testRow, new Erin());
         expect(touch.start.sixType).toBe(SixType.Slow);
         expect(touch.start.rowIndex).toBe(6);
     });
 
     it('allows access to the start for Stedman Jump', () => {
-        touch = new Touch(testRow, undefined, new StedmanJump());
+        touch = new Touch(testRow, new StedmanJump());
         expect(touch.start.sixType).toBe(SixType.Hot);
         expect(touch.start.rowIndex).toBe(6);
     });
@@ -86,7 +83,7 @@ describe('Stedman Touch class', () => {
 
     it('passes the method to the start', () => {
         const method = new Stedman();
-        touch = new Touch(testRow, undefined, method);
+        touch = new Touch(testRow, method);
         expect(touch.start.method).toBe(method);
     });
 
@@ -172,7 +169,7 @@ describe('Stedman Touch class', () => {
         const method = new Stedman();
         const spy = spyOn(method, 'getNextSixType');
         spy.and.returnValue(SixType.Quick); // should be slow
-        touch = new Touch(testRow, undefined, method);
+        touch = new Touch(testRow, method);
 
         const course = new Course(testRow);
         course.setLength(11);
@@ -185,7 +182,7 @@ describe('Stedman Touch class', () => {
         const method = new Stedman();
         const spy = spyOn(method, 'getNextSixType');
         spy.and.returnValue(SixType.Slow); // should be quick
-        touch = new Touch(testRow, undefined, method);
+        touch = new Touch(testRow, method);
 
         const course1 = new Course(testRow);
         const course2 = new Course(testRow);
@@ -199,7 +196,7 @@ describe('Stedman Touch class', () => {
 
     it('provides read access to the method', () => {
         const method = new Stedman();
-        touch = new Touch(testRow, undefined, method);
+        touch = new Touch(testRow, method);
         expect(touch.method).toBe(method);
     });
 

@@ -33,9 +33,11 @@ class Stedman extends AbstractMethod {
         index: number,
     ): AbstractSix {
         const offset = course.firstSixType === SixType.Slow ? 0 : 1;
-        return (offset + index) % 2
-            ? new Slow(initialRow, { container: course, index })
-            : new Quick(initialRow, { container: course, index });
+        const six = (offset + index) % 2
+            ? new Slow(initialRow)
+            : new Quick(initialRow);
+        six.ownership = { container: course, index };
+        return six;
     }
 
     /**

@@ -14,7 +14,7 @@ import Four from './Four';
 describe('Four "six" class', () => {
 
     testSixImplementation(
-        (initialRow, _ownership) => new Four(initialRow, _ownership),
+        (initialRow) => new Four(initialRow),
         [
             ['2314567',         '4236175',         S.Triples,   C.Plain],
             ['231456789',       '423618597',       S.Caters,    C.Plain],

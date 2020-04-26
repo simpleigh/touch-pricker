@@ -9,7 +9,6 @@ import { rounds, Row, Stage } from '../rows';
 import AbstractBlock from './AbstractBlock';
 import AbstractContainer from './AbstractContainer';
 import { testAbstractContainerImplementation } from './AbstractContainer.spec';
-import BlockOwnership from './BlockOwnership';
 import SerialContainer from './SerialContainer';
 
 type TestContainer = SerialContainer<AbstractBlock>;
@@ -24,7 +23,7 @@ type TestContainer = SerialContainer<AbstractBlock>;
  */
 export const testSerialContainerImplementation = (
     testStage: Stage,
-    factory: (initialRow: Row, _ownership?: BlockOwnership) => TestContainer,
+    factory: (initialRow: Row) => TestContainer,
     expectedRows: number,
     expectedLength: number,
     lengthTestCases: [Stage, number, number][],
@@ -35,16 +34,9 @@ export const testSerialContainerImplementation = (
         /**
          * Fixture factory that extends the container to its default length
          * @param initialRow  initial row for the container
-         * @param _ownership  ownership of this container
          */
-        const defaultLengthFactory = (
-            initialRow: Row,
-            _ownership?: BlockOwnership,
-        ) => {
-            const result = factory(initialRow, _ownership);
-            result.resetLength();
-            return result;
-        };
+        const defaultLengthFactory = (initialRow: Row) =>
+            factory(initialRow).resetLength();
 
         testAbstractContainerImplementation(
             testStage,

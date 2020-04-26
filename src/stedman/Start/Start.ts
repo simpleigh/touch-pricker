@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { AbstractBlock, BlockOwnership } from '../../blocks';
+import { AbstractBlock } from '../../blocks';
 import { Row } from '../../rows';
 import * as Templates from '../../templates';
 import { AbstractVisitor } from '../../visitors';
@@ -47,10 +47,9 @@ class Start extends AbstractBlock implements Templates.Interface {
      */
     constructor(
         initialRow: Row,
-        protected _ownership?: BlockOwnership,
         private readonly _method: AbstractMethod = new Stedman(),
     ) {
-        super(initialRow, _ownership);
+        super(initialRow);
 
         this._sixType = this._method.defaultStartSixType;
         this._rowIndex = this._method.defaultStartRowIndex;

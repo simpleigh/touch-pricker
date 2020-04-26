@@ -82,7 +82,7 @@ describe('text template for Start', () => {
 
     for (const [Method, sixType, starts] of startPositions) {
         const method = new Method();
-        const start = new Start(rounds(Stage.Cinques), undefined, method);
+        const start = new Start(rounds(Stage.Cinques), method);
         start.sixType = sixType;
 
         for (let rowIndex = 1; rowIndex < starts.length; rowIndex += 1) {

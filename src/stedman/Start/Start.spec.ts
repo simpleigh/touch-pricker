@@ -20,7 +20,7 @@ describe('Start class', () => {
 
     testAbstractBlockImplementation(
         S.Cinques,
-        (initialRow, _ownership?) => new Start(initialRow, _ownership),
+        (initialRow) => new Start(initialRow),
         [[S.Cinques, 2]],
         (fixture) => { (fixture as Start).rowIndex = 2; },
     );
@@ -36,32 +36,32 @@ describe('Start class', () => {
         method.defaultStartSixType = SixType.Cold;
         method.defaultStartRowIndex = 3;
 
-        start = new Start(rounds(S.Cinques), undefined, method);
+        start = new Start(rounds(S.Cinques), method);
 
         expect(start.sixType).toBe(SixType.Cold);
         expect(start.rowIndex).toBe(3);
     });
 
     it('defaults to standard start for Carter', () => {
-        start = new Start(rounds(S.Cinques), undefined, new Carter());
+        start = new Start(rounds(S.Cinques), new Carter());
         expect(start.sixType).toBe(SixType.Eight);
         expect(start.rowIndex).toBe(8);
     });
 
     it('defaults to a standard start for Erin', () => {
-        start = new Start(rounds(S.Cinques), undefined, new Erin());
+        start = new Start(rounds(S.Cinques), new Erin());
         expect(start.sixType).toBe(SixType.Slow);
         expect(start.rowIndex).toBe(6);
     });
 
     it('defaults to a standard start for Stedman', () => {
-        start = new Start(rounds(S.Cinques), undefined, new Stedman());
+        start = new Start(rounds(S.Cinques), new Stedman());
         expect(start.sixType).toBe(SixType.Quick);
         expect(start.rowIndex).toBe(4);
     });
 
     it('defaults to a standard start for Stedman Jump', () => {
-        start = new Start(rounds(S.Cinques), undefined, new StedmanJump());
+        start = new Start(rounds(S.Cinques), new StedmanJump());
         expect(start.sixType).toBe(SixType.Hot);
         expect(start.rowIndex).toBe(6);
     });
@@ -79,7 +79,7 @@ describe('Start class', () => {
     it('checks the six type is valid for the chosen method', () => {
         const method = new Stedman();
         spyOn(method, 'checkSixType');
-        start = new Start(rounds(S.Cinques), undefined, method);
+        start = new Start(rounds(S.Cinques), method);
 
         start.sixType = SixType.Slow;
 
@@ -88,7 +88,7 @@ describe('Start class', () => {
     });
 
     it('checks the six type is valid for Carter', () => {
-        start = new Start(rounds(S.Cinques), undefined, new Carter());
+        start = new Start(rounds(S.Cinques), new Carter());
         expect(() => { start.sixType = SixType.Slow; }).toThrow();
         expect(() => { start.sixType = SixType.Quick; }).toThrow();
         expect(() => { start.sixType = SixType.Cold; }).toThrow();
@@ -97,7 +97,7 @@ describe('Start class', () => {
     });
 
     it('checks the six type is valid for Erin', () => {
-        start = new Start(rounds(S.Cinques), undefined, new Erin());
+        start = new Start(rounds(S.Cinques), new Erin());
         expect(() => { start.sixType = SixType.Quick; }).toThrow();
         expect(() => { start.sixType = SixType.Cold; }).toThrow();
         expect(() => { start.sixType = SixType.Hot; }).toThrow();
@@ -107,7 +107,7 @@ describe('Start class', () => {
     });
 
     it('checks the six type is valid for Stedman', () => {
-        start = new Start(rounds(S.Cinques), undefined, new Erin());
+        start = new Start(rounds(S.Cinques), new Erin());
         expect(() => { start.sixType = SixType.Cold; }).toThrow();
         expect(() => { start.sixType = SixType.Hot; }).toThrow();
         expect(() => { start.sixType = SixType.Four; }).toThrow();
@@ -116,7 +116,7 @@ describe('Start class', () => {
     });
 
     it('checks the six type is valid for Stedman Jump', () => {
-        start = new Start(rounds(S.Cinques), undefined, new StedmanJump());
+        start = new Start(rounds(S.Cinques), new StedmanJump());
         expect(() => { start.sixType = SixType.Slow; }).toThrow();
         expect(() => { start.sixType = SixType.Quick; }).toThrow();
         expect(() => { start.sixType = SixType.Four; }).toThrow();
@@ -147,7 +147,7 @@ describe('Start class', () => {
 
     it('exposes the last permitted row index for a six', () => {
         for (const [sixType, Method, maxIndex] of indexTestCases) {
-            start = new Start(rounds(S.Cinques), undefined, new Method());
+            start = new Start(rounds(S.Cinques), new Method());
             start.sixType = sixType;
 
             expect(start.lastRowIndex).toBe(maxIndex);
@@ -156,7 +156,7 @@ describe('Start class', () => {
 
     it('restricts the row index range based on the six type', () => {
         for (const [sixType, Method, maxIndex] of indexTestCases) {
-            start = new Start(rounds(S.Cinques), undefined, new Method());
+            start = new Start(rounds(S.Cinques), new Method());
             start.sixType = sixType;
 
             // Following two lines should not raise an error
@@ -169,7 +169,7 @@ describe('Start class', () => {
     });
 
     it('ensures the row index is valid when setting the six type', () => {
-        start = new Start(rounds(S.Cinques), undefined, new Carter());
+        start = new Start(rounds(S.Cinques), new Carter());
         start.sixType = SixType.Eight;
         start.rowIndex = 5;
 
@@ -180,7 +180,7 @@ describe('Start class', () => {
 
     it('provides read access to the method', () => {
         const method = new Stedman();
-        start = new Start(rounds(S.Cinques), undefined, method);
+        start = new Start(rounds(S.Cinques), method);
         expect(start.method).toBe(method);
     });
 
@@ -968,7 +968,6 @@ describe('Start class', () => {
             for (const [stage, rows] of testCases) {
                 const fixture = new Start(
                     rounds(stage),
-                    undefined,
                     new methodMap[sixType](),
                 );
 
@@ -984,7 +983,6 @@ describe('Start class', () => {
             for (const [stage, notation] of testCases) {
                 const fixture = new Start(
                     rounds(stage),
-                    undefined,
                     new methodMap[sixType](),
                 );
 
@@ -1000,7 +998,6 @@ describe('Start class', () => {
             for (const [stage, notation] of testCases) {
                 const fixture = new Start(
                     rounds(stage),
-                    undefined,
                     new methodMap[sixType](),
                 );
 
@@ -1056,7 +1053,7 @@ describe('Start class', () => {
 
         for (const [Method, sixType, maxIndex] of validSixTypes) {
             const method = new Method();
-            start = new Start(rounds(S.Cinques), undefined, method);
+            start = new Start(rounds(S.Cinques), method);
             start.sixType = sixType;
 
             for (let rowIndex = 1; rowIndex <= maxIndex; rowIndex += 1) {
@@ -1074,7 +1071,7 @@ describe('Start class', () => {
 
                 it(description, () => {
                     // Reset start as beforeEach() rule will have overwritten
-                    start = new Start(rounds(S.Cinques), undefined, method);
+                    start = new Start(rounds(S.Cinques), method);
                     start.setFromString(output);
                     expect(start.sixType).toBe(sixType);
                     expect(start.rowIndex).toBe(rowIndex);
@@ -1151,7 +1148,7 @@ describe('Start class', () => {
         });
 
         it('a string with a large row index for a Carter four', () => {
-            start = new Start(rounds(S.Cinques), undefined, new Carter());
+            start = new Start(rounds(S.Cinques), new Carter());
             expect(() => start.setFromString('Start four fifth'))
                 .toThrowError("Row index '5' out of range");
         });
@@ -1161,7 +1158,7 @@ describe('Start class', () => {
         });
 
         it('strings for Carter', () => {
-            start = new Start(rounds(S.Cinques), undefined, new Carter());
+            start = new Start(rounds(S.Cinques), new Carter());
 
             start.setFromString('Start third of a four');
             expect(start.sixType).toBe(SixType.Four);

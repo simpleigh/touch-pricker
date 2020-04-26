@@ -5,7 +5,6 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { BlockOwnership } from '../../../blocks';
 import { Call } from '../../../leads';
 import {
     testAbstractLeadImplementation,
@@ -13,14 +12,13 @@ import {
 import { MutableRow, rounds, Row, rowFromString, Stage } from '../../../rows';
 import { StringArray } from '../../../visitors';
 import * as Changes from '../../changes';
-import Course from '../../Course';
 import SixType from '../../SixType';
 import { testMbdAbstractSixTemplate } from './mbd.spec';
 import { testSirilAbstractSixTemplate } from './siril.spec';
 import AbstractSix from '.';
 
 export const testSixImplementation = (
-    factory: (initialRow: Row, _ownership?: BlockOwnership) => AbstractSix,
+    factory: (initialRow: Row) => AbstractSix,
     testCases: [string, string, Stage, Call][],
     rowTests: [Stage, ...string[]][],
     type: SixType,
@@ -86,18 +84,8 @@ export const testSixImplementation = (
         testMbdAbstractSixTemplate(factory);
         testSirilAbstractSixTemplate(factory);
 
-        const createTestSix = (
-            container?: Course,
-            index: number = 999,
-        ): AbstractSix => {
-            if (container) {
-                return factory(rounds(Stage.Cinques), { container, index });
-            }
-            return factory(rounds(Stage.Cinques));
-        };
-
         it('ignores changes to the returned six head', () => {
-            const six = createTestSix();
+            const six = factory(rounds(Stage.Cinques));
             const getFirst = six.getFirst() as MutableRow;
             const getFirstBackup = getFirst.slice();
 

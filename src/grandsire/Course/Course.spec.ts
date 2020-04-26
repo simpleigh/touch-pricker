@@ -16,7 +16,7 @@ describe('Grandsire Course class', () => {
 
     testAbstractCourseImplementation(
         Stage.Doubles,
-        (initialRow, _ownership) => new Course(initialRow, _ownership),
+        (initialRow) => new Course(initialRow),
         30,
         3,
         [

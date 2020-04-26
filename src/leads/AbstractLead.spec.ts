@@ -5,7 +5,6 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { BlockOwnership } from '../blocks';
 import { testAbstractBlockImplementation } from '../blocks/AbstractBlock.spec';
 import { rounds, Row, rowFromString, Stage, stringFromRow } from '../rows';
 import { StringArray } from '../visitors';
@@ -21,7 +20,7 @@ import Call from './Call';
  */
 export const testAbstractLeadImplementation = (
     testStage: Stage,
-    factory: (initialRow: Row, _ownership?: BlockOwnership) => AbstractLead,
+    factory: (initialRow: Row) => AbstractLead,
     testCases: [string, string, Stage, Call][],
     lengthTestCases: [Stage, number][],
 ) => {

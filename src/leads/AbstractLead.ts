@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { AbstractBlock, BlockOwnership } from '../blocks';
+import { AbstractBlock } from '../blocks';
 import { multiply, Row } from '../rows';
 import Call from './Call';
 import LeadHeadTable from './LeadHeadTable';
@@ -32,8 +32,8 @@ abstract class AbstractLead extends AbstractBlock {
     /**
      * Constructor
      */
-    constructor(initialRow: Row, protected _ownership?: BlockOwnership) {
-        super(initialRow, _ownership);
+    constructor(initialRow: Row) {
+        super(initialRow);
         this.calculate();
     }
 

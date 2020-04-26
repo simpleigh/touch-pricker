@@ -7,7 +7,7 @@
 
 /* eslint-disable max-len */
 
-import { BlockDirectory, BlockOwnership } from '../../../blocks';
+import { BlockDirectory } from '../../../blocks';
 import { Call } from '../../../leads';
 import { rounds, Row, Stage, stringFromRow } from '../../../rows';
 import Course from '../../Course';
@@ -17,23 +17,18 @@ import AbstractSix from '.';
  * Tests the template behaves like the parent version
  */
 export const testMbdAbstractSixTemplate = (
-    factory: (initialRow: Row, _ownership?: BlockOwnership) => AbstractSix,
+    factory: (initialRow: Row) => AbstractSix,
 ) => {
 
     describe('it has an mbd template that', () => {
 
+        const container: Course = jasmine.createSpyObj('Course', ['notify']);
+
         let six: AbstractSix;
 
-        const createTestSix = (index: number): AbstractSix => {
-            const initialRow = rounds(Stage.Cinques);
-            const container: Course =
-                jasmine.createSpyObj('Course', ['notify']);
-
-            return factory(initialRow, { container, index });
-        };
-
         beforeEach(() => {
-            six = createTestSix(1);
+            six = factory(rounds(Stage.Cinques));
+            six.ownership = { container, index: 1 };
         });
 
         it('renders a six correctly', () => {
@@ -84,7 +79,7 @@ export const testMbdAbstractSixTemplate = (
         });
 
         it('displays the index correctly', () => {
-            six = createTestSix(999);
+            six.ownership = { container, index: 999 };
             expect(six.print('mbd')).toRenderAs(`
                 <span class="">
                     ${stringFromRow(six.getLast())}

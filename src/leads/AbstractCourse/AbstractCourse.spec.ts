@@ -5,7 +5,6 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { BlockOwnership } from '../../blocks';
 import {
     testSerialContainerImplementation,
 } from '../../blocks/SerialContainer.spec';
@@ -27,8 +26,7 @@ import AbstractCourse from '.';
  */
 export const testAbstractCourseImplementation = (
     testStage: Stage,
-    factory: (initialRow: Row, _ownership?: BlockOwnership) =>
-        AbstractCourse<AbstractLead>,
+    factory: (initialRow: Row) => AbstractCourse<AbstractLead>,
     expectedRows: number,
     expectedLength: number,
     lengthTestCases: [Stage, number, number][],

@@ -136,24 +136,15 @@ class MbdPricker extends AbstractPricker implements Notifiable {
     }
 
     private reboot(): void {
-        this._touch = new Touch(
-            rounds(this._stage),
-            { container: this, index: Block.Touch },
-            this._method,
-        );
+        this._touch = new Touch(rounds(this._stage), this._method);
+        this._touch.ownership = { container: this, index: Block.Touch };
 
         this._initialRow = this._touch.start.getLast();
 
-        this._course = new Course(
-            this._initialRow,
-            { container: this, index: Block.Course },
-            this._method,
-        );
-        this._extraSixes = new Course(
-            this._initialRow,
-            undefined,
-            this._method,
-        );
+        this._course = new Course(this._initialRow, this._method);
+        this._course.ownership = { container: this, index: Block.Course };
+
+        this._extraSixes = new Course(this._initialRow, this._method);
 
         this._course.resetLength();
         this._extraSixes.setLength(8);
@@ -342,11 +333,7 @@ class MbdPricker extends AbstractPricker implements Notifiable {
             this._course = this._savedCourse.clone();
             this._course.initialRow = this._initialRow;
         } else {
-            this._course = new Course(
-                this._initialRow,
-                undefined,
-                this._method,
-            );
+            this._course = new Course(this._initialRow, this._method);
             this._course.resetLength();
         }
 

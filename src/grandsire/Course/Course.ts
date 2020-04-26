@@ -38,7 +38,9 @@ class Course extends AbstractCourse<Lead> implements Templates.Interface {
      * @param index       index of block in container
      */
     protected createBlock(initialRow: Row, index: number): Lead {
-        return new Lead(initialRow, { container: this, index });
+        const lead = new Lead(initialRow);
+        lead.ownership = { container: this, index };
+        return lead;
     }
 
     /* Course methods *********************************************************/

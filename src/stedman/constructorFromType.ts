@@ -5,15 +5,11 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { BlockOwnership } from '../blocks';
 import { Row } from '../rows';
 import { AbstractSix, Cold, Four, Eight, Hot, Quick, Slow } from './sixes';
 import SixType from './SixType';
 
-type SixConstructor = new(
-    initialRow: Row,
-    _ownership?: BlockOwnership,
-) => AbstractSix;
+type SixConstructor = new(initialRow: Row) => AbstractSix;
 
 /**
  * Looks up the six constructor for a six type

@@ -19,7 +19,7 @@ describe('Stedman Course class', () => {
 
     testAbstractCourseImplementation(
         Stage.Cinques,
-        (initialRow, _ownership) => new Course(initialRow, _ownership),
+        (initialRow) => new Course(initialRow),
         132,
         22,
         [
@@ -42,21 +42,21 @@ describe('Stedman Course class', () => {
     });
 
     it('starts out with a slow six by default for Erin', () => {
-        course = new Course(testRow, undefined, new Erin());
+        course = new Course(testRow, new Erin());
         course.resetLength();
         expect(course.firstSixType).toBe(SixType.Slow);
         expect(course.getBlock(1).type).toBe(SixType.Slow);
     });
 
     it('starts out with a slow six by default for Stedman', () => {
-        course = new Course(testRow, undefined, new Stedman());
+        course = new Course(testRow, new Stedman());
         course.resetLength();
         expect(course.firstSixType).toBe(SixType.Slow);
         expect(course.getBlock(1).type).toBe(SixType.Slow);
     });
 
     it('starts out with a cold six by default for Stedman Jump', () => {
-        course = new Course(testRow, undefined, new StedmanJump());
+        course = new Course(testRow, new StedmanJump());
         course.resetLength();
         expect(course.firstSixType).toBe(SixType.Cold);
         expect(course.getBlock(1).type).toBe(SixType.Cold);
@@ -64,24 +64,24 @@ describe('Stedman Course class', () => {
 
     it('sets the first six for the chosen method', () => {
         const method = { defaultFirstSix: SixType.Cold } as AbstractMethod;
-        course = new Course(testRow, undefined, method);
+        course = new Course(testRow, method);
         expect(course.firstSixType).toBe(SixType.Cold);
     });
 
     it('has the right default length for Erin', () => {
-        course = new Course(testRow, undefined, new Erin());
+        course = new Course(testRow, new Erin());
         course.resetLength();
         expect(course.length).toBe(11);
     });
 
     it('has the right default length for Stedman', () => {
-        course = new Course(testRow, undefined, new Stedman());
+        course = new Course(testRow, new Stedman());
         course.resetLength();
         expect(course.length).toBe(22);
     });
 
     it('has the right default length for Stedman Jump', () => {
-        course = new Course(testRow, undefined, new StedmanJump());
+        course = new Course(testRow, new StedmanJump());
         course.resetLength();
         expect(course.length).toBe(22);
     });
@@ -90,7 +90,7 @@ describe('Stedman Course class', () => {
         const method = new Stedman();
         spyOn(method, 'getCourseLength').and.returnValue(18);
 
-        course = new Course(testRow, undefined, method);
+        course = new Course(testRow, method);
         course.resetLength();
 
         expect(method.getCourseLength).toHaveBeenCalled();
@@ -98,7 +98,7 @@ describe('Stedman Course class', () => {
     });
 
     it('always uses slow sixes for Erin', () => {
-        course = new Course(testRow, undefined, new Erin());
+        course = new Course(testRow, new Erin());
         course.resetLength();
         for (let index = 1; index <= course.length; index += 1) {
             expect(course.getBlock(index).type).toBe(SixType.Slow);
@@ -106,7 +106,7 @@ describe('Stedman Course class', () => {
     });
 
     it('alternates six types for Stedman', () => {
-        course = new Course(testRow, undefined, new Stedman());
+        course = new Course(testRow, new Stedman());
         course.resetLength();
         for (let index = 1; index <= course.length; index += 1) {
             if (index % 2) {
@@ -118,7 +118,7 @@ describe('Stedman Course class', () => {
     });
 
     it('alternates six types for Stedman Jump', () => {
-        course = new Course(testRow, undefined, new StedmanJump());
+        course = new Course(testRow, new StedmanJump());
         course.resetLength();
         for (let index = 1; index <= course.length; index += 1) {
             if (index % 2) {
@@ -132,7 +132,7 @@ describe('Stedman Course class', () => {
     it('requests new sixes for the chosen method', () => {
         const method = new Stedman();
         spyOn(method, 'createSix').and.callThrough();
-        course = new Course(testRow, undefined, method);
+        course = new Course(testRow, method);
 
         course.setLength(1);
         expect(method.createSix).toHaveBeenCalled();
@@ -169,7 +169,7 @@ describe('Stedman Course class', () => {
     it('checks the six type is valid for the chosen method', () => {
         const method = new Stedman();
         spyOn(method, 'checkSixType');
-        course = new Course(testRow, undefined, method);
+        course = new Course(testRow, method);
 
         course.setFirstSixType(SixType.Slow);
 
@@ -321,7 +321,7 @@ describe('Stedman Course class', () => {
 
     it('provides read access to the method', () => {
         const method = new Stedman();
-        course = new Course(testRow, undefined, method);
+        course = new Course(testRow, method);
         expect(course.method).toBe(method);
     });
 
@@ -334,7 +334,7 @@ describe('Stedman Course class', () => {
     it('passes the method to the cloned course', () => {
         const method = new Stedman();
         spyOn(method, 'getCourseLength').and.callThrough();
-        course = new Course(testRow, undefined, method);
+        course = new Course(testRow, method);
         expect(method.getCourseLength).not.toHaveBeenCalled();
 
         const cloned = course.clone();

@@ -10,7 +10,6 @@ import { Proof, StringArray } from '../visitors';
 import AbstractBlock from './AbstractBlock';
 import { testAbstractBlockImplementation } from './AbstractBlock.spec';
 import AbstractContainer from './AbstractContainer';
-import BlockOwnership from './BlockOwnership';
 
 type TestContainer = AbstractContainer<AbstractBlock>;
 
@@ -23,7 +22,7 @@ type TestContainer = AbstractContainer<AbstractBlock>;
  */
 export const testAbstractContainerImplementation = (
     testStage: Stage,
-    factory: (initialRow: Row, _ownership?: BlockOwnership) => TestContainer,
+    factory: (initialRow: Row) => TestContainer,
     expectedRows: number,
     expectedLength: number,
 ) => {

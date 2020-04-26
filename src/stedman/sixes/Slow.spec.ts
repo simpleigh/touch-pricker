@@ -14,7 +14,7 @@ import Slow from './Slow';
 describe('Slow six class', () => {
 
     testSixImplementation(
-        (initialRow, _ownership) => new Slow(initialRow, _ownership),
+        (initialRow) => new Slow(initialRow),
         [
             ['2314567',         '3426175',         S.Triples,   C.Plain],
             ['231456789',       '342618597',       S.Caters,    C.Plain],

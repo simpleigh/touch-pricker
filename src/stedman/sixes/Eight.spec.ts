@@ -14,7 +14,7 @@ import Eight from './Eight';
 describe('Eight "six" class', () => {
 
     testSixImplementation(
-        (initialRow, _ownership) => new Eight(initialRow, _ownership),
+        (initialRow) => new Eight(initialRow),
         [
             ['2314567',         '4631275',         S.Triples,   C.Plain],
             ['231456789',       '463128597',       S.Caters,    C.Plain],

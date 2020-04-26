@@ -24,7 +24,7 @@ export const testAbstractMethodImplementation = (
 
     const initialRow = rowFromString('231', Stage.Cinques);
 
-    const testCourse = new Course(initialRow, undefined, new Method());
+    const testCourse = new Course(initialRow, new Method());
 
     const method = new Method();
 

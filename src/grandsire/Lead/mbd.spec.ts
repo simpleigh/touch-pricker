@@ -14,19 +14,14 @@ import Course from '../Course';
 import Lead from '.';
 
 describe('mbd template for Grandsire Lead', () => {
+
+    const container: Course = jasmine.createSpyObj('Course', ['notify']);
+
     let lead: Lead;
 
-    const createTestLead = (index: number): Lead => {
-        const container: Course = jasmine.createSpyObj('Course', ['notify']);
-
-        return new Lead(
-            rounds(Stage.Doubles),
-            { container, index },
-        );
-    };
-
     beforeEach(() => {
-        lead = createTestLead(1);
+        lead = new Lead(rounds(Stage.Doubles));
+        lead.ownership = { container, index: 1 };
     });
 
     it('renders a lead correctly', () => {
@@ -77,7 +72,7 @@ describe('mbd template for Grandsire Lead', () => {
     });
 
     it('displays the index correctly', () => {
-        lead = createTestLead(999);
+        lead.ownership = { container, index: 999 };
         expect(lead.print('mbd')).toRenderAs(`
             <span class="">
                 ${stringFromRow(lead.getLast())}
@@ -93,7 +88,7 @@ describe('mbd template for Grandsire Lead', () => {
     });
 
     it('changes the class for even indices', () => {
-        lead = createTestLead(2);
+        lead.ownership = { container, index: 2 };
         expect(lead.print('mbd')).toRenderAs(`
             <span class="">
                 ${stringFromRow(lead.getLast())}

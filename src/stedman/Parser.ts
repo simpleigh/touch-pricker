@@ -56,7 +56,7 @@ class Parser extends LeadBasedParser<Course, Touch> {
      * @param initialRow  rounds for the parsed stage
      */
     protected createTouch(initialRow: Row): Touch {
-        return new Touch(initialRow, undefined, this._method);
+        return new Touch(initialRow, this._method);
     }
 
     /* LeadBasedParser methods ************************************************/
@@ -79,7 +79,7 @@ class Parser extends LeadBasedParser<Course, Touch> {
      * @param initialRow  rounds for the parsed stage
      */
     protected createCourse(initialRow: Row): Course {
-        return new Course(initialRow, undefined, this._method);
+        return new Course(initialRow, this._method);
     }
 
     /* Parser methods *********************************************************/

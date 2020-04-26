@@ -19,7 +19,7 @@ describe('Grandsire Touch class', () => {
 
     testRandomAccessContainerImplementation(
         Stage.Doubles,
-        (initialRow, _ownership) => {
+        (initialRow) => {
             const testTouch = Touch.fromString(
                 ''
                     + '12345\n'
@@ -29,9 +29,6 @@ describe('Grandsire Touch class', () => {
             );
 
             testTouch.initialRow = initialRow;
-            if (_ownership) {
-                testTouch.ownership = _ownership;
-            }
 
             return testTouch;
         },

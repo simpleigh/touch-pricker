@@ -115,15 +115,11 @@ class MbdPricker extends AbstractPricker implements Notifiable {
     private reboot(): void {
         this._initialRow = rounds(this._stage);
 
-        this._touch = new Touch(
-            this._initialRow,
-            { container: this, index: Block.Touch },
-        );
+        this._touch = new Touch(this._initialRow);
+        this._touch.ownership = { container: this, index: Block.Touch };
 
-        this._course = new Course(
-            this._initialRow,
-            { container: this, index: Block.Course },
-        );
+        this._course = new Course(this._initialRow);
+        this._course.ownership = { container: this, index: Block.Course };
 
         this._extraLeads = new Course(this._initialRow);
 

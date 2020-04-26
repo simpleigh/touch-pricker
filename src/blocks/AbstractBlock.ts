@@ -32,11 +32,15 @@ abstract class AbstractBlock {
     protected _initialRow: Row;
 
     /**
+     * Ownership of this block
+     */
+    protected _ownership?: BlockOwnership;
+
+    /**
      * Constructor
      * @param initialRow  initial row for the block
-     * @param _ownership  ownership of this block
      */
-    constructor(initialRow: Row, protected _ownership?: BlockOwnership) {
+    constructor(initialRow: Row) {
         this._initialRow = initialRow.slice();
     }
 

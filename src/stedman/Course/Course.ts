@@ -5,7 +5,6 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import { BlockOwnership } from '../../blocks';
 import { AbstractCourse, Call } from '../../leads';
 import { Row } from '../../rows';
 import * as Templates from '../../templates';
@@ -36,10 +35,9 @@ class Course
      */
     constructor(
         initialRow: Row,
-        protected _ownership?: BlockOwnership,
         private readonly _method: AbstractMethod = new Stedman(),
     ) {
-        super(initialRow, _ownership);
+        super(initialRow);
         this._firstSixType = this._method.defaultFirstSix;
     }
 
@@ -71,11 +69,7 @@ class Course
      * Clones the course
      */
     public clone(): this {
-        const cloned = new Course(
-            this._initialRow,
-            undefined,
-            this._method,
-        ) as this;
+        const cloned = new Course(this._initialRow, this._method) as this;
 
         cloned.setFirstSixType(this.firstSixType);
         Course.copyCalls(this, cloned);

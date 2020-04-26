@@ -9,7 +9,6 @@
 import { rounds, Row, Stage } from '../rows';
 import AbstractBlock from './AbstractBlock';
 import { testAbstractContainerImplementation } from './AbstractContainer.spec';
-import BlockOwnership from './BlockOwnership';
 import RandomAccessContainer from './RandomAccessContainer';
 
 type TestContainer = RandomAccessContainer<AbstractBlock>;
@@ -24,7 +23,7 @@ type TestContainer = RandomAccessContainer<AbstractBlock>;
  */
 export const testRandomAccessContainerImplementation = (
     testStage: Stage,
-    factory: (initialRow: Row, _ownership?: BlockOwnership) => TestContainer,
+    factory: (initialRow: Row) => TestContainer,
     expectedRows: number,
     expectedLength: number,
     testBlock: AbstractBlock,

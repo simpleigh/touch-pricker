@@ -14,7 +14,7 @@ import Quick from './Quick';
 describe('Quick six class', () => {
 
     testSixImplementation(
-        (initialRow, _ownership) => new Quick(initialRow, _ownership),
+        (initialRow) => new Quick(initialRow),
         [
             ['3426175',         '3467251',         S.Triples,   C.Plain],
             ['342618597',       '346829175',       S.Caters,    C.Plain],
