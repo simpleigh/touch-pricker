@@ -49,7 +49,7 @@ class MbdPricker extends AbstractPricker implements Notifiable {
     /**
      * Course being saved for later
      */
-    private _savedCourse: Course | undefined;
+    private _savedCourse?: Course;
 
     /**
      * Touch being composed
@@ -59,32 +59,32 @@ class MbdPricker extends AbstractPricker implements Notifiable {
     /**
      * Course selected in touch view
      */
-    private _selectedIndex: number | undefined;
+    private _selectedIndex?: number;
 
     /**
      * Index of course copied from touch view
      */
-    private _copiedIndex: number | undefined;
+    private _copiedIndex?: number;
 
     /**
      * Count of rows in touch
      */
-    private _rowCount: number | undefined;
+    private _rowCount?: number;
 
     /**
      * Report of touch proof status
      */
-    private _proofText: string | undefined;
+    private _proofText?: string;
 
     /**
      * Directory of false leads
      */
-    private _falseness: Readonly<BlockDirectory> | undefined;
+    private _falseness?: Readonly<BlockDirectory>;
 
     /**
      * Directory of musical leads
      */
-    private _music: Readonly<BlockDirectory> | undefined;
+    private _music?: Readonly<BlockDirectory>;
 
     /* Notifiable methods *****************************************************/
 

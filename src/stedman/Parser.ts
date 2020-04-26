@@ -24,7 +24,7 @@ class Parser extends LeadBasedParser<Course, Touch> {
     /**
      * During parsing text describing the start (if found)
      */
-    private _start: string | undefined;
+    private _start?: string;
 
     /* AbstractParser methods *************************************************/
 
