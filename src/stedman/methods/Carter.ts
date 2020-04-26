@@ -33,11 +33,9 @@ class Carter extends AbstractMethod {
         index: number,
     ): AbstractSix {
         const offset = course.firstSixType === SixType.Four ? 0 : 1;
-        const six = (offset + index) % 2
+        return (offset + index) % 2
             ? new Four(initialRow)
             : new Eight(initialRow);
-        six.ownership = { container: course, index };
-        return six;
     }
 
     /**

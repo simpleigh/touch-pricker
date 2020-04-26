@@ -64,16 +64,6 @@ export const testAbstractMethodImplementation = (
         expect(six.initialRow).toEqual(initialRow);
     });
 
-    it('passes the course to created sixes', () => {
-        const six = method.createSix(initialRow, testCourse, 42);
-        expect(six.container).toBe(testCourse);
-    });
-
-    it('passes the index to created sixes', () => {
-        const six = method.createSix(initialRow, testCourse, 42);
-        expect(six.index).toBe(42);
-    });
-
     runProgressionTests((sixType, expected) => {
         it(`can create a ${expected} six for the second six`, () => {
             testCourse.setFirstSixType(sixType);
@@ -88,8 +78,6 @@ export const testAbstractMethodImplementation = (
 
         for (let index = 1; index <= maxIndex; index += 1) {
             const six = method.createSix(initialRow, testCourse, index);
-            expect(six.container).toBe(testCourse);
-            expect(six.index).toBe(index);
             expect(six.type).toBe(type);
             type = method.getNextSixType(type);
         }

@@ -32,6 +32,7 @@ abstract class SerialContainer<Block extends AbstractBlock>
 
         for (let index = oldLength + 1; index <= newLength; index += 1) {
             this._blocks[index - 1] = this.createBlock(initialRow, index);
+            this._blocks[index - 1].ownership = { container: this, index };
             initialRow = this._blocks[index - 1].getLast();
         }
 

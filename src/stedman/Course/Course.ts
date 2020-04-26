@@ -103,6 +103,7 @@ class Course
         const newSixes: AbstractSix[] = [];
         for (let index = 1; index <= this.length; index += 1) {
             const block = this.createBlock(initialRow, index);
+            block.ownership = { container: this, index };
             block.setCall(
                 this.getBlock(index).call,
                 false,  // Avoid multiple updates...

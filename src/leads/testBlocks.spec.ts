@@ -42,9 +42,7 @@ export class Course extends AbstractCourse<Lead> {
     }
 
     protected createBlock(initialRow: Row, index: number): Lead {
-        const lead = new Lead(initialRow);
-        lead.ownership = { container: this, index };
-        return lead;
+        return new Lead(initialRow);
     }
 
 }

@@ -99,6 +99,13 @@ export const testSerialContainerImplementation = (
                 .toThrowError("Length must be > 0 (was '-1')");
         });
 
+        it('sets the ownership of blocks correctly', () => {
+            for (let index = 1; index <= expectedLength; index += 1) {
+                expect(container.getBlock(index).container).toBe(container);
+                expect(container.getBlock(index).index).toBe(index);
+            }
+        });
+
         it('provides access to the number of rows', () => {
             for (const testCase of lengthTestCases) {
                 container = factory(rounds(testCase[0]));

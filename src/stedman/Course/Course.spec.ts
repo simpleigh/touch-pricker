@@ -306,8 +306,26 @@ describe('Stedman Course class', () => {
         course.getBlock(3).setCall(Call.Bob);
 
         course.setFirstSixType(SixType.Quick);
+
         expect(course.getBlock(2).call).toBe(Call.Single);
         expect(course.getBlock(3).call).toBe(Call.Bob);
+    });
+
+    it('maintains ownership correctly when the parity is changed', () => {
+        course.setFirstSixType(SixType.Quick);
+
+        for (let index = 1; index <= course.length; index += 1) {
+            expect(course.getBlock(index).container).toBe(course);
+            expect(course.getBlock(index).index).toBe(index);
+        }
+    });
+
+    it('calculates sixends correctly when the parity is changed', () => {
+        course.setLength(4);
+        course.getBlock(2).setCall(Call.Single);
+        course.getBlock(3).setCall(Call.Bob);
+
+        course.setFirstSixType(SixType.Quick);
 
         expect(stringFromRow(course.getBlock(1).getLast()))
             .toBe('234618507E9');
