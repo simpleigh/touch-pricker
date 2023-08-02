@@ -27,10 +27,12 @@ module.exports = {
         ],
     },
     output: {
-        library: 'Pricker',
-        libraryTarget: 'umd',
+        library: {
+            name: 'Pricker',
+            type: 'umd',
+            umdNamedDefine: true,
+        },
         path: paths.distDir,
-        umdNamedDefine: true,
     },
     resolve: {
         extensions: ['.js', '.ts'],
