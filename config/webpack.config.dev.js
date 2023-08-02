@@ -9,11 +9,18 @@ const base = require('./webpack.base');
 
 module.exports = merge(base, {
     devServer: {
-        openPage: 'examples/mbd.html',
-        publicPath: '/dist/',
-        watchContentBase: true,
+        open: ['/examples/mbd.html'],
+        static: [
+            {
+                directory: paths.examplesDir,
+                publicPath: '/examples/',
+            },
+        ],
     },
-    output: { filename: 'touch-pricker.js' },
+    output: {
+        filename: 'touch-pricker.js',
+        publicPath: '/dist/',  // needed for webpack-dev-server
+    },
     plugins: [
         new CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns: [paths.devDistFile],

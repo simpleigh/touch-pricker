@@ -23,8 +23,8 @@
     "build:test": "webpack --config config/webpack.config.test.js",
     "doc": "node_modules/.bin/typedoc src/index.ts",
     "lint": "eslint . --ext .js,.ts",
-    "start": "webpack-dev-server --config config/webpack.config.dev.js --open",
-    "start:tests": "webpack-dev-server --config config/webpack.config.test.js --open",
+    "start": "webpack-dev-server --config config/webpack.config.dev.js",
+    "start:tests": "webpack-dev-server --config config/webpack.config.test.js",
     "test": "karma start --browsers PhantomJS",
     "test:browsers": "karma start --single-run"
   },
