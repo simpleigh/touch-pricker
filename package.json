@@ -51,7 +51,6 @@
     "karma-phantomjs-launcher": "1.0.4",
     "karma-webpack": "5.0.0",
     "phantomjs-prebuilt": "2.1.16",
-    "source-map-loader": "4.0.1",
     "ts-loader": "9.4.4",
     "typedoc": "0.24.8",
     "typescript": "5.1.6",
