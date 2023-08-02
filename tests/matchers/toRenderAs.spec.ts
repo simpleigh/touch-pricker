@@ -8,7 +8,7 @@
 import toRenderAs from './toRenderAs';
 
 describe('toRenderAs matcher', () => {
-    const compare = toRenderAs(jasmine.matchersUtil, []).compare;
+    const compare = toRenderAs({ } as jasmine.MatchersUtil).compare;
 
     it('fails for items that are not a string', () => {
         expect(compare(null, 'string').pass).toBe(false);

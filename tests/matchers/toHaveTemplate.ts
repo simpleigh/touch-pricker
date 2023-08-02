@@ -13,28 +13,26 @@ eslint-disable
 
 import toBePrintable from './toBePrintable';
 
-const toHaveTemplate: jasmine.CustomMatcherFactory =
-    (util, customEqualityTesters) => ({
-        compare: (actual: any, expected: string) => {
-            const result: jasmine.CustomMatcherResult = { pass: false };
+const toHaveTemplate: jasmine.CustomMatcherFactory = (util) => ({
+    compare: (actual: any, expected: string) => {
+        const result: jasmine.CustomMatcherResult = { pass: false };
 
-            const { compare } = toBePrintable(util, customEqualityTesters);
-            const { message, pass } = compare(actual);
-            if (!pass) {
-                result.message = `Expected printable object\n${message ?? ''}`;
-                return result;
-            }
+        const { message, pass } = toBePrintable(util).compare(actual);
+        if (!pass) {
+            result.message = `Expected printable object\n${message ?? ''}`;
+            return result;
+        }
 
-            if (!actual.templates[expected]) {
-                result.message = `Expected object to have ${expected} template`;
-                return result;
-            }
+        if (!actual.templates[expected]) {
+            result.message = `Expected object to have ${expected} template`;
+            return result;
+        }
 
-            return {
-                message: `Expected object not to have ${expected} template`,
-                pass: true,
-            };
-        },
-    });
+        return {
+            message: `Expected object not to have ${expected} template`,
+            pass: true,
+        };
+    },
+});
 
 export default toHaveTemplate;

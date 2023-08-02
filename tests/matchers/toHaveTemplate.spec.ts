@@ -9,7 +9,7 @@ import { rounds, Stage, Stedman } from '../../src';
 import toHaveTemplate from './toHaveTemplate';
 
 describe('toHaveTemplate matcher', () => {
-    const compare = toHaveTemplate(jasmine.matchersUtil, []).compare;
+    const compare = toHaveTemplate({ } as jasmine.MatchersUtil).compare;
 
     it('fails for items that are not printable', () => {
         expect(compare('string', 'template').pass).toBe(false);

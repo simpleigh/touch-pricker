@@ -13,7 +13,7 @@
  * to be used in tests. It also ignores indents (spaces following a newline).
  * In order to explicitly match a newline escape this as `\\n`.
  */
-const toRenderAs: jasmine.CustomMatcherFactory = (util) => ({
+const toRenderAs: jasmine.CustomMatcherFactory = () => ({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     compare: (actual: any, expected: string) => {
         const result: jasmine.CustomMatcherResult = { pass: false };
@@ -28,12 +28,8 @@ const toRenderAs: jasmine.CustomMatcherFactory = (util) => ({
             .replace(/\\n/g, '\n');
 
         result.pass = actual === expected;
-        result.message = util.buildFailureMessage(
-            'toRenderAs',
-            result.pass,
-            actual,
-            expected
-        );
+        // eslint-disable-next-line max-len
+        result.message = `Expected ${actual}${result.pass ? ' not ' : ' '} to render as ${expected}.`;
 
         return result;
     },
