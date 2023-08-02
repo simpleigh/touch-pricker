@@ -2,7 +2,6 @@
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const merge = require('webpack-merge');
 
 const paths = require('./paths');
@@ -19,15 +18,6 @@ module.exports = merge(base, {
                 paths.prodDistFile,
                 paths.prodMapFile,
             ],
-        }),
-        new UglifyJSPlugin({
-            parallel: true,
-            sourceMap: true,
-            uglifyOptions: {
-                output: {
-                    comments: false,
-                },
-            },
         }),
         new CopyPlugin({
             // Prepare examples for distribution
