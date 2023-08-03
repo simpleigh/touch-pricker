@@ -37,9 +37,9 @@ import MatcherSet from '../MatcherSet';
  *
  * Once constructed, the base class manages:
  *
- *   * passing test row strings to all provided matchers
- *   * aggregating match counts from matchers
- *   * printing the music report
+ *   - passing test row strings to all provided matchers
+ *   - aggregating match counts from matchers
+ *   - printing the music report
  */
 abstract class AbstractScheme extends MatcherSet {
 

@@ -22,7 +22,6 @@ import { rounds, Row, stringFromRow } from '../rows';
  *
  * There's no way to reset a visitor: create a new one in order to complete
  * a fresh analysis.
- * @preferred
  */
 
 /**

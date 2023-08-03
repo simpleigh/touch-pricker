@@ -7,7 +7,6 @@
 
 /**
  * Types of six
- * @enum {number}
  */
 const enum SixType {
     Slow = 'slow',

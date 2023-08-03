@@ -3,7 +3,7 @@
 const fs = require('fs');
 const { BannerPlugin } = require('webpack');
 
-const { version } = require('../package.json');
+const { version } = require('../package');
 const paths = require('./paths');
 
 // Load the banner template and add a line with the version number

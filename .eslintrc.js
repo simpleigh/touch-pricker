@@ -2,8 +2,8 @@
  * Configuration for ESLint
  * @see https://eslint.org/docs/rules/
  * @see https://github.com/gajus/eslint-plugin-jsdoc
- * @see https://github.com/benmosher/eslint-plugin-import
- * @see https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin
+ * @see https://github.com/import-js/eslint-plugin-import
+ * @see https://typescript-eslint.io/
  */
 
 module.exports = {
@@ -22,6 +22,7 @@ module.exports = {
     ],
     extends: [
         'eslint:recommended',
+        'plugin:jsdoc/recommended-error',
     ],
     rules: {
         // Possible Errors
@@ -265,84 +266,71 @@ module.exports = {
         'template-curly-spacing': 'error',
         'yield-star-spacing': 'error',
 
-        // eslint-plugin-import: Static analysis
-        'import/no-unresolved': 'error',
-        'import/named': 'error',
-        'import/default': 'error',
-        'import/namespace': 'error',
-        'import/no-restricted-paths': 'error',
-        'import/no-absolute-path': 'error',
-        'import/no-dynamic-require': 'error',
-        'import/no-internal-modules': 'error',
-        'import/no-webpack-loader-syntax': 'error',
-        'import/no-self-import': 'error',
-        'import/no-cycle': 'warn',
-        'import/no-useless-path-segments': 'error',
-        'import/no-relative-parent-imports': 'off',
-        'import/no-unused-modules': 'error',
-
         // eslint-plugin-import: Helpful warnings
         'import/export': 'error',
-        'import/no-named-as-default': 'error',
-        'import/no-named-as-default-member': 'error',
         'import/no-deprecated': 'error',
+        'import/no-empty-named-blocks': 'error',
         'import/no-extraneous-dependencies': 'error',
         'import/no-mutable-exports': 'error',
+        'import/no-named-as-default': 'error',
+        'import/no-named-as-default-member': 'error',
         'import/no-unused-modules': 'error',
 
         // eslint-plugin-import: Module systems
-        'import/unambiguous': 'off',
-        'import/no-commonjs': 'error',
         'import/no-amd': 'error',
+        'import/no-commonjs': 'error',
+        'import/no-import-module-exports': 'error',
         'import/no-nodejs-modules': 'error',
+        'import/unambiguous': 'off',
+
+        // eslint-plugin-import: Static analysis
+        'import/default': 'error',
+        'import/named': 'error',
+        'import/namespace': 'error',
+        'import/no-absolute-path': 'error',
+        'import/no-cycle': 'warn',
+        'import/no-dynamic-require': 'error',
+        'import/no-internal-modules': 'error',
+        'import/no-relative-packages': 'error',
+        'import/no-relative-parent-imports': 'off',
+        'import/no-restricted-paths': 'error',
+        'import/no-self-import': 'error',
+        'import/no-unresolved': 'error',
+        'import/no-useless-path-segments': 'error',
+        'import/no-webpack-loader-syntax': 'error',
 
         // eslint-plugin-import: Style guide
-        'import/first': 'error',
-        'import/exports-last': 'off',
-        'import/no-duplicates': 'error',
-        'import/no-namespace': 'off',
-        'import/extensions': 'error',
-        'import/order': 'error',
-        'import/newline-after-import': 'error',
-        'import/prefer-default-export': 'off',
-        'import/max-dependencies': 'off',
-        'import/no-unassigned-import': 'error',
-        'import/no-named-default': 'error',
-        'import/no-default-export': 'off',
-        'import/no-named-export': 'off',
-        'import/no-anonymous-default-export': 'error',
-        'import/group-exports': 'off',
+        'import/consistent-type-specifier-style': 'error',
         'import/dynamic-import-chunkname': 'error',
+        'import/exports-last': 'off',
+        'import/extensions': 'error',
+        'import/first': 'error',
+        'import/group-exports': 'off',
+        'import/max-dependencies': 'off',
+        'import/newline-after-import': 'error',
+        'import/no-anonymous-default-export': 'error',
+        'import/no-default-export': 'off',
+        'import/no-duplicates': 'error',
+        'import/no-named-default': 'error',
+        'import/no-named-export': 'off',
+        'import/no-namespace': 'off',
+        'import/no-unassigned-import': 'error',
+        'import/order': 'error',
+        'import/prefer-default-export': 'off',
 
         // eslint-plugin-jsdoc
-        'jsdoc/check-alignment': 'error',
-        'jsdoc/check-examples': 'error',
         'jsdoc/check-indentation': 'error',
-        'jsdoc/check-param-names': 'error',
         'jsdoc/check-syntax': 'error',
-        'jsdoc/check-tag-names': ['error', {
-            definedTags: ['preferred'],
-        }],
-        'jsdoc/check-types': 'error',
-        'jsdoc/implements-on-classes': 'error',
-        'jsdoc/match-description': 'off',
-        'jsdoc/newline-after-description': ['error', 'never'],
+        'jsdoc/no-blank-block-descriptions': 'error',
+        'jsdoc/no-blank-blocks': 'error',
         'jsdoc/no-types': 'error',
         'jsdoc/no-undefined-types': 'error',
-        'jsdoc/require-description': 'off',
-        'jsdoc/require-description-complete-sentence': 'off',
-        'jsdoc/require-example': 'off',
+        'jsdoc/require-asterisk-prefix': 'error',
         'jsdoc/require-hyphen-before-param-description': ['error', 'never'],
-        'jsdoc/require-jsdoc': 'error',
-        'jsdoc/require-param': 'off',  // sometimes covered by type
-        'jsdoc/require-param-description': 'error',
-        'jsdoc/require-param-name': 'error',
-        'jsdoc/require-param-type': 'off',  // covered by type
-        'jsdoc/require-returns': 'off',  // covered by type
-        'jsdoc/require-returns-check': 'error',
-        'jsdoc/require-returns-description': 'error',
-        'jsdoc/require-returns-type': 'off',  // covered by type
-        'jsdoc/valid-types': 'error',
+        'jsdoc/require-param-type': 'error',
+        'jsdoc/require-property-type': 'error',
+        'jsdoc/require-returns-type': 'error',
+        'jsdoc/require-throws': 'off',  // TODO: enable this
     },
     overrides: [
         {
@@ -383,6 +371,7 @@ module.exports = {
                 'plugin:@typescript-eslint/recommended',
                 'plugin:@typescript-eslint/recommended-requiring-type-checking',
                 'plugin:import/typescript',
+                'plugin:jsdoc/recommended-typescript-error',
             ],
             rules: {
                 // Possible Errors
@@ -432,6 +421,10 @@ module.exports = {
                 '@typescript-eslint/no-dupe-class-members': 'error',
                 'no-useless-constructor': 'off',
                 '@typescript-eslint/no-useless-constructor': 'error',
+
+                // eslint-plugin-jsdoc
+                'jsdoc/require-param': 'off',
+                'jsdoc/require-returns': 'off',
 
                 // ESLint Plugin TypeScript
                 '@typescript-eslint/array-type': ['error', {
