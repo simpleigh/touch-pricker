@@ -18,7 +18,7 @@ delete webpackTestConfig.output.filename;
 module.exports = (config) => {
     config.set({
         autoWatch: true,
-        browsers: ['Chrome', 'Edge', 'Firefox', 'jsdom'],
+        browsers: ['Chrome', 'Firefox', 'jsdom'],
         coverageIstanbulReporter: {
             combineBrowserReports: true,
             dir: paths.coveragePath,
