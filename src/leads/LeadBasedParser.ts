@@ -15,8 +15,8 @@ import Call from './Call';
  * A parser that supports rows of courses with numbered calls
  *
  * Each line of the input should represent a _course_.
- * The course will be parsed into [[SerialContainer]] that contains individual
- * _leads_ ([[AbstractBlock]] instances).
+ * The course will be parsed into {@link SerialContainer} that contains
+ * individual _leads_ ({@link Blocks.AbstractBlock} instances).
  * The first line of the input should be rounds (this is used to determine the
  * stage).
  *

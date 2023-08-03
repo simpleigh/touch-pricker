@@ -17,7 +17,7 @@ const BELL_SYMBOLS_MAP: Partial<Record<string, Bell>> = {
 /* eslint-enable object-property-newline, quote-props, sort-keys */
 
 /**
- * Converts a character into a [[Bell]].
+ * Converts a character into a {@link Bell}.
  *
  * Tries to convert an individual bell character into a bell number.
  * An exception is thrown if the character cannot be recognised.

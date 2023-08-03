@@ -8,7 +8,7 @@
 import MatcherSet from '../MatcherSet';
 
 /**
- * A [[MattherSet]] that only reports a single match.
+ * A {@link MatcherSet} that only reports a single match.
  *
  * Forwards rows to child matchers, but stops processing when a match occurs.
  * This is useful to avoid reporting multiple similar matches for the same row:

@@ -47,8 +47,8 @@ import text from './text.dot';
  * group.print('text');     // '2 8765s (Backrounds)'
  * ```
  *
- * Here the [[matchCount]] is overridden by the supplied parent pattern.
- * The [[submatchCount]] is the sum of child pattern matches.
+ * Here the {@link matchCount} is overridden by the supplied parent pattern.
+ * The {@link submatchCount} is the sum of child pattern matches.
  */
 @Templates.makePrintable({ text })
 class PatternGroup extends AbstractMatcher {
@@ -123,7 +123,8 @@ class PatternGroup extends AbstractMatcher {
 
     /**
      * Provides read access to the count of matches within child patterns.
-     * This differs from the [[matchCount]] if a parent pattern is being used.
+     * This differs from the {@link matchCount} if a parent pattern is being
+     * used.
      */
     get submatchCount(): number {
         let matches = 0;

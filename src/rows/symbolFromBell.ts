@@ -8,7 +8,7 @@
 import { Bell } from './types';
 
 /**
- * Converts a [[Bell]] into a character.
+ * Converts a {@link Bell} into a character.
  *
  * Converts a bell into the character representing that bell.
  *

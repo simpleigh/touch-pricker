@@ -12,8 +12,8 @@ import MatcherSet from '../MatcherSet';
 /**
  * Base for music matching schemes.
  *
- * A scheme is a [[MatcherSet]] that is able to populate its child matches
- * automatically based on the [[Stage]].
+ * A scheme is a {@link MatcherSet} that is able to populate its child matches
+ * automatically based on the {@link Stage}.
  *
  * Derived classes should implement `createMatchers` in order to set up an array
  * of matchers for use when checking row strings.
@@ -57,8 +57,8 @@ abstract class AbstractScheme extends MatcherSet {
 
     /**
      * Create matchers for this scheme/stage.
-     * Derived classes should implement this to set up [[_matchers]] when the
-     * object is constructed.
+     * Derived classes should implement this to set up {@link _matchers} when
+     * the object is constructed.
      */
     protected abstract createMatchers(rounds: string): AbstractMatcher[];
 

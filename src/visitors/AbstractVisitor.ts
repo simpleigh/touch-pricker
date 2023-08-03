@@ -11,9 +11,9 @@ import { rounds, Row, stringFromRow } from '../rows';
 /**
  * Visitor classes to analyse blocks
  *
- * Any [[AbstractBlock]] can [[accept]] a visitor that will process their
- * [[Row]]s (An [[AbstractContainer]] recursively calls contained blocks in
- * turn to make sure all rows are reached).
+ * Any {@link AbstractBlock} can {@link accept} a visitor that will process
+ * their {@link Row}s (An {@link AbstractContainer} recursively calls contained
+ * blocks in turn to make sure all rows are reached).
  *
  * Visitors process each row in turn in the order they would be rung.
  * They take action for each row, probably modifying some internal state
@@ -66,7 +66,7 @@ abstract class AbstractVisitor {
 
     /**
      * Reports whether rows are still being processed by providing
-     * public access to [[_visiting]].
+     * public access to {@link _visiting}.
      */
     get visiting(): boolean {
         return this._visiting;

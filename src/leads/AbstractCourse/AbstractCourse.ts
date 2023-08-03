@@ -16,7 +16,7 @@ import text from './text.dot';
 /**
  * Course class
  *
- * A [[SerialContainer]] for [[AbstractLead]]s.
+ * A {@link SerialContainer} for {@link AbstractLead}s.
  */
 @Templates.makePrintable({ html, text }, { Call })
 abstract class AbstractCourse<Lead extends AbstractLead>

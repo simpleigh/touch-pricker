@@ -13,9 +13,9 @@ import AbstractVisitor from './AbstractVisitor';
 /**
  * Visitor for music analysis
  *
- * Matches rows using a music matcher ([[AbstractMatcher]]) that can
+ * Matches rows using a music matcher ({@link AbstractMatcher}) that can
  * report on the musical content of a touch.
- * This visitor also accumulates a [[BlockDirectory]] referencing
+ * This visitor also accumulates a {@link BlockDirectory} referencing
  * each block containing a musical row.
  */
 class Music extends AbstractVisitor {
@@ -35,7 +35,7 @@ class Music extends AbstractVisitor {
 
     /**
      * Reports on musical content of a touch by providing public access
-     * to [[_matcher]].
+     * to {@link _matcher}.
      */
     get matcher(): AbstractMatcher {
         return this._matcher;
@@ -43,7 +43,7 @@ class Music extends AbstractVisitor {
 
     /**
      * Reports where music is found within a touch by providing public
-     * access to [[_directory]].
+     * access to {@link _directory}.
      */
     get directory(): Readonly<BlockDirectory> {
         return this._directory;

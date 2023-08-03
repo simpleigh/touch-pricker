@@ -13,7 +13,7 @@ import { rounds, Row, Stage } from '../rows';
  *
  * Takes a text input describing a touch. Uses each line of that input to create
  * an appropriate block, and then assembles those blocks into a
- * [[RandomAccessContainer]].
+ * {@link RandomAccessContainer}.
  */
 abstract class AbstractParser<
     Touch extends RandomAccessContainer<AbstractBlock>
