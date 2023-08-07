@@ -1,6 +1,6 @@
 # touch-pricker
 
-[![Build Status](https://travis-ci.org/simpleigh/touch-pricker.svg?branch=master)](https://travis-ci.org/simpleigh/touch-pricker)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/simpleigh/touch-pricker/build.yml)](https://github.com/simpleigh/dotjs-loader/actions/workflows/build.yml)
 [![Codecov](https://img.shields.io/codecov/c/github/simpleigh/touch-pricker.svg)](https://codecov.io/gh/simpleigh/touch-pricker)
 
 Free Touch Pricker
