@@ -27,6 +27,8 @@ jobs:
         run: yarn lint
 
       - name: Test
+        env:
+            LISTEN_ADDR: '::'
         run: yarn test --single-run
 
       - name: Publish test coverage
