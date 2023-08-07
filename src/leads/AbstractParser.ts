@@ -32,14 +32,14 @@ abstract class AbstractParser<
     public parseTouch(input: string): Touch {
         const lines = input.split('\n')
             // Drop any content after comment characters "//"
-            .map((line) => line.replace(/\/\/.*$/, ''))
+            .map((line) => line.replace(/\/\/.*$/u, ''))
 
             // Ignore a microsiril comment character "/" at the start of a line"
             // (n.b. remove the character, don't remove the line)
-            .map((line) => line.replace(/^\//, ''))
+            .map((line) => line.replace(/^\//u, ''))
 
             // Skip blank lines
-            .filter((line) => !/^\s*$/.test(line));
+            .filter((line) => !/^\s*$/u.test(line));
 
         if (!lines.length) {
             throw new Error('No input lines');
@@ -47,7 +47,7 @@ abstract class AbstractParser<
 
         // Create the touch with a stage based on the first line
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const first = lines.shift()!.replace(/\s/g, '');
+        const first = lines.shift()!.replace(/\s/gu, '');
         if (!Stage[first.length]) {
             throw new Error(`Cannot recognise stage from line '${first}'`);
         }

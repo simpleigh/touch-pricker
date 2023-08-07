@@ -41,7 +41,7 @@ class OneOnlyMatcherSet extends MatcherSet {
             // Call matcher.match explicitly...
             const rowResult = matcher.match(row);
             // ... not in here, or || will short-circuit it
-            result = result || rowResult;
+            result ||= rowResult;
 
             if (rowResult) {
                 break;

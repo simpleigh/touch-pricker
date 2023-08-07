@@ -85,7 +85,7 @@ class PatternGroup extends AbstractMatcher {
             // Call pattern.match explicitly...
             const rowResult = pattern.match(row);
             // ... not in here, or || will short-circuit it
-            result = result || rowResult;
+            result ||= rowResult;
         }
 
         if (this._parentPattern) {

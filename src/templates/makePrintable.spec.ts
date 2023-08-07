@@ -8,7 +8,6 @@
 /*
 eslint-disable
 @typescript-eslint/lines-between-class-members,
-max-classes-per-file,
 padded-blocks,
 */
 

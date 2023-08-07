@@ -24,8 +24,8 @@ const toRenderAs: jasmine.CustomMatcherFactory = () => ({
         }
 
         expected = expected
-            .replace(/\n */g, '')
-            .replace(/\\n/g, '\n');
+            .replace(/\n */gu, '')
+            .replace(/\\n/gu, '\n');
 
         result.pass = actual === expected;
         // eslint-disable-next-line max-len

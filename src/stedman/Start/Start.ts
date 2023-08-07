@@ -195,7 +195,7 @@ class Start extends AbstractBlock implements Templates.Interface {
         /* eslint-enable */
 
         for (const [pattern, value] of rowIndexPatterns) {
-            const regex = new RegExp(pattern, 'i');
+            const regex = new RegExp(pattern, 'iu');
             if (regex.test(input)) {
                 rowIndex = value;
             }
@@ -204,7 +204,7 @@ class Start extends AbstractBlock implements Templates.Interface {
         const validTypes = this._method.getSixTypes();
         if (validTypes.length > 1) {
             for (const testType of validTypes) {
-                if (new RegExp(testType, 'i').test(input)) {
+                if (new RegExp(testType, 'iu').test(input)) {
                     sixType = testType;
                 }
             }

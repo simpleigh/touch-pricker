@@ -66,7 +66,7 @@ class Parser extends LeadBasedParser<Course, Touch> {
      */
     protected parseLine(initialRow: Row, input: string): Course | undefined {
         // Store start definitions for later processing
-        if (/start/i.test(input)) {
+        if (/start/iu.test(input)) {
             this._start = input;
             return undefined;
         }

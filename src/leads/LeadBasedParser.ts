@@ -69,7 +69,7 @@ abstract class LeadBasedParser<
             + `(${leads}|p)`  // group 1
             + `(?:\\s+${numLeads})?`  // group 2 in here
             + '\\s*$';
-        const matches = new RegExp(line, 'i').exec(input);
+        const matches = new RegExp(line, 'iu').exec(input);
 
         if (!matches) {
             throw new Error(`Cannot import course from line '${input}'`);
@@ -90,7 +90,7 @@ abstract class LeadBasedParser<
         }
 
         // Otherwise split up the calling and process
-        const calls = matches[1].split(new RegExp(separator));
+        const calls = matches[1].split(new RegExp(separator, 'u'));
         for (let call of calls) {
             if (call.charAt(0) === 's') {
                 call = call.slice(1);

@@ -54,7 +54,7 @@ class MatcherSet extends AbstractMatcher {
             // Call matcher.match explicitly...
             const rowResult = matcher.match(row);
             // ... not in here, or || will short-circuit it
-            result = result || rowResult;
+            result ||= rowResult;
         }
 
         return result;

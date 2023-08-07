@@ -24,8 +24,8 @@ module.exports = merge(base, {
         rules: [
             {
                 enforce: 'post',
-                test: /\.dot$|\.ts$/,
-                exclude: /\.spec\.ts$|tests/,
+                test: /\.dot$|\.ts$/u,
+                exclude: /\.spec\.ts$|tests/u,
                 loader: '@jsdevtools/coverage-istanbul-loader',
                 options: {
                     esModules: true,

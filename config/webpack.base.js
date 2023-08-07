@@ -11,14 +11,14 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.ts$/,
+                test: /\.ts$/u,
                 loader: 'ts-loader',
                 options: {
                     onlyCompileBundledFiles: true,
                 },
             },
             {
-                test: /\.dot$/,
+                test: /\.dot$/u,
                 loader: 'dotjs-loader',
                 options: {
                     varname: 'context',

@@ -5,8 +5,6 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-/* eslint-disable max-classes-per-file */
-
 import { RandomAccessContainer } from '../blocks';
 import { rounds, Row, Stage } from '../rows';
 import AbstractLead from './AbstractLead';
