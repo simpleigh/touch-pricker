@@ -106,8 +106,8 @@ export const testRandomAccessContainerImplementation = (
         it('ignores the initial row when inserting a new block', () => {
             // Set container initial row different from block initial row
             let initialRow = testBlock.initialRow;
-            const [a, b, ...rest] = initialRow;  // eslint-disable-line
-            initialRow = [b, a, ...rest];
+            const [i, j, ...rest] = initialRow;
+            initialRow = [j, i, ...rest];
             container.initialRow = initialRow;
 
             // Container initial row should be unaffected when inserting

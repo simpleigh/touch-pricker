@@ -60,7 +60,7 @@ module.exports = {
         'func-style': 'error',
         'grouped-accessor-pairs': 'error',
         'guard-for-in': 'error',
-        'id-length': ['error', { exceptions: ['_', 'i'] }],
+        'id-length': ['error', { exceptions: ['_', 'i', 'j'] }],
         'init-declarations': 'error',
         'logical-assignment-operators': 'error',
         'max-depth': 'error',
