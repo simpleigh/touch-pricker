@@ -13,7 +13,7 @@ import LeadHeadTable from './LeadHeadTable';
 /**
  * Lead class
  *
- * A lead is an [[AbstractBlock]] that:
+ * A lead is an {@link AbstractBlock} that:
  * - uses two standard calls (bobs and singles)
  * - calculates the last row using a table of lead heads
  */

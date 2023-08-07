@@ -23,7 +23,7 @@ export const testAbstractLeadImplementation = (
     factory: (initialRow: Row) => AbstractLead,
     testCases: [string, string, Stage, Call][],
     lengthTestCases: [Stage, number][],
-) => {
+): void => {
 
     describe('is derived from AbstractLead and', () => {
 

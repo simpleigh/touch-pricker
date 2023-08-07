@@ -15,22 +15,33 @@ import { MbdPricker as Stedman } from './stedman';
 
 describe('create function', () => {
 
-    let parentDocument: jasmine.SpyObj<HTMLDocument>;
+    let parentDocument: jasmine.SpyObj<Document>;
     let element: jasmine.SpyObj<HTMLDivElement>;
     const iframe = { } as HTMLIFrameElement;
 
     beforeEach(() => {
-        parentDocument = jasmine.createSpyObj('HTMLDocument', [
-            'getElementById',
-        ]);
-        element = jasmine.createSpyObj('HTMLDivElement', ['appendChild']);
+        parentDocument = jasmine.createSpyObj<Document>(
+            'Document',
+            ['getElementById'],
+        );
+        element = jasmine.createSpyObj<HTMLDivElement>(
+            'HTMLDivElement',
+            ['appendChild'],
+        );
 
-        spyOn(Dom, 'createAndAppendStyle');
-        spyOn(Dom, 'createIframe');
-        spyOn(Dom, 'injectIframeData');
+        const createAndAppendStyle = jasmine.createSpy('createAndAppendStyle');
+        const createIframe = jasmine.createSpy('createIframe');
+        const injectIframeData = jasmine.createSpy('injectIframeData');
+
+        spyOnProperty(Dom, 'createAndAppendStyle')
+            .and.returnValue(createAndAppendStyle);
+        spyOnProperty(Dom, 'createIframe')
+            .and.returnValue(createIframe);
+        spyOnProperty(Dom, 'injectIframeData')
+            .and.returnValue(injectIframeData);
 
         parentDocument.getElementById.and.returnValue(element);
-        (Dom.createIframe as jasmine.Spy).and.returnValue(iframe);
+        createIframe.and.returnValue(iframe);
     });
 
     it('throws an error if the element is not found', () => {

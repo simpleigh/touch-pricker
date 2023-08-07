@@ -7,7 +7,6 @@
 
 /**
  * Types of music matching
- * @enum {number}
  */
 enum MatchType { Back = -1, Row, Front }
 

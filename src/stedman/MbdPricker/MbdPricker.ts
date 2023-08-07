@@ -25,7 +25,7 @@ import Touch from '../Touch';
 import css from './css.dot';
 import html from './html.dot';
 
-// eslint-disable-next-line no-shadow
+// eslint-disable-next-line @typescript-eslint/no-shadow
 const enum Block { Course, Touch }
 
 /**
@@ -115,11 +115,11 @@ class MbdPricker extends AbstractPricker implements Notifiable {
      * Receives a notification from a block that has changed
      * @param index  index of changed block in container
      */
-    public notify(index: number): void {
+    public notify(index: Block): void {
         if (index === Block.Course) {
             this._extraSixes.initialRow = this._course.getLast();
             this._copiedIndex = undefined;
-        } else if (index === Block.Touch) {
+        } else {  // Block.Touch
             this._rowCount = undefined;
             this._proofText = undefined;
             this._falseness = undefined;

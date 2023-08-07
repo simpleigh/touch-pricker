@@ -9,11 +9,11 @@
  * Renders a set matcher as text
  *
  * A set matcher is one that contains multiple matchers within it, e.g.:
- *  - [[AbstractScheme]]
- *  - [[MatcherSet]]
- *  - [[OneOnlyMatcherSet]]
+ *  - {@link AbstractScheme}
+ *  - {@link MatcherSet}
+ *  - {@link OneOnlyMatcherSet}
  *
- * The matchers should be accessible via a [[matchers]] property.
+ * The matchers should be accessible via a {@link matchers} property.
  */
 
 {{~ context.object.matchers :matcher }}

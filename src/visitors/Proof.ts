@@ -14,7 +14,7 @@ import AbstractVisitor from './AbstractVisitor';
  *
  * Stores the rows that have been visited and reports when whether any
  * rows were repeated.
- * This visitor also accumulates a [[BlockDirectory]] referencing
+ * This visitor also accumulates a {@link BlockDirectory} referencing
  * each block containing a false row.
  */
 class Proof extends AbstractVisitor {
@@ -36,7 +36,7 @@ class Proof extends AbstractVisitor {
 
     /**
      * Flag recording truth.
-     * Truth can easily be calculated from [[_rowCounts]], but keeping a
+     * Truth can easily be calculated from {@link _rowCounts}, but keeping a
      * flag up-to-date is a simple optimisation to avoid iterating over
      * this property each time we check truth.
      */
@@ -44,7 +44,7 @@ class Proof extends AbstractVisitor {
 
     /**
      * Reports the number of times each row has been processed.
-     * Processes [[_rowCounts]] to convert each array of blocks into a
+     * Processes {@link _rowCounts} to convert each array of blocks into a
      * count.
      * @returns Dictionary containing the count of each row seen,
      * indexed by the string representation of that row.
@@ -65,7 +65,7 @@ class Proof extends AbstractVisitor {
 
     /**
      * Reports on the distribution of falseness within a touch by
-     * providing public access to [[_directory]].
+     * providing public access to {@link _directory}.
      */
     get directory(): Readonly<BlockDirectory> {
         return this._directory;
@@ -73,7 +73,7 @@ class Proof extends AbstractVisitor {
 
     /**
      * Reports whether a touch is true by providing public access to
-     * [[_isTrue]].
+     * {@link _isTrue}.
      */
     get isTrue(): boolean {
         return this._isTrue;

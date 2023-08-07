@@ -7,17 +7,22 @@
 
 import { Bell } from './types';
 
-/* eslint-disable object-property-newline, quote-props, sort-keys */
+/* eslint-disable
+@typescript-eslint/naming-convention,
+object-property-newline,
+quote-props,
+sort-keys,
+*/
 const BELL_SYMBOLS_MAP: Partial<Record<string, Bell>> = {
     '1': 1, '2': 2, '3': 3, '4': 4,
     '5': 5, '6': 6, '7': 7, '8': 8,
     '9': 9, '0': 10, 'E': 11, 'T': 12,
     'A': 13, 'B': 14, 'C': 15, 'D': 16,
 };
-/* eslint-enable object-property-newline, quote-props, sort-keys */
+/* eslint-enable */
 
 /**
- * Converts a character into a [[Bell]].
+ * Converts a character into a {@link Bell}.
  *
  * Tries to convert an individual bell character into a bell number.
  * An exception is thrown if the character cannot be recognised.
@@ -34,7 +39,7 @@ const bellFromSymbol = (input: string): Bell => {
         throw new Error(`Unknown bell '${input}'`);
     }
 
-    return BELL_SYMBOLS_MAP[upper] as Bell;
+    return BELL_SYMBOLS_MAP[upper]!;
 };
 
 export default bellFromSymbol;

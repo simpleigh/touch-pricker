@@ -10,15 +10,15 @@
 /**
  * Template functionality.
  *
- * A [[Template]] is a function that takes a [[Context]] and produces a string
- * rendering of that context.
+ * A {@link Template} is a function that takes a {@link Context} and produces a
+ * string rendering of that context.
  * Templates are precompiled using the [doT.js](https://olado.github.io/doT/)
  * template precompiler.
  * Each template is associated with a class and expects to render objects of
  * that class, with the instance being passed via the context.
  *
- * A class can be made printable by the [[makePrintable]] decorator using the
- * following steps:
+ * A class can be made printable by the {@link makePrintable} decorator using
+ * the following steps:
  *
  * 1. Import dependencies:
  *     ```
@@ -28,13 +28,13 @@
  * 2. Add `implements Templates.Printable` to the target class.
  *     This makes the compiler check dependencies have been added correctly.
  *
- * 3. Declare a [[print]] function as follows:
+ * 3. Declare a {@link print} function as follows:
  *     ```
  *     public print: Templates.Print;
  *     ```
  *
  * 4. Import any templates used by the class and pass them to the
- *     [[makePrintable]] decorator:
+ *     {@link makePrintable} decorator:
  *     ```
  *     import text from './text.dot';
  *     @Templates.makePrintable({ text })
@@ -42,9 +42,9 @@
  *         // ...
  *     ```
  *
- * [[makePrintable]] also takes an additional parameter allowing extra default
- * context to be included when rendering the template.
+ * {@link makePrintable} also takes an additional parameter allowing extra
+ * default context to be included when rendering the template.
  */
 
 export { default as makePrintable } from './makePrintable';
-export { Print, Printable as Interface } from './types';
+export type { Print, Printable as Interface } from './types';

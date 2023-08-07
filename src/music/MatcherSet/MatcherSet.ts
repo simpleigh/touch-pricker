@@ -10,11 +10,11 @@ import AbstractMatcher from '../AbstractMatcher';
 import text from './text.dot';
 
 /**
- * An [[AbstractMatcher]] that combines other matchers.
+ * An {@link AbstractMatcher} that combines other matchers.
  *
  * Forwards rows to a group of child matchers.
- * Allows matchers to be grouped together, e.g. into an [[AbstractScheme]].
- * This is also useful when using the [[OneOnlyMatcherSet]]:
+ * Allows matchers to be grouped together, e.g. into an {@link AbstractScheme}.
+ * This is also useful when using the {@link OneOnlyMatcherSet}:
  *
  * ```
  * const set = new OneOnlyMatcherSet([
@@ -28,8 +28,8 @@ import text from './text.dot';
  * ]);
  * ```
  *
- * The [[MatcherSet]] allows a row to match runs off both the front and the back
- * despite use of the [[OneOnlyMatcherSet]].
+ * The {@link MatcherSet} allows a row to match runs off both the front and the
+ * back despite use of the {@link OneOnlyMatcherSet}.
  */
 @Templates.makePrintable({ text })
 class MatcherSet extends AbstractMatcher {
@@ -54,7 +54,7 @@ class MatcherSet extends AbstractMatcher {
             // Call matcher.match explicitly...
             const rowResult = matcher.match(row);
             // ... not in here, or || will short-circuit it
-            result = result || rowResult;
+            result ||= rowResult;
         }
 
         return result;

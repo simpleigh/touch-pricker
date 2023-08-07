@@ -89,7 +89,7 @@ class Hot extends AbstractSix {
                 [Stage.Septuples]: [1, 4, 2, 6, 3, 8, 5, 10, 7, 12, 9, 13, 11, 15, 14],
             },
         };
-        /* eslint-enable max-len */
+        /* eslint-enable */
     }
 
     /* AbstractSix methods ****************************************************/
@@ -98,7 +98,7 @@ class Hot extends AbstractSix {
      * Computes a place notation string for a number of rows
      * @param rows  Number of rows (from 1 to 5)
      */
-    public getNotationString(rows: number): string {
+    public override getNotationString(rows: number): string {
         return this.notation.slice(0, rows).join(', ');
     }
 

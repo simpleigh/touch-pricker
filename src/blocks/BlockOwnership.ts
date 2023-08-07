@@ -10,8 +10,8 @@ import Notifiable from './Notifiable';
 /**
  * Ownership of a block
  *
- * [[AbstractBlock]] objects can be collected together within an
- * [[AbstractContainer]].
+ * {@link AbstractBlock} objects can be collected together within an
+ * {@link <internal>.AbstractContainer}.
  * Each block stores a reference to its container along with a numeric index
  * representing its position within that container.
  */

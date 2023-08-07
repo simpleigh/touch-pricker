@@ -30,23 +30,25 @@ import * as Stedman from './stedman';
 import * as Visitors from './visitors';
 
 export {
-    Bell,
     bellFromSymbol,
     Blocks,
     Call,
-    Change,
     changeFromNotation,
     create,
     Grandsire,
     multiply,
     Music,
-    Options,
-    Pricker,
     rounds,
-    Row,
     rowFromString,
     Stage,
     Stedman,
     stringFromRow,
     Visitors,
+};
+export type {
+    Bell,
+    Change,
+    Options,
+    Pricker,
+    Row,
 };

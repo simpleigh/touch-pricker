@@ -24,7 +24,7 @@ class Erin extends AbstractMethod {
     /**
      * Returns the default length of new courses
      */
-    public getCourseLength(stage: Stage): number {
+    public override getCourseLength(stage: Stage): number {
         return stage;
     }
 

@@ -8,7 +8,7 @@
 import MatcherSet from '../MatcherSet';
 
 /**
- * A [[MattherSet]] that only reports a single match.
+ * A {@link MatcherSet} that only reports a single match.
  *
  * Forwards rows to child matchers, but stops processing when a match occurs.
  * This is useful to avoid reporting multiple similar matches for the same row:
@@ -34,14 +34,14 @@ class OneOnlyMatcherSet extends MatcherSet {
      * Matches a row string.
      * Override to abort processing when a match occurs.
      */
-    public match(row: string): boolean {
+    public override match(row: string): boolean {
         let result = false;
 
         for (const matcher of this._matchers) {
             // Call matcher.match explicitly...
             const rowResult = matcher.match(row);
             // ... not in here, or || will short-circuit it
-            result = result || rowResult;
+            result ||= rowResult;
 
             if (rowResult) {
                 break;

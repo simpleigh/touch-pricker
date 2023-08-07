@@ -7,7 +7,6 @@
 
 /**
  * Types of call
- * @enum {number}
  */
 enum Call { Plain = 0, Bob, Single }
 

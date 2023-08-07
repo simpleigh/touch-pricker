@@ -9,11 +9,12 @@ import SixType from './SixType';
 
 describe('SixType enum', () => {
 
-    const testValue = (name: string, value: SixType) =>
+    const testValue = (name: string, value: SixType) => {
         it(`can represent ${name} sixes`, () => {
             expect(value).toBeDefined();
             expect(value).toBe(name);
         });
+    };
 
     testValue('slow', SixType.Slow);
     testValue('quick', SixType.Quick);

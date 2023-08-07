@@ -7,7 +7,9 @@
 
 /*
 eslint-disable
+@typescript-eslint/explicit-module-boundary-types,
 @typescript-eslint/no-explicit-any,
+@typescript-eslint/no-unsafe-assignment,
 @typescript-eslint/no-unsafe-member-access,
 @typescript-eslint/unbound-method,
 */
@@ -23,7 +25,7 @@ import { Context, Templates } from './types';
 const makePrintable = (
     templates: Templates,
     extraContext: Context = { },
-) => (cls: any) => {
+) => (cls: any): void => {
     if (!cls.prototype.print) {
         cls.prototype.print = AbstractPrintable.prototype.print;
         cls.prototype.templates = { };

@@ -17,7 +17,7 @@ import AbstractScheme from '.';
 export const testAbstractSchemeImplementation = (
     createFn: (stage?: Stage) => AbstractScheme,
     testCases: [Stage, string, number, string][],
-) => {
+): void => {
 
     describe('is derived from AbstractScheme and', () => {
 

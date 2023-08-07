@@ -131,9 +131,9 @@ yarn build
 * `build:dev` - compiles the development bundle
 * `build:prod` - compiles the production bundle
 * `build:test` - compiles the test bundle
-* `doc` - builds documentation
 * `lint` - lints all sources
 * **`start`** - opens examples in a browser window and watches for changes
 * **`start:tests`** - runs tests in a browser window and watches for changes
 * **`test`** - runs tests in PhantomJS and watches for changes
 * `test:browsers` - runs tests in multiple browsers
+* `typedoc` - builds documentation

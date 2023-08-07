@@ -25,7 +25,7 @@ export const testAbstractContainerImplementation = (
     factory: (initialRow: Row) => TestContainer,
     expectedRows: number,
     expectedLength: number,
-) => {
+): void => {
 
     describe('is derived from AbstractContainer and', () => {
 
@@ -33,7 +33,7 @@ export const testAbstractContainerImplementation = (
             testStage,
             factory,
             [[testStage, expectedRows]],
-            (block) => (block as TestContainer).notify(0),
+            (block) => { (block as TestContainer).notify(0); },
         );
 
         let container: TestContainer;

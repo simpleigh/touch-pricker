@@ -12,14 +12,16 @@ import * as Changes from './changes';
 const createChangeTests = (
     testFn: Change,
     testCases: [string, Stage][],
-) => () => it('applies the permutation correctly', () => {
-    for (const [expected, stage] of testCases) {
-        const row = rounds(stage) as MutableRow;
+) => () => {
+    it('applies the permutation correctly', () => {
+        for (const [expected, stage] of testCases) {
+            const row = rounds(stage) as MutableRow;
 
-        testFn(row);
-        expect(stringFromRow(row)).toBe(expected);
-    }
-});
+            testFn(row);
+            expect(stringFromRow(row)).toBe(expected);
+        }
+    });
+};
 
 describe('Changes:', () => {
 

@@ -5,11 +5,13 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+/* eslint-disable @typescript-eslint/no-unsafe-enum-comparison */
+
 import bellFromSymbol from './bellFromSymbol';
 import { Bell, MutableRow, Row, Stage } from './types';
 
 /**
- * Converts a string into a [[Row]].
+ * Converts a string into a {@link Row}.
  *
  * Tries to convert a string representation of a row into a row on a
  * particular stage.

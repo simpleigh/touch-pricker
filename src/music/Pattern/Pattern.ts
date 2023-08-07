@@ -11,7 +11,7 @@ import MatchType from '../MatchType';
 import text from './text.dot';
 
 /**
- * Simple [[AbstractMatcher]] that uses a pattern to match rows.
+ * Simple {@link AbstractMatcher} that uses a pattern to match rows.
  *
  * A string pattern is compared directly against provided rows.
  * By default the pattern is compared against the bells at the back of the

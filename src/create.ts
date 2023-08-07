@@ -31,16 +31,7 @@ const create = (
         throw new Error(`Cannot find HTML element: '${elementId}'`);
     }
 
-    if (options.iframe || options.iframe === undefined) {
-        const iframe = createIframe(parentDocument);
-        element.appendChild(iframe);
-
-        pricker = options.type === 'grandsire'
-            ? new Grandsire(iframe)
-            : new Stedman(iframe);
-
-        injectIframeData(iframe, template({ pricker }), { pricker });
-    } else {
+    if (options.iframe === false) {
         pricker = options.type === 'grandsire'
             ? new Grandsire()
             : new Stedman();
@@ -52,6 +43,15 @@ const create = (
             // don't run in tests (when document has been overridden)
             pricker.onLoad();
         }
+    } else {
+        const iframe = createIframe(parentDocument);
+        element.appendChild(iframe);
+
+        pricker = options.type === 'grandsire'
+            ? new Grandsire(iframe)
+            : new Stedman(iframe);
+
+        injectIframeData(iframe, template({ pricker }), { pricker });
     }
 
     return pricker;

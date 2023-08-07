@@ -11,24 +11,14 @@ module.exports = {
     module: {
         rules: [
             {
-                enforce: 'pre',
-                test: /\.ts$/,
-                loader: 'eslint-loader',
-            },
-            {
-                test: /\.ts$/,
+                test: /\.ts$/u,
                 loader: 'ts-loader',
                 options: {
                     onlyCompileBundledFiles: true,
                 },
             },
             {
-                enforce: 'pre',
-                test: /\.js$/,
-                loader: 'source-map-loader',
-            },
-            {
-                test: /\.dot$/,
+                test: /\.dot$/u,
                 loader: 'dotjs-loader',
                 options: {
                     varname: 'context',
@@ -37,10 +27,12 @@ module.exports = {
         ],
     },
     output: {
-        library: 'Pricker',
-        libraryTarget: 'umd',
+        library: {
+            name: 'Pricker',
+            type: 'umd',
+            umdNamedDefine: true,
+        },
         path: paths.distDir,
-        umdNamedDefine: true,
     },
     resolve: {
         extensions: ['.js', '.ts'],

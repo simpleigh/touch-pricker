@@ -9,7 +9,7 @@ import { rounds, Stage, Stedman } from '../../src';
 import toBePrintable from './toBePrintable';
 
 describe('toBePrintable matcher', () => {
-    const compare = toBePrintable(jasmine.matchersUtil, []).compare;
+    const compare = toBePrintable({ } as jasmine.MatchersUtil).compare;
 
     it('fails for items that are not objects', () => {
         expect(compare('string').pass).toBe(false);

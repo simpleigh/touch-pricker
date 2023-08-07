@@ -22,10 +22,15 @@ describe('Parser for Grandsire', () => {
             description: string,
             input: string,
             output: string,
-        ) => it(description, () => {
-            const imported = parser.parseCourse(rounds(Stage.Caters), input);
-            expect(imported.print('text')).toBe(output);
-        });
+        ) => {
+            it(description, () => {
+                const imported = parser.parseCourse(
+                    rounds(Stage.Caters),
+                    input,
+                );
+                expect(imported.print('text')).toBe(output);
+            });
+        };
 
         testImport(
             'a plain course',
@@ -142,10 +147,12 @@ describe('Parser for Grandsire', () => {
             description: string,
             input: string,
             output: string,
-        ) => it(description, () => {
-            const imported = parser.parseTouch(input);
-            expect(imported.print('text')).toBe(output);
-        });
+        ) => {
+            it(description, () => {
+                const imported = parser.parseTouch(input);
+                expect(imported.print('text')).toBe(output);
+            });
+        };
 
         testImport(
             'a simple touch',

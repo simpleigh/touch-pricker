@@ -35,7 +35,7 @@ class BlockDirectory {
         }
 
         // We must have at least one index or getIndices() would have thrown
-        const finalIndex = indices.pop() as number;
+        const finalIndex = indices.pop()!;
 
         // Use indices to build a tree
         let directory = this._directory;

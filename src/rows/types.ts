@@ -40,7 +40,7 @@ export type Bell =
 export type Row = readonly Bell[];
 
 /**
- * A [[Row]] that is mutable
+ * A {@link Row} that is mutable
  */
 export type MutableRow = Bell[];
 

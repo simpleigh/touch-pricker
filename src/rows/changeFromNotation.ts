@@ -5,6 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+/* eslint-disable @typescript-eslint/no-unsafe-enum-comparison */
+
 import bellFromSymbol from './bellFromSymbol';
 import symbolFromBell from './symbolFromBell';
 import { Bell, Change, MutableRow, Stage } from './types';
@@ -25,7 +27,7 @@ const swap = (change: Change, place: number): Change => (row: MutableRow) => {
 };
 
 /**
- * Converts a string notation into a [[Change]]
+ * Converts a string notation into a {@link Change}
  *
  * Tries to convert a string representation of a change into a change on a
  * particular stage.

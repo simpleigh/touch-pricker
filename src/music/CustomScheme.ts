@@ -11,7 +11,8 @@ import AbstractScheme from './AbstractScheme';
 /**
  * Custom music matching scheme with matchers defined at runtime.
  *
- * Music schemes usually assemble their [[AbstractMatcher]]s when constructed.
+ * Music schemes usually assemble their {@link AbstractMatcher}s when
+ * constructed.
  * This scheme allows matchers to be provided dynamically before matching.
  *
  * ```

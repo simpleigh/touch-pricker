@@ -57,16 +57,20 @@ const testMetricImplementation = (
 
 };
 
-describe('getWidth DOM utility', () => testMetricImplementation(
-    getWidth,
-    'offsetWidth',
-    'marginLeft',
-    'marginRight',
-));
+describe('getWidth DOM utility', () => {
+    testMetricImplementation(
+        getWidth,
+        'offsetWidth',
+        'marginLeft',
+        'marginRight',
+    );
+});
 
-describe('getHeight DOM utility', () => testMetricImplementation(
-    getHeight,
-    'offsetHeight',
-    'marginTop',
-    'marginBottom',
-));
+describe('getHeight DOM utility', () => {
+    testMetricImplementation(
+        getHeight,
+        'offsetHeight',
+        'marginTop',
+        'marginBottom',
+    );
+});

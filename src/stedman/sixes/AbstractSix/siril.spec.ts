@@ -14,7 +14,7 @@ import AbstractSix from '.';
  */
 export const testSirilAbstractSixTemplate = (
     factory: (initialRow: Row) => AbstractSix,
-) => {
+): void => {
 
     describe('it has a siril template that', () => {
 

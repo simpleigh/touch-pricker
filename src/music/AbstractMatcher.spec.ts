@@ -13,7 +13,7 @@ import AbstractMatcher from './AbstractMatcher';
  */
 export const testAbstractMatcherImplementation = (
     createFn: () => AbstractMatcher,
-) => {
+): void => {
 
     describe('is derived from AbstractMatcher and', () => {
 

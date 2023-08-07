@@ -33,7 +33,7 @@ class Four extends AbstractSix {
      * Number of rows in the block
      * This doesn't take into account coming round part-way through
      */
-    public readonly rows: number = 4;
+    public override readonly rows: number = 4;
 
     /**
      * Receives a visitor that will be called to process each row
@@ -85,7 +85,7 @@ class Four extends AbstractSix {
                 [Stage.Septuples]: [4, 1, 2, 6, 3, 8, 5, 10, 7, 12, 9, 13, 11, 15, 14],
             },
         };
-        /* eslint-enable max-len */
+        /* eslint-enable */
     }
 
 }

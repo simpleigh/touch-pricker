@@ -31,7 +31,7 @@ export const testAbstractCourseImplementation = (
     expectedLength: number,
     lengthTestCases: [Stage, number, number][],
     leadsWord?: string,
-) => {
+): void => {
 
     testSerialContainerImplementation(
         testStage,

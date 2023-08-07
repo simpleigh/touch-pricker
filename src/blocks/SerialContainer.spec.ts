@@ -27,7 +27,7 @@ export const testSerialContainerImplementation = (
     expectedRows: number,
     expectedLength: number,
     lengthTestCases: [Stage, number, number][],
-) => {
+): void => {
 
     describe('is derived from SerialContainer and', () => {
 

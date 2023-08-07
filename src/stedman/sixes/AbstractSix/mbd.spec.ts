@@ -18,7 +18,7 @@ import AbstractSix from '.';
  */
 export const testMbdAbstractSixTemplate = (
     factory: (initialRow: Row) => AbstractSix,
-) => {
+): void => {
 
     describe('it has an mbd template that', () => {
 

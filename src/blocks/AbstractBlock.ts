@@ -88,6 +88,7 @@ abstract class AbstractBlock {
     /**
      * Updates references to the parent container
      */
+    // eslint-disable-next-line accessor-pairs
     set ownership(ownership: BlockOwnership) {
         this._ownership = ownership;
     }

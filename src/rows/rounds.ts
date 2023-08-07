@@ -10,7 +10,7 @@ import { Row, Stage } from './types';
 const ROUNDS: Row = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
 /**
- * Creates a [[Row]] representing rounds on a particular stage
+ * Creates a {@link Row} representing rounds on a particular stage
  *
  * ```
  * > Pricker.rounds(Pricker.Stage.Cinques);

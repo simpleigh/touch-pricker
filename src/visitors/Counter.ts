@@ -13,7 +13,7 @@ import AbstractVisitor from './AbstractVisitor';
  * Simple visitor that counts rows
  *
  * Accumulates a count of rows that is incremented by each call to
- * [[visit]].
+ * {@link visit}.
  * This visitor allows the count of rows in a touch because rows are not
  * processed after rounds has been reached.
  */
@@ -26,7 +26,7 @@ class Counter extends AbstractVisitor {
 
     /**
      * Reports the count of rows by providing public access to
-     * [[_count]].
+     * {@link _count}.
      */
     get count(): number {
         return this._count;

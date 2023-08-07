@@ -10,23 +10,31 @@ const base = require('./webpack.base');
 
 module.exports = merge(base, {
     devServer: {
-        openPage: 'tests/SpecRunner.html',
+        open: ['/tests/SpecRunner.html'],
         port: 8081,
-        publicPath: '/dist/',
+        static: [
+            {
+                directory: paths.rootDir,
+                publicPath: '/',
+            },
+        ],
     },
     entry: paths.testsEntryFile,
     module: {
         rules: [
             {
                 enforce: 'post',
-                test: /\.dot$|\.ts$/,
-                exclude: /\.spec\.ts$|tests/,
-                loader: 'istanbul-instrumenter-loader',
+                test: /\.dot$|\.ts$/u,
+                exclude: /\.spec\.ts$|tests/u,
+                loader: '@jsdevtools/coverage-istanbul-loader',
                 options: {
                     esModules: true,
                 },
             },
         ],
     },
-    output: { filename: 'touch-pricker.spec.js' },
+    output: {
+        filename: 'touch-pricker.spec.js',
+        publicPath: '/dist/',  // needed for webpack-dev-server
+    },
 }, banner);

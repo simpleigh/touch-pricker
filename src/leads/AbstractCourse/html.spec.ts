@@ -18,7 +18,7 @@ import AbstractCourse from './AbstractCourse';
 export const testHtmlAbstractCourseTemplate = (
     testStage: Stage,
     factory: (initialRow: Row) => AbstractCourse<AbstractLead>,
-) => {
+): void => {
 
     describe('it has an html template that', () => {
 

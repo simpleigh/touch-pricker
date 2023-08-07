@@ -15,7 +15,7 @@ abstract class AbstractPrintable implements Printable {
 
     /**
      * Renders the object with a template.
-     * Takes the name of the template and a [[Context]], adding the object
+     * Takes the name of the template and a {@link Context}, adding the object
      * instance to the context before executing the template.
      */
     public print(name: string, context: Context = { }): string {

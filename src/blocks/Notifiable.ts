@@ -8,7 +8,7 @@
 /**
  * Interface for objects that can receive notifications from children
  *
- * Some classes (e.g. [[AbstractContainer]]) can contain blocks.
+ * Some classes (e.g. {@link <internal>.AbstractContainer}) can contain blocks.
  * Blocks notify these classes when they are changed.
  */
 interface Notifiable {

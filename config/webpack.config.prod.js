@@ -1,8 +1,7 @@
 'use strict';
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const merge = require('webpack-merge');
 
 const paths = require('./paths');
@@ -20,16 +19,7 @@ module.exports = merge(base, {
                 paths.prodMapFile,
             ],
         }),
-        new UglifyJSPlugin({
-            parallel: true,
-            sourceMap: true,
-            uglifyOptions: {
-                output: {
-                    comments: false,
-                },
-            },
-        }),
-        new CopyWebpackPlugin([
+        new CopyPlugin({
             // Prepare examples for distribution
             //
             // Sources use the development bundle: swap this out for production.
@@ -40,17 +30,19 @@ module.exports = merge(base, {
             //   ║ Base ║ /examples/  │ /dist/examples/ ║
             //   ║ File ║ .js         │ .min.js         ║
             //   ╚══════╩═════════════╧═════════════════╝
-            {
-                from: 'examples',
-                to: 'examples',
-                transform: (buffer) => {
-                    const content = buffer.toString().replace(
-                        '../dist/touch-pricker.js',
-                        '../touch-pricker.min.js'
-                    );
-                    return Buffer.from(content);
+            patterns: [
+                {
+                    from: 'examples',
+                    to: 'examples',
+                    transform: (buffer) => {
+                        const content = buffer.toString().replace(
+                            '../dist/touch-pricker.js',
+                            '../touch-pricker.min.js'
+                        );
+                        return Buffer.from(content);
+                    },
                 },
-            },
-        ]),
+            ],
+        }),
     ],
 }, banner);
