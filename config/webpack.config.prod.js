@@ -2,7 +2,7 @@
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 
 const paths = require('./paths');
 const banner = require('./webpack.banner');
