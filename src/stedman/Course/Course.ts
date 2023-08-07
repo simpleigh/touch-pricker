@@ -68,7 +68,7 @@ class Course
     /**
      * Clones the course
      */
-    public clone(): this {
+    public override clone(): this {
         const cloned = new Course(this._initialRow, this._method) as this;
 
         cloned.setFirstSixType(this.firstSixType);

@@ -38,7 +38,7 @@ class Parser extends LeadBasedParser<Course, Touch> {
      * `parseLine()` for further processing.
      * @param input       input string to parse
      */
-    public parseTouch(input: string): Touch {
+    public override parseTouch(input: string): Touch {
         this._start = undefined;
 
         const touch = super.parseTouch(input);
@@ -64,7 +64,10 @@ class Parser extends LeadBasedParser<Course, Touch> {
     /**
      * Parses a line of the input
      */
-    protected parseLine(initialRow: Row, input: string): Course | undefined {
+    protected override parseLine(
+        initialRow: Row,
+        input: string,
+    ): Course | undefined {
         // Store start definitions for later processing
         if (/start/iu.test(input)) {
             this._start = input;

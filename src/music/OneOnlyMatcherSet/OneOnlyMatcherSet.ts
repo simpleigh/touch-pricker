@@ -34,7 +34,7 @@ class OneOnlyMatcherSet extends MatcherSet {
      * Matches a row string.
      * Override to abort processing when a match occurs.
      */
-    public match(row: string): boolean {
+    public override match(row: string): boolean {
         let result = false;
 
         for (const matcher of this._matchers) {

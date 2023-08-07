@@ -55,7 +55,7 @@ class Touch
     /**
      * Read access to the initial row
      */
-    get initialRow(): Row {
+    override get initialRow(): Row {
         return this._initialRow.slice();
     }
 
@@ -63,7 +63,7 @@ class Touch
      * Write access to the initial row
      * Override in order to pass the initial row down to the start.
      */
-    set initialRow(initialRow: Row) {
+    override set initialRow(initialRow: Row) {
         this._initialRow = initialRow.slice();
         this._start.initialRow = initialRow.slice();
         this.calculate();
@@ -73,7 +73,7 @@ class Touch
      * Number of rows in the block
      * This doesn't take into account coming round part-way through
      */
-    get rows(): number {
+    override get rows(): number {
         return this._start.rows
             + this._blocks.reduce((total, block) => total + block.rows, 0);
     }
@@ -81,7 +81,7 @@ class Touch
     /**
      * Receives a visitor that will be called to process each row
      */
-    public accept(...visitors: AbstractVisitor[]): this {
+    public override accept(...visitors: AbstractVisitor[]): this {
         for (const visitor of visitors) {
             this._start.accept(visitor);
         }
@@ -99,7 +99,7 @@ class Touch
      * Propagates data between blocks within the container
      * @param index  where to start when recalculating
      */
-    protected propagateBlocks(index: number = 0): void {
+    protected override propagateBlocks(index: number = 0): void {
         // Handle first block
         if (!index && this.length) {
             const [first] = this._blocks;
