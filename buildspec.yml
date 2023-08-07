@@ -13,5 +13,5 @@ phases:
       - yarn build:prod
   post_build:
     commands:
-      - aws s3 cp --recursive dist s3://touch-pricker.simpleigh.com/
+      - aws s3 cp --recursive dist s3://${S3_BUCKET}/
       - aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_DISTRIBUTION} --paths '/*'
