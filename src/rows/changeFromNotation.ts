@@ -5,6 +5,8 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
+/* eslint-disable @typescript-eslint/no-unsafe-enum-comparison */
+
 import bellFromSymbol from './bellFromSymbol';
 import symbolFromBell from './symbolFromBell';
 import { Bell, Change, MutableRow, Stage } from './types';

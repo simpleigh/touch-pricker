@@ -24,7 +24,7 @@ export const testSixImplementation = (
     type: SixType,
     notation: string[],
     notationStringTests: string[],
-) => {
+): void => {
 
     testAbstractLeadImplementation(
         Stage.Cinques,

@@ -33,7 +33,7 @@ class Touch
     /**
      * Start for this touch
      */
-    private _start: Start;
+    private readonly _start: Start;
 
     /**
      * Constructor

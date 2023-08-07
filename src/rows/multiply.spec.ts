@@ -17,13 +17,15 @@ describe('multiply function', () => {
         input1: string,
         input2: string,
         expected: string,
-    ) => it(description, () => {
-        const result = multiply(
-            rowFromString(input1, input1.length),
-            rowFromString(input2, input2.length),
-        );
-        expect(stringFromRow(result)).toBe(expected);
-    });
+    ) => {
+        it(description, () => {
+            const result = multiply(
+                rowFromString(input1, input1.length),
+                rowFromString(input2, input2.length),
+            );
+            expect(stringFromRow(result)).toBe(expected);
+        });
+    };
 
     test('can multiply two rows', '654321', '214365', '563412');
     test('copes with a short first row', '4321', '214365', '341265');

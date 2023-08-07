@@ -47,4 +47,4 @@
  */
 
 export { default as makePrintable } from './makePrintable';
-export { Print, Printable as Interface } from './types';
+export type { Print, Printable as Interface } from './types';

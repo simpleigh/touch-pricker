@@ -1084,11 +1084,13 @@ describe('Start class', () => {
             input: string,
             expectedRowIndex: number = 3,
             expectedSixType: SixType = SixType.Slow,
-        ) => it(description, () => {
-            start.setFromString(input);
-            expect(start.sixType).toBe(expectedSixType);
-            expect(start.rowIndex).toBe(expectedRowIndex);
-        });
+        ) => {
+            it(description, () => {
+                start.setFromString(input);
+                expect(start.sixType).toBe(expectedSixType);
+                expect(start.rowIndex).toBe(expectedRowIndex);
+            });
+        };
 
         testLoad(
             'an ordinary string',

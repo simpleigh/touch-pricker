@@ -192,7 +192,7 @@ class Start extends AbstractBlock implements Templates.Interface {
             ['eighth',  8], ['8th', 8], ['8', 8],
             ['last', 99],  // sentinel value; see below
         ];
-        /* eslint-enable array-element-newline, no-multi-spaces */
+        /* eslint-enable */
 
         for (const [pattern, value] of rowIndexPatterns) {
             const regex = new RegExp(pattern, 'i');

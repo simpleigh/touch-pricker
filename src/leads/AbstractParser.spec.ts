@@ -29,7 +29,7 @@ class TestParser extends AbstractParser<Touch> {
     }
 
 }
-/* eslint-enable no-invalid-this */
+/* eslint-enable */
 
 describe('AbstractParser class', () => {
 

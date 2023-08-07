@@ -9,7 +9,7 @@ const injectIframeData = (
     iframe: HTMLIFrameElement,
     content: string = '',
     globals: Record<string, unknown> = { },
-) => {
+): void => {
     const theWindow = iframe.contentWindow;
     if (!theWindow) {
         throw new Error('Assertion failed: missing iframe window');

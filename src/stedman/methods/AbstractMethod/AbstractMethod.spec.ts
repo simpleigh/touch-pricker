@@ -20,7 +20,7 @@ export const testAbstractMethodImplementation = (
     progressionTestCases: [SixType, SixType][],
     [defaultFirstSix, defaultStartSixType, defaultStartRowIndex]:
         [SixType, SixType, number],
-) => {
+): void => {
 
     const initialRow = rowFromString('231', Stage.Cinques);
 
@@ -85,7 +85,7 @@ export const testAbstractMethodImplementation = (
 
     runProgressionTests((sixType) => {
         it(`knows that a ${sixType} six is valid`, () => {
-            expect(() => method.checkSixType(sixType)).not.toThrow();
+            expect(() => { method.checkSixType(sixType); }).not.toThrow();
         });
     });
 
@@ -94,7 +94,7 @@ export const testAbstractMethodImplementation = (
     });
 
     it('starts a course with a valid six by default', () => {
-        expect(() => method.checkSixType(defaultFirstSix)).not.toThrow();
+        expect(() => { method.checkSixType(defaultFirstSix); }).not.toThrow();
     });
 
     it(`starts on row ${defaultStartRowIndex} of a six by default`, () => {
@@ -106,7 +106,8 @@ export const testAbstractMethodImplementation = (
     });
 
     it('starts a touch with a valid six by default', () => {
-        expect(() => method.checkSixType(defaultStartSixType)).not.toThrow();
+        expect(() => { method.checkSixType(defaultStartSixType); })
+            .not.toThrow();
     });
 
     runProgressionTests((sixType, expected) => {
@@ -118,12 +119,12 @@ export const testAbstractMethodImplementation = (
     describe('is derived from AbstractMethod and', () => {
 
         it('knows that an invalid six is invalid', () => {
-            expect(() => method.checkSixType(SixType.Invalid))
+            expect(() => { method.checkSixType(SixType.Invalid); })
                 .toThrowError("'invalid' blocks not allowed for this method");
         });
 
         it('throws computing the successor of an invalid six', () => {
-            expect(() => method.getNextSixType(SixType.Invalid))
+            expect(() => { method.getNextSixType(SixType.Invalid); })
                 .toThrowError("'invalid' blocks not allowed for this method");
         });
 

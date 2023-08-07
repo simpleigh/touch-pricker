@@ -61,12 +61,14 @@ describe('Parser for Stedman', () => {
             input: string,
             output: string,
             method: AbstractMethod = new Stedman(),
-        ) => it(description, () => {
-            parser.method = method;
-            const testRow = rowFromString('231', Stage.Cinques);
-            const imported = parser.parseCourse(testRow, input);
-            expect(imported.print('text')).toBe(output);
-        });
+        ) => {
+            it(description, () => {
+                parser.method = method;
+                const testRow = rowFromString('231', Stage.Cinques);
+                const imported = parser.parseCourse(testRow, input);
+                expect(imported.print('text')).toBe(output);
+            });
+        };
 
         testImport(
             'a simple course ending in rounds',
@@ -186,11 +188,13 @@ describe('Parser for Stedman', () => {
             input: string,
             output: string,
             method: AbstractMethod = new Stedman(),
-        ) => it(description, () => {
-            parser.method = method;
-            const imported = parser.parseTouch(input);
-            expect(imported.print('text')).toBe(output);
-        });
+        ) => {
+            it(description, () => {
+                parser.method = method;
+                const imported = parser.parseTouch(input);
+                expect(imported.print('text')).toBe(output);
+            });
+        };
 
         testImport(
             'a simple touch',

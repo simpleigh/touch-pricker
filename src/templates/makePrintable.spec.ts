@@ -7,7 +7,7 @@
 
 /*
 eslint-disable
-lines-between-class-members,
+@typescript-eslint/lines-between-class-members,
 max-classes-per-file,
 padded-blocks,
 */

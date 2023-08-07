@@ -12,4 +12,5 @@ export { default as rounds } from './rounds';
 export { default as rowFromString } from './rowFromString';
 export { default as stringFromRow } from './stringFromRow';
 export { default as symbolFromBell } from './symbolFromBell';
-export { Bell, Change, MutableRow, Row, Stage } from './types';
+export { Stage } from './types';
+export type { Bell, Change, MutableRow, Row } from './types';

@@ -16,7 +16,7 @@ import AbstractVisitor from './AbstractVisitor';
 export const testAbstractVisitorImplementation = (
     createFn: () => AbstractVisitor,
     getState: (visitor: AbstractVisitor) => unknown,
-) => {
+): void => {
 
     describe('is derived from AbstractVisitor and', () => {
 

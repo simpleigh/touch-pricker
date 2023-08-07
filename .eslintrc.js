@@ -6,23 +6,23 @@
  * @see https://typescript-eslint.io/
  */
 
+/* eslint-disable max-len, sort-keys */
+
+'use strict';
+
 module.exports = {
     root: true,
     env: {
-        browser: true,
+        es6: true,
     },
-    parser: '@typescript-eslint/parser',
-    parserOptions: {
-        project: './tsconfig.json',
-    },
-    plugins: [
-        'eslint-plugin-import',
-        'jsdoc',
-        '@typescript-eslint',
-    ],
     extends: [
         'eslint:recommended',
         'plugin:jsdoc/recommended-error',
+    ],
+    plugins: [
+        '@typescript-eslint',
+        'eslint-plugin-import',
+        'jsdoc',
     ],
     rules: {
         // Possible Errors
@@ -33,8 +33,6 @@ module.exports = {
         'require-atomic-updates': 'error',
 
         // Best Practices
-        'accessor-pairs': 'error',
-        'array-callback-return': 'error',
         'accessor-pairs': 'error',
         'array-callback-return': 'error',
         'block-scoped-var': 'error',
@@ -336,7 +334,6 @@ module.exports = {
         {
             files: ['**/*.js'],
             env: {
-                browser: false,
                 node: true,
             },
             rules: {
@@ -365,81 +362,28 @@ module.exports = {
                     mode: 'typescript',
                 },
             },
+            env: {
+                browser: true,
+            },
             extends: [
                 'eslint:recommended',
-                'plugin:@typescript-eslint/eslint-recommended',
-                'plugin:@typescript-eslint/recommended',
-                'plugin:@typescript-eslint/recommended-requiring-type-checking',
+                'plugin:@typescript-eslint/strict-type-checked',
+                'plugin:@typescript-eslint/stylistic-type-checked',
                 'plugin:import/typescript',
                 'plugin:jsdoc/recommended-typescript-error',
             ],
+            parser: '@typescript-eslint/parser',
+            parserOptions: {
+                project: './tsconfig.json',
+            },
             rules: {
-                // Possible Errors
-                'no-extra-parens': 'off',
-                '@typescript-eslint/no-extra-parens': 'error',
-                'no-extra-semi': 'off',
-                '@typescript-eslint/no-extra-semi': 'error',
-
-                // Best practices
-                'default-param-last': 'off',
-                '@typescript-eslint/default-param-last': 'error',
-                'no-unused-expressions': 'off',
-                '@typescript-eslint/no-unused-expressions': 'error',
-                'no-return-await': 'off',
-                '@typescript-eslint/return-await': 'error',
-
-                // Variables
-                '@typescript-eslint/no-unused-vars': ['error', {
-                    args: 'none',
-                }],
-
-                // Stylistic Issues
-                'brace-style': 'off',
-                '@typescript-eslint/brace-style': ['error', '1tbs', {
-                    allowSingleLine: true,
-                }],
-                'comma-spacing': 'off',
-                '@typescript-eslint/comma-spacing': 'error',
-                'quotes': 'off',
-                '@typescript-eslint/quotes': ['error', 'single', {
-                    avoidEscape: true,
-                }],
-                'func-call-spacing': 'off',
-                '@typescript-eslint/func-call-spacing': 'error',
-                '@typescript-eslint/indent': 'off',  // buggy rule
-                'semi': 'off',
-                '@typescript-eslint/semi': 'error',
-                'space-before-function-paren': 'off',
-                '@typescript-eslint/space-before-function-paren': ['error', {
-                    anonymous: 'always',
-                    asyncArrow: 'always',
-                    named: 'never',
-                }],
-
-                // ECMAScript 6
-                'no-dupe-class-members': 'off',
-                '@typescript-eslint/no-dupe-class-members': 'error',
-                'no-useless-constructor': 'off',
-                '@typescript-eslint/no-useless-constructor': 'error',
-
                 // eslint-plugin-jsdoc
                 'jsdoc/require-param': 'off',
                 'jsdoc/require-returns': 'off',
 
                 // ESLint Plugin TypeScript
-                '@typescript-eslint/array-type': ['error', {
-                    default: 'array',
-                }],
-                '@typescript-eslint/ban-ts-comment': 'error',
-                '@typescript-eslint/class-literal-property-style': 'error',
-                '@typescript-eslint/consistent-type-assertions': ['error', {
-                    assertionStyle: 'as',
-                }],
-                '@typescript-eslint/consistent-type-definitions': [
-                    'error',
-                    'interface',
-                ],
-                '@typescript-eslint/explicit-function-return-type': 'off',
+                '@typescript-eslint/consistent-type-exports': 'error',
+                '@typescript-eslint/consistent-type-imports': 'off',  // TODO: enable this
                 '@typescript-eslint/explicit-member-accessibility': ['error', {
                     accessibility: 'explicit',
                     overrides: {
@@ -448,49 +392,109 @@ module.exports = {
                     },
                 }],
                 '@typescript-eslint/explicit-module-boundary-types': 'error',
-                '@typescript-eslint/member-ordering': 'off', // prefer semantic order
+                '@typescript-eslint/member-delimiter-style': 'error',
                 '@typescript-eslint/method-signature-style': 'error',
-                '@typescript-eslint/naming-convention': 'error',
-                '@typescript-eslint/no-base-to-string': 'error',
-                '@typescript-eslint/no-dynamic-delete': 'error',
-                '@typescript-eslint/no-explicit-any': 'error',
-                '@typescript-eslint/no-extra-non-null-assertion': 'error',
-                '@typescript-eslint/no-extraneous-class': 'error',
-                '@typescript-eslint/no-floating-promises': 'error',
-                '@typescript-eslint/no-implied-eval': 'error',
+                '@typescript-eslint/naming-convention': [
+                    'error',
+                    {
+                        selector: 'default',
+                        format: ['PascalCase', 'strictCamelCase'],
+                        leadingUnderscore: 'allow',
+                        trailingUnderscore: 'allow',
+                    },
+                    {
+                        selector: 'variable',
+                        format: ['PascalCase', 'strictCamelCase', 'UPPER_CASE'],
+                        leadingUnderscore: 'allow',
+                        trailingUnderscore: 'allow',
+                    },
+                ],
+                '@typescript-eslint/no-import-type-side-effects': 'error',
                 '@typescript-eslint/no-inferrable-types': 'off',  // explicit is OK
-                '@typescript-eslint/no-non-null-asserted-optional-chain': 'error',
-                '@typescript-eslint/no-non-null-assertion': 'error',
-                '@typescript-eslint/no-parameter-properties': 'off',
+                '@typescript-eslint/no-non-null-assertion': 'off',  // this escape hatch is sometimes useful
                 '@typescript-eslint/no-require-imports': 'error',
-                '@typescript-eslint/no-throw-literal': 'error',
-                '@typescript-eslint/no-type-alias': 'off',  // naming types for clarity
-                '@typescript-eslint/no-unnecessary-boolean-literal-compare': 'error',
-                '@typescript-eslint/no-unnecessary-condition': 'error',
                 '@typescript-eslint/no-unnecessary-qualifier': 'error',
-                '@typescript-eslint/no-unnecessary-type-arguments': 'error',
-                '@typescript-eslint/no-unsafe-call': 'error',
-                '@typescript-eslint/no-unsafe-member-access': 'error',
-                '@typescript-eslint/no-unsafe-return': 'error',
-                '@typescript-eslint/no-unused-vars-experimental': 'off',
-                '@typescript-eslint/prefer-as-const': 'error',
-                '@typescript-eslint/prefer-for-of': 'error',
-                '@typescript-eslint/prefer-function-type': 'error',
-                '@typescript-eslint/prefer-nullish-coalescing': 'error',
-                '@typescript-eslint/prefer-optional-chain': 'error',
+                '@typescript-eslint/no-useless-empty-export': 'error',
+                '@typescript-eslint/parameter-properties': ['error', {
+                    prefer: 'parameter-property',
+                }],
                 '@typescript-eslint/prefer-readonly': 'error',
-                '@typescript-eslint/prefer-readonly-parameter-types': 'off',  // mutable objects OK
+                '@typescript-eslint/prefer-readonly-parameter-types': 'off',  // TODO: enable this
+                '@typescript-eslint/prefer-regexp-exec': 'error',
                 '@typescript-eslint/prefer-string-starts-ends-with': 'off',  // poor browser support
                 '@typescript-eslint/promise-function-async': 'error',
                 '@typescript-eslint/require-array-sort-compare': 'error',
-                '@typescript-eslint/restrict-plus-operands': 'error',
-                '@typescript-eslint/restrict-template-expressions': ['error', {
-                    allowNumber: true,
-                }],
-                '@typescript-eslint/strict-boolean-expressions': 'off',
+                '@typescript-eslint/sort-type-constituents': 'error',
                 '@typescript-eslint/switch-exhaustiveness-check': 'error',
-                '@typescript-eslint/typedef': 'off',  // covered by ts compiler
-                '@typescript-eslint/unified-signatures': 'error',
+                '@typescript-eslint/type-annotation-spacing': 'error',
+
+                // ESLint Plugin TypeScript: Extension Rules
+                'block-spacing': 'off',
+                '@typescript-eslint/block-spacing': 'error',
+                'brace-style': 'off',
+                '@typescript-eslint/brace-style': ['error', '1tbs', {
+                    allowSingleLine: true,
+                }],
+                'comma-spacing': 'off',
+                '@typescript-eslint/comma-spacing': 'error',
+                'default-param-last': 'off',
+                '@typescript-eslint/default-param-last': 'error',
+                'func-call-spacing': 'off',
+                '@typescript-eslint/func-call-spacing': 'error',
+                'key-spacing': 'off',
+                '@typescript-eslint/key-spacing': ['error', {
+                    mode: 'minimum',
+                }],
+                'keyword-spacing': 'off',
+                '@typescript-eslint/keyword-spacing': 'error',
+                'lines-around-comment': 'off',
+                '@typescript-eslint/lines-around-comment': 'error',
+                'lines-between-class-members': 'off',
+                '@typescript-eslint/lines-between-class-members': 'error',
+                'no-dupe-class-members': 'off',
+                '@typescript-eslint/no-dupe-class-members': 'error',
+                'no-extra-parens': 'off',
+                '@typescript-eslint/no-extra-parens': 'error',
+                'no-extra-semi': 'off',
+                '@typescript-eslint/no-extra-semi': 'error',
+                'no-invalid-this': 'off',
+                '@typescript-eslint/no-invalid-this': 'error',
+                'no-loop-func': 'off',
+                '@typescript-eslint/no-loop-func': 'error',
+                'no-redeclare': 'off',
+                '@typescript-eslint/no-redeclare': 'error',
+                'no-shadow': 'off',
+                '@typescript-eslint/no-shadow': 'error',
+                'no-unused-expressions': 'off',
+                '@typescript-eslint/no-unused-expressions': 'error',
+                'no-unused-vars': 'off',
+                '@typescript-eslint/no-unused-vars': ['error', {
+                    args: 'none',
+                }],
+                'no-use-before-define': 'off',
+                '@typescript-eslint/no-use-before-define': 'error',
+                'object-curly-spacing': 'off',
+                '@typescript-eslint/object-curly-spacing': ['error', 'always'],
+                'padding-line-between-statements': 'off',
+                '@typescript-eslint/padding-line-between-statements': 'error',
+                'quotes': 'off',
+                '@typescript-eslint/quotes': ['error', 'single', {
+                    avoidEscape: true,
+                }],
+                'no-return-await': 'off',
+                '@typescript-eslint/return-await': 'error',
+                'semi': 'off',
+                '@typescript-eslint/semi': 'error',
+                'space-before-blocks': 'off',
+                '@typescript-eslint/space-before-blocks': 'error',
+                'space-before-function-paren': 'off',
+                '@typescript-eslint/space-before-function-paren': ['error', {
+                    anonymous: 'always',
+                    asyncArrow: 'always',
+                    named: 'never',
+                }],
+                'space-infix-ops': 'off',
+                '@typescript-eslint/space-infix-ops': 'error',
             },
             overrides: [
                 {
@@ -500,7 +504,6 @@ module.exports = {
                     },
                     rules: {
                         // Best Practices
-                        'no-loop-func': 'off',
                         'no-multi-spaces': 'off',
 
                         // Variables
@@ -513,12 +516,14 @@ module.exports = {
                         'import/no-internal-modules': 'off',
 
                         // ESLint Plugin TypeScript
-                        '@typescript-eslint/explicit-module-boundary-types': 'off',
+                        '@typescript-eslint/no-loop-func': 'off',
                         '@typescript-eslint/no-unused-vars': 'off',
-                        '@typescript-eslint/unbound-method': 'off',
+                        '@typescript-eslint/no-unsafe-argument': 'off',
+                        '@typescript-eslint/no-unsafe-assignment': 'off',
                         '@typescript-eslint/no-unsafe-call': 'off',
                         '@typescript-eslint/no-unsafe-member-access': 'off',
                         '@typescript-eslint/no-unsafe-return': 'off',
+                        '@typescript-eslint/unbound-method': 'off',
                     },
                 },
             ],

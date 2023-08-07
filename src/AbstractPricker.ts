@@ -39,7 +39,7 @@ abstract class AbstractPricker implements Pricker {
             return;
         }
 
-        const theDoc = (this._iframe.contentWindow as Window).document;
+        const theDoc = this._iframe.contentWindow!.document;
         const elements = theDoc.body.children;
         let width = 0;
         let height = 0;
@@ -60,7 +60,7 @@ abstract class AbstractPricker implements Pricker {
      */
     protected getEl<T extends HTMLElement>(id: string): T {
         const theDoc = this._iframe
-            ? (this._iframe.contentWindow as Window).document
+            ? this._iframe.contentWindow!.document
             : document;
 
         // Ignore risk elements may be null when using our own templates

@@ -103,7 +103,7 @@ class Lead extends AbstractLead implements Templates.Interface {
                 [Stage.Septuples]: [1, 5, 7, 2, 9, 3, 11, 4, 13, 6, 15, 8, 14, 10, 12],
             },
         };
-        /* eslint-enable max-len */
+        /* eslint-enable */
     }
 
     /* Lead methods ***********************************************************/

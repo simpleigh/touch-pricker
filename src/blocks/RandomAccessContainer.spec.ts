@@ -27,7 +27,7 @@ export const testRandomAccessContainerImplementation = (
     expectedRows: number,
     expectedLength: number,
     testBlock: AbstractBlock,
-) => {
+): void => {
 
     describe('is derived from RandomAccessContainer and', () => {
 
@@ -106,7 +106,7 @@ export const testRandomAccessContainerImplementation = (
         it('ignores the initial row when inserting a new block', () => {
             // Set container initial row different from block initial row
             let initialRow = testBlock.initialRow;
-            const [a, b, ...rest] = initialRow;
+            const [a, b, ...rest] = initialRow;  // eslint-disable-line
             initialRow = [b, a, ...rest];
             container.initialRow = initialRow;
 

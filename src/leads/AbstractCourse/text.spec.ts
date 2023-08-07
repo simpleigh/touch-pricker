@@ -20,7 +20,7 @@ export const testTextAbstractCourseTemplate = (
     testStage: Stage,
     factory: (initialRow: Row) => AbstractCourse<AbstractLead>,
     leadsWord: string = 'leads',
-) => {
+): void => {
 
     describe('it has a text template that', () => {
 

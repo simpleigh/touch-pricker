@@ -1,4 +1,7 @@
-/* eslint-disable init-declarations */
+/* eslint-disable
+@typescript-eslint/no-unused-vars,
+init-declarations,
+*/
 
 declare module '*.dot' {
     const template: (context: Record<string, unknown>) => string;

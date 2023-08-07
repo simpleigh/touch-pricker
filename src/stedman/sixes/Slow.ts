@@ -85,7 +85,7 @@ class Slow extends AbstractSix {
                 [Stage.Septuples]: [2, 4, 1, 6, 3, 8, 5, 10, 7, 12, 9, 13, 11, 15, 14],
             },
         };
-        /* eslint-enable max-len */
+        /* eslint-enable */
     }
 
 }

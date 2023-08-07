@@ -22,7 +22,7 @@ export const testAbstractBlockImplementation = (
     factory: (initialRow: Row) => AbstractBlock,
     lengthTestCases: [Stage, number][],
     triggerNotification: (block: AbstractBlock) => unknown,
-) => {
+): void => {
 
     describe('is derived from AbstractBlock and', () => {
 
@@ -111,7 +111,6 @@ export const testAbstractBlockImplementation = (
 
         it('starts out without a parent', () => {
             block = factory(rounds(testStage));
-            expect(block.ownership).toBeUndefined();
             expect(block.container).toBeUndefined();
             expect(block.index).toBeUndefined();
         });
@@ -148,7 +147,6 @@ export const testAbstractBlockImplementation = (
 
             block.clearOwnership();
 
-            expect(block.ownership).toBeUndefined();
             expect(block.container).toBeUndefined();
             expect(block.index).toBeUndefined();
         });

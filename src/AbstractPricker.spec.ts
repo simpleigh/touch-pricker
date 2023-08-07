@@ -13,7 +13,7 @@ import AbstractPricker from './AbstractPricker';
  */
 export const testAbstractPrickerImplementation = (
     TestPricker: new() => AbstractPricker,
-) => {
+): void => {
 
     describe('is derived from AbstractPricker and', () => {
 

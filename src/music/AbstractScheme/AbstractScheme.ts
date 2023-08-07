@@ -60,6 +60,7 @@ abstract class AbstractScheme extends MatcherSet {
      * Derived classes should implement this to set up {@link _matchers} when
      * the object is constructed.
      */
+    // eslint-disable-next-line @typescript-eslint/no-shadow
     protected abstract createMatchers(rounds: string): AbstractMatcher[];
 
 }
