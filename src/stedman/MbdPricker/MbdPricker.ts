@@ -285,7 +285,7 @@ class MbdPricker extends AbstractPricker implements Notifiable {
         try {
             const initialRow = rowFromString(input, this._stage);
             this._course.initialRow = initialRow;
-        } catch (_) {
+        } catch {
             return;
         }
 
@@ -443,7 +443,7 @@ class MbdPricker extends AbstractPricker implements Notifiable {
 
         try {
             newTouch = Touch.fromString(input, this._method);
-        } catch (_) {
+        } catch {
             // Ignore
             return;
         }

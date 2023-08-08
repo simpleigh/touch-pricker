@@ -88,10 +88,10 @@
       </div>
       <div>
         <form onsubmit="return false">
-        <label for="initialRow">Starting row:</label>
-        <input type="text" id="initialRow" size="15" maxLength="15" />
-        <button onclick="pricker.onSetInitialRow()">Set</button>
-        <button onclick="pricker.onResetInitialRow()">Reset</button>
+          <label for="initialRow">Starting row:</label>
+          <input type="text" id="initialRow" size="15" maxLength="15" />
+          <button onclick="pricker.onSetInitialRow()">Set</button>
+          <button onclick="pricker.onResetInitialRow()">Reset</button>
         </form>
       </div>
       <div id="firstSixBlock">
@@ -100,10 +100,10 @@
       </div>
       <div>
         <form onsubmit="return false">
-        <label for="courseLength">Course length:</label>
-        <input type="text" id="courseLength" size="2" maxLength="2" />
-        <button onclick="pricker.onSetLength()">Set</button>
-        <button onclick="pricker.onResetLength()">Reset</button>
+          <label for="courseLength">Course length:</label>
+          <input type="text" id="courseLength" size="2" maxLength="2" />
+          <button onclick="pricker.onSetLength()">Set</button>
+          <button onclick="pricker.onResetLength()">Reset</button>
         </form>
       </div>
       <div>
