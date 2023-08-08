@@ -1,0 +1,30 @@
+/**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * HTML for turning course generator
+ */
+
+<div id="controls">
+  <div>
+    <label for="stage">Number of bells:</label>
+    <select id="stage" onchange="pricker.onStage()">
+      <option selected value="{{= context.Stage.Triples }}">Triples</option>
+    </select>
+  </div>
+  <div>
+    <form onsubmit="return false">
+      <label for="initialRow">Starting row:</label>
+      <input type="text" id="initialRow" size="11" maxLength="11" />
+      <button onclick="pricker.onSetInitialRow()">Set</button>
+      <button onclick="pricker.onResetInitialRow()">Reset</button>
+    </form>
+  </div>
+  <div>
+    Distance: <span id="distance"></span>
+  </div>
+</div>

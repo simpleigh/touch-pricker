@@ -20,7 +20,7 @@ interface Options {
      * Type of pricker to render
      * @default 'stedman'
      */
-    type?: 'grandsire' | 'stedman';
+    type?: 'grandsire' | 'stedman' | 'stedturn';
 
 }
 

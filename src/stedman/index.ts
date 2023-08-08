@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import * as Methods from './methods';
@@ -13,4 +13,5 @@ export { default as MbdPricker } from './MbdPricker';
 export { Methods };
 export { Sixes };
 export { default as Start } from './Start';
+export { default as StedTurnPricker } from './StedTurnPricker';
 export { default as Touch } from './Touch';

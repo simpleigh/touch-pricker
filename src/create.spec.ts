@@ -11,7 +11,7 @@ import * as Dom from './dom';
 import Pricker from './Pricker';
 import PrickerWindow from './PrickerWindow';
 import { MbdPricker as Grandsire } from './grandsire';
-import { MbdPricker as Stedman } from './stedman';
+import { MbdPricker as Stedman, StedTurnPricker as StedTurn } from './stedman';
 
 describe('create function', () => {
 
@@ -67,6 +67,11 @@ describe('create function', () => {
             expect(pricker).toEqual(new Grandsire(iframe));
         });
 
+        it('can create a stedturn pricker if requested', () => {
+            pricker = create('element', { type: 'stedturn' }, parentDocument);
+            expect(pricker).toEqual(new StedTurn(iframe));
+        });
+
         it('creates an iframe to hold the pricker', () => {
             expect(Dom.createIframe).toHaveBeenCalledWith(parentDocument);
         });
@@ -104,6 +109,15 @@ describe('create function', () => {
                 parentDocument,
             );
             expect(pricker).toEqual(new Grandsire());
+        });
+
+        it('can create a stedturn pricker if requested', () => {
+            pricker = create(
+                'element',
+                { iframe: false, type: 'stedturn' },
+                parentDocument,
+            );
+            expect(pricker).toEqual(new StedTurn());
         });
 
         it('creates a style element and appends it to the document', () => {

@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import template from './create.dot';
@@ -11,7 +11,16 @@ import Options from './Options';
 import Pricker from './Pricker';
 import PrickerWindow from './PrickerWindow';
 import { MbdPricker as Grandsire } from './grandsire';
-import { MbdPricker as Stedman } from './stedman';
+import { MbdPricker as Stedman, StedTurnPricker as StedTurn } from './stedman';
+
+const PRICKER_MAP: Record<
+    string,
+    typeof Grandsire | typeof Stedman | typeof StedTurn
+> = {
+    grandsire: Grandsire,
+    stedman: Stedman,
+    stedturn: StedTurn,
+};
 
 /**
  * Factory function to create a pricker
@@ -32,9 +41,7 @@ const create = (
     }
 
     if (options.iframe === false) {
-        pricker = options.type === 'grandsire'
-            ? new Grandsire()
-            : new Stedman();
+        pricker = new PRICKER_MAP[options.type ?? 'stedman']();
 
         createAndAppendStyle(parentDocument, pricker.print('css'));
         element.innerHTML = pricker.print('html');
@@ -47,9 +54,7 @@ const create = (
         const iframe = createIframe(parentDocument);
         element.appendChild(iframe);
 
-        pricker = options.type === 'grandsire'
-            ? new Grandsire(iframe)
-            : new Stedman(iframe);
+        pricker = new PRICKER_MAP[options.type ?? 'stedman'](iframe);
 
         injectIframeData(iframe, template({ pricker }), { pricker });
     }
