@@ -8,7 +8,9 @@
 export { default as bellFromSymbol } from './bellFromSymbol';
 export { default as changeFromNotation } from './changeFromNotation';
 export { default as multiply } from './multiply';
+export { default as rankFromRow } from './rankFromRow';
 export { default as rounds } from './rounds';
+export { default as rowFromRank } from './rowFromRank';
 export { default as rowFromString } from './rowFromString';
 export { default as stringFromRow } from './stringFromRow';
 export { default as symbolFromBell } from './symbolFromBell';
