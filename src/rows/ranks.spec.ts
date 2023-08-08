@@ -9,6 +9,7 @@ import rankFromRow from './rankFromRow';
 import rowFromRank from './rowFromRank';
 import rowFromString from './rowFromString';
 import stringFromRow from './stringFromRow';
+import { Stage } from './types';
 
 const testCases: [string, number][] = [
     ['1234', 0],
@@ -66,6 +67,13 @@ describe('rowFromRank function', () => {
         it(`assembles row "${expected}" correctly from its rank`, () => {
             const row = rowFromRank(input, expected.length);
             expect(stringFromRow(row)).toBe(expected);
+        });
+    }
+
+    for (const rank of [-1, 5040, 9999]) {
+        it(`knows ${rank} is out of range`, () => {
+            expect(() => { rowFromRank(rank, Stage.Triples); })
+                .toThrowError(`Rank '${rank}' out of range on stage '7'`);
         });
     }
 });

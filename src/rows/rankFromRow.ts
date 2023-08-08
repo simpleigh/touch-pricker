@@ -7,31 +7,8 @@
  * written by Philip Saddleton.
  */
 
+import { FACTORIALS } from './constants';
 import { Row } from './types';
-
-/**
- * Lookup table mapping `n` to `n!`.
- */
-const FACTORIALS: Record<number, number> = {
-    /* eslint-disable @typescript-eslint/naming-convention, sort-keys */
-    1: 1,
-    2: 2,
-    3: 6,
-    4: 24,
-    5: 120,
-    6: 720,
-    7: 5040,
-    8: 40320,
-    9: 362880,
-    10: 3628800,
-    11: 39916800,
-    12: 479001600,
-    13: 6227020800,
-    14: 87178291200,
-    15: 1307674368000,
-    16: 20922789888000,
-    /* eslint-enable */
-};
 
 /**
  * Computes the rank of a {@link Row}.

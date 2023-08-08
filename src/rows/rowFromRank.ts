@@ -7,6 +7,7 @@
  * written by Philip Saddleton.
  */
 
+import { FACTORIALS } from './constants';
 import { Bell, MutableRow, Row, Stage } from './types';
 
 /**
@@ -23,6 +24,10 @@ import { Bell, MutableRow, Row, Stage } from './types';
  * ```
  */
 const rowFromRank = (rank: number, stage: Stage): Row => {
+    if (rank < 0 || rank >= FACTORIALS[stage]) {
+        throw new Error(`Rank '${rank}' out of range on stage '${stage}'`);
+    }
+
     const row: MutableRow = [];
 
     // Initial case: 1-bell row
