@@ -14,6 +14,8 @@
     <label for="stage">Number of bells:</label>
     <select id="stage" onchange="pricker.onStage()">
       <option selected value="{{= context.Stage.Triples }}">Triples</option>
+      <option value="{{= context.Stage.Caters }}">Caters</option>
+      <option value="{{= context.Stage.Cinques }}">Cinques</option>
     </select>
   </div>
   <div>
