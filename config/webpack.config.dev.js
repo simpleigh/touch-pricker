@@ -12,6 +12,10 @@ module.exports = merge(base, {
         open: ['/examples/mbd.html'],
         static: [
             {
+                directory: paths.dataDir,
+                publicPath: '/data/',
+            },
+            {
                 directory: paths.examplesDir,
                 publicPath: '/examples/',
             },

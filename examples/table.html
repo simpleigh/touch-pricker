@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test table downloading</title>
+    <script type="text/javascript" src="../dist/touch-pricker.js"></script>
+    <script type="text/javascript">
+        window.onload = async function () {
+            const table = await Pricker.Uint4Table.load(
+              Pricker.Stage.Triples,
+              '../data/stedman.7.dat',
+            );
+            console.log(table.stage);
+            console.log(table.getValue(0));
+            console.log(table.getValue(1));
+            console.log(table.getValue(5039));
+        };
+    </script>
+  </head>
+  <body>
+    <div id="pricker"></div>
+  </body>
+</html>

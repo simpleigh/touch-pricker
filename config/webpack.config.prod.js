@@ -20,17 +20,24 @@ module.exports = merge(base, {
             ],
         }),
         new CopyPlugin({
-            // Prepare examples for distribution
-            //
-            // Sources use the development bundle: swap this out for production.
-            //
-            //   ╔══════╦═════════════╤═════════════════╗
-            //   ║      ║ Development │ Production      ║
-            //   ╟──────╫─────────────┼─────────────────╢
-            //   ║ Base ║ /examples/  │ /dist/examples/ ║
-            //   ║ File ║ .js         │ .min.js         ║
-            //   ╚══════╩═════════════╧═════════════════╝
             patterns: [
+                // Data tables
+                {
+                    from: 'data',
+                    to: 'data',
+                },
+
+                // Prepare examples for distribution
+                //
+                // Sources use the development bundle: swap this out for
+                // production.
+                //
+                //   ╔══════╦═════════════╤═════════════════╗
+                //   ║      ║ Development │ Production      ║
+                //   ╟──────╫─────────────┼─────────────────╢
+                //   ║ Base ║ /examples/  │ /dist/examples/ ║
+                //   ║ File ║ .js         │ .min.js         ║
+                //   ╚══════╩═════════════╧═════════════════╝
                 {
                     from: 'examples',
                     to: 'examples',

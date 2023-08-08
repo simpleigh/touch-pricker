@@ -27,6 +27,7 @@ import {
     rowFromString,
     Stage,
     stringFromRow,
+    Uint4Table,
 } from './rows';
 import * as Stedman from './stedman';
 import * as Visitors from './visitors';
@@ -47,6 +48,7 @@ export {
     Stage,
     Stedman,
     stringFromRow,
+    Uint4Table,
     Visitors,
 };
 export type {

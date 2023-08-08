@@ -8,6 +8,11 @@ const path = require('path');
 const rootDir = path.resolve(__dirname, '..');
 
 /**
+ * Data tables
+ */
+const dataDir = path.join(rootDir, 'data');
+
+/**
  * Built resources for distribution
  */
 const distDir = path.join(rootDir, 'dist');
@@ -31,6 +36,7 @@ const testsDir = path.join(rootDir, 'tests');
 module.exports = {
     // Paths to directories
     rootDir,
+    dataDir,
     distDir,
     examplesDir,
     srcDir,
