@@ -6,22 +6,19 @@
  */
 
 import { rounds, Stage, Stedman } from '../../src';
-import toHaveTemplate from './toHaveTemplate';
 
 describe('toHaveTemplate matcher', () => {
-    const compare = toHaveTemplate({ } as jasmine.MatchersUtil).compare;
-
     it('fails for items that are not printable', () => {
-        expect(compare('string', 'template').pass).toBe(false);
+        expect('string').not.toHaveTemplate('template');
     });
 
     it('fails for objects without the expected template', () => {
         const course = new Stedman.Course(rounds(Stage.Cinques));
-        expect(compare(course, 'other').pass).toBe(false);
+        expect(course).not.toHaveTemplate('other');
     });
 
     it('passes where the template is present', () => {
         const course = new Stedman.Course(rounds(Stage.Cinques));
-        expect(compare(course, 'text').pass).toBe(true);
+        expect(course).toHaveTemplate('text');
     });
 });

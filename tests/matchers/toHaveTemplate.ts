@@ -8,31 +8,43 @@
 /*
 eslint-disable
 @typescript-eslint/no-explicit-any,
+@typescript-eslint/no-invalid-this,
 @typescript-eslint/no-unsafe-member-access,
 */
 
 import toBePrintable from './toBePrintable';
 
-const toHaveTemplate: jasmine.CustomMatcherFactory = (util) => ({
-    compare: (actual: any, expected: string) => {
-        const result: jasmine.CustomMatcherResult = { pass: false };
+const toHaveTemplate: jest.CustomMatcher = function toHaveTemplate(
+    actual: any,
+    expected: string,
+) {
+    const result: jest.CustomMatcherResult = {
+        message: () => (
+            `Expected object not to have ${this.utils.printReceived(
+                expected,
+            )} template`
+        ),
+        pass: false,
+    };
 
-        const { message, pass } = toBePrintable(util).compare(actual);
-        if (!pass) {
-            result.message = `Expected printable object\n${message ?? ''}`;
-            return result;
-        }
+    const print = toBePrintable.call(this, actual) as jest.CustomMatcherResult;
+    const { message, pass } = print;
+    if (!pass) {
+        result.message = () => `Expected printable object\n${message()}`;
+        return result;
+    }
 
-        if (!actual.templates[expected]) {
-            result.message = `Expected object to have ${expected} template`;
-            return result;
-        }
+    if (!actual.templates[expected]) {
+        result.message = () => (
+            `Expected object to have ${this.utils.printExpected(
+                expected,
+            )} template`
+        );
+        return result;
+    }
 
-        return {
-            message: `Expected object not to have ${expected} template`,
-            pass: true,
-        };
-    },
-});
+    result.pass = true;
+    return result;
+};
 
 export default toHaveTemplate;

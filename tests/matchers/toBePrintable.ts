@@ -8,50 +8,60 @@
 /*
 eslint-disable
 @typescript-eslint/no-explicit-any,
+@typescript-eslint/no-invalid-this,
 @typescript-eslint/no-unsafe-member-access,
 */
 
-const toBePrintable: jasmine.CustomMatcherFactory = () => ({
-    compare: (actual: any) => {
-        const result: jasmine.CustomMatcherResult = { pass: false };
+const toBePrintable: jest.CustomMatcher = function toBePrintable(actual: any) {
+    const result: jest.CustomMatcherResult = {
+        message: () => 'Expected object not to be printable',
+        pass: false,
+    };
 
-        if (typeof actual !== 'object') {
-            result.message = 'Expected an object';
+    if (typeof actual !== 'object' || actual === null) {
+        result.message = () => 'Expected an object';
+        return result;
+    }
+
+    if (!actual.print) {
+        result.message = () => 'Expected object to have a "print" property';
+        return result;
+    }
+
+    if (typeof actual.print !== 'function') {
+        result.message = () => (
+            `Expected object "print" property to be ${this.utils.printExpected(
+                'function',
+            )} not ${this.utils.printReceived(typeof actual.print)}`
+        );
+        return result;
+    }
+
+    if (!actual.templates) {
+        result.message = () => 'Expected object to have templates';
+        return result;
+    }
+
+    if (typeof actual.templates !== 'object') {
+        result.message = () => 'Expected object to have templates object';
+        return result;
+    }
+
+    for (const name in actual.templates) {
+        if (typeof actual.templates[name] !== 'function') {
+            result.message = () => (
+                `Expected "${name}" template to be ${this.utils.printExpected(
+                    'function',
+                )} not ${this.utils.printReceived(
+                    typeof actual.templates[name],
+                )}`
+            );
             return result;
         }
+    }
 
-        if (!actual.print) {
-            result.message = 'Expected object to have a print property';
-            return result;
-        }
-
-        if (typeof actual.print !== 'function') {
-            result.message = 'Expect object print property to be a function';
-            return result;
-        }
-
-        if (!actual.templates) {
-            result.message = 'Expected object to have templates';
-            return result;
-        }
-
-        if (typeof actual.templates !== 'object') {
-            result.message = 'Expected object to have templates';
-            return result;
-        }
-
-        for (const name in actual.templates) {
-            if (typeof actual.templates[name] !== 'function') {
-                result.message = `Expected ${name} template to be a function`;
-                return result;
-            }
-        }
-
-        return {
-            message: 'Expected object not to be printable',
-            pass: true,
-        };
-    },
-});
+    result.pass = true;
+    return result;
+};
 
 export default toBePrintable;
