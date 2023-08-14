@@ -10,6 +10,7 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
     setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
+    testEnvironment: 'jsdom',
     transform: {
         '^.+\\.dot$': './dotTransformer.js',
         '^.+\\.ts$': 'ts-jest',
