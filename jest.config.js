@@ -9,6 +9,11 @@
 
 /** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
+    collectCoverage: true,
+    collectCoverageFrom: [
+        'src/**/*.ts',
+        '!src/**/test*.ts',
+    ],
     setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
     testEnvironment: 'jsdom',
     transform: {
