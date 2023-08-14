@@ -2,22 +2,21 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { Call } from '../../../leads';
-import {
-    testAbstractLeadImplementation,
-} from '../../../leads/AbstractLead.spec';
+import testAbstractLeadImplementation from
+    '../../../leads/testAbstractLeadImplementation';
 import { MutableRow, rounds, Row, rowFromString, Stage } from '../../../rows';
 import { StringArray } from '../../../visitors';
 import * as Changes from '../../changes';
 import SixType from '../../SixType';
-import { testMbdAbstractSixTemplate } from './mbd.spec';
-import { testSirilAbstractSixTemplate } from './siril.spec';
+import testMbdAbstractSixTemplate from './testMbdAbstractSixTemplate';
+import testSirilAbstractSixTemplate from './testSirilAbstractSixTemplate';
 import AbstractSix from '.';
 
-export const testSixImplementation = (
+const testSixImplementation = (
     factory: (initialRow: Row) => AbstractSix,
     testCases: [string, string, Stage, Call][],
     rowTests: [Stage, ...string[]][],
@@ -25,19 +24,13 @@ export const testSixImplementation = (
     notation: string[],
     notationStringTests: string[],
 ): void => {
-
-    testAbstractLeadImplementation(
-        Stage.Cinques,
-        factory,
-        testCases,
-        [
-            [Stage.Triples,   notation.length + 1],
-            [Stage.Caters,    notation.length + 1],
-            [Stage.Cinques,   notation.length + 1],
-            [Stage.Sextuples, notation.length + 1],
-            [Stage.Septuples, notation.length + 1],
-        ],
-    );
+    testAbstractLeadImplementation(Stage.Cinques, factory, testCases, [
+        [Stage.Triples, notation.length + 1],
+        [Stage.Caters, notation.length + 1],
+        [Stage.Cinques, notation.length + 1],
+        [Stage.Sextuples, notation.length + 1],
+        [Stage.Septuples, notation.length + 1],
+    ]);
 
     it('has the expected type', () => {
         const six = factory(rounds(Stage.Cinques));
@@ -68,8 +61,8 @@ export const testSixImplementation = (
 
     it('generates the correct rows when visited', () => {
         for (const rowTest of rowTests) {
-            const initialRow = rounds(rowTest[0]);              // Stage ...
-            const expectedRows = rowTest.slice(1) as string[];  // and test rows
+            const initialRow = rounds(rowTest[0]); // Stage ...
+            const expectedRows = rowTest.slice(1) as string[]; // and test rows
             const six = factory(initialRow);
             const visitor = new StringArray();
 
@@ -80,7 +73,6 @@ export const testSixImplementation = (
     });
 
     describe('is derived from AbstractSix and', () => {
-
         testMbdAbstractSixTemplate(factory);
         testSirilAbstractSixTemplate(factory);
 
@@ -89,7 +81,7 @@ export const testSixImplementation = (
             const getFirst = six.getFirst() as MutableRow;
             const getFirstBackup = getFirst.slice();
 
-            getFirst[3] = 16;  // Mutate the getFirst result
+            getFirst[3] = 16; // Mutate the getFirst result
             expect(getFirst).not.toEqual(getFirstBackup);
 
             expect(six.getFirst()).not.toEqual(getFirst);
@@ -107,7 +99,7 @@ export const testSixImplementation = (
         it('has a template for Siril output', () => {
             expect(factory(rounds(Stage.Cinques))).toHaveTemplate('siril');
         });
-
     });
-
 };
+
+export default testSixImplementation;

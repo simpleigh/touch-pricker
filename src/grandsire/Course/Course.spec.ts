@@ -2,18 +2,17 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import {
-    testAbstractCourseImplementation,
-} from '../../leads/AbstractCourse/AbstractCourse.spec';
+import testAbstractCourseImplementation from
+    '../../leads/AbstractCourse/testAbstractCourseImplementation';
 import { rounds, Stage, stringFromRow } from '../../rows';
 import { StringArray } from '../../visitors';
+import Parser from '../Parser';
 import Course from '.';
 
 describe('Grandsire Course class', () => {
-
     testAbstractCourseImplementation(
         Stage.Doubles,
         (initialRow) => new Course(initialRow),
@@ -103,8 +102,9 @@ describe('Grandsire Course class', () => {
         it(`calculates lead heads correctly for a course on ${stage}`, () => {
             course = new Course(rounds(stage));
             for (let index = 1; index <= course.length; index += 1) {
-                expect(stringFromRow(course.getBlock(index).getLast()))
-                    .toBe(expectedLeadHeads[index]);
+                expect(stringFromRow(course.getBlock(index).getLast())).toBe(
+                    expectedLeadHeads[index],
+                );
             }
         });
     }
@@ -125,7 +125,8 @@ describe('Grandsire Course class', () => {
     });
 
     it('passes strings to a parser for loading', () => {
-        const parser = jasmine.createSpyObj('Parser', ['parseCourse']);
+        const parser = new Parser();
+        jest.spyOn(parser, 'parseCourse').mockReturnValue(course);
         const testRow = rounds(Stage.Doubles);
 
         Course.fromString(testRow, 'test', parser);
@@ -135,13 +136,12 @@ describe('Grandsire Course class', () => {
     });
 
     it('returns the parsed result', () => {
-        const parser = jasmine.createSpyObj('Parser', ['parseCourse']);
-        parser.parseCourse.and.returnValue(course);
+        const parser = new Parser();
+        jest.spyOn(parser, 'parseCourse').mockReturnValue(course);
         const testRow = rounds(Stage.Doubles);
 
         const result = Course.fromString(testRow, 'test', parser);
 
         expect(result).toBe(course);
     });
-
 });

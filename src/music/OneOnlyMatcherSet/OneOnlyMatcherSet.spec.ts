@@ -1,10 +1,17 @@
-import { testAbstractMatcherImplementation } from '../AbstractMatcher.spec';
+/**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
+ */
+
+import testAbstractMatcherImplementation from
+    '../testAbstractMatcherImplementation';
 import MatchType from '../MatchType';
 import Pattern from '../Pattern';
 import OneOnlyMatcherSet from '.';
 
 describe('OneOnlyMatcherSet', () => {
-
     let matchers: Pattern[];
 
     let set: OneOnlyMatcherSet;
@@ -59,5 +66,4 @@ describe('OneOnlyMatcherSet', () => {
     testAbstractMatcherImplementation(
         () => new OneOnlyMatcherSet([new Pattern('890E')]),
     );
-
 });

@@ -2,16 +2,16 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { Course, Touch } from '../blocks/testBlocks.spec';
+import { Course, Touch } from '../blocks/testBlocks';
 import { rowFromString, Stage } from '../rows';
-import { testAbstractVisitorImplementation } from './AbstractVisitor.spec';
+import testAbstractVisitorImplementation from
+    './testAbstractVisitorImplementation';
 import Proof from './Proof';
 
 describe('Proof visitor', () => {
-
     const testRow = rowFromString('2143', Stage.Minimus);
 
     const createTestCourse = (): Course => {
@@ -35,7 +35,7 @@ describe('Proof visitor', () => {
     });
 
     it('has a dictionary of row counts that starts empty', () => {
-        expect(visitor.getRowCounts()).toEqual({ });
+        expect(visitor.getRowCounts()).toEqual({});
     });
 
     it('accumulates counts when it visits a row', () => {
@@ -57,10 +57,10 @@ describe('Proof visitor', () => {
     it('ignores changes to the result', () => {
         const getRowCounts = visitor.getRowCounts();
 
-        getRowCounts['4321'] = 5;  // Mutate the getRows result
+        getRowCounts['4321'] = 5; // Mutate the getRows result
 
         expect(visitor.getRowCounts()).not.toEqual(getRowCounts);
-        expect(visitor.getRowCounts()).toEqual({ });
+        expect(visitor.getRowCounts()).toEqual({});
     });
 
     it('starts out true', () => {
@@ -86,16 +86,18 @@ describe('Proof visitor', () => {
         visitor.visit(testRow);
         visitor.visit(testRow, touch.getBlock(1).getBlock(3));
 
-        expect(visitor.directory.contains(touch.getBlock(1).getBlock(3)))
-            .toBe(true);
+        expect(visitor.directory.contains(touch.getBlock(1).getBlock(3))).toBe(
+            true,
+        );
     });
 
     it('adds old blocks now found to be false to the directory', () => {
         visitor.visit(testRow, touch.getBlock(1).getBlock(3));
         visitor.visit(testRow);
 
-        expect(visitor.directory.contains(touch.getBlock(1).getBlock(3)))
-            .toBe(true);
+        expect(visitor.directory.contains(touch.getBlock(1).getBlock(3))).toBe(
+            true,
+        );
     });
 
     it('can handle multiple false blocks', () => {
@@ -123,5 +125,4 @@ describe('Proof visitor', () => {
         () => new Proof(),
         (testVisitor) => (testVisitor as Proof).getRowCounts(),
     );
-
 });

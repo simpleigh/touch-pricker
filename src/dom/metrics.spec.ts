@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { getHeight, getWidth } from './metrics';
@@ -13,7 +13,7 @@ const testMetricImplementation = (
     firstMargin: string,
     secondMargin: string,
 ) => {
-    const element = { } as HTMLElement;
+    const element = {} as HTMLElement;
 
     const setupMetrics = (
         elementMetricValue: number,
@@ -27,7 +27,7 @@ const testMetricImplementation = (
             [secondMargin]: secondMarginValue,
         } as unknown as CSSStyleDeclaration;
 
-        spyOn(window, 'getComputedStyle').and.returnValue(styles);
+        jest.spyOn(window, 'getComputedStyle').mockReturnValue(styles);
     };
 
     it('adds one to the total', () => {
@@ -54,7 +54,6 @@ const testMetricImplementation = (
         setupMetrics(0, '1px', '1px');
         expect(metricFunction(element)).toBe(5);
     });
-
 };
 
 describe('getWidth DOM utility', () => {

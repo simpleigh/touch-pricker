@@ -2,19 +2,19 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { rounds, Row, Stage } from '../rows';
 import Call from './Call';
 import LeadBasedParser from './LeadBasedParser';
-import { Course, Touch } from './testBlocks.spec';
+import { Course, Touch } from './testBlocks';
 
 class TestParser extends LeadBasedParser<Course, Touch> {
 
-    public readonly createCourseSpy: jasmine.Spy =
-        jasmine.createSpy('createTouch')
-            .and.callFake((initialRow) => new Course(initialRow));
+    public readonly createCourseSpy = jest.fn(
+        (initialRow) => new Course(initialRow),
+    );
 
     protected createTouch(initialRow: Row): Touch {
         return new Touch(initialRow);
@@ -27,7 +27,6 @@ class TestParser extends LeadBasedParser<Course, Touch> {
 }
 
 describe('LeadBasedParser class', () => {
-
     let parser: TestParser;
 
     beforeEach(() => {
@@ -46,20 +45,22 @@ describe('LeadBasedParser class', () => {
     it('returns the parsed course', () => {
         const initialRow = rounds(Stage.Minor);
         const course = new Course(initialRow);
-        parser.createCourseSpy.and.returnValue(course);
+        parser.createCourseSpy.mockReturnValue(course);
 
         expect(parser.parseCourse(initialRow, '1')).toBe(course);
     });
 
     it('uses `parseCourse` to parse lines for a touch', () => {
-        spyOn(parser, 'parseCourse');
+        jest.spyOn(parser, 'parseCourse');
 
         parser.parseTouch('1234\n1');
 
         expect(parser.parseCourse).toHaveBeenCalled();
         expect(parser.parseCourse).toHaveBeenCalledTimes(1);
-        expect(parser.parseCourse)
-            .toHaveBeenCalledWith(rounds(Stage.Minimus), '1');
+        expect(parser.parseCourse).toHaveBeenCalledWith(
+            rounds(Stage.Minimus),
+            '1',
+        );
     });
 
     const testParse = (
@@ -216,8 +217,8 @@ describe('LeadBasedParser class', () => {
     );
 
     it('throws if a course cannot be parsed', () => {
-        expect(() => parser.parseCourse(rounds(Stage.Minor), 'garbage'))
-            .toThrowError("Cannot import course from line 'garbage'");
+        expect(() => {
+            parser.parseCourse(rounds(Stage.Minor), 'garbage');
+        }).toThrowError("Cannot import course from line 'garbage'");
     });
-
 });

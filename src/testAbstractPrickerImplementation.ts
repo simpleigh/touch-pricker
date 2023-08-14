@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import AbstractPricker from './AbstractPricker';
@@ -11,12 +11,10 @@ import AbstractPricker from './AbstractPricker';
  * Tests that a pricker behaves as an AbstractPricker
  * @param TestPricker  pricker under test
  */
-export const testAbstractPrickerImplementation = (
+const testAbstractPrickerImplementation = (
     TestPricker: new() => AbstractPricker,
 ): void => {
-
     describe('is derived from AbstractPricker and', () => {
-
         const pricker = new TestPricker();
 
         it('is printable', () => {
@@ -38,7 +36,7 @@ export const testAbstractPrickerImplementation = (
         it('prints as HTML without error', () => {
             expect(pricker.print('html').length).toBeGreaterThanOrEqual(1);
         });
-
     });
-
 };
+
+export default testAbstractPrickerImplementation;

@@ -27,15 +27,11 @@ jobs:
         run: yarn lint
 
       - name: Test
-        env:
-            LISTEN_ADDR: '::'
-        run: yarn test --single-run
+        run: yarn test --ci
 
       - name: Publish test coverage
         # https://github.com/codecov/codecov-action
         uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Build docs
         run: yarn typedoc

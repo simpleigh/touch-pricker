@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { stringFromRow } from '../rows';
@@ -10,10 +10,9 @@ import { Context } from './types';
 import * as Templates from '.';
 
 describe('Printable implementation', () => {
-
     const templates = {
-        templateOne: jasmine.createSpy().and.returnValue('one'),
-        templateTwo: jasmine.createSpy().and.returnValue('two'),
+        templateOne: jest.fn().mockReturnValue('one'),
+        templateTwo: jest.fn().mockReturnValue('two'),
     };
 
     @Templates.makePrintable(templates, { compile: 'compile-time context' })
@@ -26,13 +25,12 @@ describe('Printable implementation', () => {
     let printable: Printable;
 
     beforeEach(() => {
-        templates.templateOne.calls.reset();
-        templates.templateTwo.calls.reset();
+        templates.templateOne.mockClear();
+        templates.templateTwo.mockClear();
         printable = new Printable();
     });
 
-    const getLastContext = () =>
-        templates.templateOne.calls.mostRecent().args[0];
+    const getLastContext = () => templates.templateOne.mock.lastCall[0];
 
     it('calls the correct template', () => {
         printable.print('templateOne');
@@ -80,9 +78,8 @@ describe('Printable implementation', () => {
     });
 
     it('leaves the passed context unchanged', () => {
-        const context: Context = { };
+        const context: Context = {};
         printable.print('templateTwo');
-        expect(context).toEqual({ });
+        expect(context).toEqual({});
     });
-
 });

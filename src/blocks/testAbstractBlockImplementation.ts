@@ -2,13 +2,26 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { MutableRow, rounds, Row, rowFromString, Stage } from '../rows';
-import { Counter } from '../visitors';
+import { AbstractVisitor, Counter } from '../visitors';
 import AbstractBlock from './AbstractBlock';
 import AbstractContainer from './AbstractContainer';
+
+class Container extends AbstractContainer<AbstractBlock> {}
+
+class Visitor extends AbstractVisitor {
+
+    protected override visitImplementation(
+        row: Row,
+        block?: AbstractBlock,
+    ): void {
+        // NOOP
+    }
+
+}
 
 /**
  * Tests that a block behaves as an AbstractBlock
@@ -17,15 +30,13 @@ import AbstractContainer from './AbstractContainer';
  * @param lengthTestCases      testcases for the length of the block
  * @param triggerNotification  fn that triggers the block to notify its parent
  */
-export const testAbstractBlockImplementation = (
+const testAbstractBlockImplementation = (
     testStage: Stage,
     factory: (initialRow: Row) => AbstractBlock,
     lengthTestCases: [Stage, number][],
     triggerNotification: (block: AbstractBlock) => unknown,
 ): void => {
-
     describe('is derived from AbstractBlock and', () => {
-
         let block: AbstractBlock;
 
         beforeEach(() => {
@@ -47,7 +58,7 @@ export const testAbstractBlockImplementation = (
             const expected = rounds(testStage);
             block = factory(initialRow);
 
-            initialRow[3] = 16;  // Mutate the initial row
+            initialRow[3] = 16; // Mutate the initial row
             expect(initialRow).not.toEqual(expected);
 
             expect(block.initialRow).not.toEqual(initialRow);
@@ -58,7 +69,7 @@ export const testAbstractBlockImplementation = (
             const initialRow = block.initialRow as MutableRow;
             const expected = block.initialRow.slice();
 
-            initialRow[3] = 16;  // Mutate the initialRow result
+            initialRow[3] = 16; // Mutate the initialRow result
             expect(initialRow).not.toEqual(expected);
 
             expect(block.initialRow).not.toEqual(initialRow);
@@ -70,7 +81,7 @@ export const testAbstractBlockImplementation = (
             const expected = initialRow.slice();
 
             block.initialRow = initialRow;
-            initialRow[3] = 16;  // Mutate the initialRow argument
+            initialRow[3] = 16; // Mutate the initialRow argument
             expect(initialRow).not.toEqual(expected);
 
             expect(block.initialRow).not.toEqual(initialRow);
@@ -91,7 +102,7 @@ export const testAbstractBlockImplementation = (
             const getLast = block.getLast() as MutableRow;
             const expected = getLast.slice();
 
-            getLast[3] = 16;  // Mutate the getLast result
+            getLast[3] = 16; // Mutate the getLast result
             expect(getLast).not.toEqual(expected);
 
             expect(block.getLast()).not.toEqual(getLast);
@@ -116,8 +127,7 @@ export const testAbstractBlockImplementation = (
         });
 
         it('can be attached to a parent', () => {
-            const container: AbstractContainer<AbstractBlock> =
-                jasmine.createSpyObj('AbstractContainer', ['notify']);
+            const container = new Container(block.initialRow);
             block = factory(rounds(testStage));
 
             block.ownership = { container, index: 999 };
@@ -127,10 +137,8 @@ export const testAbstractBlockImplementation = (
         });
 
         it('can be attached to a new parent', () => {
-            const containerOld: AbstractContainer<AbstractBlock> =
-                jasmine.createSpyObj('AbstractContainer', ['notify']);
-            const containerNew: AbstractContainer<AbstractBlock> =
-                jasmine.createSpyObj('AbstractContainer', ['notify']);
+            const containerOld = new Container(block.initialRow);
+            const containerNew = new Container(block.initialRow);
             block.ownership = { container: containerOld, index: 999 };
 
             block.ownership = { container: containerNew, index: 998 };
@@ -140,8 +148,7 @@ export const testAbstractBlockImplementation = (
         });
 
         it('can be detached from a parent', () => {
-            const container: AbstractContainer<AbstractBlock> =
-                jasmine.createSpyObj('AbstractContainer', ['notify']);
+            const container = new Container(block.initialRow);
             block = factory(rounds(testStage));
             block.ownership = { container, index: 999 };
 
@@ -152,8 +159,8 @@ export const testAbstractBlockImplementation = (
         });
 
         it('notifies the parent container', () => {
-            const container: AbstractContainer<AbstractBlock> =
-                jasmine.createSpyObj('AbstractContainer', ['notify']);
+            const container = new Container(block.initialRow);
+            jest.spyOn(container, 'notify');
             block.ownership = { container, index: 999 };
 
             triggerNotification(block);
@@ -162,8 +169,8 @@ export const testAbstractBlockImplementation = (
         });
 
         it('does not notify when the initial row changes', () => {
-            const container: AbstractContainer<AbstractBlock> =
-                jasmine.createSpyObj('AbstractContainer', ['notify']);
+            const container = new Container(block.initialRow);
+            jest.spyOn(container, 'notify');
             block.ownership = { container, index: 999 };
 
             block.initialRow = rounds(testStage);
@@ -172,19 +179,23 @@ export const testAbstractBlockImplementation = (
         });
 
         it('calls a visitor in order to traverse rows', () => {
-            const visitor = jasmine.createSpyObj('AbstractVisitor', ['visit']);
+            const visitor = new Visitor();
+            jest.spyOn(visitor, 'visit');
             block.accept(visitor);
             expect(visitor.visit).toHaveBeenCalled();
         });
 
         it('calls a visitor with each row', () => {
-            const visitor = jasmine.createSpyObj('AbstractVisitor', ['visit']);
+            const visitor = new Visitor();
+            jest.spyOn(visitor, 'visit');
             block.accept(visitor);
-            expect(visitor.visit.calls.count()).toBeGreaterThan(0);
+            expect(
+                (visitor.visit as jest.Mock).mock.calls.length,
+            ).toBeGreaterThan(0);
         });
 
         it('returns this when receiving a visitor', () => {
-            const visitor = new Counter();
+            const visitor = new Visitor();
             expect(block.accept(visitor)).toBe(block);
         });
 
@@ -196,7 +207,7 @@ export const testAbstractBlockImplementation = (
             expect(visitor2.count).toBeGreaterThan(0);
             expect(visitor1.count).toEqual(visitor2.count);
         });
-
     });
-
 };
+
+export default testAbstractBlockImplementation;

@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import AbstractMatcher from './AbstractMatcher';
@@ -11,12 +11,10 @@ import AbstractMatcher from './AbstractMatcher';
  * Tests that a matcher behaves appropriately
  * @param createFn  function to create the matcher under test
  */
-export const testAbstractMatcherImplementation = (
+const testAbstractMatcherImplementation = (
     createFn: () => AbstractMatcher,
 ): void => {
-
     describe('is derived from AbstractMatcher and', () => {
-
         let matcher: AbstractMatcher;
 
         beforeEach(() => {
@@ -51,7 +49,7 @@ export const testAbstractMatcherImplementation = (
         it('is printable as text', () => {
             expect(matcher).toHaveTemplate('text');
         });
-
     });
-
 };
+
+export default testAbstractMatcherImplementation;

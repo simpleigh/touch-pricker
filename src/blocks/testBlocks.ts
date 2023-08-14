@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { Row } from '../rows';
@@ -12,13 +12,19 @@ import SerialContainer from './SerialContainer';
 
 export class Lead extends AbstractBlock {
 
-    protected calculate(): void { /* NOOP */ }
+    protected calculate(): void {
+        // NOOP
+    }
 
-    public getLast(): Row { return this._initialRow; }
+    public getLast(): Row {
+        return this._initialRow;
+    }
 
     public readonly rows: number = 0;
 
-    public accept(): this { return this; }
+    public accept(): this {
+        return this;
+    }
 
 }
 
@@ -34,4 +40,4 @@ export class Course extends SerialContainer<Lead> {
 
 }
 
-export class Touch extends RandomAccessContainer<Course> { }
+export class Touch extends RandomAccessContainer<Course> {}

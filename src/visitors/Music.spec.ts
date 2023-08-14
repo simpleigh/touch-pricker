@@ -2,17 +2,27 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { Course, Touch } from '../blocks/testBlocks.spec';
+import { Course, Touch } from '../blocks/testBlocks';
 import { AbstractMatcher, MbdScheme } from '../music';
 import { rounds, rowFromString, Stage } from '../rows';
-import { testAbstractVisitorImplementation } from './AbstractVisitor.spec';
+import testAbstractVisitorImplementation from
+    './testAbstractVisitorImplementation';
 import Music from './Music';
 
-describe('Music visitor', () => {
+class TestMatcher extends AbstractMatcher {
 
+    public match(row: string): boolean {
+        return true;
+    }
+
+    public readonly matchCount: number = 0;
+
+}
+
+describe('Music visitor', () => {
     const testRow = rowFromString('2143', Stage.Minimus);
 
     const createTestCourse = (): Course => {
@@ -21,7 +31,7 @@ describe('Music visitor', () => {
         return course;
     };
 
-    let matcher: jasmine.SpyObj<AbstractMatcher>;
+    let matcher: TestMatcher;
 
     let visitor: Music;
 
@@ -34,7 +44,8 @@ describe('Music visitor', () => {
     });
 
     beforeEach(() => {
-        matcher = jasmine.createSpyObj('AbstractMatcher', ['match']);
+        matcher = new TestMatcher();
+        jest.spyOn(matcher, 'match');
         visitor = new Music(matcher);
     });
 
@@ -57,7 +68,7 @@ describe('Music visitor', () => {
     });
 
     it('adds matched blocks to the directory', () => {
-        matcher.match.and.returnValue(true);
+        (matcher.match as jest.Mock).mockReturnValue(true);
 
         visitor.visit(testRow, touch.getBlock(1).getBlock(3));
         expect(visitor.directory.contains(touch.getBlock(1).getBlock(3)))
@@ -65,7 +76,7 @@ describe('Music visitor', () => {
     });
 
     it('does not add unmatched blocks to the directory', () => {
-        matcher.match.and.returnValue(false);
+        (matcher.match as jest.Mock).mockReturnValue(false);
 
         visitor.visit(testRow, touch.getBlock(1).getBlock(3));
         expect(visitor.directory.contains(touch.getBlock(1).getBlock(3)))
@@ -76,5 +87,4 @@ describe('Music visitor', () => {
         () => new Music(new MbdScheme(Stage.Cinques)),
         (testVisitor) => (testVisitor as Music).matcher.matchCount,
     );
-
 });

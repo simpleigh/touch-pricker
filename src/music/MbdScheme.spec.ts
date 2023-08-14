@@ -2,19 +2,16 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 /* eslint-disable max-len */
 
 import { Stage as S } from '../rows';
-import {
-    testAbstractSchemeImplementation,
-} from './AbstractScheme/AbstractScheme.spec';
+import testAbstractSchemeImplementation from './AbstractScheme/testAbstractSchemeImplementation';
 import MbdScheme from './MbdScheme';
 
 describe('Mbd music scheme', () => {
-
     testAbstractSchemeImplementation(
         (stage: S = S.Cinques) => new MbdScheme(stage),
         [
@@ -288,5 +285,4 @@ describe('Mbd music scheme', () => {
             [S.Septuples, '2143658709ECBAT', 1, '1 reverse rollups (1 CBAT)\n'],
         ],
     );
-
 });

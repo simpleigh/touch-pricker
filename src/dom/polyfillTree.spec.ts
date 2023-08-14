@@ -2,15 +2,18 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import {
-    testPassedToHandleTouchEvents,
-} from './elementPolyfills/handleTouchEvents.spec';
 import polyfillTree from './polyfillTree';
+import handleTouchEvents from './elementPolyfills/handleTouchEvents';
+
+jest.mock('./elementPolyfills/handleTouchEvents.ts');
 
 describe('polyfillTree DOM utility', () => {
+    beforeEach(() => {
+        (handleTouchEvents as jest.Mock).mockClear();
+    });
 
     /**
      * Helper to create and append a child element
@@ -28,7 +31,7 @@ describe('polyfillTree DOM utility', () => {
 
         polyfillTree(parent);
 
-        testPassedToHandleTouchEvents(child);
+        expect(handleTouchEvents).toHaveBeenCalledWith(child);
     });
 
     it('processes multiple clickable children', () => {
@@ -38,8 +41,8 @@ describe('polyfillTree DOM utility', () => {
 
         polyfillTree(parent);
 
-        testPassedToHandleTouchEvents(child1);
-        testPassedToHandleTouchEvents(child2);
+        expect(handleTouchEvents).toHaveBeenCalledWith(child1);
+        expect(handleTouchEvents).toHaveBeenCalledWith(child2);
     });
 
     it('ignores non-clickable children', () => {
@@ -51,8 +54,7 @@ describe('polyfillTree DOM utility', () => {
 
         polyfillTree(parent);
 
-        testPassedToHandleTouchEvents(child1);
-        testPassedToHandleTouchEvents(child2, true);
+        expect(handleTouchEvents).toHaveBeenCalledWith(child1);
+        expect(handleTouchEvents).not.toHaveBeenCalledWith(child2);
     });
-
 });

@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import create from './create';
@@ -13,45 +13,31 @@ import PrickerWindow from './PrickerWindow';
 import { MbdPricker as Grandsire } from './grandsire';
 import { MbdPricker as Stedman, StedTurnPricker as StedTurn } from './stedman';
 
-describe('create function', () => {
+jest.mock('./dom');
 
-    let parentDocument: jasmine.SpyObj<Document>;
-    let element: jasmine.SpyObj<HTMLDivElement>;
+describe('create function', () => {
+    let parentDocument: Document;
+    let element: HTMLElement;
     const iframe = { } as HTMLIFrameElement;
 
     beforeEach(() => {
-        parentDocument = jasmine.createSpyObj<Document>(
-            'Document',
-            ['getElementById'],
-        );
-        element = jasmine.createSpyObj<HTMLDivElement>(
-            'HTMLDivElement',
-            ['appendChild'],
-        );
-
-        const createAndAppendStyle = jasmine.createSpy('createAndAppendStyle');
-        const createIframe = jasmine.createSpy('createIframe');
-        const injectIframeData = jasmine.createSpy('injectIframeData');
-
-        spyOnProperty(Dom, 'createAndAppendStyle')
-            .and.returnValue(createAndAppendStyle);
-        spyOnProperty(Dom, 'createIframe')
-            .and.returnValue(createIframe);
-        spyOnProperty(Dom, 'injectIframeData')
-            .and.returnValue(injectIframeData);
-
-        parentDocument.getElementById.and.returnValue(element);
-        createIframe.and.returnValue(iframe);
+        element = {
+            appendChild: jest.fn(),
+        } as unknown as HTMLElement;
+        parentDocument = {
+            getElementById: jest.fn().mockReturnValue(element),
+        } as unknown as Document;
+        (Dom.createIframe as jest.Mock).mockReturnValue(iframe);
     });
 
     it('throws an error if the element is not found', () => {
-        parentDocument.getElementById.and.returnValue(null);
+        (parentDocument.getElementById as jest.Mock)
+            .mockReturnValue(null);
         expect(() => create('element', { }, parentDocument))
             .toThrowError("Cannot find HTML element: 'element'");
     });
 
     describe('creates an iframe to host the pricker', () => {
-
         let pricker: Pricker;
 
         beforeEach(() => {
@@ -87,11 +73,9 @@ describe('create function', () => {
                 { pricker },
             );
         });
-
     });
 
     describe('appends the pricker to an element if requested', () => {
-
         let pricker: Pricker;
 
         beforeEach(() => {
@@ -132,7 +116,5 @@ describe('create function', () => {
         it('stores the pricker object globally', () => {
             expect((window as PrickerWindow).pricker).toBe(pricker);
         });
-
     });
-
 });

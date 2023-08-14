@@ -2,16 +2,19 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { rounds, Row, Stage } from '../rows';
 import AbstractBlock from './AbstractBlock';
 import AbstractContainer from './AbstractContainer';
-import { testAbstractContainerImplementation } from './AbstractContainer.spec';
+import testAbstractContainerImplementation from
+    './testAbstractContainerImplementation';
 import SerialContainer from './SerialContainer';
 
 type TestContainer = SerialContainer<AbstractBlock>;
+
+class ParentContainer extends AbstractContainer<TestContainer> {}
 
 /**
  * Tests that a container behaves as a SerialContainer
@@ -21,14 +24,13 @@ type TestContainer = SerialContainer<AbstractBlock>;
  * @param expectedLength   number of blocks expected in this container
  * @param lengthTestCases  expected lengths and rows for each stage
  */
-export const testSerialContainerImplementation = (
+const testSerialContainerImplementation = (
     testStage: Stage,
     factory: (initialRow: Row) => TestContainer,
     expectedRows: number,
     expectedLength: number,
     lengthTestCases: [Stage, number, number][],
 ): void => {
-
     describe('is derived from SerialContainer and', () => {
 
         /**
@@ -74,8 +76,9 @@ export const testSerialContainerImplementation = (
         it('recalculates last row when increasing length', () => {
             container.setLength(expectedLength + 1);
             expect(container.getLast()).not.toEqual(rounds(testStage));
-            expect(container.getLast())
-                .toEqual(container.getBlock(expectedLength + 1).getLast());
+            expect(container.getLast()).toEqual(
+                container.getBlock(expectedLength + 1).getLast(),
+            );
         });
 
         it('allows the length to be decreased', () => {
@@ -86,8 +89,9 @@ export const testSerialContainerImplementation = (
         it('recalculates last row when decreasing length', () => {
             container.setLength(expectedLength - 1);
             expect(container.getLast()).not.toEqual(rounds(testStage));
-            expect(container.getLast())
-                .toEqual(container.getBlock(expectedLength - 1).getLast());
+            expect(container.getLast()).toEqual(
+                container.getBlock(expectedLength - 1).getLast(),
+            );
         });
 
         it('returns this when setting the length', () => {
@@ -95,8 +99,9 @@ export const testSerialContainerImplementation = (
         });
 
         it('throws an exception when setting invalid lengths', () => {
-            expect(() => container.setLength(-1))
-                .toThrowError("Length must be > 0 (was '-1')");
+            expect(() => container.setLength(-1)).toThrowError(
+                "Length must be > 0 (was '-1')",
+            );
         });
 
         it('sets the ownership of blocks correctly', () => {
@@ -123,8 +128,8 @@ export const testSerialContainerImplementation = (
         });
 
         it('notifies the parent container for length increase', () => {
-            const parent: AbstractContainer<TestContainer> =
-                jasmine.createSpyObj('AbstractContainer', ['notify']);
+            const parent = new ParentContainer(container.initialRow);
+            jest.spyOn(parent, 'notify');
             // set this after creation to avoid spurious notifications
             container.ownership = { container: parent, index: 999 };
 
@@ -136,8 +141,8 @@ export const testSerialContainerImplementation = (
         });
 
         it('notifies the parent container for length decrease', () => {
-            const parent: AbstractContainer<TestContainer> =
-                jasmine.createSpyObj('AbstractContainer', ['notify']);
+            const parent = new ParentContainer(container.initialRow);
+            jest.spyOn(parent, 'notify');
             // set this after creation to avoid spurious notifications
             container.ownership = { container: parent, index: 999 };
 
@@ -153,8 +158,8 @@ export const testSerialContainerImplementation = (
         });
 
         it('notifies the parent container when resetting the length', () => {
-            const parent: AbstractContainer<TestContainer> =
-                jasmine.createSpyObj('AbstractContainer', ['notify']);
+            const parent = new ParentContainer(container.initialRow);
+            jest.spyOn(parent, 'notify');
             // set this after creation to avoid spurious notifications
             container.ownership = { container: parent, index: 999 };
 
@@ -164,7 +169,7 @@ export const testSerialContainerImplementation = (
             expect(parent.notify).toHaveBeenCalledWith(999);
             expect(parent.notify).toHaveBeenCalledTimes(1);
         });
-
     });
-
 };
+
+export default testSerialContainerImplementation;

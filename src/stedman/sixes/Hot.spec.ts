@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 /* eslint-disable max-len */
@@ -10,11 +10,10 @@
 import { Call as C } from '../../leads';
 import { Stage as S } from '../../rows';
 import SixType from '../SixType';
-import { testSixImplementation } from './AbstractSix/AbstractSix.spec';
+import testSixImplementation from './AbstractSix/testSixImplementation';
 import Hot from './Hot';
 
 describe('Hot six class', () => {
-
     testSixImplementation(
         (initialRow) => new Hot(initialRow),
         [
@@ -97,5 +96,4 @@ describe('Hot six class', () => {
             "'312547698E0', '312547698E0', '312547698E0', '312547698E0', '312547698E0'",
         ],
     );
-
 });

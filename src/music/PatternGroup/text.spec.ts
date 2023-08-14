@@ -2,24 +2,20 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import Pattern from '../Pattern';
 import PatternGroup from '.';
 
 describe('text template for PatternGroup music class', () => {
-
     it('displays nothing when nothing matches', () => {
         const group = new PatternGroup('group', []);
         expect(group.print('text')).toBe('');
     });
 
     it('displays one match correctly', () => {
-        const group = new PatternGroup(
-            'group',
-            [new Pattern('90E')],
-        );
+        const group = new PatternGroup('group', [new Pattern('90E')]);
 
         group.match('2314567890E');
         expect(group.print('text')).toBe('1 group (1 90E)\n');
@@ -55,5 +51,4 @@ describe('text template for PatternGroup music class', () => {
         group.match('2314567890E');
         expect(group.print('text')).toBe('1 group\n');
     });
-
 });

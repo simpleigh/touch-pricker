@@ -2,11 +2,12 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { Stage } from '../../rows';
-import { testAbstractMatcherImplementation } from '../AbstractMatcher.spec';
+import testAbstractMatcherImplementation from
+    '../testAbstractMatcherImplementation';
 import AbstractScheme from '.';
 
 /**
@@ -14,13 +15,11 @@ import AbstractScheme from '.';
  * @param createFn   function to create the sceme under test
  * @param testCases  array of tests: [stage, row, matches, output]
  */
-export const testAbstractSchemeImplementation = (
+const testAbstractSchemeImplementation = (
     createFn: (stage?: Stage) => AbstractScheme,
     testCases: [Stage, string, number, string][],
 ): void => {
-
     describe('is derived from AbstractScheme and', () => {
-
         it('provides access to the matchers', () => {
             expect(createFn().matchers.length).toBeGreaterThan(0);
         });
@@ -45,7 +44,7 @@ export const testAbstractSchemeImplementation = (
         });
 
         testAbstractMatcherImplementation(createFn);
-
     });
-
 };
+
+export default testAbstractSchemeImplementation;

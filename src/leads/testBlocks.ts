@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { RandomAccessContainer } from '../blocks';
@@ -16,17 +16,19 @@ export class Lead extends AbstractLead {
 
     public readonly rows: number = 0;
 
-    public accept(): this { return this; }
+    public accept(): this {
+        return this;
+    }
 
     protected get leadHeadTable(): LeadHeadTable {
-        const stages: Partial<Record<Stage, Row>> = { };
+        const stages: Partial<Record<Stage, Row>> = {};
         for (let stage = 4; stage < 16; stage += 1) {
             stages[stage as Stage] = rounds(stage);
         }
 
         return {
-            [Call.Plain]:  stages,
-            [Call.Bob]:    stages,
+            [Call.Plain]: stages,
+            [Call.Bob]: stages,
             [Call.Single]: stages,
         };
     }
@@ -45,4 +47,4 @@ export class Course extends AbstractCourse<Lead> {
 
 }
 
-export class Touch extends RandomAccessContainer<Course> { }
+export class Touch extends RandomAccessContainer<Course> {}

@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { rounds, Row, Stage, stringFromRow } from '../../rows';
@@ -16,14 +16,12 @@ import AbstractCourse from './AbstractCourse';
  * @param factory    creates an instance of the object under test
  * @param leadsWord  word to use when describing a count of leads
  */
-export const testTextAbstractCourseTemplate = (
+const testTextAbstractCourseTemplate = (
     testStage: Stage,
     factory: (initialRow: Row) => AbstractCourse<AbstractLead>,
     leadsWord: string = 'leads',
 ): void => {
-
     describe('it has a text template that', () => {
-
         let course: AbstractCourse<AbstractLead>;
 
         beforeEach(() => {
@@ -46,8 +44,9 @@ export const testTextAbstractCourseTemplate = (
             course.getBlock(3).call = Call.Bob;
 
             const last = stringFromRow(course.getLast());
-            expect(course.print('text'))
-                .toBe(`${last}  s2 3  (4 ${leadsWord})`);
+            expect(course.print('text')).toBe(
+                `${last}  s2 3  (4 ${leadsWord})`,
+            );
         });
 
         it('displays "p" for a plain course', () => {
@@ -60,8 +59,9 @@ export const testTextAbstractCourseTemplate = (
             course.getBlock(2).call = Call.Single;
             course.getBlock(3).call = Call.Bob;
 
-            expect(course.print('text', { courseEnd: false }))
-                .toBe(`s2 3  (4 ${leadsWord})`);
+            expect(course.print('text', { courseEnd: false })).toBe(
+                `s2 3  (4 ${leadsWord})`,
+            );
         });
 
         it('allows the line ending to be customised', () => {
@@ -73,10 +73,11 @@ export const testTextAbstractCourseTemplate = (
             course.setLength(4);
 
             const last = stringFromRow(course.getLast());
-            expect(course.print('text', { leadsWord: 'cheeses' }))
-                .toBe(`${last}  p  (4 cheeses)`);
+            expect(course.print('text', { leadsWord: 'cheeses' })).toBe(
+                `${last}  p  (4 cheeses)`,
+            );
         });
-
     });
-
 };
+
+export default testTextAbstractCourseTemplate;

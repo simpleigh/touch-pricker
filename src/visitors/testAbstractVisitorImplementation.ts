@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { rounds, rowFromString, Stage } from '../rows';
@@ -13,18 +13,18 @@ import AbstractVisitor from './AbstractVisitor';
  * @param createFn   fn to create visitor under test
  * @param getState   fn that returns the visitor's state
  */
-export const testAbstractVisitorImplementation = (
+const testAbstractVisitorImplementation = (
     createFn: () => AbstractVisitor,
     getState: (visitor: AbstractVisitor) => unknown,
 ): void => {
-
     describe('is derived from AbstractVisitor and', () => {
-
         const testRow = rowFromString('2143', Stage.Minimus);
 
         let visitor: AbstractVisitor;
 
-        beforeEach(() => { visitor = createFn(); });
+        beforeEach(() => {
+            visitor = createFn();
+        });
 
         it('returns this when processing a row', () => {
             expect(visitor.visit(testRow)).toBe(visitor);
@@ -48,7 +48,7 @@ export const testAbstractVisitorImplementation = (
             visitor.visit(testRow);
             expect(getState(visitor)).toEqual(result);
         });
-
     });
-
 };
+
+export default testAbstractVisitorImplementation;

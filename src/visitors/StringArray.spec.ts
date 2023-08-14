@@ -2,18 +2,20 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { rowFromString, Stage } from '../rows';
-import { testAbstractVisitorImplementation } from './AbstractVisitor.spec';
+import testAbstractVisitorImplementation from
+    './testAbstractVisitorImplementation';
 import StringArray from './StringArray';
 
 describe('StringArray visitor', () => {
-
     let visitor: StringArray;
 
-    beforeEach(() => { visitor = new StringArray(); });
+    beforeEach(() => {
+        visitor = new StringArray();
+    });
 
     it('has a list of strings that starts empty', () => {
         expect(visitor.strings).toEqual([]);
@@ -27,7 +29,7 @@ describe('StringArray visitor', () => {
 
     it('ignores changes to the result', () => {
         const getStrings = visitor.strings as string[];
-        getStrings.push('test');  // Mutate the getStrings result
+        getStrings.push('test'); // Mutate the getStrings result
         expect(visitor.strings).not.toEqual(getStrings);
         expect(visitor.strings).toEqual([]);
     });
@@ -36,5 +38,4 @@ describe('StringArray visitor', () => {
         () => new StringArray(),
         (testVisitor) => (testVisitor as StringArray).strings,
     );
-
 });
