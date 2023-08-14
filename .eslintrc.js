@@ -1,4 +1,11 @@
 /**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
+ */
+
+/**
  * Configuration for ESLint
  * @see https://eslint.org/docs/rules/
  * @see https://github.com/gajus/eslint-plugin-jsdoc

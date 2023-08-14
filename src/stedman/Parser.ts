@@ -12,7 +12,7 @@ import { AbstractMethod, Stedman } from './methods';
 import Touch from './Touch';
 
 /**
- * Parser for touches of Grandsire
+ * Parser for touches of Stedman
  */
 class Parser extends LeadBasedParser<Course, Touch> {
 
