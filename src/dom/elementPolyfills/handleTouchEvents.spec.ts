@@ -2,41 +2,10 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import handleTouchEvents from './handleTouchEvents';
-
-/**
- * Helper to test that this polyfill has been called for an element
- * Used for testing functions that call this polyfill
- * TODO: if migrating to `jest` then replace with module mocking
- * @param element  element to test
- * @param reverse   reverse sense of tests
- */
-export const testPassedToHandleTouchEvents = (
-    element: HTMLElement,
-    reverse: boolean = false,
-): void => {
-    if (reverse) {
-        expect(element.ontouchstart).toBeNull();
-    } else {
-        expect(element.ontouchstart).not.toBeNull();
-    }
-
-    const clickHandler = jasmine.createSpy('handler');
-    element.onclick = clickHandler;
-
-    const event = document.createEvent('TouchEvent');
-    event.initEvent('touchstart', true, true);
-    element.dispatchEvent(event);
-
-    if (reverse) {
-        expect(clickHandler).not.toHaveBeenCalled();
-    } else {
-        expect(clickHandler).toHaveBeenCalled();
-    }
-};
 
 describe('handleTouchEvents polyfill', () => {
 
@@ -48,21 +17,22 @@ describe('handleTouchEvents polyfill', () => {
     /**
      * Fixture `onclick` handler
      */
-    const clickHandler = jasmine.createSpy('handler');
+    const clickHandler = jest.fn();
 
     beforeEach(() => {
         element = document.createElement('div');
         element.onclick = clickHandler;
 
         handleTouchEvents(element);
+
+        clickHandler.mockClear();
     });
 
     /**
      * Helper to click the element
      */
     const click = () => {
-        const event = document.createEvent('MouseEvent');
-        event.initEvent('click', true, true);
+        const event = new MouseEvent('click');
         return element.dispatchEvent(event);
     };
 
@@ -70,8 +40,7 @@ describe('handleTouchEvents polyfill', () => {
      * Helper to touch the element
      */
     const touch = () => {
-        const event = document.createEvent('TouchEvent');
-        event.initEvent('touchstart', true, true);
+        const event = new TouchEvent('touchstart');
         return element.dispatchEvent(event);
     };
 
@@ -87,20 +56,18 @@ describe('handleTouchEvents polyfill', () => {
     });
 
     it('allows the original click handler to be called on click', () => {
-        clickHandler.calls.reset();
         click();
         expect(clickHandler).toHaveBeenCalled();
     });
 
     it('allows the original click handler to be called on touch', () => {
-        clickHandler.calls.reset();
         touch();
         expect(clickHandler).toHaveBeenCalled();
     });
 
     it('prevents a second click after a touch', () => {
         touch();
-        clickHandler.calls.reset();
+        clickHandler.mockClear();
 
         click();
 
@@ -110,7 +77,7 @@ describe('handleTouchEvents polyfill', () => {
     it('allows subsequent clicks', () => {
         touch();
         click();
-        clickHandler.calls.reset();
+        clickHandler.mockClear();
 
         click();
 
@@ -127,8 +94,6 @@ describe('handleTouchEvents polyfill', () => {
     });
 
     it('works for a longer flow', () => {
-        clickHandler.calls.reset();
-
         touch();
         expect(clickHandler).toHaveBeenCalledTimes(1);
 
@@ -144,5 +109,4 @@ describe('handleTouchEvents polyfill', () => {
         click();
         expect(clickHandler).toHaveBeenCalledTimes(3);
     });
-
 });

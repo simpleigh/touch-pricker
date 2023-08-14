@@ -2,43 +2,32 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import createIframe from './createIframe';
 
 describe('createIframe DOM utility', () => {
-
-    let mockIframe: HTMLIFrameElement;
-    let parentDocument: jasmine.SpyObj<HTMLDocument>;
-
-    beforeEach(() => {
-        mockIframe = { style: { } } as HTMLIFrameElement;
-        parentDocument = jasmine.createSpyObj('HTMLDocument', [
-            'createElement',
-        ]);
-        parentDocument.createElement.and.returnValue(mockIframe);
-    });
-
     it('creates an iframe', () => {
         expect(createIframe().tagName).toBe('IFRAME');
     });
 
     it('creates an iframe from the parent document', () => {
-        const iframe = createIframe(parentDocument);
-        expect(parentDocument.createElement).toHaveBeenCalledWith('iframe');
-        expect(iframe).toBe(mockIframe);
+        jest.spyOn(document, 'createElement');
+        createIframe(document);
+        expect(document.createElement).toHaveBeenCalledWith('iframe');
     });
 
     it('ensures the created iframe has no border', () => {
-        createIframe(parentDocument);
-        expect(mockIframe.frameBorder).toBe('0');
-        expect(mockIframe.style.border).toBe('none');
+        const iframe = createIframe();
+        expect(iframe.frameBorder).toBe('0');
+        expect(iframe.style.border).toBe('0px none');
+        expect(iframe.style.borderStyle).toBe('none');
+        expect(iframe.style.borderWidth).toBe('0px');
     });
 
     it('disables scrolling on the created iframe', () => {
-        createIframe(parentDocument);
-        expect(mockIframe.scrolling).toBe('no');
+        const iframe = createIframe();
+        expect(iframe.scrolling).toBe('no');
     });
-
 });

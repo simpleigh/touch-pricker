@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 /**
@@ -16,9 +16,7 @@ const handleTouchEvents = (element: HTMLElement): void => {
     element.ontouchstart = () => {
         // Simulate a click as soon as we're touched
         // TODO: copy location information from the TouchEvent
-        // TODO: create using `new MouseEvent()` (not supported by PhantomJS)
-        const clickEvent = document.createEvent('MouseEvent');
-        clickEvent.initEvent('click', true, true);
+        const clickEvent = new MouseEvent('click');
         element.dispatchEvent(clickEvent);
 
         // Patch the onclick method to avoid calling the handler twice
