@@ -12,12 +12,10 @@ import AbstractSix from '.';
 /**
  * Tests the template behaves like the parent version
  */
-export const testSirilAbstractSixTemplate = (
+const testSirilAbstractSixTemplate = (
     factory: (initialRow: Row) => AbstractSix,
 ): void => {
-
     describe('it has a siril template that', () => {
-
         let six: AbstractSix;
 
         beforeEach(() => {
@@ -43,17 +41,19 @@ export const testSirilAbstractSixTemplate = (
         });
 
         it('renders the whole six when six rows are needed', () => {
-            expect(six.print('siril', { touchRows: 6 }))
-                .toBe(`plain, ${six.type}, `);
+            expect(six.print('siril', { touchRows: 6 })).toBe(
+                `plain, ${six.type}, `,
+            );
         });
 
         it('renders place notation for lengths in between', () => {
             for (let touchRows = 2; touchRows <= 5; touchRows += 1) {
-                expect(six.print('siril', { touchRows }))
-                    .toBe(`plain, ${six.getNotationString(touchRows - 1)}, `);
+                expect(six.print('siril', { touchRows })).toBe(
+                    `plain, ${six.getNotationString(touchRows - 1)}, `,
+                );
             }
         });
-
     });
-
 };
+
+export default testSirilAbstractSixTemplate;

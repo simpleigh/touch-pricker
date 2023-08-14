@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 /* eslint-disable max-len */
@@ -14,13 +14,14 @@ import Course from '../Course';
 import Lead from '.';
 
 describe('mbd template for Grandsire Lead', () => {
-
-    const container: Course = jasmine.createSpyObj('Course', ['notify']);
+    let container: Course;
 
     let lead: Lead;
 
     beforeEach(() => {
-        lead = new Lead(rounds(Stage.Doubles));
+        const initialRow = rounds(Stage.Doubles);
+        container = new Course(initialRow);
+        lead = new Lead(initialRow);
         lead.ownership = { container, index: 1 };
     });
 
@@ -148,11 +149,13 @@ describe('mbd template for Grandsire Lead', () => {
         falseness.add(2, 1);
         music.add(2, 1);
 
-        expect(lead.print('mbd', {
-            courseIndex: 2,
-            falseness,
-            music,
-        })).toRenderAs(`
+        expect(
+            lead.print('mbd', {
+                courseIndex: 2,
+                falseness,
+                music,
+            }),
+        ).toRenderAs(`
             <span class="falseBlock">
                 ${stringFromRow(lead.getLast())}
             </span>
@@ -182,5 +185,4 @@ describe('mbd template for Grandsire Lead', () => {
             <br />
         `);
     });
-
 });

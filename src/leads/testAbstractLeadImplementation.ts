@@ -2,14 +2,28 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { testAbstractBlockImplementation } from '../blocks/AbstractBlock.spec';
+import testAbstractBlockImplementation from
+    '../blocks/testAbstractBlockImplementation';
+import { AbstractBlock } from '../blocks';
 import { rounds, Row, rowFromString, Stage, stringFromRow } from '../rows';
-import { StringArray } from '../visitors';
+import { AbstractVisitor, StringArray } from '../visitors';
 import AbstractLead from './AbstractLead';
 import Call from './Call';
+import { Course } from './testBlocks';
+
+class Visitor extends AbstractVisitor {
+
+    protected override visitImplementation(
+        row: Row,
+        block?: AbstractBlock,
+    ): void {
+        // NOOP
+    }
+
+}
 
 /**
  * Tests that a lead behaves as an AbstractLead
@@ -18,15 +32,13 @@ import Call from './Call';
  * @param testCases        testcases for the last row in the lead
  * @param lengthTestCases  testcases for the length of the lead
  */
-export const testAbstractLeadImplementation = (
+const testAbstractLeadImplementation = (
     testStage: Stage,
     factory: (initialRow: Row) => AbstractLead,
     testCases: [string, string, Stage, Call][],
     lengthTestCases: [Stage, number][],
 ): void => {
-
     describe('is derived from AbstractLead and', () => {
-
         testAbstractBlockImplementation(
             testStage,
             factory,
@@ -50,8 +62,9 @@ export const testAbstractLeadImplementation = (
         });
 
         it('throws an exception if used for an unexpected stage', () => {
-            expect(() => factory([1, 2]))
-                .toThrowError("Cannot find lead head for stage '2'");
+            expect(() => factory([1, 2])).toThrowError(
+                "Cannot find lead head for stage '2'",
+            );
         });
 
         it('updates when the initial row changes', () => {
@@ -126,7 +139,8 @@ export const testAbstractLeadImplementation = (
         });
 
         it('notifies the parent course when a call is set', () => {
-            const container = jasmine.createSpyObj('Course', ['notify']);
+            const container = new Course(lead.initialRow);
+            jest.spyOn(container, 'notify');
             // set this after creation to avoid spurious notifications
             lead.ownership = { container, index: 999 };
 
@@ -136,7 +150,8 @@ export const testAbstractLeadImplementation = (
         });
 
         it('notifies the parent course when toggled', () => {
-            const container = jasmine.createSpyObj('Course', ['notify']);
+            const container = new Course(lead.initialRow);
+            jest.spyOn(container, 'notify');
             // set this after creation to avoid spurious notifications
             lead.ownership = { container, index: 999 };
 
@@ -146,7 +161,8 @@ export const testAbstractLeadImplementation = (
         });
 
         it('can suppress notification when a call is set', () => {
-            const container = jasmine.createSpyObj('Course', ['notify']);
+            const container = new Course(lead.initialRow);
+            jest.spyOn(container, 'notify');
             // set this after creation to avoid spurious notifications
             lead.ownership = { container, index: 999 };
 
@@ -169,13 +185,16 @@ export const testAbstractLeadImplementation = (
         });
 
         it('passes itself to visitors', () => {
-            const visitor = jasmine.createSpyObj('AbstractVisitor', ['visit']);
+            const visitor = new Visitor();
+            jest.spyOn(visitor, 'visit');
 
             lead.accept(visitor);
 
             expect(visitor.visit).toHaveBeenCalledTimes(lead.rows);
             for (let i = 0; i < lead.rows; i += 1) {
-                expect(visitor.visit.calls.argsFor(i)[1]).toBe(lead);
+                expect((visitor.visit as jest.Mock).mock.calls[i][1]).toBe(
+                    lead,
+                );
             }
         });
 
@@ -190,7 +209,7 @@ export const testAbstractLeadImplementation = (
             expect(lead.initialRow).toEqual(initialRowBackup);
             expect(lead.call).toEqual(callBackup);
         });
-
     });
-
 };
+
+export default testAbstractLeadImplementation;

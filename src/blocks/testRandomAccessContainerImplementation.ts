@@ -1,14 +1,14 @@
-
 /**
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { rounds, Row, Stage } from '../rows';
 import AbstractBlock from './AbstractBlock';
-import { testAbstractContainerImplementation } from './AbstractContainer.spec';
+import testAbstractContainerImplementation from
+    './testAbstractContainerImplementation';
 import RandomAccessContainer from './RandomAccessContainer';
 
 type TestContainer = RandomAccessContainer<AbstractBlock>;
@@ -21,16 +21,14 @@ type TestContainer = RandomAccessContainer<AbstractBlock>;
  * @param expectedLength  number of blocks expected in this container
  * @param testBlock       a valid child block
  */
-export const testRandomAccessContainerImplementation = (
+const testRandomAccessContainerImplementation = (
     testStage: Stage,
     factory: (initialRow: Row) => TestContainer,
     expectedRows: number,
     expectedLength: number,
     testBlock: AbstractBlock,
 ): void => {
-
     describe('is derived from RandomAccessContainer and', () => {
-
         testAbstractContainerImplementation(
             testStage,
             factory,
@@ -49,18 +47,21 @@ export const testRandomAccessContainerImplementation = (
          */
         const checkPropagation = () => {
             // First block initial row propagated from container initial row
-            expect(container.getBlock(1).initialRow)
-                .toEqual(container.initialRow);
+            expect(container.getBlock(1).initialRow).toEqual(
+                container.initialRow,
+            );
 
             // All blocks connected to the previous one
             for (let index = 2; index <= container.length; index += 1) {
-                expect(container.getBlock(index).initialRow)
-                    .toEqual(container.getBlock(index - 1).getLast());
+                expect(container.getBlock(index).initialRow).toEqual(
+                    container.getBlock(index - 1).getLast(),
+                );
             }
 
             // Container last row propagated from last block last row
-            expect(container.getLast())
-                .toEqual(container.getBlock(container.length).getLast());
+            expect(container.getLast()).toEqual(
+                container.getBlock(container.length).getLast(),
+            );
         };
 
         /**
@@ -273,8 +274,9 @@ export const testRandomAccessContainerImplementation = (
             const originalBlocks = container.blocks;
             container.deleteBlock(container.length);
             for (let index = 1; index <= container.length; index += 1) {
-                expect(container.getBlock(index))
-                    .toBe(originalBlocks[index - 1]);
+                expect(container.getBlock(index)).toBe(
+                    originalBlocks[index - 1],
+                );
             }
         });
 
@@ -292,7 +294,7 @@ export const testRandomAccessContainerImplementation = (
             expect(deletedBlock.container).toBeUndefined();
             expect(deletedBlock.index).toBeUndefined();
         });
-
     });
-
 };
+
+export default testRandomAccessContainerImplementation;

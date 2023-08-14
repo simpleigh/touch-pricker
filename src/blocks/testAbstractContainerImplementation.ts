@@ -2,16 +2,18 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { rounds, Row, rowFromString, Stage } from '../rows';
 import { Proof, StringArray } from '../visitors';
 import AbstractBlock from './AbstractBlock';
-import { testAbstractBlockImplementation } from './AbstractBlock.spec';
+import testAbstractBlockImplementation from './testAbstractBlockImplementation';
 import AbstractContainer from './AbstractContainer';
 
 type TestContainer = AbstractContainer<AbstractBlock>;
+
+class ParentContainer extends AbstractContainer<TestContainer> {}
 
 /**
  * Tests that a container behaves as an AbstractContainer
@@ -20,20 +22,20 @@ type TestContainer = AbstractContainer<AbstractBlock>;
  * @param expectedRows    number of rows expected in this container
  * @param expectedLength  number of blocks expected in this container
  */
-export const testAbstractContainerImplementation = (
+const testAbstractContainerImplementation = (
     testStage: Stage,
     factory: (initialRow: Row) => TestContainer,
     expectedRows: number,
     expectedLength: number,
 ): void => {
-
     describe('is derived from AbstractContainer and', () => {
-
         testAbstractBlockImplementation(
             testStage,
             factory,
             [[testStage, expectedRows]],
-            (block) => { (block as TestContainer).notify(0); },
+            (block) => {
+                (block as TestContainer).notify(0);
+            },
         );
 
         let container: TestContainer;
@@ -75,8 +77,9 @@ export const testAbstractContainerImplementation = (
 
             // All blocks connected to the previous one
             for (let index = 2; index <= container.length; index += 1) {
-                expect(container.getBlock(index).initialRow)
-                    .toEqual(container.getBlock(index - 1).getLast());
+                expect(container.getBlock(index).initialRow).toEqual(
+                    container.getBlock(index - 1).getLast(),
+                );
             }
 
             // Container last row propagated from last block last row
@@ -100,16 +103,19 @@ export const testAbstractContainerImplementation = (
 
         it('grants access to a contained block', () => {
             expect(container.getBlock(1)).toBe(container.blocks[0]);
-            expect(container.getBlock(expectedLength))
-                .toBe(container.blocks[expectedLength - 1]);
+            expect(container.getBlock(expectedLength)).toBe(
+                container.blocks[expectedLength - 1],
+            );
         });
 
         it('throws an exception for out-of-bounds blocks', () => {
             const longLength = expectedLength + 1;
-            expect(() => container.getBlock(0))
-                .toThrowError("Block index '0' out of range");
-            expect(() => container.getBlock(longLength))
-                .toThrowError(`Block index '${longLength}' out of range`);
+            expect(() => container.getBlock(0)).toThrowError(
+                "Block index '0' out of range",
+            );
+            expect(() => container.getBlock(longLength)).toThrowError(
+                `Block index '${longLength}' out of range`,
+            );
         });
 
         it('contains all the rows from its contained blocks', () => {
@@ -129,7 +135,7 @@ export const testAbstractContainerImplementation = (
         });
 
         const getSpy = (index: number) =>
-            spyOnProperty(container.getBlock(index), 'initialRow', 'set');
+            jest.spyOn(container.getBlock(index), 'initialRow', 'set');
 
         it('recalculates blocks when the initial row changes', () => {
             const newRow = rowFromString('4321', testStage);
@@ -161,8 +167,8 @@ export const testAbstractContainerImplementation = (
         });
 
         it('notifies the parent container on notify', () => {
-            const parent: TestContainer =
-                jasmine.createSpyObj('AbstractContainer', ['notify']);
+            const parent = new ParentContainer(container.initialRow);
+            jest.spyOn(parent, 'notify');
             // set this after creation to avoid spurious notifications
             container.ownership = { container: parent, index: 999 };
 
@@ -171,7 +177,7 @@ export const testAbstractContainerImplementation = (
             expect(parent.notify).toHaveBeenCalledWith(999);
             expect(parent.notify).toHaveBeenCalledTimes(1);
         });
-
     });
-
 };
+
+export default testAbstractContainerImplementation;

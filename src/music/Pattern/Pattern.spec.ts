@@ -2,15 +2,15 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { testAbstractMatcherImplementation } from '../AbstractMatcher.spec';
+import testAbstractMatcherImplementation from
+    '../testAbstractMatcherImplementation';
 import MatchType from '../MatchType';
 import Pattern from '.';
 
 describe('Pattern music class', () => {
-
     it('provides read access to the name', () => {
         const pattern = new Pattern('1234', 'test');
         expect(pattern.name).toBe('test');
@@ -42,11 +42,7 @@ describe('Pattern music class', () => {
     });
 
     it('knows if it is not a wildcard match', () => {
-        const pattern = new Pattern(
-            '12345678',
-            'Rounds',
-            MatchType.Row,
-        );
+        const pattern = new Pattern('12345678', 'Rounds', MatchType.Row);
         expect(pattern.isWildcardMatch).toBe(false);
     });
 
@@ -56,5 +52,4 @@ describe('Pattern music class', () => {
     });
 
     testAbstractMatcherImplementation(() => new Pattern('2314567890E', 'test'));
-
 });

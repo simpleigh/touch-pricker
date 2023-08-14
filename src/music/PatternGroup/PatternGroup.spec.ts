@@ -2,15 +2,15 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { testAbstractMatcherImplementation } from '../AbstractMatcher.spec';
+import testAbstractMatcherImplementation from
+    '../testAbstractMatcherImplementation';
 import Pattern from '../Pattern';
 import PatternGroup from '.';
 
 describe('PatternGroup music class', () => {
-
     it('can match a row with any pattern', () => {
         const group = new PatternGroup('group', [
             new Pattern('1234567890E'), // fail
@@ -86,9 +86,7 @@ describe('PatternGroup music class', () => {
         expect(group.submatchCount).toBe(0);
     });
 
-    testAbstractMatcherImplementation(() => new PatternGroup(
-        'test',
-        [new Pattern('2314567890E')],
-    ));
-
+    testAbstractMatcherImplementation(
+        () => new PatternGroup('test', [new Pattern('2314567890E')]),
+    );
 });

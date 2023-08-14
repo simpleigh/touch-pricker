@@ -6,14 +6,12 @@
  */
 
 import { Stage } from '../rows';
-import {
-    testAbstractSchemeImplementation,
-} from './AbstractScheme/AbstractScheme.spec';
+import testAbstractSchemeImplementation from
+    './AbstractScheme/testAbstractSchemeImplementation';
 import CustomScheme from './CustomScheme';
 import Pattern from './Pattern';
 
 describe('Custom music scheme', () => {
-
     testAbstractSchemeImplementation(
         (stage: Stage = Stage.Cinques) => {
             const scheme = new CustomScheme(stage);
@@ -24,5 +22,4 @@ describe('Custom music scheme', () => {
             [Stage.Cinques, '2314567890E', 1, '1 2314567890E\n'],
         ],
     );
-
 });

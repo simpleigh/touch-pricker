@@ -434,9 +434,9 @@ module.exports = {
             },
             overrides: [
                 {
-                    files: ['**/*.spec.ts'],
+                    files: ['**/*.spec.ts', '**/test*.ts'],
                     env: {
-                        jasmine: true,
+                        jest: true,
                     },
                     rules: {
                         // Best Practices

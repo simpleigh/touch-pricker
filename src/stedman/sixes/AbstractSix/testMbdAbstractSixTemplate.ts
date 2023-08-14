@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 /* eslint-disable max-len */
@@ -16,18 +16,18 @@ import AbstractSix from '.';
 /**
  * Tests the template behaves like the parent version
  */
-export const testMbdAbstractSixTemplate = (
+const testMbdAbstractSixTemplate = (
     factory: (initialRow: Row) => AbstractSix,
 ): void => {
-
     describe('it has an mbd template that', () => {
-
-        const container: Course = jasmine.createSpyObj('Course', ['notify']);
+        let container: Course;
 
         let six: AbstractSix;
 
         beforeEach(() => {
-            six = factory(rounds(Stage.Cinques));
+            const initialRow = rounds(Stage.Cinques);
+            container = new Course(initialRow);
+            six = factory(initialRow);
             six.ownership = { container, index: 1 };
         });
 
@@ -194,7 +194,7 @@ export const testMbdAbstractSixTemplate = (
                 <br />
             `);
         });
-
     });
-
 };
+
+export default testMbdAbstractSixTemplate;

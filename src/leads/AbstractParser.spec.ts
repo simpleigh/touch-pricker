@@ -2,23 +2,20 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { rounds, Row, rowFromString, Stage } from '../rows';
-import { Course, Touch } from './testBlocks.spec';
+import { Course, Touch } from './testBlocks';
 import AbstractParser from './AbstractParser';
 
-/* eslint-disable no-invalid-this */
 class TestParser extends AbstractParser<Touch> {
 
     public readonly touch: Touch = new Touch(rounds(Stage.Minimus));
 
-    public readonly createTouchSpy: jasmine.Spy =
-        jasmine.createSpy('createTouch').and.returnValue(this.touch);
+    public readonly createTouchSpy = jest.fn().mockReturnValue(this.touch);
 
-    public readonly parseLineSpy: jasmine.Spy =
-        jasmine.createSpy('parseLine');
+    public readonly parseLineSpy = jest.fn();
 
     protected createTouch(initialRow: Row): Touch {
         return this.createTouchSpy(initialRow);
@@ -29,10 +26,8 @@ class TestParser extends AbstractParser<Touch> {
     }
 
 }
-/* eslint-enable */
 
 describe('AbstractParser class', () => {
-
     let parser: TestParser;
 
     beforeEach(() => {
@@ -56,13 +51,13 @@ describe('AbstractParser class', () => {
 
         expect(parser.createTouchSpy).toHaveBeenCalled();
         expect(parser.createTouchSpy).toHaveBeenCalledTimes(1);
-        expect(parser.createTouchSpy)
-            .toHaveBeenCalledWith(testRow);
+        expect(parser.createTouchSpy).toHaveBeenCalledWith(testRow);
     });
 
     it('throws if the stage cannot be recognised', () => {
-        expect(() => testParse(['1']))
-            .toThrowError("Cannot recognise stage from line '1'");
+        expect(() => testParse(['1'])).toThrowError(
+            "Cannot recognise stage from line '1'",
+        );
     });
 
     it('calls `parseLine` to process additional lines', () => {
@@ -77,7 +72,9 @@ describe('AbstractParser class', () => {
     it('passes the last touch row when processing lines', () => {
         const row1 = rowFromString('2143', Stage.Minimus);
         const row2 = rowFromString('2413', Stage.Minimus);
-        spyOn(parser.touch, 'getLast').and.returnValues(row1, row2);
+        jest.spyOn(parser.touch, 'getLast')
+            .mockReturnValueOnce(row1)
+            .mockReturnValueOnce(row2);
 
         testParse(['1234', 'line1', 'line2']);
 
@@ -87,7 +84,7 @@ describe('AbstractParser class', () => {
 
     it('inserts created courses into the touch', () => {
         const course = new Course(testRow);
-        parser.parseLineSpy.and.returnValue(course);
+        parser.parseLineSpy.mockReturnValue(course);
 
         testParse(['1234', 'line1']);
 
@@ -125,5 +122,4 @@ describe('AbstractParser class', () => {
     it('returns the parsed touch', () => {
         expect(testParse(['1234'])).toBe(parser.touch);
     });
-
 });

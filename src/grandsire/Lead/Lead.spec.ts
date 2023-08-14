@@ -2,19 +2,18 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 /* eslint-disable max-len */
 
-import { testAbstractLeadImplementation } from '../../leads/AbstractLead.spec';
+import testAbstractLeadImplementation from '../../leads/testAbstractLeadImplementation';
 import { rounds, Stage } from '../../rows';
 import { Call } from '../../leads';
 import { StringArray } from '../../visitors';
 import Lead from '.';
 
 describe('Grandsire Lead class', () => {
-
     testAbstractLeadImplementation(
         Stage.Doubles,
         (initialRow) => new Lead(initialRow),
@@ -296,5 +295,4 @@ describe('Grandsire Lead class', () => {
     it('has a template for Siril output', () => {
         expect(new Lead(rounds(Stage.Doubles))).toHaveTemplate('siril');
     });
-
 });

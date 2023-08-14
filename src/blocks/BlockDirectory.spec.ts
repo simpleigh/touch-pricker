@@ -2,15 +2,14 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { rounds, Stage } from '../rows';
 import BlockDirectory from './BlockDirectory';
-import { Course, Touch } from './testBlocks.spec';
+import { Course, Touch } from './testBlocks';
 
 describe('BlockDirectory class', () => {
-
     const testRow = rounds(Stage.Triples);
 
     let directory: BlockDirectory;
@@ -134,5 +133,4 @@ describe('BlockDirectory class', () => {
         expect(() => directory.add(course)).toThrow();
         expect(() => directory.contains(course)).toThrow();
     });
-
 });

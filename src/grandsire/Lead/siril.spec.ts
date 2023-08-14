@@ -35,7 +35,8 @@ describe('siril template for Grandsire Lead', () => {
     });
 
     it('renders place notation when fewer rows are needed', () => {
-        expect(lead.print('siril', { touchRows: 9 }))
-            .toBe('+3.1.5.1.5.1.5.1.5, ');
+        expect(lead.print('siril', { touchRows: 9 })).toBe(
+            '+3.1.5.1.5.1.5.1.5, ',
+        );
     });
 });

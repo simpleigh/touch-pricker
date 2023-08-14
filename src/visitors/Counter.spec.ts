@@ -2,15 +2,15 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { rowFromString, Stage } from '../rows';
-import { testAbstractVisitorImplementation } from './AbstractVisitor.spec';
+import testAbstractVisitorImplementation from
+    './testAbstractVisitorImplementation';
 import Counter from './Counter';
 
 describe('Counter visitor', () => {
-
     it('has a count that starts from zero', () => {
         const visitor = new Counter();
         expect(visitor.count).toBe(0);
@@ -28,5 +28,4 @@ describe('Counter visitor', () => {
         () => new Counter(),
         (visitor) => (visitor as Counter).count,
     );
-
 });

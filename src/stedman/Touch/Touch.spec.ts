@@ -2,21 +2,20 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import {
-    testRandomAccessContainerImplementation,
-} from '../../blocks/RandomAccessContainer.spec';
+import testRandomAccessContainerImplementation from
+    '../../blocks/testRandomAccessContainerImplementation';
 import { rounds, rowFromString, Stage } from '../../rows';
 import { StringArray } from '../../visitors';
 import Course from '../Course';
 import { Erin, Stedman, StedmanJump } from '../methods';
+import Parser from '../Parser';
 import SixType from '../SixType';
 import Touch from '.';
 
 describe('Stedman Touch class', () => {
-
     const testRow = rounds(Stage.Cinques);
 
     testRandomAccessContainerImplementation(
@@ -40,10 +39,7 @@ describe('Stedman Touch class', () => {
         },
         384,
         3,
-        Course.fromString(
-            rounds(Stage.Cinques),
-            '2314567890E 1 s10 s13 22',
-        ),
+        Course.fromString(rounds(Stage.Cinques), '2314567890E 1 s10 s13 22'),
     );
 
     const otherRow = rowFromString('4321', Stage.Cinques);
@@ -136,8 +132,9 @@ describe('Stedman Touch class', () => {
         touch.insertBlock(1, course1);
         touch.insertBlock(2, course2);
 
-        expect(touch.getBlock(2).initialRow)
-            .toEqual(touch.getBlock(1).getLast());
+        expect(touch.getBlock(2).initialRow).toEqual(
+            touch.getBlock(1).getLast(),
+        );
     });
 
     it('propagates the six type for the first block in Stedman', () => {
@@ -167,8 +164,8 @@ describe('Stedman Touch class', () => {
 
     it('uses the chosen method to propagate the first block six type', () => {
         const method = new Stedman();
-        const spy = spyOn(method, 'getNextSixType');
-        spy.and.returnValue(SixType.Quick); // should be slow
+        const spy = jest.spyOn(method, 'getNextSixType');
+        spy.mockReturnValue(SixType.Quick); // should be slow
         touch = new Touch(testRow, method);
 
         const course = new Course(testRow);
@@ -180,8 +177,8 @@ describe('Stedman Touch class', () => {
 
     it('uses the chosen method to propagate the second block six type', () => {
         const method = new Stedman();
-        const spy = spyOn(method, 'getNextSixType');
-        spy.and.returnValue(SixType.Slow); // should be quick
+        const spy = jest.spyOn(method, 'getNextSixType');
+        spy.mockReturnValue(SixType.Slow); // should be quick
         touch = new Touch(testRow, method);
 
         const course1 = new Course(testRow);
@@ -201,7 +198,8 @@ describe('Stedman Touch class', () => {
     });
 
     it('passes strings to a parser for loading', () => {
-        const parser = jasmine.createSpyObj('Parser', ['parseTouch']);
+        const parser = new Parser();
+        jest.spyOn(parser, 'parseTouch').mockReturnValue(touch);
 
         Touch.fromString('test', undefined, parser);
 
@@ -210,8 +208,8 @@ describe('Stedman Touch class', () => {
     });
 
     it('returns the parsed result', () => {
-        const parser = jasmine.createSpyObj('Parser', ['parseTouch']);
-        parser.parseTouch.and.returnValue(touch);
+        const parser = new Parser();
+        jest.spyOn(parser, 'parseTouch').mockReturnValue(touch);
 
         const result = Touch.fromString('test', undefined, parser);
 
@@ -220,11 +218,11 @@ describe('Stedman Touch class', () => {
 
     it('configures the parser with the correct method', () => {
         const method = new Erin();
-        const parser = jasmine.createSpyObj('Parser', ['parseTouch']);
+        const parser = new Parser();
+        jest.spyOn(parser, 'parseTouch').mockReturnValue(touch);
 
         Touch.fromString('test', method, parser);
 
         expect(parser.method).toBe(method);
     });
-
 });

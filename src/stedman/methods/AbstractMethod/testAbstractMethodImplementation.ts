@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { rowFromString, Stage } from '../../../rows';
@@ -13,7 +13,7 @@ import AbstractMethod from '.';
 /**
  * Tests that a method behaves as an AbstractMethod
  */
-export const testAbstractMethodImplementation = (
+const testAbstractMethodImplementation = (
     Method: new() => AbstractMethod,
     name: string,
     lengthTestCases: [Stage, number][],
@@ -21,7 +21,6 @@ export const testAbstractMethodImplementation = (
     [defaultFirstSix, defaultStartSixType, defaultStartRowIndex]:
         [SixType, SixType, number],
 ): void => {
-
     const initialRow = rowFromString('231', Stage.Cinques);
 
     const testCourse = new Course(initialRow, new Method());
@@ -85,7 +84,9 @@ export const testAbstractMethodImplementation = (
 
     runProgressionTests((sixType) => {
         it(`knows that a ${sixType} six is valid`, () => {
-            expect(() => { method.checkSixType(sixType); }).not.toThrow();
+            expect(() => {
+                method.checkSixType(sixType);
+            }).not.toThrow();
         });
     });
 
@@ -94,7 +95,9 @@ export const testAbstractMethodImplementation = (
     });
 
     it('starts a course with a valid six by default', () => {
-        expect(() => { method.checkSixType(defaultFirstSix); }).not.toThrow();
+        expect(() => {
+            method.checkSixType(defaultFirstSix);
+        }).not.toThrow();
     });
 
     it(`starts on row ${defaultStartRowIndex} of a six by default`, () => {
@@ -106,8 +109,9 @@ export const testAbstractMethodImplementation = (
     });
 
     it('starts a touch with a valid six by default', () => {
-        expect(() => { method.checkSixType(defaultStartSixType); })
-            .not.toThrow();
+        expect(() => {
+            method.checkSixType(defaultStartSixType);
+        }).not.toThrow();
     });
 
     runProgressionTests((sixType, expected) => {
@@ -117,15 +121,16 @@ export const testAbstractMethodImplementation = (
     });
 
     describe('is derived from AbstractMethod and', () => {
-
         it('knows that an invalid six is invalid', () => {
-            expect(() => { method.checkSixType(SixType.Invalid); })
-                .toThrowError("'invalid' blocks not allowed for this method");
+            expect(() => {
+                method.checkSixType(SixType.Invalid);
+            }).toThrowError("'invalid' blocks not allowed for this method");
         });
 
         it('throws computing the successor of an invalid six', () => {
-            expect(() => { method.getNextSixType(SixType.Invalid); })
-                .toThrowError("'invalid' blocks not allowed for this method");
+            expect(() => {
+                method.getNextSixType(SixType.Invalid);
+            }).toThrowError("'invalid' blocks not allowed for this method");
         });
 
         it('is printable', () => {
@@ -135,7 +140,7 @@ export const testAbstractMethodImplementation = (
         it('has a template for printing six type options', () => {
             expect(method).toHaveTemplate('select');
         });
-
     });
-
 };
+
+export default testAbstractMethodImplementation;

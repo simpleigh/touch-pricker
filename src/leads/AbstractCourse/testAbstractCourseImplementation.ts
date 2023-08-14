@@ -2,17 +2,17 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import {
-    testSerialContainerImplementation,
-} from '../../blocks/SerialContainer.spec';
+import testSerialContainerImplementation from
+    '../../blocks/testSerialContainerImplementation';
 import { rounds, Row, Stage } from '../../rows';
 import AbstractLead from '../AbstractLead';
 import Call from '../Call';
-import { testHtmlAbstractCourseTemplate } from './html.spec';
-import { testTextAbstractCourseTemplate } from './text.spec';
+import { Touch } from '../testBlocks';
+import testHtmlAbstractCourseTemplate from './testHtmlAbstractCourseTemplate';
+import testTextAbstractCourseTemplate from './testTextAbstractCourseTemplate';
 import AbstractCourse from '.';
 
 /**
@@ -24,7 +24,7 @@ import AbstractCourse from '.';
  * @param lengthTestCases  expected lengths and rows for each stage
  * @param leadsWord        word to use when describing a count of leads
  */
-export const testAbstractCourseImplementation = (
+const testAbstractCourseImplementation = (
     testStage: Stage,
     factory: (initialRow: Row) => AbstractCourse<AbstractLead>,
     expectedRows: number,
@@ -32,7 +32,6 @@ export const testAbstractCourseImplementation = (
     lengthTestCases: [Stage, number, number][],
     leadsWord?: string,
 ): void => {
-
     testSerialContainerImplementation(
         testStage,
         factory,
@@ -67,7 +66,8 @@ export const testAbstractCourseImplementation = (
     });
 
     it('only calls notify once when resetting the calls', () => {
-        const container = jasmine.createSpyObj('Notifiable', ['notify']);
+        const container = new Touch(course.initialRow);
+        jest.spyOn(container, 'notify');
         course.ownership = { container, index: 1 };
         course.resetCalls();
         expect(container.notify).toHaveBeenCalledTimes(1);
@@ -94,7 +94,7 @@ export const testAbstractCourseImplementation = (
     });
 
     it('creates the cloned course without any owner', () => {
-        const container = jasmine.createSpyObj('Notifiable', ['notify']);
+        const container = new Touch(course.initialRow);
         course.ownership = { container, index: 10 };
 
         expect(course.clone().container).toBeUndefined();
@@ -120,5 +120,6 @@ export const testAbstractCourseImplementation = (
         course.setLength(0);
         expect(() => course.clone()).not.toThrow();
     });
-
 };
+
+export default testAbstractCourseImplementation;

@@ -5,13 +5,10 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import {
-    testAbstractPrickerImplementation,
-} from '../../AbstractPricker.spec';
+import testAbstractPrickerImplementation from
+    '../../testAbstractPrickerImplementation';
 import StedTurnPricker from '.';
 
 describe('Stedman turning course generator class', () => {
-
     testAbstractPrickerImplementation(StedTurnPricker);
-
 });

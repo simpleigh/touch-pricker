@@ -2,27 +2,48 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 /* eslint-disable max-len */
 
-import {
-    testAbstractBlockImplementation,
-} from '../../blocks/AbstractBlock.spec';
-import { rounds, rowFromString, Stage as S } from '../../rows';
+import testAbstractBlockImplementation from
+    '../../blocks/testAbstractBlockImplementation';
+import { rounds, Row, rowFromString, Stage as S } from '../../rows';
 import { StringArray } from '../../visitors';
 import { AbstractMethod, Carter, Erin, Stedman, StedmanJump } from '../methods';
+import { AbstractSix, Cold } from '../sixes';
 import SixType from '../SixType';
 import Start from '.';
 
-describe('Start class', () => {
+class TestMethod extends AbstractMethod {
 
+    public override name: string = 'Test';
+
+    public override createSix(initialRow: Row): AbstractSix {
+        return new Cold(initialRow);
+    }
+
+    protected override sixTypeProgression: Partial<Record<SixType, SixType>> = {
+        [SixType.Cold]: SixType.Cold,
+    };
+
+    public override defaultFirstSix: SixType = SixType.Cold;
+
+    public override defaultStartSixType: SixType = SixType.Cold;
+
+    public override defaultStartRowIndex: number = 3;
+
+}
+
+describe('Start class', () => {
     testAbstractBlockImplementation(
         S.Cinques,
         (initialRow) => new Start(initialRow),
         [[S.Cinques, 2]],
-        (fixture) => { (fixture as Start).rowIndex = 2; },
+        (fixture) => {
+            (fixture as Start).rowIndex = 2;
+        },
     );
 
     let start: Start;
@@ -32,9 +53,7 @@ describe('Start class', () => {
     });
 
     it('obtains the default start from the chosen method', () => {
-        const method = jasmine.createSpyObj('AbstractMethod', ['createSix']);
-        method.defaultStartSixType = SixType.Cold;
-        method.defaultStartRowIndex = 3;
+        const method = new TestMethod();
 
         start = new Start(rounds(S.Cinques), method);
 
@@ -72,13 +91,14 @@ describe('Start class', () => {
     });
 
     it('throws an exception if the six type is invalid', () => {
-        expect(() => { start.sixType = SixType.Invalid; })
-            .toThrowError("'invalid' blocks not allowed for this method");
+        expect(() => {
+            start.sixType = SixType.Invalid;
+        }).toThrowError("'invalid' blocks not allowed for this method");
     });
 
     it('checks the six type is valid for the chosen method', () => {
         const method = new Stedman();
-        spyOn(method, 'checkSixType');
+        jest.spyOn(method, 'checkSixType');
         start = new Start(rounds(S.Cinques), method);
 
         start.sixType = SixType.Slow;
@@ -1062,7 +1082,7 @@ describe('Start class', () => {
 
                 // Ignore default start (produces no output)
                 if (!output) {
-                    continue;  // eslint-disable-line no-continue
+                    continue; // eslint-disable-line no-continue
                 }
 
                 const description = ''
@@ -1178,7 +1198,5 @@ describe('Start class', () => {
             expect(start.sixType).toBe(SixType.Eight);
             expect(start.rowIndex).toBe(8);
         });
-
     });
-
 });

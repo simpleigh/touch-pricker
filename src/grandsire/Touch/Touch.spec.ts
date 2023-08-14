@@ -5,18 +5,17 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-import {
-    testRandomAccessContainerImplementation,
-} from '../../blocks/RandomAccessContainer.spec';
+import testRandomAccessContainerImplementation from
+    '../../blocks/testRandomAccessContainerImplementation';
 import { Call } from '../../leads';
 import { rounds, Stage } from '../../rows';
 import { StringArray } from '../../visitors';
 import Course from '../Course';
 import Lead from '../Lead';
+import Parser from '../Parser';
 import Touch from '.';
 
 describe('Grandsire Touch class', () => {
-
     testRandomAccessContainerImplementation(
         Stage.Doubles,
         (initialRow) => {
@@ -34,10 +33,7 @@ describe('Grandsire Touch class', () => {
         },
         120,
         3,
-        Course.fromString(
-            rounds(Stage.Doubles),
-            '13425  s2 3 s4  (4 leads)',
-        ),
+        Course.fromString(rounds(Stage.Doubles), '13425  s2 3 s4  (4 leads)'),
     );
 
     it('generates the correct rows when visited', () => {
@@ -76,7 +72,8 @@ describe('Grandsire Touch class', () => {
     });
 
     it('passes strings to a parser for loading', () => {
-        const parser = jasmine.createSpyObj('Parser', ['parseTouch']);
+        const parser = new Parser();
+        jest.spyOn(parser, 'parseTouch');
 
         Touch.fromString('test', parser);
 
@@ -86,12 +83,11 @@ describe('Grandsire Touch class', () => {
 
     it('returns the parsed result', () => {
         const touch = new Touch(rounds(Stage.Doubles));
-        const parser = jasmine.createSpyObj('Parser', ['parseTouch']);
-        parser.parseTouch.and.returnValue(touch);
+        const parser = new Parser();
+        jest.spyOn(parser, 'parseTouch').mockReturnValue(touch);
 
         const result = Touch.fromString('test', parser);
 
         expect(result).toBe(touch);
     });
-
 });
