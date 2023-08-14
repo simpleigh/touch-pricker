@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import multiply from './multiply';
@@ -11,7 +11,6 @@ import stringFromRow from './stringFromRow';
 import { Row, Stage } from './types';
 
 describe('multiply function', () => {
-
     const test = (
         description: string,
         input1: string,
@@ -63,5 +62,4 @@ describe('multiply function', () => {
             expect(row2).toEqual(rowBackup);
         });
     });
-
 });

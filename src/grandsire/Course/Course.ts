@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { AbstractCourse, Call } from '../../leads';
@@ -18,7 +18,6 @@ import siril from './siril.dot';
  */
 @Templates.makePrintable({ mbd, siril }, { Call, stringFromRow })
 class Course extends AbstractCourse<Lead> implements Templates.Interface {
-
     /* SerialContainer methods ************************************************/
 
     /**
@@ -53,7 +52,6 @@ class Course extends AbstractCourse<Lead> implements Templates.Interface {
     ): Course {
         return parser.parseCourse(initialRow, input);
     }
-
 }
 
 export default Course;

@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import AbstractPricker from '../../AbstractPricker';
@@ -25,7 +25,6 @@ const enum Block { Course, Touch }
  */
 @Templates.makePrintable({ css, html }, { Stage })
 class MbdPricker extends AbstractPricker implements Notifiable {
-
     /**
      * Stage we're pricking on
      */
@@ -421,7 +420,6 @@ class MbdPricker extends AbstractPricker implements Notifiable {
 
         this.resize();
     }
-
 }
 
 export default MbdPricker;

@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { rounds, Stage, stringFromRow } from '../../rows';
@@ -42,7 +42,6 @@ import MatcherSet from '../MatcherSet';
  *   - printing the music report
  */
 abstract class AbstractScheme extends MatcherSet {
-
     /**
      * Constructor.
      */
@@ -62,7 +61,6 @@ abstract class AbstractScheme extends MatcherSet {
      */
     // eslint-disable-next-line @typescript-eslint/no-shadow
     protected abstract createMatchers(rounds: string): AbstractMatcher[];
-
 }
 
 export default AbstractScheme;

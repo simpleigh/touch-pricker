@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { AbstractBlock, RandomAccessContainer } from '../blocks';
@@ -18,7 +18,6 @@ import { rounds, Row, Stage } from '../rows';
 abstract class AbstractParser<
     Touch extends RandomAccessContainer<AbstractBlock>
 > {
-
     /**
      * Parses calling for a touch expressed on multiple lines
      * Strips out:
@@ -79,7 +78,6 @@ abstract class AbstractParser<
         initialRow: Row,
         input: string,
     ): AbstractBlock | undefined;
-
 }
 
 export default AbstractParser;

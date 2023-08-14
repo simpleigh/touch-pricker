@@ -2,13 +2,12 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { Stage } from './types';
 
 describe('Stage enum', () => {
-
     it('maps stage names to numbers of bells', () => {
         expect(Stage.Minimus).toBe(4);
         expect(Stage.Doubles).toBe(5);
@@ -40,5 +39,4 @@ describe('Stage enum', () => {
         expect(Stage[15]).toBe('Septuples');
         expect(Stage[16]).toBe('Sixteen');
     });
-
 });

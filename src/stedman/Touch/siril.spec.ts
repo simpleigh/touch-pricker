@@ -2,14 +2,13 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { StedmanJump } from '../methods';
 import Touch from '.';
 
 describe('siril template for Stedman Touch', () => {
-
     const composition = ''
         + '1234567890E\n'
         + '2314568790E  1 s10 s13 s15 22\n'
@@ -73,5 +72,4 @@ describe('siril template for Stedman Touch', () => {
         expect(output).toContain('touch = strt, course1\n');
         expect(output).not.toContain('course2');
     });
-
 });

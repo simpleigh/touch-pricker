@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { stringFromRow } from '../rows';
@@ -12,7 +12,6 @@ import { Context, Printable, Templates } from './types';
  * Internal implementation of print functionality.
  */
 abstract class AbstractPrintable implements Printable {
-
     /**
      * Renders the object with a template.
      * Takes the name of the template and a {@link Context}, adding the object
@@ -36,7 +35,6 @@ abstract class AbstractPrintable implements Printable {
      * Extra context provided at compile time.
      */
     public abstract readonly extraContext: Context;
-
 }
 
 export default AbstractPrintable;

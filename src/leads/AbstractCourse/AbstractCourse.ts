@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { SerialContainer } from '../../blocks';
@@ -21,7 +21,6 @@ import text from './text.dot';
 @Templates.makePrintable({ html, text }, { Call })
 abstract class AbstractCourse<Lead extends AbstractLead>
     extends SerialContainer<Lead> {
-
     /* templating *************************************************************/
 
     public print: Templates.Print;
@@ -90,7 +89,6 @@ abstract class AbstractCourse<Lead extends AbstractLead>
             target.getBlock(1).setCall(source.getBlock(1).call);
         }
     }
-
 }
 
 export default AbstractCourse;

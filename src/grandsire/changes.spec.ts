@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { Change, MutableRow, rounds, Stage, stringFromRow } from '../rows';
@@ -23,7 +23,6 @@ const createChangeTests = (
 };
 
 describe('Changes:', () => {
-
     describe('permute1 function', createChangeTests(
         Changes.permute1,
         [
@@ -67,5 +66,4 @@ describe('Changes:', () => {
             ['2143658709TEBAC', Stage.Septuples],
         ],
     ));
-
 });

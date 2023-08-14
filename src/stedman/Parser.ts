@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { LeadBasedParser } from '../leads';
@@ -15,7 +15,6 @@ import Touch from './Touch';
  * Parser for touches of Stedman
  */
 class Parser extends LeadBasedParser<Course, Touch> {
-
     /**
      * The method being parsed
      */
@@ -100,7 +99,6 @@ class Parser extends LeadBasedParser<Course, Touch> {
     set method(method: AbstractMethod) {
         this._method = method;
     }
-
 }
 
 export default Parser;

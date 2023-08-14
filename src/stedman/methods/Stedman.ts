@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { Row } from '../../rows';
@@ -15,7 +15,6 @@ import AbstractMethod from './AbstractMethod';
  * Stedman-specific functionality
  */
 class Stedman extends AbstractMethod {
-
     /**
      * Method name
      */
@@ -60,7 +59,6 @@ class Stedman extends AbstractMethod {
      * Index of rounds within six for standard start
      */
     public readonly defaultStartRowIndex: number = 4;
-
 }
 
 export default Stedman;

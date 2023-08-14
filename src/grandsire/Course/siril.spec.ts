@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 /* eslint-disable max-len */
@@ -11,7 +11,6 @@ import { rounds, Stage } from '../../rows';
 import Course from '.';
 
 describe('siril template for Grandsire Course', () => {
-
     it('renders a course correctly', () => {
         const course = Course.fromString(rounds(Stage.Doubles), 's2 3 (4)');
         expect(course.print('siril')).toRenderAs(`
@@ -70,5 +69,4 @@ describe('siril template for Grandsire Course', () => {
                 .toBe(`${EXPECTED_OUTPUTS[i]}"@  s2 3  (4 leads)"\n`);
         }
     });
-
 });

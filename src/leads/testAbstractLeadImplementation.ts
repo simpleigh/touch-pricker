@@ -15,14 +15,12 @@ import Call from './Call';
 import { Course } from './testBlocks';
 
 class Visitor extends AbstractVisitor {
-
     protected override visitImplementation(
         row: Row,
         block?: AbstractBlock,
     ): void {
         // NOOP
     }
-
 }
 
 /**

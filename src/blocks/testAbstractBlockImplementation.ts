@@ -13,14 +13,12 @@ import AbstractContainer from './AbstractContainer';
 class Container extends AbstractContainer<AbstractBlock> {}
 
 class Visitor extends AbstractVisitor {
-
     protected override visitImplementation(
         row: Row,
         block?: AbstractBlock,
     ): void {
         // NOOP
     }
-
 }
 
 /**

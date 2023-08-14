@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { getHeight, getWidth } from './dom';
@@ -10,7 +10,6 @@ import Pricker from './Pricker';
 import * as Templates from './templates';
 
 abstract class AbstractPricker implements Pricker {
-
     /**
      * Constructor
      */
@@ -66,7 +65,6 @@ abstract class AbstractPricker implements Pricker {
         // Ignore risk elements may be null when using our own templates
         return theDoc.getElementById(id) as T;
     }
-
 }
 
 export default AbstractPricker;

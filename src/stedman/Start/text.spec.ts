@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { rounds, Stage } from '../../rows';
@@ -11,7 +11,6 @@ import SixType from '../SixType';
 import Start from '.';
 
 describe('text template for Start', () => {
-
     type StartPosition = [new() => AbstractMethod, SixType, string[]];
 
     const startPositions: StartPosition[] = [
@@ -97,5 +96,4 @@ describe('text template for Start', () => {
             });
         }
     }
-
 });

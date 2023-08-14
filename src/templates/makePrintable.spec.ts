@@ -5,18 +5,13 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-/*
-eslint-disable
-@typescript-eslint/lines-between-class-members,
-padded-blocks,
-*/
+/* eslint-disable @typescript-eslint/lines-between-class-members */
 
 import AbstractPrintable from './AbstractPrintable';
 import { Context, Templates as TemplateProperty } from './types';
 import * as Templates from '.';
 
 describe('makePrintable decorator', () => {
-
     it('binds the print function to the class', () => {
         @Templates.makePrintable({ })
         class Test implements Templates.Interface {
@@ -71,5 +66,4 @@ describe('makePrintable decorator', () => {
         expect(Test.prototype.templates).toEqual({ template1, template2 });
         expect(Test.prototype.extraContext).toEqual({ context1, context2 });
     });
-
 });

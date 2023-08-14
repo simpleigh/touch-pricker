@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { AbstractLead, Call } from '../../../leads';
@@ -18,7 +18,6 @@ import siril from './siril.dot';
  */
 @Templates.makePrintable({ mbd, siril }, { Call })
 abstract class AbstractSix extends AbstractLead implements Templates.Interface {
-
     /**
      * Type of the six
      */
@@ -59,7 +58,6 @@ abstract class AbstractSix extends AbstractLead implements Templates.Interface {
         Changes.permuteCall(start, this._call);
         return start;
     }
-
 }
 
 export default AbstractSix;

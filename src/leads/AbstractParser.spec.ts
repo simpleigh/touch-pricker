@@ -10,7 +10,6 @@ import { Course, Touch } from './testBlocks';
 import AbstractParser from './AbstractParser';
 
 class TestParser extends AbstractParser<Touch> {
-
     public readonly touch: Touch = new Touch(rounds(Stage.Minimus));
 
     public readonly createTouchSpy = jest.fn().mockReturnValue(this.touch);
@@ -24,7 +23,6 @@ class TestParser extends AbstractParser<Touch> {
     protected parseLine(initialRow: Row, input: string): Course | undefined {
         return this.parseLineSpy(initialRow, input);
     }
-
 }
 
 describe('AbstractParser class', () => {

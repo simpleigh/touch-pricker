@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import AbstractBlock from './AbstractBlock';
@@ -16,7 +16,6 @@ import AbstractContainer from './AbstractContainer';
  */
 abstract class RandomAccessContainer<Block extends AbstractBlock>
     extends AbstractContainer<Block> {
-
     /* RandomAccessContainer methods ******************************************/
 
     /**
@@ -52,7 +51,6 @@ abstract class RandomAccessContainer<Block extends AbstractBlock>
             this.getBlock(i).ownership = { container: this, index: i };
         }
     }
-
 }
 
 export default RandomAccessContainer;

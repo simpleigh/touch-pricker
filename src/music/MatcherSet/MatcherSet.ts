@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import * as Templates from '../../templates';
@@ -33,7 +33,6 @@ import text from './text.dot';
  */
 @Templates.makePrintable({ text })
 class MatcherSet extends AbstractMatcher {
-
     /**
      * Constructor.
      * @param _matchers  Matchers in the set.
@@ -81,7 +80,6 @@ class MatcherSet extends AbstractMatcher {
     get matchers(): AbstractMatcher[] {
         return this._matchers.slice();
     }
-
 }
 
 export default MatcherSet;

@@ -2,14 +2,13 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import MatchType from '../MatchType';
 import Pattern from '.';
 
 describe('text template for Pattern music class', () => {
-
     it('displays nothing when nothing matches', () => {
         const pattern = new Pattern('90E');
         expect(pattern.print('text')).toBe('');
@@ -62,5 +61,4 @@ describe('text template for Pattern music class', () => {
         pattern.match('2314567890E');
         expect(pattern.print('text', { end: '' })).toBe('1 90E');
     });
-
 });

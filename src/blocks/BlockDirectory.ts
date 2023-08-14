@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import AbstractBlock from './AbstractBlock';
@@ -14,7 +14,6 @@ type DirectoryArray = (DirectoryArray | boolean)[];
  * Files information about blocks in a touch, indexed by their location
  */
 class BlockDirectory {
-
     /**
      * The directory itself
      */
@@ -105,7 +104,6 @@ class BlockDirectory {
     get empty(): boolean {
         return !this._directory.length;
     }
-
 }
 
 export default BlockDirectory;

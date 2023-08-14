@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 /* eslint-disable max-len */
@@ -12,7 +12,6 @@ import { stringFromRow } from '../../rows';
 import Touch from '.';
 
 describe('select template for Stedman Touch', () => {
-
     it('renders a touch correctly', () => {
         const touch = Touch.fromString(
             '2314567890E\n'
@@ -111,5 +110,4 @@ describe('select template for Stedman Touch', () => {
             </div>
         `);
     });
-
 });

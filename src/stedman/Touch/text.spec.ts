@@ -2,14 +2,13 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import SixType from '../SixType';
 import Touch from '.';
 
 describe('text template for Stedman Touch', () => {
-
     it('renders a touch correctly', () => {
         const text = '2314567890E\n'
             + '2314568790E  1 s10 s13 s15 22\n'
@@ -30,5 +29,4 @@ describe('text template for Stedman Touch', () => {
         const expected = `${text}${touch.start.print('text')}\n`;
         expect(touch.print('text')).toBe(expected);
     });
-
 });

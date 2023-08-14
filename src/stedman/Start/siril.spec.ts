@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 /* eslint-disable max-len */
@@ -13,7 +13,6 @@ import SixType from '../SixType';
 import Start from '.';
 
 describe('siril template for Start', () => {
-
     type StartPosition = [SixType, string[]];
 
     const startPositions: StartPosition[] = [
@@ -97,5 +96,4 @@ describe('siril template for Start', () => {
             });
         }
     }
-
 });

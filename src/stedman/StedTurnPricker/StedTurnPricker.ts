@@ -27,7 +27,6 @@ import html from './html.dot';
  */
 @Templates.makePrintable({ css, html }, { Stage })
 class StedTurnPricker extends AbstractPricker {
-
     /**
      * Stage we're generating on
      */
@@ -95,7 +94,6 @@ class StedTurnPricker extends AbstractPricker {
         this._initialRow = rounds(this._stage);
         this.redraw();
     }
-
 }
 
 export default StedTurnPricker;

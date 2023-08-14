@@ -13,13 +13,11 @@ import testAbstractVisitorImplementation from
 import Music from './Music';
 
 class TestMatcher extends AbstractMatcher {
-
     public match(row: string): boolean {
         return true;
     }
 
     public readonly matchCount: number = 0;
-
 }
 
 describe('Music visitor', () => {

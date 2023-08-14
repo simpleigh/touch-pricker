@@ -30,7 +30,6 @@ import { Stage } from './types';
  * ```
  */
 class Uint4Table {
-
     /**
      * Constructor.
      * @param _stage  Stage on which the data is valid
@@ -99,7 +98,6 @@ class Uint4Table {
 
         return [i, j];
     }
-
 }
 
 export default Uint4Table;

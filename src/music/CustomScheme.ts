@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import AbstractMatcher from './AbstractMatcher';
@@ -30,7 +30,6 @@ import AbstractScheme from './AbstractScheme';
  * ```
  */
 class CustomScheme extends AbstractScheme {
-
     /* AbstractScheme methods *************************************************/
 
     /**
@@ -48,7 +47,6 @@ class CustomScheme extends AbstractScheme {
     public addMatcher(matcher: AbstractMatcher): void {
         this._matchers.push(matcher);
     }
-
 }
 
 export default CustomScheme;

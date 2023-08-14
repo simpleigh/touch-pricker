@@ -11,7 +11,6 @@ import LeadBasedParser from './LeadBasedParser';
 import { Course, Touch } from './testBlocks';
 
 class TestParser extends LeadBasedParser<Course, Touch> {
-
     public readonly createCourseSpy = jest.fn(
         (initialRow) => new Course(initialRow),
     );
@@ -23,7 +22,6 @@ class TestParser extends LeadBasedParser<Course, Touch> {
     protected createCourse(initialRow: Row): Course {
         return this.createCourseSpy(initialRow);
     }
-
 }
 
 describe('LeadBasedParser class', () => {

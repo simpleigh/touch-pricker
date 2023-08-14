@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 /* eslint-disable max-len */
@@ -11,7 +11,6 @@ import { rowFromString, Stage, stringFromRow } from '../../rows';
 import Course from '.';
 
 describe('mbd template for Stedman Course', () => {
-
     it('renders a course correctly', () => {
         const initialRow = rowFromString('231', Stage.Cinques);
         const course = Course.fromString(initialRow, 's2 3 (4)');
@@ -74,5 +73,4 @@ describe('mbd template for Stedman Course', () => {
             </span><br />
         `);
     });
-
 });

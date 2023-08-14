@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { Row } from '../rows';
@@ -22,7 +22,6 @@ import Notifiable from './Notifiable';
  */
 abstract class AbstractContainer<Block extends AbstractBlock>
     extends AbstractBlock implements Notifiable {
-
     /**
      * Blocks within the container
      */
@@ -125,7 +124,6 @@ abstract class AbstractContainer<Block extends AbstractBlock>
         }
         return this._blocks[index - 1];
     }
-
 }
 
 export default AbstractContainer;

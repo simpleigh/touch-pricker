@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-2. Leigh Simpson. All rights reserved.
  */
 
 import { AbstractBlock, BlockDirectory } from '../blocks';
@@ -18,7 +18,6 @@ import AbstractVisitor from './AbstractVisitor';
  * each block containing a false row.
  */
 class Proof extends AbstractVisitor {
-
     /**
      * Log of rows that we've seen.
      * Rows are accumulated into a dictionary indexed by the string
@@ -104,13 +103,11 @@ class Proof extends AbstractVisitor {
                 this._directory.add(block);
             }
             this._rowCounts[rowString].push(block);
-
         } else {
             // Not seen - i.e. true
             this._rowCounts[rowString] = [block];
         }
     }
-
 }
 
 export default Proof;

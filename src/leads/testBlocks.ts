@@ -13,7 +13,6 @@ import LeadHeadTable from './LeadHeadTable';
 import AbstractCourse from './AbstractCourse';
 
 export class Lead extends AbstractLead {
-
     public readonly rows: number = 0;
 
     public accept(): this {
@@ -32,11 +31,9 @@ export class Lead extends AbstractLead {
             [Call.Single]: stages,
         };
     }
-
 }
 
 export class Course extends AbstractCourse<Lead> {
-
     protected get defaultLength(): number {
         return this.stage - 1;
     }
@@ -44,7 +41,6 @@ export class Course extends AbstractCourse<Lead> {
     protected createBlock(initialRow: Row, index: number): Lead {
         return new Lead(initialRow);
     }
-
 }
 
 export class Touch extends RandomAccessContainer<Course> {}

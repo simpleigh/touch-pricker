@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { AbstractBlock } from '../blocks';
@@ -16,7 +16,6 @@ import AbstractVisitor from './AbstractVisitor';
  * The visitor accumulates rows from a touch in the order they're rung.
  */
 class StringArray extends AbstractVisitor {
-
     /**
      * Array of string representations of rows that have been visited.
      */
@@ -38,7 +37,6 @@ class StringArray extends AbstractVisitor {
     protected visitImplementation(row: Row, block?: AbstractBlock): void {
         this._strings.push(stringFromRow(row));
     }
-
 }
 
 export default StringArray;

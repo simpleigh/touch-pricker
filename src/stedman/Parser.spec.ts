@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { rounds, rowFromString, Stage } from '../rows';
@@ -10,7 +10,6 @@ import { AbstractMethod, Erin, Stedman, StedmanJump } from './methods';
 import Parser from './Parser';
 
 describe('Parser for Stedman', () => {
-
     let parser: Parser;
 
     beforeEach(() => {
@@ -55,7 +54,6 @@ describe('Parser for Stedman', () => {
     });
 
     describe('can create courses from strings:', () => {
-
         const testImport = (
             description: string,
             input: string,
@@ -178,11 +176,9 @@ describe('Parser for Stedman', () => {
             expect(() => parser.parseCourse(rounds(Stage.Cinques), 'garbage'))
                 .toThrowError("Cannot import course from line 'garbage'");
         });
-
     });
 
     describe('can create touches from strings:', () => {
-
         const testImport = (
             description: string,
             input: string,
@@ -313,7 +309,5 @@ describe('Parser for Stedman', () => {
             expect(() => parser.parseTouch('2314567890E\ngarbage\n'))
                 .toThrowError("Cannot import course from line 'garbage'");
         });
-
     });
-
 });

@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import AbstractMatcher from './AbstractMatcher';
@@ -24,7 +24,6 @@ const reverse = (str: string) => str.split('').reverse().join('');
  * Runs-based music matching scheme.
  */
 class RunsScheme extends AbstractScheme {
-
     /* AbstractScheme methods *************************************************/
 
     /**
@@ -71,7 +70,6 @@ class RunsScheme extends AbstractScheme {
             ]),
         ];
     }
-
 }
 
 export default RunsScheme;

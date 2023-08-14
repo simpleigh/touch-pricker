@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 /* eslint-disable max-len */
@@ -10,7 +10,6 @@
 import Touch from '.';
 
 describe('siril template for Grandsire Touch', () => {
-
     const composition = ''
         + '123456789\n'
         + '143926587  1 s2 s4  (4 leads)\n'
@@ -61,5 +60,4 @@ describe('siril template for Grandsire Touch', () => {
         expect(output).toContain('touch = course1, course2\n');
         expect(output).not.toContain('course3');
     });
-
 });

@@ -2,14 +2,13 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { rounds, Stage } from '../rows';
 import Parser from './Parser';
 
 describe('Parser for Grandsire', () => {
-
     let parser: Parser;
 
     beforeEach(() => {
@@ -17,7 +16,6 @@ describe('Parser for Grandsire', () => {
     });
 
     describe('can create courses from strings:', () => {
-
         const testImport = (
             description: string,
             input: string,
@@ -138,11 +136,9 @@ describe('Parser for Grandsire', () => {
             expect(() => parser.parseCourse(rounds(Stage.Caters), 'garbage'))
                 .toThrowError("Cannot import course from line 'garbage'");
         });
-
     });
 
     describe('can create touches from strings:', () => {
-
         const testImport = (
             description: string,
             input: string,
@@ -241,7 +237,5 @@ describe('Parser for Grandsire', () => {
             expect(() => parser.parseTouch('123456789\ngarbage\n'))
                 .toThrowError("Cannot import course from line 'garbage'");
         });
-
     });
-
 });

@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { AbstractBlock } from '../blocks';
@@ -18,7 +18,6 @@ import AbstractVisitor from './AbstractVisitor';
  * processed after rounds has been reached.
  */
 class Counter extends AbstractVisitor {
-
     /**
      * Count of rows that have been visited.
      */
@@ -40,7 +39,6 @@ class Counter extends AbstractVisitor {
     protected visitImplementation(row: Row, block?: AbstractBlock): void {
         this._count += 1;
     }
-
 }
 
 export default Counter;

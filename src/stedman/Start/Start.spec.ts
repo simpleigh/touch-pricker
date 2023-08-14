@@ -17,7 +17,6 @@ import SixType from '../SixType';
 import Start from '.';
 
 class TestMethod extends AbstractMethod {
-
     public override name: string = 'Test';
 
     public override createSix(initialRow: Row): AbstractSix {
@@ -33,7 +32,6 @@ class TestMethod extends AbstractMethod {
     public override defaultStartSixType: SixType = SixType.Cold;
 
     public override defaultStartRowIndex: number = 3;
-
 }
 
 describe('Start class', () => {
@@ -1057,7 +1055,6 @@ describe('Start class', () => {
     ));
 
     describe('can set the row index and six type from strings:', () => {
-
         // Enumerate all possible starts and check the following flow:
         //  Start -> text (`print`) -> Start (`setFromString`)
 

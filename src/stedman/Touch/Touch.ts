@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { RandomAccessContainer } from '../../blocks';
@@ -29,7 +29,6 @@ import text from './text.dot';
 class Touch
     extends RandomAccessContainer<Course>
     implements Templates.Interface {
-
     /**
      * Start for this touch
      */
@@ -148,7 +147,6 @@ class Touch
         parser.method = method;
         return parser.parseTouch(input);
     }
-
 }
 
 export default Touch;

@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { Row, Stage } from '../../../rows';
@@ -17,7 +17,6 @@ import select from './select.dot';
  */
 @Templates.makePrintable({ select })
 abstract class AbstractMethod implements Templates.Interface {
-
     /* templating *************************************************************/
 
     public print: Templates.Print;
@@ -92,7 +91,6 @@ abstract class AbstractMethod implements Templates.Interface {
      * Index of rounds within six for standard start
      */
     public abstract readonly defaultStartRowIndex: number;
-
 }
 
 export default AbstractMethod;

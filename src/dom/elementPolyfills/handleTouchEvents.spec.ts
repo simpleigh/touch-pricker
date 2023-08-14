@@ -8,7 +8,6 @@
 import handleTouchEvents from './handleTouchEvents';
 
 describe('handleTouchEvents polyfill', () => {
-
     /**
      * Element to use for testing
      */

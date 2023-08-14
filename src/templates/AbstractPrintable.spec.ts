@@ -17,9 +17,7 @@ describe('Printable implementation', () => {
 
     @Templates.makePrintable(templates, { compile: 'compile-time context' })
     class Printable implements Templates.Interface {
-
         public print: Templates.Print;
-
     }
 
     let printable: Printable;

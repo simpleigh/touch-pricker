@@ -11,7 +11,6 @@ import RandomAccessContainer from './RandomAccessContainer';
 import SerialContainer from './SerialContainer';
 
 export class Lead extends AbstractBlock {
-
     protected calculate(): void {
         // NOOP
     }
@@ -25,11 +24,9 @@ export class Lead extends AbstractBlock {
     public accept(): this {
         return this;
     }
-
 }
 
 export class Course extends SerialContainer<Lead> {
-
     protected get defaultLength(): number {
         return this.stage - 1;
     }
@@ -37,7 +34,6 @@ export class Course extends SerialContainer<Lead> {
     protected createBlock(initialRow: Row, index: number): Lead {
         return new Lead(initialRow);
     }
-
 }
 
 export class Touch extends RandomAccessContainer<Course> {}

@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { RandomAccessContainer, SerialContainer } from '../blocks';
@@ -42,7 +42,6 @@ abstract class LeadBasedParser<
     Touch extends RandomAccessContainer<Course>,
 >
     extends AbstractParser<Touch> {
-
     /* AbstractParser methods *************************************************/
 
     /**
@@ -104,7 +103,6 @@ abstract class LeadBasedParser<
         }
 
         return course;
-
     }
 
     /**
@@ -112,7 +110,6 @@ abstract class LeadBasedParser<
      * @param initialRow  rounds for the parsed stage
      */
     protected abstract createCourse(initialRow: Row): Course;
-
 }
 
 export default LeadBasedParser;

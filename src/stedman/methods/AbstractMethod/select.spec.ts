@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import SixType from '../../SixType';
@@ -18,7 +18,6 @@ const testSelectAbstractMethodTemplate = (
     Method: new() => AbstractMethod,
     types: SixType[],
 ) => () => {
-
     describe('is a select template', () => {
         it('renders six type options correctly', () => {
             let expected = '';
@@ -28,7 +27,6 @@ const testSelectAbstractMethodTemplate = (
             expect(new Method().print('select')).toBe(expected);
         });
     });
-
 };
 
 describe('select template for Erin', testSelectAbstractMethodTemplate(

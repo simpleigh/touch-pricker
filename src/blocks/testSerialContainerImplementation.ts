@@ -32,7 +32,6 @@ const testSerialContainerImplementation = (
     lengthTestCases: [Stage, number, number][],
 ): void => {
     describe('is derived from SerialContainer and', () => {
-
         /**
          * Fixture factory that extends the container to its default length
          * @param initialRow  initial row for the container

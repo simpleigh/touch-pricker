@@ -2,14 +2,13 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { rounds, Stage, stringFromRow } from '../../rows';
 import Course from '.';
 
 describe('mbd template for Grandsire Course', () => {
-
     it('renders a course correctly', () => {
         const initialRow = rounds(Stage.Cinques);
         const course = Course.fromString(initialRow, 's2 3 (4)');
@@ -41,5 +40,4 @@ describe('mbd template for Grandsire Course', () => {
             </span><br />
         `);
     });
-
 });

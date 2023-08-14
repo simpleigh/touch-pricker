@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { AbstractBlock } from '../blocks';
@@ -18,7 +18,6 @@ import LeadHeadTable from './LeadHeadTable';
  * - calculates the last row using a table of lead heads
  */
 abstract class AbstractLead extends AbstractBlock {
-
     /**
      * Lead head reached by this lead
      */
@@ -99,7 +98,6 @@ abstract class AbstractLead extends AbstractBlock {
         this.setCall(call);
         return call;
     }
-
 }
 
 export default AbstractLead;

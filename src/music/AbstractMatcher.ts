@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import * as Templates from '../templates';
@@ -22,7 +22,6 @@ import * as Templates from '../templates';
  * perform a full musical analysis of a touch.
  */
 abstract class AbstractMatcher implements Templates.Interface {
-
     /* templating *************************************************************/
 
     public print: Templates.Print;
@@ -41,7 +40,6 @@ abstract class AbstractMatcher implements Templates.Interface {
      * This should increment for each match that occurs.
      */
     abstract get matchCount(): number;
-
 }
 
 export default AbstractMatcher;

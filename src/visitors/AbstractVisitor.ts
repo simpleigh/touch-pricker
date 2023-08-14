@@ -2,7 +2,7 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
 import { AbstractBlock } from '../blocks';
@@ -31,7 +31,6 @@ import { rounds, Row, stringFromRow } from '../rows';
  * whether rounds has been reached and stops processing at that point.
  */
 abstract class AbstractVisitor {
-
     /**
      * Whether or not we're still processing rows.
      * Defaults to `true` (processing rows), but is set to `false` once
@@ -79,7 +78,6 @@ abstract class AbstractVisitor {
         row: Row,
         block?: AbstractBlock,
     ): void;
-
 }
 
 export default AbstractVisitor;
