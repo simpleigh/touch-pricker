@@ -21,12 +21,12 @@ abstract class AbstractSix extends AbstractLead implements Templates.Interface {
     /**
      * Type of the six
      */
-    public readonly abstract type: SixType;
+    public abstract readonly type: SixType;
 
     /**
      * Notation (excluding call)
      */
-    public readonly abstract notation: string[];
+    public abstract readonly notation: string[];
 
     /* templating *************************************************************/
 

@@ -30,6 +30,7 @@ describe('Parser for Grandsire', () => {
             });
         };
 
+        // prettier-ignore
         testImport(
             'a plain course',
             '123456789  p',
@@ -90,6 +91,7 @@ describe('Parser for Grandsire', () => {
             '135624789  2 3 s5  (5 leads)',
         );
 
+        // prettier-ignore
         testImport(
             'a short plain course',
             'p (3)',
@@ -151,6 +153,7 @@ describe('Parser for Grandsire', () => {
             });
         };
 
+        // prettier-ignore
         testImport(
             'a simple touch',
             '123456789\n' +
@@ -183,6 +186,7 @@ describe('Parser for Grandsire', () => {
                 '132547698  s2 s3 s4  (5 leads)\n',
         );
 
+        // prettier-ignore
         testImport(
             'a touch with extra spacing',
             '\t 123456789\t \n' +
@@ -191,6 +195,7 @@ describe('Parser for Grandsire', () => {
                 '123456789  1 2 3 4  (4 leads)\n',
         );
 
+        // prettier-ignore
         testImport(
             'a touch with a blank line',
             '123456789\n' +
@@ -200,6 +205,7 @@ describe('Parser for Grandsire', () => {
                 '123456789  1 2 3 4  (4 leads)\n',
         );
 
+        // prettier-ignore
         testImport(
             'a touch with microsiril comments',
             '123456789\n' +
@@ -208,6 +214,7 @@ describe('Parser for Grandsire', () => {
                 '123456789  1 2 3 4  (4 leads)\n',
         );
 
+        // prettier-ignore
         testImport(
             'a touch with a "//" comment line',
             '123456789\n' +
@@ -217,6 +224,7 @@ describe('Parser for Grandsire', () => {
                 '123456789  1 2 3 4  (4 leads)\n',
         );
 
+        // prettier-ignore
         testImport(
             'a touch with an included "//" comment',
             '123456789\n' +

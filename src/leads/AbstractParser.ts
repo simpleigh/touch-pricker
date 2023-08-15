@@ -16,7 +16,7 @@ import { rounds, Row, Stage } from '../rows';
  * {@link RandomAccessContainer}.
  */
 abstract class AbstractParser<
-    Touch extends RandomAccessContainer<AbstractBlock>
+    Touch extends RandomAccessContainer<AbstractBlock>,
 > {
     /**
      * Parses calling for a touch expressed on multiple lines
@@ -29,7 +29,8 @@ abstract class AbstractParser<
      * @param input         input string to parse
      */
     public parseTouch(input: string): Touch {
-        const lines = input.split('\n')
+        const lines = input
+            .split('\n')
             // Drop any content after comment characters "//"
             .map((line) => line.replace(/\/\/.*$/u, ''))
 

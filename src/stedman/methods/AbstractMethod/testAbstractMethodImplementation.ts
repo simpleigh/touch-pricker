@@ -14,12 +14,15 @@ import AbstractMethod from '.';
  * Tests that a method behaves as an AbstractMethod
  */
 const testAbstractMethodImplementation = (
-    Method: new() => AbstractMethod,
+    Method: new () => AbstractMethod,
     name: string,
     lengthTestCases: [Stage, number][],
     progressionTestCases: [SixType, SixType][],
-    [defaultFirstSix, defaultStartSixType, defaultStartRowIndex]:
-        [SixType, SixType, number],
+    [defaultFirstSix, defaultStartSixType, defaultStartRowIndex]: [
+        SixType,
+        SixType,
+        number,
+    ],
 ): void => {
     const initialRow = rowFromString('231', Stage.Cinques);
 

@@ -40,8 +40,7 @@ import Call from './Call';
 abstract class LeadBasedParser<
     Course extends SerialContainer<AbstractLead>,
     Touch extends RandomAccessContainer<Course>,
->
-    extends AbstractParser<Touch> {
+> extends AbstractParser<Touch> {
     /* AbstractParser methods *************************************************/
 
     /**

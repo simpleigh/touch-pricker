@@ -84,25 +84,28 @@ describe('LeadBasedParser class', () => {
         });
     };
 
+    // prettier-ignore
     testParse(
         'a simple course with only one call',
         '1',
         '1',
     );
 
+    // prettier-ignore
     testParse(
         'a simple course with multiple calls',
         '1 3 5',
         '1 3 5',
     );
 
-
+    // prettier-ignore
     testParse(
         'a course with singles before numbers',
         '1 s3 s5',
         '1 s3 s5',
     );
 
+    // prettier-ignore
     testParse(
         'a course with singles after numbers',
         '1 3s 5s',
@@ -121,6 +124,7 @@ describe('LeadBasedParser class', () => {
         '1 s2 3 s4 5',
     );
 
+    // prettier-ignore
     testParse(
         'a short course',
         '1 2 3 (3)',
@@ -128,6 +132,7 @@ describe('LeadBasedParser class', () => {
         3,
     );
 
+    // prettier-ignore
     testParse(
         'a long course',
         '1 2 3 (6)',
@@ -135,6 +140,7 @@ describe('LeadBasedParser class', () => {
         6,
     );
 
+    // prettier-ignore
     testParse(
         'a course with redundant length',
         '1 2 3 (5)',
@@ -155,12 +161,14 @@ describe('LeadBasedParser class', () => {
         3,
     );
 
+    // prettier-ignore
     testParse(
         'a plain course',
         'p',
         '',
     );
 
+    // prettier-ignore
     testParse(
         'a short plain course',
         'p (3)',
@@ -168,6 +176,7 @@ describe('LeadBasedParser class', () => {
         3,
     );
 
+    // prettier-ignore
     testParse(
         'a long plain course',
         'p (6)',
@@ -175,18 +184,21 @@ describe('LeadBasedParser class', () => {
         6,
     );
 
+    // prettier-ignore
     testParse(
         'a course with a course end',
         '123456 1 2 3 4 5',
         '1 2 3 4 5',
     );
 
+    // prettier-ignore
     testParse(
         'a course with a broken course end',
         'abcde  1 3 5',
         '1 3 5',
     );
 
+    // prettier-ignore
     testParse(
         'a course with a short course end',
         '234 1 2 3 4 5',

@@ -5,8 +5,6 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-/* eslint-disable max-len */
-
 import { BlockDirectory } from '../../blocks';
 import { stringFromRow } from '../../rows';
 import Touch from '.';
@@ -85,11 +83,13 @@ describe('select template for Grandsire Touch', () => {
     });
 
     it('applies a style for unreachable courses', () => {
-        const touch = Touch.fromString('123456789\np\np\np');  // 3 courses
+        const touch = Touch.fromString('123456789\np\np\np'); // 3 courses
 
-        expect(touch.print('select', {
-            touchRows: 252, // Two courses
-        })).toRenderAs(`
+        expect(
+            touch.print('select', {
+                touchRows: 252, // Two courses
+            }),
+        ).toRenderAs(`
             <div class="" onclick="pricker.onSelectCourse(0)" onmousedown="return false">
                 123456789
             </div>
@@ -106,7 +106,7 @@ describe('select template for Grandsire Touch', () => {
     });
 
     it('applies a style for false courses', () => {
-        const touch = Touch.fromString('123456789\np\np');  // 2 courses
+        const touch = Touch.fromString('123456789\np\np'); // 2 courses
         const falseness = new BlockDirectory();
         falseness.add(1, 3);
 

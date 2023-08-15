@@ -21,7 +21,9 @@ import Notifiable from './Notifiable';
  * In addition to this containers propagate changes between child blocks.
  */
 abstract class AbstractContainer<Block extends AbstractBlock>
-    extends AbstractBlock implements Notifiable {
+    extends AbstractBlock
+    implements Notifiable
+{
     /**
      * Blocks within the container
      */

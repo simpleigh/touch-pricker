@@ -26,7 +26,7 @@ class Proof extends AbstractVisitor {
      * Each value is an array of all blocks that contain the indexed
      * row.
      */
-    private _rowCounts: Record<string, (AbstractBlock | undefined)[]> = { };
+    private _rowCounts: Record<string, (AbstractBlock | undefined)[]> = {};
 
     /**
      * Directory of false blocks.
@@ -49,7 +49,7 @@ class Proof extends AbstractVisitor {
      * indexed by the string representation of that row.
      */
     public getRowCounts(): Record<string, number> {
-        const result: Record<string, number> = { };
+        const result: Record<string, number> = {};
 
         for (const rowString in this._rowCounts) {
             if (

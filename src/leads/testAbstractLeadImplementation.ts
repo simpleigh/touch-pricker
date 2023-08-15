@@ -5,8 +5,7 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import testAbstractBlockImplementation from
-    '../blocks/testAbstractBlockImplementation';
+import testAbstractBlockImplementation from '../blocks/testAbstractBlockImplementation';
 import { AbstractBlock } from '../blocks';
 import { rounds, Row, rowFromString, Stage, stringFromRow } from '../rows';
 import { AbstractVisitor, StringArray } from '../visitors';

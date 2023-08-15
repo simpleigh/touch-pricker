@@ -63,8 +63,9 @@ class StedTurnPricker extends AbstractPricker {
     }
 
     private redraw(): void {
-        this.getEl<HTMLInputElement>('initialRow').value =
-            stringFromRow(this._initialRow);
+        this.getEl<HTMLInputElement>('initialRow').value = stringFromRow(
+            this._initialRow,
+        );
 
         const rank = rankFromRow(this._initialRow);
         this.getEl('distance').innerText = this._table

@@ -82,7 +82,8 @@ class Start extends AbstractBlock implements Templates.Interface {
                 Changes.permute5(row);
             } else if (this._sixType === SixType.Cold) {
                 Changes.permuteUp(row);
-            } else {  // this._sixType === SixType.Hot
+            } else {
+                // this._sixType === SixType.Hot
                 Changes.permuteDown(row);
             }
 
@@ -179,7 +180,7 @@ class Start extends AbstractBlock implements Templates.Interface {
         let sixType: SixType | null = null;
         let rowIndex: number | null = null;
 
-        /* eslint-disable array-element-newline, no-multi-spaces */
+        // prettier-ignore
         const rowIndexPatterns: [string, number][] = [
             ['first',   1], ['1st', 1], ['1', 1],
             ['second',  2], ['2nd', 2], ['2', 2],
@@ -191,7 +192,6 @@ class Start extends AbstractBlock implements Templates.Interface {
             ['eighth',  8], ['8th', 8], ['8', 8],
             ['last', 99],  // sentinel value; see below
         ];
-        /* eslint-enable */
 
         for (const [pattern, value] of rowIndexPatterns) {
             const regex = new RegExp(pattern, 'iu');

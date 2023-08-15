@@ -15,8 +15,9 @@ import AbstractContainer from './AbstractContainer';
  * Child blocks are managed by changing the length of the container.
  * Might be used to represent a course of a single method.
  */
-abstract class SerialContainer<Block extends AbstractBlock>
-    extends AbstractContainer<Block> {
+abstract class SerialContainer<
+    Block extends AbstractBlock,
+> extends AbstractContainer<Block> {
     /* SerialContainer methods ************************************************/
 
     /**

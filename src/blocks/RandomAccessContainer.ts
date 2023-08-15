@@ -14,8 +14,9 @@ import AbstractContainer from './AbstractContainer';
  * Child blocks may be inserted or removed anywhere within the container.
  * Might be used to represent a touch of Stedman or a course of spliced.
  */
-abstract class RandomAccessContainer<Block extends AbstractBlock>
-    extends AbstractContainer<Block> {
+abstract class RandomAccessContainer<
+    Block extends AbstractBlock,
+> extends AbstractContainer<Block> {
     /* RandomAccessContainer methods ******************************************/
 
     /**

@@ -22,7 +22,8 @@ import text from './text.dot';
 @Templates.makePrintable({ select, siril, text }, { Call, stringFromRow })
 class Touch
     extends RandomAccessContainer<Course>
-    implements Templates.Interface {
+    implements Templates.Interface
+{
     /* templating *************************************************************/
 
     public print: Templates.Print;
@@ -32,7 +33,7 @@ class Touch
      * Helper for use in templates
      */
     get callNotations(): Partial<Record<Call, string[]>> {
-        const result: Partial<Record<Call, string[]>> = { };
+        const result: Partial<Record<Call, string[]>> = {};
         const lead = new Lead(this.initialRow);
 
         for (const call of [Call.Plain, Call.Bob, Call.Single]) {

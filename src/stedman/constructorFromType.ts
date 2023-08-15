@@ -9,7 +9,7 @@ import { Row } from '../rows';
 import { AbstractSix, Cold, Four, Eight, Hot, Quick, Slow } from './sixes';
 import SixType from './SixType';
 
-type SixConstructor = new(initialRow: Row) => AbstractSix;
+type SixConstructor = new (initialRow: Row) => AbstractSix;
 
 /**
  * Looks up the six constructor for a six type

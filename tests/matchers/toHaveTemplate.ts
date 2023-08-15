@@ -19,11 +19,10 @@ const toHaveTemplate: jest.CustomMatcher = function toHaveTemplate(
     expected: string,
 ) {
     const result: jest.CustomMatcherResult = {
-        message: () => (
+        message: () =>
             `Expected object not to have ${this.utils.printReceived(
                 expected,
-            )} template`
-        ),
+            )} template`,
         pass: false,
     };
 
@@ -35,11 +34,10 @@ const toHaveTemplate: jest.CustomMatcher = function toHaveTemplate(
     }
 
     if (!actual.templates[expected]) {
-        result.message = () => (
+        result.message = () =>
             `Expected object to have ${this.utils.printExpected(
                 expected,
-            )} template`
-        );
+            )} template`;
         return result;
     }
 

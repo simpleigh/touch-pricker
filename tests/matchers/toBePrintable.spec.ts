@@ -13,14 +13,14 @@ describe('toBePrintable matcher', () => {
     });
 
     it('fails for objects without a print property', () => {
-        const actual = { templates: { } };
+        const actual = { templates: {} };
         expect(actual).not.toBePrintable();
     });
 
     it('fails for objects where print is not callable', () => {
         const actual = {
             print: 'string',
-            templates: { },
+            templates: {},
         };
         expect(actual).not.toBePrintable();
     });

@@ -6,8 +6,7 @@
  */
 
 import { rowFromString, Stage } from '../rows';
-import testAbstractVisitorImplementation from
-    './testAbstractVisitorImplementation';
+import testAbstractVisitorImplementation from './testAbstractVisitorImplementation';
 import ConsoleVisitor from './Console';
 
 describe('Console visitor', () => {

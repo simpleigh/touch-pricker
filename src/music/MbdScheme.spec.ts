@@ -5,8 +5,6 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-/* eslint-disable max-len */
-
 import { Stage as S } from '../rows';
 import testAbstractSchemeImplementation from './AbstractScheme/testAbstractSchemeImplementation';
 import MbdScheme from './MbdScheme';
@@ -14,6 +12,7 @@ import MbdScheme from './MbdScheme';
 describe('Mbd music scheme', () => {
     testAbstractSchemeImplementation(
         (stage: S = S.Cinques) => new MbdScheme(stage),
+        // prettier-ignore
         [
             // 567890E
             [S.Triples, '2314567', 1, '1 567\n'],

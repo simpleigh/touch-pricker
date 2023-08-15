@@ -7,8 +7,7 @@
 
 import { Course, Touch } from '../blocks/testBlocks';
 import { rowFromString, Stage } from '../rows';
-import testAbstractVisitorImplementation from
-    './testAbstractVisitorImplementation';
+import testAbstractVisitorImplementation from './testAbstractVisitorImplementation';
 import Proof from './Proof';
 
 describe('Proof visitor', () => {
@@ -46,7 +45,7 @@ describe('Proof visitor', () => {
         visitor.visit(row2);
         visitor.visit(row2);
 
-        /* eslint-disable @typescript-eslint/naming-convention, quote-props */
+        /* eslint-disable @typescript-eslint/naming-convention */
         expect(visitor.getRowCounts()).toEqual({
             '2143': 1,
             '2413': 2,

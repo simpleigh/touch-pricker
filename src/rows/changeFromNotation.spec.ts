@@ -11,6 +11,7 @@ import rowFromString from './rowFromString';
 import { MutableRow, Stage } from './types';
 
 describe('changeFromNotation function', () => {
+    // prettier-ignore
     const testCases: [string, Stage, string, string, string][] = [
         [
             'with "-" for cross',

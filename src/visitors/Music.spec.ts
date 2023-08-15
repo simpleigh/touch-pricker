@@ -8,8 +8,7 @@
 import { Course, Touch } from '../blocks/testBlocks';
 import { AbstractMatcher, MbdScheme } from '../music';
 import { rounds, rowFromString, Stage } from '../rows';
-import testAbstractVisitorImplementation from
-    './testAbstractVisitorImplementation';
+import testAbstractVisitorImplementation from './testAbstractVisitorImplementation';
 import Music from './Music';
 
 class TestMatcher extends AbstractMatcher {
@@ -69,16 +68,18 @@ describe('Music visitor', () => {
         (matcher.match as jest.Mock).mockReturnValue(true);
 
         visitor.visit(testRow, touch.getBlock(1).getBlock(3));
-        expect(visitor.directory.contains(touch.getBlock(1).getBlock(3)))
-            .toBe(true);
+        expect(visitor.directory.contains(touch.getBlock(1).getBlock(3))).toBe(
+            true,
+        );
     });
 
     it('does not add unmatched blocks to the directory', () => {
         (matcher.match as jest.Mock).mockReturnValue(false);
 
         visitor.visit(testRow, touch.getBlock(1).getBlock(3));
-        expect(visitor.directory.contains(touch.getBlock(1).getBlock(3)))
-            .toBe(false);
+        expect(visitor.directory.contains(touch.getBlock(1).getBlock(3))).toBe(
+            false,
+        );
     });
 
     testAbstractVisitorImplementation(

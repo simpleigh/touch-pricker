@@ -5,15 +5,13 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-/* eslint-disable @typescript-eslint/lines-between-class-members */
-
 import AbstractPrintable from './AbstractPrintable';
 import { Context, Templates as TemplateProperty } from './types';
 import * as Templates from '.';
 
 describe('makePrintable decorator', () => {
     it('binds the print function to the class', () => {
-        @Templates.makePrintable({ })
+        @Templates.makePrintable({})
         class Test implements Templates.Interface {
             public print: Templates.Print;
         }
@@ -40,7 +38,7 @@ describe('makePrintable decorator', () => {
     it('binds extra context to the class', () => {
         const extraContext = { context: 'context value' };
 
-        @Templates.makePrintable({ }, extraContext)
+        @Templates.makePrintable({}, extraContext)
         class Test implements Templates.Interface {
             public print: Templates.Print;
             public extraContext: Context;

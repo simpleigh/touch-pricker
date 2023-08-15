@@ -5,10 +5,7 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-/* eslint-disable max-len */
-
-import testAbstractBlockImplementation from
-    '../../blocks/testAbstractBlockImplementation';
+import testAbstractBlockImplementation from '../../blocks/testAbstractBlockImplementation';
 import { rounds, Row, rowFromString, Stage as S } from '../../rows';
 import { StringArray } from '../../visitors';
 import { AbstractMethod, Carter, Erin, Stedman, StedmanJump } from '../methods';
@@ -160,7 +157,8 @@ describe('Start class', () => {
         }).toThrowError("Row index '7' out of range");
     });
 
-    const indexTestCases: [SixType, new() => AbstractMethod, number][] = [
+    // prettier-ignore
+    const indexTestCases: [SixType, new () => AbstractMethod, number][] = [
         [SixType.Slow,  Erin,        6],
         [SixType.Quick, Stedman,     6],
         [SixType.Cold,  StedmanJump, 6],
@@ -216,6 +214,7 @@ describe('Start class', () => {
 
     type StartPosition<Expected> = [number, SixType, StageTestCase<Expected>[]];
 
+    // prettier-ignore
     const rowTestCases: StartPosition<string[]>[] = [
         [1, SixType.Quick, [
             [S.Triples,   ['1325476',         '3124567',         '3215476',         '2314567',         '2135476']],
@@ -471,6 +470,7 @@ describe('Start class', () => {
         ]],
     ];
 
+    // prettier-ignore
     const notationTestCases: StartPosition<string[]>[] = [
         [1, SixType.Quick, [
             [S.Triples,   ['1', '3', '1', '3', '1']],
@@ -726,6 +726,7 @@ describe('Start class', () => {
         ]],
     ];
 
+    // prettier-ignore
     const notationStringTestCases: StartPosition<string>[] = [
         [1, SixType.Quick, [
             [S.Triples,   '+1.3.1.3.1'],
@@ -981,7 +982,8 @@ describe('Start class', () => {
         ]],
     ];
 
-    const methodMap: Record<SixType, new() => AbstractMethod> = {
+    // prettier-ignore
+    const methodMap: Record<SixType, new () => AbstractMethod> = {
         [SixType.Slow]:    Stedman,
         [SixType.Quick]:   Stedman,
         [SixType.Cold]:    StedmanJump,
@@ -991,20 +993,21 @@ describe('Start class', () => {
         [SixType.Invalid]: Stedman,
     };
 
-    const runRowTestCases = (testFn: (fixture: Start, rows: string[]) => void) => () => {
-        for (const [rowIndex, sixType, testCases] of rowTestCases) {
-            for (const [stage, rows] of testCases) {
-                const fixture = new Start(
-                    rounds(stage),
-                    new methodMap[sixType](),
-                );
+    const runRowTestCases =
+        (testFn: (fixture: Start, rows: string[]) => void) => () => {
+            for (const [rowIndex, sixType, testCases] of rowTestCases) {
+                for (const [stage, rows] of testCases) {
+                    const fixture = new Start(
+                        rounds(stage),
+                        new methodMap[sixType](),
+                    );
 
-                fixture.sixType = sixType;
-                fixture.rowIndex = rowIndex;
-                testFn(fixture, rows);
+                    fixture.sixType = sixType;
+                    fixture.rowIndex = rowIndex;
+                    testFn(fixture, rows);
+                }
             }
-        }
-    };
+        };
 
     it('computes the notation correctly', () => {
         for (const [rowIndex, sixType, testCases] of notationTestCases) {
@@ -1036,8 +1039,9 @@ describe('Start class', () => {
         }
     });
 
-    it('computes the last row correctly', runRowTestCases(
-        (fixture: Start, rows: string[]) => {
+    it(
+        'computes the last row correctly',
+        runRowTestCases((fixture: Start, rows: string[]) => {
             const last = fixture.getLast();
             const stage = last.length;
 
@@ -1047,28 +1051,31 @@ describe('Start class', () => {
             } else {
                 expect(last).toEqual(rowFromString('123', stage));
             }
-        },
-    ));
+        }),
+    );
 
-    it('computes the length correctly', runRowTestCases(
-        (fixture: Start, rows: string[]) => {
+    it(
+        'computes the length correctly',
+        runRowTestCases((fixture: Start, rows: string[]) => {
             expect(fixture.rows).toBe(rows.length);
-        },
-    ));
+        }),
+    );
 
-    it('computes the rows correctly', runRowTestCases(
-        (fixture: Start, rows: string[]) => {
+    it(
+        'computes the rows correctly',
+        runRowTestCases((fixture: Start, rows: string[]) => {
             const visitor = new StringArray();
             fixture.accept(visitor);
             expect(visitor.strings).toEqual(rows);
-        },
-    ));
+        }),
+    );
 
     describe('can set the row index and six type from strings:', () => {
         // Enumerate all possible starts and check the following flow:
         //  Start -> text (`print`) -> Start (`setFromString`)
 
-        const validSixTypes: [new() => AbstractMethod, SixType, number][] = [
+        // prettier-ignore
+        const validSixTypes: [new () => AbstractMethod, SixType, number][] = [
             [Erin,        SixType.Slow,  6],
             [Stedman,     SixType.Quick, 6],
             [Stedman,     SixType.Slow,  6],
@@ -1139,6 +1146,7 @@ describe('Start class', () => {
             'Start at backstroke with rounds as the third row of a slow six',
         );
 
+        // prettier-ignore
         testLoad(
             'a string with much less content',
             'Start 3 slow',

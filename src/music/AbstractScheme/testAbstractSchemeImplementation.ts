@@ -6,8 +6,7 @@
  */
 
 import { Stage } from '../../rows';
-import testAbstractMatcherImplementation from
-    '../testAbstractMatcherImplementation';
+import testAbstractMatcherImplementation from '../testAbstractMatcherImplementation';
 import AbstractScheme from '.';
 
 /**

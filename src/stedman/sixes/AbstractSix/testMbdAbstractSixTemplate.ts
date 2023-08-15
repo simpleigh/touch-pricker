@@ -5,8 +5,6 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-/* eslint-disable max-len */
-
 import { BlockDirectory } from '../../../blocks';
 import { Call } from '../../../leads';
 import { rounds, Row, Stage, stringFromRow } from '../../../rows';
@@ -37,7 +35,9 @@ const testMbdAbstractSixTemplate = (
                     ${stringFromRow(six.getLast())}
                 </span>
                 &nbsp;&nbsp;
-                <span class="${six.type} call" onclick="pricker.c(1)" onmousedown="return false">
+                <span class="${
+                    six.type
+                } call" onclick="pricker.c(1)" onmousedown="return false">
                     &nbsp;&nbsp;&nbsp;
                 </span>
                 &nbsp;&nbsp;
@@ -53,7 +53,9 @@ const testMbdAbstractSixTemplate = (
                     ${stringFromRow(six.getLast())}
                 </span>
                 &nbsp;&nbsp;
-                <span class="${six.type} call" onclick="pricker.c(1)" onmousedown="return false">
+                <span class="${
+                    six.type
+                } call" onclick="pricker.c(1)" onmousedown="return false">
                     &nbsp;-&nbsp;
                 </span>
                 &nbsp;&nbsp;
@@ -69,7 +71,9 @@ const testMbdAbstractSixTemplate = (
                     ${stringFromRow(six.getLast())}
                 </span>
                 &nbsp;&nbsp;
-                <span class="${six.type} call" onclick="pricker.c(1)" onmousedown="return false">
+                <span class="${
+                    six.type
+                } call" onclick="pricker.c(1)" onmousedown="return false">
                     &nbsp;s&nbsp;
                 </span>
                 &nbsp;&nbsp;
@@ -85,7 +89,9 @@ const testMbdAbstractSixTemplate = (
                     ${stringFromRow(six.getLast())}
                 </span>
                 &nbsp;&nbsp;
-                <span class="${six.type} call" onclick="pricker.c(999)" onmousedown="return false">
+                <span class="${
+                    six.type
+                } call" onclick="pricker.c(999)" onmousedown="return false">
                     &nbsp;&nbsp;&nbsp;
                 </span>
                 &nbsp;&nbsp;
@@ -104,7 +110,9 @@ const testMbdAbstractSixTemplate = (
                     ${stringFromRow(six.getLast())}
                 </span>
                 &nbsp;&nbsp;
-                <span class="${six.type} call" onclick="pricker.c(1)" onmousedown="return false">
+                <span class="${
+                    six.type
+                } call" onclick="pricker.c(1)" onmousedown="return false">
                     &nbsp;&nbsp;&nbsp;
                 </span>
                 &nbsp;&nbsp;
@@ -123,7 +131,9 @@ const testMbdAbstractSixTemplate = (
                     ${stringFromRow(six.getLast())}
                 </span>
                 &nbsp;&nbsp;
-                <span class="${six.type} call" onclick="pricker.c(1)" onmousedown="return false">
+                <span class="${
+                    six.type
+                } call" onclick="pricker.c(1)" onmousedown="return false">
                     &nbsp;&nbsp;&nbsp;
                 </span>
                 &nbsp;&nbsp;
@@ -139,16 +149,20 @@ const testMbdAbstractSixTemplate = (
             falseness.add(2, 1);
             music.add(2, 1);
 
-            expect(six.print('mbd', {
-                courseIndex: 2,
-                falseness,
-                music,
-            })).toRenderAs(`
+            expect(
+                six.print('mbd', {
+                    courseIndex: 2,
+                    falseness,
+                    music,
+                }),
+            ).toRenderAs(`
                 <span class="falseBlock">
                     ${stringFromRow(six.getLast())}
                 </span>
                 &nbsp;&nbsp;
-                <span class="${six.type} call" onclick="pricker.c(1)" onmousedown="return false">
+                <span class="${
+                    six.type
+                } call" onclick="pricker.c(1)" onmousedown="return false">
                     &nbsp;&nbsp;&nbsp;
                 </span>
                 &nbsp;&nbsp;
@@ -165,7 +179,9 @@ const testMbdAbstractSixTemplate = (
                     </u>
                 </span>
                 &nbsp;&nbsp;
-                <span class="${six.type} call" onclick="pricker.c(1)" onmousedown="return false">
+                <span class="${
+                    six.type
+                } call" onclick="pricker.c(1)" onmousedown="return false">
                     &nbsp;&nbsp;&nbsp;
                 </span>
                 &nbsp;&nbsp;
@@ -180,7 +196,9 @@ const testMbdAbstractSixTemplate = (
                     ${stringFromRow(six.getFirst())}
                 </span>
                 &nbsp;&nbsp;
-                <span class="${six.type} call" onclick="pricker.c(1)" onmousedown="return false">
+                <span class="${
+                    six.type
+                } call" onclick="pricker.c(1)" onmousedown="return false">
                     &nbsp;&nbsp;&nbsp;
                 </span>
                 &nbsp;&nbsp;

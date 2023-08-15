@@ -30,10 +30,10 @@ const PRICKER_MAP: Record<
  */
 const create = (
     elementId: string,
-    options: Options = { },
+    options: Options = {},
     parentDocument: HTMLDocument = document,
 ): Pricker => {
-    let pricker: Pricker;  // eslint-disable-line init-declarations
+    let pricker: Pricker; // eslint-disable-line init-declarations
 
     const element = parentDocument.getElementById(elementId);
     if (!element) {

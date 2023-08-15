@@ -6,8 +6,7 @@
  */
 
 import { Call } from '../../leads';
-import testAbstractCourseImplementation from
-    '../../leads/AbstractCourse/testAbstractCourseImplementation';
+import testAbstractCourseImplementation from '../../leads/AbstractCourse/testAbstractCourseImplementation';
 import { rounds, rowFromString, Stage, stringFromRow } from '../../rows';
 import { StringArray } from '../../visitors';
 import { AbstractMethod, Erin, Stedman, StedmanJump } from '../methods';
@@ -21,6 +20,7 @@ describe('Stedman Course class', () => {
         (initialRow) => new Course(initialRow),
         132,
         22,
+        // prettier-ignore
         [
             [Stage.Triples,    84, 14],
             [Stage.Caters,    108, 18],

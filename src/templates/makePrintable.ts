@@ -22,25 +22,24 @@ import { Context, Templates } from './types';
  * Takes an object containing all the templates for a class and binds it to that
  * class, filling in the implementation of `print`.
  */
-const makePrintable = (
-    templates: Templates,
-    extraContext: Context = { },
-) => (cls: any): void => {
-    if (!cls.prototype.print) {
-        cls.prototype.print = AbstractPrintable.prototype.print;
-        cls.prototype.templates = { };
-        cls.prototype.extraContent = { };
-    }
+const makePrintable =
+    (templates: Templates, extraContext: Context = {}) =>
+    (cls: any): void => {
+        if (!cls.prototype.print) {
+            cls.prototype.print = AbstractPrintable.prototype.print;
+            cls.prototype.templates = {};
+            cls.prototype.extraContent = {};
+        }
 
-    cls.prototype.templates = {
-        ...cls.prototype.templates,
-        ...templates,
-    };
+        cls.prototype.templates = {
+            ...cls.prototype.templates,
+            ...templates,
+        };
 
-    cls.prototype.extraContext = {
-        ...cls.prototype.extraContext,
-        ...extraContext,
+        cls.prototype.extraContext = {
+            ...cls.prototype.extraContext,
+            ...extraContext,
+        };
     };
-};
 
 export default makePrintable;

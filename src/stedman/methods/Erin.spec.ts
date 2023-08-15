@@ -7,8 +7,7 @@
 
 import { Stage } from '../../rows';
 import SixType from '../SixType';
-import testAbstractMethodImplementation from
-    './AbstractMethod/testAbstractMethodImplementation';
+import testAbstractMethodImplementation from './AbstractMethod/testAbstractMethodImplementation';
 import Erin from './Erin';
 
 describe('Erin method', () => {

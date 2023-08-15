@@ -5,8 +5,6 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-/* eslint-disable max-len */
-
 import { rounds, Stage } from '../../rows';
 import Course from '.';
 
@@ -14,12 +12,14 @@ describe('siril template for Grandsire Course', () => {
     it('renders a course correctly', () => {
         const course = Course.fromString(rounds(Stage.Doubles), 's2 3 (4)');
         expect(course.print('siril')).toRenderAs(`
-            plain, single, bob, plain, "@  ${course.print('text', { courseEnd: false })}"\\n
+            plain, single, bob, plain, "@  ${course.print('text', {
+                courseEnd: false,
+            })}"\\n
         `);
     });
 
     const EXPECTED_OUTPUTS = [
-        '',  // length zero not tested
+        '', // length zero not tested
         '+3, ',
         '+3.1, ',
         '+3.1.5, ',
@@ -65,8 +65,9 @@ describe('siril template for Grandsire Course', () => {
     it('stops rendering based on the remaining rows in the touch', () => {
         const course = Course.fromString(rounds(Stage.Doubles), 's2 3 (4)');
         for (let i = 1; i < EXPECTED_OUTPUTS.length; i += 1) {
-            expect(course.print('siril', { touchRows: i }))
-                .toBe(`${EXPECTED_OUTPUTS[i]}"@  s2 3  (4 leads)"\n`);
+            expect(course.print('siril', { touchRows: i })).toBe(
+                `${EXPECTED_OUTPUTS[i]}"@  s2 3  (4 leads)"\n`,
+            );
         }
     });
 });

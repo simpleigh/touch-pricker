@@ -9,6 +9,7 @@ import rounds from './rounds';
 import { Row, Stage as S } from './types';
 
 describe('rounds function', () => {
+    // prettier-ignore
     const testCases: [S, Row][] = [
         [S.Minimus,   [1, 2, 3, 4]],
         [S.Doubles,   [1, 2, 3, 4, 5]],

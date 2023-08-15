@@ -14,6 +14,7 @@ import Quick from './Quick';
 describe('Quick six class', () => {
     testSixImplementation(
         (initialRow) => new Quick(initialRow),
+        // prettier-ignore
         [
             ['3426175',         '3467251',         S.Triples,   C.Plain],
             ['342618597',       '346829175',       S.Caters,    C.Plain],
@@ -80,6 +81,7 @@ describe('Quick six class', () => {
         ],
         SixType.Quick,
         ['1', '3', '1', '3', '1'],
+        // prettier-ignore
         [
             '+1',
             '+1.3',

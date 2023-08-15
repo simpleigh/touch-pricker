@@ -17,8 +17,12 @@ import Touch from '../Touch';
 import css from './css.dot';
 import html from './html.dot';
 
-// eslint-disable-next-line @typescript-eslint/no-shadow
-const enum Block { Course, Touch }
+/* eslint-disable @typescript-eslint/no-shadow */
+const enum Block {
+    Course,
+    Touch,
+}
+/* eslint-enable */
 
 /**
  * An MBD pricker
@@ -95,7 +99,8 @@ class MbdPricker extends AbstractPricker implements Notifiable {
         if (index === Block.Course) {
             this._extraLeads.initialRow = this._course.getLast();
             this._copiedIndex = undefined;
-        } else {  // Block.Touch
+        } else {
+            // Block.Touch
             this._rowCount = undefined;
             this._proofText = undefined;
             this._falseness = undefined;
@@ -151,8 +156,9 @@ class MbdPricker extends AbstractPricker implements Notifiable {
         newCourse.initialRow = this._initialRow;
         this.getEl('callingFromRounds').innerHTML = newCourse.print('html');
 
-        this.getEl<HTMLInputElement>('initialRow').value =
-            stringFromRow(this._course.initialRow);
+        this.getEl<HTMLInputElement>('initialRow').value = stringFromRow(
+            this._course.initialRow,
+        );
 
         this.getEl<HTMLInputElement>('courseLength').value =
             this._course.length.toString();
@@ -179,16 +185,19 @@ class MbdPricker extends AbstractPricker implements Notifiable {
     }
 
     private redrawCourses(): void {
-        this.getEl<HTMLDivElement>('courses').innerHTML =
-            this._touch.print('select', {
+        this.getEl<HTMLDivElement>('courses').innerHTML = this._touch.print(
+            'select',
+            {
                 falseness: this._falseness,
                 selectedIndex: this._selectedIndex,
                 touchRows: this._rowCount,
-            });
+            },
+        );
         polyfillTree(this.getEl('courses'));
     }
 
-    public c(lead: number): void {  // eslint-disable-line id-length
+    // eslint-disable-next-line id-length
+    public c(lead: number): void {
         this._course.getBlock(lead).toggleCall();
     }
 
@@ -331,7 +340,7 @@ class MbdPricker extends AbstractPricker implements Notifiable {
 
     public onLoadTouch(): void {
         const input = this.getEl<HTMLTextAreaElement>('loadSaveTextarea').value;
-        let newTouch: Touch;  // eslint-disable-line init-declarations
+        let newTouch: Touch; // eslint-disable-line init-declarations
 
         try {
             newTouch = Touch.fromString(input);
@@ -369,9 +378,10 @@ class MbdPricker extends AbstractPricker implements Notifiable {
 
     public onAnalyseMusic(): void {
         const schemeName = this.getEl<HTMLSelectElement>('musicScheme').value;
-        const scheme = schemeName === 'runs'
-            ? new RunsScheme(this._stage)
-            : new MbdScheme(this._stage);
+        const scheme =
+            schemeName === 'runs'
+                ? new RunsScheme(this._stage)
+                : new MbdScheme(this._stage);
         const visitor = new Visitors.Music(scheme);
         this._touch.accept(visitor);
         this.getEl<HTMLTextAreaElement>('musicTextarea').value =

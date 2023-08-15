@@ -5,8 +5,7 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import testSerialContainerImplementation from
-    '../../blocks/testSerialContainerImplementation';
+import testSerialContainerImplementation from '../../blocks/testSerialContainerImplementation';
 import { rounds, Row, Stage } from '../../rows';
 import AbstractLead from '../AbstractLead';
 import Call from '../Call';

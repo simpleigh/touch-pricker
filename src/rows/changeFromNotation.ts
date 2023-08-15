@@ -14,17 +14,19 @@ import { Bell, Change, MutableRow, Stage } from './types';
 /**
  * Helper function that extends a change to swap two bells
  */
-const swap = (change: Change, place: number): Change => (row: MutableRow) => {
-    // Apply the original change
-    change(row);
+const swap =
+    (change: Change, place: number): Change =>
+    (row: MutableRow) => {
+        // Apply the original change
+        change(row);
 
-    // ... then swap the pair
-    const bell: Bell = row[place - 1];
-    row[place - 1] = row[place];
-    row[place] = bell;
+        // ... then swap the pair
+        const bell: Bell = row[place - 1];
+        row[place - 1] = row[place];
+        row[place] = bell;
 
-    return row;
-};
+        return row;
+    };
 
 /**
  * Converts a string notation into a {@link Change}
@@ -41,7 +43,9 @@ const changeFromNotation = (input: string, stage: Stage): Change => {
     input = input.toUpperCase();
 
     // Start out with the empty change and accumulate swaps as we go
-    let change: Change = () => { /* NOOP */ };
+    let change: Change = () => {
+        // NOOP
+    };
 
     // Also accumulate a canonical representation of the notation
     let notation = '';
@@ -54,7 +58,7 @@ const changeFromNotation = (input: string, stage: Stage): Change => {
 
     let currentPlace: Bell = 1;
     for (const inputCharacter of input.split('')) {
-        let inputPlace: Bell;  // eslint-disable-line init-declarations
+        let inputPlace: Bell; // eslint-disable-line init-declarations
 
         try {
             inputPlace = bellFromSymbol(inputCharacter);

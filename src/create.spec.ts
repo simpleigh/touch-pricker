@@ -18,7 +18,7 @@ jest.mock('./dom');
 describe('create function', () => {
     let parentDocument: Document;
     let element: HTMLElement;
-    const iframe = { } as HTMLIFrameElement;
+    const iframe = {} as HTMLIFrameElement;
 
     beforeEach(() => {
         element = {
@@ -31,10 +31,9 @@ describe('create function', () => {
     });
 
     it('throws an error if the element is not found', () => {
-        (parentDocument.getElementById as jest.Mock)
-            .mockReturnValue(null);
+        (parentDocument.getElementById as jest.Mock).mockReturnValue(null);
         expect(() => {
-            create('element', { }, parentDocument);
+            create('element', {}, parentDocument);
         }).toThrowError("Cannot find HTML element: 'element'");
     });
 
@@ -106,8 +105,10 @@ describe('create function', () => {
         });
 
         it('creates a style element and appends it to the document', () => {
-            expect(Dom.createAndAppendStyle)
-                .toHaveBeenCalledWith(parentDocument, pricker.print('css'));
+            expect(Dom.createAndAppendStyle).toHaveBeenCalledWith(
+                parentDocument,
+                pricker.print('css'),
+            );
         });
 
         it('appends the created pricker to the supplied element', () => {

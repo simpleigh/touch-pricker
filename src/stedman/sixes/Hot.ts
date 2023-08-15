@@ -64,7 +64,7 @@ class Hot extends AbstractSix {
      * Returns a table of lead heads from rounds for each stage and call
      */
     protected get leadHeadTable(): LeadHeadTable {
-        /* eslint-disable max-len */
+        // prettier-ignore
         return {
             [Call.Plain]: {
                 [Stage.Triples]:   [1, 4, 2, 6, 3, 7, 5],
@@ -88,7 +88,6 @@ class Hot extends AbstractSix {
                 [Stage.Septuples]: [1, 4, 2, 6, 3, 8, 5, 10, 7, 12, 9, 13, 11, 15, 14],
             },
         };
-        /* eslint-enable */
     }
 
     /* AbstractSix methods ****************************************************/

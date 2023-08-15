@@ -29,11 +29,10 @@ const toBePrintable: jest.CustomMatcher = function toBePrintable(actual: any) {
     }
 
     if (typeof actual.print !== 'function') {
-        result.message = () => (
+        result.message = () =>
             `Expected object "print" property to be ${this.utils.printExpected(
                 'function',
-            )} not ${this.utils.printReceived(typeof actual.print)}`
-        );
+            )} not ${this.utils.printReceived(typeof actual.print)}`;
         return result;
     }
 
@@ -49,13 +48,12 @@ const toBePrintable: jest.CustomMatcher = function toBePrintable(actual: any) {
 
     for (const name in actual.templates) {
         if (typeof actual.templates[name] !== 'function') {
-            result.message = () => (
+            result.message = () =>
                 `Expected "${name}" template to be ${this.utils.printExpected(
                     'function',
                 )} not ${this.utils.printReceived(
                     typeof actual.templates[name],
-                )}`
-            );
+                )}`;
             return result;
         }
     }

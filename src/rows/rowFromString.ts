@@ -48,20 +48,22 @@ const rowFromString = (input: string, stage: Stage): Row => {
         inputIndex < input.length && inputIndex < stage;
         inputIndex += 1
     ) {
-        let bellNumber: Bell;  // eslint-disable-line init-declarations
+        let bellNumber: Bell; // eslint-disable-line init-declarations
 
         // Catch errors parsing the bell number and add the input to the message
         try {
             bellNumber = bellFromSymbol(input.charAt(inputIndex));
         } catch (err) {
-            (err as Error).message =
-                `Row '${input}' has unknown bell '${input.charAt(inputIndex)}'`;
+            const message = `Row '${input}' has unknown bell '${input.charAt(
+                inputIndex,
+            )}'`;
+            (err as Error).message = message;
             throw err;
         }
 
         if (bellNumber > stage) {
             throw new Error(
-                `Row '${input}' bell '${bellNumber}' exceeds stage '${stage}'`
+                `Row '${input}' bell '${bellNumber}' exceeds stage '${stage}'`,
             );
         }
 

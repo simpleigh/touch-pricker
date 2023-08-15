@@ -5,8 +5,6 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-/* eslint-disable max-len */
-
 import { Call as C } from '../../leads';
 import { Stage as S } from '../../rows';
 import SixType from '../SixType';
@@ -16,6 +14,7 @@ import Hot from './Hot';
 describe('Hot six class', () => {
     testSixImplementation(
         (initialRow) => new Hot(initialRow),
+        // prettier-ignore
         [
             ['2314567',         '2436175',         S.Triples,   C.Plain],
             ['231456789',       '243618597',       S.Caters,    C.Plain],

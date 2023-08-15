@@ -8,8 +8,7 @@
 import { rounds, Row, Stage } from '../rows';
 import AbstractBlock from './AbstractBlock';
 import AbstractContainer from './AbstractContainer';
-import testAbstractContainerImplementation from
-    './testAbstractContainerImplementation';
+import testAbstractContainerImplementation from './testAbstractContainerImplementation';
 import SerialContainer from './SerialContainer';
 
 type TestContainer = SerialContainer<AbstractBlock>;

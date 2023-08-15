@@ -21,7 +21,8 @@ import siril from './siril.dot';
 @Templates.makePrintable({ mbd, siril }, { Call, leadsWord: 'sixes' })
 class Course
     extends AbstractCourse<AbstractSix>
-    implements Templates.Interface {
+    implements Templates.Interface
+{
     /**
      * Type of the first six
      */
@@ -92,7 +93,7 @@ class Course
         this._method.checkSixType(type);
 
         if (this._firstSixType === type) {
-            return this;  // nothing to do
+            return this; // nothing to do
         }
 
         this._firstSixType = type;
@@ -105,7 +106,7 @@ class Course
             block.ownership = { container: this, index };
             block.setCall(
                 this.getBlock(index).call,
-                false,  // Avoid multiple updates...
+                false, // Avoid multiple updates...
             );
             newSixes.push(block);
             initialRow = newSixes[index - 1].getLast();

@@ -8,7 +8,7 @@
 const injectIframeData = (
     iframe: HTMLIFrameElement,
     content: string = '',
-    globals: Record<string, unknown> = { },
+    globals: Record<string, unknown> = {},
 ): void => {
     const theWindow = iframe.contentWindow;
     if (!theWindow) {
