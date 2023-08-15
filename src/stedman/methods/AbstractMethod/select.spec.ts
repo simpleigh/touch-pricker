@@ -6,6 +6,7 @@
  */
 
 import SixType from '../../SixType';
+import Carter from '../Carter';
 import Erin from '../Erin';
 import Stedman from '../Stedman';
 import StedmanJump from '../StedmanJump';
@@ -40,4 +41,9 @@ describe(
 describe(
     'select template for Stedman Jump',
     testSelectAbstractMethodTemplate(StedmanJump, [SixType.Cold, SixType.Hot]),
+);
+
+describe(
+    'select template for Carter',
+    testSelectAbstractMethodTemplate(Carter, [SixType.Four, SixType.Eight]),
 );
