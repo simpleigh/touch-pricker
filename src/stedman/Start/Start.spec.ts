@@ -5,8 +5,6 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-/* eslint-disable max-len */
-
 import testAbstractBlockImplementation from '../../blocks/testAbstractBlockImplementation';
 import { rounds, Row, rowFromString, Stage as S } from '../../rows';
 import { StringArray } from '../../visitors';

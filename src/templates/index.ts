@@ -5,8 +5,6 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-/* eslint-disable jsdoc/check-indentation */
-
 /**
  * Template functionality.
  *

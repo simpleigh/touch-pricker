@@ -5,8 +5,6 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-/* eslint-disable max-len */
-
 import { rounds, Stage } from '../../rows';
 import { AbstractMethod, Stedman, StedmanJump, Carter } from '../methods';
 import SixType from '../SixType';

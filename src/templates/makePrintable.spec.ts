@@ -5,8 +5,6 @@
  * @copyright Copyright 2015-20 Leigh Simpson. All rights reserved.
  */
 
-/* eslint-disable @typescript-eslint/lines-between-class-members */
-
 import AbstractPrintable from './AbstractPrintable';
 import { Context, Templates as TemplateProperty } from './types';
 import * as Templates from '.';

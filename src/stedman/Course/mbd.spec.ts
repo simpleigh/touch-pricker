@@ -5,8 +5,6 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-/* eslint-disable max-len */
-
 import { rowFromString, Stage, stringFromRow } from '../../rows';
 import Course from '.';
 

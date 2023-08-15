@@ -5,8 +5,6 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-/* eslint-disable max-len */
-
 import { BlockDirectory } from '../../blocks';
 import { Call } from '../../leads';
 import { rounds, Stage, stringFromRow } from '../../rows';

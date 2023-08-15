@@ -9,8 +9,6 @@ import { Bell } from './types';
 
 /* eslint-disable
 @typescript-eslint/naming-convention,
-object-property-newline,
-quote-props,
 sort-keys,
 */
 // prettier-ignore

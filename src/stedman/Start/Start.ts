@@ -180,7 +180,6 @@ class Start extends AbstractBlock implements Templates.Interface {
         let sixType: SixType | null = null;
         let rowIndex: number | null = null;
 
-        /* eslint-disable array-element-newline, no-multi-spaces */
         // prettier-ignore
         const rowIndexPatterns: [string, number][] = [
             ['first',   1], ['1st', 1], ['1', 1],
@@ -193,7 +192,6 @@ class Start extends AbstractBlock implements Templates.Interface {
             ['eighth',  8], ['8th', 8], ['8', 8],
             ['last', 99],  // sentinel value; see below
         ];
-        /* eslint-enable */
 
         for (const [pattern, value] of rowIndexPatterns) {
             const regex = new RegExp(pattern, 'iu');

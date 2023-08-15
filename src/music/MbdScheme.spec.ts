@@ -5,8 +5,6 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-/* eslint-disable max-len */
-
 import { Stage as S } from '../rows';
 import testAbstractSchemeImplementation from './AbstractScheme/testAbstractSchemeImplementation';
 import MbdScheme from './MbdScheme';
