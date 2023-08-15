@@ -30,7 +30,7 @@ jobs:
         run: yarn prettier --check .
 
       - name: Test
-        run: yarn test --ci
+        run: yarn jest --ci --coverage
 
       - name: Publish test coverage
         # https://github.com/codecov/codecov-action

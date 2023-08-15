@@ -23,7 +23,7 @@
     "lint": "eslint . --ext .js,.ts",
     "prettify": "prettier --write .",
     "start": "webpack-dev-server --config config/webpack.config.dev.js",
-    "test": "jest"
+    "test": "jest --watch"
   },
   "devDependencies": {
     "@types/jest": "29.5.3",
