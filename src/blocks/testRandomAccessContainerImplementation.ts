@@ -7,8 +7,7 @@
 
 import { rounds, Row, Stage } from '../rows';
 import AbstractBlock from './AbstractBlock';
-import testAbstractContainerImplementation from
-    './testAbstractContainerImplementation';
+import testAbstractContainerImplementation from './testAbstractContainerImplementation';
 import RandomAccessContainer from './RandomAccessContainer';
 
 type TestContainer = RandomAccessContainer<AbstractBlock>;

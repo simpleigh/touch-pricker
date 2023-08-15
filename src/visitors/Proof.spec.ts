@@ -7,8 +7,7 @@
 
 import { Course, Touch } from '../blocks/testBlocks';
 import { rowFromString, Stage } from '../rows';
-import testAbstractVisitorImplementation from
-    './testAbstractVisitorImplementation';
+import testAbstractVisitorImplementation from './testAbstractVisitorImplementation';
 import Proof from './Proof';
 
 describe('Proof visitor', () => {

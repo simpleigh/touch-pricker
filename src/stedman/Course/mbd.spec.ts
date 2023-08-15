@@ -50,13 +50,17 @@ describe('mbd template for Stedman Course', () => {
         course.setLength(2);
         extraSixes.setLength(2);
 
-        expect(course.print('mbd', {
-            extraSixes,
-            showSixHeads: true,
-        })).toRenderAs(`
+        expect(
+            course.print('mbd', {
+                extraSixes,
+                showSixHeads: true,
+            }),
+        ).toRenderAs(`
             <u>2314567890E</u><br />
             ${course.getBlock(1).print('mbd', { showSixHeads: true })}
-            ${course.getBlock(2).print('mbd', { showSixHeads: true, underline: true })}
+            ${course
+                .getBlock(2)
+                .print('mbd', { showSixHeads: true, underline: true })}
             <span class="extraSix">
                 ${stringFromRow(extraSixes.getBlock(1).getFirst())}
                 <br />

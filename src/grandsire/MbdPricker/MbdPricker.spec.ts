@@ -5,8 +5,7 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import testAbstractPrickerImplementation from
-    '../../testAbstractPrickerImplementation';
+import testAbstractPrickerImplementation from '../../testAbstractPrickerImplementation';
 import MbdPricker from '.';
 
 describe('Grandsire Mbd Pricker class', () => {

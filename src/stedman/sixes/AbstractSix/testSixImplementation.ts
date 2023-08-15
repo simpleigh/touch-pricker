@@ -6,8 +6,7 @@
  */
 
 import { Call } from '../../../leads';
-import testAbstractLeadImplementation from
-    '../../../leads/testAbstractLeadImplementation';
+import testAbstractLeadImplementation from '../../../leads/testAbstractLeadImplementation';
 import { MutableRow, rounds, Row, rowFromString, Stage } from '../../../rows';
 import { StringArray } from '../../../visitors';
 import * as Changes from '../../changes';

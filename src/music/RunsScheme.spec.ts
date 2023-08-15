@@ -6,8 +6,7 @@
  */
 
 import { Stage as S } from '../rows';
-import testAbstractSchemeImplementation from
-    './AbstractScheme/testAbstractSchemeImplementation';
+import testAbstractSchemeImplementation from './AbstractScheme/testAbstractSchemeImplementation';
 import RunsScheme from './RunsScheme';
 
 describe('Runs music scheme', () => {

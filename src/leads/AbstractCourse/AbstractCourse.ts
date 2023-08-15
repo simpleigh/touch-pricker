@@ -19,8 +19,9 @@ import text from './text.dot';
  * A {@link SerialContainer} for {@link AbstractLead}s.
  */
 @Templates.makePrintable({ html, text }, { Call })
-abstract class AbstractCourse<Lead extends AbstractLead>
-    extends SerialContainer<Lead> {
+abstract class AbstractCourse<
+    Lead extends AbstractLead,
+> extends SerialContainer<Lead> {
     /* templating *************************************************************/
 
     public print: Templates.Print;
@@ -32,7 +33,7 @@ abstract class AbstractCourse<Lead extends AbstractLead>
      */
     public resetCalls(): this {
         for (const lead of this._blocks) {
-            lead.setCall(Call.Plain, false);  // Avoid multiple updates...
+            lead.setCall(Call.Plain, false); // Avoid multiple updates...
         }
 
         // ... and trigger one at the end
@@ -59,7 +60,7 @@ abstract class AbstractCourse<Lead extends AbstractLead>
      * Clones the course
      */
     public clone(): this {
-        const Type = this.constructor as new(row: Row) => this;
+        const Type = this.constructor as new (row: Row) => this;
         const cloned = new Type(this._initialRow);
         AbstractCourse.copyCalls(this, cloned);
         return cloned;
@@ -80,7 +81,7 @@ abstract class AbstractCourse<Lead extends AbstractLead>
         for (let index = 1; index <= source.length; index += 1) {
             target.getBlock(index).setCall(
                 source.getBlock(index).call,
-                false,  // Avoid multiple updates...
+                false, // Avoid multiple updates...
             );
         }
 

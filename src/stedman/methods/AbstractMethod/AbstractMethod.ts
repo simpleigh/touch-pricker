@@ -48,8 +48,9 @@ abstract class AbstractMethod implements Templates.Interface {
     /**
      * Mapping from each valid six type to its successor
      */
-    protected abstract readonly sixTypeProgression:
-        Partial<Record<SixType, SixType>>;
+    protected abstract readonly sixTypeProgression: Partial<
+        Record<SixType, SixType>
+    >;
 
     /**
      * Returns an array of valid six types

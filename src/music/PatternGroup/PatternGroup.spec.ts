@@ -5,8 +5,7 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import testAbstractMatcherImplementation from
-    '../testAbstractMatcherImplementation';
+import testAbstractMatcherImplementation from '../testAbstractMatcherImplementation';
 import Pattern from '../Pattern';
 import PatternGroup from '.';
 

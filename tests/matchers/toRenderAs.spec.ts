@@ -30,7 +30,7 @@ describe('toRenderAs matcher', () => {
         expect('string').toRenderAs(
             `
 string
-`
+`,
         );
     });
 

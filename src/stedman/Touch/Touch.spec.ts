@@ -5,8 +5,7 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import testRandomAccessContainerImplementation from
-    '../../blocks/testRandomAccessContainerImplementation';
+import testRandomAccessContainerImplementation from '../../blocks/testRandomAccessContainerImplementation';
 import { rounds, rowFromString, Stage } from '../../rows';
 import { StringArray } from '../../visitors';
 import Course from '../Course';

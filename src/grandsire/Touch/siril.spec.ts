@@ -31,13 +31,31 @@ describe('siril template for Grandsire Touch', () => {
 
     const testCases: [string, string][] = [
         ['renders the number of bells', '9 bells\n'],
-        ['renders a symbol for a plain lead', 'plain = +3.1.9.1.9.1.9.1.9.1.9.1.9.1.9.1.9.1\n'],
-        ['renders a symbol for a bob lead', 'bob = +3.1.9.1.9.1.9.1.9.1.9.1.9.1.9.1.3.1\n'],
-        ['renders a symbol for a single lead', 'single = +3.1.9.1.9.1.9.1.9.1.9.1.9.1.9.1.3.123\n'],
+        [
+            'renders a symbol for a plain lead',
+            'plain = +3.1.9.1.9.1.9.1.9.1.9.1.9.1.9.1.9.1\n',
+        ],
+        [
+            'renders a symbol for a bob lead',
+            'bob = +3.1.9.1.9.1.9.1.9.1.9.1.9.1.9.1.3.1\n',
+        ],
+        [
+            'renders a symbol for a single lead',
+            'single = +3.1.9.1.9.1.9.1.9.1.9.1.9.1.9.1.3.123\n',
+        ],
         ['renders the first course', 'course1 = bob, single, plain, single, '],
-        ['renders the second course', 'course2 = single, single, plain, bob, single, '],
-        ['renders the third course', 'course3 = plain, single, single, single, +3.1.9.1.9.1.9.1.9.1.9.1.9.1.9.1.9, '],
-        ['renders a symbol for the touch', 'touch = course1, course2, course3\n'],
+        [
+            'renders the second course',
+            'course2 = single, single, plain, bob, single, ',
+        ],
+        [
+            'renders the third course',
+            'course3 = plain, single, single, single, +3.1.9.1.9.1.9.1.9.1.9.1.9.1.9.1.9, ',
+        ],
+        [
+            'renders a symbol for the touch',
+            'touch = course1, course2, course3\n',
+        ],
         ['proves the touch', 'prove touch\n'],
     ];
 

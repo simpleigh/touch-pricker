@@ -82,7 +82,8 @@ class Start extends AbstractBlock implements Templates.Interface {
                 Changes.permute5(row);
             } else if (this._sixType === SixType.Cold) {
                 Changes.permuteUp(row);
-            } else {  // this._sixType === SixType.Hot
+            } else {
+                // this._sixType === SixType.Hot
                 Changes.permuteDown(row);
             }
 

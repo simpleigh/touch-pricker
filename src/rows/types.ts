@@ -59,4 +59,4 @@ export type MutableRow = Bell[];
  * [1, 3, 2, 5, 4, 7, 6]
  * ```
  */
-export type Change = ((row: MutableRow) => void);
+export type Change = (row: MutableRow) => void;

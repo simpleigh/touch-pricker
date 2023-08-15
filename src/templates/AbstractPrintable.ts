@@ -17,7 +17,7 @@ abstract class AbstractPrintable implements Printable {
      * Takes the name of the template and a {@link Context}, adding the object
      * instance to the context before executing the template.
      */
-    public print(name: string, context: Context = { }): string {
+    public print(name: string, context: Context = {}): string {
         return this.templates[name]({
             ...this.extraContext,
             ...context,

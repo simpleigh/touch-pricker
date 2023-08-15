@@ -8,9 +8,7 @@
 import * as Blocks from './blocks';
 import create from './create';
 import * as Grandsire from './grandsire';
-import {
-    Call,
-} from './leads';
+import { Call } from './leads';
 import * as Music from './music';
 import Options from './Options';
 import Pricker from './Pricker';
@@ -51,10 +49,4 @@ export {
     Uint4Table,
     Visitors,
 };
-export type {
-    Bell,
-    Change,
-    Options,
-    Pricker,
-    Row,
-};
+export type { Bell, Change, Options, Pricker, Row };

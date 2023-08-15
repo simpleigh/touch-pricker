@@ -12,7 +12,5 @@ bannerLines.splice(bannerLines.length - 2, 0, ` * @version ${version}`);
 const banner = bannerLines.join('\n');
 
 module.exports = {
-    plugins: [
-        new BannerPlugin({ banner, raw: true }),
-    ],
+    plugins: [new BannerPlugin({ banner, raw: true })],
 };

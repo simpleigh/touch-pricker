@@ -6,8 +6,7 @@
  */
 
 import { Stage } from '../rows';
-import testAbstractSchemeImplementation from
-    './AbstractScheme/testAbstractSchemeImplementation';
+import testAbstractSchemeImplementation from './AbstractScheme/testAbstractSchemeImplementation';
 import CustomScheme from './CustomScheme';
 import Pattern from './Pattern';
 
@@ -18,8 +17,6 @@ describe('Custom music scheme', () => {
             scheme.addMatcher(new Pattern('2314567890E'));
             return scheme;
         },
-        [
-            [Stage.Cinques, '2314567890E', 1, '1 2314567890E\n'],
-        ],
+        [[Stage.Cinques, '2314567890E', 1, '1 2314567890E\n']],
     );
 });

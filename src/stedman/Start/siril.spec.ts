@@ -16,63 +16,81 @@ describe('siril template for Start', () => {
     type StartPosition = [SixType, string[]];
 
     const startPositions: StartPosition[] = [
-        [SixType.Slow, [
-            '', // Aligns array indices with rowIndex
-            '+3.1.3.1.3',
-            '+1.3.1.3',
-            '+3.1.3',
-            '+1.3',
-            '+3',
-            '+',
-        ]],
-        [SixType.Quick, [
-            '', // Aligns array indices with rowIndex
-            '+1.3.1.3.1',
-            '+3.1.3.1',
-            '+1.3.1',
-            '+3.1',
-            '+1',
-            '+',
-        ]],
-        [SixType.Cold, [
-            '', // Aligns array indices with rowIndex
-            "'231547698E0', '231547698E0', '231547698E0', '231547698E0', '231547698E0'",
-            "'231547698E0', '231547698E0', '231547698E0', '231547698E0'",
-            "'231547698E0', '231547698E0', '231547698E0'",
-            "'231547698E0', '231547698E0'",
-            "'231547698E0'",
-            '',
-        ]],
-        [SixType.Hot, [
-            '', // Aligns array indices with rowIndex
-            "'312547698E0', '312547698E0', '312547698E0', '312547698E0', '312547698E0'",
-            "'312547698E0', '312547698E0', '312547698E0', '312547698E0'",
-            "'312547698E0', '312547698E0', '312547698E0'",
-            "'312547698E0', '312547698E0'",
-            "'312547698E0'",
-            '',
-        ]],
-        [SixType.Four, [
-            '', // Aligns array indices with rowIndex
-            '+3.1.3',
-            '+1.3',
-            '+3',
-            '+',
-        ]],
-        [SixType.Eight, [
-            '', // Aligns array indices with rowIndex
-            '+1.3.5.3.5.3.1',
-            '+3.5.3.5.3.1',
-            '+5.3.5.3.1',
-            '+3.5.3.1',
-            '+5.3.1',
-            '+3.1',
-            '+1',
-            '+',
-        ]],
+        [
+            SixType.Slow,
+            [
+                '', // Aligns array indices with rowIndex
+                '+3.1.3.1.3',
+                '+1.3.1.3',
+                '+3.1.3',
+                '+1.3',
+                '+3',
+                '+',
+            ],
+        ],
+        [
+            SixType.Quick,
+            [
+                '', // Aligns array indices with rowIndex
+                '+1.3.1.3.1',
+                '+3.1.3.1',
+                '+1.3.1',
+                '+3.1',
+                '+1',
+                '+',
+            ],
+        ],
+        [
+            SixType.Cold,
+            [
+                '', // Aligns array indices with rowIndex
+                "'231547698E0', '231547698E0', '231547698E0', '231547698E0', '231547698E0'",
+                "'231547698E0', '231547698E0', '231547698E0', '231547698E0'",
+                "'231547698E0', '231547698E0', '231547698E0'",
+                "'231547698E0', '231547698E0'",
+                "'231547698E0'",
+                '',
+            ],
+        ],
+        [
+            SixType.Hot,
+            [
+                '', // Aligns array indices with rowIndex
+                "'312547698E0', '312547698E0', '312547698E0', '312547698E0', '312547698E0'",
+                "'312547698E0', '312547698E0', '312547698E0', '312547698E0'",
+                "'312547698E0', '312547698E0', '312547698E0'",
+                "'312547698E0', '312547698E0'",
+                "'312547698E0'",
+                '',
+            ],
+        ],
+        [
+            SixType.Four,
+            [
+                '', // Aligns array indices with rowIndex
+                '+3.1.3',
+                '+1.3',
+                '+3',
+                '+',
+            ],
+        ],
+        [
+            SixType.Eight,
+            [
+                '', // Aligns array indices with rowIndex
+                '+1.3.5.3.5.3.1',
+                '+3.5.3.5.3.1',
+                '+5.3.5.3.1',
+                '+3.5.3.1',
+                '+5.3.1',
+                '+3.1',
+                '+1',
+                '+',
+            ],
+        ],
     ];
 
-    const methodMap: Record<SixType, new() => AbstractMethod> = {
+    const methodMap: Record<SixType, new () => AbstractMethod> = {
         [SixType.Slow]:    Stedman,
         [SixType.Quick]:   Stedman,
         [SixType.Cold]:    StedmanJump,

@@ -12,8 +12,7 @@ trim_trailing_whitespace = true
 [*.dot]
 indent_style = tab
 
-# HTML tends to be more nested: shrink intend to 2 spaces
-[*.html]
+[*.{html,md,yml}]
 indent_size = 2
 
 # These dotfiles are really CSS and HTML respectively
@@ -23,3 +22,6 @@ indent_style = space
 [html.dot]
 indent_size = 2
 indent_style = space
+
+[package.json]
+indent_size = 2

@@ -8,62 +8,60 @@
 import { Change, MutableRow, rounds, Stage, stringFromRow } from '../rows';
 import * as Changes from './changes';
 
-const createChangeTests = (
-    testFn: Change,
-    testCases: [string, Stage][],
-) => () => {
-    it('applies the permutation correctly', () => {
-        for (const [expected, stage] of testCases) {
-            const row = rounds(stage) as MutableRow;
+const createChangeTests =
+    (testFn: Change, testCases: [string, Stage][]) => () => {
+        it('applies the permutation correctly', () => {
+            for (const [expected, stage] of testCases) {
+                const row = rounds(stage) as MutableRow;
 
-            testFn(row);
-            expect(stringFromRow(row)).toBe(expected);
-        }
-    });
-};
+                testFn(row);
+                expect(stringFromRow(row)).toBe(expected);
+            }
+        });
+    };
 
 describe('Changes:', () => {
-    describe('permute1 function', createChangeTests(
-        Changes.permute1,
-        [
+    describe(
+        'permute1 function',
+        createChangeTests(Changes.permute1, [
             ['1325476', Stage.Triples],
             ['132547698', Stage.Caters],
             ['132547698E0', Stage.Cinques],
             ['132547698E0AT', Stage.Sextuples],
             ['132547698E0ATCB', Stage.Septuples],
-        ],
-    ));
+        ]),
+    );
 
-    describe('permute3 function', createChangeTests(
-        Changes.permute3,
-        [
+    describe(
+        'permute3 function',
+        createChangeTests(Changes.permute3, [
             ['2135476', Stage.Triples],
             ['213547698', Stage.Caters],
             ['213547698E0', Stage.Cinques],
             ['213547698E0AT', Stage.Sextuples],
             ['213547698E0ATCB', Stage.Septuples],
-        ],
-    ));
+        ]),
+    );
 
-    describe('permute123 function', createChangeTests(
-        Changes.permute123,
-        [
+    describe(
+        'permute123 function',
+        createChangeTests(Changes.permute123, [
             ['1235476', Stage.Triples],
             ['123547698', Stage.Caters],
             ['123547698E0', Stage.Cinques],
             ['123547698E0AT', Stage.Sextuples],
             ['123547698E0ATCB', Stage.Septuples],
-        ],
-    ));
+        ]),
+    );
 
-    describe('permuteN function', createChangeTests(
-        Changes.permuteN,
-        [
+    describe(
+        'permuteN function',
+        createChangeTests(Changes.permuteN, [
             ['2143657', Stage.Triples],
             ['214365879', Stage.Caters],
             ['2143658709E', Stage.Cinques],
             ['2143658709TEA', Stage.Sextuples],
             ['2143658709TEBAC', Stage.Septuples],
-        ],
-    ));
+        ]),
+    );
 });

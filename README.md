@@ -58,8 +58,8 @@ const thePricker = Pricker.create('pricker'); // ID of mount element
 
 Download the source file of your choice from the `dist` directory of this repository:
 
-* development - `touch-pricker.js`
-* production - `touch-pricker.min.js` and `touch-pricker.min.js.map`
+- development - `touch-pricker.js`
+- production - `touch-pricker.min.js` and `touch-pricker.min.js.map`
 
 Host the file locally and add to scripts:
 
@@ -99,7 +99,7 @@ This currently supports the following configuration option:
 
 ```javascript
 {
-  iframe: true // default
+  iframe: true; // default
 }
 ```
 
@@ -127,13 +127,13 @@ yarn build
 
 ### Yarn / `npm` scripts
 
-* `build` - compiles all sources, `dev`, `prod` and `test`
-* `build:dev` - compiles the development bundle
-* `build:prod` - compiles the production bundle
-* `build:test` - compiles the test bundle
-* `lint` - lints all sources
-* **`start`** - opens examples in a browser window and watches for changes
-* **`start:tests`** - runs tests in a browser window and watches for changes
-* **`test`** - runs tests in PhantomJS and watches for changes
-* `test:browsers` - runs tests in multiple browsers
-* `typedoc` - builds documentation
+- `build` - compiles all sources, `dev`, `prod` and `test`
+- `build:dev` - compiles the development bundle
+- `build:prod` - compiles the production bundle
+- `build:test` - compiles the test bundle
+- `lint` - lints all sources
+- **`start`** - opens examples in a browser window and watches for changes
+- **`start:tests`** - runs tests in a browser window and watches for changes
+- **`test`** - runs tests in PhantomJS and watches for changes
+- `test:browsers` - runs tests in multiple browsers
+- `typedoc` - builds documentation

@@ -12,7 +12,7 @@ import AbstractPricker from './AbstractPricker';
  * @param TestPricker  pricker under test
  */
 const testAbstractPrickerImplementation = (
-    TestPricker: new() => AbstractPricker,
+    TestPricker: new () => AbstractPricker,
 ): void => {
     describe('is derived from AbstractPricker and', () => {
         const pricker = new TestPricker();

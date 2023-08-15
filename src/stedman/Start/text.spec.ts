@@ -11,72 +11,100 @@ import SixType from '../SixType';
 import Start from '.';
 
 describe('text template for Start', () => {
-    type StartPosition = [new() => AbstractMethod, SixType, string[]];
+    type StartPosition = [new () => AbstractMethod, SixType, string[]];
 
     const startPositions: StartPosition[] = [
-        [Carter, SixType.Four, [
-            '', // Aligns array indices with rowIndex
-            'Start from rounds as the first row of a four.',
-            'Start from rounds as the second row of a four.',
-            'Start from rounds as the third row of a four.',
-            'Start from rounds as the last row of a four.',
-        ]],
-        [Carter, SixType.Eight, [
-            '', // Aligns array indices with rowIndex
-            'Start from rounds as the first row of an eight.',
-            'Start from rounds as the second row of an eight.',
-            'Start from rounds as the third row of an eight.',
-            'Start from rounds as the fourth row of an eight.',
-            'Start from rounds as the fifth row of an eight.',
-            'Start from rounds as the sixth row of an eight.',
-            'Start from rounds as the seventh row of an eight.',
-            '', // Default start
-        ]],
-        [Erin, SixType.Slow, [
-            '', // Aligns array indices with rowIndex
-            'Start from rounds as the first row of a six.',
-            'Start from rounds as the second row of a six.',
-            'Start from rounds as the third row of a six.',
-            'Start from rounds as the fourth row of a six.',
-            'Start from rounds as the fifth row of a six.',
-            '', // Default start
-        ]],
-        [Stedman, SixType.Quick, [
-            '', // Aligns array indices with rowIndex
-            'Start from rounds as the first row of a quick six.',
-            'Start from rounds as the second row of a quick six.',
-            'Start from rounds as the third row of a quick six.',
-            '', // Default start
-            'Start from rounds as the fifth row of a quick six.',
-            'Start from rounds as the last row of a quick six.',
-        ]],
-        [Stedman, SixType.Slow, [
-            '', // Aligns array indices with rowIndex
-            'Start from rounds as the first row of a slow six.',
-            'Start from rounds as the second row of a slow six.',
-            'Start from rounds as the third row of a slow six.',
-            'Start from rounds as the fourth row of a slow six.',
-            'Start from rounds as the fifth row of a slow six.',
-            'Start from rounds as the last row of a slow six.',
-        ]],
-        [StedmanJump, SixType.Cold, [
-            '', // Aligns array indices with rowIndex
-            'Start from rounds as the first row of a cold six.',
-            'Start from rounds as the second row of a cold six.',
-            'Start from rounds as the third row of a cold six.',
-            'Start from rounds as the fourth row of a cold six.',
-            'Start from rounds as the fifth row of a cold six.',
-            'Start from rounds as the last row of a cold six.',
-        ]],
-        [StedmanJump, SixType.Hot, [
-            '', // Aligns array indices with rowIndex
-            'Start from rounds as the first row of a hot six.',
-            'Start from rounds as the second row of a hot six.',
-            'Start from rounds as the third row of a hot six.',
-            'Start from rounds as the fourth row of a hot six.',
-            'Start from rounds as the fifth row of a hot six.',
-            '', // Default start
-        ]],
+        [
+            Carter,
+            SixType.Four,
+            [
+                '', // Aligns array indices with rowIndex
+                'Start from rounds as the first row of a four.',
+                'Start from rounds as the second row of a four.',
+                'Start from rounds as the third row of a four.',
+                'Start from rounds as the last row of a four.',
+            ],
+        ],
+        [
+            Carter,
+            SixType.Eight,
+            [
+                '', // Aligns array indices with rowIndex
+                'Start from rounds as the first row of an eight.',
+                'Start from rounds as the second row of an eight.',
+                'Start from rounds as the third row of an eight.',
+                'Start from rounds as the fourth row of an eight.',
+                'Start from rounds as the fifth row of an eight.',
+                'Start from rounds as the sixth row of an eight.',
+                'Start from rounds as the seventh row of an eight.',
+                '', // Default start
+            ],
+        ],
+        [
+            Erin,
+            SixType.Slow,
+            [
+                '', // Aligns array indices with rowIndex
+                'Start from rounds as the first row of a six.',
+                'Start from rounds as the second row of a six.',
+                'Start from rounds as the third row of a six.',
+                'Start from rounds as the fourth row of a six.',
+                'Start from rounds as the fifth row of a six.',
+                '', // Default start
+            ],
+        ],
+        [
+            Stedman,
+            SixType.Quick,
+            [
+                '', // Aligns array indices with rowIndex
+                'Start from rounds as the first row of a quick six.',
+                'Start from rounds as the second row of a quick six.',
+                'Start from rounds as the third row of a quick six.',
+                '', // Default start
+                'Start from rounds as the fifth row of a quick six.',
+                'Start from rounds as the last row of a quick six.',
+            ],
+        ],
+        [
+            Stedman,
+            SixType.Slow,
+            [
+                '', // Aligns array indices with rowIndex
+                'Start from rounds as the first row of a slow six.',
+                'Start from rounds as the second row of a slow six.',
+                'Start from rounds as the third row of a slow six.',
+                'Start from rounds as the fourth row of a slow six.',
+                'Start from rounds as the fifth row of a slow six.',
+                'Start from rounds as the last row of a slow six.',
+            ],
+        ],
+        [
+            StedmanJump,
+            SixType.Cold,
+            [
+                '', // Aligns array indices with rowIndex
+                'Start from rounds as the first row of a cold six.',
+                'Start from rounds as the second row of a cold six.',
+                'Start from rounds as the third row of a cold six.',
+                'Start from rounds as the fourth row of a cold six.',
+                'Start from rounds as the fifth row of a cold six.',
+                'Start from rounds as the last row of a cold six.',
+            ],
+        ],
+        [
+            StedmanJump,
+            SixType.Hot,
+            [
+                '', // Aligns array indices with rowIndex
+                'Start from rounds as the first row of a hot six.',
+                'Start from rounds as the second row of a hot six.',
+                'Start from rounds as the third row of a hot six.',
+                'Start from rounds as the fourth row of a hot six.',
+                'Start from rounds as the fifth row of a hot six.',
+                '', // Default start
+            ],
+        ],
     ];
 
     for (const [Method, sixType, starts] of startPositions) {

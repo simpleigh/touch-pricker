@@ -28,28 +28,21 @@ const toRenderAs: jest.CustomMatcher = function toRenderAs(
         pass: false,
     };
 
-
     if (typeof actual !== 'string') {
-        result.message = () => (
+        result.message = () =>
             `Expected ${this.utils.printExpected(
                 'string',
-            )} not ${this.utils.printReceived(typeof actual)}`
-        );
+            )} not ${this.utils.printReceived(typeof actual)}`;
         return result;
     }
 
-    expected = expected
-        .replace(/\n */gu, '')
-        .replace(/\\n/gu, '\n');
+    expected = expected.replace(/\n */gu, '').replace(/\\n/gu, '\n');
 
     result.pass = actual === expected;
-    result.message = () => (
-        `Expected ${this.utils.printReceived(
-            actual,
-        )}${result.pass ? ' not' : ''} to render as ${this.utils.printExpected(
-            expected,
-        )}.`
-    );
+    result.message = () =>
+        `Expected ${this.utils.printReceived(actual)}${
+            result.pass ? ' not' : ''
+        } to render as ${this.utils.printExpected(expected)}.`;
     return result;
 };
 

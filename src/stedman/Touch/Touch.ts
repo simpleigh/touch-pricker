@@ -28,7 +28,8 @@ import text from './text.dot';
 )
 class Touch
     extends RandomAccessContainer<Course>
-    implements Templates.Interface {
+    implements Templates.Interface
+{
     /**
      * Start for this touch
      */

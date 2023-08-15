@@ -37,8 +37,8 @@ class Uint4Table {
      * @throws if the provided data is the incorrect size
      */
     constructor(
-       private readonly _stage: Stage,
-       private readonly _data: Uint8Array,
+        private readonly _stage: Stage,
+        private readonly _data: Uint8Array,
     ) {
         const expectedBytes = FACTORIALS[this._stage] / 2;
         if (_data.length !== expectedBytes) {

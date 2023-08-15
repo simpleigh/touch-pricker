@@ -6,8 +6,7 @@
  */
 
 import { Call } from '../../leads';
-import testAbstractCourseImplementation from
-    '../../leads/AbstractCourse/testAbstractCourseImplementation';
+import testAbstractCourseImplementation from '../../leads/AbstractCourse/testAbstractCourseImplementation';
 import { rounds, rowFromString, Stage, stringFromRow } from '../../rows';
 import { StringArray } from '../../visitors';
 import { AbstractMethod, Erin, Stedman, StedmanJump } from '../methods';

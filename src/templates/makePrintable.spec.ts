@@ -13,7 +13,7 @@ import * as Templates from '.';
 
 describe('makePrintable decorator', () => {
     it('binds the print function to the class', () => {
-        @Templates.makePrintable({ })
+        @Templates.makePrintable({})
         class Test implements Templates.Interface {
             public print: Templates.Print;
         }
@@ -40,7 +40,7 @@ describe('makePrintable decorator', () => {
     it('binds extra context to the class', () => {
         const extraContext = { context: 'context value' };
 
-        @Templates.makePrintable({ }, extraContext)
+        @Templates.makePrintable({}, extraContext)
         class Test implements Templates.Interface {
             public print: Templates.Print;
             public extraContext: Context;

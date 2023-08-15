@@ -53,7 +53,7 @@ class Lead extends AbstractLead implements Templates.Interface {
         }
 
         if (this.call) {
-            Changes.permute3(row);  // "early thirds"
+            Changes.permute3(row); // "early thirds"
         } else {
             Changes.permuteN(row);
         }
@@ -120,7 +120,7 @@ class Lead extends AbstractLead implements Templates.Interface {
         }
 
         if (this.call) {
-            result.push('3');  // "early thirds"
+            result.push('3'); // "early thirds"
         } else {
             result.push(nNotation);
         }

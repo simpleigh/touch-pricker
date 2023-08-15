@@ -1,4 +1,3 @@
-
 /**
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>

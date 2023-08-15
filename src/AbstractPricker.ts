@@ -13,7 +13,9 @@ abstract class AbstractPricker implements Pricker {
     /**
      * Constructor
      */
-    constructor(protected _iframe?: HTMLIFrameElement) { /* NOOP */ }
+    constructor(protected _iframe?: HTMLIFrameElement) {
+        // NOOP
+    }
 
     /* templating *************************************************************/
 
