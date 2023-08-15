@@ -157,13 +157,15 @@ describe('Stedman Course class', () => {
 
     it('copes when changing the parity if its length is zero', () => {
         course.setLength(0);
-        expect(() => course.setFirstSixType(SixType.Quick)).not.toThrow();
+        expect(() => {
+            course.setFirstSixType(SixType.Quick);
+        }).not.toThrow();
     });
 
     it('throws an exception if the six type is invalid', () => {
-        expect(() => course.setFirstSixType(SixType.Invalid)).toThrowError(
-            "'invalid' blocks not allowed for this method",
-        );
+        expect(() => {
+            course.setFirstSixType(SixType.Invalid);
+        }).toThrowError("'invalid' blocks not allowed for this method");
     });
 
     it('checks the six type is valid for the chosen method', () => {

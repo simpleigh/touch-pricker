@@ -110,12 +110,12 @@ const testAbstractContainerImplementation = (
 
         it('throws an exception for out-of-bounds blocks', () => {
             const longLength = expectedLength + 1;
-            expect(() => container.getBlock(0)).toThrowError(
-                "Block index '0' out of range",
-            );
-            expect(() => container.getBlock(longLength)).toThrowError(
-                `Block index '${longLength}' out of range`,
-            );
+            expect(() => {
+                container.getBlock(0);
+            }).toThrowError("Block index '0' out of range");
+            expect(() => {
+                container.getBlock(longLength);
+            }).toThrowError(`Block index '${longLength}' out of range`);
         });
 
         it('contains all the rows from its contained blocks', () => {

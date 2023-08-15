@@ -62,7 +62,9 @@ const testAbstractCourseImplementation = (
 
     it('copes when resetting a course if the length is zero', () => {
         course.setLength(0);
-        expect(() => course.resetCalls()).not.toThrow();
+        expect(() => {
+            course.resetCalls();
+        }).not.toThrow();
     });
 
     it('only calls notify once when resetting the calls', () => {
@@ -118,7 +120,9 @@ const testAbstractCourseImplementation = (
 
     it('copes when cloning a course if the length is zero', () => {
         course.setLength(0);
-        expect(() => course.clone()).not.toThrow();
+        expect(() => {
+            course.clone();
+        }).not.toThrow();
     });
 };
 

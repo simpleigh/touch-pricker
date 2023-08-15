@@ -41,7 +41,9 @@ describe('AbstractParser class', () => {
     const testParse = (lines: string[]) => parser.parseTouch(lines.join('\n'));
 
     it('throws if no lines are available', () => {
-        expect(() => testParse([])).toThrowError('No input lines');
+        expect(() => {
+            testParse([]);
+        }).toThrowError('No input lines');
     });
 
     it('calls `createTouch` to create a touch on the correct stage', () => {
@@ -53,9 +55,9 @@ describe('AbstractParser class', () => {
     });
 
     it('throws if the stage cannot be recognised', () => {
-        expect(() => testParse(['1'])).toThrowError(
-            "Cannot recognise stage from line '1'",
-        );
+        expect(() => {
+            testParse(['1']);
+        }).toThrowError("Cannot recognise stage from line '1'");
     });
 
     it('calls `parseLine` to process additional lines', () => {

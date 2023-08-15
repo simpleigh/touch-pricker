@@ -60,9 +60,9 @@ const testAbstractLeadImplementation = (
         });
 
         it('throws an exception if used for an unexpected stage', () => {
-            expect(() => factory([1, 2])).toThrowError(
-                "Cannot find lead head for stage '2'",
-            );
+            expect(() => {
+                factory([1, 2]);
+            }).toThrowError("Cannot find lead head for stage '2'");
         });
 
         it('updates when the initial row changes', () => {

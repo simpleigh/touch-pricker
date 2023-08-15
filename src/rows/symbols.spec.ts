@@ -43,7 +43,9 @@ describe('bellFromSymbol function', () => {
     }
 
     it('rejects unknown symbols', () => {
-        expect(() => bellFromSymbol('x')).toThrowError("Unknown bell 'x'");
+        expect(() => {
+            bellFromSymbol('x');
+        }).toThrowError("Unknown bell 'x'");
     });
 });
 

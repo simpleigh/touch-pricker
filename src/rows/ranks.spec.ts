@@ -72,8 +72,9 @@ describe('rowFromRank function', () => {
 
     for (const rank of [-1, 5040, 9999]) {
         it(`knows ${rank} is out of range`, () => {
-            expect(() => { rowFromRank(rank, Stage.Triples); })
-                .toThrowError(`Rank '${rank}' out of range on stage '7'`);
+            expect(() => {
+                rowFromRank(rank, Stage.Triples);
+            }).toThrowError(`Rank '${rank}' out of range on stage '7'`);
         });
     }
 });

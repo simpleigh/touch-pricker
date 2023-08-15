@@ -25,14 +25,16 @@ describe('Uint4Table', () => {
 
     it('throws if the data are insufficient', () => {
         const uint8 = new Uint8Array(testData.slice(1));
-        expect(() => { new Uint4Table(Stage.Minimus, uint8); })
-            .toThrowError('Have 11 bytes but expected 12');
+        expect(() => {
+            new Uint4Table(Stage.Minimus, uint8);
+        }).toThrowError('Have 11 bytes but expected 12');
     });
 
     it('throws if the data are too numerous', () => {
         const uint8 = new Uint8Array([...testData, 0]);
-        expect(() => { new Uint4Table(Stage.Minimus, uint8); })
-            .toThrowError('Have 13 bytes but expected 12');
+        expect(() => {
+            new Uint4Table(Stage.Minimus, uint8);
+        }).toThrowError('Have 13 bytes but expected 12');
     });
 
     // TODO: test Uint4Table.load()
@@ -62,8 +64,9 @@ describe('Uint4Table', () => {
         const table = new Uint4Table(Stage.Minimus, uint8);
 
         it(`knows ${rank} is out of range`, () => {
-            expect(() => { table.getValue(rank); })
-                .toThrowError(`Rank '${rank}' out of range on stage '4'`);
+            expect(() => {
+                table.getValue(rank);
+            }).toThrowError(`Rank '${rank}' out of range on stage '4'`);
         });
     }
 });

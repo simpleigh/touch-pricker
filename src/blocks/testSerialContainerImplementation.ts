@@ -98,9 +98,9 @@ const testSerialContainerImplementation = (
         });
 
         it('throws an exception when setting invalid lengths', () => {
-            expect(() => container.setLength(-1)).toThrowError(
-                "Length must be > 0 (was '-1')",
-            );
+            expect(() => {
+                container.setLength(-1);
+            }).toThrowError("Length must be > 0 (was '-1')");
         });
 
         it('sets the ownership of blocks correctly', () => {

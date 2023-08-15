@@ -174,8 +174,9 @@ describe('changeFromNotation function', () => {
 
     for (const [description, input, expected] of errorTestCases) {
         it(`rejects ${description}`, () => {
-            expect(() => changeFromNotation(input, Stage.Triples))
-                .toThrowError(expected);
+            expect(() => {
+                changeFromNotation(input, Stage.Triples);
+            }).toThrowError(expected);
         });
     }
 });

@@ -56,8 +56,9 @@ describe('rowFromString function', () => {
 
     for (const [description, input, error] of invalidTestCases) {
         it(description, () => {
-            expect(() => rowFromString(input, Stage.Minimus))
-                .toThrowError(error);
+            expect(() => {
+                rowFromString(input, Stage.Minimus);
+            }).toThrowError(error);
         });
     }
 

@@ -105,6 +105,7 @@ describe('Start class', () => {
         expect(method.checkSixType).toHaveBeenCalledWith(SixType.Slow);
     });
 
+    // prettier-ignore
     it('checks the six type is valid for Carter', () => {
         start = new Start(rounds(S.Cinques), new Carter());
         expect(() => { start.sixType = SixType.Slow; }).toThrow();
@@ -114,6 +115,7 @@ describe('Start class', () => {
         expect(() => { start.sixType = SixType.Invalid; }).toThrow();
     });
 
+    // prettier-ignore
     it('checks the six type is valid for Erin', () => {
         start = new Start(rounds(S.Cinques), new Erin());
         expect(() => { start.sixType = SixType.Quick; }).toThrow();
@@ -124,6 +126,7 @@ describe('Start class', () => {
         expect(() => { start.sixType = SixType.Invalid; }).toThrow();
     });
 
+    // prettier-ignore
     it('checks the six type is valid for Stedman', () => {
         start = new Start(rounds(S.Cinques), new Erin());
         expect(() => { start.sixType = SixType.Cold; }).toThrow();
@@ -133,6 +136,7 @@ describe('Start class', () => {
         expect(() => { start.sixType = SixType.Invalid; }).toThrow();
     });
 
+    // prettier-ignore
     it('checks the six type is valid for Stedman Jump', () => {
         start = new Start(rounds(S.Cinques), new StedmanJump());
         expect(() => { start.sixType = SixType.Slow; }).toThrow();
@@ -148,10 +152,12 @@ describe('Start class', () => {
     });
 
     it('throws an exception if the row index is out of range', () => {
-        expect(() => { start.rowIndex = 0; })
-            .toThrowError("Row index '0' out of range");
-        expect(() => { start.rowIndex = 7; })
-            .toThrowError("Row index '7' out of range");
+        expect(() => {
+            start.rowIndex = 0;
+        }).toThrowError("Row index '0' out of range");
+        expect(() => {
+            start.rowIndex = 7;
+        }).toThrowError("Row index '7' out of range");
     });
 
     const indexTestCases: [SixType, new() => AbstractMethod, number][] = [
@@ -181,8 +187,12 @@ describe('Start class', () => {
             start.rowIndex = 1;
             start.rowIndex = maxIndex;
 
-            expect(() => { start.rowIndex = 0; }).toThrow();
-            expect(() => { start.rowIndex = maxIndex + 1; }).toThrow();
+            expect(() => {
+                start.rowIndex = 0;
+            }).toThrow();
+            expect(() => {
+                start.rowIndex = maxIndex + 1;
+            }).toThrow();
         }
     });
 
@@ -1152,24 +1162,28 @@ describe('Start class', () => {
         );
 
         it('a string with the six type missing', () => {
-            expect(() => start.setFromString('Start third'))
-                .toThrowError("Start 'Start third' missing type of block");
+            expect(() => {
+                start.setFromString('Start third');
+            }).toThrowError("Start 'Start third' missing type of block");
         });
 
         it('a string with the row index missing', () => {
-            expect(() => start.setFromString('Start slow'))
-                .toThrowError("Start 'Start slow' missing row index");
+            expect(() => {
+                start.setFromString('Start slow');
+            }).toThrowError("Start 'Start slow' missing row index");
         });
 
         it('a string with a large row index', () => {
-            expect(() => start.setFromString('Start seventh slow'))
-                .toThrowError("Row index '7' out of range");
+            expect(() => {
+                start.setFromString('Start seventh slow');
+            }).toThrowError("Row index '7' out of range");
         });
 
         it('a string with a large row index for a Carter four', () => {
             start = new Start(rounds(S.Cinques), new Carter());
-            expect(() => start.setFromString('Start four fifth'))
-                .toThrowError("Row index '5' out of range");
+            expect(() => {
+                start.setFromString('Start four fifth');
+            }).toThrowError("Row index '5' out of range");
         });
 
         it('returns this when setting the start', () => {
