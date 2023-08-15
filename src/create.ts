@@ -12,11 +12,11 @@ import Pricker from './Pricker';
 import PrickerWindow from './PrickerWindow';
 import { MbdPricker as Grandsire } from './grandsire';
 import { MbdPricker as Stedman, StedTurnPricker as StedTurn } from './stedman';
+import AbstractPricker from './AbstractPricker';
 
-const PRICKER_MAP: Record<
-    string,
-    typeof Grandsire | typeof Stedman | typeof StedTurn
-> = {
+type PrickerConstructor = new (_iframe?: HTMLIFrameElement) => AbstractPricker;
+
+const PRICKER_CONSTRUCTORS: Record<string, PrickerConstructor> = {
     grandsire: Grandsire,
     stedman: Stedman,
     stedturn: StedTurn,
@@ -31,9 +31,9 @@ const PRICKER_MAP: Record<
 const create = (
     elementId: string,
     options: Options = {},
-    parentDocument: HTMLDocument = document,
+    parentDocument: Document = document,
 ): Pricker => {
-    let pricker: Pricker; // eslint-disable-line init-declarations
+    const PrickerConstructor = PRICKER_CONSTRUCTORS[options.type ?? 'stedman'];
 
     const element = parentDocument.getElementById(elementId);
     if (!element) {
@@ -41,7 +41,8 @@ const create = (
     }
 
     if (options.iframe === false) {
-        pricker = new PRICKER_MAP[options.type ?? 'stedman']();
+        // Use of an iframe has been explicitly suppressed
+        const pricker = new PrickerConstructor();
 
         createAndAppendStyle(parentDocument, pricker.print('css'));
         element.innerHTML = pricker.print('html');
@@ -50,14 +51,16 @@ const create = (
             // don't run in tests (when document has been overridden)
             pricker.onLoad();
         }
-    } else {
-        const iframe = createIframe(parentDocument);
-        element.appendChild(iframe);
 
-        pricker = new PRICKER_MAP[options.type ?? 'stedman'](iframe);
-
-        injectIframeData(iframe, template({ pricker }), { pricker });
+        return pricker;
     }
+
+    const iframe = createIframe(parentDocument);
+    element.appendChild(iframe);
+
+    const pricker = new PrickerConstructor(iframe);
+
+    injectIframeData(iframe, template({ pricker }), { pricker });
 
     return pricker;
 };
