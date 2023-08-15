@@ -31,9 +31,9 @@ describe('Parser for Stedman', () => {
         parser.method = method;
 
         const touch = parser.parseTouch(
-            '1234567890E\n'
-                + '4321567890E  6 7\n'
-                + '1234567890E  6 7\n',
+            '1234567890E\n' +
+                '4321567890E  6 7\n' +
+                '1234567890E  6 7\n',
         );
 
         expect(touch.getBlock(1).method).toBe(method);
@@ -45,9 +45,9 @@ describe('Parser for Stedman', () => {
         parser.method = method;
 
         const touch = parser.parseTouch(
-            '1234567890E\n'
-                + '4321567890E  6 7\n'
-                + '1234567890E  6 7\n',
+            '1234567890E\n' +
+                '4321567890E  6 7\n' +
+                '1234567890E  6 7\n',
         );
 
         expect(touch.start.method).toBe(method);
@@ -194,105 +194,105 @@ describe('Parser for Stedman', () => {
 
         testImport(
             'a simple touch',
-            '2314567890E\n'
-                + '2314567890E  1 s10 s13 22\n',
-            '2314567890E\n'
-                + '2314567890E  1 s10 s13 22\n',
+            '2314567890E\n' +
+                '2314567890E  1 s10 s13 22\n',
+            '2314567890E\n' +
+                '2314567890E  1 s10 s13 22\n',
         );
 
         testImport(
             'a touch with more than one course',
-            '2314567890E\n'
-                + '2314568790E  1 s10 s13 s15 22\n'
-                + '2314567890E  1 s10 s13 s15 22\n',
-            '2314567890E\n'
-                + '2314568790E  1 s10 s13 s15 22\n'
-                + '2314567890E  1 s10 s13 s15 22\n',
+            '2314567890E\n' +
+                '2314568790E  1 s10 s13 s15 22\n' +
+                '2314567890E  1 s10 s13 s15 22\n',
+            '2314567890E\n' +
+                '2314568790E  1 s10 s13 s15 22\n' +
+                '2314567890E  1 s10 s13 s15 22\n',
         );
 
         testImport(
             'a touch that comes round at hand',
-            '2314567890E\n'
-                + '21436578E90  1 5 7 8 10 11 s13 15 16  (20 sixes)\n'
-                + '2143658709E  2 s13 s15\n'
-                + '2143658709E  p\n',
-            '2314567890E\n'
-                + '21436578E90  1 5 7 8 10 11 s13 15 16  (20 sixes)\n'
-                + '2143658709E  2 s13 s15\n'
-                + '2143658709E  p\n',
+            '2314567890E\n' +
+                '21436578E90  1 5 7 8 10 11 s13 15 16  (20 sixes)\n' +
+                '2143658709E  2 s13 s15\n' +
+                '2143658709E  p\n',
+            '2314567890E\n' +
+                '21436578E90  1 5 7 8 10 11 s13 15 16  (20 sixes)\n' +
+                '2143658709E  2 s13 s15\n' +
+                '2143658709E  p\n',
         );
 
         testImport(
             'a touch with extra spacing',
-            '\t 2314567890E\t \n'
-                + '2314567890E  1 s10 s13 22\n',
-            '2314567890E\n'
-                + '2314567890E  1 s10 s13 22\n',
+            '\t 2314567890E\t \n' +
+                '2314567890E  1 s10 s13 22\n',
+            '2314567890E\n' +
+                '2314567890E  1 s10 s13 22\n',
         );
 
         testImport(
             'a touch with a blank line',
-            '2314567890E\n'
-                + ' \t\n'
-                + '2314567890E  1 s10 s13 22\n',
-            '2314567890E\n'
-                + '2314567890E  1 s10 s13 22\n',
+            '2314567890E\n' +
+                ' \t\n' +
+                '2314567890E  1 s10 s13 22\n',
+            '2314567890E\n' +
+                '2314567890E  1 s10 s13 22\n',
         );
 
         testImport(
             'a touch with microsiril comments',
-            '2314567890E\n'
-                + '/2314567890E  1 s10 s13 22\n',
-            '2314567890E\n'
-                + '2314567890E  1 s10 s13 22\n',
+            '2314567890E\n' +
+                '/2314567890E  1 s10 s13 22\n',
+            '2314567890E\n' +
+                '2314567890E  1 s10 s13 22\n',
         );
 
         testImport(
             'a touch with a "//" comment line',
-            '2314567890E\n'
-                + '// comment\n'
-                + '2314567890E  1 s10 s13 22\n',
-            '2314567890E\n'
-                + '2314567890E  1 s10 s13 22\n',
+            '2314567890E\n' +
+                '// comment\n' +
+                '2314567890E  1 s10 s13 22\n',
+            '2314567890E\n' +
+                '2314567890E  1 s10 s13 22\n',
         );
 
         testImport(
             'a touch with an included "//" comment',
-            '2314567890E\n'
-                + '2314567890E  1 s10 s13 22  // turn 78\n',
-            '2314567890E\n'
-                + '2314567890E  1 s10 s13 22\n',
+            '2314567890E\n' +
+                '2314567890E  1 s10 s13 22  // turn 78\n',
+            '2314567890E\n' +
+                '2314567890E  1 s10 s13 22\n',
         );
 
         testImport(
             'a touch with a start',
-            '321547698E0\n'
-                + '3765421E098  1 s10 s13 22\n'
-                + 'Start from rounds as the third row of a slow six.\n',
-            '321547698E0\n'
-                + '3765421E098  1 s10 s13 22\n'
-                + 'Start from rounds as the third row of a slow six.\n',
+            '321547698E0\n' +
+                '3765421E098  1 s10 s13 22\n' +
+                'Start from rounds as the third row of a slow six.\n',
+            '321547698E0\n' +
+                '3765421E098  1 s10 s13 22\n' +
+                'Start from rounds as the third row of a slow six.\n',
         );
 
         testImport(
             'a touch of Erin',
-            '1234567890E\n'
-                + '4321567890E  6 7\n'
-                + '1234567890E  6 7\n',
-            '1234567890E\n'
-                + '4321567890E  6 7\n'
-                + '1234567890E  6 7\n',
+            '1234567890E\n' +
+                '4321567890E  6 7\n' +
+                '1234567890E  6 7\n',
+            '1234567890E\n' +
+                '4321567890E  6 7\n' +
+                '1234567890E  6 7\n',
             new Erin(),
         );
 
         testImport(
             'a touch of Stedman Jump',
-            '1234567890E\n'
-                + '4321567890E  6 7\n'
-                + '1234567890E  6 7\n',
-            '1234567890E\n'
-                + '4321567890E  6 7\n'
-                + '1234567890E  6 7\n',
+            '1234567890E\n' +
+                '4321567890E  6 7\n' +
+                '1234567890E  6 7\n',
+            '1234567890E\n' +
+                '4321567890E  6 7\n' +
+                '1234567890E  6 7\n',
             new StedmanJump(),
         );
 

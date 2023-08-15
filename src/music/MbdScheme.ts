@@ -31,9 +31,9 @@ class MbdScheme extends AbstractScheme {
 
         // 56789E0
         matchers.push(new Pattern(
-            rounds.slice(4 - this._stage, -2)
-                + rounds.slice(-1)
-                + rounds.slice(-2, -1)
+            rounds.slice(4 - this._stage, -2) +
+                rounds.slice(-1) +
+                rounds.slice(-2, -1)
         ));
 
         // 657890E
@@ -42,10 +42,11 @@ class MbdScheme extends AbstractScheme {
         // Near misses
         const nearMisses = [];
         for (let i = 0; i < this._stage - 1; i += 1) {
-            const pattern = rounds.slice(0, i)  // 123
-                + rounds.charAt(i + 1)    // 5
-                + rounds.charAt(i)        // 4
-                + rounds.slice(i + 2);    // 67890E
+            const pattern =
+                rounds.slice(0, i) + // 123
+                rounds.charAt(i + 1) + // 5
+                rounds.charAt(i) + // 4
+                rounds.slice(i + 2); // 67890E
             nearMisses.push(new Pattern(
                 pattern,
                 rounds.charAt(i + 1) + rounds.charAt(i),

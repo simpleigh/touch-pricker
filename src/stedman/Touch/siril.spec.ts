@@ -9,10 +9,10 @@ import { StedmanJump } from '../methods';
 import Touch from '.';
 
 describe('siril template for Stedman Touch', () => {
-    const composition = ''
-        + '1234567890E\n'
-        + '2314568790E  1 s10 s13 s15 22\n'
-        + '2314567890E  1 s10 s13 s15 22';
+    const composition =
+        '1234567890E\n' +
+        '2314568790E  1 s10 s13 s15 22\n' +
+        '2314567890E  1 s10 s13 s15 22';
 
     let touch: Touch;
 

@@ -20,11 +20,10 @@ describe('Grandsire Touch class', () => {
         Stage.Doubles,
         (initialRow) => {
             const testTouch = Touch.fromString(
-                ''
-                    + '12345\n'
-                    + '13425  s2 3 s4  (4 leads)\n'
-                    + '14235  s2 3 s4  (4 leads)\n'
-                    + '12345  s2 3 s4  (4 leads)\n'
+                '12345\n' +
+                    '13425  s2 3 s4  (4 leads)\n' +
+                    '14235  s2 3 s4  (4 leads)\n' +
+                    '12345  s2 3 s4  (4 leads)\n',
             );
 
             testTouch.initialRow = initialRow;

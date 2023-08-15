@@ -85,9 +85,9 @@ describe('text template for Start', () => {
         start.sixType = sixType;
 
         for (let rowIndex = 1; rowIndex < starts.length; rowIndex += 1) {
-            const description = ''
-                + `prints a ${sixType} six start on row ${rowIndex}`
-                + ` for ${method.name} correctly`;
+            const description =
+                `prints a ${sixType} six start on row ${rowIndex}` +
+                ` for ${method.name} correctly`;
 
             it(description, () => {
                 const expected = starts[rowIndex];

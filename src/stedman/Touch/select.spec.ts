@@ -14,9 +14,9 @@ import Touch from '.';
 describe('select template for Stedman Touch', () => {
     it('renders a touch correctly', () => {
         const touch = Touch.fromString(
-            '2314567890E\n'
-                + '2314568790E  1 s10 s13 s15 22\n'
-                + '2314567890E  1 s10 s13 s15 22\n',
+            '2314567890E\n' +
+                '2314568790E  1 s10 s13 s15 22\n' +
+                '2314567890E  1 s10 s13 s15 22\n',
         );
 
         expect(touch.print('select')).toRenderAs(`
@@ -34,9 +34,9 @@ describe('select template for Stedman Touch', () => {
 
     it('adds a class when a course is selected', () => {
         const touch = Touch.fromString(
-            '2314567890E\n'
-                + '2314568790E  1 s10 s13 s15 22\n'
-                + '2314567890E  1 s10 s13 s15 22\n',
+            '2314567890E\n' +
+                '2314568790E  1 s10 s13 s15 22\n' +
+                '2314567890E  1 s10 s13 s15 22\n',
         );
 
         expect(touch.print('select', { selectedIndex: 2 })).toRenderAs(`
@@ -54,9 +54,9 @@ describe('select template for Stedman Touch', () => {
 
     it('can select the end of the start', () => {
         const touch = Touch.fromString(
-            '2314567890E\n'
-                + '2314568790E  1 s10 s13 s15 22\n'
-                + '2314567890E  1 s10 s13 s15 22\n',
+            '2314567890E\n' +
+                '2314568790E  1 s10 s13 s15 22\n' +
+                '2314567890E  1 s10 s13 s15 22\n',
         );
 
         expect(touch.print('select', { selectedIndex: 0 })).toRenderAs(`

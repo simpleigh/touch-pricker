@@ -200,7 +200,7 @@ module.exports = {
         'object-curly-newline': 'error',
         'object-curly-spacing': ['error', 'always'],
         'object-property-newline': ['error', { allowAllPropertiesOnSameLine: true }],
-        'operator-linebreak': ['error', 'before', { overrides: { '=': 'after' } }],
+        'operator-linebreak': ['error'],
         'padded-blocks': ['error', 'never'],
         'padding-line-between-statements': 'error',
         'quotes': ['error', 'single', { avoidEscape: true }],

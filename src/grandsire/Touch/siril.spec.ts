@@ -10,11 +10,11 @@
 import Touch from '.';
 
 describe('siril template for Grandsire Touch', () => {
-    const composition = ''
-        + '123456789\n'
-        + '143926587  1 s2 s4  (4 leads)\n'
-        + '145329876  s1 s2 4 s5  (5 leads)\n'
-        + '132547698  s2 s3 s4  (5 leads)';
+    const composition =
+        '123456789\n' +
+        '143926587  1 s2 s4  (4 leads)\n' +
+        '145329876  s1 s2 4 s5  (5 leads)\n' +
+        '132547698  s2 s3 s4  (5 leads)';
 
     let touch: Touch;
 

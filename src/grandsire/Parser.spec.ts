@@ -152,76 +152,76 @@ describe('Parser for Grandsire', () => {
 
         testImport(
             'a simple touch',
-            '123456789\n'
-                + '123456789  1 2 3 4  (4 leads)\n',
-            '123456789\n'
-                + '123456789  1 2 3 4  (4 leads)\n',
+            '123456789\n' +
+                '123456789  1 2 3 4  (4 leads)\n',
+            '123456789\n' +
+                '123456789  1 2 3 4  (4 leads)\n',
         );
 
         testImport(
             'a touch with more than one course',
-            '123456789\n'
-                + '132654789  1 2 s3 s4  (4 leads)\n'
-                + '126458379  s2 3 4  (4 leads)\n'
-                + '123456789  s1 s2 3 s5  (5 leads)\n',
-            '123456789\n'
-                + '132654789  1 2 s3 s4  (4 leads)\n'
-                + '126458379  s2 3 4  (4 leads)\n'
-                + '123456789  s1 s2 3 s5  (5 leads)\n',
+            '123456789\n' +
+                '132654789  1 2 s3 s4  (4 leads)\n' +
+                '126458379  s2 3 4  (4 leads)\n' +
+                '123456789  s1 s2 3 s5  (5 leads)\n',
+            '123456789\n' +
+                '132654789  1 2 s3 s4  (4 leads)\n' +
+                '126458379  s2 3 4  (4 leads)\n' +
+                '123456789  s1 s2 3 s5  (5 leads)\n',
         );
 
         testImport(
             'a touch that comes round at hand',
-            '123456789\n'
-                + '143926587  1 s2 s4  (4 leads)\n'
-                + '145329876  s1 s2 4 s5  (5 leads)\n'
-                + '132547698  s2 s3 s4  (5 leads)\n',
-            '123456789\n'
-                + '143926587  1 s2 s4  (4 leads)\n'
-                + '145329876  s1 s2 4 s5  (5 leads)\n'
-                + '132547698  s2 s3 s4  (5 leads)\n',
+            '123456789\n' +
+                '143926587  1 s2 s4  (4 leads)\n' +
+                '145329876  s1 s2 4 s5  (5 leads)\n' +
+                '132547698  s2 s3 s4  (5 leads)\n',
+            '123456789\n' +
+                '143926587  1 s2 s4  (4 leads)\n' +
+                '145329876  s1 s2 4 s5  (5 leads)\n' +
+                '132547698  s2 s3 s4  (5 leads)\n',
         );
 
         testImport(
             'a touch with extra spacing',
-            '\t 123456789\t \n'
-                + '123456789  1 2 3 4  (4 leads)\n',
-            '123456789\n'
-                + '123456789  1 2 3 4  (4 leads)\n',
+            '\t 123456789\t \n' +
+                '123456789  1 2 3 4  (4 leads)\n',
+            '123456789\n' +
+                '123456789  1 2 3 4  (4 leads)\n',
         );
 
         testImport(
             'a touch with a blank line',
-            '123456789\n'
-                + ' \t\n'
-                + '123456789  1 2 3 4  (4 leads)\n',
-            '123456789\n'
-                + '123456789  1 2 3 4  (4 leads)\n',
+            '123456789\n' +
+                ' \t\n' +
+                '123456789  1 2 3 4  (4 leads)\n',
+            '123456789\n' +
+                '123456789  1 2 3 4  (4 leads)\n',
         );
 
         testImport(
             'a touch with microsiril comments',
-            '123456789\n'
-                + '/123456789  1 2 3 4  (4 leads)\n',
-            '123456789\n'
-                + '123456789  1 2 3 4  (4 leads)\n',
+            '123456789\n' +
+                '/123456789  1 2 3 4  (4 leads)\n',
+            '123456789\n' +
+                '123456789  1 2 3 4  (4 leads)\n',
         );
 
         testImport(
             'a touch with a "//" comment line',
-            '123456789\n'
-                + '// comment \n'
-                + '123456789  1 2 3 4  (4 leads)\n',
-            '123456789\n'
-                + '123456789  1 2 3 4  (4 leads)\n',
+            '123456789\n' +
+                '// comment \n' +
+                '123456789  1 2 3 4  (4 leads)\n',
+            '123456789\n' +
+                '123456789  1 2 3 4  (4 leads)\n',
         );
 
         testImport(
             'a touch with an included "//" comment',
-            '123456789\n'
-                + '123456789  1 2 3 4  (4 leads)  // bob course\n',
-            '123456789\n'
-                + '123456789  1 2 3 4  (4 leads)\n',
+            '123456789\n' +
+                '123456789  1 2 3 4  (4 leads)  // bob course\n',
+            '123456789\n' +
+                '123456789  1 2 3 4  (4 leads)\n',
         );
 
         it('a touch with no lines', () => {

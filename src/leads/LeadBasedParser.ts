@@ -62,12 +62,12 @@ abstract class LeadBasedParser<
         const lead = '(?:\\d{1,2}|\\d{1,2}s|s\\d{1,2})'; // 5 or 5s or s5
         const leads = `${lead}(?:${separator}${lead})*`;
         const numLeads = '\\((\\d{1,2})[^\\d\\)]*\\)'; // (5 <anything>)
-        const line = ''
-            + '^\\s*'
-            + `(?:${courseEnd}\\s+)?`
-            + `(${leads}|p)`  // group 1
-            + `(?:\\s+${numLeads})?`  // group 2 in here
-            + '\\s*$';
+        const line =
+            '^\\s*' +
+            `(?:${courseEnd}\\s+)?` +
+            `(${leads}|p)` + // group 1
+            `(?:\\s+${numLeads})?` + // group 2 in here
+            '\\s*$';
         const matches = new RegExp(line, 'iu').exec(input);
 
         if (!matches) {

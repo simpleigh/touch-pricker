@@ -73,8 +73,10 @@ class Touch
      * This doesn't take into account coming round part-way through
      */
     override get rows(): number {
-        return this._start.rows
-            + this._blocks.reduce((total, block) => total + block.rows, 0);
+        return (
+            this._start.rows +
+            this._blocks.reduce((total, block) => total + block.rows, 0)
+        );
     }
 
     /**

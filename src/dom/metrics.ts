@@ -23,14 +23,16 @@ const getMetric = (
  * Computes the width of an element
  */
 export const getWidth = (element: HTMLElement): number =>
-    element.offsetWidth + 1  // Allow for fractional part
-        + getMetric(element, 'marginLeft')
-        + getMetric(element, 'marginRight');
+    element.offsetWidth +
+    1 + // Allow for fractional part
+    getMetric(element, 'marginLeft') +
+    getMetric(element, 'marginRight');
 
 /**
  * Computes the height of an element
  */
 export const getHeight = (element: HTMLElement): number =>
-    element.offsetHeight + 1  // Allow for fractional part
-        + getMetric(element, 'marginTop')
-        + getMetric(element, 'marginBottom');
+    element.offsetHeight +
+    1 + // Allow for fractional part
+    getMetric(element, 'marginTop') +
+    getMetric(element, 'marginBottom');

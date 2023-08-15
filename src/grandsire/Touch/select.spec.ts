@@ -14,10 +14,10 @@ import Touch from '.';
 describe('select template for Grandsire Touch', () => {
     it('renders a touch correctly', () => {
         const touch = Touch.fromString(
-            '123456789\n'
-                + '132654789  1 2 s3 s4  (4 leads)\n'
-                + '126458379  s2 3 4  (4 leads)\n'
-                + '123456789  s1 s2 3 s5  (5 leads)\n',
+            '123456789\n' +
+                '132654789  1 2 s3 s4  (4 leads)\n' +
+                '126458379  s2 3 4  (4 leads)\n' +
+                '123456789  s1 s2 3 s5  (5 leads)\n',
         );
 
         expect(touch.print('select')).toRenderAs(`
@@ -38,10 +38,10 @@ describe('select template for Grandsire Touch', () => {
 
     it('adds a class when a course is selected', () => {
         const touch = Touch.fromString(
-            '123456789\n'
-                + '132654789  1 2 s3 s4  (4 leads)\n'
-                + '126458379  s2 3 4  (4 leads)\n'
-                + '123456789  s1 s2 3 s5  (5 leads)\n',
+            '123456789\n' +
+                '132654789  1 2 s3 s4  (4 leads)\n' +
+                '126458379  s2 3 4  (4 leads)\n' +
+                '123456789  s1 s2 3 s5  (5 leads)\n',
         );
 
         expect(touch.print('select', { selectedIndex: 2 })).toRenderAs(`
@@ -62,10 +62,10 @@ describe('select template for Grandsire Touch', () => {
 
     it('can select the end of the start', () => {
         const touch = Touch.fromString(
-            '123456789\n'
-                + '132654789  1 2 s3 s4  (4 leads)\n'
-                + '126458379  s2 3 4  (4 leads)\n'
-                + '123456789  s1 s2 3 s5  (5 leads)\n',
+            '123456789\n' +
+                '132654789  1 2 s3 s4  (4 leads)\n' +
+                '126458379  s2 3 4  (4 leads)\n' +
+                '123456789  s1 s2 3 s5  (5 leads)\n',
         );
 
         expect(touch.print('select', { selectedIndex: 0 })).toRenderAs(`

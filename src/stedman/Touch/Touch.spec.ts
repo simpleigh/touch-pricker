@@ -22,12 +22,11 @@ describe('Stedman Touch class', () => {
         Stage.Cinques,
         (initialRow) => {
             const testTouch = Touch.fromString(
-                ''
-                    + '1234567890E\n'
-                    + '21345678E90  1 s7\n'
-                    + '12345687E90  s7 s13 s15 s22\n'
-                    + '1234567890E  12 14 s16 17 18 19  (20 sixes)\n'
-                    + 'Start from rounds as the last row of a quick six.\n'
+                '1234567890E\n' +
+                    '21345678E90  1 s7\n' +
+                    '12345687E90  s7 s13 s15 s22\n' +
+                    '1234567890E  12 14 s16 17 18 19  (20 sixes)\n' +
+                    'Start from rounds as the last row of a quick six.\n',
             );
 
             // remove the start so the touch becomes a true round block

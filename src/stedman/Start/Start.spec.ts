@@ -1082,9 +1082,9 @@ describe('Start class', () => {
                     continue; // eslint-disable-line no-continue
                 }
 
-                const description = ''
-                    + `a ${sixType} six start on row ${rowIndex}`
-                    + ` for ${method.name}`;
+                const description =
+                    `a ${sixType} six start on row ${rowIndex}` +
+                    ` for ${method.name}`;
 
                 it(description, () => {
                     // Reset start as beforeEach() rule will have overwritten

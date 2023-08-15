@@ -199,8 +199,8 @@ class MbdPricker extends AbstractPricker implements Notifiable {
             this._course.firstSixType;
 
         if (
-            this._showAdvancedOptions
-                && this._method.getSixTypes().length > 1
+            this._showAdvancedOptions &&
+            this._method.getSixTypes().length > 1
         ) {
             show(this.getEl('firstSixBlock'));
         } else {
