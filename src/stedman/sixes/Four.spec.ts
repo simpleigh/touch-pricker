@@ -12,6 +12,7 @@ import testSixImplementation from './AbstractSix/testSixImplementation';
 import Four from './Four';
 
 describe('Four "six" class', () => {
+    // prettier-ignore
     testSixImplementation(
         (initialRow) => new Four(initialRow),
         [

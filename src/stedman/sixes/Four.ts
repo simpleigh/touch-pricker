@@ -61,6 +61,7 @@ class Four extends AbstractSix {
      */
     protected get leadHeadTable(): LeadHeadTable {
         /* eslint-disable max-len */
+        // prettier-ignore
         return {
             [Call.Plain]: {
                 [Stage.Triples]:   [4, 1, 2, 6, 3, 7, 5],

@@ -65,6 +65,7 @@ class Hot extends AbstractSix {
      */
     protected get leadHeadTable(): LeadHeadTable {
         /* eslint-disable max-len */
+        // prettier-ignore
         return {
             [Call.Plain]: {
                 [Stage.Triples]:   [1, 4, 2, 6, 3, 7, 5],

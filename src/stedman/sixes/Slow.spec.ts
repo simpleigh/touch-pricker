@@ -14,6 +14,7 @@ import Slow from './Slow';
 describe('Slow six class', () => {
     testSixImplementation(
         (initialRow) => new Slow(initialRow),
+        // prettier-ignore
         [
             ['2314567',         '3426175',         S.Triples,   C.Plain],
             ['231456789',       '342618597',       S.Caters,    C.Plain],
@@ -80,6 +81,7 @@ describe('Slow six class', () => {
         ],
         SixType.Slow,
         ['3', '1', '3', '1', '3'],
+        // prettier-ignore
         [
             '+3',
             '+3.1',

@@ -20,6 +20,7 @@ describe('Stedman Course class', () => {
         (initialRow) => new Course(initialRow),
         132,
         22,
+        // prettier-ignore
         [
             [Stage.Triples,    84, 14],
             [Stage.Caters,    108, 18],

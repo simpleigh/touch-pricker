@@ -30,6 +30,7 @@ describe('Parser for Stedman', () => {
         const method = new Stedman();
         parser.method = method;
 
+        // prettier-ignore
         const touch = parser.parseTouch(
             '1234567890E\n' +
                 '4321567890E  6 7\n' +
@@ -44,6 +45,7 @@ describe('Parser for Stedman', () => {
         const method = new Stedman();
         parser.method = method;
 
+        // prettier-ignore
         const touch = parser.parseTouch(
             '1234567890E\n' +
                 '4321567890E  6 7\n' +
@@ -116,6 +118,7 @@ describe('Parser for Stedman', () => {
             '21436578E90  1 5 7 8 10 11 s13 15 16  (20 sixes)',
         );
 
+        // prettier-ignore
         testImport(
             'a plain course',
             'p (8)',
@@ -193,6 +196,7 @@ describe('Parser for Stedman', () => {
             });
         };
 
+        // prettier-ignore
         testImport(
             'a simple touch',
             '2314567890E\n' +
@@ -223,6 +227,7 @@ describe('Parser for Stedman', () => {
                 '2143658709E  p\n',
         );
 
+        // prettier-ignore
         testImport(
             'a touch with extra spacing',
             '\t 2314567890E\t \n' +
@@ -231,6 +236,7 @@ describe('Parser for Stedman', () => {
                 '2314567890E  1 s10 s13 22\n',
         );
 
+        // prettier-ignore
         testImport(
             'a touch with a blank line',
             '2314567890E\n' +
@@ -240,6 +246,7 @@ describe('Parser for Stedman', () => {
                 '2314567890E  1 s10 s13 22\n',
         );
 
+        // prettier-ignore
         testImport(
             'a touch with microsiril comments',
             '2314567890E\n' +
@@ -248,6 +255,7 @@ describe('Parser for Stedman', () => {
                 '2314567890E  1 s10 s13 22\n',
         );
 
+        // prettier-ignore
         testImport(
             'a touch with a "//" comment line',
             '2314567890E\n' +
@@ -257,6 +265,7 @@ describe('Parser for Stedman', () => {
                 '2314567890E  1 s10 s13 22\n',
         );
 
+        // prettier-ignore
         testImport(
             'a touch with an included "//" comment',
             '2314567890E\n' +
@@ -275,6 +284,7 @@ describe('Parser for Stedman', () => {
                 'Start from rounds as the third row of a slow six.\n',
         );
 
+        // prettier-ignore
         testImport(
             'a touch of Erin',
             '1234567890E\n' +
@@ -286,6 +296,7 @@ describe('Parser for Stedman', () => {
             new Erin(),
         );
 
+        // prettier-ignore
         testImport(
             'a touch of Stedman Jump',
             '1234567890E\n' +

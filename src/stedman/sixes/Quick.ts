@@ -61,6 +61,7 @@ class Quick extends AbstractSix {
      */
     protected get leadHeadTable(): LeadHeadTable {
         /* eslint-disable max-len */
+        // prettier-ignore
         return {
             [Call.Plain]: {
                 [Stage.Triples]:   [1, 2, 4, 6, 3, 7, 5],

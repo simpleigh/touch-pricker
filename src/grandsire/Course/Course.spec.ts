@@ -17,6 +17,7 @@ describe('Grandsire Course class', () => {
         (initialRow) => new Course(initialRow),
         30,
         3,
+        // prettier-ignore
         [
             [Stage.Doubles,    30,  3],
             [Stage.Triples,    70,  5],
@@ -37,6 +38,7 @@ describe('Grandsire Course class', () => {
     const leadEndTestCases: [Stage, string[]][] = [
         [
             Stage.Doubles,
+            // prettier-ignore
             [
                 '12534',
                 '12453',
@@ -45,6 +47,7 @@ describe('Grandsire Course class', () => {
         ],
         [
             Stage.Triples,
+            // prettier-ignore
             [
                 '1253746',
                 '1275634',

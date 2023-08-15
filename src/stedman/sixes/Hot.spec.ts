@@ -16,6 +16,7 @@ import Hot from './Hot';
 describe('Hot six class', () => {
     testSixImplementation(
         (initialRow) => new Hot(initialRow),
+        // prettier-ignore
         [
             ['2314567',         '2436175',         S.Triples,   C.Plain],
             ['231456789',       '243618597',       S.Caters,    C.Plain],

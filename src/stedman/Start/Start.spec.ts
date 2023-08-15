@@ -159,6 +159,7 @@ describe('Start class', () => {
         }).toThrowError("Row index '7' out of range");
     });
 
+    // prettier-ignore
     const indexTestCases: [SixType, new () => AbstractMethod, number][] = [
         [SixType.Slow,  Erin,        6],
         [SixType.Quick, Stedman,     6],
@@ -215,6 +216,7 @@ describe('Start class', () => {
 
     type StartPosition<Expected> = [number, SixType, StageTestCase<Expected>[]];
 
+    // prettier-ignore
     const rowTestCases: StartPosition<string[]>[] = [
         [1, SixType.Quick, [
             [S.Triples,   ['1325476',         '3124567',         '3215476',         '2314567',         '2135476']],
@@ -470,6 +472,7 @@ describe('Start class', () => {
         ]],
     ];
 
+    // prettier-ignore
     const notationTestCases: StartPosition<string[]>[] = [
         [1, SixType.Quick, [
             [S.Triples,   ['1', '3', '1', '3', '1']],
@@ -725,6 +728,7 @@ describe('Start class', () => {
         ]],
     ];
 
+    // prettier-ignore
     const notationStringTestCases: StartPosition<string>[] = [
         [1, SixType.Quick, [
             [S.Triples,   '+1.3.1.3.1'],
@@ -980,6 +984,7 @@ describe('Start class', () => {
         ]],
     ];
 
+    // prettier-ignore
     const methodMap: Record<SixType, new () => AbstractMethod> = {
         [SixType.Slow]:    Stedman,
         [SixType.Quick]:   Stedman,
@@ -1071,6 +1076,7 @@ describe('Start class', () => {
         // Enumerate all possible starts and check the following flow:
         //  Start -> text (`print`) -> Start (`setFromString`)
 
+        // prettier-ignore
         const validSixTypes: [new () => AbstractMethod, SixType, number][] = [
             [Erin,        SixType.Slow,  6],
             [Stedman,     SixType.Quick, 6],
@@ -1142,6 +1148,7 @@ describe('Start class', () => {
             'Start at backstroke with rounds as the third row of a slow six',
         );
 
+        // prettier-ignore
         testLoad(
             'a string with much less content',
             'Start 3 slow',

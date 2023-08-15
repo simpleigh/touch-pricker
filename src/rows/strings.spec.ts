@@ -11,6 +11,7 @@ import rowFromString from './rowFromString';
 import stringFromRow from './stringFromRow';
 import { Row, Stage } from './types';
 
+// prettier-ignore
 const testCases: [string, Row][] = [
     ['4321',             [4, 3, 2, 1]],
     ['54321',            [5, 4, 3, 2, 1]],
@@ -63,6 +64,7 @@ describe('rowFromString function', () => {
         });
     }
 
+    // prettier-ignore
     const fillTestCases: [Stage, Row][] = [
         [Stage.Minimus,   [3, 1, 2, 4]],
         [Stage.Doubles,   [3, 1, 2, 4, 5]],

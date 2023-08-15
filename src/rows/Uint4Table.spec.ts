@@ -12,6 +12,7 @@ import Uint4Table from './Uint4Table';
 
 describe('Uint4Table', () => {
     /* eslint-disable array-element-newline */
+    // prettier-ignore
     const testData = [
         16, 50, 84, 118, 152, 186, 220, 254,  // 0x1032547698BADCFE
         33, 67, 101, 135,                     // 0x21436587

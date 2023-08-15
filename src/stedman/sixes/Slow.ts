@@ -61,6 +61,7 @@ class Slow extends AbstractSix {
      */
     protected get leadHeadTable(): LeadHeadTable {
         /* eslint-disable max-len */
+        // prettier-ignore
         return {
             [Call.Plain]: {
                 [Stage.Triples]:   [2, 4, 1, 6, 3, 7, 5],

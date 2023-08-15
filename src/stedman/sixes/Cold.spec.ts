@@ -16,6 +16,7 @@ import Cold from './Cold';
 describe('Cold six class', () => {
     testSixImplementation(
         (initialRow) => new Cold(initialRow),
+        // prettier-ignore
         [
             ['2314567',         '4326175',         S.Triples,   C.Plain],
             ['231456789',       '432618597',       S.Caters,    C.Plain],

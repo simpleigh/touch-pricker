@@ -76,6 +76,7 @@ class Lead extends AbstractLead implements Templates.Interface {
      */
     protected get leadHeadTable(): LeadHeadTable {
         /* eslint-disable max-len */
+        // prettier-ignore
         return {
             [Call.Plain]: {
                 [Stage.Doubles]:   [1, 2, 5, 3, 4],

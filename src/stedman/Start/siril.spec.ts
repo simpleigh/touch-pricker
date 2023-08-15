@@ -90,6 +90,7 @@ describe('siril template for Start', () => {
         ],
     ];
 
+    // prettier-ignore
     const methodMap: Record<SixType, new () => AbstractMethod> = {
         [SixType.Slow]:    Stedman,
         [SixType.Quick]:   Stedman,

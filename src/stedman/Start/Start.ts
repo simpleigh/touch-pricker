@@ -181,6 +181,7 @@ class Start extends AbstractBlock implements Templates.Interface {
         let rowIndex: number | null = null;
 
         /* eslint-disable array-element-newline, no-multi-spaces */
+        // prettier-ignore
         const rowIndexPatterns: [string, number][] = [
             ['first',   1], ['1st', 1], ['1', 1],
             ['second',  2], ['2nd', 2], ['2', 2],

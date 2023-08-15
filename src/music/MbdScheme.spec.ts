@@ -14,6 +14,7 @@ import MbdScheme from './MbdScheme';
 describe('Mbd music scheme', () => {
     testAbstractSchemeImplementation(
         (stage: S = S.Cinques) => new MbdScheme(stage),
+        // prettier-ignore
         [
             // 567890E
             [S.Triples, '2314567', 1, '1 567\n'],
