@@ -20,13 +20,17 @@
   </div>
   <div>
     <form onsubmit="return false">
-      <label for="initialRow">Starting row:</label>
-      <input type="text" id="initialRow" size="11" maxLength="11" />
-      <button onclick="pricker.onSetInitialRow()">Set</button>
-      <button onclick="pricker.onResetInitialRow()">Reset</button>
+      <label for="targetRow">Target row:</label>
+      <input type="text" id="targetRow" size="11" maxLength="11" />
+      <button onclick="pricker.onSetTargetRow()">Set</button>
+      <button onclick="pricker.onResetTargetRow()">Reset</button>
     </form>
   </div>
   <div>
-    Distance: <span id="distance"></span>
+    Sixes: <span id="sixes"></span>
+  </div>
+  <div>
+    Touches:
+    <div id="touches"></div>
   </div>
 </div>

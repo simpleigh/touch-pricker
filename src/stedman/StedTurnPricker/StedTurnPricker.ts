@@ -19,6 +19,7 @@ import {
     Uint4Table,
 } from '../../rows';
 import * as Templates from '../../templates';
+import { search } from '../searching';
 import css from './css.dot';
 import html from './html.dot';
 
@@ -33,9 +34,9 @@ class StedTurnPricker extends AbstractPricker {
     private _stage: Stage = Stage.Triples;
 
     /**
-     * Starting row
+     * Target row
      */
-    private _initialRow: Row;
+    private _targetRow: Row;
 
     /**
      * Table with row distance information
@@ -50,7 +51,7 @@ class StedTurnPricker extends AbstractPricker {
     }
 
     private async reboot(): Promise<void> {
-        this._initialRow = rounds(this._stage);
+        this._targetRow = rounds(this._stage);
 
         // TODO: table download URL needs to be customisable
         // TODO: need to handle errors downloading tables
@@ -63,14 +64,19 @@ class StedTurnPricker extends AbstractPricker {
     }
 
     private redraw(): void {
-        this.getEl<HTMLInputElement>('initialRow').value = stringFromRow(
-            this._initialRow,
+        this.getEl<HTMLInputElement>('targetRow').value = stringFromRow(
+            this._targetRow,
         );
 
-        const rank = rankFromRow(this._initialRow);
-        this.getEl('distance').innerText = this._table
-            .getValue(rank)
-            .toString();
+        const targetRank = rankFromRow(this._targetRow);
+        this.getEl<HTMLSpanElement>('sixes').innerText = (
+            2 * this._table.getValue(targetRank)
+        ).toString();
+
+        const touches = search(this._table, targetRank);
+        this.getEl<HTMLDivElement>('touches').innerHTML =
+            touches.join('<br />');
+        this.resize();
     }
 
     public onStage(): void {
@@ -78,12 +84,12 @@ class StedTurnPricker extends AbstractPricker {
         this.reboot();
     }
 
-    public onSetInitialRow(): void {
-        const input = this.getEl<HTMLInputElement>('initialRow').value;
+    public onSetTargetRow(): void {
+        const input = this.getEl<HTMLInputElement>('targetRow').value;
 
         try {
-            const initialRow = rowFromString(input, this._stage);
-            this._initialRow = initialRow;
+            const targetRow = rowFromString(input, this._stage);
+            this._targetRow = targetRow;
         } catch {
             return;
         }
@@ -91,8 +97,8 @@ class StedTurnPricker extends AbstractPricker {
         this.redraw();
     }
 
-    public onResetInitialRow(): void {
-        this._initialRow = rounds(this._stage);
+    public onResetTargetRow(): void {
+        this._targetRow = rounds(this._stage);
         this.redraw();
     }
 }

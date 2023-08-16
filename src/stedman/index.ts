@@ -6,11 +6,13 @@
  */
 
 import * as Methods from './methods';
+import * as Searching from './searching';
 import * as Sixes from './sixes';
 
 export { default as Course } from './Course';
 export { default as MbdPricker } from './MbdPricker';
 export { Methods };
+export { Searching };
 export { Sixes };
 export { default as Start } from './Start';
 export { default as StedTurnPricker } from './StedTurnPricker';
