@@ -7,6 +7,7 @@
 
 export { default as bellFromSymbol } from './bellFromSymbol';
 export { default as changeFromNotation } from './changeFromNotation';
+export { default as inverse } from './inverse';
 export { default as multiply } from './multiply';
 export { default as rankFromRow } from './rankFromRow';
 export { default as rounds } from './rounds';

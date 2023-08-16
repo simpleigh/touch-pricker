@@ -14,7 +14,7 @@ import { Row } from './types';
  * Computes the rank of a {@link Row}.
  *
  * The numbering starts at `0` (rounds) and runs to `n! - 1` (back rounds).
- * Numbering is in "reverse colex order" (Knuth 4A p326); i.e. if we reflect
+ * Numbering is in "reverse colex order" (Knuth 7.2.1.2); i.e. if we reflect
  * each row from right to left they would be in reverse lexicographic order.
  *
  * ```text
