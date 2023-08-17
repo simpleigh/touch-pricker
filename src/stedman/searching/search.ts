@@ -15,6 +15,7 @@ import {
     Uint4Table,
 } from '../../rows';
 import CallPair from './CallPair';
+import Calling from './Calling';
 import createTranspositions from './createTranspositions';
 
 const recursiveSearch = (
@@ -100,10 +101,12 @@ const search = (
     table: Uint4Table,
     targetRank: number,
     steps?: number,
-): string[] => {
+): Calling[] => {
     const transpositions = createTranspositions(table.stage, true);
     steps ??= table.getValue(targetRank);
-    return recursiveSearch(table, targetRank, steps, transpositions);
+    return recursiveSearch(table, targetRank, steps, transpositions).map(
+        (calling: string): Calling => new Calling(calling),
+    );
 };
 
 export default search;

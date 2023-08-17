@@ -27,12 +27,12 @@ describe('search function', () => {
 
     it('finds the expected touches', () => {
         const touches = search(table, 5039);
-        expect(touches[0]).toBe('- s- - - -   -');
-        expect(touches[1]).toBe('-  -   --  s -');
-        expect(touches[2]).toBe('- s- s --  s -');
-        expect(touches[3]).toBe('- -- s  s  s -');
-        expect(touches[4]).toBe('- ----  -- s -');
-        expect(touches[5]).toBe('- s- - s-- s -');
+        expect(touches[0].print('text')).toBe('1 s3 4 6 8 10 14');
+        expect(touches[1].print('text')).toBe('1 4 8 9 s12 14');
+        expect(touches[2].print('text')).toBe('1 s3 4 s6 8 9 s12 14');
+        expect(touches[3].print('text')).toBe('1 3 4 s6 s9 s12 14');
+        expect(touches[4].print('text')).toBe('1 3 4 5 6 9 10 s12 14');
+        expect(touches[5].print('text')).toBe('1 s3 4 6 s8 9 10 s12 14');
     });
 
     it('can find a large volume of touches', () => {

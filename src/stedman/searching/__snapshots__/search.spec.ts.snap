@@ -2,305 +2,905 @@
 
 exports[`search function can find touches taking more sixes than the minimum 1`] = `
 [
-  "   s-- --  -    ",
-  "   - -  s  -    ",
-  "   s -  -- -    ",
-  "  ---  s-- -    ",
-  "s - s  s-- -    ",
-  "   --- s-- -    ",
-  "   s-  - -  -   ",
-  "s - -- - -  -   ",
-  "  s--- - -  -   ",
-  "s ---- --  --   ",
-  "  - s- --  --   ",
-  "  -  -  s  --   ",
-  "s s- -  s  --   ",
-  "-  s-  - - --   ",
-  "- s--- - - --   ",
-  "s -- -  -- --   ",
-  "s  s-  s-- --   ",
-  "  - -- s-- --   ",
-  "s s--- s-- --   ",
-  "  ---- --  s-   ",
-  "s - s- --  s-   ",
-  "s -  -  s  s-   ",
-  "  s- -  s  s-   ",
-  "  -- -  -- s-   ",
-  "   s-  s-- s-   ",
-  "s - -- s-- s-   ",
-  "  s--- s-- s-   ",
-  "- ---- --   s   ",
-  "- s- -  s   s   ",
-  "s  s-  - -  s   ",
-  "  - -- - -  s   ",
-  "s s--- - -  s   ",
-  "- -- -  --  s   ",
-  "-  s-  s--  s   ",
-  "- s--- s--  s   ",
-  "   - -    -  s  ",
-  "   s-- s  -  s  ",
-  "   s -   s-  s  ",
-  "  ---  s s-  s  ",
-  "s - s  s s-  s  ",
-  "   --- s s-  s  ",
-  "   s s- - -- s  ",
-  "  --- --- -- s  ",
-  "s - s --- -- s  ",
-  "   ------ -- s  ",
-  "s -   - s -- s  ",
-  "  s-  - s -- s  ",
-  "   - s- s -- s  ",
-  "  ---  ----- s  ",
-  "s - s  ----- s  ",
-  "   --- ----- s  ",
-  "   s -  s--- s  ",
-  "   s-- -- s- s  ",
-  "   - -  s s- s  ",
-  "- s- -      --  ",
-  "- ---- s    --  ",
-  "s -- -   -  --  ",
-  "s  s-  s -  --  ",
-  "  - -- s -  --  ",
-  "s s--- s -  --  ",
-  "- -- -   s  --  ",
-  "-  s-  s s  --  ",
-  "- s--- s s  --  ",
-  "s -  -    - --  ",
-  "  s- -    - --  ",
-  "  ---- s  - --  ",
-  "s - s- s  - --  ",
-  "  -- -   s- --  ",
-  "   s-  s s- --  ",
-  "s - -- s s- --  ",
-  "  s--- s s- --  ",
-  "-  -  -    s--  ",
-  "- s- s-    s--  ",
-  "- ------   s--  ",
-  "-  s- s-   s--  ",
-  "s -- s- -  s--  ",
-  "s  s- ---  s--  ",
-  "  - -----  s--  ",
-  "s s------  s--  ",
-  "s  -  - s  s--  ",
-  "  -  s- s  s--  ",
-  "s s- s- s  s--  ",
-  "-  s-  - s s--  ",
-  "- s--- - s s--  ",
-  "s  s-  --- s--  ",
-  "  - -- --- s--  ",
-  "s s--- --- s--  ",
-  "s -- -  s- s--  ",
-  "  -- s- - ----  ",
-  "   s- --- ----  ",
-  "s - ----- ----  ",
-  "  s------ ----  ",
-  "   -  - s ----  ",
-  "s -  s- s ----  ",
-  "  s- s- s ----  ",
-  "   s-  -------  ",
-  "s - -- -------  ",
-  "  s--- -------  ",
-  "  -- -  s-----  ",
-  "  ---- -- s---  ",
-  "s - s- -- s---  ",
-  "s -  -  s s---  ",
-  "  s- -  s s---  ",
-  "   -  -   - s-  ",
-  "s -  s-   - s-  ",
-  "  s- s-   - s-  ",
-  "  ------  - s-  ",
-  "s - s---  - s-  ",
-  "   s- s-  - s-  ",
-  "   s-  - s- s-  ",
-  "s - -- - s- s-  ",
-  "  s--- - s- s-  ",
-  "   s-    -  - - ",
-  "s - --   -  - - ",
-  "  s---   -  - - ",
-  "  -- - s -  - - ",
-  "  ----- -  s- - ",
-  "s - s-- -  s- - ",
-  "   s- s -  s- - ",
-  "  -- ----  s- - ",
-  "s -  -- s  s- - ",
-  "  s- -- s  s- - ",
-  "   -  s s  s- - ",
-  "  -- - --- s- - ",
-  "   s-   s- s- - ",
-  "s - --  s- s- - ",
-  "  s---  s- s- - ",
-  "s -  --   - --- ",
-  "  s- --   - --- ",
-  "   -  s   - --- ",
-  "  -- s--  - --- ",
-  "  -- - - s- --- ",
-  "  -- s -- ----- ",
-  "   -    s ----- ",
-  "s -  s  s ----- ",
-  "  s- s  s ----- ",
-  "   s-   ------- ",
-  "s - --  ------- ",
-  "  s---  ------- ",
-  "  -- - s------- ",
-  "  ----- - s---- ",
-  "s - s-- - s---- ",
-  "   s- s - s---- ",
-  "  -- ---- s---- ",
-  "s -  -- s s---- ",
-  "  s- -- s s---- ",
-  "   -  s s s---- ",
-  "   -      - s-- ",
-  "s -  s    - s-- ",
-  "  s- s    - s-- ",
-  "  -- s s  - s-- ",
-  "   s-    s- s-- ",
-  "s - --   s- s-- ",
-  "  s---   s- s-- ",
-  "  -- - s s- s-- ",
-  "  -- - - -  - s ",
-  "  -- s --  s- s ",
-  "   -    s  s- s ",
-  "s -  s  s  s- s ",
-  "  s- s  s  s- s ",
-  "   s-   -- s- s ",
-  "s - --  -- s- s ",
-  "  s---  -- s- s ",
-  "  -- - s-- s- s ",
-  "   s--- -  -   -",
-  "  --- s -  -   -",
-  "s - s s -  -   -",
-  "   s ----  -   -",
-  "   - -- s  -   -",
-  "s -   s s  -   -",
-  "  s-  s s  -   -",
-  "   s - --- -   -",
-  "  ---   s- -   -",
-  "s - s   s- -   -",
-  "   ---  s- -   -",
-  "   - --   -  s -",
-  "s -   s   -  s -",
-  "  s-  s   -  s -",
-  "   s s--  -  s -",
-  "   s - - s-  s -",
-  "   s s -- -- s -",
-  "s -     s -- s -",
-  "  s-    s -- s -",
-  "   - s  s -- s -",
-  "  ---   ---- s -",
-  "s - s   ---- s -",
-  "   ---  ---- s -",
-  "   s - s---- s -",
-  "   s--- - s- s -",
-  "  --- s - s- s -",
-  "s - s s - s- s -",
-  "   s ---- s- s -",
-  "   - -- s s- s -",
-  "s -   s s s- s -",
-  "  s-  s s s- s -",
-  "   s s- -  -   s",
-  "  --- ---  -   s",
-  "s - s ---  -   s",
-  "   ------  -   s",
-  "s -   - s  -   s",
-  "  s-  - s  -   s",
-  "   - s- s  -   s",
-  "  ---  --- -   s",
-  "s - s  --- -   s",
-  "   --- --- -   s",
-  "   s -  s- -   s",
-  "   -  -   -  - s",
-  "s -  s-   -  - s",
-  "  s- s-   -  - s",
-  "  ------  -  - s",
-  "s - s---  -  - s",
-  "   s- s-  -  - s",
-  "   s-  - s-  - s",
-  "s - -- - s-  - s",
-  "  s--- - s-  - s",
-  "-  -  -    - - s",
-  "- s- s-    - - s",
-  "- ------   - - s",
-  "-  s- s-   - - s",
-  "s -- s- -  - - s",
-  "s  s- ---  - - s",
-  "  - -----  - - s",
-  "s s------  - - s",
-  "s  -  - s  - - s",
-  "  -  s- s  - - s",
-  "s s- s- s  - - s",
-  "-  s-  - s - - s",
-  "- s--- - s - - s",
-  "s  s-  --- - - s",
-  "  - -- --- - - s",
-  "s s--- --- - - s",
-  "s -- -  s- - - s",
-  "  ---- -- -- - s",
-  "s - s- -- -- - s",
-  "s -  -  s -- - s",
-  "  s- -  s -- - s",
-  "  -- -  ---- - s",
-  "   s-  s---- - s",
-  "s - -- s---- - s",
-  "  s--- s---- - s",
-  "  -- s- - s- - s",
-  "   s- --- s- - s",
-  "s - ----- s- - s",
-  "  s------ s- - s",
-  "   -  - s s- - s",
-  "s -  s- s s- - s",
-  "  s- s- s s- - s",
-  "s -   -   -  s s",
-  "  s-  -   -  s s",
-  "   - s-   -  s s",
-  "   s----  -  s s",
-  "  --- s-  -  s s",
-  "s - s s-  -  s s",
-  "  ---  - s-  s s",
-  "s - s  - s-  s s",
-  "   --- - s-  s s",
-  "   s-- -- -- s s",
-  "   - -  s -- s s",
-  "   s -  ---- s s",
-  "  ---  s---- s s",
-  "s - s  s---- s s",
-  "   --- s---- s s",
-  "   s s- - s- s s",
-  "  --- --- s- s s",
-  "s - s --- s- s s",
-  "   ------ s- s s",
-  "s -   - s s- s s",
-  "  s-  - s s- s s",
-  "   - s- s s- s s",
-  "s -  --   -  ---",
-  "  s- --   -  ---",
-  "   -  s   -  ---",
-  "  -- s--  -  ---",
-  "  -- - - s-  ---",
-  "  -- s -- -- ---",
-  "   -    s -- ---",
-  "s -  s  s -- ---",
-  "  s- s  s -- ---",
-  "   s-   ---- ---",
-  "s - --  ---- ---",
-  "  s---  ---- ---",
-  "  -- - s---- ---",
-  "  ----- - s- ---",
-  "s - s-- - s- ---",
-  "   s- s - s- ---",
-  "  -- ---- s- ---",
-  "s -  -- s s- ---",
-  "  s- -- s s- ---",
-  "   -  s s s- ---",
-  "  ----- -  -  s-",
-  "s - s-- -  -  s-",
-  "   s- s -  -  s-",
-  "  -- ----  -  s-",
-  "s -  -- s  -  s-",
-  "  s- -- s  -  s-",
-  "   -  s s  -  s-",
-  "  -- - --- -  s-",
-  "   s-   s- -  s-",
-  "s - --  s- -  s-",
-  "  s---  s- -  s-",
+  Calling {
+    "calling": "   s-- --  -    ",
+  },
+  Calling {
+    "calling": "   - -  s  -    ",
+  },
+  Calling {
+    "calling": "   s -  -- -    ",
+  },
+  Calling {
+    "calling": "  ---  s-- -    ",
+  },
+  Calling {
+    "calling": "s - s  s-- -    ",
+  },
+  Calling {
+    "calling": "   --- s-- -    ",
+  },
+  Calling {
+    "calling": "   s-  - -  -   ",
+  },
+  Calling {
+    "calling": "s - -- - -  -   ",
+  },
+  Calling {
+    "calling": "  s--- - -  -   ",
+  },
+  Calling {
+    "calling": "s ---- --  --   ",
+  },
+  Calling {
+    "calling": "  - s- --  --   ",
+  },
+  Calling {
+    "calling": "  -  -  s  --   ",
+  },
+  Calling {
+    "calling": "s s- -  s  --   ",
+  },
+  Calling {
+    "calling": "-  s-  - - --   ",
+  },
+  Calling {
+    "calling": "- s--- - - --   ",
+  },
+  Calling {
+    "calling": "s -- -  -- --   ",
+  },
+  Calling {
+    "calling": "s  s-  s-- --   ",
+  },
+  Calling {
+    "calling": "  - -- s-- --   ",
+  },
+  Calling {
+    "calling": "s s--- s-- --   ",
+  },
+  Calling {
+    "calling": "  ---- --  s-   ",
+  },
+  Calling {
+    "calling": "s - s- --  s-   ",
+  },
+  Calling {
+    "calling": "s -  -  s  s-   ",
+  },
+  Calling {
+    "calling": "  s- -  s  s-   ",
+  },
+  Calling {
+    "calling": "  -- -  -- s-   ",
+  },
+  Calling {
+    "calling": "   s-  s-- s-   ",
+  },
+  Calling {
+    "calling": "s - -- s-- s-   ",
+  },
+  Calling {
+    "calling": "  s--- s-- s-   ",
+  },
+  Calling {
+    "calling": "- ---- --   s   ",
+  },
+  Calling {
+    "calling": "- s- -  s   s   ",
+  },
+  Calling {
+    "calling": "s  s-  - -  s   ",
+  },
+  Calling {
+    "calling": "  - -- - -  s   ",
+  },
+  Calling {
+    "calling": "s s--- - -  s   ",
+  },
+  Calling {
+    "calling": "- -- -  --  s   ",
+  },
+  Calling {
+    "calling": "-  s-  s--  s   ",
+  },
+  Calling {
+    "calling": "- s--- s--  s   ",
+  },
+  Calling {
+    "calling": "   - -    -  s  ",
+  },
+  Calling {
+    "calling": "   s-- s  -  s  ",
+  },
+  Calling {
+    "calling": "   s -   s-  s  ",
+  },
+  Calling {
+    "calling": "  ---  s s-  s  ",
+  },
+  Calling {
+    "calling": "s - s  s s-  s  ",
+  },
+  Calling {
+    "calling": "   --- s s-  s  ",
+  },
+  Calling {
+    "calling": "   s s- - -- s  ",
+  },
+  Calling {
+    "calling": "  --- --- -- s  ",
+  },
+  Calling {
+    "calling": "s - s --- -- s  ",
+  },
+  Calling {
+    "calling": "   ------ -- s  ",
+  },
+  Calling {
+    "calling": "s -   - s -- s  ",
+  },
+  Calling {
+    "calling": "  s-  - s -- s  ",
+  },
+  Calling {
+    "calling": "   - s- s -- s  ",
+  },
+  Calling {
+    "calling": "  ---  ----- s  ",
+  },
+  Calling {
+    "calling": "s - s  ----- s  ",
+  },
+  Calling {
+    "calling": "   --- ----- s  ",
+  },
+  Calling {
+    "calling": "   s -  s--- s  ",
+  },
+  Calling {
+    "calling": "   s-- -- s- s  ",
+  },
+  Calling {
+    "calling": "   - -  s s- s  ",
+  },
+  Calling {
+    "calling": "- s- -      --  ",
+  },
+  Calling {
+    "calling": "- ---- s    --  ",
+  },
+  Calling {
+    "calling": "s -- -   -  --  ",
+  },
+  Calling {
+    "calling": "s  s-  s -  --  ",
+  },
+  Calling {
+    "calling": "  - -- s -  --  ",
+  },
+  Calling {
+    "calling": "s s--- s -  --  ",
+  },
+  Calling {
+    "calling": "- -- -   s  --  ",
+  },
+  Calling {
+    "calling": "-  s-  s s  --  ",
+  },
+  Calling {
+    "calling": "- s--- s s  --  ",
+  },
+  Calling {
+    "calling": "s -  -    - --  ",
+  },
+  Calling {
+    "calling": "  s- -    - --  ",
+  },
+  Calling {
+    "calling": "  ---- s  - --  ",
+  },
+  Calling {
+    "calling": "s - s- s  - --  ",
+  },
+  Calling {
+    "calling": "  -- -   s- --  ",
+  },
+  Calling {
+    "calling": "   s-  s s- --  ",
+  },
+  Calling {
+    "calling": "s - -- s s- --  ",
+  },
+  Calling {
+    "calling": "  s--- s s- --  ",
+  },
+  Calling {
+    "calling": "-  -  -    s--  ",
+  },
+  Calling {
+    "calling": "- s- s-    s--  ",
+  },
+  Calling {
+    "calling": "- ------   s--  ",
+  },
+  Calling {
+    "calling": "-  s- s-   s--  ",
+  },
+  Calling {
+    "calling": "s -- s- -  s--  ",
+  },
+  Calling {
+    "calling": "s  s- ---  s--  ",
+  },
+  Calling {
+    "calling": "  - -----  s--  ",
+  },
+  Calling {
+    "calling": "s s------  s--  ",
+  },
+  Calling {
+    "calling": "s  -  - s  s--  ",
+  },
+  Calling {
+    "calling": "  -  s- s  s--  ",
+  },
+  Calling {
+    "calling": "s s- s- s  s--  ",
+  },
+  Calling {
+    "calling": "-  s-  - s s--  ",
+  },
+  Calling {
+    "calling": "- s--- - s s--  ",
+  },
+  Calling {
+    "calling": "s  s-  --- s--  ",
+  },
+  Calling {
+    "calling": "  - -- --- s--  ",
+  },
+  Calling {
+    "calling": "s s--- --- s--  ",
+  },
+  Calling {
+    "calling": "s -- -  s- s--  ",
+  },
+  Calling {
+    "calling": "  -- s- - ----  ",
+  },
+  Calling {
+    "calling": "   s- --- ----  ",
+  },
+  Calling {
+    "calling": "s - ----- ----  ",
+  },
+  Calling {
+    "calling": "  s------ ----  ",
+  },
+  Calling {
+    "calling": "   -  - s ----  ",
+  },
+  Calling {
+    "calling": "s -  s- s ----  ",
+  },
+  Calling {
+    "calling": "  s- s- s ----  ",
+  },
+  Calling {
+    "calling": "   s-  -------  ",
+  },
+  Calling {
+    "calling": "s - -- -------  ",
+  },
+  Calling {
+    "calling": "  s--- -------  ",
+  },
+  Calling {
+    "calling": "  -- -  s-----  ",
+  },
+  Calling {
+    "calling": "  ---- -- s---  ",
+  },
+  Calling {
+    "calling": "s - s- -- s---  ",
+  },
+  Calling {
+    "calling": "s -  -  s s---  ",
+  },
+  Calling {
+    "calling": "  s- -  s s---  ",
+  },
+  Calling {
+    "calling": "   -  -   - s-  ",
+  },
+  Calling {
+    "calling": "s -  s-   - s-  ",
+  },
+  Calling {
+    "calling": "  s- s-   - s-  ",
+  },
+  Calling {
+    "calling": "  ------  - s-  ",
+  },
+  Calling {
+    "calling": "s - s---  - s-  ",
+  },
+  Calling {
+    "calling": "   s- s-  - s-  ",
+  },
+  Calling {
+    "calling": "   s-  - s- s-  ",
+  },
+  Calling {
+    "calling": "s - -- - s- s-  ",
+  },
+  Calling {
+    "calling": "  s--- - s- s-  ",
+  },
+  Calling {
+    "calling": "   s-    -  - - ",
+  },
+  Calling {
+    "calling": "s - --   -  - - ",
+  },
+  Calling {
+    "calling": "  s---   -  - - ",
+  },
+  Calling {
+    "calling": "  -- - s -  - - ",
+  },
+  Calling {
+    "calling": "  ----- -  s- - ",
+  },
+  Calling {
+    "calling": "s - s-- -  s- - ",
+  },
+  Calling {
+    "calling": "   s- s -  s- - ",
+  },
+  Calling {
+    "calling": "  -- ----  s- - ",
+  },
+  Calling {
+    "calling": "s -  -- s  s- - ",
+  },
+  Calling {
+    "calling": "  s- -- s  s- - ",
+  },
+  Calling {
+    "calling": "   -  s s  s- - ",
+  },
+  Calling {
+    "calling": "  -- - --- s- - ",
+  },
+  Calling {
+    "calling": "   s-   s- s- - ",
+  },
+  Calling {
+    "calling": "s - --  s- s- - ",
+  },
+  Calling {
+    "calling": "  s---  s- s- - ",
+  },
+  Calling {
+    "calling": "s -  --   - --- ",
+  },
+  Calling {
+    "calling": "  s- --   - --- ",
+  },
+  Calling {
+    "calling": "   -  s   - --- ",
+  },
+  Calling {
+    "calling": "  -- s--  - --- ",
+  },
+  Calling {
+    "calling": "  -- - - s- --- ",
+  },
+  Calling {
+    "calling": "  -- s -- ----- ",
+  },
+  Calling {
+    "calling": "   -    s ----- ",
+  },
+  Calling {
+    "calling": "s -  s  s ----- ",
+  },
+  Calling {
+    "calling": "  s- s  s ----- ",
+  },
+  Calling {
+    "calling": "   s-   ------- ",
+  },
+  Calling {
+    "calling": "s - --  ------- ",
+  },
+  Calling {
+    "calling": "  s---  ------- ",
+  },
+  Calling {
+    "calling": "  -- - s------- ",
+  },
+  Calling {
+    "calling": "  ----- - s---- ",
+  },
+  Calling {
+    "calling": "s - s-- - s---- ",
+  },
+  Calling {
+    "calling": "   s- s - s---- ",
+  },
+  Calling {
+    "calling": "  -- ---- s---- ",
+  },
+  Calling {
+    "calling": "s -  -- s s---- ",
+  },
+  Calling {
+    "calling": "  s- -- s s---- ",
+  },
+  Calling {
+    "calling": "   -  s s s---- ",
+  },
+  Calling {
+    "calling": "   -      - s-- ",
+  },
+  Calling {
+    "calling": "s -  s    - s-- ",
+  },
+  Calling {
+    "calling": "  s- s    - s-- ",
+  },
+  Calling {
+    "calling": "  -- s s  - s-- ",
+  },
+  Calling {
+    "calling": "   s-    s- s-- ",
+  },
+  Calling {
+    "calling": "s - --   s- s-- ",
+  },
+  Calling {
+    "calling": "  s---   s- s-- ",
+  },
+  Calling {
+    "calling": "  -- - s s- s-- ",
+  },
+  Calling {
+    "calling": "  -- - - -  - s ",
+  },
+  Calling {
+    "calling": "  -- s --  s- s ",
+  },
+  Calling {
+    "calling": "   -    s  s- s ",
+  },
+  Calling {
+    "calling": "s -  s  s  s- s ",
+  },
+  Calling {
+    "calling": "  s- s  s  s- s ",
+  },
+  Calling {
+    "calling": "   s-   -- s- s ",
+  },
+  Calling {
+    "calling": "s - --  -- s- s ",
+  },
+  Calling {
+    "calling": "  s---  -- s- s ",
+  },
+  Calling {
+    "calling": "  -- - s-- s- s ",
+  },
+  Calling {
+    "calling": "   s--- -  -   -",
+  },
+  Calling {
+    "calling": "  --- s -  -   -",
+  },
+  Calling {
+    "calling": "s - s s -  -   -",
+  },
+  Calling {
+    "calling": "   s ----  -   -",
+  },
+  Calling {
+    "calling": "   - -- s  -   -",
+  },
+  Calling {
+    "calling": "s -   s s  -   -",
+  },
+  Calling {
+    "calling": "  s-  s s  -   -",
+  },
+  Calling {
+    "calling": "   s - --- -   -",
+  },
+  Calling {
+    "calling": "  ---   s- -   -",
+  },
+  Calling {
+    "calling": "s - s   s- -   -",
+  },
+  Calling {
+    "calling": "   ---  s- -   -",
+  },
+  Calling {
+    "calling": "   - --   -  s -",
+  },
+  Calling {
+    "calling": "s -   s   -  s -",
+  },
+  Calling {
+    "calling": "  s-  s   -  s -",
+  },
+  Calling {
+    "calling": "   s s--  -  s -",
+  },
+  Calling {
+    "calling": "   s - - s-  s -",
+  },
+  Calling {
+    "calling": "   s s -- -- s -",
+  },
+  Calling {
+    "calling": "s -     s -- s -",
+  },
+  Calling {
+    "calling": "  s-    s -- s -",
+  },
+  Calling {
+    "calling": "   - s  s -- s -",
+  },
+  Calling {
+    "calling": "  ---   ---- s -",
+  },
+  Calling {
+    "calling": "s - s   ---- s -",
+  },
+  Calling {
+    "calling": "   ---  ---- s -",
+  },
+  Calling {
+    "calling": "   s - s---- s -",
+  },
+  Calling {
+    "calling": "   s--- - s- s -",
+  },
+  Calling {
+    "calling": "  --- s - s- s -",
+  },
+  Calling {
+    "calling": "s - s s - s- s -",
+  },
+  Calling {
+    "calling": "   s ---- s- s -",
+  },
+  Calling {
+    "calling": "   - -- s s- s -",
+  },
+  Calling {
+    "calling": "s -   s s s- s -",
+  },
+  Calling {
+    "calling": "  s-  s s s- s -",
+  },
+  Calling {
+    "calling": "   s s- -  -   s",
+  },
+  Calling {
+    "calling": "  --- ---  -   s",
+  },
+  Calling {
+    "calling": "s - s ---  -   s",
+  },
+  Calling {
+    "calling": "   ------  -   s",
+  },
+  Calling {
+    "calling": "s -   - s  -   s",
+  },
+  Calling {
+    "calling": "  s-  - s  -   s",
+  },
+  Calling {
+    "calling": "   - s- s  -   s",
+  },
+  Calling {
+    "calling": "  ---  --- -   s",
+  },
+  Calling {
+    "calling": "s - s  --- -   s",
+  },
+  Calling {
+    "calling": "   --- --- -   s",
+  },
+  Calling {
+    "calling": "   s -  s- -   s",
+  },
+  Calling {
+    "calling": "   -  -   -  - s",
+  },
+  Calling {
+    "calling": "s -  s-   -  - s",
+  },
+  Calling {
+    "calling": "  s- s-   -  - s",
+  },
+  Calling {
+    "calling": "  ------  -  - s",
+  },
+  Calling {
+    "calling": "s - s---  -  - s",
+  },
+  Calling {
+    "calling": "   s- s-  -  - s",
+  },
+  Calling {
+    "calling": "   s-  - s-  - s",
+  },
+  Calling {
+    "calling": "s - -- - s-  - s",
+  },
+  Calling {
+    "calling": "  s--- - s-  - s",
+  },
+  Calling {
+    "calling": "-  -  -    - - s",
+  },
+  Calling {
+    "calling": "- s- s-    - - s",
+  },
+  Calling {
+    "calling": "- ------   - - s",
+  },
+  Calling {
+    "calling": "-  s- s-   - - s",
+  },
+  Calling {
+    "calling": "s -- s- -  - - s",
+  },
+  Calling {
+    "calling": "s  s- ---  - - s",
+  },
+  Calling {
+    "calling": "  - -----  - - s",
+  },
+  Calling {
+    "calling": "s s------  - - s",
+  },
+  Calling {
+    "calling": "s  -  - s  - - s",
+  },
+  Calling {
+    "calling": "  -  s- s  - - s",
+  },
+  Calling {
+    "calling": "s s- s- s  - - s",
+  },
+  Calling {
+    "calling": "-  s-  - s - - s",
+  },
+  Calling {
+    "calling": "- s--- - s - - s",
+  },
+  Calling {
+    "calling": "s  s-  --- - - s",
+  },
+  Calling {
+    "calling": "  - -- --- - - s",
+  },
+  Calling {
+    "calling": "s s--- --- - - s",
+  },
+  Calling {
+    "calling": "s -- -  s- - - s",
+  },
+  Calling {
+    "calling": "  ---- -- -- - s",
+  },
+  Calling {
+    "calling": "s - s- -- -- - s",
+  },
+  Calling {
+    "calling": "s -  -  s -- - s",
+  },
+  Calling {
+    "calling": "  s- -  s -- - s",
+  },
+  Calling {
+    "calling": "  -- -  ---- - s",
+  },
+  Calling {
+    "calling": "   s-  s---- - s",
+  },
+  Calling {
+    "calling": "s - -- s---- - s",
+  },
+  Calling {
+    "calling": "  s--- s---- - s",
+  },
+  Calling {
+    "calling": "  -- s- - s- - s",
+  },
+  Calling {
+    "calling": "   s- --- s- - s",
+  },
+  Calling {
+    "calling": "s - ----- s- - s",
+  },
+  Calling {
+    "calling": "  s------ s- - s",
+  },
+  Calling {
+    "calling": "   -  - s s- - s",
+  },
+  Calling {
+    "calling": "s -  s- s s- - s",
+  },
+  Calling {
+    "calling": "  s- s- s s- - s",
+  },
+  Calling {
+    "calling": "s -   -   -  s s",
+  },
+  Calling {
+    "calling": "  s-  -   -  s s",
+  },
+  Calling {
+    "calling": "   - s-   -  s s",
+  },
+  Calling {
+    "calling": "   s----  -  s s",
+  },
+  Calling {
+    "calling": "  --- s-  -  s s",
+  },
+  Calling {
+    "calling": "s - s s-  -  s s",
+  },
+  Calling {
+    "calling": "  ---  - s-  s s",
+  },
+  Calling {
+    "calling": "s - s  - s-  s s",
+  },
+  Calling {
+    "calling": "   --- - s-  s s",
+  },
+  Calling {
+    "calling": "   s-- -- -- s s",
+  },
+  Calling {
+    "calling": "   - -  s -- s s",
+  },
+  Calling {
+    "calling": "   s -  ---- s s",
+  },
+  Calling {
+    "calling": "  ---  s---- s s",
+  },
+  Calling {
+    "calling": "s - s  s---- s s",
+  },
+  Calling {
+    "calling": "   --- s---- s s",
+  },
+  Calling {
+    "calling": "   s s- - s- s s",
+  },
+  Calling {
+    "calling": "  --- --- s- s s",
+  },
+  Calling {
+    "calling": "s - s --- s- s s",
+  },
+  Calling {
+    "calling": "   ------ s- s s",
+  },
+  Calling {
+    "calling": "s -   - s s- s s",
+  },
+  Calling {
+    "calling": "  s-  - s s- s s",
+  },
+  Calling {
+    "calling": "   - s- s s- s s",
+  },
+  Calling {
+    "calling": "s -  --   -  ---",
+  },
+  Calling {
+    "calling": "  s- --   -  ---",
+  },
+  Calling {
+    "calling": "   -  s   -  ---",
+  },
+  Calling {
+    "calling": "  -- s--  -  ---",
+  },
+  Calling {
+    "calling": "  -- - - s-  ---",
+  },
+  Calling {
+    "calling": "  -- s -- -- ---",
+  },
+  Calling {
+    "calling": "   -    s -- ---",
+  },
+  Calling {
+    "calling": "s -  s  s -- ---",
+  },
+  Calling {
+    "calling": "  s- s  s -- ---",
+  },
+  Calling {
+    "calling": "   s-   ---- ---",
+  },
+  Calling {
+    "calling": "s - --  ---- ---",
+  },
+  Calling {
+    "calling": "  s---  ---- ---",
+  },
+  Calling {
+    "calling": "  -- - s---- ---",
+  },
+  Calling {
+    "calling": "  ----- - s- ---",
+  },
+  Calling {
+    "calling": "s - s-- - s- ---",
+  },
+  Calling {
+    "calling": "   s- s - s- ---",
+  },
+  Calling {
+    "calling": "  -- ---- s- ---",
+  },
+  Calling {
+    "calling": "s -  -- s s- ---",
+  },
+  Calling {
+    "calling": "  s- -- s s- ---",
+  },
+  Calling {
+    "calling": "   -  s s s- ---",
+  },
+  Calling {
+    "calling": "  ----- -  -  s-",
+  },
+  Calling {
+    "calling": "s - s-- -  -  s-",
+  },
+  Calling {
+    "calling": "   s- s -  -  s-",
+  },
+  Calling {
+    "calling": "  -- ----  -  s-",
+  },
+  Calling {
+    "calling": "s -  -- s  -  s-",
+  },
+  Calling {
+    "calling": "  s- -- s  -  s-",
+  },
+  Calling {
+    "calling": "   -  s s  -  s-",
+  },
+  Calling {
+    "calling": "  -- - --- -  s-",
+  },
+  Calling {
+    "calling": "   s-   s- -  s-",
+  },
+  Calling {
+    "calling": "s - --  s- -  s-",
+  },
+  Calling {
+    "calling": "  s---  s- -  s-",
+  },
 ]
 `;

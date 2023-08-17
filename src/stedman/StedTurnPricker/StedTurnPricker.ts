@@ -73,9 +73,10 @@ class StedTurnPricker extends AbstractPricker {
             2 * this._table.getValue(targetRank)
         ).toString();
 
-        const touches = search(this._table, targetRank);
-        this.getEl<HTMLDivElement>('touches').innerHTML =
-            touches.join('<br />');
+        const touches = search(this._table, targetRank)
+            .map((touch) => touch.print('text'))
+            .join('<br />');
+        this.getEl<HTMLDivElement>('touches').innerHTML = touches;
         this.resize();
     }
 
