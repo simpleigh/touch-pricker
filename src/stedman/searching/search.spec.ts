@@ -8,7 +8,57 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { Stage, Uint4Table } from '../../rows';
-import search from './search';
+import search, { extendTouchList } from './search';
+
+describe('extendTouchList function', () => {
+    it('can add a call pair to a touch', () => {
+        const touchList = ['-  -'];
+        const result = extendTouchList(touchList, '--');
+        expect(result).toEqual(['-  ---']);
+    });
+
+    it('can add a call pair to multiple touches', () => {
+        const touchList = ['-  -', ' -- '];
+        const result = extendTouchList(touchList, '--');
+        expect(result).toEqual(['-  ---', ' -- --']);
+    });
+
+    it('can cope with an empty touch', () => {
+        const touchList = [''];
+        const result = extendTouchList(touchList, '--');
+        expect(result).toEqual(['--']);
+    });
+
+    it('can cope with an empty array', () => {
+        const touchList: string[] = [];
+        const result = extendTouchList(touchList, '--');
+        expect(result).toEqual([]);
+    });
+
+    it('processes all call pairs if adding a calling with a plain', () => {
+        const touchList = ['  ', '- ', 's ', ' -', ' s', '--', 's-'];
+        const result = extendTouchList(touchList, '  ');
+        expect(result).toEqual(touchList.map((touch) => `${touch}  `));
+    });
+
+    it('processes all call pairs if adding a call with a bob', () => {
+        const touchList = ['  ', '- ', 's ', ' -', ' s', '--', 's-'];
+        const result = extendTouchList(touchList, '- ');
+        expect(result).toEqual(touchList.map((touch) => `${touch}- `));
+    });
+
+    it('prunes touches with undesirable calling', () => {
+        const touchList = ['  ', '- ', 's ', ' -', ' s', '--', 's-'];
+        const result = extendTouchList(touchList, 's ');
+        expect(result).toEqual(['  s ', '- s ', 's s ']);
+    });
+
+    it('avoids pruning an empty touch', () => {
+        const touchList = [''];
+        const result = extendTouchList(touchList, 's ');
+        expect(result).toEqual(['s ']);
+    });
+});
 
 describe('search function', () => {
     let table: Uint4Table;

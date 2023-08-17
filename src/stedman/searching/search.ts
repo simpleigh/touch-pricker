@@ -18,6 +18,34 @@ import CallPair from './CallPair';
 import Calling from './Calling';
 import createTranspositions from './createTranspositions';
 
+/**
+ * Extend each of a list of callings.
+ *
+ * While searching for touches we need to append the current calling being
+ * examined onto each of a list of child callings returned recursively.
+ * This also provides an opportunity to filter out undesirable callings.
+ * @param touchList  Array of child touches produced by a recursive call
+ * @param calling  Additional call to append at the end of each child touch
+ */
+export const extendTouchList = (
+    touchList: string[],
+    calling: CallPair,
+): string[] => {
+    // Filter the list to avoid undesirable callings like `-s` or `ss`.
+    if (calling[0] === 's') {
+        touchList = touchList.filter(
+            (touch) => touch === '' || touch[touch.length - 1] === ' ',
+        );
+    }
+
+    return touchList.map((touch) => `${touch}${calling}`);
+};
+
+/**
+ * The search implementation itself.
+ *
+ * See {@link search} for a fuller explanation of this algorithm.
+ */
 const recursiveSearch = (
     table: Uint4Table,
     targetRank: number,
@@ -29,7 +57,7 @@ const recursiveSearch = (
         return ['']; // base case: a single touch of zero length
     }
 
-    const touches: string[] = [];
+    let touches: string[] = [];
 
     // Loop through each possible calling.
     for (const calling of Object.getOwnPropertyNames(transpositions)) {
@@ -45,16 +73,10 @@ const recursiveSearch = (
                 steps - 1,
                 transpositions,
             );
-            for (const touch of childTouches) {
-                // Prune touches with undesirable calling.
-                const touchEndsWithCall =
-                    touch.length && touch[touch.length - 1] !== ' ';
-                const callStartsWithSingle = calling[0] === 's';
-
-                if (!(touchEndsWithCall && callStartsWithSingle)) {
-                    touches.push(`${touch}${calling}`);
-                }
-            }
+            touches = [
+                ...touches,
+                ...extendTouchList(childTouches, calling as CallPair),
+            ];
         }
     }
 
