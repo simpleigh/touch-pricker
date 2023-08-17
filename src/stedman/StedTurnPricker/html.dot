@@ -33,5 +33,13 @@
 
 <div id="output">
   <div id="numCourses"></div>
-  <div id="courses"></div>
+  <form onsubmit="return false">
+    <button onclick="pricker.onOpenCourse()">Open</button>
+  </form>
+  <div id="courses" ondblclick="pricker.onOpenCourse()""></div>
+  <form onsubmit="return false">
+    <button onclick="pricker.onOpenCourse()">Open</button>
+  </form>
 </div>
+
+<div id="sixends"></div>

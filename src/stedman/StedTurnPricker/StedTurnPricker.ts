@@ -19,6 +19,7 @@ import {
     Uint4Table,
 } from '../../rows';
 import * as Templates from '../../templates';
+import Course from '../Course';
 import { Calling, search } from '../searching';
 import css from './css.dot';
 import html from './html.dot';
@@ -55,6 +56,11 @@ class StedTurnPricker extends AbstractPricker {
     private _selectedIndex?: number;
 
     /**
+     * Course opened in sixends view
+     */
+    private _course?: Course;
+
+    /**
      * Table with row distance information
      */
     private _table: Uint4Table;
@@ -72,6 +78,7 @@ class StedTurnPricker extends AbstractPricker {
         this._steps = 0;
         this._courses = [];
         this._selectedIndex = undefined;
+        this._course = undefined;
 
         this.redraw();
 
@@ -90,6 +97,7 @@ class StedTurnPricker extends AbstractPricker {
         this._steps = this._table.getValue(targetRank);
         this._courses = search(this._table, targetRank, this._steps);
         this._selectedIndex = undefined;
+        this._course = undefined;
 
         this.redraw();
     }
@@ -109,6 +117,11 @@ class StedTurnPricker extends AbstractPricker {
             courses: this._courses,
             selectedIndex: this._selectedIndex,
         });
+
+        if (this._course) {
+            this.getEl<HTMLDivElement>('sixends').innerHTML =
+                this._course.print('mbd', { extraSixes: 0 });
+        }
 
         this.resize();
     }
@@ -138,6 +151,18 @@ class StedTurnPricker extends AbstractPricker {
             this._selectedIndex = index;
             this.redraw();
         }
+    }
+
+    public onOpenCourse(): void {
+        this._course = this._courses[this._selectedIndex!].createCourse(
+            rounds(this._stage),
+        );
+        this.redraw();
+    }
+
+    // eslint-disable-next-line id-length
+    public c(): void {
+        // NOOP
     }
 }
 

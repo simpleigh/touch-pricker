@@ -35,6 +35,7 @@
 #output {
     background-color: #EFEFF7;
     float: left;
+    margin-right: 25px;
     padding: 10px;
 }
 
@@ -64,4 +65,34 @@
 #courses div.selected {
     background-color: rgb(0, 120, 215);
     color: white !important;
+}
+
+#sixends {
+    float: left;
+    font-family: "Courier New", "Courier", "monospace";
+    font-size: 12pt;
+}
+
+[class*="slow call"] {
+    background-color: #f0f0f8;
+}
+
+[class*="quick call"] {
+    background-color: #e2e2f0;
+}
+
+[class*="cold call"] {
+    background-color: #f8f0f0;
+}
+
+[class*="hot call"] {
+    background-color: #f0e2e2;
+}
+
+[class*="four call"] {
+    background-color: #f0f8f0;
+}
+
+[class*="eight call"] {
+    background-color: #e2f0e2;
 }
