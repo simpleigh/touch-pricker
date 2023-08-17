@@ -15,7 +15,7 @@ import {
     permuteN,
     permuteSingle,
 } from '../changes';
-import type CallPair from './CallPair';
+import type { CallPair } from './types';
 
 /**
  * Computes the result of applying a series of changes to rounds.

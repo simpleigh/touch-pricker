@@ -11,7 +11,7 @@ sort-keys,
 */
 
 import { Row, Stage } from '../../rows';
-import type CallPair from './CallPair';
+import type { CallPair } from './types';
 import createTranspositions from './createTranspositions';
 
 describe('createTranspositions function', () => {

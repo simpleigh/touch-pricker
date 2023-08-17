@@ -14,7 +14,7 @@ import {
     rowFromRank,
     Uint4Table,
 } from '../../rows';
-import CallPair from './CallPair';
+import type { Cache, CallPair } from './types';
 import Calling from './Calling';
 import createTranspositions from './createTranspositions';
 
@@ -51,10 +51,16 @@ const recursiveSearch = (
     targetRank: number,
     steps: number,
     transpositions: Record<CallPair, Row>,
+    cache: Cache = {},
 ): string[] => {
     // Halt recursion if we've run out of steps.
     if (steps === 0) {
         return ['']; // base case: a single touch of zero length
+    }
+
+    // If we already have a result in the cache then return it.
+    if (cache[targetRank]?.[steps]) {
+        return cache[targetRank]![steps]!;
     }
 
     let touches: string[] = [];
@@ -72,7 +78,15 @@ const recursiveSearch = (
                 newRank,
                 steps - 1,
                 transpositions,
+                cache,
             );
+
+            // Store the result in the cache.
+            if (!cache[newRank]) {
+                cache[newRank] = {};
+            }
+            cache[newRank]![steps - 1] = childTouches;
+
             touches = [
                 ...touches,
                 ...extendTouchList(childTouches, calling as CallPair),
