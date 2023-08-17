@@ -12,7 +12,7 @@ const doT = require('dot');
 const process = (sourceText) => {
     doT.templateSettings.varname = 'context';
     doT.templateSettings.selfcontained = true;
-    const code = `module.exports = { default: ${doT.template(sourceText)} };`;
+    const code = `module.exports = ${doT.template(sourceText)};`;
     return { code };
 };
 
