@@ -10,6 +10,8 @@
 import AbstractPricker from '../../AbstractPricker';
 import { polyfillTree } from '../../dom';
 import {
+    inverse,
+    multiply,
     rankFromRow,
     rounds,
     Row,
@@ -34,6 +36,11 @@ class StedTurnPricker extends AbstractPricker {
      * Stage we're generating on
      */
     private _stage: Stage = Stage.Triples;
+
+    /**
+     * Initial row
+     */
+    private _initialRow: Row;
 
     /**
      * Target row
@@ -74,6 +81,7 @@ class StedTurnPricker extends AbstractPricker {
 
     public async onStage(): Promise<void> {
         this._stage = parseInt(this.getEl<HTMLSelectElement>('stage').value);
+        this._initialRow = rounds(this._stage);
         this._targetRow = rounds(this._stage);
         this._steps = 0;
         this._courses = [];
@@ -93,7 +101,8 @@ class StedTurnPricker extends AbstractPricker {
     }
 
     private search(): void {
-        const targetRank = rankFromRow(this._targetRow);
+        const targetRow = multiply(inverse(this._initialRow), this._targetRow);
+        const targetRank = rankFromRow(targetRow);
         this._steps = this._table.getValue(targetRank);
         this._courses = search(this._table, targetRank, this._steps);
         this._selectedIndex = undefined;
@@ -103,6 +112,9 @@ class StedTurnPricker extends AbstractPricker {
     }
 
     private redraw(): void {
+        this.getEl<HTMLInputElement>('initialRow').value = stringFromRow(
+            this._initialRow,
+        );
         this.getEl<HTMLInputElement>('targetRow').value = stringFromRow(
             this._targetRow,
         );
@@ -124,6 +136,24 @@ class StedTurnPricker extends AbstractPricker {
         }
 
         this.resize();
+    }
+
+    public onSetInitialRow(): void {
+        const input = this.getEl<HTMLInputElement>('initialRow').value;
+
+        try {
+            const initialRow = rowFromString(input, this._stage);
+            this._initialRow = initialRow;
+        } catch {
+            return;
+        }
+
+        this.search();
+    }
+
+    public onResetInitialRow(): void {
+        this._initialRow = rounds(this._stage);
+        this.search();
     }
 
     public onSetTargetRow(): void {
@@ -155,7 +185,7 @@ class StedTurnPricker extends AbstractPricker {
 
     public onOpenCourse(): void {
         this._course = this._courses[this._selectedIndex!].createCourse(
-            rounds(this._stage),
+            this._initialRow,
         );
         this.redraw();
     }
