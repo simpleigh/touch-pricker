@@ -104,7 +104,13 @@ class StedTurnPricker extends AbstractPricker {
         const targetRow = multiply(inverse(this._initialRow), this._targetRow);
         const targetRank = rankFromRow(targetRow);
         this._steps = this._table.getValue(targetRank);
-        this._courses = search(this._table, targetRank, this._steps);
+
+        if (this._steps === 0) {
+            this._courses = [];
+        } else {
+            this._courses = search(this._table, targetRank, this._steps);
+        }
+
         this._selectedIndex = undefined;
         this._course = undefined;
 
