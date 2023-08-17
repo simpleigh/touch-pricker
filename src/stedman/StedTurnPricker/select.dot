@@ -1,0 +1,22 @@
+/**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * Renders the Pricker's list of touches as HTML.
+ * @param {Calling[]}  courses        list of courses
+ * @parma {number}     selectedIndex  index of selected course
+ */
+
+{{~ context.courses :course:index }}
+	<div
+		{{? index == context.selectedIndex }} class="selected"{{?}}
+		 onclick="pricker.onSelectCourse({{= index }})"
+		 onmousedown="return false"
+	>
+		{{= course.print('text') }}
+	</div>
+{{~}}

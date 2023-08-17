@@ -5,4 +5,5 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
+export { default as Calling } from './Calling';
 export { default as search } from './search';

@@ -29,8 +29,9 @@
   <div>
     Sixes: <span id="sixes"></span>
   </div>
-  <div>
-    Touches:
-    <div id="touches"></div>
-  </div>
+</div>
+
+<div id="output">
+  <div id="numCourses"></div>
+  <div id="courses"></div>
 </div>
