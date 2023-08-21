@@ -176,8 +176,10 @@ class StedTurnPricker extends AbstractPricker {
     private set selectedIndex(selectedIndex: number | undefined) {
         const coursesDiv = this.getEl<HTMLDivElement>('courses');
 
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        if (this._selectedIndex && coursesDiv.children[this._selectedIndex]) {
+        if (
+            this._selectedIndex !== undefined &&
+            coursesDiv.children[this._selectedIndex] // eslint-disable-line @typescript-eslint/no-unnecessary-condition
+        ) {
             coursesDiv.children[this._selectedIndex].classList.remove(
                 'selected',
             );
@@ -185,9 +187,14 @@ class StedTurnPricker extends AbstractPricker {
 
         this._selectedIndex = selectedIndex;
 
-        if (this._selectedIndex) {
+        if (this._selectedIndex !== undefined) {
             coursesDiv.children[this._selectedIndex].classList.add('selected');
         }
+
+        const open1 = this.getEl<HTMLButtonElement>('open1');
+        const open2 = this.getEl<HTMLButtonElement>('open2');
+        open1.disabled = selectedIndex === undefined;
+        open2.disabled = selectedIndex === undefined;
     }
 
     private get course(): Course | undefined {
