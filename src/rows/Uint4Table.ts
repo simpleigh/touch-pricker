@@ -31,20 +31,32 @@ import { Stage } from './types';
  */
 class Uint4Table {
     /**
+     * Raw table data.
+     */
+    private readonly _data: Uint8Array;
+
+    /**
      * Constructor.
      * @param _stage  Stage on which the data is valid
-     * @param _data   Raw table data
+     * @param data  Raw table data (omit to create an empty table)
      * @throws if the provided data is the incorrect size
      */
     constructor(
         private readonly _stage: Stage,
-        private readonly _data: Uint8Array,
+        data?: Uint8Array,
     ) {
         const expectedBytes = FACTORIALS[this._stage] / 2;
-        if (_data.length !== expectedBytes) {
-            throw new Error(
-                `Have ${_data.length} bytes but expected ${expectedBytes}`,
-            );
+
+        if (data === undefined) {
+            this._data = new Uint8Array(expectedBytes);
+        } else {
+            if (data.length !== expectedBytes) {
+                throw new Error(
+                    `Have ${data.length} bytes but expected ${expectedBytes}`,
+                );
+            }
+
+            this._data = data;
         }
     }
 
@@ -70,6 +82,20 @@ class Uint4Table {
     }
 
     /**
+     * Provides easy access to the number of entries in the table.
+     */
+    get length(): number {
+        return FACTORIALS[this._stage];
+    }
+
+    /**
+     * Provides read access to the data.
+     */
+    get data(): Uint8Array {
+        return this._data;
+    }
+
+    /**
      * Retrieves a value from the table.
      * @param rank  Rank of the row for which to retrieve the value
      * @returns retrieved value (this must be between 0 and 15)
@@ -81,13 +107,28 @@ class Uint4Table {
     }
 
     /**
+     * Stores a value in the table.
+     * @param rank  Rank of the row for which to set the value
+     * @param value  Value to set
+     * @throws if the provided `rank` or `value` are out of range
+     */
+    public setValue(rank: number, value: number): void {
+        if (value < 0 || value > 15) {
+            throw new Error(`Value '${value}' out of range of Uint4`);
+        }
+
+        const [i, j] = this._computeIndices(rank);
+        this.data[i] = (this.data[i] & (0xf0 >> j)) | (value << j);
+    }
+
+    /**
      * Verifies that a `rank` value is within range.
      * @param rank  Rank value to check
      * @returns [number, number] indices of the row in the table
      * @throws if the provided `rank` is out of range
      */
     private _computeIndices(rank: number) {
-        if (rank < 0 || rank >= FACTORIALS[this._stage]) {
+        if (rank < 0 || rank >= this.length) {
             throw new Error(
                 `Rank '${rank}' out of range on stage '${this._stage}'`,
             );

@@ -19,19 +19,23 @@ describe('Uint4Table', () => {
     ];
     /* eslint-enable array-element-newline */
 
-    it('can be constructed', () => {
+    it('can be constructed without any data', () => {
+        new Uint4Table(Stage.Minimus);
+    });
+
+    it('can be constructed with source data', () => {
         const uint8 = new Uint8Array(testData);
         new Uint4Table(Stage.Minimus, uint8);
     });
 
-    it('throws if the data are insufficient', () => {
+    it('throws if the source data are insufficient', () => {
         const uint8 = new Uint8Array(testData.slice(1));
         expect(() => {
             new Uint4Table(Stage.Minimus, uint8);
         }).toThrowError('Have 11 bytes but expected 12');
     });
 
-    it('throws if the data are too numerous', () => {
+    it('throws if the source data are too numerous', () => {
         const uint8 = new Uint8Array([...testData, 0]);
         expect(() => {
             new Uint4Table(Stage.Minimus, uint8);
@@ -45,7 +49,18 @@ describe('Uint4Table', () => {
         expect(table.stage).toBe(Stage.Minimus);
     });
 
-    it('allows access to its data', () => {
+    it('provides read access to the number of entries', () => {
+        const table = new Uint4Table(Stage.Minimus);
+        expect(table.length).toBe(24);
+    });
+
+    it('provides read access to the raw data', () => {
+        const uint8 = new Uint8Array(testData);
+        const table = new Uint4Table(Stage.Minimus, uint8);
+        expect(table.data).toEqual(uint8);
+    });
+
+    it('allows read access to each datum', () => {
         const uint8 = new Uint8Array(testData);
         const table = new Uint4Table(Stage.Minimus, uint8);
 
@@ -58,14 +73,40 @@ describe('Uint4Table', () => {
         }
     });
 
-    for (const rank of [-1, 5040, 9999]) {
-        const uint8 = new Uint8Array(testData);
-        const table = new Uint4Table(Stage.Minimus, uint8);
+    it('allows write access to each datum', () => {
+        const table = new Uint4Table(Stage.Minimus);
 
-        it(`knows ${rank} is out of range`, () => {
+        for (let i = 0; i < 24; i += 1) {
+            for (const value of [0, 5, 15]) {
+                table.setValue(i, value);
+                expect(table.getValue(i)).toBe(value);
+            }
+        }
+    });
+
+    for (const rank of [-1, 5040, 9999]) {
+        const table = new Uint4Table(Stage.Minimus);
+
+        it(`knows rank ${rank} is out of range getting a value`, () => {
             expect(() => {
                 table.getValue(rank);
             }).toThrowError(`Rank '${rank}' out of range on stage '4'`);
+        });
+
+        it(`knows rank ${rank} is out of range setting a value`, () => {
+            expect(() => {
+                table.setValue(rank, 0);
+            }).toThrowError(`Rank '${rank}' out of range on stage '4'`);
+        });
+    }
+
+    for (const value of [-1, 24]) {
+        const table = new Uint4Table(Stage.Minimus);
+
+        it(`knows value ${value} is out of range when setting a value`, () => {
+            expect(() => {
+                table.setValue(0, value);
+            }).toThrowError(`Value '${value}' out of range of Uint4`);
         });
     }
 
