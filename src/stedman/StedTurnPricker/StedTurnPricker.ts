@@ -142,7 +142,10 @@ class StedTurnPricker extends AbstractPricker {
 
     private set steps(steps: number) {
         this._steps = steps;
-        this.getEl<HTMLSpanElement>('sixes').innerText = `${2 * steps}`;
+        this.getEl<HTMLInputElement>('sixes').value = `${2 * steps}`;
+
+        this.getEl<HTMLButtonElement>('minus').disabled =
+            this._steps === this._minimumSteps;
     }
 
     private get courses(): Calling[] {
@@ -235,6 +238,20 @@ class StedTurnPricker extends AbstractPricker {
     public onResetToRow(): void {
         this.toRow = rounds(this._stage);
         this.search();
+    }
+
+    public onMinus(): void {
+        do {
+            this.steps -= 1;
+            this.search();
+        } while (!this.courses.length && this.steps !== this._minimumSteps);
+    }
+
+    public onPlus(): void {
+        do {
+            this.steps += 1;
+            this.search();
+        } while (!this.courses.length);
     }
 
     public onSelectCourse(index: number): void {

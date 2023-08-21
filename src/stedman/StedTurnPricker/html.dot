@@ -35,7 +35,12 @@
     </form>
   </div>
   <div>
-    Sixes: <span id="sixes"></span>
+    <form onsubmit="return false">
+      Sixes:
+      <button id="minus" onclick="pricker.onMinus()">-</button>
+      <input disabled="disabled" type="text" id="sixes" size="1" />
+      <button onclick="pricker.onPlus()">+</button>
+    </form>
   </div>
 </div>
 
