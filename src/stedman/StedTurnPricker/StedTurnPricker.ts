@@ -155,10 +155,9 @@ class StedTurnPricker extends AbstractPricker {
         });
         polyfillTree(courses);
 
-        if (this._course) {
-            this.getEl<HTMLDivElement>('sixends').innerHTML =
-                this._course.print('mbd', { extraSixes: 0 });
-        }
+        this.getEl<HTMLDivElement>('sixends').innerHTML = this._course
+            ? this._course.print('mbd', { extraSixes: 0 })
+            : '';
 
         this.resize();
     }
