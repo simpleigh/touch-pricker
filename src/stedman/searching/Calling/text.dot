@@ -1,0 +1,27 @@
+/**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * Renders a calling in a more readable format, e.g. "1 s3 4 6 8 10 14"
+ * @param {string}  calling  Calling to render
+ */
+
+{{
+	var calls = [ ];
+}}
+
+{{~ context.object.calling :call:i }}
+	{{? call !== ' ' }}
+		{{ calls.push(
+			(call === 's')
+				? 's' + (i + 1)
+				: (i + 1)
+		) }}
+	{{?}}
+{{~}}
+
+{{= calls.join(' ') }}

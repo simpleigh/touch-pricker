@@ -366,6 +366,9 @@ module.exports = {
                         // Stylistic Issues
                         'max-statements-per-line': 'off',
 
+                        // eslint-plugin-import: Module systems
+                        'import/no-nodejs-modules': 'off',
+
                         // eslint-plugin-import: Static analysis
                         'import/no-internal-modules': 'off',
 
