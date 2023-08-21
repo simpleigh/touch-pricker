@@ -159,7 +159,11 @@ class StedTurnPricker extends AbstractPricker {
             'numCourses',
         ).innerHTML = `${courses.length} courses`;
 
-        this.selectedIndex = undefined; // triggers redraw of courses display
+        const coursesDiv = this.getEl<HTMLDivElement>('courses');
+        coursesDiv.innerHTML = this.print('select', { courses: this.courses });
+        polyfillTree(coursesDiv);
+
+        this.selectedIndex = undefined;
         this.course = undefined; // triggers redraw of pricker display
 
         this.resize();
@@ -170,15 +174,20 @@ class StedTurnPricker extends AbstractPricker {
     }
 
     private set selectedIndex(selectedIndex: number | undefined) {
+        const coursesDiv = this.getEl<HTMLDivElement>('courses');
+
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (this._selectedIndex && coursesDiv.children[this._selectedIndex]) {
+            coursesDiv.children[this._selectedIndex].classList.remove(
+                'selected',
+            );
+        }
+
         this._selectedIndex = selectedIndex;
 
-        const courses = this.getEl<HTMLDivElement>('courses');
-        courses.innerHTML = this.print('select', {
-            courses: this.courses,
-            selectedIndex: this.selectedIndex,
-        });
-
-        polyfillTree(courses);
+        if (this._selectedIndex) {
+            coursesDiv.children[this._selectedIndex].classList.add('selected');
+        }
     }
 
     private get course(): Course | undefined {
@@ -255,11 +264,7 @@ class StedTurnPricker extends AbstractPricker {
     }
 
     public onSelectCourse(index: number): void {
-        // Only redraw when selection changes to avoid breaking ondblclick by
-        // swapping out DOM elements underneath it.
-        if (index !== this.selectedIndex) {
-            this.selectedIndex = index;
-        }
+        this.selectedIndex = index;
     }
 
     public onOpenCourse(): void {

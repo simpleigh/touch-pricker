@@ -8,12 +8,10 @@
 /**
  * Renders the Pricker's list of touches as HTML.
  * @param {Calling[]}  courses        list of courses
- * @parma {number}     selectedIndex  index of selected course
  */
 
 {{~ context.courses :course:index }}
 	<div
-		{{? index == context.selectedIndex }} class="selected"{{?}}
 		 onclick="pricker.onSelectCourse({{= index }})"
 		 onmousedown="return false"
 	>
