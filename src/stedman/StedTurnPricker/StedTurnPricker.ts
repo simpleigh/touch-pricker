@@ -40,12 +40,12 @@ class StedTurnPricker extends AbstractPricker {
     /**
      * Starting row
      */
-    private _fromRow: Row;
+    private _fromRow?: Row;
 
     /**
      * Ending row
      */
-    private _toRow: Row;
+    private _toRow?: Row;
 
     /**
      * Target rank
@@ -92,16 +92,6 @@ class StedTurnPricker extends AbstractPricker {
 
     public async onStage(): Promise<void> {
         this._stage = parseInt(this.getEl<HTMLSelectElement>('stage').value);
-        this._fromRow = rounds(this._stage);
-        this._toRow = rounds(this._stage);
-        this._targetRank = 0;
-        this._minimumSteps = 0;
-        this._steps = 0;
-        this._courses = [];
-        this._selectedIndex = undefined;
-        this._course = undefined;
-
-        this.redraw();
 
         // TODO: table download URL needs to be customisable
         // TODO: need to handle errors downloading tables
@@ -110,56 +100,105 @@ class StedTurnPricker extends AbstractPricker {
             `../data/stedman.${this._stage}.dat`,
         );
 
-        this.search(); // calls redraw() when it completes
-    }
+        this.fromRow = rounds(this._stage);
+        this.toRow = rounds(this._stage);
+        this.courses = [];
 
-    private computeRowProperties(): void {
-        const targetRow = multiply(inverse(this._fromRow), this._toRow);
-        this._targetRank = rankFromRow(targetRow);
-        this._minimumSteps = this._table.getValue(this._targetRank);
-        this._steps = this._minimumSteps;
+        this.search();
     }
 
     private search(): void {
-        if (this._steps === 0) {
-            // No point searching if we're already there.
-            this._courses = [];
+        if (this.steps === 0) {
+            // Avoid returning a single (empty) calling if we're already there.
+            this.courses = [];
         } else {
-            this._courses = search(this._table, this._targetRank, this._steps);
+            this.courses = search(this._table, this._targetRank, this.steps);
         }
-
-        this._selectedIndex = undefined;
-        this._course = undefined;
-
-        this.redraw();
     }
 
-    private redraw(): void {
-        this.getEl<HTMLInputElement>('fromRow').value = stringFromRow(
-            this._fromRow,
-        );
-        this.getEl<HTMLInputElement>('toRow').value = stringFromRow(
-            this._toRow,
-        );
-        this.getEl<HTMLSpanElement>('sixes').innerText = (
-            2 * this._steps
-        ).toString();
+    private get fromRow(): Row | undefined {
+        return this._fromRow;
+    }
+
+    private set fromRow(fromRow: Row) {
+        this._fromRow = fromRow;
+        this.getEl<HTMLInputElement>('fromRow').value = stringFromRow(fromRow);
+        this.setRowProperties();
+    }
+
+    private get toRow(): Row | undefined {
+        return this._toRow;
+    }
+
+    private set toRow(toRow: Row) {
+        this._toRow = toRow;
+        this.getEl<HTMLInputElement>('toRow').value = stringFromRow(toRow);
+        this.setRowProperties();
+    }
+
+    private get steps(): number {
+        return this._steps;
+    }
+
+    private set steps(steps: number) {
+        this._steps = steps;
+        this.getEl<HTMLSpanElement>('sixes').innerText = `${2 * steps}`;
+    }
+
+    private get courses(): Calling[] {
+        return this._courses;
+    }
+
+    private set courses(courses: Calling[]) {
+        this._courses = courses;
 
         this.getEl<HTMLDivElement>(
             'numCourses',
-        ).innerHTML = `${this._courses.length} courses`;
+        ).innerHTML = `${courses.length} courses`;
+
+        this.selectedIndex = undefined; // triggers redraw of courses display
+        this.course = undefined; // triggers redraw of pricker display
+
+        this.resize();
+    }
+
+    private get selectedIndex(): number | undefined {
+        return this._selectedIndex;
+    }
+
+    private set selectedIndex(selectedIndex: number | undefined) {
+        this._selectedIndex = selectedIndex;
+
         const courses = this.getEl<HTMLDivElement>('courses');
         courses.innerHTML = this.print('select', {
-            courses: this._courses,
-            selectedIndex: this._selectedIndex,
+            courses: this.courses,
+            selectedIndex: this.selectedIndex,
         });
-        polyfillTree(courses);
 
-        this.getEl<HTMLDivElement>('sixends').innerHTML = this._course
-            ? this._course.print('mbd', { extraSixes: 0 })
+        polyfillTree(courses);
+    }
+
+    private get course(): Course | undefined {
+        return this._course;
+    }
+
+    private set course(course: Course | undefined) {
+        this._course = course;
+
+        this.getEl<HTMLDivElement>('sixends').innerHTML = course
+            ? course.print('mbd', { extraSixes: 0 })
             : '';
 
         this.resize();
+    }
+
+    private setRowProperties(): void {
+        if (this.fromRow && this.toRow) {
+            const targetRow = multiply(inverse(this.fromRow), this.toRow);
+            this._targetRank = rankFromRow(targetRow);
+            this._minimumSteps = this._table.getValue(this._targetRank);
+            this.steps = this._minimumSteps;
+        }
     }
 
     public onSetFromRow(): void {
@@ -167,18 +206,16 @@ class StedTurnPricker extends AbstractPricker {
 
         try {
             const initialRow = rowFromString(input, this._stage);
-            this._fromRow = initialRow;
+            this.fromRow = initialRow;
         } catch {
             return;
         }
 
-        this.computeRowProperties();
         this.search();
     }
 
     public onResetFromRow(): void {
-        this._fromRow = rounds(this._stage);
-        this.computeRowProperties();
+        this.fromRow = rounds(this._stage);
         this.search();
     }
 
@@ -187,34 +224,30 @@ class StedTurnPricker extends AbstractPricker {
 
         try {
             const toRow = rowFromString(input, this._stage);
-            this._toRow = toRow;
+            this.toRow = toRow;
         } catch {
             return;
         }
 
-        this.computeRowProperties();
         this.search();
     }
 
     public onResetToRow(): void {
-        this._toRow = rounds(this._stage);
-        this.computeRowProperties();
+        this.toRow = rounds(this._stage);
         this.search();
     }
 
     public onSelectCourse(index: number): void {
         // Only redraw when selection changes to avoid breaking ondblclick by
         // swapping out DOM elements underneath it.
-        if (index !== this._selectedIndex) {
-            this._selectedIndex = index;
-            this.redraw();
+        if (index !== this.selectedIndex) {
+            this.selectedIndex = index;
         }
     }
 
     public onOpenCourse(): void {
-        const calling = this._courses[this._selectedIndex!];
-        this._course = calling.createCourse(this._fromRow);
-        this.redraw();
+        const calling = this._courses[this.selectedIndex!];
+        this.course = calling.createCourse(this.fromRow!);
     }
 
     // eslint-disable-next-line id-length
