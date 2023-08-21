@@ -9,6 +9,10 @@
  * HTML for turning course generator
  */
 
+<div id="modalOverlay">
+  <div id="modal"></div>
+</div>
+
 <div id="controls">
   <div>
     <label for="stage">Number of bells:</label>

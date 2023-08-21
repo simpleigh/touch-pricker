@@ -8,7 +8,7 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { Stage, Uint4Table } from '../../rows';
-import search, { extendTouchList } from './search';
+import search, { extendTouchList, searchAsync } from './search';
 
 describe('extendTouchList function', () => {
     it('can add a call pair to a touch', () => {
@@ -75,8 +75,32 @@ describe('search function', () => {
         expect(touches.length).toBe(6);
     });
 
+    const EXPECTED_TOUCHES = `
+        [
+          Calling {
+            "calling": "- s- - - -   -",
+          },
+          Calling {
+            "calling": "-  -   --  s -",
+          },
+          Calling {
+            "calling": "- s- s --  s -",
+          },
+          Calling {
+            "calling": "- -- s  s  s -",
+          },
+          Calling {
+            "calling": "- ----  -- s -",
+          },
+          Calling {
+            "calling": "- s- - s-- s -",
+          },
+        ]
+    `;
+
     it('finds the expected touches', () => {
         const touches = search(table, 5039);
+        expect(touches).toMatchInlineSnapshot(EXPECTED_TOUCHES);
         expect(touches[0].print('text')).toBe('1 s3 4 6 8 10 14');
         expect(touches[1].print('text')).toBe('1 4 8 9 s12 14');
         expect(touches[2].print('text')).toBe('1 s3 4 s6 8 9 s12 14');
@@ -94,5 +118,10 @@ describe('search function', () => {
         const touches = search(table, 5039, 8);
         expect(touches.length).toBe(300);
         expect(touches).toMatchSnapshot();
+    });
+
+    it('can be called asynchronously', async () => {
+        const touches = await searchAsync(table, 5039);
+        expect(touches).toMatchInlineSnapshot(EXPECTED_TOUCHES);
     });
 });

@@ -6,4 +6,4 @@
  */
 
 export { default as Calling } from './Calling';
-export { default as search } from './search';
+export { default as search, searchAsync } from './search';

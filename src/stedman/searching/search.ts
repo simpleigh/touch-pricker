@@ -145,4 +145,22 @@ const search = (
     );
 };
 
+/**
+ * Asynchronous version of {@link search}.
+ *
+ * Returns a `Promise` that resolves when the search is complete. Can be used to
+ * yield control to the browser so that it can complete any DOM changes before
+ * starting a search.
+ */
+export const searchAsync = async (
+    table: Uint4Table,
+    targetRank: number,
+    steps?: number,
+): Promise<Calling[]> =>
+    new Promise<Calling[]>((resolve) => {
+        setTimeout(() => {
+            resolve(search(table, targetRank, steps));
+        });
+    });
+
 export default search;

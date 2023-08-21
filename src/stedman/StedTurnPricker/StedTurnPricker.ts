@@ -22,7 +22,7 @@ import {
 } from '../../rows';
 import * as Templates from '../../templates';
 import Course from '../Course';
-import { Calling, search } from '../searching';
+import { Calling, searchAsync } from '../searching';
 import css from './css.dot';
 import html from './html.dot';
 import select from './select.dot';
@@ -94,11 +94,17 @@ class StedTurnPricker extends AbstractPricker {
         this._stage = parseInt(this.getEl<HTMLSelectElement>('stage').value);
 
         // TODO: table download URL needs to be customisable
-        // TODO: need to handle errors downloading tables
-        this._table = await Uint4Table.load(
-            this._stage,
-            `../data/stedman.${this._stage}.dat`,
-        );
+        this.showModal('Downloading data table...');
+        try {
+            this._table = await Uint4Table.load(
+                this._stage,
+                `../data/stedman.${this._stage}.dat`,
+            );
+        } catch {
+            this.showModal('Download failed: please refresh and try again.');
+            return;
+        }
+        this.hideModal();
 
         this.fromRow = rounds(this._stage);
         this.toRow = rounds(this._stage);
@@ -107,12 +113,22 @@ class StedTurnPricker extends AbstractPricker {
         this.search();
     }
 
-    private search(): void {
+    private async search(): Promise<void> {
         if (this.steps === 0) {
             // Avoid returning a single (empty) calling if we're already there.
             this.courses = [];
         } else {
-            this.courses = search(this._table, this._targetRank, this.steps);
+            this.showModal('Searching for courses...');
+            const courses = await searchAsync(
+                this._table,
+                this._targetRank,
+                this._steps,
+            );
+            this.hideModal();
+
+            // Only update after hiding the modal so its width isn't measured
+            // during the call to `.resize()`.
+            this.courses = courses;
         }
     }
 
@@ -220,6 +236,15 @@ class StedTurnPricker extends AbstractPricker {
         }
     }
 
+    private showModal(message: string): void {
+        this.getEl<HTMLDivElement>('modal').innerText = message;
+        this.getEl<HTMLDivElement>('modalOverlay').style.display = 'block';
+    }
+
+    private hideModal(): void {
+        this.getEl<HTMLDivElement>('modalOverlay').style.display = 'none';
+    }
+
     public onSetFromRow(): void {
         const input = this.getEl<HTMLInputElement>('fromRow').value;
 
@@ -256,17 +281,17 @@ class StedTurnPricker extends AbstractPricker {
         this.search();
     }
 
-    public onMinus(): void {
+    public async onMinus(): Promise<void> {
         do {
             this.steps -= 1;
-            this.search();
+            await this.search(); // eslint-disable-line no-await-in-loop
         } while (!this.courses.length && this.steps !== this._minimumSteps);
     }
 
-    public onPlus(): void {
+    public async onPlus(): Promise<void> {
         do {
             this.steps += 1;
-            this.search();
+            await this.search(); // eslint-disable-line no-await-in-loop
         } while (!this.courses.length);
     }
 
