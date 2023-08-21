@@ -38,14 +38,25 @@ class StedTurnPricker extends AbstractPricker {
     private _stage: Stage = Stage.Triples;
 
     /**
-     * Initial row
+     * Starting row
      */
-    private _initialRow: Row;
+    private _fromRow: Row;
 
     /**
-     * Target row
+     * Ending row
      */
-    private _targetRow: Row;
+    private _toRow: Row;
+
+    /**
+     * Target rank
+     * This is the transposition from the initial row to the target row.
+     */
+    private _targetRank: number;
+
+    /**
+     * Minimum possible number of steps for the search
+     */
+    private _minimumSteps: number;
 
     /**
      * Number of steps for the search
@@ -81,8 +92,10 @@ class StedTurnPricker extends AbstractPricker {
 
     public async onStage(): Promise<void> {
         this._stage = parseInt(this.getEl<HTMLSelectElement>('stage').value);
-        this._initialRow = rounds(this._stage);
-        this._targetRow = rounds(this._stage);
+        this._fromRow = rounds(this._stage);
+        this._toRow = rounds(this._stage);
+        this._targetRank = 0;
+        this._minimumSteps = 0;
         this._steps = 0;
         this._courses = [];
         this._selectedIndex = undefined;
@@ -100,15 +113,19 @@ class StedTurnPricker extends AbstractPricker {
         this.search(); // calls redraw() when it completes
     }
 
-    private search(): void {
-        const targetRow = multiply(inverse(this._initialRow), this._targetRow);
-        const targetRank = rankFromRow(targetRow);
-        this._steps = this._table.getValue(targetRank);
+    private computeRowProperties(): void {
+        const targetRow = multiply(inverse(this._fromRow), this._toRow);
+        this._targetRank = rankFromRow(targetRow);
+        this._minimumSteps = this._table.getValue(this._targetRank);
+        this._steps = this._minimumSteps;
+    }
 
+    private search(): void {
         if (this._steps === 0) {
+            // No point searching if we're already there.
             this._courses = [];
         } else {
-            this._courses = search(this._table, targetRank, this._steps);
+            this._courses = search(this._table, this._targetRank, this._steps);
         }
 
         this._selectedIndex = undefined;
@@ -118,11 +135,11 @@ class StedTurnPricker extends AbstractPricker {
     }
 
     private redraw(): void {
-        this.getEl<HTMLInputElement>('initialRow').value = stringFromRow(
-            this._initialRow,
+        this.getEl<HTMLInputElement>('fromRow').value = stringFromRow(
+            this._fromRow,
         );
-        this.getEl<HTMLInputElement>('targetRow').value = stringFromRow(
-            this._targetRow,
+        this.getEl<HTMLInputElement>('toRow').value = stringFromRow(
+            this._toRow,
         );
         this.getEl<HTMLSpanElement>('sixes').innerText = (
             2 * this._steps
@@ -131,7 +148,8 @@ class StedTurnPricker extends AbstractPricker {
         this.getEl<HTMLDivElement>(
             'numCourses',
         ).innerHTML = `${this._courses.length} courses`;
-        this.getEl<HTMLDivElement>('courses').innerHTML = this.print('select', {
+        const courses = this.getEl<HTMLDivElement>('courses');
+        courses.innerHTML = this.print('select', {
             courses: this._courses,
             selectedIndex: this._selectedIndex,
         });
@@ -144,39 +162,43 @@ class StedTurnPricker extends AbstractPricker {
         this.resize();
     }
 
-    public onSetInitialRow(): void {
-        const input = this.getEl<HTMLInputElement>('initialRow').value;
+    public onSetFromRow(): void {
+        const input = this.getEl<HTMLInputElement>('fromRow').value;
 
         try {
             const initialRow = rowFromString(input, this._stage);
-            this._initialRow = initialRow;
+            this._fromRow = initialRow;
         } catch {
             return;
         }
 
+        this.computeRowProperties();
         this.search();
     }
 
-    public onResetInitialRow(): void {
-        this._initialRow = rounds(this._stage);
+    public onResetFromRow(): void {
+        this._fromRow = rounds(this._stage);
+        this.computeRowProperties();
         this.search();
     }
 
-    public onSetTargetRow(): void {
-        const input = this.getEl<HTMLInputElement>('targetRow').value;
+    public onSetToRow(): void {
+        const input = this.getEl<HTMLInputElement>('toRow').value;
 
         try {
-            const targetRow = rowFromString(input, this._stage);
-            this._targetRow = targetRow;
+            const toRow = rowFromString(input, this._stage);
+            this._toRow = toRow;
         } catch {
             return;
         }
 
+        this.computeRowProperties();
         this.search();
     }
 
-    public onResetTargetRow(): void {
-        this._targetRow = rounds(this._stage);
+    public onResetToRow(): void {
+        this._toRow = rounds(this._stage);
+        this.computeRowProperties();
         this.search();
     }
 
@@ -190,9 +212,8 @@ class StedTurnPricker extends AbstractPricker {
     }
 
     public onOpenCourse(): void {
-        this._course = this._courses[this._selectedIndex!].createCourse(
-            this._initialRow,
-        );
+        const calling = this._courses[this._selectedIndex!];
+        this._course = calling.createCourse(this._fromRow);
         this.redraw();
     }
 
