@@ -6,4 +6,5 @@
  */
 
 export { default as Calling } from './Calling';
+export { default as createTable } from './createTable';
 export { default as search, searchAsync } from './search';

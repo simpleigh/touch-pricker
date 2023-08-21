@@ -27,6 +27,7 @@ module.exports = {
         ],
     },
     output: {
+        globalObject: 'this',
         library: {
             name: 'Pricker',
             type: 'umd',
