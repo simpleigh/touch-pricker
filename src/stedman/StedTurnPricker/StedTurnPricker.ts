@@ -153,6 +153,7 @@ class StedTurnPricker extends AbstractPricker {
             courses: this._courses,
             selectedIndex: this._selectedIndex,
         });
+        polyfillTree(courses);
 
         if (this._course) {
             this.getEl<HTMLDivElement>('sixends').innerHTML =
