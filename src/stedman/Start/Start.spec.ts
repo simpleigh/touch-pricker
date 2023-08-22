@@ -20,9 +20,9 @@ class TestMethod extends AbstractMethod {
         return new Cold(initialRow);
     }
 
-    protected override sixTypeProgression: Partial<Record<SixType, SixType>> = {
-        [SixType.Cold]: SixType.Cold,
-    };
+    protected override sixTypeProgression = new Map<SixType, SixType>([
+        [SixType.Cold, SixType.Cold],
+    ]);
 
     public override defaultFirstSix: SixType = SixType.Cold;
 

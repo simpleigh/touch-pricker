@@ -20,13 +20,14 @@ import AbstractVisitor from './AbstractVisitor';
 class Proof extends AbstractVisitor {
     /**
      * Log of rows that we've seen.
-     * Rows are accumulated into a dictionary indexed by the string
-     * representation of a row (the JavaScript implementation will thus
-     * store a hash table, ensuring good performance).
-     * Each value is an array of all blocks that contain the indexed
-     * row.
+     *
+     * Rows are accumulated into a `Map` indexed by the string representation of
+     * a row. Each value is an array of all blocks that contain the indexed row.
      */
-    private _rowCounts: Record<string, (AbstractBlock | undefined)[]> = {};
+    private readonly _rowCounts = new Map<
+        string,
+        (AbstractBlock | undefined)[]
+    >();
 
     /**
      * Directory of false blocks.
@@ -51,12 +52,8 @@ class Proof extends AbstractVisitor {
     public getRowCounts(): Record<string, number> {
         const result: Record<string, number> = {};
 
-        for (const rowString in this._rowCounts) {
-            if (
-                Object.prototype.hasOwnProperty.call(this._rowCounts, rowString)
-            ) {
-                result[rowString] = this._rowCounts[rowString].length;
-            }
+        for (const [rowString, blocks] of this._rowCounts.entries()) {
+            result[rowString] = (blocks as AbstractBlock[]).length;
         }
 
         return result;
@@ -86,13 +83,14 @@ class Proof extends AbstractVisitor {
     protected visitImplementation(row: Row, block?: AbstractBlock): void {
         const rowString = stringFromRow(row);
 
-        if (rowString in this._rowCounts) {
+        if (this._rowCounts.has(rowString)) {
             // Already seen - i.e. false
 
-            if (this._rowCounts[rowString].length === 1) {
+            const entry = this._rowCounts.get(rowString)!;
+            if (entry.length === 1) {
                 // First time this row has run false
                 // need to add the previous block to the directory
-                const [previousBlock] = this._rowCounts[rowString];
+                const [previousBlock] = entry;
                 if (previousBlock) {
                     this._directory.add(previousBlock);
                 }
@@ -102,10 +100,10 @@ class Proof extends AbstractVisitor {
             if (block) {
                 this._directory.add(block);
             }
-            this._rowCounts[rowString].push(block);
+            entry.push(block);
         } else {
             // Not seen - i.e. true
-            this._rowCounts[rowString] = [block];
+            this._rowCounts.set(rowString, [block]);
         }
     }
 }

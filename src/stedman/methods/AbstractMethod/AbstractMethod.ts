@@ -48,32 +48,32 @@ abstract class AbstractMethod implements Templates.Interface {
     /**
      * Mapping from each valid six type to its successor
      */
-    protected abstract readonly sixTypeProgression: Partial<
-        Record<SixType, SixType>
-    >;
+    protected abstract readonly sixTypeProgression: Map<SixType, SixType>;
 
     /**
      * Returns an array of valid six types
      */
     public getSixTypes(): SixType[] {
-        return Object.getOwnPropertyNames(this.sixTypeProgression) as SixType[];
+        return Array.from(this.sixTypeProgression.keys());
     }
 
     /**
      * Checks whether a six type is valid for this method
+     * @throws Error if the six type is not valid.
      */
     public checkSixType(sixType: SixType): void {
-        if (!this.sixTypeProgression[sixType]) {
+        if (!this.sixTypeProgression.has(sixType)) {
             throw new Error(`'${sixType}' blocks not allowed for this method`);
         }
     }
 
     /**
      * Computes the type of the next six in a touch
+     * @throws Error if the six type is not valid.
      */
     public getNextSixType(sixType: SixType): SixType {
         this.checkSixType(sixType);
-        return this.sixTypeProgression[sixType]!;
+        return this.sixTypeProgression.get(sixType)!;
     }
 
     /**

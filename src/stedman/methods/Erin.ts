@@ -44,9 +44,9 @@ class Erin extends AbstractMethod {
     /**
      * Mapping from each valid six type to its successor
      */
-    protected readonly sixTypeProgression: Partial<Record<SixType, SixType>> = {
-        [SixType.Slow]: SixType.Slow,
-    };
+    protected readonly sixTypeProgression = new Map<SixType, SixType>([
+        [SixType.Slow, SixType.Slow],
+    ]);
 
     /**
      * First six in a standard course

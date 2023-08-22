@@ -50,7 +50,7 @@ const recursiveSearch = (
     table: Uint4Table,
     targetRank: number,
     steps: number,
-    transpositions: Record<CallPair, Row>,
+    transpositions: Map<CallPair, Row>,
     cache: Cache = {},
 ): string[] => {
     // Halt recursion if we've run out of steps.
@@ -66,9 +66,9 @@ const recursiveSearch = (
     let touches: string[] = [];
 
     // Loop through each possible calling.
-    for (const calling of Object.getOwnPropertyNames(transpositions)) {
+    for (const [calling, transposition] of transpositions.entries()) {
         const oldRow = rowFromRank(targetRank, table.stage);
-        const newRow = multiply(oldRow, transpositions[calling as CallPair]);
+        const newRow = multiply(oldRow, transposition);
         const newRank = rankFromRow(newRow);
 
         if (table.getValue(newRank) < steps) {
@@ -87,10 +87,7 @@ const recursiveSearch = (
             }
             cache[newRank]![steps - 1] = childTouches;
 
-            touches = [
-                ...touches,
-                ...extendTouchList(childTouches, calling as CallPair),
-            ];
+            touches = [...touches, ...extendTouchList(childTouches, calling)];
         }
     }
 

@@ -70,7 +70,7 @@ describe('create function', () => {
             expect(Dom.injectIframeData).toHaveBeenCalledWith(
                 iframe,
                 template({ pricker }),
-                { pricker },
+                new Map([['pricker', pricker]]),
             );
         });
     });

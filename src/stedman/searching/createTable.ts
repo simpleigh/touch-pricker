@@ -14,7 +14,6 @@ import {
     Stage,
     Uint4Table,
 } from '../../rows';
-import type { CallPair } from './types';
 import createTranspositions from './createTranspositions';
 
 /**
@@ -68,11 +67,8 @@ const createTable = (
             const oldRow = rowFromRank(rank, stage);
 
             // Loop through each possible calling.
-            for (const calling of Object.getOwnPropertyNames(transpositions)) {
-                const newRow = multiply(
-                    oldRow,
-                    transpositions[calling as CallPair],
-                );
+            for (const transposition of transpositions.values()) {
+                const newRow = multiply(oldRow, transposition);
                 const newRank = rankFromRow(newRow);
 
                 if (steps < table.getValue(newRank)) {

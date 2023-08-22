@@ -8,7 +8,7 @@
 const injectIframeData = (
     iframe: HTMLIFrameElement,
     content: string = '',
-    globals: Record<string, unknown> = {},
+    globals: Map<string, unknown> = new Map(),
 ): void => {
     const theWindow = iframe.contentWindow;
     if (!theWindow) {
@@ -18,11 +18,8 @@ const injectIframeData = (
     const theDoc = theWindow.document;
     theDoc.open();
 
-    for (const key in globals) {
-        if (Object.prototype.hasOwnProperty.call(globals, key)) {
-            (theWindow as unknown as Record<string, unknown>)[key] =
-                globals[key];
-        }
+    for (const [key, value] of globals.entries()) {
+        (theWindow as unknown as Record<string, unknown>)[key] = value;
     }
 
     theDoc.write(content);

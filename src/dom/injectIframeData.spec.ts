@@ -24,7 +24,8 @@ describe('injectIframeData DOM utility', () => {
     });
 
     it('passes global variables to the child window', () => {
-        injectIframeData(iframe, '', { key: 'value' });
+        const globals = new Map([['key', 'value']]);
+        injectIframeData(iframe, '', globals);
         const win = iframe.contentWindow as unknown as Record<string, unknown>;
         expect(win['key']).toBe('value');
     });

@@ -40,10 +40,10 @@ class Carter extends AbstractMethod {
     /**
      * Mapping from each valid six type to its successor
      */
-    protected readonly sixTypeProgression: Partial<Record<SixType, SixType>> = {
-        [SixType.Four]: SixType.Eight,
-        [SixType.Eight]: SixType.Four,
-    };
+    protected readonly sixTypeProgression = new Map<SixType, SixType>([
+        [SixType.Four, SixType.Eight],
+        [SixType.Eight, SixType.Four],
+    ]);
 
     /**
      * First six in a standard course

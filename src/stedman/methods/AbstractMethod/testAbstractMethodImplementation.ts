@@ -85,6 +85,16 @@ const testAbstractMethodImplementation = (
         }
     });
 
+    it('returns a list of six types that is the right length', () => {
+        expect(method.getSixTypes().length).toBe(progressionTestCases.length);
+    });
+
+    runProgressionTests((sixType) => {
+        it(`returns a ${sixType} six in the list of six types`, () => {
+            expect(method.getSixTypes().indexOf(sixType)).not.toBe(-1);
+        });
+    });
+
     runProgressionTests((sixType) => {
         it(`knows that a ${sixType} six is valid`, () => {
             expect(() => {

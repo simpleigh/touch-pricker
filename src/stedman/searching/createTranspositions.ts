@@ -71,23 +71,21 @@ const reduce = (stage: Stage, changes: Change[]): Row => {
 const createTranspositions = (
     stage: Stage,
     computeInverse?: boolean,
-): Record<CallPair, Row> => {
-    /* eslint-disable sort-keys, @typescript-eslint/naming-convention */
+): Map<CallPair, Row> => {
     // prettier-ignore
-    const result: Record<CallPair, Row> = {
-        '  ': reduce(stage, [permuteN,      permute1, permuteN,      permute3]),
-        '- ': reduce(stage, [permuteBob,    permute1, permuteN,      permute3]),
-        's ': reduce(stage, [permuteSingle, permute1, permuteN,      permute3]),
-        ' -': reduce(stage, [permuteN,      permute1, permuteBob,    permute3]),
-        ' s': reduce(stage, [permuteN,      permute1, permuteSingle, permute3]),
-        '--': reduce(stage, [permuteBob,    permute1, permuteBob,    permute3]),
-        's-': reduce(stage, [permuteSingle, permute1, permuteBob,    permute3]),
-    };
-    /* eslint-enable */
+    const result = new Map<CallPair, Row>([
+        ['  ', reduce(stage, [permuteN,      permute1, permuteN,      permute3])],
+        ['- ', reduce(stage, [permuteBob,    permute1, permuteN,      permute3])],
+        ['s ', reduce(stage, [permuteSingle, permute1, permuteN,      permute3])],
+        [' -', reduce(stage, [permuteN,      permute1, permuteBob,    permute3])],
+        [' s', reduce(stage, [permuteN,      permute1, permuteSingle, permute3])],
+        ['--', reduce(stage, [permuteBob,    permute1, permuteBob,    permute3])],
+        ['s-', reduce(stage, [permuteSingle, permute1, permuteBob,    permute3])],
+    ]);
 
     if (computeInverse) {
-        for (const call of Object.getOwnPropertyNames(result)) {
-            result[call as CallPair] = inverse(result[call as CallPair]);
+        for (const [call, row] of result.entries()) {
+            result.set(call, inverse(row));
         }
     }
 

@@ -60,7 +60,8 @@ const create = (
 
     const pricker = new PrickerConstructor(iframe);
 
-    injectIframeData(iframe, template({ pricker }), { pricker });
+    const globals = new Map([['pricker', pricker]]);
+    injectIframeData(iframe, template({ pricker }), globals);
 
     return pricker;
 };

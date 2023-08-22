@@ -40,10 +40,10 @@ class StedmanJump extends AbstractMethod {
     /**
      * Mapping from each valid six type to its successor
      */
-    protected readonly sixTypeProgression: Partial<Record<SixType, SixType>> = {
-        [SixType.Cold]: SixType.Hot,
-        [SixType.Hot]: SixType.Cold,
-    };
+    protected readonly sixTypeProgression = new Map<SixType, SixType>([
+        [SixType.Cold, SixType.Hot],
+        [SixType.Hot, SixType.Cold],
+    ]);
 
     /**
      * First six in a standard course
