@@ -82,9 +82,7 @@ const recursiveSearch = (
             );
 
             // Store the result in the cache.
-            if (!cache[newRank]) {
-                cache[newRank] = {};
-            }
+            cache[newRank] ??= {};
             cache[newRank]![steps - 1] = childTouches;
 
             touches = [...touches, ...extendTouchList(childTouches, calling)];

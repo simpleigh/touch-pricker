@@ -13,7 +13,7 @@
  */
 
 {{
-	context.touchRows = context.touchRows || Infinity;
+	context.touchRows ??= Infinity;
 }}
 
 <div
@@ -26,11 +26,11 @@
 
 {{~ context.object.blocks :course }}
 	{{
-		var classes = [ ];
+		const classes = [];
 		if (context.selectedIndex === course.index) {
 			classes.push('selected');
 		}
-		if (context.falseness && context.falseness.contains(course)) {
+		if (context.falseness?.contains(course)) {
 			classes.push('false');
 		}
 		if (context.touchRows <= 0) {

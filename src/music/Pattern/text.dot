@@ -10,15 +10,13 @@
  * @param {string} end  line ending
  */
 
-{{? context.end === undefined }}
-	{{ context.end = '\n'; }}
-{{?}}
+{{
+	context.end ??= '\n';
+}}
 
 {{? context.object.matchCount > 0 }}
 
-	{{? context.object.isWildcardMatch ||
-			context.object.matchCount > 1
-	}}
+	{{? context.object.isWildcardMatch || context.object.matchCount > 1 }}
 		{{= context.object.matchCount }}
 		 /* single space */
 	{{?}}

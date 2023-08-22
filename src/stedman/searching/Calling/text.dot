@@ -11,7 +11,7 @@
  */
 
 {{
-	var calls = [ ];
+	const calls = [];
 }}
 
 {{~ context.object.calling :call:i }}

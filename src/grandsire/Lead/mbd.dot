@@ -14,26 +14,24 @@
  * @param {boolean}         underline     whether to underline the sixend
  */
 
-{{? context.underline !== true }}
-	{{ context.underline = false; }}
-{{?}}
+{{
+	let className = '';
+}}
 
 {{?
-	context.falseness && context.courseIndex && context.falseness.contains(
+	context.courseIndex && context.falseness?.contains(
 		context.courseIndex,
 		context.object.index
 	)
 }}
-	{{ var className = 'falseBlock'; }}
+	{{ className = 'falseBlock'; }}
 {{??
-	context.music && context.courseIndex && context.music.contains(
+	context.courseIndex && context.music?.contains(
 		context.courseIndex,
 		context.object.index
 	)
 }}
-	{{ var className = 'musicalBlock'; }}
-{{??}}
-	{{ var className = ''; }}
+	{{ className = 'musicalBlock'; }}
 {{?}}
 
 

@@ -46,18 +46,15 @@ class Uint4Table {
         data?: Uint8Array,
     ) {
         const expectedBytes = FACTORIALS[this._stage] / 2;
+        data ??= new Uint8Array(expectedBytes);
 
-        if (data === undefined) {
-            this._data = new Uint8Array(expectedBytes);
-        } else {
-            if (data.length !== expectedBytes) {
-                throw new Error(
-                    `Have ${data.length} bytes but expected ${expectedBytes}`,
-                );
-            }
-
-            this._data = data;
+        if (data.length !== expectedBytes) {
+            throw new Error(
+                `Have ${data.length} bytes but expected ${expectedBytes}`,
+            );
         }
+
+        this._data = data;
     }
 
     /**

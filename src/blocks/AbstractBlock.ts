@@ -96,14 +96,14 @@ abstract class AbstractBlock {
      * Allows public access to the container
      */
     get container(): Notifiable | undefined {
-        return this._ownership ? this._ownership.container : undefined;
+        return this._ownership?.container;
     }
 
     /**
      * Allows public access to the index
      */
     get index(): number | undefined {
-        return this._ownership ? this._ownership.index : undefined;
+        return this._ownership?.index;
     }
 
     /**

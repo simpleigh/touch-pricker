@@ -11,11 +11,10 @@
  */
 
 {{
-	var courseNames = [ ],
-		rounds = context.rounds(context.object.stage),
-		roundsString = context.stringFromRow(rounds);
-
-	context.touchRows = context.touchRows || Infinity;
+	const courseNames = [];
+	const rounds = context.rounds(context.object.stage);
+	const roundsString = context.stringFromRow(rounds);
+	context.touchRows ??= Infinity;
 	context.touchRows -= context.object.start.rows;
 }}
 
@@ -41,7 +40,7 @@ composition = touch{{= '\n' }}
 
 /* Short blocks */
 {{~ context.object.method.getSixTypes() :sixType }}
-	{{ var six = new (context.constructorFromType(sixType))(rounds); }}
+	{{ const six = new (context.constructorFromType(sixType))(rounds); }}
 	{{= six.type }} = {{= six.getNotationString() }}{{= '\n' }}
 {{~}}
 plain = +{{= roundsString.slice(-1) }}{{= '\n' }}

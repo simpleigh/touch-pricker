@@ -12,7 +12,7 @@
  */
 
 {{
-	context.touchRows = context.touchRows || Infinity;
+	context.touchRows ??= Infinity;
 }}
 
 {{? context.touchRows >= context.object.rows }}

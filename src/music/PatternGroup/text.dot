@@ -22,7 +22,7 @@
 		 /* single space */
 		(
 
-		{{ var first = true; }}
+		{{ let first = true; }}
 		{{~ context.object.patterns :pattern }}
 			{{? pattern.matchCount > 0 }}
 				{{? !first }}, {{?}}

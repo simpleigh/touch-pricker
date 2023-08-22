@@ -11,7 +11,7 @@
  */
 
 {{
-	var rowMap = ['', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth'];
+	const rowMap = ['', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth'];
 	rowMap[context.object.lastRowIndex] = 'last';
 }}
 

@@ -78,7 +78,7 @@ Modify your page to include an element where the pricker will be mounted:
 ```html
 <script type="text/javascript">
   window.onload = function () {
-    var thePricker = Pricker.create('pricker'); // ID of mount element
+    const thePricker = Pricker.create('pricker'); // ID of mount element
   };
 </script>
 ```

@@ -12,9 +12,8 @@
  */
 
 {{
-	var courseNames = [ ];
-
-	context.touchRows = context.touchRows || Infinity;
+	const courseNames = [];
+	context.touchRows ??= Infinity;
 }}
 
 /* Header */

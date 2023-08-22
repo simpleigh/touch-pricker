@@ -39,9 +39,7 @@ class BlockDirectory {
         // Use indices to build a tree
         let directory = this._directory;
         for (const index of indices) {
-            if (!directory[index]) {
-                directory[index] = [];
-            }
+            directory[index] ??= [];
             directory = directory[index] as DirectoryArray;
         }
 

@@ -41,7 +41,7 @@ abstract class AbstractVisitor {
     /**
      * Remember rounds so we don't have to regenerate for each new row.
      */
-    private _rounds: string;
+    private _rounds?: string;
 
     /**
      * Visits a row.
@@ -49,9 +49,7 @@ abstract class AbstractVisitor {
      * we pass that row to derived classes for processing.
      */
     public visit(row: Row, block?: AbstractBlock): this {
-        if (!this._rounds) {
-            this._rounds = stringFromRow(rounds(row.length));
-        }
+        this._rounds ??= stringFromRow(rounds(row.length));
 
         if (this._visiting) {
             if (stringFromRow(row) === this._rounds) {

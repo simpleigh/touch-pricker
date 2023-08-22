@@ -16,13 +16,10 @@
  */
 
 {{
-	var calls = [ ];
-
-	if (context.courseEnd === undefined) {
-		context.courseEnd = true;
-	}
-	context.end = context.end || '';
-	context.leadsWord = context.leadsWord || 'leads';
+	const calls = [];
+	context.courseEnd ??= true;
+	context.end ??= '';
+	context.leadsWord ??= 'leads';
 }}
 
 {{? context.courseEnd }}

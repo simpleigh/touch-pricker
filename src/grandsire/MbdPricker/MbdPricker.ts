@@ -273,9 +273,7 @@ class MbdPricker extends AbstractPricker implements Notifiable {
     }
 
     public onInsertCourse(): void {
-        if (!this._selectedIndex) {
-            this._selectedIndex = 0;
-        }
+        this._selectedIndex ??= 0;
 
         this._selectedIndex += 1;
 
