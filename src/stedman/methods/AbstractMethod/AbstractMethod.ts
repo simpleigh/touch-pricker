@@ -73,8 +73,6 @@ abstract class AbstractMethod implements Templates.Interface {
      */
     public getNextSixType(sixType: SixType): SixType {
         this.checkSixType(sixType);
-
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         return this.sixTypeProgression[sixType]!;
     }
 

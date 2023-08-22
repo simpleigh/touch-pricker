@@ -6,7 +6,9 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-/* eslint-disable no-console */
+/**
+ * Rebuilds data tables under `/data/`.
+ */
 
 'use strict';
 

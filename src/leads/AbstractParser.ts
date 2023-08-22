@@ -46,7 +46,6 @@ abstract class AbstractParser<
         }
 
         // Create the touch with a stage based on the first line
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const first = lines.shift()!.replace(/\s/gu, '');
         if (!Stage[first.length]) {
             throw new Error(`Cannot recognise stage from line '${first}'`);

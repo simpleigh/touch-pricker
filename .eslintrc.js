@@ -233,7 +233,7 @@ module.exports = {
         'jsdoc/require-param-type': 'error',
         'jsdoc/require-property-type': 'error',
         'jsdoc/require-returns-type': 'error',
-        'jsdoc/require-throws': 'off',  // TODO: enable this
+        'jsdoc/require-throws': 'error',
     },
     overrides: [
         {
@@ -242,6 +242,8 @@ module.exports = {
                 node: true,
             },
             rules: {
+                'no-console': 'off',
+
                 // eslint-plugin-import: Module systems
                 'import/no-commonjs': 'off',
                 'import/no-nodejs-modules': 'off',
@@ -357,14 +359,9 @@ module.exports = {
                         jest: true,
                     },
                     rules: {
-                        // Best Practices
-                        'no-multi-spaces': 'off',
-
-                        // Variables
+                        // Suggestions
                         'init-declarations': 'off',
-
-                        // Stylistic Issues
-                        'max-statements-per-line': 'off',
+                        'no-new': 'off',
 
                         // eslint-plugin-import: Module systems
                         'import/no-nodejs-modules': 'off',

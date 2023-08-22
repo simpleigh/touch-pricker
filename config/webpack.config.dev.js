@@ -1,3 +1,17 @@
+/**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * Webpack development build.
+ *
+ * Run using `yarn build:dev`.
+ * @see https://webpack.js.org/configuration/
+ */
+
 'use strict';
 
 const { merge } = require('webpack-merge');

@@ -5,6 +5,11 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
+/**
+ * Configuration for Jest
+ * @see https://jestjs.io/docs/configuration
+ */
+
 'use strict';
 
 /** @type {import('ts-jest').JestConfigWithTsJest} */
