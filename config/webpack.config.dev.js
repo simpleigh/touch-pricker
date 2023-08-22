@@ -1,6 +1,5 @@
 'use strict';
 
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { merge } = require('webpack-merge');
 
 const paths = require('./paths');
@@ -27,11 +26,6 @@ module.exports = merge(
             filename: 'touch-pricker.js',
             publicPath: '/dist/', // needed for webpack-dev-server
         },
-        plugins: [
-            new CleanWebpackPlugin({
-                cleanOnceBeforeBuildPatterns: [paths.devDistFile],
-            }),
-        ],
     },
     banner,
 );

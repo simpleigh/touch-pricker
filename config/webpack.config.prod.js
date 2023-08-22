@@ -1,10 +1,8 @@
 'use strict';
 
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const { merge } = require('webpack-merge');
 
-const paths = require('./paths');
 const banner = require('./webpack.banner');
 const base = require('./webpack.base');
 
@@ -15,12 +13,6 @@ module.exports = merge(
         mode: 'production',
         output: { filename: 'touch-pricker.min.js' },
         plugins: [
-            new CleanWebpackPlugin({
-                cleanOnceBeforeBuildPatterns: [
-                    paths.prodDistFile,
-                    paths.prodMapFile,
-                ],
-            }),
             new CopyPlugin({
                 patterns: [
                     // Data tables
