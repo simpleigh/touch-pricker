@@ -132,7 +132,7 @@ const recursiveSearch = (
  * Sixes (in Stedman) alternate between slow and quick and we can work around
  * this complexity by searching in steps of a "pair" of sixes, being a call, a
  * slow six, another call, and a quick six. Any row can be followed by any of
- * seven other rows: one per {@link CallPair}.
+ * seven other rows.
  *
  * The tree therefore expands rapidly. The node for the target row is connected
  * to seven other nodes; the next layer has 49 nodes and there's 343 after that.
@@ -146,14 +146,14 @@ const recursiveSearch = (
  * 1. Say (for example) our target row can only be reached from rounds after a
  *   minimum of 7 steps.
  * 2. Iterate over the seven nodes connected to the target row (representing the
- *   rows two sixes before the target row with each {@link CallPair}).
+ *   rows two sixes before the target row with each calling transposition).
  * 3. For each node, check the minimum distance from rounds. If that is more
  *   than 6 steps then discard the node (we're moving away from rounds).
  * 4. Continue on from each remaining node.
  *
- * We've already filtered the list of {@link CallPair}s to exclude undesirable
- * callings (being `-s` or `ss`). We also need to filter out touches where these
- * callings develop _between_ pairs. We can do this as we go.
+ * Our list of transpositions already excludes undesirable callings (being `-s`
+ * or `ss`). We also need to filter out touches where these callings develop
+ * _between_ pairs. We can do this as we go.
  * @param table  Data table being used for the search.
  * @param targetRank  Row we're trying to reach from rounds.
  * @param steps  Number of steps we can take to get to rounds.

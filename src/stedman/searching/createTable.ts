@@ -25,7 +25,7 @@ import { Stedman } from '../methods';
  * Sixes (in Stedman) alternate between slow and quick and we can work around
  * this complexity by searching in steps of a "pair" of sixes, being a call, a
  * slow six, another call, and a quick six. Any row can be followed by any of
- * seven other rows: one per {@link CallPair}.
+ * seven other rows.
  *
  * We start from rounds itself which is (trivially) 0 steps from rounds.
  * We loop over the seven possible transpositions to generate seven new rows
