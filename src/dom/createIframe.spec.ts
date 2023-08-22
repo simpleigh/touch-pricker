@@ -20,14 +20,8 @@ describe('createIframe DOM utility', () => {
 
     it('ensures the created iframe has no border', () => {
         const iframe = createIframe();
-        expect(iframe.frameBorder).toBe('0');
         expect(iframe.style.border).toBe('0px none');
         expect(iframe.style.borderStyle).toBe('none');
         expect(iframe.style.borderWidth).toBe('0px');
-    });
-
-    it('disables scrolling on the created iframe', () => {
-        const iframe = createIframe();
-        expect(iframe.scrolling).toBe('no');
     });
 });

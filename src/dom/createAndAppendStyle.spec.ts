@@ -18,11 +18,6 @@ describe('createAndAppendStyle DOM utility', () => {
         expect(document.createElement).toHaveBeenCalledWith('style');
     });
 
-    it('sets the type on the created style element', () => {
-        const style = createAndAppendStyle();
-        expect(style.type).toBe('text/css');
-    });
-
     it('injects the styles into the style element', () => {
         const style = createAndAppendStyle(undefined, 'styles');
         expect(style.innerText).toBe('styles');

@@ -14,9 +14,6 @@ const createIframe = (
 ): HTMLIFrameElement => {
     const iframe = parentDocument.createElement('iframe');
 
-    // TODO: these are deprecated: remove/update them and their tests
-    iframe.frameBorder = '0';
-    iframe.scrolling = 'no';
     iframe.src = 'about:blank';
     iframe.style.borderStyle = 'none';
     iframe.style.borderWidth = '0';

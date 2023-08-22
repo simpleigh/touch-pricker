@@ -14,8 +14,6 @@ const createAndAppendStyle = (
     styles: string = '',
 ): HTMLStyleElement => {
     const style = parentDocument.createElement('style');
-    // TODO: setting the type is deprecated; remove this and its test
-    style.type = 'text/css';
     style.innerText = styles;
 
     parentDocument.head.appendChild(style);
