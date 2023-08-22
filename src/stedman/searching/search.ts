@@ -14,9 +14,39 @@ import {
     rowFromRank,
     Uint4Table,
 } from '../../rows';
-import type { Cache, CallPair } from './types';
+import { Stedman } from '../methods';
 import Calling from './Calling';
-import createTranspositions from './createTranspositions';
+
+/**
+ * A cache of search results.
+ *
+ * It's common while searching to visit the same node multiple times, i.e. to
+ * reach the same six end in lots of different ways. Recalculating following
+ * nodes repeatedly is wasteful so we use a cache to store the calculation for
+ * immediate reuse if needed.
+ *
+ * We need to store different results for different numbers of steps so the
+ * overall cache structure might look something like:
+ *
+ * ```
+ * {
+ *     0: { // rounds
+ *         0: [''], // callings with zero steps
+ *     },
+ *     249: {
+ *         4: ['- -- s  ', '-  -   s', '- s- s s'],
+ *     },
+ *     442: {
+ *         2: ['- s-'],
+ *     },
+ *     551: {
+ *         3: ['-  -  ', '- s- s'],
+ *     },
+ *     // ...
+ * }
+ * ```
+ */
+type Cache = Partial<Record<number, Partial<Record<number, string[]>>>>;
 
 /**
  * Extend each of a list of callings.
@@ -29,7 +59,7 @@ import createTranspositions from './createTranspositions';
  */
 export const extendTouchList = (
     touchList: string[],
-    calling: CallPair,
+    calling: string,
 ): string[] => {
     // Filter the list to avoid undesirable callings like `-s` or `ss`.
     if (calling.startsWith('s')) {
@@ -50,7 +80,7 @@ const recursiveSearch = (
     table: Uint4Table,
     targetRank: number,
     steps: number,
-    transpositions: Map<CallPair, Row>,
+    transpositions: Map<string, Row>,
     cache: Cache = {},
 ): string[] => {
     // Halt recursion if we've run out of steps.
@@ -133,7 +163,10 @@ const search = (
     targetRank: number,
     steps?: number,
 ): Calling[] => {
-    const transpositions = createTranspositions(table.stage, true);
+    const transpositions = new Stedman().createTranspositions(
+        table.stage,
+        true,
+    );
     steps ??= table.getValue(targetRank);
     return recursiveSearch(table, targetRank, steps, transpositions).map(
         (calling: string): Calling => new Calling(calling),

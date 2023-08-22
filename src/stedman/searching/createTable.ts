@@ -14,7 +14,7 @@ import {
     Stage,
     Uint4Table,
 } from '../../rows';
-import createTranspositions from './createTranspositions';
+import { Stedman } from '../methods';
 
 /**
  * Create a data table for use with the {@link search} touch search function.
@@ -44,7 +44,7 @@ const createTable = (
     logger(`Building table on ${stage} bells...`);
 
     const table = new Uint4Table(stage);
-    const transpositions = createTranspositions(stage);
+    const transpositions = new Stedman().createTranspositions(stage);
 
     // Set the maximum possible value for each row: we'll reduce this as we go.
     for (let rank = 1; rank < table.length; rank += 1) {
