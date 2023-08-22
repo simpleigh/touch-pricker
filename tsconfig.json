@@ -14,6 +14,6 @@
         "sourceMap": true,
         "strict": true,
         "strictPropertyInitialization": false,
-        "target": "es5"
+        "target": "ES6"
     }
 }

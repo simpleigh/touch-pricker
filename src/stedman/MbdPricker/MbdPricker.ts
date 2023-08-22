@@ -524,21 +524,21 @@ class MbdPricker extends AbstractPricker implements Notifiable {
 
     public onTab(pageId: string): void {
         const tabs = this.getEl('tabs').children;
-        const tab = this.getEl(`tab_${pageId}`);
+        const selectedTab = this.getEl(`tab_${pageId}`);
         const pages = this.getEl('pages').children;
-        const page = this.getEl(`page_${pageId}`);
+        const selectedPage = this.getEl(`page_${pageId}`);
 
-        // eslint-disable-next-line @typescript-eslint/prefer-for-of
-        for (let i = 0; i < tabs.length; i += 1) {
-            tabs[i].className = 'tab';
+        for (const tab of tabs) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            tab.className = 'tab';
         }
-        tab.className = 'tab tab-selected';
+        selectedTab.classList.add('tab-selected');
 
-        // eslint-disable-next-line @typescript-eslint/prefer-for-of
-        for (let i = 0; i < pages.length; i += 1) {
-            pages[i].className = 'page';
+        for (const page of pages) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            page.className = 'page';
         }
-        page.className = 'page page-selected';
+        selectedPage.classList.add('page-selected');
 
         this.resize();
     }

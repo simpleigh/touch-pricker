@@ -12,11 +12,8 @@ import { handleTouchEvents } from './elementPolyfills';
  * @param parent  root of tree
  */
 const polyfillTree = (parent: ParentNode): void => {
-    const nodes = parent.querySelectorAll('[onclick]');
-
-    // eslint-disable-next-line @typescript-eslint/prefer-for-of
-    for (let i = 0; i < nodes.length; i += 1) {
-        handleTouchEvents(nodes[i] as HTMLElement);
+    for (const node of parent.querySelectorAll('[onclick]')) {
+        handleTouchEvents(node as HTMLElement);
     }
 };
 

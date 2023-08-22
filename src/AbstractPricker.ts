@@ -45,11 +45,9 @@ abstract class AbstractPricker implements Pricker {
         let width = 0;
         let height = 0;
 
-        // eslint-disable-next-line @typescript-eslint/prefer-for-of
-        for (let i = 0; i < elements.length; i += 1) {
-            const element = elements[i] as HTMLElement;
-            width += getWidth(element);
-            height = Math.max(height, getHeight(element));
+        for (const element of elements) {
+            width += getWidth(element as HTMLElement);
+            height = Math.max(height, getHeight(element as HTMLElement));
         }
 
         this._iframe.width = `${width}px`;
