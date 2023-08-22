@@ -22,6 +22,10 @@ const stages = [
 ];
 
 for (const stage of stages) {
+    console.time(stage);
+
     const table = Pricker.Stedman.Searching.createTable(stage, console.log);
     writeFileSync(`data/stedman.${stage}.dat`, table.data);
+
+    console.timeEnd(stage);
 }

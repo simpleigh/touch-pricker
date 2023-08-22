@@ -22,6 +22,17 @@ import createTranspositions from './createTranspositions';
  *
  * Creates a table that stores the minimum number of steps needed to get from
  * rounds to a particular row.
+ *
+ * Sixes (in Stedman) alternate between slow and quick and we can work around
+ * this complexity by searching in steps of a "pair" of sixes, being a call, a
+ * slow six, another call, and a quick six. Any row can be followed by any of
+ * seven other rows: one per {@link CallPair}.
+ *
+ * We start from rounds itself which is (trivially) 0 steps from rounds.
+ * We loop over the seven possible transpositions to generate seven new rows
+ * that are each one step from rounds, writing the number of steps into the
+ * table as we go. We then iterate over those seven new rows generating 49 rows
+ * that are two steps from rounds and continue onwards until the table is full.
  * @param stage  Stage for which to build the table.
  * @param logger  Optional logger to output
  */
@@ -41,21 +52,22 @@ const createTable = (
         table.setValue(rank, 15);
     }
 
-    // Rounds is trivially rounds.
+    // Starting point: rounds is trivially rounds.
     table.setValue(0, 0);
+    let steps: number = 1;
+    let ranks: number[] = [0];
 
-    // Count sequentially in numbers of steps, keeping track of the maximum
-    // number of steps found and terminating when that stops increasing.
-    let maxSteps: number = 0;
-    for (let steps = 0; steps <= maxSteps; steps += 1) {
+    // Keep looping while we're finding new rows.
+    while (ranks.length) {
         logger(`${steps} steps`);
 
-        for (let rank = 0; rank < table.length; rank += 1) {
-            if (table.getValue(rank) !== steps) {
-                continue; // eslint-disable-line no-continue
-            }
+        // Array of ranks to take forward to the next iteration.
+        const newRanks: number[] = [];
 
+        for (const rank of ranks) {
             const oldRow = rowFromRank(rank, stage);
+
+            // Loop through each possible calling.
             for (const calling of Object.getOwnPropertyNames(transpositions)) {
                 const newRow = multiply(
                     oldRow,
@@ -63,12 +75,17 @@ const createTable = (
                 );
                 const newRank = rankFromRow(newRow);
 
-                if (table.getValue(newRank) > steps + 1) {
-                    table.setValue(newRank, steps + 1);
-                    maxSteps = steps + 1;
+                if (steps < table.getValue(newRank)) {
+                    // If we've found a new shortest path than store it...
+                    table.setValue(newRank, steps);
+                    // ... and take the rank forward to the next iteration.
+                    newRanks.push(newRank);
                 }
             }
         }
+
+        steps += 1;
+        ranks = newRanks;
     }
 
     logger('... done!');
