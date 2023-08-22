@@ -17,6 +17,6 @@ import { Bell } from './types';
  * 'E'
  * ```
  */
-const symbolFromBell = (bell: Bell): string => ' 1234567890ETABCD'.charAt(bell);
+const symbolFromBell = (bell: Bell): string => ' 1234567890ETABCD'[bell];
 
 export default symbolFromBell;

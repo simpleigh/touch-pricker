@@ -315,7 +315,6 @@ module.exports = {
                 '@typescript-eslint/prefer-readonly': 'error',
                 '@typescript-eslint/prefer-readonly-parameter-types': 'off',  // TODO: enable this
                 '@typescript-eslint/prefer-regexp-exec': 'error',
-                '@typescript-eslint/prefer-string-starts-ends-with': 'off',  // poor browser support
                 '@typescript-eslint/promise-function-async': 'error',
                 '@typescript-eslint/require-array-sort-compare': 'error',
                 '@typescript-eslint/sort-type-constituents': 'error',

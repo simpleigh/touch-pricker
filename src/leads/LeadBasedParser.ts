@@ -90,10 +90,10 @@ abstract class LeadBasedParser<
         // Otherwise split up the calling and process
         const calls = matches[1].split(new RegExp(separator, 'u'));
         for (let call of calls) {
-            if (call.charAt(0) === 's') {
+            if (call.startsWith('s')) {
                 call = call.slice(1);
                 course.getBlock(parseInt(call)).setCall(Call.Single);
-            } else if (call.slice(-1) === 's') {
+            } else if (call.endsWith('s')) {
                 call = call.slice(0, -1);
                 course.getBlock(parseInt(call)).setCall(Call.Single);
             } else {

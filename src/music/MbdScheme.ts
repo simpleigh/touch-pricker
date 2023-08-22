@@ -44,15 +44,11 @@ class MbdScheme extends AbstractScheme {
         for (let i = 0; i < this._stage - 1; i += 1) {
             const pattern =
                 rounds.slice(0, i) + // 123
-                rounds.charAt(i + 1) + // 5
-                rounds.charAt(i) + // 4
+                rounds[i + 1] + // 5
+                rounds[i] + // 4
                 rounds.slice(i + 2); // 67890E
             nearMisses.push(
-                new Pattern(
-                    pattern,
-                    rounds.charAt(i + 1) + rounds.charAt(i),
-                    MatchType.Row,
-                ),
+                new Pattern(pattern, rounds[i + 1] + rounds[i], MatchType.Row),
             );
         }
         matchers.push(new PatternGroup('near misses', nearMisses));

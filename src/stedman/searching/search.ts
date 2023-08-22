@@ -32,9 +32,9 @@ export const extendTouchList = (
     calling: CallPair,
 ): string[] => {
     // Filter the list to avoid undesirable callings like `-s` or `ss`.
-    if (calling[0] === 's') {
+    if (calling.startsWith('s')) {
         touchList = touchList.filter(
-            (touch) => touch === '' || touch[touch.length - 1] === ' ',
+            (touch) => touch === '' || touch.endsWith(' '),
         );
     }
 

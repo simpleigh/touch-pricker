@@ -52,11 +52,9 @@ const rowFromString = (input: string, stage: Stage): Row => {
 
         // Catch errors parsing the bell number and add the input to the message
         try {
-            bellNumber = bellFromSymbol(input.charAt(inputIndex));
+            bellNumber = bellFromSymbol(input[inputIndex]);
         } catch (err) {
-            const message = `Row '${input}' has unknown bell '${input.charAt(
-                inputIndex,
-            )}'`;
+            const message = `Row '${input}' has unknown bell '${input[inputIndex]}'`;
             (err as Error).message = message;
             throw err;
         }
