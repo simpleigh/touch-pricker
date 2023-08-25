@@ -17,4 +17,3 @@ export { default as stringFromRow } from './stringFromRow';
 export { default as symbolFromBell } from './symbolFromBell';
 export { Stage } from './types';
 export type { Bell, Change, MutableRow, Row } from './types';
-export { default as Uint4Table } from './Uint4Table';

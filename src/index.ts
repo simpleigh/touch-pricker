@@ -26,7 +26,6 @@ import {
     rowFromString,
     Stage,
     stringFromRow,
-    Uint4Table,
 } from './rows';
 import * as Searching from './searching';
 import * as Stedman from './stedman';
@@ -50,7 +49,6 @@ export {
     Stage,
     Stedman,
     stringFromRow,
-    Uint4Table,
     Visitors,
 };
 export type { Bell, Change, Options, Pricker, Row };

@@ -13,8 +13,8 @@ import {
     type Row,
     type Stage,
     rowFromRank,
-    Uint4Table,
 } from '../rows';
+import Uint4Table from './Uint4Table';
 
 /**
  * Create a data table for use with the {@link search} touch search function.

@@ -7,7 +7,7 @@
  * written by Philip Saddleton.
  */
 
-import { FACTORIALS } from './constants';
+import { FACTORIALS } from '../constants';
 import type { Bell, MutableRow, Row, Stage } from './types';
 
 /**

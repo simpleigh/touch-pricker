@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { Stage } from './types';
+import { Stage } from '../rows';
 import Uint4Table from './Uint4Table';
 
 describe('Uint4Table', () => {

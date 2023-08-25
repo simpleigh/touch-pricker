@@ -18,12 +18,12 @@ import {
     rowFromString,
     Stage,
     stringFromRow,
-    Uint4Table,
 } from '../../rows';
 import {
     type Calling,
     createTranspositions,
     searchAsync,
+    Uint4Table,
 } from '../../searching';
 import * as Templates from '../../templates';
 import Course from '../Course';

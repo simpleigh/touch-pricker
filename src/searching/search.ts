@@ -7,14 +7,9 @@
  * written by Philip Saddleton.
  */
 
-import {
-    multiply,
-    rankFromRow,
-    type Row,
-    rowFromRank,
-    type Uint4Table,
-} from '../rows';
+import { multiply, rankFromRow, type Row, rowFromRank } from '../rows';
 import Calling from './Calling';
+import type Uint4Table from './Uint4Table';
 
 /**
  * A cache of search results.

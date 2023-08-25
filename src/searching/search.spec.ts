@@ -7,10 +7,11 @@
 
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { rounds, type Row, Stage, Uint4Table } from '../rows';
+import { rounds, type Row, Stage } from '../rows';
 import { Course, Methods } from '../stedman';
 import createTranspositions from './createTranspositions';
 import search, { extendTouchList, searchAsync } from './search';
+import Uint4Table from './Uint4Table';
 
 describe('extendTouchList function', () => {
     it('can add a call pair to a touch', () => {
