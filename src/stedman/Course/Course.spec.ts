@@ -9,7 +9,13 @@ import { Call } from '../../leads';
 import testAbstractCourseImplementation from '../../leads/AbstractCourse/testAbstractCourseImplementation';
 import { rounds, rowFromString, Stage, stringFromRow } from '../../rows';
 import { StringArray } from '../../visitors';
-import { type AbstractMethod, Erin, Stedman, StedmanJump } from '../methods';
+import {
+    type AbstractMethod,
+    Carter,
+    Erin,
+    Stedman,
+    StedmanJump,
+} from '../methods';
 import Parser from '../Parser';
 import SixType from '../SixType';
 import Course from '.';
@@ -177,6 +183,46 @@ describe('Stedman Course class', () => {
 
         expect(method.checkSixType).toHaveBeenCalled();
         expect(method.checkSixType).toHaveBeenCalledWith(SixType.Slow);
+    });
+
+    it('calculates sixes correctly for Carter', () => {
+        const parser = new Parser();
+        parser.method = new Carter();
+        course = parser.parseCourse(
+            rounds(Stage.Cinques),
+            '1234567890E s1 11 12 s22',
+        );
+        const expectedSixEnds = [
+            '', // blank entry so indices line up
+            '412638597E0',
+            '6812493E507',
+            '26891E40375',
+            '9E682017453',
+            '89E06725134',
+            '079E8563241',
+            'E0759384612',
+            '5307E491826',
+            '753401E2968',
+            '41537206E89',
+            '3412567E089',
+            '26413E50789',
+            '126E4038597',
+            'E0261849375',
+            '6E082917453',
+            '89E06725134',
+            '0897E563241',
+            '758903E4612',
+            '97538401E26',
+            '3475918206E',
+            '534172968E0',
+            '1234567890E',
+        ];
+
+        for (let index = 1; index <= 11; index += 1) {
+            expect(stringFromRow(course.getBlock(index).getLast())).toBe(
+                expectedSixEnds[index],
+            );
+        }
     });
 
     it('calculates sixes correctly for Erin', () => {
