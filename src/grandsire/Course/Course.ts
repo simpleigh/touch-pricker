@@ -9,7 +9,6 @@ import { AbstractCourse, Call } from '../../leads';
 import { stringFromRow, type Row } from '../../rows';
 import * as Templates from '../../templates';
 import Lead from '../Lead';
-import Parser from '../Parser';
 import mbd from './mbd.dot';
 import siril from './siril.dot';
 
@@ -38,19 +37,6 @@ class Course extends AbstractCourse<Lead> implements Templates.Interface {
      */
     protected createBlock(initialRow: Row, index: number): Lead {
         return new Lead(initialRow);
-    }
-
-    /* Course methods *********************************************************/
-
-    /**
-     * Creates a new course from a string representation
-     */
-    public static fromString(
-        initialRow: Row,
-        input: string,
-        parser: Parser = new Parser(),
-    ): Course {
-        return parser.parseCourse(initialRow, input);
     }
 }
 

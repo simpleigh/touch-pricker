@@ -6,11 +6,14 @@
  */
 
 import { rounds, Stage } from '../../rows';
-import Course from '.';
+import Parser from '../Parser';
 
 describe('siril template for Stedman Course', () => {
     it('renders a course correctly', () => {
-        const course = Course.fromString(rounds(Stage.Cinques), 's2 3 (4)');
+        const course = new Parser().parseCourse(
+            rounds(Stage.Cinques),
+            's2 3 (4)',
+        );
         expect(course.print('siril')).toRenderAs(`
             plain, slow, single, quick, bob, slow, plain, quick, "@  ${course.print(
                 'text',
@@ -48,7 +51,10 @@ describe('siril template for Stedman Course', () => {
     ];
 
     it('stops rendering based on the remaining rows in the touch', () => {
-        const course = Course.fromString(rounds(Stage.Cinques), 's2 3 (4)');
+        const course = new Parser().parseCourse(
+            rounds(Stage.Cinques),
+            's2 3 (4)',
+        );
         for (let i = 1; i < EXPECTED_OUTPUTS.length; i += 1) {
             expect(course.print('siril', { touchRows: i })).toBe(
                 `${EXPECTED_OUTPUTS[i]}"@  s2 3  (4 sixes)"\n`,

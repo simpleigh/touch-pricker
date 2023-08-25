@@ -5,7 +5,8 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import Touch from '.';
+import Parser from '../Parser';
+import type Touch from '.';
 
 describe('siril template for Grandsire Touch', () => {
     const composition =
@@ -19,7 +20,7 @@ describe('siril template for Grandsire Touch', () => {
     let output: string;
 
     beforeEach(() => {
-        touch = Touch.fromString(composition);
+        touch = new Parser().parseTouch(composition);
         output = touch.print('siril', { touchRows: 251 });
     });
 

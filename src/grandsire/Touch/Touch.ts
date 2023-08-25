@@ -11,7 +11,6 @@ import { stringFromRow } from '../../rows';
 import * as Templates from '../../templates';
 import type Course from '../Course';
 import Lead from '../Lead';
-import Parser from '../Parser';
 import select from './select.dot';
 import siril from './siril.dot';
 import text from './text.dot';
@@ -42,16 +41,6 @@ class Touch
         }
 
         return result;
-    }
-
-    /**
-     * Creates a new touch from a string representation
-     */
-    public static fromString(
-        input: string,
-        parser: Parser = new Parser(),
-    ): Touch {
-        return parser.parseTouch(input);
     }
 }
 

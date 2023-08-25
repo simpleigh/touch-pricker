@@ -6,7 +6,7 @@
  */
 
 import SixType from '../SixType';
-import Touch from '.';
+import Parser from '../Parser';
 
 describe('text template for Stedman Touch', () => {
     it('renders a touch correctly', () => {
@@ -14,7 +14,7 @@ describe('text template for Stedman Touch', () => {
             '2314567890E\n' +
             '2314568790E  1 s10 s13 s15 22\n' +
             '2314567890E  1 s10 s13 s15 22\n';
-        const touch = Touch.fromString(text);
+        const touch = new Parser().parseTouch(text);
         expect(touch.print('text')).toBe(text);
     });
 
@@ -23,7 +23,7 @@ describe('text template for Stedman Touch', () => {
             '3124567890E\n' +
             '3124568790E  1 s10 s13 s15 22\n' +
             '3124567890E  1 s10 s13 s15 22\n';
-        const touch = Touch.fromString(text);
+        const touch = new Parser().parseTouch(text);
 
         touch.start.sixType = SixType.Quick;
         touch.start.rowIndex = 2;

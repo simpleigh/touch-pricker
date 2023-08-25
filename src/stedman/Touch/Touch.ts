@@ -12,7 +12,6 @@ import type { AbstractVisitor } from '../../visitors';
 import constructorFromType from '../constructorFromType';
 import type Course from '../Course';
 import { type AbstractMethod, Stedman } from '../methods';
-import Parser from '../Parser';
 import * as sixes from '../sixes';
 import Start from '../Start';
 import select from './select.dot';
@@ -137,18 +136,6 @@ class Touch
      */
     get method(): AbstractMethod {
         return this._method;
-    }
-
-    /**
-     * Creates a new touch from a string representation
-     */
-    public static fromString(
-        input: string,
-        method: AbstractMethod = new Stedman(),
-        parser: Parser = new Parser(),
-    ): Touch {
-        parser.method = method;
-        return parser.parseTouch(input);
     }
 }
 

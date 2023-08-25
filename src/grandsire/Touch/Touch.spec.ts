@@ -18,7 +18,7 @@ describe('Grandsire Touch class', () => {
     testRandomAccessContainerImplementation(
         Stage.Doubles,
         (initialRow) => {
-            const testTouch = Touch.fromString(
+            const testTouch = new Parser().parseTouch(
                 '12345\n' +
                     '13425  s2 3 s4  (4 leads)\n' +
                     '14235  s2 3 s4  (4 leads)\n' +
@@ -31,7 +31,10 @@ describe('Grandsire Touch class', () => {
         },
         120,
         3,
-        Course.fromString(rounds(Stage.Doubles), '13425  s2 3 s4  (4 leads)'),
+        new Parser().parseCourse(
+            rounds(Stage.Doubles),
+            '13425  s2 3 s4  (4 leads)',
+        ),
     );
 
     it('generates the correct rows when visited', () => {
@@ -67,25 +70,5 @@ describe('Grandsire Touch class', () => {
             lead.setCall(Call.Single);
             expect(touch.callNotations[Call.Single]).toEqual(lead.notation);
         }
-    });
-
-    it('passes strings to a parser for loading', () => {
-        const parser = new Parser();
-        jest.spyOn(parser, 'parseTouch');
-
-        Touch.fromString('test', parser);
-
-        expect(parser.parseTouch).toHaveBeenCalled();
-        expect(parser.parseTouch).toHaveBeenCalledWith('test');
-    });
-
-    it('returns the parsed result', () => {
-        const touch = new Touch(rounds(Stage.Doubles));
-        const parser = new Parser();
-        jest.spyOn(parser, 'parseTouch').mockReturnValue(touch);
-
-        const result = Touch.fromString('test', parser);
-
-        expect(result).toBe(touch);
     });
 });

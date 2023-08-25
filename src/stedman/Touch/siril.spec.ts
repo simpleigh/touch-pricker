@@ -6,7 +6,8 @@
  */
 
 import { StedmanJump } from '../methods';
-import Touch from '.';
+import Parser from '../Parser';
+import type Touch from '.';
 
 describe('siril template for Stedman Touch', () => {
     const composition =
@@ -19,7 +20,7 @@ describe('siril template for Stedman Touch', () => {
     let output: string;
 
     beforeEach(() => {
-        touch = Touch.fromString(composition);
+        touch = new Parser().parseTouch(composition);
         output = touch.print('siril', { touchRows: 264 });
     });
 
@@ -57,8 +58,9 @@ describe('siril template for Stedman Touch', () => {
     });
 
     it('renders hot and cold sixes for Stedman Jump', () => {
-        const method = new StedmanJump();
-        touch = Touch.fromString(composition, method);
+        const parser = new Parser();
+        parser.method = new StedmanJump();
+        touch = parser.parseTouch(composition);
         output = touch.print('siril');
 
         expect(output).toContain("cold = '231547698E0', '231547698E0', ");

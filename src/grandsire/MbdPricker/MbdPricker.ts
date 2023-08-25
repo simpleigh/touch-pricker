@@ -19,6 +19,7 @@ import {
 import * as Templates from '../../templates';
 import * as Visitors from '../../visitors';
 import Course from '../Course';
+import Parser from '../Parser';
 import Touch from '../Touch';
 import css from './css.dot';
 import html from './html.dot';
@@ -347,7 +348,7 @@ class MbdPricker extends AbstractPricker implements Notifiable {
         let newTouch: Touch; // eslint-disable-line init-declarations
 
         try {
-            newTouch = Touch.fromString(input);
+            newTouch = new Parser().parseTouch(input);
         } catch {
             // Ignore
             return;

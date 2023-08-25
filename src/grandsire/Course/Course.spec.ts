@@ -8,7 +8,6 @@
 import testAbstractCourseImplementation from '../../leads/AbstractCourse/testAbstractCourseImplementation';
 import { rounds, Stage, stringFromRow } from '../../rows';
 import { StringArray } from '../../visitors';
-import Parser from '../Parser';
 import Course from '.';
 
 describe('Grandsire Course class', () => {
@@ -142,26 +141,5 @@ describe('Grandsire Course class', () => {
         course.accept(courseVisitor);
 
         expect(courseVisitor.strings).toEqual(strings);
-    });
-
-    it('passes strings to a parser for loading', () => {
-        const parser = new Parser();
-        jest.spyOn(parser, 'parseCourse').mockReturnValue(course);
-        const testRow = rounds(Stage.Doubles);
-
-        Course.fromString(testRow, 'test', parser);
-
-        expect(parser.parseCourse).toHaveBeenCalled();
-        expect(parser.parseCourse).toHaveBeenCalledWith(testRow, 'test');
-    });
-
-    it('returns the parsed result', () => {
-        const parser = new Parser();
-        jest.spyOn(parser, 'parseCourse').mockReturnValue(course);
-        const testRow = rounds(Stage.Doubles);
-
-        const result = Course.fromString(testRow, 'test', parser);
-
-        expect(result).toBe(course);
     });
 });

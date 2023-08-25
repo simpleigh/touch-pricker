@@ -9,7 +9,6 @@ import { AbstractCourse, Call } from '../../leads';
 import type { Row } from '../../rows';
 import * as Templates from '../../templates';
 import { type AbstractMethod, Stedman } from '../methods';
-import Parser from '../Parser';
 import type { AbstractSix } from '../sixes';
 import type SixType from '../SixType';
 import mbd from './mbd.dot';
@@ -127,19 +126,6 @@ class Course
      */
     get method(): AbstractMethod {
         return this._method;
-    }
-
-    /**
-     * Creates a new course from a string representation
-     */
-    public static fromString(
-        initialRow: Row,
-        input: string,
-        method: AbstractMethod = new Stedman(),
-        parser: Parser = new Parser(),
-    ): Course {
-        parser.method = method;
-        return parser.parseCourse(initialRow, input);
     }
 }
 

@@ -6,12 +6,13 @@
  */
 
 import { rowFromString, Stage, stringFromRow } from '../../rows';
+import Parser from '../Parser';
 import Course from '.';
 
 describe('mbd template for Stedman Course', () => {
     it('renders a course correctly', () => {
         const initialRow = rowFromString('231', Stage.Cinques);
-        const course = Course.fromString(initialRow, 's2 3 (4)');
+        const course = new Parser().parseCourse(initialRow, 's2 3 (4)');
         expect(course.print('mbd')).toRenderAs(`
             <u>2314567890E</u><br />
             ${course.getBlock(1).print('mbd')}

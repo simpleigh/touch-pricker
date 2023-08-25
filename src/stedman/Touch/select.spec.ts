@@ -7,11 +7,11 @@
 
 import { BlockDirectory } from '../../blocks';
 import { stringFromRow } from '../../rows';
-import Touch from '.';
+import Parser from '../Parser';
 
 describe('select template for Stedman Touch', () => {
     it('renders a touch correctly', () => {
-        const touch = Touch.fromString(
+        const touch = new Parser().parseTouch(
             '2314567890E\n' +
                 '2314568790E  1 s10 s13 s15 22\n' +
                 '2314567890E  1 s10 s13 s15 22\n',
@@ -31,7 +31,7 @@ describe('select template for Stedman Touch', () => {
     });
 
     it('adds a class when a course is selected', () => {
-        const touch = Touch.fromString(
+        const touch = new Parser().parseTouch(
             '2314567890E\n' +
                 '2314568790E  1 s10 s13 s15 22\n' +
                 '2314567890E  1 s10 s13 s15 22\n',
@@ -51,7 +51,7 @@ describe('select template for Stedman Touch', () => {
     });
 
     it('can select the end of the start', () => {
-        const touch = Touch.fromString(
+        const touch = new Parser().parseTouch(
             '2314567890E\n' +
                 '2314568790E  1 s10 s13 s15 22\n' +
                 '2314567890E  1 s10 s13 s15 22\n',
@@ -71,7 +71,7 @@ describe('select template for Stedman Touch', () => {
     });
 
     it('applies a style for unreachable courses', () => {
-        const touch = Touch.fromString('2314567890E\np\np\np'); // 3 courses
+        const touch = new Parser().parseTouch('2314567890E\np\np\np'); // 3 courses
 
         expect(
             touch.print('select', {
@@ -94,7 +94,7 @@ describe('select template for Stedman Touch', () => {
     });
 
     it('applies a style for false courses', () => {
-        const touch = Touch.fromString('2314567890E\np\np'); // 2 courses
+        const touch = new Parser().parseTouch('2314567890E\np\np'); // 2 courses
         const falseness = new BlockDirectory();
         falseness.add(1, 3);
 

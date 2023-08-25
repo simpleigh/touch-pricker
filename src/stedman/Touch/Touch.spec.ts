@@ -20,7 +20,7 @@ describe('Stedman Touch class', () => {
     testRandomAccessContainerImplementation(
         Stage.Cinques,
         (initialRow) => {
-            const testTouch = Touch.fromString(
+            const testTouch = new Parser().parseTouch(
                 '1234567890E\n' +
                     '21345678E90  1 s7\n' +
                     '12345687E90  s7 s13 s15 s22\n' +
@@ -37,7 +37,10 @@ describe('Stedman Touch class', () => {
         },
         384,
         3,
-        Course.fromString(rounds(Stage.Cinques), '2314567890E 1 s10 s13 22'),
+        new Parser().parseCourse(
+            rounds(Stage.Cinques),
+            '2314567890E 1 s10 s13 22',
+        ),
     );
 
     const otherRow = rowFromString('4321', Stage.Cinques);
@@ -193,34 +196,5 @@ describe('Stedman Touch class', () => {
         const method = new Stedman();
         touch = new Touch(testRow, method);
         expect(touch.method).toBe(method);
-    });
-
-    it('passes strings to a parser for loading', () => {
-        const parser = new Parser();
-        jest.spyOn(parser, 'parseTouch').mockReturnValue(touch);
-
-        Touch.fromString('test', undefined, parser);
-
-        expect(parser.parseTouch).toHaveBeenCalled();
-        expect(parser.parseTouch).toHaveBeenCalledWith('test');
-    });
-
-    it('returns the parsed result', () => {
-        const parser = new Parser();
-        jest.spyOn(parser, 'parseTouch').mockReturnValue(touch);
-
-        const result = Touch.fromString('test', undefined, parser);
-
-        expect(result).toBe(touch);
-    });
-
-    it('configures the parser with the correct method', () => {
-        const method = new Erin();
-        const parser = new Parser();
-        jest.spyOn(parser, 'parseTouch').mockReturnValue(touch);
-
-        Touch.fromString('test', method, parser);
-
-        expect(parser.method).toBe(method);
     });
 });

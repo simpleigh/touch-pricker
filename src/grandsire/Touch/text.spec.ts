@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import Touch from '.';
+import Parser from '../Parser';
 
 describe('text template for Grandsire Touch', () => {
     it('renders a touch correctly', () => {
@@ -14,7 +14,7 @@ describe('text template for Grandsire Touch', () => {
             '13425  s2 3 s4  (4 leads)\n' +
             '14235  s2 3 s4  (4 leads)\n' +
             '12345  s2 3 s4  (4 leads)\n';
-        const touch = Touch.fromString(text);
+        const touch = new Parser().parseTouch(text);
         expect(touch.print('text')).toBe(text);
     });
 });

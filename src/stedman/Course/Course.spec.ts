@@ -180,11 +180,9 @@ describe('Stedman Course class', () => {
     });
 
     it('calculates sixes correctly for Erin', () => {
-        course = Course.fromString(
-            rounds(Stage.Cinques),
-            '1234567890E 6',
-            new Erin(),
-        );
+        const parser = new Parser();
+        parser.method = new Erin();
+        course = parser.parseCourse(rounds(Stage.Cinques), '1234567890E 6');
         const expectedSixEnds = [
             '', // blank entry so indices line up
             '241638507E9',
@@ -208,11 +206,9 @@ describe('Stedman Course class', () => {
     });
 
     it('calculates sixes correctly for Stedman', () => {
-        course = Course.fromString(
-            testRow,
-            '2314567890E 1 s10 s13 22',
-            new Stedman(),
-        );
+        const parser = new Parser();
+        parser.method = new Stedman();
+        course = parser.parseCourse(testRow, '2314567890E 1 s10 s13 22');
         const expectedSixEnds = [
             '', // blank entry so indices line up
             '3426185970E',
@@ -247,10 +243,11 @@ describe('Stedman Course class', () => {
     });
 
     it('calculates sixes correctly for Stedman Jump', () => {
-        course = Course.fromString(
+        const parser = new Parser();
+        parser.method = new StedmanJump();
+        course = parser.parseCourse(
             rounds(Stage.Cinques),
             '1234567890E 1 6 11 12 17 22',
-            new StedmanJump(),
         );
         const expectedSixEnds = [
             '', // blank entry so indices line up
@@ -370,34 +367,5 @@ describe('Stedman Course class', () => {
         course.accept(courseVisitor);
 
         expect(courseVisitor.strings).toEqual(strings);
-    });
-
-    it('passes strings to a parser for loading', () => {
-        const parser = new Parser();
-        jest.spyOn(parser, 'parseCourse').mockReturnValue(course);
-
-        Course.fromString(testRow, 'test', undefined, parser);
-
-        expect(parser.parseCourse).toHaveBeenCalled();
-        expect(parser.parseCourse).toHaveBeenCalledWith(testRow, 'test');
-    });
-
-    it('returns the parsed result', () => {
-        const parser = new Parser();
-        jest.spyOn(parser, 'parseCourse').mockReturnValue(course);
-
-        const result = Course.fromString(testRow, 'test', undefined, parser);
-
-        expect(result).toBe(course);
-    });
-
-    it('configures the parser with the correct method', () => {
-        const method = new Erin();
-        const parser = new Parser();
-        jest.spyOn(parser, 'parseCourse').mockReturnValue(course);
-
-        Course.fromString(testRow, 'test', method, parser);
-
-        expect(parser.method).toBe(method);
     });
 });

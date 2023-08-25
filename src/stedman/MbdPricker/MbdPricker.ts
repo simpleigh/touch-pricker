@@ -26,6 +26,7 @@ import {
     Stedman,
     StedmanJump,
 } from '../methods';
+import Parser from '../Parser';
 import type SixType from '../SixType';
 import Touch from '../Touch';
 import css from './css.dot';
@@ -450,9 +451,11 @@ class MbdPricker extends AbstractPricker implements Notifiable {
     public onLoadTouch(): void {
         const input = this.getEl<HTMLTextAreaElement>('loadSaveTextarea').value;
         let newTouch: Touch; // eslint-disable-line init-declarations
+        const parser = new Parser();
+        parser.method = this._method;
 
         try {
-            newTouch = Touch.fromString(input, this._method);
+            newTouch = parser.parseTouch(input);
         } catch {
             // Ignore
             return;

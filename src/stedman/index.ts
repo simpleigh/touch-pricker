@@ -12,6 +12,7 @@ import * as Sixes from './sixes';
 export { default as Course } from './Course';
 export { default as MbdPricker } from './MbdPricker';
 export { Methods };
+export { default as Parser } from './Parser';
 export { Searching };
 export { Sixes };
 export { default as Start } from './Start';
