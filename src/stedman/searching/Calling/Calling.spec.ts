@@ -6,6 +6,8 @@
  */
 
 import { rounds, rowFromString, Stage } from '../../../rows';
+import Course from '../../Course';
+import { Stedman } from '../../methods';
 import Calling from './Calling';
 
 describe('Calling class', () => {
@@ -29,8 +31,9 @@ describe('Calling class', () => {
     describe('Course conversion', () => {
         it('can convert a simple calling', () => {
             const calling = new Calling('-          - ------ ');
+            const course = new Course(rounds(Stage.Cinques), new Stedman());
 
-            const course = calling.createCourse(rounds(Stage.Cinques));
+            calling.updateCourse(course);
 
             expect(course.length).toBe(20);
             expect(course.print('text')).toBe(
@@ -40,18 +43,33 @@ describe('Calling class', () => {
 
         it('can convert a calling with singles', () => {
             const calling = new Calling('-        s  s s      -');
+            const course = new Course(rounds(Stage.Cinques), new Stedman());
 
-            const course = calling.createCourse(rounds(Stage.Cinques));
+            calling.updateCourse(course);
 
             expect(course.length).toBe(22);
             expect(course.print('text')).toBe('1234568790E  1 s10 s13 s15 22');
         });
 
+        it('overwrites any existing calls', () => {
+            const calling1 = new Calling('   ---sss');
+            const course = new Course(rounds(Stage.Triples), new Stedman());
+            calling1.updateCourse(course);
+
+            const calling2 = new Calling(' -s -s -s');
+            calling2.updateCourse(course);
+
+            expect(course.print('text')).toBe(
+                '1253647  2 s3 5 s6 8 s9  (9 sixes)',
+            );
+        });
+
         it('can convert a calling starting at a different row', () => {
             const calling = new Calling('  -         -- ---- ');
             const row = rowFromString('2143657890E', Stage.Cinques);
+            const course = new Course(row, new Stedman());
 
-            const course = calling.createCourse(row);
+            calling.updateCourse(course);
 
             expect(course.length).toBe(20);
             expect(course.print('text')).toBe(
@@ -61,7 +79,10 @@ describe('Calling class', () => {
 
         it('can cope with an empty calling', () => {
             const calling = new Calling('');
-            const course = calling.createCourse(rounds(Stage.Cinques));
+            const course = new Course(rounds(Stage.Cinques), new Stedman());
+
+            calling.updateCourse(course);
+
             expect(course.length).toBe(0);
             expect(course.getLast()).toEqual(rounds(Stage.Cinques));
         });

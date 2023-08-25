@@ -90,6 +90,42 @@ abstract class AbstractMethod implements Templates.Interface {
      * Index of rounds within six for standard start
      */
     public abstract readonly defaultStartRowIndex: number;
+
+    /**
+     * Calling strings for touch searches.
+     *
+     * Searches for touches work in steps identified by a {@link Calling}. A
+     * step must include the complete cycle of {@link SixType}s for the method
+     * in order to avoid having to handle different types of six when searching
+     * for touches.
+     *
+     * Erin only has one type of six so its step is only one six long. There are
+     * three possible callings: a plain slow six, a bob, or a single. Our other
+     * methods are more complex and searches work in steps of a pair of sixes,
+     * being a call, a six, another call, and another six.
+     *
+     * There are seven possible callings for a pair of sixes:
+     *
+     * - two plain sixes
+     * - `'- '`
+     * - `'s '`
+     * - `' -'`
+     * - `' s'`
+     * - `'--'`
+     * - `'s-'`
+     *
+     * The callings `ss` and `-s` are excluded because they are equivalent to
+     * `--` and `s-` respectively (they produce the same result).
+     */
+    public readonly searchCallingStrings: string[] = [
+        '  ',
+        '- ',
+        's ',
+        ' -',
+        ' s',
+        '--',
+        's-',
+    ];
 }
 
 export default AbstractMethod;

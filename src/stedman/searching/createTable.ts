@@ -10,11 +10,14 @@
 import {
     multiply,
     rankFromRow,
+    rounds,
     rowFromRank,
     type Stage,
     Uint4Table,
 } from '../../rows';
+import Course from '../Course';
 import { Stedman } from '../methods';
+import createTranspositions from './createTranspositions';
 
 /**
  * Create a data table for use with the {@link search} touch search function.
@@ -44,7 +47,12 @@ const createTable = (
     logger(`Building table on ${stage} bells...`);
 
     const table = new Uint4Table(stage);
-    const transpositions = new Stedman().createTranspositions(stage);
+    const method = new Stedman();
+    const course = new Course(rounds(stage), method);
+    const transpositions = createTranspositions(
+        course,
+        method.searchCallingStrings,
+    );
 
     // Set the maximum possible value for each row: we'll reduce this as we go.
     for (let rank = 1; rank < table.length; rank += 1) {

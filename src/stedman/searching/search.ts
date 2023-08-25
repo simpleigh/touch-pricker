@@ -10,12 +10,15 @@
 import {
     multiply,
     rankFromRow,
+    rounds,
     type Row,
     rowFromRank,
     type Uint4Table,
 } from '../../rows';
+import Course from '../Course';
 import { Stedman } from '../methods';
 import Calling from './Calling';
+import createTranspositions from './createTranspositions';
 
 /**
  * A cache of search results.
@@ -163,10 +166,14 @@ const search = (
     targetRank: number,
     steps?: number,
 ): Calling[] => {
-    const transpositions = new Stedman().createTranspositions(
-        table.stage,
+    const method = new Stedman();
+    const course = new Course(rounds(table.stage), method);
+    const transpositions = createTranspositions(
+        course,
+        method.searchCallingStrings,
         true,
     );
+
     steps ??= table.getValue(targetRank);
     return recursiveSearch(table, targetRank, steps, transpositions).map(
         (calling: string): Calling => new Calling(calling),

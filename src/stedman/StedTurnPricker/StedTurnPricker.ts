@@ -21,7 +21,8 @@ import {
     Uint4Table,
 } from '../../rows';
 import * as Templates from '../../templates';
-import type Course from '../Course';
+import Course from '../Course';
+import { Stedman } from '../methods';
 import { type Calling, searchAsync } from '../searching';
 import css from './css.dot';
 import html from './html.dot';
@@ -301,7 +302,9 @@ class StedTurnPricker extends AbstractPricker {
 
     public onOpenCourse(): void {
         const calling = this._courses[this.selectedIndex!];
-        this.course = calling.createCourse(this.fromRow!);
+        const course = new Course(this.fromRow!, new Stedman());
+        calling.updateCourse(course);
+        this.course = course;
     }
 
     // eslint-disable-next-line id-length
