@@ -6,7 +6,7 @@
  */
 
 import symbolFromBell from './symbolFromBell';
-import { Row } from './types';
+import type { Row } from './types';
 
 /**
  * Converts a {@link Row} into a string.

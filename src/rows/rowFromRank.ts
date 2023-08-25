@@ -8,7 +8,7 @@
  */
 
 import { FACTORIALS } from './constants';
-import { Bell, MutableRow, Row, Stage } from './types';
+import type { Bell, MutableRow, Row, Stage } from './types';
 
 /**
  * Creates a {@link Row} given its rank.

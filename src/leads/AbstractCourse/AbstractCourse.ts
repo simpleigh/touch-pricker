@@ -6,9 +6,9 @@
  */
 
 import { SerialContainer } from '../../blocks';
-import { Row } from '../../rows';
+import type { Row } from '../../rows';
 import * as Templates from '../../templates';
-import AbstractLead from '../AbstractLead';
+import type AbstractLead from '../AbstractLead';
 import Call from '../Call';
 import html from './html.dot';
 import text from './text.dot';

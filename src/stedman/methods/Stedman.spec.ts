@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { Row, Stage } from '../../rows';
+import { type Row, Stage } from '../../rows';
 import SixType from '../SixType';
 import testAbstractMethodImplementation from './AbstractMethod/testAbstractMethodImplementation';
 import Stedman from './Stedman';

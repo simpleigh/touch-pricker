@@ -6,10 +6,10 @@
  */
 
 import { AbstractLead, Call } from '../../../leads';
-import { Row } from '../../../rows';
+import type { Row } from '../../../rows';
 import * as Templates from '../../../templates';
 import * as Changes from '../../changes';
-import SixType from '../../SixType';
+import type SixType from '../../SixType';
 import mbd from './mbd.dot';
 import siril from './siril.dot';
 

@@ -9,7 +9,7 @@ import { Call } from '../../leads';
 import testAbstractCourseImplementation from '../../leads/AbstractCourse/testAbstractCourseImplementation';
 import { rounds, rowFromString, Stage, stringFromRow } from '../../rows';
 import { StringArray } from '../../visitors';
-import { AbstractMethod, Erin, Stedman, StedmanJump } from '../methods';
+import { type AbstractMethod, Erin, Stedman, StedmanJump } from '../methods';
 import Parser from '../Parser';
 import SixType from '../SixType';
 import Course from '.';

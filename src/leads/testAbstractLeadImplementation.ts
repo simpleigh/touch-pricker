@@ -6,10 +6,16 @@
  */
 
 import testAbstractBlockImplementation from '../blocks/testAbstractBlockImplementation';
-import { AbstractBlock } from '../blocks';
-import { rounds, Row, rowFromString, Stage, stringFromRow } from '../rows';
+import type { AbstractBlock } from '../blocks';
+import {
+    rounds,
+    type Row,
+    rowFromString,
+    type Stage,
+    stringFromRow,
+} from '../rows';
 import { AbstractVisitor, StringArray } from '../visitors';
-import AbstractLead from './AbstractLead';
+import type AbstractLead from './AbstractLead';
 import Call from './Call';
 import { Course } from './testBlocks';
 

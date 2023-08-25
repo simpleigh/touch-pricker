@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { Row, Stage } from '../rows';
-import Call from './Call';
+import type { Row, Stage } from '../rows';
+import type Call from './Call';
 
 /**
  * A table of lead heads indexed by call and stage

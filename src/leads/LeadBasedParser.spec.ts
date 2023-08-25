@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { rounds, Row, Stage } from '../rows';
+import { rounds, type Row, Stage } from '../rows';
 import Call from './Call';
 import LeadBasedParser from './LeadBasedParser';
 import { Course, Touch } from './testBlocks';

@@ -5,9 +5,9 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { rounds, Row, rowFromString, Stage } from '../rows';
+import { rounds, type Row, rowFromString, type Stage } from '../rows';
 import { Proof, StringArray } from '../visitors';
-import AbstractBlock from './AbstractBlock';
+import type AbstractBlock from './AbstractBlock';
 import testAbstractBlockImplementation from './testAbstractBlockImplementation';
 import AbstractContainer from './AbstractContainer';
 

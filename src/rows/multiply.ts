@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { MutableRow, Row } from './types';
+import type { MutableRow, Row } from './types';
 
 /**
  * Computes row1 × row 2

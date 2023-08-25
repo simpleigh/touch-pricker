@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import Pricker from './Pricker';
+import type Pricker from './Pricker';
 
 /**
  * A `window` with an attached pricker

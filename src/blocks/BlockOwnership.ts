@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import Notifiable from './Notifiable';
+import type Notifiable from './Notifiable';
 
 /**
  * Ownership of a block

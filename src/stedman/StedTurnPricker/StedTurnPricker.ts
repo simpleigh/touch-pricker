@@ -14,15 +14,15 @@ import {
     multiply,
     rankFromRow,
     rounds,
-    Row,
+    type Row,
     rowFromString,
     Stage,
     stringFromRow,
     Uint4Table,
 } from '../../rows';
 import * as Templates from '../../templates';
-import Course from '../Course';
-import { Calling, searchAsync } from '../searching';
+import type Course from '../Course';
+import { type Calling, searchAsync } from '../searching';
 import css from './css.dot';
 import html from './html.dot';
 import select from './select.dot';

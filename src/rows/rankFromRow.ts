@@ -8,7 +8,7 @@
  */
 
 import { FACTORIALS } from './constants';
-import { Row } from './types';
+import type { Row } from './types';
 
 /**
  * Computes the rank of a {@link Row}.

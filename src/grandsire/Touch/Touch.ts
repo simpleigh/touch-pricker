@@ -9,7 +9,7 @@ import { RandomAccessContainer } from '../../blocks';
 import { Call } from '../../leads';
 import { stringFromRow } from '../../rows';
 import * as Templates from '../../templates';
-import Course from '../Course';
+import type Course from '../Course';
 import Lead from '../Lead';
 import Parser from '../Parser';
 import select from './select.dot';

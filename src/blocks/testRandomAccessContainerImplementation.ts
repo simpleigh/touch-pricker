@@ -5,10 +5,10 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { rounds, Row, Stage } from '../rows';
-import AbstractBlock from './AbstractBlock';
+import { rounds, type Row, type Stage } from '../rows';
+import type AbstractBlock from './AbstractBlock';
 import testAbstractContainerImplementation from './testAbstractContainerImplementation';
-import RandomAccessContainer from './RandomAccessContainer';
+import type RandomAccessContainer from './RandomAccessContainer';
 
 type TestContainer = RandomAccessContainer<AbstractBlock>;
 

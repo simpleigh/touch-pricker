@@ -8,7 +8,7 @@
 import multiply from './multiply';
 import rowFromString from './rowFromString';
 import stringFromRow from './stringFromRow';
-import { Row, Stage } from './types';
+import { type Row, Stage } from './types';
 
 describe('multiply function', () => {
     const test = (

@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { Change, MutableRow } from '../rows';
+import type { Change, MutableRow } from '../rows';
 
 /**
  * Simple functions to permute rows

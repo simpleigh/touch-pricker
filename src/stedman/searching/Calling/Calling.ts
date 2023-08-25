@@ -6,7 +6,7 @@
  */
 
 import { Call } from '../../../leads';
-import { Row } from '../../../rows';
+import type { Row } from '../../../rows';
 import * as Templates from '../../../templates';
 import Course from '../../Course';
 import { Stedman } from '../../methods';

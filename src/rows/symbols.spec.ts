@@ -7,7 +7,7 @@
 
 import bellFromSymbol from './bellFromSymbol';
 import symbolFromBell from './symbolFromBell';
-import { Bell } from './types';
+import type { Bell } from './types';
 
 const testCases: [string, Bell][] = [
     ['1', 1],

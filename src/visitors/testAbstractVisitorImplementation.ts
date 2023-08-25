@@ -6,7 +6,7 @@
  */
 
 import { rounds, rowFromString, Stage } from '../rows';
-import AbstractVisitor from './AbstractVisitor';
+import type AbstractVisitor from './AbstractVisitor';
 
 /**
  * Tests that a visitor behaves as an AbstractVisitor

@@ -6,7 +6,7 @@
  */
 
 import AbstractPrintable from './AbstractPrintable';
-import { Context, Templates as TemplateProperty } from './types';
+import type { Context, Templates as TemplateProperty } from './types';
 import * as Templates from '.';
 
 describe('makePrintable decorator', () => {

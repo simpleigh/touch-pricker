@@ -5,7 +5,14 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { Change, inverse, MutableRow, rounds, Row, Stage } from '../../rows';
+import {
+    type Change,
+    inverse,
+    type MutableRow,
+    rounds,
+    type Row,
+    type Stage,
+} from '../../rows';
 import {
     permute1,
     permute3,
@@ -13,8 +20,8 @@ import {
     permuteN,
     permuteSingle,
 } from '../changes';
-import Course from '../Course';
-import { AbstractSix, Quick, Slow } from '../sixes';
+import type Course from '../Course';
+import { type AbstractSix, Quick, Slow } from '../sixes';
 import SixType from '../SixType';
 import AbstractMethod from './AbstractMethod';
 

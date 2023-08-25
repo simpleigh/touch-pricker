@@ -6,7 +6,13 @@
  */
 
 import { Call } from '../leads';
-import { Change, MutableRow, rounds, Stage, stringFromRow } from '../rows';
+import {
+    type Change,
+    type MutableRow,
+    rounds,
+    Stage,
+    stringFromRow,
+} from '../rows';
 import * as Changes from './changes';
 
 const createChangeTests =

@@ -15,7 +15,7 @@ eslint-disable
 */
 
 import AbstractPrintable from './AbstractPrintable';
-import { Context, Templates } from './types';
+import type { Context, Templates } from './types';
 
 /**
  * Decorator that makes a class printable.

@@ -5,10 +5,10 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { AbstractLead, Call, LeadHeadTable } from '../../leads';
-import { MutableRow, Stage, symbolFromBell } from '../../rows';
+import { AbstractLead, Call, type LeadHeadTable } from '../../leads';
+import { type MutableRow, Stage, symbolFromBell } from '../../rows';
 import * as Templates from '../../templates';
-import { AbstractVisitor } from '../../visitors';
+import type { AbstractVisitor } from '../../visitors';
 import * as Changes from '../changes';
 import mbd from './mbd.dot';
 import siril from './siril.dot';

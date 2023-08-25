@@ -10,7 +10,7 @@ import Carter from '../Carter';
 import Erin from '../Erin';
 import Stedman from '../Stedman';
 import StedmanJump from '../StedmanJump';
-import AbstractMethod from '.';
+import type AbstractMethod from '.';
 
 /**
  * Tests the template behaves like the parent version

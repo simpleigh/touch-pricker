@@ -6,7 +6,7 @@
  */
 
 import { Call } from '../leads';
-import { Change, MutableRow } from '../rows';
+import type { Change, MutableRow } from '../rows';
 
 /**
  * Simple functions to permute rows

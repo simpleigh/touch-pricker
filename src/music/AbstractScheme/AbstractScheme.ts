@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { rounds, Stage, stringFromRow } from '../../rows';
-import AbstractMatcher from '../AbstractMatcher';
+import { rounds, type Stage, stringFromRow } from '../../rows';
+import type AbstractMatcher from '../AbstractMatcher';
 import MatcherSet from '../MatcherSet';
 
 /**

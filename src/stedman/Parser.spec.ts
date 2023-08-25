@@ -6,7 +6,7 @@
  */
 
 import { rounds, rowFromString, Stage } from '../rows';
-import { AbstractMethod, Erin, Stedman, StedmanJump } from './methods';
+import { type AbstractMethod, Erin, Stedman, StedmanJump } from './methods';
 import Parser from './Parser';
 
 describe('Parser for Stedman', () => {

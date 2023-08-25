@@ -5,9 +5,9 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { AbstractBlock, BlockDirectory } from '../blocks';
-import { AbstractMatcher } from '../music';
-import { Row, stringFromRow } from '../rows';
+import { type AbstractBlock, BlockDirectory } from '../blocks';
+import type { AbstractMatcher } from '../music';
+import { type Row, stringFromRow } from '../rows';
 import AbstractVisitor from './AbstractVisitor';
 
 /**

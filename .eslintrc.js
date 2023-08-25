@@ -203,7 +203,7 @@ module.exports = {
         'import/no-webpack-loader-syntax': 'error',
 
         // eslint-plugin-import: Style guide
-        'import/consistent-type-specifier-style': 'error',
+        'import/consistent-type-specifier-style': 'off',
         'import/dynamic-import-chunkname': 'error',
         'import/exports-last': 'off',
         'import/extensions': 'error',
@@ -278,7 +278,7 @@ module.exports = {
 
                 // ESLint Plugin TypeScript
                 '@typescript-eslint/consistent-type-exports': 'error',
-                '@typescript-eslint/consistent-type-imports': 'off',  // TODO: enable this
+                '@typescript-eslint/consistent-type-imports': 'error',
                 '@typescript-eslint/explicit-member-accessibility': ['error', {
                     accessibility: 'explicit',
                     overrides: {

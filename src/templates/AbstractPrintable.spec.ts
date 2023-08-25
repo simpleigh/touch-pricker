@@ -6,7 +6,7 @@
  */
 
 import { stringFromRow } from '../rows';
-import { Context } from './types';
+import type { Context } from './types';
 import * as Templates from '.';
 
 describe('Printable implementation', () => {

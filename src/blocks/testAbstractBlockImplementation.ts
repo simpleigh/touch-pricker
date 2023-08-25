@@ -5,9 +5,15 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { MutableRow, rounds, Row, rowFromString, Stage } from '../rows';
+import {
+    type MutableRow,
+    rounds,
+    type Row,
+    rowFromString,
+    type Stage,
+} from '../rows';
 import { AbstractVisitor, Counter } from '../visitors';
-import AbstractBlock from './AbstractBlock';
+import type AbstractBlock from './AbstractBlock';
 import AbstractContainer from './AbstractContainer';
 
 class Container extends AbstractContainer<AbstractBlock> {}

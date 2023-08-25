@@ -6,9 +6,9 @@
  */
 
 import { AbstractBlock } from '../blocks';
-import { multiply, Row } from '../rows';
+import { multiply, type Row } from '../rows';
 import Call from './Call';
-import LeadHeadTable from './LeadHeadTable';
+import type LeadHeadTable from './LeadHeadTable';
 
 /**
  * Lead class

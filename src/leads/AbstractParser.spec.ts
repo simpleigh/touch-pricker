@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { rounds, Row, rowFromString, Stage } from '../rows';
+import { rounds, type Row, rowFromString, Stage } from '../rows';
 import { Course, Touch } from './testBlocks';
 import AbstractParser from './AbstractParser';
 

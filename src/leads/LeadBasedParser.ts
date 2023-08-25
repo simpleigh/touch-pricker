@@ -5,9 +5,9 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { RandomAccessContainer, SerialContainer } from '../blocks';
-import { Row } from '../rows';
-import AbstractLead from './AbstractLead';
+import type { RandomAccessContainer, SerialContainer } from '../blocks';
+import type { Row } from '../rows';
+import type AbstractLead from './AbstractLead';
 import AbstractParser from './AbstractParser';
 import Call from './Call';
 

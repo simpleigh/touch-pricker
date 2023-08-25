@@ -6,7 +6,7 @@
  */
 
 import { Stage } from '../rows';
-import AbstractMatcher from './AbstractMatcher';
+import type AbstractMatcher from './AbstractMatcher';
 import AbstractScheme from './AbstractScheme';
 import MatchType from './MatchType';
 import Pattern from './Pattern';

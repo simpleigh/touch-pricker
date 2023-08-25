@@ -5,9 +5,9 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { Stage } from '../../rows';
+import type { Stage } from '../../rows';
 import testAbstractMatcherImplementation from '../testAbstractMatcherImplementation';
-import AbstractScheme from '.';
+import type AbstractScheme from '.';
 
 /**
  * Tests that a scheme behaves as an AbstractScheme

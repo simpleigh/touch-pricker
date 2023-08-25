@@ -8,7 +8,7 @@
 import changeFromNotation from './changeFromNotation';
 import rounds from './rounds';
 import rowFromString from './rowFromString';
-import { MutableRow, Stage } from './types';
+import { type MutableRow, Stage } from './types';
 
 describe('changeFromNotation function', () => {
     // prettier-ignore

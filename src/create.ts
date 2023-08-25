@@ -7,12 +7,12 @@
 
 import template from './create.dot';
 import { createAndAppendStyle, createIframe, injectIframeData } from './dom';
-import Options from './Options';
-import Pricker from './Pricker';
-import PrickerWindow from './PrickerWindow';
+import type Options from './Options';
+import type Pricker from './Pricker';
+import type PrickerWindow from './PrickerWindow';
 import { MbdPricker as Grandsire } from './grandsire';
 import { MbdPricker as Stedman, StedTurnPricker as StedTurn } from './stedman';
-import AbstractPricker from './AbstractPricker';
+import type AbstractPricker from './AbstractPricker';
 
 type PrickerConstructor = new (_iframe?: HTMLIFrameElement) => AbstractPricker;
 

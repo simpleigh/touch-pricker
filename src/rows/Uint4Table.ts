@@ -10,7 +10,7 @@
 /* eslint-disable no-bitwise */
 
 import { FACTORIALS } from './constants';
-import { Stage } from './types';
+import type { Stage } from './types';
 
 /**
  * Data table that stores a 4-bit unsigned integer for each row.

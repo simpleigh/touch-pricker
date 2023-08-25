@@ -5,9 +5,9 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { Row, Stage } from '../../rows';
-import Course from '../Course';
-import { AbstractSix, Slow } from '../sixes';
+import type { Row, Stage } from '../../rows';
+import type Course from '../Course';
+import { type AbstractSix, Slow } from '../sixes';
 import SixType from '../SixType';
 import AbstractMethod from './AbstractMethod';
 

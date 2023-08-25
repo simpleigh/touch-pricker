@@ -6,13 +6,13 @@
  */
 
 import testSerialContainerImplementation from '../../blocks/testSerialContainerImplementation';
-import { rounds, Row, Stage } from '../../rows';
-import AbstractLead from '../AbstractLead';
+import { rounds, type Row, type Stage } from '../../rows';
+import type AbstractLead from '../AbstractLead';
 import Call from '../Call';
 import { Touch } from '../testBlocks';
 import testHtmlAbstractCourseTemplate from './testHtmlAbstractCourseTemplate';
 import testTextAbstractCourseTemplate from './testTextAbstractCourseTemplate';
-import AbstractCourse from '.';
+import type AbstractCourse from '.';
 
 /**
  * Test that a course behaves as an AbstractCourse

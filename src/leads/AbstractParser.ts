@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { AbstractBlock, RandomAccessContainer } from '../blocks';
-import { rounds, Row, Stage } from '../rows';
+import type { AbstractBlock, RandomAccessContainer } from '../blocks';
+import { rounds, type Row, Stage } from '../rows';
 
 /**
  * Abstract class representing a "parser" for touches

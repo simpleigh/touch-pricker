@@ -5,11 +5,11 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { rounds, Row, Stage } from '../rows';
-import AbstractBlock from './AbstractBlock';
+import { rounds, type Row, type Stage } from '../rows';
+import type AbstractBlock from './AbstractBlock';
 import AbstractContainer from './AbstractContainer';
 import testAbstractContainerImplementation from './testAbstractContainerImplementation';
-import SerialContainer from './SerialContainer';
+import type SerialContainer from './SerialContainer';
 
 type TestContainer = SerialContainer<AbstractBlock>;
 

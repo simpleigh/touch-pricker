@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import AbstractMatcher from './AbstractMatcher';
+import type AbstractMatcher from './AbstractMatcher';
 import AbstractScheme from './AbstractScheme';
 import MatcherSet from './MatcherSet';
 import MatchType from './MatchType';

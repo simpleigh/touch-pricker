@@ -6,7 +6,7 @@
  */
 
 import rounds from './rounds';
-import { Row, Stage as S } from './types';
+import { type Row, Stage as S } from './types';
 
 describe('rounds function', () => {
     // prettier-ignore

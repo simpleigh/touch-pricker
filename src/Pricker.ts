@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import * as Templates from './templates';
+import type * as Templates from './templates';
 
 /**
  * Represents a pricker

@@ -6,8 +6,8 @@
  */
 
 import { Call } from '../../../leads';
-import { rounds, Row, Stage } from '../../../rows';
-import AbstractSix from '.';
+import { rounds, type Row, Stage } from '../../../rows';
+import type AbstractSix from '.';
 
 /**
  * Tests the template behaves like the parent version

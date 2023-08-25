@@ -7,7 +7,7 @@
 
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { rankFromRow, Row, Stage, Uint4Table } from '../../rows';
+import { rankFromRow, type Row, Stage, type Uint4Table } from '../../rows';
 import createTable from './createTable';
 
 describe('createTable function', () => {

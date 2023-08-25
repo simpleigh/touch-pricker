@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { Row } from '../rows';
-import { AbstractSix, Cold, Four, Eight, Hot, Quick, Slow } from './sixes';
+import type { Row } from '../rows';
+import { type AbstractSix, Cold, Four, Eight, Hot, Quick, Slow } from './sixes';
 import SixType from './SixType';
 
 type SixConstructor = new (initialRow: Row) => AbstractSix;

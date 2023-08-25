@@ -6,10 +6,10 @@
  */
 
 import testAbstractBlockImplementation from '../../blocks/testAbstractBlockImplementation';
-import { rounds, Row, rowFromString, Stage as S } from '../../rows';
+import { rounds, type Row, rowFromString, Stage as S } from '../../rows';
 import { StringArray } from '../../visitors';
 import { AbstractMethod, Carter, Erin, Stedman, StedmanJump } from '../methods';
-import { AbstractSix, Cold } from '../sixes';
+import { type AbstractSix, Cold } from '../sixes';
 import SixType from '../SixType';
 import Start from '.';
 

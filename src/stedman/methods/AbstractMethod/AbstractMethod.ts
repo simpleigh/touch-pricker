@@ -5,11 +5,11 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { Row, Stage } from '../../../rows';
+import type { Row, Stage } from '../../../rows';
 import * as Templates from '../../../templates';
-import Course from '../../Course';
-import { AbstractSix } from '../../sixes';
-import SixType from '../../SixType';
+import type Course from '../../Course';
+import type { AbstractSix } from '../../sixes';
+import type SixType from '../../SixType';
 import select from './select.dot';
 
 /**

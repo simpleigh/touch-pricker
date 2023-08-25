@@ -6,15 +6,27 @@
  */
 
 import AbstractPricker from '../../AbstractPricker';
-import { BlockDirectory, Notifiable } from '../../blocks';
+import type { BlockDirectory, Notifiable } from '../../blocks';
 import { hide, polyfillTree, show } from '../../dom';
 import { MbdScheme, RunsScheme } from '../../music';
-import { rounds, Row, rowFromString, Stage, stringFromRow } from '../../rows';
+import {
+    rounds,
+    type Row,
+    rowFromString,
+    Stage,
+    stringFromRow,
+} from '../../rows';
 import * as Templates from '../../templates';
 import * as Visitors from '../../visitors';
 import Course from '../Course';
-import { AbstractMethod, Carter, Erin, Stedman, StedmanJump } from '../methods';
-import SixType from '../SixType';
+import {
+    type AbstractMethod,
+    Carter,
+    Erin,
+    Stedman,
+    StedmanJump,
+} from '../methods';
+import type SixType from '../SixType';
 import Touch from '../Touch';
 import css from './css.dot';
 import html from './html.dot';

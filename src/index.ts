@@ -10,18 +10,18 @@ import create from './create';
 import * as Grandsire from './grandsire';
 import { Call } from './leads';
 import * as Music from './music';
-import Options from './Options';
-import Pricker from './Pricker';
+import type Options from './Options';
+import type Pricker from './Pricker';
 import {
-    Bell,
+    type Bell,
     bellFromSymbol,
-    Change,
+    type Change,
     changeFromNotation,
     inverse,
     multiply,
     rankFromRow,
     rounds,
-    Row,
+    type Row,
     rowFromRank,
     rowFromString,
     Stage,

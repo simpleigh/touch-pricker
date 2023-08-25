@@ -9,7 +9,7 @@
 
 import bellFromSymbol from './bellFromSymbol';
 import symbolFromBell from './symbolFromBell';
-import { Bell, Change, MutableRow, Stage } from './types';
+import type { Bell, Change, MutableRow, Stage } from './types';
 
 /**
  * Helper function that extends a change to swap two bells

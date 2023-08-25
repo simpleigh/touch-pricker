@@ -6,8 +6,8 @@
  */
 
 import { getHeight, getWidth } from './dom';
-import Pricker from './Pricker';
-import * as Templates from './templates';
+import type Pricker from './Pricker';
+import type * as Templates from './templates';
 
 abstract class AbstractPricker implements Pricker {
     /**

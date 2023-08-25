@@ -7,7 +7,7 @@
 
 import rowFromString from './rowFromString';
 import stringFromRow from './stringFromRow';
-import { Row, Stage } from './types';
+import { type Row, Stage } from './types';
 
 // prettier-ignore
 const testCases: [string, Row][] = [

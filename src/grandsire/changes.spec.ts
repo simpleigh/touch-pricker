@@ -5,7 +5,13 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { Change, MutableRow, rounds, Stage, stringFromRow } from '../rows';
+import {
+    type Change,
+    type MutableRow,
+    rounds,
+    Stage,
+    stringFromRow,
+} from '../rows';
 import * as Changes from './changes';
 
 const createChangeTests =

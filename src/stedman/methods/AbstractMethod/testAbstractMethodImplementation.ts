@@ -8,7 +8,7 @@
 import { rowFromString, Stage } from '../../../rows';
 import Course from '../../Course';
 import SixType from '../../SixType';
-import AbstractMethod from '.';
+import type AbstractMethod from '.';
 
 /**
  * Tests that a method behaves as an AbstractMethod

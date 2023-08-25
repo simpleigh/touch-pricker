@@ -6,7 +6,7 @@
  */
 
 import { AbstractCourse, Call } from '../../leads';
-import { stringFromRow, Row } from '../../rows';
+import { stringFromRow, type Row } from '../../rows';
 import * as Templates from '../../templates';
 import Lead from '../Lead';
 import Parser from '../Parser';

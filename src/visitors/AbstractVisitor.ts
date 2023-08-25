@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { AbstractBlock } from '../blocks';
-import { rounds, Row, stringFromRow } from '../rows';
+import type { AbstractBlock } from '../blocks';
+import { rounds, type Row, stringFromRow } from '../rows';
 
 /**
  * Visitor classes to analyse blocks

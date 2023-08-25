@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { Bell, MutableRow, Row } from './types';
+import type { Bell, MutableRow, Row } from './types';
 
 /**
  * Computes the inverse of a row.

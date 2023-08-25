@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { Bell } from './types';
+import type { Bell } from './types';
 
 /* eslint-disable
 @typescript-eslint/naming-convention,

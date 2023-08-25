@@ -6,10 +6,16 @@
  */
 
 import AbstractPricker from '../../AbstractPricker';
-import { BlockDirectory, Notifiable } from '../../blocks';
+import type { BlockDirectory, Notifiable } from '../../blocks';
 import { polyfillTree } from '../../dom';
 import { MbdScheme, RunsScheme } from '../../music';
-import { rounds, Row, rowFromString, Stage, stringFromRow } from '../../rows';
+import {
+    rounds,
+    type Row,
+    rowFromString,
+    Stage,
+    stringFromRow,
+} from '../../rows';
 import * as Templates from '../../templates';
 import * as Visitors from '../../visitors';
 import Course from '../Course';

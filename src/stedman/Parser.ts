@@ -6,9 +6,9 @@
  */
 
 import { LeadBasedParser } from '../leads';
-import { Row } from '../rows';
+import type { Row } from '../rows';
 import Course from './Course';
-import { AbstractMethod, Stedman } from './methods';
+import { type AbstractMethod, Stedman } from './methods';
 import Touch from './Touch';
 
 /**

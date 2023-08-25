@@ -6,12 +6,12 @@
  */
 
 import { AbstractCourse, Call } from '../../leads';
-import { Row } from '../../rows';
+import type { Row } from '../../rows';
 import * as Templates from '../../templates';
-import { AbstractMethod, Stedman } from '../methods';
+import { type AbstractMethod, Stedman } from '../methods';
 import Parser from '../Parser';
-import { AbstractSix } from '../sixes';
-import SixType from '../SixType';
+import type { AbstractSix } from '../sixes';
+import type SixType from '../SixType';
 import mbd from './mbd.dot';
 import siril from './siril.dot';
 

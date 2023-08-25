@@ -11,7 +11,7 @@ import {
     multiply,
     rankFromRow,
     rowFromRank,
-    Stage,
+    type Stage,
     Uint4Table,
 } from '../../rows';
 import { Stedman } from '../methods';

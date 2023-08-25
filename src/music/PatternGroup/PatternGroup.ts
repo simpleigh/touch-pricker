@@ -7,7 +7,7 @@
 
 import * as Templates from '../../templates';
 import AbstractMatcher from '../AbstractMatcher';
-import Pattern from '../Pattern';
+import type Pattern from '../Pattern';
 import text from './text.dot';
 
 /**

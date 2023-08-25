@@ -8,7 +8,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-enum-comparison */
 
 import bellFromSymbol from './bellFromSymbol';
-import { Bell, MutableRow, Row, Stage } from './types';
+import type { Bell, MutableRow, Row, Stage } from './types';
 
 /**
  * Converts a string into a {@link Row}.

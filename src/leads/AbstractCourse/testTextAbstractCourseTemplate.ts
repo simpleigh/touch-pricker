@@ -5,10 +5,10 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { rounds, Row, Stage, stringFromRow } from '../../rows';
-import AbstractLead from '../AbstractLead';
+import { rounds, type Row, type Stage, stringFromRow } from '../../rows';
+import type AbstractLead from '../AbstractLead';
 import Call from '../Call';
-import AbstractCourse from './AbstractCourse';
+import type AbstractCourse from './AbstractCourse';
 
 /**
  * Tests the template behaves like the parent version

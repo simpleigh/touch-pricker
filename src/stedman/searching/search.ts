@@ -10,9 +10,9 @@
 import {
     multiply,
     rankFromRow,
-    Row,
+    type Row,
     rowFromRank,
-    Uint4Table,
+    type Uint4Table,
 } from '../../rows';
 import { Stedman } from '../methods';
 import Calling from './Calling';

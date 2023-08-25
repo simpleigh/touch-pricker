@@ -5,9 +5,9 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { Call, LeadHeadTable } from '../../leads';
-import { MutableRow, Stage } from '../../rows';
-import { AbstractVisitor } from '../../visitors';
+import { Call, type LeadHeadTable } from '../../leads';
+import { type MutableRow, Stage } from '../../rows';
+import type { AbstractVisitor } from '../../visitors';
 import * as Changes from '../changes';
 import SixType from '../SixType';
 import AbstractSix from './AbstractSix';

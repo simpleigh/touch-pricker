@@ -7,9 +7,9 @@
 
 import { BlockDirectory } from '../../../blocks';
 import { Call } from '../../../leads';
-import { rounds, Row, Stage, stringFromRow } from '../../../rows';
+import { rounds, type Row, Stage, stringFromRow } from '../../../rows';
 import Course from '../../Course';
-import AbstractSix from '.';
+import type AbstractSix from '.';
 
 /**
  * Tests the template behaves like the parent version

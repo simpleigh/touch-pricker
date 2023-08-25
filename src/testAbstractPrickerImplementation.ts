@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import AbstractPricker from './AbstractPricker';
+import type AbstractPricker from './AbstractPricker';
 
 /**
  * Tests that a pricker behaves as an AbstractPricker

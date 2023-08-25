@@ -5,7 +5,7 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import AbstractBlock from './AbstractBlock';
+import type AbstractBlock from './AbstractBlock';
 import AbstractContainer from './AbstractContainer';
 
 /**

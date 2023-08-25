@@ -5,15 +5,21 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { Call } from '../../../leads';
+import type { Call } from '../../../leads';
 import testAbstractLeadImplementation from '../../../leads/testAbstractLeadImplementation';
-import { MutableRow, rounds, Row, rowFromString, Stage } from '../../../rows';
+import {
+    type MutableRow,
+    rounds,
+    type Row,
+    rowFromString,
+    Stage,
+} from '../../../rows';
 import { StringArray } from '../../../visitors';
 import * as Changes from '../../changes';
-import SixType from '../../SixType';
+import type SixType from '../../SixType';
 import testMbdAbstractSixTemplate from './testMbdAbstractSixTemplate';
 import testSirilAbstractSixTemplate from './testSirilAbstractSixTemplate';
-import AbstractSix from '.';
+import type AbstractSix from '.';
 
 const testSixImplementation = (
     factory: (initialRow: Row) => AbstractSix,

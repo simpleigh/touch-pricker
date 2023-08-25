@@ -6,7 +6,7 @@
  */
 
 import { LeadBasedParser } from '../leads';
-import { Row } from '../rows';
+import type { Row } from '../rows';
 import Course from './Course';
 import Touch from './Touch';
 

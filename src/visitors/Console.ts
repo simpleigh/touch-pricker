@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { AbstractBlock } from '../blocks';
-import { Row, stringFromRow } from '../rows';
+import type { AbstractBlock } from '../blocks';
+import { type Row, stringFromRow } from '../rows';
 import AbstractVisitor from './AbstractVisitor';
 
 /**

@@ -6,10 +6,10 @@
  */
 
 import { RandomAccessContainer } from '../blocks';
-import { rounds, Row, Stage } from '../rows';
+import { rounds, type Row, type Stage } from '../rows';
 import AbstractLead from './AbstractLead';
 import Call from './Call';
-import LeadHeadTable from './LeadHeadTable';
+import type LeadHeadTable from './LeadHeadTable';
 import AbstractCourse from './AbstractCourse';
 
 export class Lead extends AbstractLead {

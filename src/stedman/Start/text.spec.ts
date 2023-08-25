@@ -6,7 +6,13 @@
  */
 
 import { rounds, Stage } from '../../rows';
-import { AbstractMethod, Carter, Erin, Stedman, StedmanJump } from '../methods';
+import {
+    type AbstractMethod,
+    Carter,
+    Erin,
+    Stedman,
+    StedmanJump,
+} from '../methods';
 import SixType from '../SixType';
 import Start from '.';
 

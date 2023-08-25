@@ -6,12 +6,12 @@
  */
 
 import { RandomAccessContainer } from '../../blocks';
-import { rounds, Row } from '../../rows';
+import { rounds, type Row } from '../../rows';
 import * as Templates from '../../templates';
-import { AbstractVisitor } from '../../visitors';
+import type { AbstractVisitor } from '../../visitors';
 import constructorFromType from '../constructorFromType';
-import Course from '../Course';
-import { AbstractMethod, Stedman } from '../methods';
+import type Course from '../Course';
+import { type AbstractMethod, Stedman } from '../methods';
 import Parser from '../Parser';
 import * as sixes from '../sixes';
 import Start from '../Start';

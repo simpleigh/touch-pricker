@@ -6,7 +6,7 @@
  */
 
 import { stringFromRow } from '../rows';
-import { Context, Printable, Templates } from './types';
+import type { Context, Printable, Templates } from './types';
 
 /**
  * Internal implementation of print functionality.

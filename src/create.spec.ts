@@ -8,8 +8,8 @@
 import create from './create';
 import template from './create.dot';
 import * as Dom from './dom';
-import Pricker from './Pricker';
-import PrickerWindow from './PrickerWindow';
+import type Pricker from './Pricker';
+import type PrickerWindow from './PrickerWindow';
 import { MbdPricker as Grandsire } from './grandsire';
 import { MbdPricker as Stedman, StedTurnPricker as StedTurn } from './stedman';
 
