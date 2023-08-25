@@ -20,10 +20,14 @@ import {
     stringFromRow,
     Uint4Table,
 } from '../../rows';
+import {
+    type Calling,
+    createTranspositions,
+    searchAsync,
+} from '../../searching';
 import * as Templates from '../../templates';
 import Course from '../Course';
 import { Stedman } from '../methods';
-import { type Calling, searchAsync } from '../searching';
 import css from './css.dot';
 import html from './html.dot';
 import select from './select.dot';
@@ -120,11 +124,22 @@ class StedTurnPricker extends AbstractPricker {
             this.courses = [];
         } else {
             this.showModal('Searching for courses...');
+
+            const method = new Stedman();
+            const course = new Course(rounds(this._stage), method);
+            const transpositions = createTranspositions(
+                course,
+                method.searchCallingStrings,
+                true,
+            );
+
             const courses = await searchAsync(
                 this._table,
+                transpositions,
                 this._targetRank,
                 this._steps,
             );
+
             this.hideModal();
 
             // Only update after hiding the modal so its width isn't measured

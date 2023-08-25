@@ -5,9 +5,8 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { rounds, rowFromString, Stage } from '../../../rows';
-import Course from '../../Course';
-import { Stedman } from '../../methods';
+import { rounds, rowFromString, Stage } from '../../rows';
+import { Course, Methods } from '../../stedman';
 import Calling from './Calling';
 
 describe('Calling class', () => {
@@ -31,7 +30,10 @@ describe('Calling class', () => {
     describe('Course conversion', () => {
         it('can convert a simple calling', () => {
             const calling = new Calling('-          - ------ ');
-            const course = new Course(rounds(Stage.Cinques), new Stedman());
+            const course = new Course(
+                rounds(Stage.Cinques),
+                new Methods.Stedman(),
+            );
 
             calling.updateCourse(course);
 
@@ -43,7 +45,10 @@ describe('Calling class', () => {
 
         it('can convert a calling with singles', () => {
             const calling = new Calling('-        s  s s      -');
-            const course = new Course(rounds(Stage.Cinques), new Stedman());
+            const course = new Course(
+                rounds(Stage.Cinques),
+                new Methods.Stedman(),
+            );
 
             calling.updateCourse(course);
 
@@ -53,7 +58,10 @@ describe('Calling class', () => {
 
         it('overwrites any existing calls', () => {
             const calling1 = new Calling('   ---sss');
-            const course = new Course(rounds(Stage.Triples), new Stedman());
+            const course = new Course(
+                rounds(Stage.Triples),
+                new Methods.Stedman(),
+            );
             calling1.updateCourse(course);
 
             const calling2 = new Calling(' -s -s -s');
@@ -67,7 +75,7 @@ describe('Calling class', () => {
         it('can convert a calling starting at a different row', () => {
             const calling = new Calling('  -         -- ---- ');
             const row = rowFromString('2143657890E', Stage.Cinques);
-            const course = new Course(row, new Stedman());
+            const course = new Course(row, new Methods.Stedman());
 
             calling.updateCourse(course);
 
@@ -79,7 +87,10 @@ describe('Calling class', () => {
 
         it('can cope with an empty calling', () => {
             const calling = new Calling('');
-            const course = new Course(rounds(Stage.Cinques), new Stedman());
+            const course = new Course(
+                rounds(Stage.Cinques),
+                new Methods.Stedman(),
+            );
 
             calling.updateCourse(course);
 

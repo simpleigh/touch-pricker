@@ -10,14 +10,11 @@
 import {
     multiply,
     rankFromRow,
-    rounds,
-    rowFromRank,
+    type Row,
     type Stage,
+    rowFromRank,
     Uint4Table,
-} from '../../rows';
-import Course from '../Course';
-import { Stedman } from '../methods';
-import createTranspositions from './createTranspositions';
+} from '../rows';
 
 /**
  * Create a data table for use with the {@link search} touch search function.
@@ -36,10 +33,12 @@ import createTranspositions from './createTranspositions';
  * table as we go. We then iterate over those seven new rows generating 49 rows
  * that are two steps from rounds and continue onwards until the table is full.
  * @param stage  Stage for which to build the table.
- * @param logger  Optional logger to output
+ * @param transpositions  Transpositions to use to move between nodes.
+ * @param logger  Optional logger to output.
  */
 const createTable = (
     stage: Stage,
+    transpositions: Map<string, Row>,
     logger: (message: string) => void = () => {
         // NOOP
     },
@@ -47,12 +46,6 @@ const createTable = (
     logger(`Building table on ${stage} bells...`);
 
     const table = new Uint4Table(stage);
-    const method = new Stedman();
-    const course = new Course(rounds(stage), method);
-    const transpositions = createTranspositions(
-        course,
-        method.searchCallingStrings,
-    );
 
     // Set the maximum possible value for each row: we'll reduce this as we go.
     for (let rank = 1; rank < table.length; rank += 1) {

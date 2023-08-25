@@ -7,7 +7,9 @@
 
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { Stage, Uint4Table } from '../../rows';
+import { rounds, type Row, Stage, Uint4Table } from '../rows';
+import { Course, Methods } from '../stedman';
+import createTranspositions from './createTranspositions';
 import search, { extendTouchList, searchAsync } from './search';
 
 describe('extendTouchList function', () => {
@@ -63,15 +65,25 @@ describe('extendTouchList function', () => {
 describe('search function', () => {
     let table: Uint4Table;
 
+    let transpositions: Map<string, Row>;
+
     beforeAll(async () => {
-        const filename = path.join(__dirname, '../../../data/stedman.7.dat');
+        const filename = path.join(__dirname, '../../data/stedman.7.dat');
         const buffer = await readFile(filename);
         const data = new Uint8Array(buffer.buffer);
         table = new Uint4Table(Stage.Triples, data);
+
+        const method = new Methods.Stedman();
+        const course = new Course(rounds(Stage.Triples), method);
+        transpositions = createTranspositions(
+            course,
+            method.searchCallingStrings,
+            true,
+        );
     });
 
     it('can find touches', () => {
-        const touches = search(table, 5039);
+        const touches = search(table, transpositions, 5039);
         expect(touches.length).toBe(6);
     });
 
@@ -99,7 +111,7 @@ describe('search function', () => {
     `;
 
     it('finds the expected touches', () => {
-        const touches = search(table, 5039);
+        const touches = search(table, transpositions, 5039);
         expect(touches).toMatchInlineSnapshot(EXPECTED_TOUCHES);
         expect(touches[0].print('text')).toBe('1 s3 4 6 8 10 14');
         expect(touches[1].print('text')).toBe('1 4 8 9 s12 14');
@@ -110,18 +122,18 @@ describe('search function', () => {
     });
 
     it('can find a large volume of touches', () => {
-        const touches = search(table, 39);
+        const touches = search(table, transpositions, 39);
         expect(touches.length).toBe(2639);
     });
 
     it('can find touches taking more sixes than the minimum', () => {
-        const touches = search(table, 5039, 8);
+        const touches = search(table, transpositions, 5039, 8);
         expect(touches.length).toBe(300);
         expect(touches).toMatchSnapshot();
     });
 
     it('can be called asynchronously', async () => {
-        const touches = await searchAsync(table, 5039);
+        const touches = await searchAsync(table, transpositions, 5039);
         expect(touches).toMatchInlineSnapshot(EXPECTED_TOUCHES);
     });
 });

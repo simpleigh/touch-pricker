@@ -5,19 +5,12 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { rounds, type Row, Stage } from '../../rows';
-import Course from '../Course';
-import {
-    type AbstractMethod,
-    Carter,
-    Erin,
-    Stedman,
-    StedmanJump,
-} from '../methods';
+import { rounds, type Row, Stage } from '../rows';
+import { Course, Methods } from '../stedman';
 import createTranspositions from './createTranspositions';
 
 const testMethod = (
-    method: AbstractMethod,
+    method: Methods.AbstractMethod,
     testCases: [Stage, Map<string, Row>][],
     inverseTestCases: [Stage, Map<string, Row>][],
 ): void => {
@@ -48,7 +41,7 @@ const testMethod = (
 };
 
 testMethod(
-    new Carter(),
+    new Methods.Carter(),
     [
         [
             Stage.Triples,
@@ -128,7 +121,7 @@ testMethod(
 );
 
 testMethod(
-    new Erin(),
+    new Methods.Erin(),
     [
         [
             Stage.Triples,
@@ -184,7 +177,7 @@ testMethod(
 );
 
 testMethod(
-    new Stedman(),
+    new Methods.Stedman(),
     [
         [
             Stage.Triples,
@@ -264,7 +257,7 @@ testMethod(
 );
 
 testMethod(
-    new StedmanJump(),
+    new Methods.StedmanJump(),
     [
         [
             Stage.Triples,

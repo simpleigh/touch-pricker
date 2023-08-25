@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import type { AbstractCourse, AbstractLead } from '../../leads';
-import { inverse, rounds, type Row } from '../../rows';
+import type { AbstractCourse, AbstractLead } from '../leads';
+import { inverse, rounds, type Row } from '../rows';
 import Calling from './Calling';
 
 /**

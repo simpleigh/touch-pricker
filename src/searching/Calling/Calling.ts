@@ -5,8 +5,8 @@
  * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-import { type AbstractCourse, type AbstractLead, Call } from '../../../leads';
-import * as Templates from '../../../templates';
+import { type AbstractCourse, type AbstractLead, Call } from '../../leads';
+import * as Templates from '../../templates';
 import text from './text.dot';
 
 /**

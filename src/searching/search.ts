@@ -10,15 +10,11 @@
 import {
     multiply,
     rankFromRow,
-    rounds,
     type Row,
     rowFromRank,
     type Uint4Table,
-} from '../../rows';
-import Course from '../Course';
-import { Stedman } from '../methods';
+} from '../rows';
 import Calling from './Calling';
-import createTranspositions from './createTranspositions';
 
 /**
  * A cache of search results.
@@ -81,9 +77,9 @@ export const extendTouchList = (
  */
 const recursiveSearch = (
     table: Uint4Table,
+    transpositions: Map<string, Row>,
     targetRank: number,
     steps: number,
-    transpositions: Map<string, Row>,
     cache: Cache = {},
 ): string[] => {
     // Halt recursion if we've run out of steps.
@@ -108,9 +104,9 @@ const recursiveSearch = (
             // If we've got closer to the target then recurse.
             const childTouches = recursiveSearch(
                 table,
+                transpositions,
                 newRank,
                 steps - 1,
-                transpositions,
                 cache,
             );
 
@@ -158,24 +154,18 @@ const recursiveSearch = (
  * or `ss`). We also need to filter out touches where these callings develop
  * _between_ pairs. We can do this as we go.
  * @param table  Data table being used for the search.
+ * @param transpositions  Transpositions to use to move between nodes.
  * @param targetRank  Row we're trying to reach from rounds.
  * @param steps  Number of steps we can take to get to rounds.
  */
 const search = (
     table: Uint4Table,
+    transpositions: Map<string, Row>,
     targetRank: number,
     steps?: number,
 ): Calling[] => {
-    const method = new Stedman();
-    const course = new Course(rounds(table.stage), method);
-    const transpositions = createTranspositions(
-        course,
-        method.searchCallingStrings,
-        true,
-    );
-
     steps ??= table.getValue(targetRank);
-    return recursiveSearch(table, targetRank, steps, transpositions).map(
+    return recursiveSearch(table, transpositions, targetRank, steps).map(
         (calling: string): Calling => new Calling(calling),
     );
 };
@@ -189,12 +179,13 @@ const search = (
  */
 export const searchAsync = async (
     table: Uint4Table,
+    transpositions: Map<string, Row>,
     targetRank: number,
     steps?: number,
 ): Promise<Calling[]> =>
     new Promise<Calling[]>((resolve) => {
         setTimeout(() => {
-            resolve(search(table, targetRank, steps));
+            resolve(search(table, transpositions, targetRank, steps));
         });
     });
 

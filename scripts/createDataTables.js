@@ -26,7 +26,17 @@ const stages = [
 for (const stage of stages) {
     console.time(stage);
 
-    const table = Pricker.Stedman.Searching.createTable(stage, console.log);
+    const method = new Pricker.Stedman.Methods.Stedman();
+    const course = new Pricker.Stedman.Course(Pricker.rounds(stage), method);
+    const transpositions = Pricker.Searching.createTranspositions(
+        course,
+        method.searchCallingStrings,
+    );
+    const table = Pricker.Searching.createTable(
+        stage,
+        transpositions,
+        console.log,
+    );
     writeFileSync(`data/stedman.${stage}.dat`, table.data);
 
     console.timeEnd(stage);

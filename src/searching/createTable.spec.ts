@@ -7,17 +7,26 @@
 
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { rankFromRow, type Row, Stage, type Uint4Table } from '../../rows';
+import { rankFromRow, rounds, type Row, Stage, type Uint4Table } from '../rows';
+import { Course, Methods } from '../stedman';
 import createTable from './createTable';
+import createTranspositions from './createTranspositions';
 
 describe('createTable function', () => {
     let table: Uint4Table;
     let data: Uint8Array;
 
     beforeAll(async () => {
-        table = createTable(Stage.Triples);
+        const method = new Methods.Stedman();
+        const course = new Course(rounds(Stage.Triples), method);
+        const transpositions = createTranspositions(
+            course,
+            method.searchCallingStrings,
+        );
 
-        const filename = path.join(__dirname, '../../../data/stedman.7.dat');
+        table = createTable(Stage.Triples, transpositions);
+
+        const filename = path.join(__dirname, '../../data/stedman.7.dat');
         const buffer = await readFile(filename);
         data = new Uint8Array(buffer.buffer);
     });

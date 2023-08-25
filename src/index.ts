@@ -28,6 +28,7 @@ import {
     stringFromRow,
     Uint4Table,
 } from './rows';
+import * as Searching from './searching';
 import * as Stedman from './stedman';
 import * as Visitors from './visitors';
 
@@ -45,6 +46,7 @@ export {
     rounds,
     rowFromRank,
     rowFromString,
+    Searching,
     Stage,
     Stedman,
     stringFromRow,
