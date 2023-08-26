@@ -22,8 +22,9 @@ import {
 import {
     type Calling,
     createTranspositions,
+    downloadTable,
     searchAsync,
-    Uint4Table,
+    type Uint4Table,
 } from '../../searching';
 import * as Templates from '../../templates';
 import Course from '../Course';
@@ -101,7 +102,7 @@ class StedTurnPricker extends AbstractPricker {
         // TODO: table download URL needs to be customisable
         this.showModal('Downloading data table...');
         try {
-            this._table = await Uint4Table.load(
+            this._table = await downloadTable(
                 this._stage,
                 `../data/stedman.${this._stage}.dat`,
             );

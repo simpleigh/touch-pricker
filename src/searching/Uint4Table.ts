@@ -58,20 +58,6 @@ class Uint4Table {
     }
 
     /**
-     * Download a table from a remote location.
-     * @param stage  Stage on which the table should be valid
-     * @param url    URL from which to download the table
-     * @throws if the data cannot be downloaded or it is the incorrect size
-     */
-    public static async load(stage: Stage, url: string): Promise<Uint4Table> {
-        const response = await fetch(url);
-        const blob = await response.blob();
-        const buffer = await blob.arrayBuffer();
-        const data = new Uint8Array(buffer);
-        return new Uint4Table(stage, data);
-    }
-
-    /**
      * Provides read access to the stage.
      */
     get stage(): Stage {
@@ -115,7 +101,7 @@ class Uint4Table {
         }
 
         const [i, j] = this._computeIndices(rank);
-        this.data[i] = (this.data[i] & (0xf0 >> j)) | (value << j);
+        this._data[i] = (this._data[i] & (0xf0 >> j)) | (value << j);
     }
 
     /**
