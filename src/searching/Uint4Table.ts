@@ -31,30 +31,38 @@ import type { Stage } from '../rows';
  */
 class Uint4Table {
     /**
-     * Raw table data.
+     * Table data.
+     *
+     * Stores the value for each row indexed by rank. On stage _n_ this array
+     * will contain _n_! entries.
      */
     private readonly _data: Uint8Array;
 
     /**
      * Constructor.
      * @param _stage  Stage on which the data is valid
-     * @param data  Raw table data (omit to create an empty table)
+     * @param data  Compressed table data (omit to create an empty table)
      * @throws if the provided data is the incorrect size
      */
     constructor(
         private readonly _stage: Stage,
         data?: Uint8Array,
     ) {
-        const expectedBytes = FACTORIALS[this._stage] / 2;
-        data ??= new Uint8Array(expectedBytes);
+        this._data = new Uint8Array(FACTORIALS[this._stage]);
 
-        if (data.length !== expectedBytes) {
-            throw new Error(
-                `Have ${data.length} bytes but expected ${expectedBytes}`,
-            );
+        if (data) {
+            const expectedBytes = FACTORIALS[this._stage] / 2;
+            if (data.length !== expectedBytes) {
+                throw new Error(
+                    `Have ${data.length} bytes but expected ${expectedBytes}`,
+                );
+            }
+
+            for (let i = 0; i < data.length; i += 1) {
+                this._data[2 * i] = data[i] & 0xf;
+                this._data[2 * i + 1] = (data[i] >> 4) & 0xf;
+            }
         }
-
-        this._data = data;
     }
 
     /**
@@ -72,10 +80,16 @@ class Uint4Table {
     }
 
     /**
-     * Provides read access to the data.
+     * Provides read access to compressed table data.
      */
     get data(): Uint8Array {
-        return this._data;
+        const result = new Uint8Array(FACTORIALS[this._stage] / 2);
+
+        for (let i = 0; i < result.length; i += 1) {
+            result[i] = this._data[2 * i] | this._data[2 * i + 1] << 4;
+        }
+
+        return result;
     }
 
     /**
@@ -85,8 +99,13 @@ class Uint4Table {
      * @throws if the provided `rank` is out of range
      */
     public getValue(rank: number): number {
-        const [i, j] = this._computeIndices(rank);
-        return (this._data[i] >> j) & 0xf;
+        if (rank < 0 || rank >= this.length) {
+            throw new Error(
+                `Rank '${rank}' out of range on stage '${this._stage}'`,
+            );
+        }
+
+        return this._data[rank];
     }
 
     /**
@@ -96,31 +115,17 @@ class Uint4Table {
      * @throws if the provided `rank` or `value` are out of range
      */
     public setValue(rank: number, value: number): void {
-        if (value < 0 || value > 15) {
-            throw new Error(`Value '${value}' out of range of Uint4`);
-        }
-
-        const [i, j] = this._computeIndices(rank);
-        this._data[i] = (this._data[i] & (0xf0 >> j)) | (value << j);
-    }
-
-    /**
-     * Verifies that a `rank` value is within range.
-     * @param rank  Rank value to check
-     * @returns [number, number] indices of the row in the table
-     * @throws if the provided `rank` is out of range
-     */
-    private _computeIndices(rank: number) {
         if (rank < 0 || rank >= this.length) {
             throw new Error(
                 `Rank '${rank}' out of range on stage '${this._stage}'`,
             );
         }
 
-        const i = Math.floor(rank / 2);
-        const j = (rank % 2) * 4;
+        if (value < 0 || value > 15) {
+            throw new Error(`Value '${value}' out of range of Uint4`);
+        }
 
-        return [i, j];
+        this._data[rank] = value;
     }
 }
 
