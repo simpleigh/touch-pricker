@@ -66,10 +66,10 @@ class Erin extends AbstractMethod {
     /**
      * Calling strings for touch searches.
      *
-     * Searches for touches work in steps identified by a {@link Calling}. A
-     * step must include the complete cycle of {@link SixType}s for the method
-     * in order to avoid having to handle different types of six when searching
-     * for touches.
+     * Searches for touches work in steps identified by a
+     * {@link Searching.Calling}. A step must include the complete cycle of
+     * {@link SixType}s for the method in order to avoid having to handle
+     * different types of six when searching for touches.
      *
      * Erin only has one type of six so its step is only one six long. There are
      * three possible callings: a plain slow six, a bob, or a single. Our other

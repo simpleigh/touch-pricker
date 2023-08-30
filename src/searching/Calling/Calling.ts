@@ -13,8 +13,8 @@ import text from './text.dot';
  * Calling of a touch
  *
  * When searching for large volumes of touches we don't want to construct a
- * {@link Course} object for each one. Instead we store a simple calling string
- * representing each touch. This class provides methods to convert such a
+ * {@link Stedman.Course} object for each one. Instead we store a simple calling
+ * string representing each touch. This class provides methods to convert such a
  * calling into more useful formats.
  *
  * ```
@@ -33,7 +33,7 @@ class Calling implements Templates.Interface {
     }
 
     /**
-     * Updates a {@link Course} based on the calling.
+     * Updates a {@link Stedman.Course} based on the calling.
      *
      * ```
      * > const calling = new Calling('- s- - - -   -');

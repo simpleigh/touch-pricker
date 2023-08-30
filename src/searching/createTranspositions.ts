@@ -13,10 +13,10 @@ import Calling from './Calling';
  * Creates transpositions for touch searches.
  *
  * Searches for touches work in steps identified by a {@link Calling}. A step
- * must include the complete cycle of {@link SixType}s for the method in order
- * to avoid having to handle different types of six when searching for touches.
- * We need to know the transposition row associated with each calling so that we
- * can enumerate all possible touches.
+ * must include the complete cycle of sixes for the method in order to avoid
+ * having to handle different types of six when searching for touches. We need
+ * to know the transposition row associated with each calling so that we can
+ * enumerate all possible touches.
  *
  * This function returns a transposition row for each provided calling string in
  * a `Map` from the calling string to the transposition row. By default
