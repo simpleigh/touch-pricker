@@ -75,6 +75,11 @@ class StedTurnPricker extends AbstractPricker {
     private _courses: Calling[];
 
     /**
+     * Time take to complete the search
+     */
+    private _timeTaken?: number;
+
+    /**
      * Course selected in courses list
      */
     private _selectedIndex?: number;
@@ -123,8 +128,10 @@ class StedTurnPricker extends AbstractPricker {
         if (this.steps === 0) {
             // Avoid returning a single (empty) calling if we're already there.
             this.courses = [];
+            this.timeTaken = undefined;
         } else {
             this.showModal('Searching for courses...');
+            const start = performance.now();
 
             const method = new Stedman();
             const course = new Course(rounds(this._stage), method);
@@ -141,6 +148,7 @@ class StedTurnPricker extends AbstractPricker {
                 this._steps,
             );
 
+            this.timeTaken = performance.now() - start;
             this.hideModal();
 
             // Only update after hiding the modal so its width isn't measured
@@ -188,9 +196,9 @@ class StedTurnPricker extends AbstractPricker {
     private set courses(courses: Calling[]) {
         this._courses = courses;
 
-        this.getEl<HTMLDivElement>(
+        this.getEl<HTMLSpanElement>(
             'numCourses',
-        ).innerHTML = `${courses.length} courses`;
+        ).innerText = `${courses.length} courses`;
 
         const coursesDiv = this.getEl<HTMLDivElement>('courses');
         coursesDiv.innerHTML = this.print('select', { courses: this.courses });
@@ -200,6 +208,23 @@ class StedTurnPricker extends AbstractPricker {
         this.course = undefined; // triggers redraw of pricker display
 
         this.resize();
+    }
+
+    private get timeTaken(): number | undefined {
+        return this._timeTaken;
+    }
+
+    private set timeTaken(time: number | undefined) {
+        this._timeTaken = time;
+
+        if (time) {
+            time = Math.round(time);
+            this.getEl<HTMLSpanElement>(
+                'timeTaken',
+            ).innerText = ` in ${time}ms`;
+        } else {
+            this.getEl<HTMLSpanElement>('timeTaken').innerText = '';
+        }
     }
 
     private get selectedIndex(): number | undefined {

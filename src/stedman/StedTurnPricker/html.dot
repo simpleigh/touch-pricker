@@ -49,7 +49,10 @@
 </div>
 
 <div id="output">
-  <div id="numCourses"></div>
+  <div>
+    <span id="numCourses"></span>
+    <span id="timeTaken"></span>
+  </div>
   <form onsubmit="return false">
     <button disabled="disabled" id="open1" onclick="pricker.onOpenCourse()">
       Open
