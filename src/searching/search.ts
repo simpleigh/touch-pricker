@@ -9,7 +9,7 @@
 
 import { multiply, rankFromRow, type Row, rowFromRank } from '../rows';
 import Calling from './Calling';
-import type Uint4Table from './Uint4Table';
+import type Table from './Table';
 
 /**
  * A cache of search results.
@@ -71,7 +71,7 @@ export const extendTouchList = (
  * See {@link search} for a fuller explanation of this algorithm.
  */
 const recursiveSearch = (
-    table: Uint4Table,
+    table: Table,
     transpositions: Map<string, Row>,
     targetRank: number,
     steps: number,
@@ -154,7 +154,7 @@ const recursiveSearch = (
  * @param steps  Number of steps we can take to get to rounds.
  */
 const search = (
-    table: Uint4Table,
+    table: Table,
     transpositions: Map<string, Row>,
     targetRank: number,
     steps?: number,
@@ -173,7 +173,7 @@ const search = (
  * starting a search.
  */
 export const searchAsync = async (
-    table: Uint4Table,
+    table: Table,
     transpositions: Map<string, Row>,
     targetRank: number,
     steps?: number,

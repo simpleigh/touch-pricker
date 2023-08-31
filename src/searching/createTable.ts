@@ -14,7 +14,7 @@ import {
     type Stage,
     rowFromRank,
 } from '../rows';
-import Uint4Table from './Uint4Table';
+import Table from './Table';
 
 /**
  * Create a data table for use with the {@link search} touch search function.
@@ -42,15 +42,10 @@ const createTable = (
     logger: (message: string) => void = () => {
         // NOOP
     },
-): Uint4Table => {
+): Table => {
     logger(`Building table on ${stage} bells...`);
 
-    const table = new Uint4Table(stage);
-
-    // Set the maximum possible value for each row: we'll reduce this as we go.
-    for (let rank = 1; rank < table.length; rank += 1) {
-        table.setValue(rank, 15);
-    }
+    const table = new Table(stage);
 
     // Starting point: rounds is trivially rounds.
     table.setValue(0, 0);
