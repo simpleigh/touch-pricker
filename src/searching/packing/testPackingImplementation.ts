@@ -38,6 +38,16 @@ const testPackingImplementation = (
         expect(to).toEqual(new Uint8Array(unpackedData));
     });
 
+    it('ignores the first entry and sets rounds to 0', () => {
+        const packing = factory();
+        const from = new Uint8Array([0xff, ...packedData.slice(1)]);
+        const to = new Uint8Array(from.length / packing.compression);
+
+        packing.unpack(from, to);
+
+        expect(to[0]).toBe(0);
+    });
+
     it('throws if the packing target is too small', () => {
         const packing = factory();
         const from = new Uint8Array(unpackedData);

@@ -16,6 +16,12 @@ import AbstractPacking from './AbstractPacking';
  *
  * This algorithm does no packing at all! It thus consumes _n!_ bytes on stage
  * _n_ in order to store 8 bits per row.
+ * We know that the value zero can only occur once (at the beginning of the
+ * array representing rounds) so can ignore this value. We can therefore store
+ * values from 1 to 256 within eight bits by subtracting one from each value.
+ * Unfortunately this done't work because we can't actually store a value of 256
+ * within the underlying `Uint8Array`. Nevertheless we subtract one anyway for
+ * consistency with other packing algorithms.
  */
 class Uint8Packing extends AbstractPacking {
     /**
@@ -32,8 +38,8 @@ class Uint8Packing extends AbstractPacking {
      * Implementation of the packing algorithm.
      */
     protected doPack(from: Uint8Array, to: Uint8Array): void {
-        for (let i = 0; i < from.length; i += 1) {
-            to[i] = from[i];
+        for (let i = 1; i < from.length; i += 1) {
+            to[i] = from[i] - 1;
         }
     }
 
@@ -41,8 +47,8 @@ class Uint8Packing extends AbstractPacking {
      * Implementation of the unpacking algorithm.
      */
     protected doUnpack(from: Uint8Array, to: Uint8Array): void {
-        for (let i = 0; i < from.length; i += 1) {
-            to[i] = from[i];
+        for (let i = 1; i < from.length; i += 1) {
+            to[i] = from[i] + 1;
         }
     }
 }

@@ -61,6 +61,10 @@ abstract class AbstractPacking {
         }
 
         this.doUnpack(from, to);
+
+        // Packing algorithms ignore rounds which, trivially, must be zero steps
+        // away from rounds. Fill it back in.
+        to[0] = 0;
     }
 
     /**

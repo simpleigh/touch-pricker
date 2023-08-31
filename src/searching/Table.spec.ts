@@ -75,93 +75,97 @@ describe('Table class', () => {
         });
     }
 
-    const fillTestCases1: [number, number][] = [
-        [12, 15],
-        [18, 63],
-        [24, 255],
-    ];
-
-    for (let i = 0; i < fillTestCases1.length; i += 1) {
-        const [packedLength, maximum] = fillTestCases1[i];
-
-        it(`unpacks zeros correctly #${i}`, () => {
+    for (const length of [12, 18, 24]) {
+        it(`unpacks ${length} bytes of zeros correctly`, () => {
             expect.assertions(24);
-            const uint8 = new Uint8Array(packedLength);
+            const uint8 = new Uint8Array(length);
 
             const table = new Table(Stage.Minimus, uint8);
 
-            for (let j = 0; j < table.length; j += 1) {
-                expect(table.getValue(j)).toBe(0);
+            expect(table.getValue(0)).toBe(0);
+            for (let j = 1; j < table.length; j += 1) {
+                expect(table.getValue(j)).toBe(1);
             }
         });
+    }
 
-        it(`unpacks ones correctly #${i}`, () => {
+    for (const [length, maximum] of [
+        [12, 16],
+        [18, 64],
+    ]) {
+        // n.b. skip `Uint8Packing`: ones decode to 256 which can't be stored
+
+        it(`unpacks ${length} bytes of ones correctly`, () => {
             expect.assertions(24);
-            const uint8 = new Uint8Array(packedLength);
+            const uint8 = new Uint8Array(length);
             uint8.fill(0xff);
 
             const table = new Table(Stage.Minimus, uint8);
 
-            for (let j = 0; j < table.length; j += 1) {
+            expect(table.getValue(0)).toBe(0);
+            for (let j = 1; j < table.length; j += 1) {
                 expect(table.getValue(j)).toBe(maximum);
             }
         });
 
-        it(`packs ones correctly #${i}`, () => {
-            expect.assertions(packedLength + 1);
+        it(`packs ${length} bytes of ones correctly`, () => {
+            expect.assertions(length);
             const table = new Table(Stage.Minimus);
-            for (let j = 0; j < table.length; j += 1) {
+            table.setValue(0, 0);
+            for (let j = 1; j < table.length; j += 1) {
                 table.setValue(j, maximum);
             }
 
             const result = table.data;
-            expect(result.length).toBe(packedLength);
-            for (const byte of result) {
-                expect(byte).toBe(0xff);
+
+            expect(result.length).toBe(length);
+            // skip first byte which will have zero for rounds
+            for (let j = 1; j < result.length; j += 1) {
+                expect(result[j]).toBe(0xff);
             }
         });
     }
 
     // prettier-ignore
-    const fillTestCases2: [number, number[]][] = [
-        [0, [
+    const fillTestCases: [number, number[]][] = [
+        [1, [ // 0
             0x0, 0x0, 0x0, 0x0,
             0x0, 0x0, 0x0, 0x0,
             0x0, 0x0, 0x0, 0x0,
         ]],
-        [1, [
+        [2, [ // 1
+            0x01, 0x11, 0x11, 0x11,
             0x11, 0x11, 0x11, 0x11,
             0x11, 0x11, 0x11, 0x11,
-            0x11, 0x11, 0x11, 0x11,
         ]],
-        [15, [
+        [16, [ // 2
+            0x0f, 0xff, 0xff, 0xff,
             0xff, 0xff, 0xff, 0xff,
             0xff, 0xff, 0xff, 0xff,
-            0xff, 0xff, 0xff, 0xff,
         ]],
-        [16, [
+        [17, [ // 3
+            0x40, 0x10, 0x10, 0x50, 0x10, 0x10,
             0x50, 0x10, 0x10, 0x50, 0x10, 0x10,
             0x50, 0x10, 0x10, 0x50, 0x10, 0x10,
-            0x50, 0x10, 0x10, 0x50, 0x10, 0x10,
         ]],
-        [63, [
+        [64, [ // 4
+            0xc0, 0xff, 0xff, 0xff, 0xff, 0xff,
             0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
             0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-            0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
         ]],
-        [64, [
-            0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40,
+        [65, [ // 5
+            0x00, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40,
             0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40,
             0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40,
         ]],
-        [255, [
-            0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-            0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-            0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+        [255, [ // 6
+            0x00, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe,
+            0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe,
+            0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe,
         ]],
     ];
 
-    for (const [value, packedData] of fillTestCases2) {
+    for (const [value, packedData] of fillTestCases) {
         it(`packs ${value}s correctly`, () => {
             const table = new Table(Stage.Minimus);
             for (let j = 0; j < table.length; j += 1) {
@@ -176,7 +180,8 @@ describe('Table class', () => {
             const uint8 = new Uint8Array(packedData);
             const table = new Table(Stage.Minimus, uint8);
 
-            for (let j = 0; j < table.length; j += 1) {
+            expect(table.getValue(0)).toBe(0);
+            for (let j = 1; j < table.length; j += 1) {
                 expect(table.getValue(j)).toBe(value);
             }
         });

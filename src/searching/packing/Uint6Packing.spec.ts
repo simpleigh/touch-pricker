@@ -11,7 +11,7 @@ import testPackingImplementation from './testPackingImplementation';
 describe('Uint6Packing algorithm', () => {
     testPackingImplementation(
         () => new Uint6Packing(),
-        63,
+        64,
         // prettier-ignore
         [
             0x00, 0x00, 0x00,
@@ -27,16 +27,16 @@ describe('Uint6Packing algorithm', () => {
         ],
         // prettier-ignore
         [
-            0, 0, 0, 0,
-            63, 63, 63, 63,
+            0, 1, 1, 1,
+            64, 64, 64, 64,
 
-            63, 0, 0, 0,
-            0, 63, 0, 0,
-            0, 0, 63, 0,
-            0, 0, 0, 63,
+            64, 1, 1, 1,
+            1, 64, 1, 1,
+            1, 1, 64, 1,
+            1, 1, 1, 64,
 
-            33, 33, 33, 33,
-            30, 30, 30, 30,
+            34, 34, 34, 34,
+            31, 31, 31, 31,
         ],
     );
 });
