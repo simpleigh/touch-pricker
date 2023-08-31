@@ -24,7 +24,7 @@ import {
     createTranspositions,
     downloadTable,
     searchAsync,
-    type Uint4Table,
+    type Table,
 } from '../../searching';
 import * as Templates from '../../templates';
 import Course from '../Course';
@@ -92,7 +92,7 @@ class StedTurnPricker extends AbstractPricker {
     /**
      * Table with row distance information
      */
-    private _table: Uint4Table;
+    private _table: Table;
 
     /* Pricker methods ********************************************************/
 

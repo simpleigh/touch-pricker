@@ -6,7 +6,7 @@
  */
 
 import type { Stage } from '../rows';
-import Uint4Table from './Uint4Table';
+import Table from './Table';
 
 /**
  * Download a table from a remote location.
@@ -14,15 +14,12 @@ import Uint4Table from './Uint4Table';
  * @param url    URL from which to download the table
  * @throws if the data cannot be downloaded or it is the incorrect size
  */
-const downloadTable = async (
-    stage: Stage,
-    url: string,
-): Promise<Uint4Table> => {
+const downloadTable = async (stage: Stage, url: string): Promise<Table> => {
     const response = await fetch(url);
     const blob = await response.blob();
     const buffer = await blob.arrayBuffer();
     const data = new Uint8Array(buffer);
-    return new Uint4Table(stage, data);
+    return new Table(stage, data);
 };
 
 export default downloadTable;

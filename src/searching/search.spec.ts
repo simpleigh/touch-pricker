@@ -11,7 +11,7 @@ import { rounds, type Row, Stage } from '../rows';
 import { Course, Methods } from '../stedman';
 import createTranspositions from './createTranspositions';
 import search, { extendTouchList, searchAsync } from './search';
-import Uint4Table from './Uint4Table';
+import Table from './Table';
 
 describe('extendTouchList function', () => {
     it('can add a call pair to a touch', () => {
@@ -64,15 +64,14 @@ describe('extendTouchList function', () => {
 });
 
 describe('search function', () => {
-    let table: Uint4Table;
+    let table: Table;
 
     let transpositions: Map<string, Row>;
 
     beforeAll(async () => {
         const filename = path.join(__dirname, '../../data/stedman.7.dat');
         const buffer = await readFile(filename);
-        const data = new Uint8Array(buffer.buffer);
-        table = new Uint4Table(Stage.Triples, data);
+        table = new Table(Stage.Triples, buffer);
 
         const method = new Methods.Stedman();
         const course = new Course(rounds(Stage.Triples), method);

@@ -11,10 +11,10 @@ import { rankFromRow, rounds, type Row, Stage } from '../rows';
 import { Course, Methods } from '../stedman';
 import createTable from './createTable';
 import createTranspositions from './createTranspositions';
-import type Uint4Table from './Uint4Table';
+import type Table from './Table';
 
 describe('createTable function', () => {
-    let table: Uint4Table;
+    let table: Table;
     let data: Uint8Array;
 
     beforeAll(async () => {
