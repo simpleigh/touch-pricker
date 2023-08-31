@@ -71,8 +71,7 @@ describe('search function', () => {
     beforeAll(async () => {
         const filename = path.join(__dirname, '../../data/stedman.7.dat');
         const buffer = await readFile(filename);
-        const data = new Uint8Array(buffer.buffer);
-        table = new Table(Stage.Triples, data);
+        table = new Table(Stage.Triples, buffer);
 
         const method = new Methods.Stedman();
         const course = new Course(rounds(Stage.Triples), method);
