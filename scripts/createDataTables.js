@@ -13,9 +13,17 @@
 'use strict';
 
 const { writeFileSync } = require('fs');
+const path = require('path');
 
 // eslint-disable-next-line import/no-internal-modules
 const Pricker = require('../dist/touch-pricker');
+
+const methods = [
+    ['carter', new Pricker.Stedman.Methods.Carter()],
+    ['erin', new Pricker.Stedman.Methods.Erin()],
+    ['jump', new Pricker.Stedman.Methods.StedmanJump()],
+    ['stedman', new Pricker.Stedman.Methods.Stedman()],
+];
 
 const stages = [
     Pricker.Stage.Triples,
@@ -23,21 +31,27 @@ const stages = [
     Pricker.Stage.Cinques,
 ];
 
-for (const stage of stages) {
-    console.time(stage);
+for (const [slug, method] of methods) {
+    for (const stage of stages) {
+        const filename = path.join(__dirname, `../data/${slug}.${stage}.dat`);
 
-    const method = new Pricker.Stedman.Methods.Stedman();
-    const course = new Pricker.Stedman.Course(Pricker.rounds(stage), method);
-    const transpositions = Pricker.Searching.createTranspositions(
-        course,
-        method.searchCallingStrings,
-    );
-    const table = Pricker.Searching.createTable(
-        stage,
-        transpositions,
-        console.log,
-    );
-    writeFileSync(`data/stedman.${stage}.dat`, table.data);
+        console.time(filename);
 
-    console.timeEnd(stage);
+        const course = new Pricker.Stedman.Course(
+            Pricker.rounds(stage),
+            method,
+        );
+        const transpositions = Pricker.Searching.createTranspositions(
+            course,
+            method.searchCallingStrings,
+        );
+        const table = Pricker.Searching.createTable(
+            stage,
+            transpositions,
+            console.log,
+        );
+        writeFileSync(filename, table.data);
+
+        console.timeEnd(filename);
+    }
 }
