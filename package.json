@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@types/jest": "29.5.4",
-    "@typescript-eslint/eslint-plugin": "6.5.0",
+    "@typescript-eslint/eslint-plugin": "6.7.4",
     "@typescript-eslint/parser": "6.4.1",
     "blob-polyfill": "7.0.20220408",
     "codecov": "3.8.3",
