@@ -1,0 +1,22 @@
+/**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
+ */
+
+import type { Row, Stage } from './types';
+
+const ROUNDS: Row = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+
+/**
+ * Creates a {@link Row} representing rounds on a particular stage
+ *
+ * ```
+ * > Pricker.rounds(Pricker.Stage.Cinques);
+ * [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+ * ```
+ */
+const rounds = (stage: Stage): Row => ROUNDS.slice(0, stage);
+
+export default rounds;

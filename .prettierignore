@@ -1,0 +1,6 @@
+# Built artefacts
+/coverage/
+/dist/
+/docs/
+
+.eslintrc.js

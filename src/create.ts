@@ -2,58 +2,68 @@
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
  * @license GPL-3.0
- * @copyright Copyright 2015-18 Leigh Simpson. All rights reserved.
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
  */
 
-/// <reference path="Pricker/Abstract.ts" />
-/// <reference path="Pricker/Mbd.ts" />
-/// <reference path="Dom/createAndAppendStyle.ts" />
-/// <reference path="Dom/createIframe.ts" />
-/// <reference path="Dom/injectIframeData.ts" />
-/// <reference path="Options.ts" />
-/// <reference path="Templates.ts" />
+import template from './create.dot';
+import { createAndAppendStyle, createIframe, injectIframeData } from './dom';
+import type Options from './Options';
+import type Pricker from './Pricker';
+import type PrickerWindow from './PrickerWindow';
+import { MbdPricker as Grandsire } from './grandsire';
+import { MbdPricker as Stedman, StedTurnPricker as StedTurn } from './stedman';
+import type AbstractPricker from './AbstractPricker';
 
-namespace Pricker {
+type PrickerConstructor = new (_iframe?: HTMLIFrameElement) => AbstractPricker;
 
-    /**
-     * Factory function to create a pricker
-     * @param elementId - ID of HTML element to which the pricker will be bound
-     * @param options - pricker options
-     * @param parentDocument - document to use to create pricker (for testing)
-     */
-    export function create(
-        elementId: string,
-        options: Options = { },
-        parentDocument: HTMLDocument = document,
-    ): Pricker.Mbd {
-        let pricker: Pricker.Mbd;
+const PRICKER_CONSTRUCTORS: Record<string, PrickerConstructor> = {
+    grandsire: Grandsire,
+    stedman: Stedman,
+    stedturn: StedTurn,
+};
 
-        const element = parentDocument.getElementById(elementId);
-        if (!element) {
-            throw new Error(`Cannot find HTML element: '${elementId}'`);
-        }
+/**
+ * Factory function to create a pricker
+ * @param elementId       ID of HTML element to which the pricker will be bound
+ * @param options         pricker options
+ * @param parentDocument  document to use to create pricker (for testing)
+ */
+const create = (
+    elementId: string,
+    options: Options = {},
+    parentDocument: Document = document,
+): Pricker => {
+    const PrickerConstructor = PRICKER_CONSTRUCTORS[options.type ?? 'stedman'];
 
-        if (options.iframe || options.iframe === undefined) {
-            const iframe = Dom.createIframe(parentDocument);
-            element.appendChild(iframe);
-            pricker = new Pricker.Mbd(iframe);
-            Dom.injectIframeData(
-                iframe,
-                Templates.create({'pricker': pricker}),
-                { pricker },
-            );
-        } else {
-            pricker = new Pricker.Mbd();
-            Dom.createAndAppendStyle(parentDocument, pricker.print('css'));
-            element.innerHTML = pricker.print('html');
-            (window as any).pricker = pricker;
-            if (parentDocument === document) {
-                // don't run in tests (when document has been overridden)
-                pricker.onLoad();
-            }
+    const element = parentDocument.getElementById(elementId);
+    if (!element) {
+        throw new Error(`Cannot find HTML element: '${elementId}'`);
+    }
+
+    if (options.iframe === false) {
+        // Use of an iframe has been explicitly suppressed
+        const pricker = new PrickerConstructor();
+
+        createAndAppendStyle(parentDocument, pricker.print('css'));
+        element.innerHTML = pricker.print('html');
+        (window as PrickerWindow).pricker = pricker;
+        if (parentDocument === document) {
+            // don't run in tests (when document has been overridden)
+            pricker.onLoad();
         }
 
         return pricker;
     }
 
-}
+    const iframe = createIframe(parentDocument);
+    element.appendChild(iframe);
+
+    const pricker = new PrickerConstructor(iframe);
+
+    const globals = new Map([['pricker', pricker]]);
+    injectIframeData(iframe, template({ pricker }), globals);
+
+    return pricker;
+};
+
+export default create;

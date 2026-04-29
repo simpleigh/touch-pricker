@@ -1,0 +1,69 @@
+/**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
+ */
+
+/**
+ * HTML for turning course generator
+ */
+
+<div id="modalOverlay">
+  <div id="modal"></div>
+</div>
+
+<div id="controls">
+  <div>
+    <label for="stage">Number of bells:</label>
+    <select id="stage" onchange="pricker.onStage()">
+      <option selected value="{{= context.Stage.Triples }}">Triples</option>
+      <option value="{{= context.Stage.Caters }}">Caters</option>
+      <option value="{{= context.Stage.Cinques }}">Cinques</option>
+    </select>
+  </div>
+  <div>
+    <form onsubmit="return false">
+      <label for="fromRow">From:</label>
+      <input type="text" id="fromRow" size="11" maxLength="11" />
+      <button onclick="pricker.onSetFromRow()">Set</button>
+      <button onclick="pricker.onResetFromRow()">Reset</button>
+    </form>
+  </div>
+  <div>
+    <form onsubmit="return false">
+      <label for="toRow">To:</label>
+      <input type="text" id="toRow" size="11" maxLength="11" />
+      <button onclick="pricker.onSetToRow()">Set</button>
+      <button onclick="pricker.onResetToRow()">Reset</button>
+    </form>
+  </div>
+  <div>
+    <form onsubmit="return false">
+      Sixes:
+      <button id="minus" onclick="pricker.onMinus()">-</button>
+      <input disabled="disabled" type="text" id="sixes" size="3" />
+      <button onclick="pricker.onPlus()">+</button>
+    </form>
+  </div>
+</div>
+
+<div id="output">
+  <div>
+    <span id="numCourses"></span>
+    <span id="timeTaken"></span>
+  </div>
+  <form onsubmit="return false">
+    <button disabled="disabled" id="open1" onclick="pricker.onOpenCourse()">
+      Open
+    </button>
+  </form>
+  <div id="courses" ondblclick="pricker.onOpenCourse()""></div>
+  <form onsubmit="return false">
+    <button disabled="disabled" id="open2" onclick="pricker.onOpenCourse()">
+      Open
+    </button>
+  </form>
+</div>
+
+<div id="sixends"></div>

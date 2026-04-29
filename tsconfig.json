@@ -1,17 +1,19 @@
 {
-    "compileOnSave": false,
     "compilerOptions": {
-        "declaration": true,
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "module": "commonjs",
         "newLine": "LF",
         "noEmitOnError": true,
         "noFallthroughCasesInSwitch": true,
+        "noImplicitOverride": true,
         "noImplicitReturns": true,
+        "noPropertyAccessFromIndexSignature": true,
         "noUnusedLocals": true,
-        "outFile": "dist/touch-pricker.js",
+        "outDir": "./dist/",
+        "sourceMap": true,
         "strict": true,
-        "strictPropertyInitialization": false
-    },
-    "include": [
-        "src/**/*.ts"
-    ]
+        "strictPropertyInitialization": false,
+        "target": "ES6"
+    }
 }

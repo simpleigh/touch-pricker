@@ -1,0 +1,47 @@
+/**
+ * Free Touch Pricker
+ * @author Leigh Simpson <code@simpleigh.com>
+ * @license GPL-3.0
+ * @copyright Copyright 2015-23 Leigh Simpson. All rights reserved.
+ */
+
+import { RandomAccessContainer } from '../../blocks';
+import { Call } from '../../leads';
+import { stringFromRow } from '../../rows';
+import * as Templates from '../../templates';
+import type Course from '../Course';
+import Lead from '../Lead';
+import select from './select.dot';
+import siril from './siril.dot';
+import text from './text.dot';
+
+/**
+ * A touch, being a set of courses
+ */
+@Templates.makePrintable({ select, siril, text }, { Call, stringFromRow })
+class Touch
+    extends RandomAccessContainer<Course>
+    implements Templates.Interface
+{
+    /* templating *************************************************************/
+
+    public print: Templates.Print;
+
+    /**
+     * Computes place notation for each type of lead
+     * Helper for use in templates
+     */
+    get callNotations(): Partial<Record<Call, string[]>> {
+        const result: Partial<Record<Call, string[]>> = {};
+        const lead = new Lead(this.initialRow);
+
+        for (const call of [Call.Plain, Call.Bob, Call.Single]) {
+            lead.setCall(call);
+            result[call] = lead.notation;
+        }
+
+        return result;
+    }
+}
+
+export default Touch;

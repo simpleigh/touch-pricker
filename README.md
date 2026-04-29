@@ -1,13 +1,21 @@
 # touch-pricker
 
-[![Build Status](https://travis-ci.org/simpleigh/touch-pricker.svg?branch=master)](https://travis-ci.org/simpleigh/touch-pricker)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/simpleigh/touch-pricker/build.yml)](https://github.com/simpleigh/dotjs-loader/actions/workflows/build.yml)
+[![Codecov](https://img.shields.io/codecov/c/github/simpleigh/touch-pricker.svg)](https://codecov.io/gh/simpleigh/touch-pricker)
 
 Free Touch Pricker
 
 (WIP)
 
-Currently supports a pricker for Stedman touches on various stages,
-based heavily on that created by
+Currently supports the following methods on various stages:
+
+- Grandsire
+- Stedman
+- Erin
+- Carter
+- Stedman Jump
+
+Based heavily on that created by
 [Mark Davies](http://bronze-age.org/stedman2/pricker.html).
 
 ## Installation
@@ -50,8 +58,8 @@ const thePricker = Pricker.create('pricker'); // ID of mount element
 
 Download the source file of your choice from the `dist` directory of this repository:
 
-* development - `touch-pricker.js`
-* production - `touch-pricker.min.js`
+- development - `touch-pricker.js`
+- production - `touch-pricker.min.js` and `touch-pricker.min.js.map`
 
 Host the file locally and add to scripts:
 
@@ -70,7 +78,7 @@ Modify your page to include an element where the pricker will be mounted:
 ```html
 <script type="text/javascript">
   window.onload = function () {
-    var thePricker = Pricker.create('pricker'); // ID of mount element
+    const thePricker = Pricker.create('pricker'); // ID of mount element
   };
 </script>
 ```
@@ -82,7 +90,7 @@ See `examples/mbd.html` for a full example.
 The `Pricker.create()` call has the following signature:
 
 ```typescript
-Pricker.create(id: string, config: any): Pricker.Pricker.Abstract;
+Pricker.create(id: string, config: Pricker.Options): Pricker.Pricker;
 ```
 
 This currently supports the following configuration option:
@@ -91,7 +99,7 @@ This currently supports the following configuration option:
 
 ```javascript
 {
-  iframe: true // default
+  iframe: true; // default
 }
 ```
 
@@ -109,30 +117,23 @@ but makes debugging more difficult.
 
 2. Install [`yarn`](https://yarnpkg.com/).
 
-### Quickstart: build and run tests
+### Quickstart: build
 
 ```bash
 nvm install
 yarn install
-bin/gulp
+yarn build
 ```
-
-### Available gulp targets
-
-* `build` - builds source code
-* `build-tests` - builds testcases (depends on `build`)
-* `docs` - builds [TypeDoc](http://typedoc.org/) documentation
-* `test` - runs unit tests under PhantomJS (default)
-* `test-browsers` - runs unit tests under various browsers (see `karma.conf.js`)
-* `watch` - rebuild whenever changes are made
 
 ### Yarn / `npm` scripts
 
-* `build` - as above
-* `lint` - calls `tslint` in isolation
-* `test` - as above
-* `watch` - as above
-
-### To test in a browser window
-
-Build tests (`bin/gulp build-tests`) then load up `/jasmine.html`.
+- `build` - compiles all sources, `dev`, `prod` and `test`
+- `build:dev` - compiles the development bundle
+- `build:prod` - compiles the production bundle
+- `build:test` - compiles the test bundle
+- `lint` - lints all sources
+- **`start`** - opens examples in a browser window and watches for changes
+- **`start:tests`** - runs tests in a browser window and watches for changes
+- **`test`** - runs tests in PhantomJS and watches for changes
+- `test:browsers` - runs tests in multiple browsers
+- `typedoc` - builds documentation
