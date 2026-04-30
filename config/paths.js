@@ -29,9 +29,9 @@ const dataDir = path.join(rootDir, 'data');
 const distDir = path.join(rootDir, 'dist');
 
 /**
- * Examples
+ * HTML source
  */
-const examplesDir = path.join(rootDir, 'examples');
+const htmlDir = path.join(rootDir, 'html');
 
 /**
  * Source code
@@ -49,7 +49,7 @@ module.exports = {
     rootDir,
     dataDir,
     distDir,
-    examplesDir,
+    htmlDir,
     srcDir,
     testsDir,
 

@@ -31,8 +31,8 @@ module.exports = merge(
                     publicPath: '/data/',
                 },
                 {
-                    directory: paths.examplesDir,
-                    publicPath: '/examples/',
+                    directory: paths.htmlDir,
+                    publicPath: '/',
                 },
             ],
         },

@@ -47,13 +47,13 @@ module.exports = merge(
                     //   ║ File ║ .js         │ .min.js         ║
                     //   ╚══════╩═════════════╧═════════════════╝
                     {
-                        from: 'examples',
-                        to: 'examples',
+                        from: 'html',
+                        to: '',
                         transform: (buffer) => {
                             const content = buffer
                                 .toString()
                                 .replace(
-                                    '../dist/touch-pricker.js',
+                                    '../../dist/touch-pricker.js',
                                     '../touch-pricker.min.js',
                                 );
                             return Buffer.from(content);
