@@ -45,12 +45,7 @@ jobs:
           role-to-assume: ${{ secrets.IAM_ROLE }}
 
       - name: Upload files
-        run: >
-          aws s3 sync
-          --delete
-          --dryrun
-          dist
-          s3://${{ secrets.S3_BUCKET }}/
+        run: aws s3 sync --delete dist s3://${{ secrets.S3_BUCKET }}/
 
       - name: Invalidate CDN cache
         run: >
