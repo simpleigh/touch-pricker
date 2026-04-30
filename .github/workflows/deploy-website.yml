@@ -1,0 +1,59 @@
+# https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax
+
+name: Deploy to touch-pricker.simpleigh.com
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read # actions/checkout
+  id-token: write # aws-actions/configure-aws-credentials
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: touch-pricker.simpleigh.com
+
+    steps:
+      - name: Checkout
+        # https://github.com/actions/checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        # https://github.com/actions/setup-node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+
+      - name: Install Node dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build
+        run: yarn build
+
+      - name: Configure AWS credentials
+        # https://github.com/aws-actions/configure-aws-credentials
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          aws-region: eu-west-1
+          role-to-assume: ${{ secrets.IAM_ROLE }}
+
+      - name: Upload files
+        run: >
+          aws s3 sync
+          --delete
+          --dryrun
+          dist
+          s3://${{ secrets.S3_BUCKET }}/
+
+      - name: Invalidate CDN cache
+        run: >
+          aws cloudfront create-invalidation
+          --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION }}
+          --paths '/*'

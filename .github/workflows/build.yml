@@ -1,18 +1,26 @@
+# https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax
+
 name: Build
 
 on: push
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        # https://github.com/actions/checkout
+        uses: actions/checkout@v6
 
       - name: Setup Node
         # https://github.com/actions/setup-node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
           cache: yarn
@@ -34,9 +42,16 @@ jobs:
 
       - name: Publish test coverage
         # https://github.com/codecov/codecov-action
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v6
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Build docs
         run: yarn typedoc
+
+  website:
+    needs:
+      - build
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/deploy-website.yml
+    secrets: inherit
