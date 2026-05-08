@@ -61,8 +61,9 @@ abstract class AbstractVisitor {
     }
 
     /**
-     * Reports whether rows are still being processed by providing
-     * public access to {@link _visiting}.
+     * Whether or not we're still processing rows.
+     * Defaults to `true` (processing rows), but is set to `false` once
+     * rounds has been visited.
      */
     get visiting(): boolean {
         return this._visiting;

@@ -41,8 +41,8 @@ class Music extends AbstractVisitor {
     }
 
     /**
-     * Reports where music is found within a touch by providing public
-     * access to {@link _directory}.
+     * Reports where music is found within a touch as a {@link BlockDirectory}
+     * of musical blocks.
      */
     get directory(): Readonly<BlockDirectory> {
         return this._directory;

@@ -24,8 +24,7 @@ class Counter extends AbstractVisitor {
     private _count: number = 0;
 
     /**
-     * Reports the count of rows by providing public access to
-     * {@link _count}.
+     * Count of rows that have been visited.
      */
     get count(): number {
         return this._count;

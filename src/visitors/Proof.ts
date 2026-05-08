@@ -36,16 +36,14 @@ class Proof extends AbstractVisitor {
 
     /**
      * Flag recording truth.
-     * Truth can easily be calculated from {@link _rowCounts}, but keeping a
-     * flag up-to-date is a simple optimisation to avoid iterating over
-     * this property each time we check truth.
+     * Truth can be calculated from the result of {@link getRowCounts} but
+     * keeping a flag up-to-date is a simple optimisation to avoid iterating
+     * over that property each time we check truth.
      */
     private _isTrue: boolean = true;
 
     /**
      * Reports the number of times each row has been processed.
-     * Processes {@link _rowCounts} to convert each array of blocks into a
-     * count.
      * @returns Dictionary containing the count of each row seen,
      * indexed by the string representation of that row.
      */
@@ -60,16 +58,17 @@ class Proof extends AbstractVisitor {
     }
 
     /**
-     * Reports on the distribution of falseness within a touch by
-     * providing public access to {@link _directory}.
+     * Reports on the distribution of falseness within a touch as a
+     * {@link BlockDirectory}.
      */
     get directory(): Readonly<BlockDirectory> {
         return this._directory;
     }
 
     /**
-     * Reports whether a touch is true by providing public access to
-     * {@link _isTrue}.
+     * Reports whether a touch is true.
+     * Truth can be calculated from the result of {@link getRowCounts} but this
+     * flag helps avoid iterating over that property each time we check truth.
      */
     get isTrue(): boolean {
         return this._isTrue;

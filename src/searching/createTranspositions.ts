@@ -21,8 +21,8 @@ import Calling from './Calling';
  * This function returns a transposition row for each provided calling string in
  * a `Map` from the calling string to the transposition row. By default
  * transposition rows represent forward progress through the touch; the
- * {@link computeInverse} parameter can be used to retrieve rows representing
- * reverse progress.
+ * `computeInverse` parameter can be used to retrieve rows representing reverse
+ * progress.
  *
  * ```
  * > const course = new Course(rounds(Stage.Triples), new Stedman());
@@ -33,7 +33,7 @@ import Calling from './Calling';
  * }
  * ```
  *
- * Note that the provided {@link course} will be mutated.
+ * Note that the provided `course` will be mutated.
  */
 const createTranspositions = (
     course: AbstractCourse<AbstractLead>,
