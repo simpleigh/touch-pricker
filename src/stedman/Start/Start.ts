@@ -263,6 +263,7 @@ class Start extends AbstractBlock implements Templates.Interface {
             case SixType.Hot:
                 return this.notation.join(', ');
 
+            case SixType.Invalid:
             default:
                 throw new Error('Assertion failed in Start.getNotationString');
         }

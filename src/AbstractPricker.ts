@@ -57,6 +57,7 @@ abstract class AbstractPricker implements Pricker {
     /**
      * Wraps document.getElementById and adds type information
      */
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
     protected getEl<T extends HTMLElement>(id: string): T {
         const theDoc = this._iframe
             ? this._iframe.contentWindow!.document

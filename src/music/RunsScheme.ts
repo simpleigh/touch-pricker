@@ -18,7 +18,7 @@ import PatternGroup from './PatternGroup';
  * @param str  String to reverse.
  * @returns reversed version of `str`.
  */
-const reverse = (str: string) => str.split('').reverse().join('');
+const reverse = (str: string): string => str.split('').reverse().join('');
 
 /**
  * Runs-based music matching scheme.

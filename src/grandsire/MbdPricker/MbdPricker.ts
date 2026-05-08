@@ -345,7 +345,7 @@ class MbdPricker extends AbstractPricker implements Notifiable {
 
     public onLoadTouch(): void {
         const input = this.getEl<HTMLTextAreaElement>('loadSaveTextarea').value;
-        let newTouch: Touch; // eslint-disable-line init-declarations
+        let newTouch: Touch; // eslint-disable-line @typescript-eslint/init-declarations
 
         try {
             newTouch = new Parser().parseTouch(input);
@@ -422,13 +422,11 @@ class MbdPricker extends AbstractPricker implements Notifiable {
         const selectedPage = this.getEl(`page_${pageId}`);
 
         for (const tab of tabs) {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             tab.className = 'tab';
         }
         selectedTab.classList.add('tab-selected');
 
         for (const page of pages) {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             page.className = 'page';
         }
         selectedPage.classList.add('page-selected');

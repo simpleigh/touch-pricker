@@ -1,7 +1,0 @@
-# Built artefacts
-/coverage/
-/dist/
-/docs/
-
-# Installed packages
-/node_modules/

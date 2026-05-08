@@ -24,8 +24,6 @@ const swap =
         const bell: Bell = row[place - 1];
         row[place - 1] = row[place];
         row[place] = bell;
-
-        return row;
     };
 
 /**
@@ -58,11 +56,11 @@ const changeFromNotation = (input: string, stage: Stage): Change => {
 
     let currentPlace: Bell = 1;
     for (const inputCharacter of input.split('')) {
-        let inputPlace: Bell; // eslint-disable-line init-declarations
+        let inputPlace: Bell; // eslint-disable-line @typescript-eslint/init-declarations
 
         try {
             inputPlace = bellFromSymbol(inputCharacter);
-        } catch (_) {
+        } catch {
             // Rethrow with a more appropriate message
             throw new Error('Unknown place');
         }
@@ -109,8 +107,7 @@ const changeFromNotation = (input: string, stage: Stage): Change => {
         notation += symbolFromBell(stage);
     }
 
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    change.toString = () => notation;
+    change.toString = (): string => notation;
     return change;
 };
 

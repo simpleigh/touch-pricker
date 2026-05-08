@@ -35,7 +35,7 @@
  *     {@link makePrintable} decorator:
  *     ```
  *     import text from './text.dot';
- *     @Templates.makePrintable({ text })
+ *     \@Templates.makePrintable({ text })
  *     class Banana {
  *         // ...
  *     ```

@@ -12,11 +12,11 @@
 
 'use strict';
 
-const { OptionDefaults, TypeDocOptions } = require('typedoc');
+const { OptionDefaults } = require('typedoc');
 
 const { paths } = require('./config');
 
-/** @type {TypeDocOptions} */
+/** @type {Partial<import("typedoc").TypeDocOptions>} */
 module.exports = {
     // This specifies all of the block tags that TypeDoc considers to be valid.
     // https://typedoc.org/documents/Options.Comments.html#blocktags

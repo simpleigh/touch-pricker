@@ -12,7 +12,7 @@ import { Course, Touch } from './testBlocks';
 
 class TestParser extends LeadBasedParser<Course, Touch> {
     public readonly createCourseSpy = jest.fn(
-        (initialRow) => new Course(initialRow),
+        (initialRow: Row) => new Course(initialRow),
     );
 
     protected createTouch(initialRow: Row): Touch {

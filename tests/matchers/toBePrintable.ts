@@ -7,6 +7,7 @@
 
 /*
 eslint-disable
+@typescript-eslint/explicit-function-return-type,
 @typescript-eslint/no-explicit-any,
 @typescript-eslint/no-invalid-this,
 @typescript-eslint/no-unsafe-member-access,

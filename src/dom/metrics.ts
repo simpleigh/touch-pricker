@@ -12,7 +12,7 @@
  * stylesheets in order to avoid this.
  */
 const getMetric = (
-    element: HTMLElement,
+    element: Element,
     metric: 'marginBottom' | 'marginLeft' | 'marginRight' | 'marginTop',
 ): number => {
     const metricText = getComputedStyle(element)[metric];

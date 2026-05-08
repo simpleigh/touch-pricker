@@ -13,7 +13,7 @@
 
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 const { BannerPlugin } = require('webpack');
 
 const { version } = require('../package');

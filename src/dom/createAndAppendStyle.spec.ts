@@ -15,6 +15,7 @@ describe('createAndAppendStyle DOM utility', () => {
     it('creates a style element from the parent document', () => {
         jest.spyOn(document, 'createElement');
         createAndAppendStyle(document);
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         expect(document.createElement).toHaveBeenCalledWith('style');
     });
 

@@ -13,7 +13,7 @@
 const handleTouchEvents = (element: HTMLElement): void => {
     const originalHandler = element.onclick;
 
-    element.ontouchstart = () => {
+    element.ontouchstart = (): boolean => {
         // Simulate a click as soon as we're touched
         // TODO: copy location information from the TouchEvent
         const clickEvent = new MouseEvent('click');
@@ -22,7 +22,7 @@ const handleTouchEvents = (element: HTMLElement): void => {
         // Patch the onclick method to avoid calling the handler twice
         // An `ontouchstart` will always be followed by a click: do nothing here
         // except restore the handler ready for the next click.
-        element.onclick = () => {
+        element.onclick = (): boolean => {
             element.onclick = originalHandler;
             return false;
         };

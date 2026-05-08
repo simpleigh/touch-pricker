@@ -26,11 +26,11 @@ class BlockDirectory {
 
     public add(...indices: number[]): this;
 
-    public add(param: unknown, ...indices: number[]): this {
+    public add(param: AbstractBlock | number, ...indices: number[]): this {
         if (typeof param === 'object') {
-            indices = BlockDirectory.getIndices(param as AbstractBlock);
+            indices = BlockDirectory.getIndices(param);
         } else {
-            indices.unshift(param as number);
+            indices.unshift(param);
         }
 
         // We must have at least one index or getIndices() would have thrown
@@ -54,11 +54,14 @@ class BlockDirectory {
 
     public contains(...indices: number[]): boolean;
 
-    public contains(param: unknown, ...indices: number[]): boolean {
+    public contains(
+        param: AbstractBlock | number,
+        ...indices: number[]
+    ): boolean {
         if (typeof param === 'object') {
-            indices = BlockDirectory.getIndices(param as AbstractBlock);
+            indices = BlockDirectory.getIndices(param);
         } else {
-            indices.unshift(param as number);
+            indices.unshift(param);
         }
 
         let directory = this._directory;

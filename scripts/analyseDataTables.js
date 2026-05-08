@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 /**
  * Free Touch Pricker
  * @author Leigh Simpson <code@simpleigh.com>
@@ -12,8 +13,8 @@
 
 'use strict';
 
-const { readdirSync, readFileSync } = require('fs');
-const path = require('path');
+const { readdirSync, readFileSync } = require('node:fs');
+const path = require('node:path');
 
 // eslint-disable-next-line import/no-internal-modules
 const Pricker = require('../dist/touch-pricker');

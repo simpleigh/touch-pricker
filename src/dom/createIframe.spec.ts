@@ -15,6 +15,7 @@ describe('createIframe DOM utility', () => {
     it('creates an iframe from the parent document', () => {
         jest.spyOn(document, 'createElement');
         createIframe(document);
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         expect(document.createElement).toHaveBeenCalledWith('iframe');
     });
 
