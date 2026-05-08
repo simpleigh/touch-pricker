@@ -196,9 +196,8 @@ class StedTurnPricker extends AbstractPricker {
     private set courses(courses: Calling[]) {
         this._courses = courses;
 
-        this.getEl<HTMLSpanElement>(
-            'numCourses',
-        ).innerText = `${courses.length} courses`;
+        this.getEl<HTMLSpanElement>('numCourses').innerText =
+            `${courses.length} courses`;
 
         const coursesDiv = this.getEl<HTMLDivElement>('courses');
         coursesDiv.innerHTML = this.print('select', { courses: this.courses });
@@ -219,9 +218,8 @@ class StedTurnPricker extends AbstractPricker {
 
         if (time) {
             time = Math.round(time);
-            this.getEl<HTMLSpanElement>(
-                'timeTaken',
-            ).innerText = ` in ${time}ms`;
+            this.getEl<HTMLSpanElement>('timeTaken').innerText =
+                ` in ${time}ms`;
         } else {
             this.getEl<HTMLSpanElement>('timeTaken').innerText = '';
         }
