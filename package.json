@@ -29,7 +29,7 @@
     "@eslint/js": "9.39.4",
     "@types/jest": "30.0.0",
     "blob-polyfill": "9.0.20240710",
-    "copy-webpack-plugin": "11.0.0",
+    "copy-webpack-plugin": "14.0.0",
     "dot": "1.1.3",
     "dotjs-loader": "1.0.0",
     "eslint": "9.39.4",
@@ -46,10 +46,10 @@
     "typedoc-plugin-missing-exports": "4.1.3",
     "typescript": "5.2.2",
     "typescript-eslint": "8.59.2",
-    "webpack": "5.88.2",
-    "webpack-cli": "5.1.4",
-    "webpack-dev-server": "4.15.1",
-    "webpack-merge": "5.9.0",
+    "webpack": "5.106.2",
+    "webpack-cli": "7.0.2",
+    "webpack-dev-server": "5.2.3",
+    "webpack-merge": "6.0.1",
     "whatwg-fetch": "3.6.20"
   }
 }
