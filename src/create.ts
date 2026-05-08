@@ -40,28 +40,30 @@ const create = (
         throw new Error(`Cannot find HTML element: '${elementId}'`);
     }
 
+    // eslint-disable-next-line @typescript-eslint/init-declarations
+    let pricker: Pricker;
+
     if (options.iframe === false) {
         // Use of an iframe has been explicitly suppressed
-        const pricker = new PrickerConstructor();
+        pricker = new PrickerConstructor();
 
         createAndAppendStyle(parentDocument, pricker.print('css'));
         element.innerHTML = pricker.print('html');
         (window as PrickerWindow).pricker = pricker;
-        if (parentDocument === document) {
-            // don't run in tests (when document has been overridden)
-            pricker.onLoad();
-        }
+    } else {
+        const iframe = createIframe(parentDocument);
+        element.appendChild(iframe);
 
-        return pricker;
+        pricker = new PrickerConstructor(iframe);
+
+        const globals = new Map([['pricker', pricker]]);
+        injectIframeData(iframe, template({ pricker }), globals);
     }
 
-    const iframe = createIframe(parentDocument);
-    element.appendChild(iframe);
-
-    const pricker = new PrickerConstructor(iframe);
-
-    const globals = new Map([['pricker', pricker]]);
-    injectIframeData(iframe, template({ pricker }), globals);
+    if (parentDocument === document) {
+        // don't run in tests (when document has been overridden)
+        pricker.onLoad();
+    }
 
     return pricker;
 };

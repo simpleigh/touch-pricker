@@ -17,12 +17,6 @@ describe('injectIframeData DOM utility', () => {
         document.body.appendChild(iframe);
     });
 
-    it('opens the document for writing', () => {
-        jest.spyOn(iframe.contentDocument!, 'open');
-        injectIframeData(iframe);
-        expect(iframe.contentDocument!.open).toHaveBeenCalled();
-    });
-
     it('passes global variables to the child window', () => {
         const globals = new Map([['key', 'value']]);
         injectIframeData(iframe, '', globals);
@@ -30,15 +24,15 @@ describe('injectIframeData DOM utility', () => {
         expect(win['key']).toBe('value');
     });
 
-    it('writes the content into the document', () => {
-        jest.spyOn(iframe.contentDocument!, 'write');
-        injectIframeData(iframe, 'content');
-        expect(iframe.contentDocument!.write).toHaveBeenCalledWith('content');
-    });
+    it('writes the content into the docuement', () => {
+        const expected = '<head><title>Title</title></head><body>Content</body>';
 
-    it('closes the document after use', () => {
-        jest.spyOn(iframe.contentDocument!, 'close');
-        injectIframeData(iframe);
-        expect(iframe.contentDocument!.close).toHaveBeenCalled();
+        expect(iframe.contentDocument?.documentElement.innerHTML)
+            .toBe('<head></head><body></body>');
+
+        injectIframeData(iframe, expected);
+
+        expect(iframe.contentDocument?.documentElement.innerHTML)
+            .toBe(expected);
     });
 });

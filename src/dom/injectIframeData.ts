@@ -15,15 +15,11 @@ const injectIframeData = (
         throw new Error('Assertion failed: missing iframe window');
     }
 
-    const theDoc = theWindow.document;
-    theDoc.open();
-
     for (const [key, value] of globals.entries()) {
         (theWindow as unknown as Record<string, unknown>)[key] = value;
     }
 
-    theDoc.write(content);
-    theDoc.close();
+    theWindow.document.documentElement.innerHTML = content;
 };
 
 export default injectIframeData;
