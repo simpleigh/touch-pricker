@@ -19,12 +19,6 @@ module.exports = {
     // @see https://jestjs.io/docs/configuration/#collectcoveragefrom-array
     collectCoverageFrom: ['src/**/*.ts', '!src/**/test*.ts'],
 
-    // Sets the path to the `prettier` node module used to update inline
-    // snapshots.
-    // @see https://jestjs.io/docs/configuration/#prettierpath-string
-    // @see https://github.com/jestjs/jest/issues/14305
-    prettierPath: null,
-
     // A list of paths to modules that run some code to configure or set up the
     // testing framework before each test file in the suite is executed.
     // @see https://jestjs.io/docs/configuration/#setupfilesafterenv-array
