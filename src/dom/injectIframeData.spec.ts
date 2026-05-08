@@ -25,14 +25,17 @@ describe('injectIframeData DOM utility', () => {
     });
 
     it('writes the content into the docuement', () => {
-        const expected = '<head><title>Title</title></head><body>Content</body>';
+        const expected =
+            '<head><title>Title</title></head><body>Content</body>';
 
-        expect(iframe.contentDocument?.documentElement.innerHTML)
-            .toBe('<head></head><body></body>');
+        expect(iframe.contentDocument?.documentElement.innerHTML).toBe(
+            '<head></head><body></body>',
+        );
 
         injectIframeData(iframe, expected);
 
-        expect(iframe.contentDocument?.documentElement.innerHTML)
-            .toBe(expected);
+        expect(iframe.contentDocument?.documentElement.innerHTML).toBe(
+            expected,
+        );
     });
 });
