@@ -37,6 +37,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Build docs
+        run: npm exec typedoc
+
       - name: Configure AWS credentials
         # https://github.com/aws-actions/configure-aws-credentials
         uses: aws-actions/configure-aws-credentials@v6

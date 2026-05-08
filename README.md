@@ -18,6 +18,8 @@ Currently supports the following methods on various stages:
 Based heavily on that created by
 [Mark Davies](http://bronze-age.org/stedman2/pricker.html).
 
+[**API documentation**](https://touch-pricker.simpleigh.com/docs/)
+
 ## Installation
 
 ### Installation using npm
