@@ -15,6 +15,6 @@
         "strict": true,
         "strictPropertyInitialization": false,
         "target": "ES6",
-        "types": ["jest"]
+        "types": ["jest", "node"]
     }
 }
