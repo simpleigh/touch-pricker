@@ -20,10 +20,7 @@ const { paths } = require('./config');
 module.exports = {
     // This specifies all of the block tags that TypeDoc considers to be valid.
     // https://typedoc.org/documents/Options.Comments.html#blocktags
-    blockTags: [
-        ...OptionDefaults.blockTags,
-        '@copyright',
-    ],
+    blockTags: [...OptionDefaults.blockTags, '@copyright'],
 
     // Specifies the entry points to be documented by TypeDoc.
     // @see https://typedoc.org/documents/Options.Input.html#entrypoints
