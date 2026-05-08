@@ -193,13 +193,13 @@ describe('Table class', () => {
         it(`knows rank ${rank} is out of range getting a value`, () => {
             expect(() => {
                 table.getValue(rank);
-            }).toThrowError(`Rank '${rank}' out of range on stage '4'`);
+            }).toThrow(`Rank '${rank}' out of range on stage '4'`);
         });
 
         it(`knows rank ${rank} is out of range setting a value`, () => {
             expect(() => {
                 table.setValue(rank, 0);
-            }).toThrowError(`Rank '${rank}' out of range on stage '4'`);
+            }).toThrow(`Rank '${rank}' out of range on stage '4'`);
         });
     }
 });

@@ -229,6 +229,6 @@ describe('LeadBasedParser class', () => {
     it('throws if a course cannot be parsed', () => {
         expect(() => {
             parser.parseCourse(rounds(Stage.Minor), 'garbage');
-        }).toThrowError("Cannot import course from line 'garbage'");
+        }).toThrow("Cannot import course from line 'garbage'");
     });
 });

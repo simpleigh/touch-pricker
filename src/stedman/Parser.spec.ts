@@ -178,7 +178,7 @@ describe('Parser for Stedman', () => {
         it('a broken course (that raises an error)', () => {
             expect(() => {
                 parser.parseCourse(rounds(Stage.Cinques), 'garbage');
-            }).toThrowError("Cannot import course from line 'garbage'");
+            }).toThrow("Cannot import course from line 'garbage'");
         });
     });
 
@@ -311,19 +311,19 @@ describe('Parser for Stedman', () => {
         it('a touch with no lines', () => {
             expect(() => {
                 parser.parseTouch('');
-            }).toThrowError('No input lines');
+            }).toThrow('No input lines');
         });
 
         it('a touch with a broken initial row', () => {
             expect(() => {
                 parser.parseTouch('not');
-            }).toThrowError("Cannot recognise stage from line 'not'");
+            }).toThrow("Cannot recognise stage from line 'not'");
         });
 
         it('a touch with a broken course', () => {
             expect(() => {
                 parser.parseTouch('2314567890E\ngarbage\n');
-            }).toThrowError("Cannot import course from line 'garbage'");
+            }).toThrow("Cannot import course from line 'garbage'");
         });
     });
 });

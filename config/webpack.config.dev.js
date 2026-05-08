@@ -8,7 +8,7 @@
 /**
  * Webpack development build.
  *
- * Run using `yarn build:dev`.
+ * Run using `npm run build:dev`.
  * @see https://webpack.js.org/configuration/
  */
 

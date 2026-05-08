@@ -29,13 +29,13 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
-          cache: yarn
+          cache: npm
 
       - name: Install Node dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Build
-        run: yarn build
+        run: npm run build
 
       - name: Configure AWS credentials
         # https://github.com/aws-actions/configure-aws-credentials

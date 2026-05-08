@@ -177,7 +177,7 @@ describe('changeFromNotation function', () => {
         it(`rejects ${description}`, () => {
             expect(() => {
                 changeFromNotation(input, Stage.Triples);
-            }).toThrowError(expected);
+            }).toThrow(expected);
         });
     }
 });

@@ -30,5 +30,5 @@ indent_style = space
 indent_size = 2
 indent_style = space
 
-[package.json]
+[package{,-lock}.json]
 indent_size = 2

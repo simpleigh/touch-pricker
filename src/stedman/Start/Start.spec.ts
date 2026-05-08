@@ -88,7 +88,7 @@ describe('Start class', () => {
     it('throws an exception if the six type is invalid', () => {
         expect(() => {
             start.sixType = SixType.Invalid;
-        }).toThrowError("'invalid' blocks not allowed for this method");
+        }).toThrow("'invalid' blocks not allowed for this method");
     });
 
     it('checks the six type is valid for the chosen method', () => {
@@ -151,10 +151,10 @@ describe('Start class', () => {
     it('throws an exception if the row index is out of range', () => {
         expect(() => {
             start.rowIndex = 0;
-        }).toThrowError("Row index '0' out of range");
+        }).toThrow("Row index '0' out of range");
         expect(() => {
             start.rowIndex = 7;
-        }).toThrowError("Row index '7' out of range");
+        }).toThrow("Row index '7' out of range");
     });
 
     // prettier-ignore
@@ -1172,26 +1172,26 @@ describe('Start class', () => {
         it('a string with the six type missing', () => {
             expect(() => {
                 start.setFromString('Start third');
-            }).toThrowError("Start 'Start third' missing type of block");
+            }).toThrow("Start 'Start third' missing type of block");
         });
 
         it('a string with the row index missing', () => {
             expect(() => {
                 start.setFromString('Start slow');
-            }).toThrowError("Start 'Start slow' missing row index");
+            }).toThrow("Start 'Start slow' missing row index");
         });
 
         it('a string with a large row index', () => {
             expect(() => {
                 start.setFromString('Start seventh slow');
-            }).toThrowError("Row index '7' out of range");
+            }).toThrow("Row index '7' out of range");
         });
 
         it('a string with a large row index for a Carter four', () => {
             start = new Start(rounds(S.Cinques), new Carter());
             expect(() => {
                 start.setFromString('Start four fifth');
-            }).toThrowError("Row index '5' out of range");
+            }).toThrow("Row index '5' out of range");
         });
 
         it('returns this when setting the start', () => {

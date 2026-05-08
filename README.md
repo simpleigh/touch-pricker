@@ -22,14 +22,10 @@ Based heavily on that created by
 
 ### Installation using npm
 
-Install using `npm` or [`yarn`](https://yarnpkg.com/):
+Install using `npm`:
 
 ```bash
-# npm
-npm install --save-dev touch-pricker
-
-# yarn
-yarn add --dev touch-pricker
+npm install --save touch-pricker
 ```
 
 Modify your page to include an element where the pricker will be mounted:
@@ -112,28 +108,23 @@ but makes debugging more difficult.
 
 ### Prerequisites
 
-1. Install [`nvm`](https://github.com/creationix/nvm) (or manually install a
+1. Install [`nvm`](https://github.com/nvm-sh/nvm) (or manually install a
    node version compatible with that defined in `nvmrc`).
-
-2. Install [`yarn`](https://yarnpkg.com/).
 
 ### Quickstart: build
 
 ```bash
 nvm install
-yarn install
-yarn build
+npm i
+npm run build
 ```
 
-### Yarn / `npm` scripts
+### `npm` scripts
 
 - `build` - compiles all sources, `dev`, `prod` and `test`
 - `build:dev` - compiles the development bundle
 - `build:prod` - compiles the production bundle
-- `build:test` - compiles the test bundle
 - `lint` - lints all sources
+- `prettify` - runs [Prettier](https://prettier.io/)
 - **`start`** - opens examples in a browser window and watches for changes
-- **`start:tests`** - runs tests in a browser window and watches for changes
 - **`test`** - runs tests in PhantomJS and watches for changes
-- `test:browsers` - runs tests in multiple browsers
-- `typedoc` - builds documentation

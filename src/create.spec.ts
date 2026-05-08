@@ -34,7 +34,7 @@ describe('create function', () => {
         (parentDocument.getElementById as jest.Mock).mockReturnValue(null);
         expect(() => {
             create('element', {}, parentDocument);
-        }).toThrowError("Cannot find HTML element: 'element'");
+        }).toThrow("Cannot find HTML element: 'element'");
     });
 
     describe('creates an iframe to host the pricker', () => {

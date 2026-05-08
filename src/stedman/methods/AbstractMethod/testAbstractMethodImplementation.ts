@@ -137,13 +137,13 @@ const testAbstractMethodImplementation = (
         it('knows that an invalid six is invalid', () => {
             expect(() => {
                 method.checkSixType(SixType.Invalid);
-            }).toThrowError("'invalid' blocks not allowed for this method");
+            }).toThrow("'invalid' blocks not allowed for this method");
         });
 
         it('throws computing the successor of an invalid six', () => {
             expect(() => {
                 method.getNextSixType(SixType.Invalid);
-            }).toThrowError("'invalid' blocks not allowed for this method");
+            }).toThrow("'invalid' blocks not allowed for this method");
         });
 
         it('is printable', () => {

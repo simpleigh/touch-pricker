@@ -8,7 +8,7 @@
 /**
  * Webpack production build.
  *
- * Run using `yarn build:prod`.
+ * Run using `npm run build:prod`.
  * @see https://webpack.js.org/configuration/
  */
 

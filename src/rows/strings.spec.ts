@@ -58,7 +58,7 @@ describe('rowFromString function', () => {
         it(description, () => {
             expect(() => {
                 rowFromString(input, Stage.Minimus);
-            }).toThrowError(error);
+            }).toThrow(error);
         });
     }
 
