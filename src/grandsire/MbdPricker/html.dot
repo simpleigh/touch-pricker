@@ -18,7 +18,6 @@
       class="tab tab-selected"
       id="tab_pricking"
       onclick="pricker.onTab('pricking')"
-      onmousedown="return false"
     >
       Pricking
     </div>
@@ -26,7 +25,6 @@
       class="tab"
       id="tab_loadSave"
       onclick="pricker.onTab('loadSave')"
-      onmousedown="return false"
     >
       Load/Save
     </div>
@@ -34,7 +32,6 @@
       class="tab"
       id="tab_siril"
       onclick="pricker.onTab('siril')"
-      onmousedown="return false"
     >
       Siril
     </div>
@@ -42,7 +39,6 @@
       class="tab"
       id="tab_music"
       onclick="pricker.onTab('music')"
-      onmousedown="return false"
     >
       Music
     </div>

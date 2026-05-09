@@ -29,7 +29,7 @@ describe('mbd template for Grandsire Lead', () => {
                 ${stringFromRow(lead.getLast())}
             </span>
             &nbsp;&nbsp;
-            <span class="odd call" onclick="pricker.c(1)" onmousedown="return false">
+            <span class="odd call" onclick="pricker.c(1)">
                 &nbsp;&nbsp;&nbsp;
             </span>
             &nbsp;&nbsp;
@@ -45,7 +45,7 @@ describe('mbd template for Grandsire Lead', () => {
                 ${stringFromRow(lead.getLast())}
             </span>
             &nbsp;&nbsp;
-            <span class="odd call" onclick="pricker.c(1)" onmousedown="return false">
+            <span class="odd call" onclick="pricker.c(1)">
                 &nbsp;-&nbsp;
             </span>
             &nbsp;&nbsp;
@@ -61,7 +61,7 @@ describe('mbd template for Grandsire Lead', () => {
                 ${stringFromRow(lead.getLast())}
             </span>
             &nbsp;&nbsp;
-            <span class="odd call" onclick="pricker.c(1)" onmousedown="return false">
+            <span class="odd call" onclick="pricker.c(1)">
                 &nbsp;s&nbsp;
             </span>
             &nbsp;&nbsp;
@@ -77,7 +77,7 @@ describe('mbd template for Grandsire Lead', () => {
                 ${stringFromRow(lead.getLast())}
             </span>
             &nbsp;&nbsp;
-            <span class="odd call" onclick="pricker.c(999)" onmousedown="return false">
+            <span class="odd call" onclick="pricker.c(999)">
                 &nbsp;&nbsp;&nbsp;
             </span>
             &nbsp;&nbsp;
@@ -93,7 +93,7 @@ describe('mbd template for Grandsire Lead', () => {
                 ${stringFromRow(lead.getLast())}
             </span>
             &nbsp;&nbsp;
-            <span class="even call" onclick="pricker.c(2)" onmousedown="return false">
+            <span class="even call" onclick="pricker.c(2)">
                 &nbsp;&nbsp;&nbsp;
             </span>
             &nbsp;&nbsp;
@@ -112,7 +112,7 @@ describe('mbd template for Grandsire Lead', () => {
                 ${stringFromRow(lead.getLast())}
             </span>
             &nbsp;&nbsp;
-            <span class="odd call" onclick="pricker.c(1)" onmousedown="return false">
+            <span class="odd call" onclick="pricker.c(1)">
                 &nbsp;&nbsp;&nbsp;
             </span>
             &nbsp;&nbsp;
@@ -131,7 +131,7 @@ describe('mbd template for Grandsire Lead', () => {
                 ${stringFromRow(lead.getLast())}
             </span>
             &nbsp;&nbsp;
-            <span class="odd call" onclick="pricker.c(1)" onmousedown="return false">
+            <span class="odd call" onclick="pricker.c(1)">
                 &nbsp;&nbsp;&nbsp;
             </span>
             &nbsp;&nbsp;
@@ -158,7 +158,7 @@ describe('mbd template for Grandsire Lead', () => {
                 ${stringFromRow(lead.getLast())}
             </span>
             &nbsp;&nbsp;
-            <span class="odd call" onclick="pricker.c(1)" onmousedown="return false">
+            <span class="odd call" onclick="pricker.c(1)">
                 &nbsp;&nbsp;&nbsp;
             </span>
             &nbsp;&nbsp;
@@ -175,7 +175,7 @@ describe('mbd template for Grandsire Lead', () => {
                 </u>
             </span>
             &nbsp;&nbsp;
-            <span class="odd call" onclick="pricker.c(1)" onmousedown="return false">
+            <span class="odd call" onclick="pricker.c(1)">
                 &nbsp;&nbsp;&nbsp;
             </span>
             &nbsp;&nbsp;

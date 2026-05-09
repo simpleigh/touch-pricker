@@ -11,10 +11,7 @@
  */
 
 {{~ context.courses :course:index }}
-	<div
-		 onclick="pricker.onSelectCourse({{= index }})"
-		 onmousedown="return false"
-	>
+	<div onclick="pricker.onSelectCourse({{= index }})">
 		{{= course.print('text') }}
 	</div>
 {{~}}

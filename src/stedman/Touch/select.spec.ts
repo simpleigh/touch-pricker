@@ -18,13 +18,13 @@ describe('select template for Stedman Touch', () => {
         );
 
         expect(touch.print('select')).toRenderAs(`
-            <div class="" onclick="pricker.onSelectCourse(0)" onmousedown="return false">
+            <div class="" onclick="pricker.onSelectCourse(0)">
                 ${stringFromRow(touch.start.getLast())}
             </div>
-            <div class="" onclick="pricker.onSelectCourse(1)" onmousedown="return false">
+            <div class="" onclick="pricker.onSelectCourse(1)">
                 ${touch.getBlock(1).print('text')}
             </div>
-            <div class="" onclick="pricker.onSelectCourse(2)" onmousedown="return false">
+            <div class="" onclick="pricker.onSelectCourse(2)">
                 ${touch.getBlock(2).print('text')}
             </div>
         `);
@@ -38,13 +38,13 @@ describe('select template for Stedman Touch', () => {
         );
 
         expect(touch.print('select', { selectedIndex: 2 })).toRenderAs(`
-            <div class="" onclick="pricker.onSelectCourse(0)" onmousedown="return false">
+            <div class="" onclick="pricker.onSelectCourse(0)">
                 ${stringFromRow(touch.start.getLast())}
             </div>
-            <div class="" onclick="pricker.onSelectCourse(1)" onmousedown="return false">
+            <div class="" onclick="pricker.onSelectCourse(1)">
                 ${touch.getBlock(1).print('text')}
             </div>
-            <div class="selected" onclick="pricker.onSelectCourse(2)" onmousedown="return false">
+            <div class="selected" onclick="pricker.onSelectCourse(2)">
                 ${touch.getBlock(2).print('text')}
             </div>
         `);
@@ -58,13 +58,13 @@ describe('select template for Stedman Touch', () => {
         );
 
         expect(touch.print('select', { selectedIndex: 0 })).toRenderAs(`
-            <div class="selected" onclick="pricker.onSelectCourse(0)" onmousedown="return false">
+            <div class="selected" onclick="pricker.onSelectCourse(0)">
                 ${stringFromRow(touch.start.getLast())}
             </div>
-            <div class="" onclick="pricker.onSelectCourse(1)" onmousedown="return false">
+            <div class="" onclick="pricker.onSelectCourse(1)">
                 ${touch.getBlock(1).print('text')}
             </div>
-            <div class="" onclick="pricker.onSelectCourse(2)" onmousedown="return false">
+            <div class="" onclick="pricker.onSelectCourse(2)">
                 ${touch.getBlock(2).print('text')}
             </div>
         `);
@@ -78,16 +78,16 @@ describe('select template for Stedman Touch', () => {
                 touchRows: 266, // Two courses plus a standard start
             }),
         ).toRenderAs(`
-            <div class="" onclick="pricker.onSelectCourse(0)" onmousedown="return false">
+            <div class="" onclick="pricker.onSelectCourse(0)">
                 2314567890E
             </div>
-            <div class="" onclick="pricker.onSelectCourse(1)" onmousedown="return false">
+            <div class="" onclick="pricker.onSelectCourse(1)">
                 2314567890E  p
             </div>
-            <div class="" onclick="pricker.onSelectCourse(2)" onmousedown="return false">
+            <div class="" onclick="pricker.onSelectCourse(2)">
                 2314567890E  p
             </div>
-            <div class="unreached" onclick="pricker.onSelectCourse(3)" onmousedown="return false">
+            <div class="unreached" onclick="pricker.onSelectCourse(3)">
                 2314567890E  p
             </div>
         `);
@@ -99,13 +99,13 @@ describe('select template for Stedman Touch', () => {
         falseness.add(1, 3);
 
         expect(touch.print('select', { falseness })).toRenderAs(`
-            <div class="" onclick="pricker.onSelectCourse(0)" onmousedown="return false">
+            <div class="" onclick="pricker.onSelectCourse(0)">
                 2314567890E
             </div>
-            <div class="false" onclick="pricker.onSelectCourse(1)" onmousedown="return false">
+            <div class="false" onclick="pricker.onSelectCourse(1)">
                 2314567890E  p
             </div>
-            <div class="" onclick="pricker.onSelectCourse(2)" onmousedown="return false">
+            <div class="" onclick="pricker.onSelectCourse(2)">
                 2314567890E  p
             </div>
         `);

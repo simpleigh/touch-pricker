@@ -35,9 +35,7 @@ const testMbdAbstractSixTemplate = (
                     ${stringFromRow(six.getLast())}
                 </span>
                 &nbsp;&nbsp;
-                <span class="${
-                    six.type
-                } call" onclick="pricker.c(1)" onmousedown="return false">
+                <span class="${six.type} call" onclick="pricker.c(1)">
                     &nbsp;&nbsp;&nbsp;
                 </span>
                 &nbsp;&nbsp;
@@ -53,9 +51,7 @@ const testMbdAbstractSixTemplate = (
                     ${stringFromRow(six.getLast())}
                 </span>
                 &nbsp;&nbsp;
-                <span class="${
-                    six.type
-                } call" onclick="pricker.c(1)" onmousedown="return false">
+                <span class="${six.type} call" onclick="pricker.c(1)">
                     &nbsp;-&nbsp;
                 </span>
                 &nbsp;&nbsp;
@@ -71,9 +67,7 @@ const testMbdAbstractSixTemplate = (
                     ${stringFromRow(six.getLast())}
                 </span>
                 &nbsp;&nbsp;
-                <span class="${
-                    six.type
-                } call" onclick="pricker.c(1)" onmousedown="return false">
+                <span class="${six.type} call" onclick="pricker.c(1)">
                     &nbsp;s&nbsp;
                 </span>
                 &nbsp;&nbsp;
@@ -89,9 +83,7 @@ const testMbdAbstractSixTemplate = (
                     ${stringFromRow(six.getLast())}
                 </span>
                 &nbsp;&nbsp;
-                <span class="${
-                    six.type
-                } call" onclick="pricker.c(999)" onmousedown="return false">
+                <span class="${six.type} call" onclick="pricker.c(999)">
                     &nbsp;&nbsp;&nbsp;
                 </span>
                 &nbsp;&nbsp;
@@ -110,9 +102,7 @@ const testMbdAbstractSixTemplate = (
                     ${stringFromRow(six.getLast())}
                 </span>
                 &nbsp;&nbsp;
-                <span class="${
-                    six.type
-                } call" onclick="pricker.c(1)" onmousedown="return false">
+                <span class="${six.type} call" onclick="pricker.c(1)">
                     &nbsp;&nbsp;&nbsp;
                 </span>
                 &nbsp;&nbsp;
@@ -131,9 +121,7 @@ const testMbdAbstractSixTemplate = (
                     ${stringFromRow(six.getLast())}
                 </span>
                 &nbsp;&nbsp;
-                <span class="${
-                    six.type
-                } call" onclick="pricker.c(1)" onmousedown="return false">
+                <span class="${six.type} call" onclick="pricker.c(1)">
                     &nbsp;&nbsp;&nbsp;
                 </span>
                 &nbsp;&nbsp;
@@ -160,9 +148,7 @@ const testMbdAbstractSixTemplate = (
                     ${stringFromRow(six.getLast())}
                 </span>
                 &nbsp;&nbsp;
-                <span class="${
-                    six.type
-                } call" onclick="pricker.c(1)" onmousedown="return false">
+                <span class="${six.type} call" onclick="pricker.c(1)">
                     &nbsp;&nbsp;&nbsp;
                 </span>
                 &nbsp;&nbsp;
@@ -179,9 +165,7 @@ const testMbdAbstractSixTemplate = (
                     </u>
                 </span>
                 &nbsp;&nbsp;
-                <span class="${
-                    six.type
-                } call" onclick="pricker.c(1)" onmousedown="return false">
+                <span class="${six.type} call" onclick="pricker.c(1)">
                     &nbsp;&nbsp;&nbsp;
                 </span>
                 &nbsp;&nbsp;
@@ -196,9 +180,7 @@ const testMbdAbstractSixTemplate = (
                     ${stringFromRow(six.getFirst())}
                 </span>
                 &nbsp;&nbsp;
-                <span class="${
-                    six.type
-                } call" onclick="pricker.c(1)" onmousedown="return false">
+                <span class="${six.type} call" onclick="pricker.c(1)">
                     &nbsp;&nbsp;&nbsp;
                 </span>
                 &nbsp;&nbsp;
